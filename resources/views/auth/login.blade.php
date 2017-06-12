@@ -1,66 +1,95 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<section class="log-in">
+
+  <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+		<!-- CONTENT -->
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+         <div class="contents white-bg conntents-padding">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+             <div class="nav_details regs_form">
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                 <div class="title text-center"><h2>Log in</h2></div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
+                 <div class="continue_with">
+                     <ul>
+                        <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"  href=""><i class="fa fa-twitter"></i> Continue with Twitter</a></li>
+                         <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href=""><i class="fa fa-facebook"></i> Continue with Facebook</a></li>
+                     </ul>
+                 </div>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                 <hr>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                 <p >Or use email and password</p>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i> Login
-                                </button>
+               <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                   {{ csrf_field() }}
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                   <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+
+                       <div >
+                           <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+
+                           @if ($errors->has('email'))
+                               <span class="help-block">
+                                   <strong>{{ $errors->first('email') }}</strong>
+                               </span>
+                           @endif
+                       </div>
+                   </div>
+
+
+                   <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+
+                       <div >
+                           <input id="password" type="password" class="form-control" name="password" required>
+
+                           @if ($errors->has('password'))
+                               <span class="help-block">
+                                   <strong>{{ $errors->first('password') }}</strong>
+                               </span>
+                           @endif
+                       </div>
+                   </div>
+
+
+                   <div class="form-group">
+                       <div class="col-md-6 col-md-offset-4">
+                           <div class="checkbox">
+                               <label>
+                                   <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                               </label>
+                           </div>
+                       </div>
+                   </div>
+
+                     <div class="submit_panel text-center">
+                         <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Login" name="register">
+                         <a class="pull-right" href="{{ route('password.request') }}">Forgot my password</a>
+                     </div>
+                 </form>
+
+             </div>
+         </div>
+
+         <div class="footer_nav">
+             <ul>
+                 <li><a href="">Home</a></li>
+                 <li><a href="">Register</a></li>
+                 <li><a href="">Search</a></li>
+                 <li><a href="">About</a></li>
+                 <li><a href="">Contact</a></li>
+             </ul>
+         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
+
+
 @endsection

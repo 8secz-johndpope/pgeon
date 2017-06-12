@@ -2,28 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+use App\Question;
+use App\Tag;
+
+class HomeController extends Controller {
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the homepage
+     * @return View
      */
-    public function index()
-    {
-        return view('home');
+    public function index() {
+        $questions = Question::orderBy('created_at', 'desc')->paginate(10);
+        $tags = Tag::distinct()->orderBy('name', 'asc')->get();
+        return view('index')->with('questions', $questions)->with('tags', $tags)->with('page_title','Q&A - Interview Questions');
     }
 }

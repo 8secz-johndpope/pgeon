@@ -1,54 +1,56 @@
 <?php
-/**
- * Model genrated using LaraAdmin
- * Help: http://laraadmin.com
- */
 
 namespace App;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
 
-use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Support\Facades\DB;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+use App\Question;
+
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword;
-    // use SoftDeletes;
-    use EntrustUserTrait;
+    //use Notifiable;
 
-    protected $table = 'users';
-	
-	/**
+    use Billable;
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-	protected $fillable = [
-		'name', 'email', 'password', "role", "context_id", "type"
-	];
-	
-	/**
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-	protected $hidden = [
-		'password', 'remember_token',
+    protected $hidden = [
+        'password', 'remember_token',
     ];
-    
-    // protected $dates = ['deleted_at'];
 
-    /**
-     * @return mixed
-     */
-    public function uploads()
-    {
-        return $this->hasMany('App\Upload');
+    public function votes() {
+        return $this->hasMany('App\Vote');
     }
+
+    public static function get_participation($user_id) {
+
+        $questions = Question::join('answers', 'questions.user_id', '=', 'answers.user_id')
+            ->select(['questions.*'])
+            ->distinct()
+            ->with('answer_count')
+            ->where([
+                ['questions.user_id', '=', $user_id],
+                ['answers.user_id', '=', $user_id],
+            ])
+            ->paginate(10, ['questions.*']);
+
+        return $questions;
+    }
+
+
 }
