@@ -24,7 +24,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');;
+
+Route::get('/people', 'HomeController@people')->name('people')->middleware('auth');
+Route::get('/search', 'HomeController@search')->name('search')->middleware('auth');;
+
+Route::get('/followers', 'HomeController@followers')->middleware('auth');;
 
 
 // User Routes
@@ -70,3 +75,8 @@ Route::group(['prefix'=>'api','middleware' => 'auth'], function(){
 // Votes
 Route::post('vote/answer', array( 'before'=>'csfr','uses'=>'VoteController@vote_answer' ) );
 Route::post('vote/question', array( 'before'=>'csfr','uses'=>'VoteController@vote_question' ) );
+
+//userfollowing
+
+Route::post('follow', array( 'uses'=>'UserFollowingController@insert' ) );
+Route::post('unfollow', array( 'uses'=>'UserFollowingController@destroy' ) );

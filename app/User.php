@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Vote');
     }
 
+    public function user_following() {
+        return $this->hasMany('App\UserFollowing');
+    }
+    
+
     public static function get_participation($user_id) {
 
         $questions = Question::join('answers', 'questions.user_id', '=', 'answers.user_id')

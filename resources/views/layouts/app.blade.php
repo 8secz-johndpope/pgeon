@@ -6,121 +6,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Montserrat|Varela+Round" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">-->
-
-    <!-- mdl -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-
-
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ Voyager::setting('title') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tabs.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/header.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/toolkit.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/application.css') }}" rel="stylesheet">
 
 </head>
+@if (Auth::guest())
 <body>
-
-    <header>
-      <!--End of top bar-->
-      <div class="container">
-          <div class="row">
-              <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-                  <div class="navbar navbar-default" role="navigation">
-
-                    <div class="logo_wrapper">
-                        <!-- site logo -->
-                        <a href="#">
-                          <img src="{{URL::asset('img/pgeon-logo.svg')}}"  class="logo img-responsive" alt="pgeon">
-
-                        </a>
-                    </div>
-
-                    <div class="hd_right">
-                        <div class="header_notification">
-                            <div class="hn_box">
-                                <!--<a href="http://fullstackwebdeveloper.net/pegeon/template-add-new.php"><img src="img/add-question.svg" alt=""></a>-->
-                                <a href="/user/{{Auth::id()}}/questions"><i class="fa fa-plus"></i><i class="fa fa-question"></i></a>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-right" id="nav"> <i class="fa fa-bars" aria-hidden="true"></i> </button>
-                    </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-    </header>
-
-
-
-    <div class="nav-expandable" id="nav-expanded">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-                  <nav>
-                    <ul class="">
-
-                      @if (Auth::guest())
-                          <li><a href="{{ route('login') }}">Login</a></li>
-                          <li><a href="{{ route('register') }}">Register</a></li>
-                      @else
-                          <li> <a href="">notifications <span>1</span></a> </li>
+@else
+<body class="with-top-navbar" >
+<div  id="app">
+  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+              <div class="container">
+                  <div class="navbar-header">
+                      <div class="bell-for-mobile">
+                          <a data-toggle="modal" href="#msgModal" class="app-notifications"><span class="icon icon-bell"></span></a>
+                      </div>
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-main">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="index.html">
+                          <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
+                          <img class="logo-for-mobile" src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="">
+                      </a>
+                      <ul class="nav navbar-nav">
                           <li>
-                                        <a href="{{ route('profile',['id' =>  Auth::user()->id]) }}">
-
-                                            Profile
-                                        </a>
-
-
-                                    </li>
-                          <li> <a href="">SETTINGS</a> </li>
-                          <li> <a href="">HELP &amp; FAQ</a> </li>
+                              <a href="index.html">Home</a>
+                          </li>
                           <li>
-                                          <a href="{{ route('logout') }}"
+                              <a href="profile/index.html">Profile</a>
+                          </li>
+                          <li>
+                              <a href="{{ route('people') }}">People</a>
+                          </li>
+                          <li>
+                              <a href="{{ route('logout') }}"
                                               onclick="event.preventDefault();
-                                                       document.getElementById('logout-form').submit();">
-                                              Logout
-                                          </a>
+                                                       document.getElementById('logout-form').submit();">Logout</a>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="navbar-collapse collapse" id="navbar-collapse-main">
+                      <ul class="nav navbar-nav navbar-right m-r-0 hidden-xs">
+                          <li>
+                              <a class="app-notifications" href="notifications/index.html"><span class="icon icon-bell"></span></a>
+                          </li>
+                          <li>
+                              <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
+                                  <img class="img-circle" src="{{URL::asset('img/avatar-dhg.png')}}">
+                              </button>
+                          </li>
+                      </ul>
+                      <form class="navbar-form navbar-right app-search" role="search" action="{{ route('search') }}">
+                          <div class="form-group">
+                              <input type="text" class="form-control" data-action="grow" placeholder="Search" name="q">
+                          </div>
+                      </form>
+                      <ul class="nav navbar-nav hidden-sm hidden-md hidden-lg">
+                          <li>
+                              <a href="home/index.html">Home</a>
+                          </li>
+                          <li>
+                              <a href="profile/index.html">Profile</a>
+                          </li>
+                          <li>
+                              <a href="Settings/index.html">Settings</a>
+                          </li>
+                          <li>
+                              <a href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                                       document.getElementById('logout-form').submit();">Logout</a>
+                          </li>
+                      </ul>
+                      <ul class="nav navbar-nav hidden">
+                          <li>
+                              <a href="help/index.html">Help</a>
+                          </li>
+                          <li>
+                              <a href="Settings/index.html">Settings</a>
+                          </li>
+                          <li>
+                              <a href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                                       document.getElementById('logout-form').submit();">Logout</a>
+                          </li>
+                      </ul>
+                  </div>
 
-                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                               {{ csrf_field() }}
                                           </form>
-                                      </li>
-                      @endif
-                    </ul>
-                   </nav>
+
               </div>
-          </div>
-      </div>
-    </div>
+          </nav>
 
-    <!-- Return to Top -->
-<a href="javascript:" id="return-to-top"><img src="img/back-to-top.png" alt=""></a>
-
-
+@endif
 
         @yield('content')
-    <script src="https://code.jquery.com/jquery.min.js"></script>
 
+</div>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+      <script src="{{ asset('js/app.js') }}"></script>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/oqt.js') }}"></script>
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/chart.js') }}"></script>
+    <script src="{{ asset('js/toolkit.js') }}"></script>
+    <script src="{{ asset('js/application.js') }}"></script>
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){
+        if (window.BS&&window.BS.loader&&window.BS.loader.length) {
+          while(BS.loader.length){(BS.loader.pop())()}
+        }
+      })
+    </script>
 </body>
+
 </html>
