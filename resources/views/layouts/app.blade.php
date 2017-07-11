@@ -35,16 +35,16 @@
                           <span class="icon-bar"></span>
                           <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="index.html">
+                      <a class="navbar-brand" href="/">
                           <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
                           <img class="logo-for-mobile" src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="">
                       </a>
                       <ul class="nav navbar-nav">
                           <li>
-                              <a href="index.html">Home</a>
+                              <a href="/">Home</a>
                           </li>
                           <li>
-                              <a href="profile/index.html">Profile</a>
+                              <a href="{{ route('profile') }}">Profile</a>
                           </li>
                           <li>
                               <a href="{{ route('people') }}">People</a>
@@ -63,7 +63,8 @@
                           </li>
                           <li>
                               <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                  <img class="img-circle" src="{{URL::asset('img/avatar-dhg.png')}}">
+                                  <img class="img-circle" src="{{ Auth::user()->avatar ? '/uploads/avatars/'.Auth::user()->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+
                               </button>
                           </li>
                       </ul>
@@ -74,7 +75,7 @@
                       </form>
                       <ul class="nav navbar-nav hidden-sm hidden-md hidden-lg">
                           <li>
-                              <a href="home/index.html">Home</a>
+                              <a href="/">Home</a>
                           </li>
                           <li>
                               <a href="profile/index.html">Profile</a>

@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Answer;
 use App\Question;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Image;
+use Route;
+
 
 class UserController extends Controller
 {
@@ -46,5 +54,125 @@ class UserController extends Controller
         $questions = User::get_participation($id);
 
         return view('user.participation')->with('user',$user)->with('questions',$questions)->with('page_title', $user->name . 'Answers');
+    }
+
+    public function profile () {
+      $user = Auth::user();
+      $error = "";
+      return view('user.profile')->with('user',$user)->with('error',$error);
+
+    }
+
+    public function settings () {
+      $user = Auth::user();
+      $error = "";
+      return view('user.settings')->with('user',$user)->with('error',$error);
+
+    }
+
+
+    public function membership () {
+      $user = Auth::user();
+      $error = "";
+      return view('user.membership')->with('user',$user)->with('error',$error);
+
+    }
+
+
+    public function notifications () {
+      $user = Auth::user();
+      $error = "";
+      return view('user.notifications')->with('user',$user)->with('error',$error);
+
+    }
+
+
+
+    public function subscribe(Request $request)
+    {
+         $user = Auth::user();
+         $input = $request->all();
+         $token = $input['stripeToken'];
+
+         try {
+             $user->subscription($input['plane'])->create($token,[
+                     'email' => $user->email
+                 ]);
+             return back()->with('success','Subscription is completed.');
+         } catch (Exception $e) {
+             return back()->with('success',$e->getMessage());
+         }
+
+    }
+
+
+    public function update(){
+      $user = Auth::user();
+       $error = "";
+
+    	// Handle the user upload of avatar
+    	if(Input::hasFile('avatar')){
+        $image = Input::file('avatar');
+        $filename  = time() . '.' . $image->getClientOriginalExtension();
+        $path = public_path('/uploads/avatars/' . $filename);
+        Image::make($image->getRealPath())->resize(200, 200)->save($path);
+    		$user->avatar = $filename;
+    	}
+
+
+
+
+
+//only save the slug if he is a member
+    //  if($user->role_id == 3) {
+
+      if (Request::input('slug')) {
+
+
+        $validator = Validator::make(Request::all(), [
+             'slug' => 'max:10|alpha_num',
+
+         ]);
+
+
+         if ($validator->fails()) {
+             return view('user.profile')->with('user',$user)->with('error',"Too long");
+         }
+
+         $routes = [];
+         $slugs = User::select('slug')->whereNotIn('id', [$user->id])->get();
+
+         foreach ($slugs as $key => $val) {
+             $routes[]  = $val['slug'];
+         }
+
+         // You need to iterate over the RouteCollection you receive here
+         // to be able to get the paths and add them to the routes list
+         foreach (Route::getRoutes() as $route)
+         {
+             $routes[] = $route->uri;
+         }
+
+         $slug = Request::input('slug');
+
+         if (in_array ($slug, $routes)) {
+           return view('user.profile')->with('user',$user)->with('error',"'$slug' already exists! Try another one.");
+         }
+
+
+         $user->slug = $slug;
+
+      //}
+      }
+
+      if (Request::input('bio')) {
+        $user->bio = Request::input('bio');
+      }
+
+
+      $user->save();
+
+    	return view('user.profile')->with('user',$user)->with('error',$error);
+
     }
 }

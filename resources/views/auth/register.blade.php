@@ -69,6 +69,19 @@
                             </div>
                         </div>
                     </form>
+
+
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+<!--Other form fields above the button-->
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-4">
+        
+        </div>
+    </div>
+    <hr>
+
+</form>
                   </div>
       </div>
 

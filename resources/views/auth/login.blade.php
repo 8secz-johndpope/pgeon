@@ -31,7 +31,14 @@
                     </div>
                     <div class="m-b-lg">
                         <input class="btn btn-primary" type="submit" value="Log In" name="register">
-                        <button class="btn btn-default">Sign up</button>
+
+                                           <a href="{{ route('register') }}" class="btn btn-default">Sign up</a>
+
+                    </div>
+                    <div class="row">
+
+                      <a class="btn btn-default btn-twitter" href="{{ url('/auth/twitter') }}"><i class="fa fa-twitter"></i> Login with Twitter<span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 2267.31px; height: 2267.31px; transform: translate(-50%, -50%) translate(777px, 18px);"></span></span></a>
+                       <a class="btn btn-default btn-facebook" href="{{ url('/auth/facebook') }}" ><i class="fa fa-facebook"></i> Login with Facebook<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
                     </div>
                     <footer class="screen-login">
                         <a href="{{ route('password.request') }}" class="text-muted">Forgot password</a>

@@ -65,13 +65,13 @@ label {
   /*	&.btn-default {
   		color: #fff;
   		background: #fff;
-  		font-weight: normal;	
+  		font-weight: normal;
   		text-transform: uppercase;
   		border-radius: 4px;
   		height: 50px;
   		line-height: 48px;
-  		padding: 0 40px;	
-  
+  		padding: 0 40px;
+
   		&:hover {
   			background: $dark-mint;
   			border-color: $dark-mint;

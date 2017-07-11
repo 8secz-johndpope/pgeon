@@ -50,6 +50,7 @@ class HomeController extends Controller {
         return view('people');
     }
 
+  
     public function search(Request $request) {
         $q = $request->input('q');
         $results = User::where(

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Contracts\Billable as BillableContract;
 
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','provider', 'provider_id'
     ];
 
     /**
@@ -40,7 +41,7 @@ class User extends Authenticatable
     public function user_following() {
         return $this->hasMany('App\UserFollowing');
     }
-    
+
 
     public static function get_participation($user_id) {
 
