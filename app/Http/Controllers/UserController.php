@@ -88,16 +88,19 @@ class UserController extends Controller
 
 
 
-    public function subscribe(Request $request)
+    public function subscribe()
     {
          $user = Auth::user();
-         $input = $request->all();
-         $token = $input['stripeToken'];
+         $stripeToken = Request::input('stripeToken');
 
          try {
-             $user->subscription($input['plane'])->create($token,[
-                     'email' => $user->email
-                 ]);
+           $user->newSubscription('main', 'pgeon_monthly')->create($stripeToken, [
+              'email' => 'ra@gmail.com',
+        ]);
+
+            // $user->subscription('monthly')->create($token,[
+              //       'email' => 'rs@gmail.com'
+                // ]);
              return back()->with('success','Subscription is completed.');
          } catch (Exception $e) {
              return back()->with('success',$e->getMessage());

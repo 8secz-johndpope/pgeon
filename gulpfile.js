@@ -21,6 +21,9 @@ elixir(function(mix) {
     mix.less('bootstrap/bootstrap.less', 'public/la-assets/css');
 });
 
+console.log(elixir);
+
+
 /*
 var minify = require('gulp-minify');
 gulp.task('compress', function() {

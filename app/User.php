@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
-use Laravel\Cashier\Contracts\Billable as BillableContract;
 
 use Illuminate\Support\Facades\DB;
 
