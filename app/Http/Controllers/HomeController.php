@@ -28,15 +28,15 @@ class HomeController extends Controller {
       $iam_following1 = UserFollowing::where('followed_by', '=', $current_user)->get();
       $my_followers1 = UserFollowing::where('user_id', '=', $current_user)->get();
 
-
       $iam_following = array();
       foreach( $iam_following1 as $value ) {
-          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio);
+          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio, 'avatar' =>  $value->user->avatar);
 
       }
       $my_followers = array();
       foreach( $my_followers1 as $value ) {
-          $my_followers[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio);
+          $follower = User::find($value->followed_by);
+          $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $follower->avatar);
       }
 
     return response()->json(['iam_following' => $iam_following,
@@ -50,8 +50,9 @@ class HomeController extends Controller {
         return view('people');
     }
 
-  
+
     public function search(Request $request) {
+        $current_user = Auth::user()->id;
         $q = $request->input('q');
         $results = User::where(
           [ ['name', 'LIKE',  "%$q%"],
@@ -59,6 +60,8 @@ class HomeController extends Controller {
         ])->get();
         $users = array();
         foreach ($results as $value) {
+          if($value['id'] == $current_user)
+            continue;
           $af = false;
           foreach ($value->user_following as $uf) {
               if ($uf->followed_by ==  Auth::user()->id)  {

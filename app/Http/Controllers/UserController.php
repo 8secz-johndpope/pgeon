@@ -74,7 +74,17 @@ class UserController extends Controller
     public function membership () {
       $user = Auth::user();
       $error = "";
-      return view('user.membership')->with('user',$user)->with('error',$error);
+      if($user->subscribedToPlan('pgeon_monthly','main')) {
+        $plan = "Monthly";
+      }elseif($user->subscribedToPlan('pgeon_yearly','main')) {
+        $plan = "Yearly";
+      }else {
+        $plan = "Free";
+      }
+
+
+
+      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan);
 
     }
 
@@ -92,15 +102,14 @@ class UserController extends Controller
     {
          $user = Auth::user();
          $stripeToken = Request::input('stripeToken');
-
+         $plan = Request::input('plan');
          try {
-           $user->newSubscription('main', 'pgeon_monthly')->create($stripeToken, [
-              'email' => 'ra@gmail.com',
+           $user->newSubscription('main', $plan)->create($stripeToken, [
+              'email' => $user->email,
         ]);
 
-            // $user->subscription('monthly')->create($token,[
-              //       'email' => 'rs@gmail.com'
-                // ]);
+            $user->role_id = 3;
+            $user->save();
              return back()->with('success','Subscription is completed.');
          } catch (Exception $e) {
              return back()->with('success',$e->getMessage());
@@ -178,4 +187,22 @@ class UserController extends Controller
     	return view('user.profile')->with('user',$user)->with('error',$error);
 
     }
+
+    public function getProfileBySlug($slug) {
+        $user = User::where('slug', '=', $slug)->first();
+          if(!$user)
+            return view('user.usernotfound');
+          else
+            return view('user.public_profile')->with('user',$user);
+
+    }
+
+    public function getProfile($id) {
+          $user =  User::find($id);
+          if(!$user)
+            return view('user.usernotfound');
+          else
+            return view('user.public_profile')->with('user',$user);
+    }
+
 }

@@ -44,6 +44,7 @@
   //Route::get('user/{id}', 'UserController@index')->name('profile');
 
 
+  Route::get('user/{id}', 'UserController@getProfile');
   Route::get('user/{id}/questions', 'UserController@questions');
   Route::get('user/{id}/answers', 'UserController@answers');
   Route::get('user/{id}/participation', 'UserController@participation');
@@ -95,5 +96,5 @@
 
 
   Route::get('{slug}', [
-    'uses' => 'HomeController@getPage'
+    'uses' => 'UserController@getProfileBySlug'
 ])->where('slug', '([A-Za-z0-9\-\/]+)');

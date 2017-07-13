@@ -30,7 +30,7 @@ $(function () {
       padding: getRight()
     },
     content: function () {
-      var $nav = $('.app-navbar .navbar-nav:last-child').clone()
+      var $nav = $('.app-navbar #clone_bar').clone()
       return '<div class="nav nav-stacked" style="width: 200px">' + $nav.html() + '</div>'
     }
   })

@@ -25,6 +25,7 @@
 
                          <div class="media">
                              <a class="media-left" href="#">
+                             <img class="media-object img-circle" src="{{ item.avatar ? '/uploads/avatars/'.item.avatar: '/img/profile-placeholder.svg'}} " alt="">
                                  <img class="media-object img-circle" src="assets/img/avatar-dhg.png" />
                              </a>
                              <div class="media-body">

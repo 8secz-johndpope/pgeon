@@ -44,16 +44,12 @@
                               <a href="/">Home</a>
                           </li>
                           <li>
-                              <a href="{{ route('profile') }}">Profile</a>
+                              <a href="#">Profile</a>
                           </li>
                           <li>
-                              <a href="{{ route('people') }}">People</a>
+                              <a href="{{ route('people') }}">Peoples</a>
                           </li>
-                          <li>
-                              <a href="{{ route('logout') }}"
-                                              onclick="event.preventDefault();
-                                                       document.getElementById('logout-form').submit();">Logout</a>
-                          </li>
+
                       </ul>
                   </div>
                   <div class="navbar-collapse collapse" id="navbar-collapse-main">
@@ -73,16 +69,14 @@
                               <input type="text" class="form-control" data-action="grow" placeholder="Search" name="q">
                           </div>
                       </form>
-                      <ul class="nav navbar-nav hidden-sm hidden-md hidden-lg">
+                      <ul id="clone_bar" class="nav navbar-nav hidden-sm hidden-md hidden-lg">
+
                           <li>
-                              <a href="/">Home</a>
+                              <a href="{{ route('profile') }}">Settings</a>
                           </li>
                           <li>
-                              <a href="profile/index.html">Profile</a>
-                          </li>
-                          <li>
-                              <a href="Settings/index.html">Settings</a>
-                          </li>
+                            <a href="{{ route('profile') }}">Help</a>
+                        </li>
                           <li>
                               <a href="{{ route('logout') }}"
                                               onclick="event.preventDefault();
@@ -94,7 +88,7 @@
                               <a href="help/index.html">Help</a>
                           </li>
                           <li>
-                              <a href="Settings/index.html">Settings</a>
+                              <a href="{{ route('profile') }}">Settings</a>
                           </li>
                           <li>
                               <a href="{{ route('logout') }}"
@@ -117,6 +111,7 @@
 
 </div>
     <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
       <script src="{{ asset('js/app.js') }}"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/chart.js') }}"></script>
@@ -131,6 +126,8 @@
         }
       })
     </script>
+
+
 </body>
 
 </html>

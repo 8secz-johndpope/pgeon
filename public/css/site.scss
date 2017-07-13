@@ -124,7 +124,7 @@ label {
 	display: block;
 	font-size: inherit;
 	outline: none!important;
-	
+
 	&.focus, &:focus {
 		outline: none;
 	}
@@ -136,12 +136,12 @@ label {
 /*	&.btn-default {
 		color: #fff;
 		background: #fff;
-		font-weight: normal;	
+		font-weight: normal;
 		text-transform: uppercase;
 		border-radius: 4px;
 		height: 50px;
 		line-height: 48px;
-		padding: 0 40px;	
+		padding: 0 40px;
 
 		&:hover {
 			background: $dark-mint;
@@ -155,7 +155,7 @@ label {
 		background: #6e839b;
 		font-weight: normal;
 		font-size: 18px;
-		border: 0;		
+		border: 0;
 		border-radius: 0;
 		height: 50px;
 		line-height: 50px;
@@ -174,10 +174,10 @@ label {
 -------------------------------------------------------*/
 
 .navbar {
-	
+
 	width: 600px;
 	margin: 0 auto;
-	
+
 	border: 0;
 	height: 90px;
 	z-index: 200;
@@ -191,18 +191,18 @@ label {
 
 	&.navbar-default {
 		background-color: #fff;
-					
+
 		.navbar-header {
 
     		padding: 15px 0 0;
 			position: relative;
-			
+
 		}
-		
+
 		.add-question {
 			position: absolute;
 			right: 30px;
-			top: 30px; 
+			top: 30px;
 			img {
 				width: 35px;
 				height: auto;
@@ -218,13 +218,13 @@ label {
 			padding: 0;
 			height: auto;
 			text-align: center;
-			
+
 			.logo {
 				width: 130px;
 				height: auto;
-				
+
 			}
-		
+
 		}
 
 
@@ -248,17 +248,17 @@ label {
 
 				&:focus, &:hover, &.active {
 					color: #fff;
-				}				
+				}
 
 				@media (min-width: 768px) {
 					line-height: 90px;
 					padding: 0 12px 0;
-				}	
-			}	
-		}	
-		
-		
-		&.in { 
+				}
+			}
+		}
+
+
+		&.in {
 			.navbar-nav {
 				@media (max-width: 767px) {
 					padding-bottom: 10px;

@@ -13,7 +13,8 @@
                  <li class="list-group-item">
                       <div class="media">
                           <a class="media-left" href="#">
-                              <img class="media-object img-circle" src="assets/img/avatar-dhg.png" />
+                              <img class="media-object img-circle" src="{{ $value['obj']->avatar ? '/uploads/avatars/'.$value['obj']->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+                              
                           </a>
                           <div class="media-body">
                               <button id="follow_{{$value['obj']->id}}" class="btn btn-primary-outline {{($value['already_followed'])? 'hide':''}}  btn-sm pull-right" v-on:click="follow({{$value['obj']->id}})">

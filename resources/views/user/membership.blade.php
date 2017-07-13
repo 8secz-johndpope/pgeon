@@ -32,8 +32,10 @@
                               <li class="list-group-item ng-binding">
                                   <div class="pull-right">
                                       <div class="ng-scope">
-                                          <span class="label">Free</span>
-                                          <a data-toggle="modal" data-target="#uaModal" class="btn btn-link btn-xs">Upgrade Account</a>
+                                          <span class="label">{{$plan}}</span>
+                                          @if ($plan == "Free")
+                                            <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">Upgrade Account</a>
+                                          @endif
                                       </div>
                                   </div>
                                   Current Plan
@@ -55,9 +57,7 @@
                       </form>
 
 
-
-
-
+                      <div id="stripe_box" class="collapse">
                       {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
                      @if ($message = Session::get('success'))
                      <div class="alert alert-success alert-block">
@@ -66,8 +66,8 @@
                      </div>
                      @endif
                      <div class="form-group" id="product-group">
-                         {!! Form::label('plane', 'Select Plan:') !!}
-                         {!! Form::select('plane', ['google' => 'Google ($10)', 'game' => 'Game ($20)', 'movie' => 'Movie ($15)'], 'Book', [
+                         {!! Form::label('plan', 'Select Plan:') !!}
+                         {!! Form::select('plan', ['pgeon_monthly' => '$5.00 / Month', 'pgeon_yearly' => '$50.00 / Year'], 'Plan', [
                              'class'                       => 'form-control',
                              'required'                    => 'required',
                              ]) !!}
@@ -121,7 +121,7 @@
                          </div>
                        </div>
                    {!! Form::close() !!}
-
+                 </div>
 
 
 
@@ -133,4 +133,3 @@
 
 
 @endsection
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
