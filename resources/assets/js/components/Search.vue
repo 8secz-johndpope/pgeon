@@ -25,8 +25,8 @@
 
                          <div class="media">
                              <a class="media-left" href="#">
-                             <img class="media-object img-circle" src="{{ item.avatar ? '/uploads/avatars/'.item.avatar: '/img/profile-placeholder.svg'}} " alt="">
-                                 <img class="media-object img-circle" src="assets/img/avatar-dhg.png" />
+
+                                 <img class="media-object img-circle" :src="item.avatar ? '/uploads/avatars/'+item.avatar : '/img/profile-placeholder.svg' " alt="">
                              </a>
                              <div class="media-body">
                                  <button class="btn btn-primary-outline btn-sm pull-right active"> Following
@@ -57,7 +57,8 @@
 
                          <div class="media">
                              <a class="media-left" href="#">
-                                 <img class="media-object img-circle" src="assets/img/avatar-dhg.png" />
+                             <img class="media-object img-circle" :src="item.avatar ? '/uploads/avatars/'+item.avatar : '/img/profile-placeholder.svg' " alt="">
+
                              </a>
                              <div class="media-body">
                                  <button class="btn btn-primary-outline btn-sm pull-right active"> Following

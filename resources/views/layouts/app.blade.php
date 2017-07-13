@@ -47,7 +47,7 @@
                               <a href="#">Profile</a>
                           </li>
                           <li>
-                              <a href="{{ route('people') }}">Peoples</a>
+                              <a href="{{ route('people') }}">People</a>
                           </li>
 
                       </ul>

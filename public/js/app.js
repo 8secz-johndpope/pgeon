@@ -1885,6 +1885,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -31967,7 +31968,103 @@ module.exports = Component.exports
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "container",
+    attrs: {
+      "id": "exTab1"
+    }
+  }, [_c('ul', {
+    staticClass: "nav nav-pills m-y"
+  }, [_c('li', {
+    staticClass: "active"
+  }, [_c('a', {
+    attrs: {
+      "href": "#1a",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v("Following "), _c('span', {
+    staticClass: "badge"
+  }, [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
+    attrs: {
+      "href": "#2a",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v("Followers "), _c('span', {
+    staticClass: "badge"
+  }, [_vm._v(_vm._s(_vm.my_followers_count))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content clearfix"
+  }, [_c('div', {
+    staticClass: "tab-pane active",
+    attrs: {
+      "id": "1a"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-users list-group"
+  }, _vm._l((_vm.iam_following), function(item) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "media"
+    }, [_c('a', {
+      staticClass: "media-left",
+      attrs: {
+        "href": "#"
+      }
+    }, [_c('img', {
+      staticClass: "media-object img-circle",
+      attrs: {
+        "src": item.avatar ? '/uploads/avatars/' + item.avatar : '/img/profile-placeholder.svg',
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('button', {
+      staticClass: "btn btn-primary-outline btn-sm pull-right active"
+    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
+  }))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "2a"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-users list-group"
+  }, _vm._l((_vm.my_followers), function(item) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "media"
+    }, [_c('a', {
+      staticClass: "media-left",
+      attrs: {
+        "href": "#"
+      }
+    }, [_c('img', {
+      staticClass: "media-object img-circle",
+      attrs: {
+        "src": item.avatar ? '/uploads/avatars/' + item.avatar : '/img/profile-placeholder.svg',
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('button', {
+      staticClass: "btn btn-primary-outline btn-sm pull-right active"
+    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
+  }))])])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
