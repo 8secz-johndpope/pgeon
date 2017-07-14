@@ -44,7 +44,7 @@
                               <a href="/">Home</a>
                           </li>
                           <li>
-                              <a href="#">Profile</a>
+                              <a href="{{ (Auth::user()->slug && Auth::user()->role_id == 3)? Auth::user()->slug :'/user/'.Auth::user()->id }}">Profile</a>
                           </li>
                           <li>
                               <a href="{{ route('people') }}">People</a>

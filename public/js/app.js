@@ -32015,12 +32015,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "media-left",
       attrs: {
-        "href": "#"
+        "href": item.url
       }
     }, [_c('img', {
       staticClass: "media-object img-circle",
       attrs: {
-        "src": item.avatar ? '/uploads/avatars/' + item.avatar : '/img/profile-placeholder.svg',
+        "src": item.avatar,
         "alt": ""
       }
     })]), _vm._v(" "), _c('div', {
@@ -32049,12 +32049,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "media-left",
       attrs: {
-        "href": "#"
+        "href": item.url
       }
     }, [_c('img', {
       staticClass: "media-object img-circle",
       attrs: {
-        "src": item.avatar ? '/uploads/avatars/' + item.avatar : '/img/profile-placeholder.svg',
+        "src": item.avatar,
         "alt": ""
       }
     })]), _vm._v(" "), _c('div', {

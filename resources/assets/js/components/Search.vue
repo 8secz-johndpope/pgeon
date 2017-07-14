@@ -24,9 +24,9 @@
                          <li class="list-group-item" v-for="item in iam_following">
 
                          <div class="media">
-                             <a class="media-left" href="#">
+                             <a class="media-left" :href="item.url">
 
-                                 <img class="media-object img-circle" :src="item.avatar ? '/uploads/avatars/'+item.avatar : '/img/profile-placeholder.svg' " alt="">
+                                 <img class="media-object img-circle" :src="item.avatar" alt="">
                              </a>
                              <div class="media-body">
                                  <button class="btn btn-primary-outline btn-sm pull-right active"> Following
@@ -56,8 +56,8 @@
                          <li class="list-group-item" v-for="item in my_followers">
 
                          <div class="media">
-                             <a class="media-left" href="#">
-                             <img class="media-object img-circle" :src="item.avatar ? '/uploads/avatars/'+item.avatar : '/img/profile-placeholder.svg' " alt="">
+                             <a class="media-left" :href="item.url">
+                             <img class="media-object img-circle" :src="item.avatar" alt="">
 
                              </a>
                              <div class="media-body">

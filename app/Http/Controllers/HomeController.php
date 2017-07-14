@@ -30,13 +30,26 @@ class HomeController extends Controller {
 
       $iam_following = array();
       foreach( $iam_following1 as $value ) {
-          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio, 'avatar' =>  $value->user->avatar);
+
+        if($value->user->slug)
+          $url = $value->user->slug;
+        else
+          $url = "/user/".$value->user_id;
+
+          $avatar = $value->user->avatar ? '/uploads/avatars/'.$value->user->avatar:  '/img/profile-placeholder.svg';
+          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio, 'avatar' =>  $avatar, 'url' => $url);
 
       }
       $my_followers = array();
       foreach( $my_followers1 as $value ) {
           $follower = User::find($value->followed_by);
-          $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $follower->avatar);
+
+          if($follower->slug)
+            $url = $follower->slug;
+          else
+            $url = "/user/".$follower->id;
+          $avatar = $value->user->avatar ? '/uploads/avatars/'.$value->user->avatar:  '/img/profile-placeholder.svg';
+          $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $avatar, 'url' => $url);
       }
 
     return response()->json(['iam_following' => $iam_following,
@@ -60,10 +73,18 @@ class HomeController extends Controller {
         ])->get();
         $users = array();
         foreach ($results as $value) {
+          //skip the current user in search
           if($value['id'] == $current_user)
             continue;
+          //if he is a member and has a slug..search will give us role 3 anyway
+          if($value['slug'] )
+            $value['url'] = $value['slug'];
+          else {
+            $value['url'] = "/user/".$value['id'];
+          }
           $af = false;
           foreach ($value->user_following as $uf) {
+
               if ($uf->followed_by ==  Auth::user()->id)  {
                 $af = true;
                 continue;
