@@ -612,3 +612,33 @@ nav .navbar-header .nav.navbar-nav li
       display: none;
     }
 }
+
+
+
+/*editor css **/
+.note-editor.note-frame {
+  border:0px;
+}
+
+.note-btn {
+      background: #f3f3f3;
+      border: none;
+}
+.note-icon-bold:before{
+  content:"B";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+.note-icon-italic:before{
+  content:"I";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: italic;
+}
+.note-icon-underline:before{
+  content:"U";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  text-decoration: underline;
+}

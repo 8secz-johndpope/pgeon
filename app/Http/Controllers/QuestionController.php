@@ -40,20 +40,21 @@ class QuestionController extends Controller
      */
     public function insert()
     {
-        $question = Question::insert(Auth::user()->id, Request::get('tags'), Request::get('question'));
-        return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
+        $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
+         return Redirect::to('questions');
+    //    return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 
     /**
      * Get the top questions according to votes
-     * GET /questions/top
+     * GET /questions/
      * @return Redirect
      */
-    public function top()
+    public function index()
     {
-        $questions = Question::top();
-        $tags = Tag::distinct()->orderBy('name', 'asc')->get();
-        return view('questions.top', ['questions' => $questions, 'page_title' => 'Top Questions', 'sort' =>'top', 'tags' =>$tags]);
+
+        $questions = Question::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('questions.index', ['questions' => $questions]);
     }
 
     /**

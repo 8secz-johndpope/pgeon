@@ -12,11 +12,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ Voyager::setting('title') }}</title>
-
+    @stack('styles')
     <!-- Styles -->
     <link href="{{ asset('css/toolkit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
-
 </head>
 @if (Auth::guest())
 <body>
@@ -116,6 +115,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/toolkit.js') }}"></script>
+    @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
 
     <script>

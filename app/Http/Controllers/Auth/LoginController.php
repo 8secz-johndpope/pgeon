@@ -81,4 +81,14 @@ class LoginController extends Controller
        ]);
    }
 
+   protected function redirectTo()
+   {
+      $user = Auth::user();
+       if($user->role_id == 3) {
+         return '/questions';
+       }else {
+         return '/people';
+       }
+
+   }
 }

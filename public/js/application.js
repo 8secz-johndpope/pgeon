@@ -8,6 +8,25 @@ $(document).on('click', '.js-msgGroup', function () {
 })
 
 $(function () {
+
+
+  $('#summernote').summernote(
+    {
+      height: 150,
+      toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline']],
+
+  ]
+    }
+  );
+
+
+  $("#well_add_ques").click(function() {
+    $("#form-add-question").removeClass('hidden');
+    $(this).hide()
+  })
+
   function getRight() {
     return ($(window).width() - ($('[data-toggle="popover"]').offset().left + $('[data-toggle="popover"]').outerWidth()))
   }

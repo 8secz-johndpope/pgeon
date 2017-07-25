@@ -174,22 +174,14 @@ class Question extends Model {
      * Insert the question to the table.
      * @return object
      */
-    public static function insert($user_id, $tags, $question_text ) {
-        $tags = $tags;
+    public static function insert($user_id, $question_text, $hours, $mins ) {
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;
+        $question->active_hours = $hours;
+        $question->active_mins = $mins;
         $question->save();
 
-        // todo There might be a better way to handle this in Laravel
-        $tags = array_unique(explode(',',$tags));
-
-        // Don't have a model for tags_questions
-        foreach ($tags as $tag) {
-            DB::table('tags_questions')->insert(
-                ['tag_id' => $tag, 'question_id' => $question->id]
-            );
-        }
         return $question;
     }
 
