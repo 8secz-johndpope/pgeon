@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class Question extends Model {
 
@@ -33,6 +35,37 @@ class Question extends Model {
         return $this->belongsToMany('App\Tag', 'tags_questions', 'question_id','tag_id');
     }
 
+    public function formatted_h_m() {
+      return str_pad($this->active_hours,2,"0",STR_PAD_LEFT). ' hrs '.str_pad($this->active_mins,2,"0",STR_PAD_LEFT).' mins';
+
+    }
+
+    public static function get_live_questions() {
+
+/*
+      $questions = Question::join('user_followings', 'user_followings.user_id', '=', 'question.user_id')
+            ->select(['questions.id'])
+            ->where([
+                ['user_followings.followed_by', '=', $user_id],
+                ['questions.expiring_at', '<', date("Y-m-d H:i:s")],
+            ]);
+*/
+      $user_id = Auth::user()->id;
+      $now = date("Y-m-d H:i:s");
+
+
+
+      $questions = DB::select( DB::raw("
+                            SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q INNER JOIN user_followings uf
+                              ON q.user_id = uf.user_id
+                              INNER JOIN users u ON u.id = uf.user_id
+                              WHERE uf.followed_by = $user_id and q.expiring_at > '$now' ") );
+
+    return $questions;
+    }
+
+
+
     /**
      * Get the number of answers for a question
      * @return mixed
@@ -43,132 +76,13 @@ class Question extends Model {
             ->groupBy('question_id');
     }
 
-    /**
-     * Returns relevant questions according to the tag object
-     * @param $tags - Tags object returned from get_tags()
-     * @return mixed
-     */
-    public static function recent_relevant($tags,$question_id=0) {
-
-        // Convert $tags object to array for whereIn()
-        $tag_array = array();
-        foreach($tags as $object)
-            $tag_array[] = $object->name;
-
-        if ($question_id > 0) $num = 5;
-            else $num = 10;
-
-        // Get relevant questions except for $question_id
-        // Attach AnswersCount - # answers per question
-        $questions = Question::join('tags_questions', 'tags_questions.question_id', '=', 'questions.id')
-            ->join('tags', 'tags.id', '=', 'tags_questions.tag_id')
-            ->select('questions.*')
-            ->where('questions.id', '!=' , $question_id)
-            ->whereIn('tags.name', $tag_array)
-            ->orderBy('questions.id', 'desc')
-            ->paginate($num);
-
-        return $questions;
-    }
-
-    /**
-     * Returns relevant questions sorted by vote according to the tag object
-     * @param $tags - Tags object returned from get_tags()
-     * @return mixed
-     */
-    public static function top_relevant($tags,$question_id=0) {
-
-        if ($question_id > 0) $num = 5;
-        else $num = 10;
-
-        // Convert $tags object to array for whereIn()
-        $tag_array = array();
-        foreach($tags as $object)
-            $tag_array[] = $object->name;
-
-        $questions = Question::join('votes', 'questions.id', '=', 'votes.question_id')
-            ->join('tags_questions', 'tags_questions.question_id', '=', 'questions.id')
-            ->join('tags', 'tags.id', '=', 'tags_questions.tag_id')
-            ->select('questions.*', DB::raw('sum(votes.vote) as vote_ttl'))
-            ->whereIn('tags.name', $tag_array)
-            ->where('questions.id', '!=', $question_id)
-            ->groupBy('questions.id')
-            ->orderBy('vote_ttl', 'desc')
-            ->orderBy('questions.created_at', 'desc')
-            ->paginate($num);
-
-        return $questions;
-    }
-
-    /**
-     * Returns relevant questions sorted by vote according to the tag object
-     * @param $tags - Tags object returned from get_tags()
-     * @return mixed
-     */
-    public static function top() {
-        $questions = Question::join('votes', 'questions.id', '=', 'votes.question_id')
-            ->select('questions.*', DB::raw('sum(votes.vote) as vote_ttl'))
-            ->groupBy('questions.id')
-            ->orderBy('vote_ttl', 'desc')
-            ->orderBy('questions.created_at', 'desc')
-            ->paginate(self::$pagination_count);
-        return $questions;
-    }
 
 
 
-    /**
-     * Returns tags for the question
-     * @param $id
-     * @return mixed
-     */
-    public static function get_tags($id) {
-        $tags = Question::join('tags_questions', 'tags_questions.question_id', '=', 'questions.id')
-            ->join('tags', 'tags.id', '=', 'tags_questions.tag_id')
-            ->where('tags_questions.question_id', '=', $id)
-            ->select('tags.*')
-            ->get();
 
-        return $tags;
-    }
 
-    /**
-     * Takes the question and makes a url string, SEO related.
-     * @param $question - Question string like a title.
-     * @return string
-     */
-    public static function get_url($question) {
 
-        $question = strtolower(strip_tags($question));
-        // Preserve escaped octets.
-        $question = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '---$1---', $question);
-        // Remove percent signs that are not part of an octet.
-        $question = str_replace('%', '', $question);
-        // Restore octets.
-        $question = preg_replace('|---([a-fA-F0-9][a-fA-F0-9])---|', '%$1', $question);
-        $question = preg_replace('/&.+?;/', '', $question); // kill entities
-        $question = str_replace('.', '-', $question);
-        $question = preg_replace('/[^%a-z0-9 _-]/', '', $question);
-        $question = preg_replace('/\s+/', '-', $question);
-        $question = preg_replace('|-+|', '-', $question);
-        $question = trim($question, '-');
 
-        // If we want to add stop words in the future, this is where we do it.
-        //  todo add more stop words
-        $stopwords = explode( ',',"a,an,and,are,is,the,of,for,in,what,whats,or,to,how,do,you,they,its,if,can,test,does,on,that,was");
-
-        $new_slug_parts = array_diff( explode( '-', $question ), $stopwords );
-
-        // Don't change the slug if there are less than 3 words left after removing stop words
-        if ( count( $new_slug_parts ) < 3 ) {
-            return $question;
-        }
-
-        // Turn the sanitized array into a string.
-        // Results in formatted SEO friendly string
-        $question = join( '-', $new_slug_parts );
-        return $question;
-    }
 
     /**
      * Insert the question to the table.
@@ -178,8 +92,7 @@ class Question extends Model {
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;
-        $question->active_hours = $hours;
-        $question->active_mins = $mins;
+        $question->expiring_at = date("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
         $question->save();
 
         return $question;

@@ -19,6 +19,7 @@ $shown = false;
                 <li class="media m-b-md">
                     <div class="media-body">
                         <div class="media-body-text media-question">  <?php echo $question->question; ?>
+{!! Helper::question_validity_status($question->expiring_at) !!}
 
 </div>
                     </div>

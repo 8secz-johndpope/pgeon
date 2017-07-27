@@ -19,6 +19,7 @@
       Route::group(['middleware' => 'admin.user'], function()
       {
             Route::resource('questions', 'Voyager\VoyagerQuestionController');
+            Route::post('question/{id}/publish', 'Voyager\VoyagerQuestionController@publish')->name('voyager.publish');
       });
   });
 
@@ -26,19 +27,11 @@
 
   //Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');;
 
-  Route::get('/people', 'HomeController@people')->name('people')->middleware('auth');
-  Route::get('/search', 'HomeController@search')->name('search')->middleware('auth');;
 
-  Route::get('/followers', 'HomeController@followers')->middleware('auth');;
 
 
   //
-  Route::get('/profile', 'UserController@profile')->name('profile');
-  Route::post('profile', 'UserController@update');
-  Route::post('subscribe', 'UserController@subscribe');
-  Route::get('settings', 'UserController@settings');
-  Route::get('membership', 'UserController@membership');
-  Route::get('notifications', 'UserController@notifications');
+
 
   // User Routes
   //Route::get('user/{id}', 'UserController@index')->name('profile');
@@ -52,14 +45,29 @@
   // User Routes
   Route::get('level/{level}', 'LevelController@index');
 
-  // Question Routes
-  Route::get('questions/', 'QuestionController@index');
-  Route::get('questions/new', 'QuestionController@newest');
-  Route::get('question/{id}/{question}', 'QuestionController@show');
-  Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
-  Route::get('question/ask', function () {
-      return view('questions.ask', ['tags' => App\Tag::get()]);
+  Route::group(array('middleware' => 'auth'), function()
+  {
+    // Question Routes
+    Route::get('questions/', 'QuestionController@index');
+    Route::get('questions/new', 'QuestionController@newest');
+    Route::get('question/{id}', 'QuestionController@show');
+    Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
+    Route::get('ask', 'QuestionController@ask')->name('ask');
+
+    Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::post('profile', 'UserController@update');
+    Route::post('subscribe', 'UserController@subscribe');
+    Route::get('settings', 'UserController@settings');
+    Route::get('membership', 'UserController@membership');
+    Route::get('notifications', 'UserController@notifications');
+
+
+    Route::get('/people', 'HomeController@people')->name('people');
+    Route::get('/search', 'HomeController@search')->name('search');
+
+    Route::get('/followers', 'HomeController@followers');
   });
+
 
   // Answer Routes
   Route::post('answer', array( 'before'=>'csfr','uses'=>'AnswerController@insert' ) );

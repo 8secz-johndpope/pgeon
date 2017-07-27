@@ -642,3 +642,38 @@ nav .navbar-header .nav.navbar-nav li
   font-size: 16px;
   text-decoration: underline;
 }
+
+
+
+
+
+#vote
+{
+    background-color: transparent;
+    margin-right: 5px;
+    min-width: 42px;
+}
+
+#vote:focus
+{
+    outline: 0;
+}
+
+#vote h1
+{
+    font-size: 28pt;
+    color: #E9ECEE;
+    margin-top: 0;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+.vote-arrow-up
+{
+    padding: 0;
+    margin: 0;
+}
+
+.fa-arrow-up
+{
+    color: #E9ECEE;
+}

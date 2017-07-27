@@ -1,4 +1,4 @@
-@extends('voyager::master')
+@extends('voyager.master')
 @section('content')
     <div class="page-content container-fluid">
         @include('voyager::alerts')
@@ -6,25 +6,56 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
-{{ HTML::ul($errors->all()) }}
+
 
           {{ Form::model($question, array('route' => array('questions.update', $question->id), 'method' => 'PUT')) }}
 
               <div class="form-group">
                   {{ Form::label('question', 'Question') }}
-                  {{ Form::text('question', null, array('class' => 'form-control')) }}
+                  {{Form::textarea('question',null,array('class' => 'form-control',  'id' => 'summernote'))}}
+
               </div>
 
               <div class="form-group">
                   {{ Form::label('status', 'Status') }}
-                  {{ Form::select('status', array('0' => 'Select a Level', '1' => 'Sees Sunlight', '2' => 'Foosball Fanatic', '3' => 'Basement Dweller'), null, array('class' => 'form-control')) }}
-                  </div>
+                  {{ Form::select('status', array('PENDING' => 'Pending', 'PUBLISHED' => 'PUBLISHED'), null, array('class' => 'form-control')) }}
               </div>
 
-
+              <div class="row">
               {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+            </div>
+
+
 
           {{ Form::close() }}
+
+
+
+          <div class="row">
+          <div class="col-md-2" >
+            {{ Form::model($question, array('route' => array('voyager.publish', $question->id), 'method' => 'POST')) }}
+
+               Validity : <b>{{$question->formatted_h_m()}}</b>
+               @if ($question->published_at)
+                    {!! Helper::question_validity_status($question->expiring_at) !!}
+               @else
+                  <div class="alert alert-warning">Not publised yet!
+
+                    {{ Form::submit('Publish it', array('class' => 'btn btn-primary')) }}
+
+                  </div>
+
+              @endif
+            {{ Form::close() }}
+          </div>
+          <div class="col-md-10" >
+
+
+          </div>
+          </div>
+
+
+
 
 
                     </div>
@@ -51,3 +82,13 @@
         </div>
     </div>
 @stop
+<!-- Push a style dynamically from a view -->
+@push('styles')
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
+@endpush
+
+<!-- Push a script dynamically from a view -->
+@push('scripts')
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
+    <script src="{{ asset('js/question.index.js') }}"></script>
+@endpush

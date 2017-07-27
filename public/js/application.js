@@ -10,16 +10,7 @@ $(document).on('click', '.js-msgGroup', function () {
 $(function () {
 
 
-  $('#summernote').summernote(
-    {
-      height: 150,
-      toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline']],
-
-  ]
-    }
-  );
+  
 
 
   $("#well_add_ques").click(function() {

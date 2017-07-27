@@ -25,12 +25,9 @@ class QuestionController extends Controller
         if (!$question)
             abort(404, "Page Not Found");
 
-        $question_tags = Question::get_tags($question_id);
-        $relevant_questions = Question::top_relevant($question_tags,$question_id);
         $answers = Answer::get_sorted($question_id);
-        $answer_ids = Answer::get_answer_ids($question_id);
-        $tags = Tag::distinct()->orderBy('name', 'asc')->get();
-        return view('question', ['answer_ids' => $answer_ids, 'recent_questions' => $relevant_questions, 'answers' => $answers, 'question' => $question, 'page_title' => $question->question, 'tags' => $tags, 'is_question' => true]);
+      //  $answer_ids = Answer::get_answer_ids($question_id);
+        return view('questions.show', [ 'answers' => $answers, 'question' => $question]);
     }
 
     /**
@@ -41,7 +38,7 @@ class QuestionController extends Controller
     public function insert()
     {
         $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
-         return Redirect::to('questions');
+         return Redirect::to('ask');
     //    return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 
@@ -53,20 +50,18 @@ class QuestionController extends Controller
     public function index()
     {
 
-        $questions = Question::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
+        $questions = Question::get_live_questions();
         return view('questions.index', ['questions' => $questions]);
     }
 
     /**
-     * Get the newest questions
-     * GET /questions/new
+     * GET /question/ask
      * @return Redirect
      */
-    public function newest()
+    public function ask()
     {
-        $questions = Question::orderBy('created_at', 'desc')->paginate(10);
-        $tags = Tag::distinct()->orderBy('name', 'asc')->get();
-        return view('questions.new', ['questions' => $questions, 'page_title' => 'New Questions', 'sort' =>'new', 'tags' =>$tags]);
+        $questions = Question::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('questions.ask',['questions' => $questions]);
     }
 
     /**

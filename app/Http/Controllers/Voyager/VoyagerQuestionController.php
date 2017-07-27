@@ -32,6 +32,18 @@ class VoyagerQuestionController
       }
 
 
+      public function publish($id)
+      {
+        $question = Question::find($id);
+        $question->published_at = date("Y-m-d H:i:s");
+        $question->save();
+
+      //  $question->status      =
+      //  $question->save();
+
+        return view('voyager.questions.edit', ['question' => $question]);
+
+      }
 
       public function show($id)
       {
@@ -50,6 +62,7 @@ class VoyagerQuestionController
     		Session::flash('message', 'Successfully deleted the question!');
     		return Redirect::to('voyager.questions.index');
     	}
+
 
 
       public function update($id)

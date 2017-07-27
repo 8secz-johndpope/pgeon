@@ -1,4 +1,4 @@
-@extends('voyager::master')
+@extends('voyager.master')
 @section('content')
     <div class="page-content container-fluid">
         @include('voyager::alerts')
@@ -10,7 +10,7 @@
 
               <div class="row">
                 <b>
-                {{$question->question}}
+                <?php echo $question->question;?>
 
               </b>
               </div>

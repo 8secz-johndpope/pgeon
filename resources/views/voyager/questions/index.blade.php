@@ -41,11 +41,11 @@
                                   <!-- we will add this later since its a little more complicated than the other two buttons -->
 
                                   <!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-                                  <a class="btn btn-small btn-success" href="{{ URL::route('questions.show' , array('id' => $value->id)) }}">Details</a>
+                                  <a class="btn btn-small btn-success" href="{{ URL::route('questions.edit' , array('id' => $value->id)) }}">Details</a>
 
                                   <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
 
-                            
+
 
 
                                       <div class="btn-sm btn-danger pull-right delete" data-id="{{ $value->id }}">

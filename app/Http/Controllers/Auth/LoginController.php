@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/people';
+    protected $redirectTo = '/questions';
 
     /**
      * Create a new controller instance.
@@ -81,7 +81,7 @@ class LoginController extends Controller
        ]);
    }
 
-   protected function redirectTo()
+/*   protected function redirectTo()
    {
       $user = Auth::user();
        if($user->role_id == 3) {
@@ -91,4 +91,5 @@ class LoginController extends Controller
        }
 
    }
+   */
 }
