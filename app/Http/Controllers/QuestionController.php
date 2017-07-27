@@ -37,8 +37,13 @@ class QuestionController extends Controller
      */
     public function insert()
     {
-        $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
+        if(Auth::user()->role_id == 3) {
+         $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
          return Redirect::to('ask');
+       }else {
+          Auth::logout();
+          return Redirect::to('/');
+       }
     //    return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 

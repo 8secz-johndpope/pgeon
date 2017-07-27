@@ -75,12 +75,16 @@
             <div class="row">
                 <div class="footer navbar-fixed-bottom">
                     <div class="col-md-12">
+                      {{ Form::open( array('url'=>'answer','class' =>'form-horizontal') ) }}
+                      {{ Form::token() }}
+                      {{ Form::hidden('question_id',$question->id) }}
+
                         <ul class="media-list">
                             <li class="media m-b-md media-divider">
                                 <div class="media-body">
                                     <li class="media media-current-user m-b-md">
                                         <div class="input-group">
-                                            <input type="text" class="form-control response-form" placeholder="Enter your response here.." type="text" maxlength="150" id="response-text" />
+                                            <input type="text" class="form-control response-form" placeholder="Enter your response here.." type="text" maxlength="150" id="response-text" name="answer"/>
                                             <span class="input-group-btn"><button class="btn btn-default response-button" type="submit">
                                                     <span class="icon icon-circle-with-plus response-icon"></span>
                                                 </button></span>
@@ -91,6 +95,7 @@
                                 </div>
                             </li>
                         </ul>
+                          {{ Form::close() }}
                     </div>
                     <!-- /input-group -->
                 </div>

@@ -89,6 +89,7 @@ class Question extends Model {
      * @return object
      */
     public static function insert($user_id, $question_text, $hours, $mins ) {
+
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;

@@ -12,9 +12,11 @@
                     <a href="topR.html"><span class="icon icon-chat"></span>
       Replies</a>
                 </li>
-                <li role="presentation" class="pull-right">
-                    <a href="/ask" type="button" class="btn btn-primary-outline">+ ?</a>
-                </li>
+                @if( Auth::user()->role_id == 3)
+                  <li role="presentation" class="pull-right">
+                      <a href="/ask" type="button" class="btn btn-primary-outline">+ ?</a>
+                  </li>
+                @endif
             </ul>
             <div class="row">
                 <div class="col-md-12">
