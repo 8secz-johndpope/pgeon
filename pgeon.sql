@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2017 at 12:11 PM
+-- Generation Time: Jul 27, 2017 at 01:05 PM
 -- Server version: 5.7.18
 -- PHP Version: 5.6.30
 
@@ -36,6 +36,16 @@ CREATE TABLE `answers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `answers`
+--
+
+INSERT INTO `answers` (`id`, `user_id`, `question_id`, `answer`, `created_at`, `updated_at`) VALUES
+(1, 3, 17, 'my answer shhe', NULL, NULL),
+(2, 3, 15, 'ram my answer shhe', NULL, NULL),
+(3, 5, 17, 'df', '2017-07-27 07:13:41', '2017-07-27 07:13:41'),
+(4, 5, 18, 'my andwe', '2017-07-27 07:26:02', '2017-07-27 07:26:02');
 
 -- --------------------------------------------------------
 
@@ -269,13 +279,6 @@ CREATE TABLE `pages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pages`
---
-
-INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Hello World', 'Hang the jib grog grog blossom grapple dance the hempen jig gangway pressgang bilge rat to go on account lugger. Nelsons folly gabion line draught scallywag fire ship gaff fluke fathom case shot. Sea Legs bilge rat sloop matey gabion long clothes run a shot across the bow Gold Road cog league.', '<p>Hello World. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>', 'pages/AAgCCnqHfLlRub9syUdw.jpg', 'hello-world', 'Yar Meta Description', 'Keyword1, Keyword2', 'ACTIVE', '2017-05-17 07:37:07', '2017-05-17 07:37:07');
-
 -- --------------------------------------------------------
 
 --
@@ -433,16 +436,6 @@ CREATE TABLE `posts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id`, `author_id`, `category_id`, `title`, `seo_title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `featured`, `created_at`, `updated_at`) VALUES
-(1, 0, NULL, 'Lorem Ipsum Post', NULL, 'This is the excerpt for the Lorem Ipsum Post', '<p>This is the body of the lorem ipsum post</p>', 'posts/nlje9NZQ7bTMYOUG4lF1.jpg', 'lorem-ipsum-post', 'This is the meta description', 'keyword1, keyword2, keyword3', 'PUBLISHED', 0, '2017-05-17 07:37:07', '2017-05-17 07:37:07'),
-(2, 0, NULL, 'My Sample Post', NULL, 'This is the excerpt for the sample Post', '<p>This is the body for the sample post, which includes the body.</p>\n                <h2>We can use all kinds of format!</h2>\n                <p>And include a bunch of other stuff.</p>', 'posts/7uelXHi85YOfZKsoS6Tq.jpg', 'my-sample-post', 'Meta Description for sample post', 'keyword1, keyword2, keyword3', 'PUBLISHED', 0, '2017-05-17 07:37:07', '2017-05-17 07:37:07'),
-(3, 0, NULL, 'Latest Post', NULL, 'This is the excerpt for the latest post', '<p>This is the body for the latest post</p>', 'posts/9txUSY6wb7LTBSbDPrD9.jpg', 'latest-post', 'This is the meta description', 'keyword1, keyword2, keyword3', 'PUBLISHED', 0, '2017-05-17 07:37:07', '2017-05-17 07:37:07'),
-(4, 0, NULL, 'Yarr Post', NULL, 'Reef sails nipperkin bring a spring upon her cable coffer jury mast spike marooned Pieces of Eight poop deck pillage. Clipper driver coxswain galleon hempen halter come about pressgang gangplank boatswain swing the lead. Nipperkin yard skysail swab lanyard Blimey bilge water ho quarter Buccaneer.', '<p>Swab deadlights Buccaneer fire ship square-rigged dance the hempen jig weigh anchor cackle fruit grog furl. Crack Jennys tea cup chase guns pressgang hearties spirits hogshead Gold Road six pounders fathom measured fer yer chains. Main sheet provost come about trysail barkadeer crimp scuttle mizzenmast brig plunder.</p>\n<p>Mizzen league keelhaul galleon tender cog chase Barbary Coast doubloon crack Jennys tea cup. Blow the man down lugsail fire ship pinnace cackle fruit line warp Admiral of the Black strike colors doubloon. Tackle Jack Ketch come about crimp rum draft scuppers run a shot across the bow haul wind maroon.</p>\n<p>Interloper heave down list driver pressgang holystone scuppers tackle scallywag bilged on her anchor. Jack Tar interloper draught grapple mizzenmast hulk knave cable transom hogshead. Gaff pillage to go on account grog aft chase guns piracy yardarm knave clap of thunder.</p>', 'posts/yuk1fBwmKKZdY2qR1ZKM.jpg', 'yarr-post', 'this be a meta descript', 'keyword1, keyword2, keyword3', 'PUBLISHED', 0, '2017-05-17 07:37:07', '2017-05-17 07:37:07');
-
 -- --------------------------------------------------------
 
 --
@@ -456,15 +449,21 @@ CREATE TABLE `questions` (
   `solved` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PENDING'
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PUBLISHED',
+  `published_at` timestamp NULL DEFAULT NULL,
+  `expiring_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `user_id`, `question`, `solved`, `created_at`, `updated_at`, `status`) VALUES
-(1, 5, 'kjhkjh', 0, '2017-06-12 05:18:10', '2017-06-12 05:18:10', 'PENDING');
+INSERT INTO `questions` (`id`, `user_id`, `question`, `solved`, `created_at`, `updated_at`, `status`, `published_at`, `expiring_at`) VALUES
+(14, 2, '<p>mikki</p>', 0, '2017-07-27 03:32:06', '2017-07-27 04:01:06', 'PENDING', NULL, '2017-07-27 04:46:06'),
+(15, 2, '<p>not expir</p>', 0, '2017-07-27 04:42:58', '2017-07-27 04:42:58', 'PUBLISHED', NULL, '2017-07-27 05:42:58'),
+(16, 2, '<p>onew more</p>', 0, '2017-07-27 05:38:42', '2017-07-27 05:38:42', 'PUBLISHED', NULL, '2017-07-27 06:38:42'),
+(17, 6, '<p>adding some quests</p>', 0, '2017-07-27 05:46:37', '2017-07-27 05:46:37', 'PUBLISHED', NULL, '2017-07-28 04:46:37'),
+(18, 6, '<p>mamas</p>', 0, '2017-07-27 07:25:53', '2017-07-27 07:25:53', 'PUBLISHED', NULL, '2017-07-27 08:25:53');
 
 -- --------------------------------------------------------
 
@@ -486,7 +485,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'Administrator', '2017-05-17 07:37:07', '2017-05-17 07:37:07'),
-(2, 'user', 'Normal User', '2017-05-17 07:37:07', '2017-05-17 07:37:07');
+(2, 'user', 'Standar Account', '2017-05-17 07:37:07', '2017-06-19 18:50:02'),
+(3, 'member', 'Member Account', '2017-06-19 18:50:39', '2017-06-19 18:50:39');
 
 -- --------------------------------------------------------
 
@@ -538,45 +538,12 @@ CREATE TABLE `subscriptions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tags`
+-- Dumping data for table `subscriptions`
 --
 
-CREATE TABLE `tags` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `display` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tags_questions`
---
-
-CREATE TABLE `tags_questions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  `question_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `tags_questions`
---
-
-INSERT INTO `tags_questions` (`id`, `tag_id`, `question_id`, `created_at`, `updated_at`) VALUES
-(1, 0, 3, NULL, NULL),
-(2, 0, 4, NULL, NULL),
-(3, 0, 5, NULL, NULL),
-(4, 0, 6, NULL, NULL),
-(5, 0, 1, NULL, NULL);
+INSERT INTO `subscriptions` (`id`, `user_id`, `name`, `stripe_id`, `stripe_plan`, `quantity`, `trial_ends_at`, `ends_at`, `created_at`, `updated_at`) VALUES
+(1, 2, 'main', 'sub_B0o9q01Ydo8iZh', 'pgeon_monthly', 1, NULL, NULL, '2017-07-12 09:43:24', '2017-07-12 09:43:24');
 
 -- --------------------------------------------------------
 
@@ -637,28 +604,61 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `role_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `stripe_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `card_brand` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `card_last_four` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trial_ends_at` timestamp NULL DEFAULT NULL
+  `trial_ends_at` timestamp NULL DEFAULT NULL,
+  `bio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `created_at`, `updated_at`, `stripe_id`, `card_brand`, `card_last_four`, `trial_ends_at`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', '$2y$10$QXCKwWMssG4XZfY30UTnberfWKkzDmRkZjdT5pQVxQWXrsF//3DDS', '61wi4D8w8OcGGTZDB4C5Tpax9qZEn31PTbCzg35zfYW01HrjOjKZ02sIKq2J', '2017-05-17 07:37:07', '2017-05-17 07:37:07', NULL, NULL, NULL, NULL),
-(2, 2, 'ram', 'ram@gmail.com', 'users/default.png', '$2y$10$bhMuTRz8Vr70AprzSkkXi./RWpfM5.3G8Zs9P2IM3GEeL.EnU3a86', '9pFm0PsV0hpo33hHHxBmSAKmJhcnhYnYYq16mVf7uRjrTmdsmGiPN5bxhFRH', '2017-05-22 20:31:01', '2017-05-22 20:31:01', NULL, NULL, NULL, NULL),
-(3, 2, 'bal', 'bala@gmail.com', 'users/default.png', '$2y$10$qHvf4G84gqqvnkcErNXz0uqj9jaaKfeFcmbiSbFDxr31xmDYgOsrW', 'EECLN152wKVUXWAmO3sNt1c27uykw0dnIBYTC4ZzjMJC2ibQBLhUfCXcJG11', '2017-06-01 08:44:59', '2017-06-01 08:44:59', NULL, NULL, NULL, NULL),
-(4, 2, 'jac', 'jack@gmail.com', 'users/default.png', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', NULL, '2017-06-01 08:51:55', '2017-06-01 08:51:55', NULL, NULL, NULL, NULL),
-(5, 2, 'ba', 'bal@gmail.com', 'users/default.png', '$2y$10$D3kFGVEp0w/IljuUJRShEuLJjnIliPypWqGqq5C266TY8Pmd8dnoy', 'Mu9zcVD3XztXhuYFWHhlARkZVfdSKOtwrZONk0qNw50UCCsqbiQ95sGRa906', '2017-06-10 04:14:43', '2017-06-10 04:14:43', NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `created_at`, `updated_at`, `stripe_id`, `card_brand`, `card_last_four`, `trial_ends_at`, `bio`, `provider`, `provider_id`, `slug`) VALUES
+(1, 1, 'Admin', 'admin@admin.com', '', '$2y$10$QXCKwWMssG4XZfY30UTnberfWKkzDmRkZjdT5pQVxQWXrsF//3DDS', 'gjOXP4Z18qmUDmcKjpdI52fEr71sOji6qeXHWWXfEmoRqbZadvSaNGQtNQGI', '2017-05-17 07:37:07', '2017-05-17 07:37:07', NULL, NULL, NULL, NULL, 'my bio goes here', NULL, NULL, '1'),
+(2, 3, 'ram', 'ram@gmail.com', '', '$2y$10$bhMuTRz8Vr70AprzSkkXi./RWpfM5.3G8Zs9P2IM3GEeL.EnU3a86', 'Bijo3OEZ6h4KgFq8KMcwZ9aSRHhI0R7zanehwxqgRYWEWoAHtjeaG2tepaTC', '2017-05-22 20:31:01', '2017-07-12 09:43:22', 'cus_B0fFoa4B6OFnhD', 'Visa', '4242', NULL, 'I am not a good guy', NULL, NULL, '2'),
+(3, 2, 'bal', 'bala@gmail.com', '', '$2y$10$qHvf4G84gqqvnkcErNXz0uqj9jaaKfeFcmbiSbFDxr31xmDYgOsrW', 'cHH9Se2mBfCdjNsEo7mOxpotTInsUUfpfuu5a4veU3FKrLarGojme7zu1xSx', '2017-06-01 08:44:59', '2017-06-01 08:44:59', NULL, NULL, NULL, NULL, 'good bal', NULL, NULL, ''),
+(4, 2, 'jac', 'jack@gmail.com', '', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', NULL, '2017-06-01 08:51:55', '2017-06-01 08:51:55', NULL, NULL, NULL, NULL, '', NULL, NULL, '4'),
+(5, 2, 'ba', 'bal@gmail.com', '', '$2y$10$D3kFGVEp0w/IljuUJRShEuLJjnIliPypWqGqq5C266TY8Pmd8dnoy', '5RdmI7UvqNeeCdY3NujM8wlyVZQivVDuifBtHdps4BGeecqQswRE2rOl2dab', '2017-06-10 04:14:43', '2017-06-10 04:14:43', NULL, NULL, NULL, NULL, '', NULL, NULL, '5'),
+(6, 3, 'Jacob Thornton', 'jc@test.com', '1499249565.jpg', '$2y$10$OR1bEfvmMmMgqngCB7Auqujr8S8lwzceOF2OsD2eeZN2ogcXYpFaG', NULL, '2017-06-19 18:52:24', '2017-06-19 18:52:24', NULL, NULL, NULL, NULL, 'around the galaxy', NULL, NULL, 'jac'),
+(7, 3, 'jak Dave Gamache', 'dave@test.com', '', '$2y$10$qyb/rnJ3yOyYlePczbsCguuc01fv9Uyoq39as/.rNAXvq/RdV7lZm', NULL, '2017-06-19 19:04:11', '2017-06-19 19:04:11', NULL, NULL, NULL, NULL, 'sailing into dreams', NULL, NULL, '7'),
+(8, 3, 'Mark Otto', 'mark@tes.com', '', '$2y$10$5CVkPSQbNPLuAQPlFEfPUumiqRTwUffPdS/r1ryKukemBRswio1Qu', NULL, '2017-06-19 19:05:49', '2017-06-19 19:05:49', NULL, NULL, NULL, NULL, 'Love nature', NULL, NULL, '8'),
+(9, 2, 'Ram Kumar', 'ramrumram@gmail.com', '', NULL, 'TLn5ymz7nlQwGgc7BvgNAPXuRAHA0eviWPvPLGWeMeJX9o8qbbNg5iH9ebN9', '2017-06-21 05:20:50', '2017-06-21 05:20:51', NULL, NULL, NULL, NULL, NULL, 'facebook', '544005219110827', '9'),
+(10, 2, 'prasanth', NULL, '', NULL, '0YCCpR1Mn08bfb9cGcSzHV2s21QbOgmep3AnV2EVMj22GyF128RzaJBEaSiO', '2017-06-21 05:59:01', '2017-07-05 08:31:31', NULL, NULL, NULL, NULL, 'dfdf', 'twitter', '877457031795326976', ''),
+(11, 2, 'one', 'on3@gmil.com', '1499249565.jpg', '$2y$10$FOzNS/rj6FJ9.d8oc/TGSO.6qz1RgPa8hzzRx.cArfOP7hgePbxr.', 'J2WEMRCq9yFGGDGF1G1o0PsUE8yKynaspVFD05mBOxyMY3rF2w2RG0Jpw1Y1', '2017-07-05 03:30:52', '2017-07-05 04:42:45', NULL, NULL, NULL, NULL, 'dfd', NULL, NULL, 'g');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_followings`
+--
+
+CREATE TABLE `user_followings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `followed_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_followings`
+--
+
+INSERT INTO `user_followings` (`id`, `user_id`, `followed_by`) VALUES
+(20, 2, 3),
+(22, 2, 5),
+(18, 6, 2),
+(23, 6, 5),
+(19, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -798,19 +798,6 @@ ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tags`
---
-ALTER TABLE `tags`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tags_questions`
---
-ALTER TABLE `tags_questions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tags_questions_tag_id_question_id_unique` (`tag_id`,`question_id`);
-
---
 -- Indexes for table `translations`
 --
 ALTER TABLE `translations`
@@ -823,6 +810,13 @@ ALTER TABLE `translations`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `user_followings`
+--
+ALTER TABLE `user_followings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`followed_by`);
 
 --
 -- Indexes for table `votes`
@@ -838,7 +832,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -893,12 +887,12 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -908,17 +902,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tags`
---
-ALTER TABLE `tags`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tags_questions`
---
-ALTER TABLE `tags_questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `translations`
 --
@@ -928,7 +912,12 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `user_followings`
+--
+ALTER TABLE `user_followings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `votes`
 --
