@@ -48,7 +48,7 @@
   Route::group(array('middleware' => 'auth'), function()
   {
     // Question Routes
-    Route::get('questions/', 'QuestionController@index');
+    Route::get('questions/{format?}', 'QuestionController@index');
     Route::get('questions/new', 'QuestionController@newest');
     Route::get('question/{id}', 'QuestionController@show');
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );

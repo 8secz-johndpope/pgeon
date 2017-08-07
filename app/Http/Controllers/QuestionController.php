@@ -52,13 +52,33 @@ class QuestionController extends Controller
      * GET /questions/
      * @return Redirect
      */
-    public function index()
+    public function index($format=null)
     {
-
-        $questions = Question::get_live_questions();
-        return view('questions.index', ['questions' => $questions]);
+        
+        if ($format == "json") {
+            $fetched_questions = Question::get_live_questions();
+            
+            /*
+            $questions[] = array();
+            foreach($fetched_questions as $key => $question){
+                $questions [$key]['id'] = $question->id; 
+                $questions [$key]['question'] = $question->question; 
+                $questions [$key]['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
+                $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
+                
+                
+            }
+            */
+            return response()->json($fetched_questions);
+        }else {
+            
+            return view('questions.index');
+        }
+        
+        
     }
 
+    
     /**
      * GET /question/ask
      * @return Redirect

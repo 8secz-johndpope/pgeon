@@ -836,20 +836,15 @@ __webpack_require__(31);
 
 window.Vue = __webpack_require__(41);
 Vue.use(__webpack_require__(40));
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-Vue.component('example', __webpack_require__(36));
-Vue.component('follow', __webpack_require__(37));
 
+Vue.component('follow', __webpack_require__(37));
+Vue.component('allq', __webpack_require__(36));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var app = new Vue({
   el: '#app',
   methods: {
     follow: function follow(id) {
-      $.post('follow');
+      //  $.post('follow',  )
       var formData = { 'user_id': id };
       this.$http.post('/follow', formData).then(function (response) {
 
@@ -863,7 +858,7 @@ var app = new Vue({
     },
 
     unfollow: function unfollow(id) {
-      $.post('unfollow');
+      //  $.post('unfollow',  )
       var formData = { 'user_id': id };
       this.$http.post('/unfollow', formData).then(function (response) {
 
@@ -1781,11 +1776,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    data: function data() {
+        return {
+            questions: []
+
+        };
+    },
     mounted: function mounted() {
         console.log('Component mounted.');
+    },
+
+    methods: {
+        redirect: function redirect(id) {
+            location.href = 'question/' + id;
+        },
+        avatar: function avatar(_avatar) {
+            return _avatar ? '/uploads/avatars/' + _avatar : '/img/profile-placeholder.svg';
+        }
+    },
+
+    created: function created() {
+
+        var com = this;
+        //got some new questions inserted
+        if (socket) socket.on('new_question', function (response) {
+            //console.log(com.questions)  
+
+            com.questions.push(response);
+        });
+
+        $.getJSON('/questions/json', function (response) {
+            this.questions = response;
+        }.bind(this));
     }
+
 });
 
 /***/ }),
@@ -31910,9 +31959,9 @@ var Component = __webpack_require__(7)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Example.vue"
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AllQ.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] AllQ.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -31921,9 +31970,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b1dc80b6", Component.options)
+    hotAPI.createRecord("data-v-edf980b6", Component.options)
   } else {
-    hotAPI.reload("data-v-b1dc80b6", Component.options)
+    hotAPI.reload("data-v-edf980b6", Component.options)
   }
 })()}
 
@@ -32077,27 +32126,62 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
+  return _c('div', _vm._l((_vm.questions), function(question) {
+    return _c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media p-a"
+    }, [_c('a', {
+      staticClass: "media-left",
+      attrs: {
+        "href": "#"
+      }
+    }, [_c('img', {
+      staticClass: "media-object img-circle",
+      attrs: {
+        "src": _vm.avatar(question.avatar),
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-header"
+    }, [_c('small', {
+      staticClass: "text-muted"
+    }, [_c('a', {
+      attrs: {
+        "href": "#",
+        "id": "user-profile-text-link"
+      }
+    }, [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('span', {
+      staticClass: "question_clock"
+    }, [_vm._v("Validity :   " + _vm._s(question.expiring_at) + "\n")])])]), _vm._v(" "), _c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media m-b-md"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-question",
+      staticStyle: {
+        "cursor": "pointer"
+      },
+      domProps: {
+        "innerHTML": _vm._s(question.question)
+      },
+      on: {
+        "click": function($event) {
+          _vm.redirect(question.id)
+        }
+      }
+    })])])])])])])
+  }))
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b1dc80b6", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-edf980b6", module.exports)
   }
 }
 

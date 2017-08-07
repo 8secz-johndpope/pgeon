@@ -9,20 +9,15 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 Vue.use(require('vue-resource'));
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('follow', require('./components/Search.vue'));
 
+Vue.component('follow', require('./components/Search.vue'));
+Vue.component('allq', require('./components/AllQ.vue'));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 const app = new Vue({
     el: '#app',
     methods : {
         follow: function (id) {
-          $.post('follow',  )
+        //  $.post('follow',  )
           var formData =  {'user_id': id}
           this.$http.post('/follow', formData).then((response) => {
 
@@ -39,7 +34,7 @@ const app = new Vue({
         },
 
         unfollow: function (id) {
-          $.post('unfollow',  )
+        //  $.post('unfollow',  )
           var formData =  {'user_id': id}
           this.$http.post('/unfollow', formData).then((response) => {
 
@@ -90,4 +85,6 @@ Stripe.setPublishableKey(STRIPE_SECRET);
       // Prevent the form from submitting with the default action
       return false;
     });
+      
+      
   });

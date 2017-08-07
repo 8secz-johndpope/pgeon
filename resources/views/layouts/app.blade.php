@@ -109,6 +109,15 @@
         @yield('content')
 
 </div>
+    @if (Auth::user())
+        <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("{{ env('NODE_CONNECT') }}");
+            //connect socket room for the current user id
+             socket.emit('connect_me', '{{Auth::user()->id}}');
+               
+        </script>
+    @endif
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
       <script src="{{ asset('js/app.js') }}"></script>

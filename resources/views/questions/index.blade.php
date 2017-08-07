@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="container p-t-md">
             <ul class="nav nav-pills tabs-padding">
                 <li class="active">
@@ -21,34 +20,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                  <?php
-
-                    foreach($questions as $key => $val){
-                  ?>
-                    <ul class="media-list media-list-conversation c-w-md">
-                        <li class="media p-a">
-                            <a class="media-left" href="#">
-                              <img class="media-object img-circle" src="{{ $val->avatar ? '/uploads/avatars/'.$val->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
-
-
-                            </a>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <small class="text-muted"><a href="#" id="user-profile-text-link">{{$val->name}}</a> <span class="question_clock">Validity :   {!! Helper::question_validity_status($val->expiring_at) !!}
-</span> </small>
-                                </div>
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media m-b-md">
-                                        <div class="media-body">
-                                            <div class="media-body-text media-question" onclick="location.href='question/{{$val->id}}';" style="cursor: pointer;"> <?php echo $val->question ?>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <?php } ?>
+                    <allq></allq>
 
                 </div>
             </div>

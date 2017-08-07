@@ -26,7 +26,7 @@
                             </a>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <small class="pull-right"> <span class="question_clock">Validity :   {!! Helper::question_validity_status($question->expiring_at) !!}
+                                    <small class="pull-right"> <span class="question_clock">Validity :   {!! question_validity_status($question->expiring_at) !!}
 </span></small>
                                     <h5 class="m-b-0">{{$question->user->name}}</h5>
                                 </div>

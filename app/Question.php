@@ -54,12 +54,13 @@ class Question extends Model {
       $now = date("Y-m-d H:i:s");
 
 
-
+        //will be converted to stored proc in future
       $questions = DB::select( DB::raw("
                             SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q INNER JOIN user_followings uf
                               ON q.user_id = uf.user_id
                               INNER JOIN users u ON u.id = uf.user_id
-                              WHERE uf.followed_by = $user_id and q.expiring_at > '$now' ") );
+                              WHERE uf.followed_by = $user_id ") );
+         //and q.expiring_at > '$now'
 
     return $questions;
     }
@@ -79,6 +80,23 @@ class Question extends Model {
 
 
 
+    public static function question_validity_status($expiring_at){
+
+       
+        
+        $added_time = strtotime($expiring_at);
+
+
+        //some life left
+        if ($added_time > time()) {
+          $remaining_time = $added_time - time();
+          return  date("H:i:s", $remaining_time);
+        }else {
+          return 'expired';
+        }
+        
+
+    }
 
 
 
