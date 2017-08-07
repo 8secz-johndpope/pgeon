@@ -37,7 +37,7 @@
 
                Validity : <b>{{$question->formatted_h_m()}}</b>
                @if ($question->published_at)
-                    {!! question_validity_status($question->expiring_at) !!}
+                    {!! ($question->expiring_at) !!}
                @else
                   <div class="alert alert-warning">Not publised yet!
 
