@@ -12,9 +12,13 @@ Vue.use(require('vue-resource'));
 
 Vue.component('follow', require('./components/Search.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
+Vue.component('answers', require('./components/Answers.vue'));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 const app = new Vue({
     el: '#app',
+     data: {
+      submitted_text: '',
+  }, 
     methods : {
         follow: function (id) {
         //  $.post('follow',  )
@@ -48,7 +52,19 @@ const app = new Vue({
 
 
 
-        }
+        },
+      
+      
+    submit_answer: function (question_id) {
+        
+        var formData =  {'question_id': question_id,'answer': this.submitted_text,}
+          this.$http.post('/answer', formData).then((response) => {
+                    this.submitted_text = ''
+                }, (response) => {
+                    alert('error submitting')
+                });
+    }  
+      
     }
 });
 

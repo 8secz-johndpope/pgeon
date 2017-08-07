@@ -43,49 +43,25 @@
                     </ul>
                 </div>
 
-                <?php foreach ($question->answers as $key => $answer) {
-                ?>
-
-                <div class="col-md-12 subtract-margin-left">
-                    <ul class="media-list media-list-conversation c-w-md fa-ul">
-                        <li class="media m-b-md">
-                            <a class="media-left">
-                                <button id="vote" onclick="upVote()" class="btn-borderless fa vote-arrow-up fa-arrow-up">
-                                    <h1 id="counter"></h1>
-                                </button>
-                            </a>
-                            <div class="media-body">
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media media-current-user m-b-md media-divider">
-                                        <div class="media-body">
-                                            <div class="media-body-text media-response media-user-response">
-                                              <div class="media-footer"><small class="text-muted"> <mark>{{$answer->user->name}}</mark></small></div>
-                                                {{$answer->answer}}
-</div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <?php }?>
+     
+                
+                <answers></answers>
+                
+                
+                
             </div>
             <div class="row">
                 <div class="footer navbar-fixed-bottom">
                     <div class="col-md-12">
-                      {{ Form::open( array('url'=>'answer','class' =>'form-horizontal') ) }}
-                      {{ Form::token() }}
-                      {{ Form::hidden('question_id',$question->id) }}
-
+                      
+                         <form v-on:submit.prevent="submit_answer({{ $question->id }})" class='form-horizontal'>   
                         <ul class="media-list">
                             <li class="media m-b-md media-divider">
                                 <div class="media-body">
                                     <li class="media media-current-user m-b-md">
                                         <div class="input-group">
-                                            <input type="text" class="form-control response-form" placeholder="Enter your response here.." type="text" maxlength="150" id="response-text" name="answer"/>
-                                            <span class="input-group-btn"><button class="btn btn-default response-button" type="submit">
+                                            <input v-model="submitted_text"  class="form-control response-form" placeholder="Enter your response here.." type="text" maxlength="150"  />
+                                            <span class="input-group-btn"><button  class="btn btn-default response-button" type="submit">
                                                     <span class="icon icon-circle-with-plus response-icon"></span>
                                                 </button></span>
                                         </div>
@@ -95,7 +71,7 @@
                                 </div>
                             </li>
                         </ul>
-                          {{ Form::close() }}
+                        </form>  
                     </div>
                     <!-- /input-group -->
                 </div>

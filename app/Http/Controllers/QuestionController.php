@@ -18,16 +18,23 @@ class QuestionController extends Controller
      * @param  int  $question_id
      * @return Response
      */
-    public function show($question_id)
+    public function show($question_id,$format=null)
     {
         $question = Question::find($question_id);
 
         if (!$question)
             abort(404, "Page Not Found");
 
-        $answers = Answer::get_sorted($question_id);
+        if ($format == "json") {
+            $answers = Answer::get_sorted($question_id);
+          //  return response()->json(array(array("answer"=> 'sdfssf', "name" => 'namamamsm')));
+              return response()->json($answers);
+        }
       //  $answer_ids = Answer::get_answer_ids($question_id);
-        return view('questions.show', [ 'answers' => $answers, 'question' => $question]);
+        else {
+            return view('questions.show', ['question' => $question]);
+        }
+        
     }
 
     /**

@@ -113,7 +113,7 @@
         <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
             var socket = io("{{ env('NODE_CONNECT') }}");
-            //connect socket room for the current user id
+            //connect socket room for the current user id..get all notifications related to the current user
              socket.emit('connect_me', '{{Auth::user()->id}}');
                
         </script>

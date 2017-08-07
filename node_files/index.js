@@ -66,38 +66,45 @@ var watcher =mysqlEventWatcher.add(
   function (oldRow, newRow, event) {
      //row inserted 
     if (oldRow === null) {
-      //insert code goes here 
+      //TODO will be converted to SP
           //notify every users who are following asker
             var sql = "SELECT uf.followed_by FROM questions q INNER JOIN user_followings uf  ON q.user_id = uf.user_id      WHERE q.id = "+newRow.fields.id;
           con.query(sql, function (err, result) {
             if (err) throw err;
                           
               result.forEach(function(rec) {
-                    //console.log(rec);
                     io.sockets. in (rec.followed_by).emit('new_question', newRow.fields);   
                 });
           });
         
     }
  
-     //row deleted 
-    if (newRow === null) {
-      //delete code goes here 
-     //    console.log('inserted de');
+   
+ 
+    
+  }
+  
+);
+
+var ans_watcher =mysqlEventWatcher.add(
+  'pgeon.answers',
+  function (oldRow, newRow, event) {
+     //row inserted 
+    if (oldRow === null) {
+     // if (oldRow != newRow) {
+      //TODO will be converted to SP
+          //notify every users who are following asker
+            var sql = "SELECT name FROM users WHERE id = "+newRow.fields.user_id;
+          con.query(sql, function (err, result) {
+            if (err) throw err;
+            //  result.forEach(function(rec) {
+                    io.sockets. in ('Q_'+newRow.fields.question_id).emit('new_answers', {'answer':newRow.fields.answer, 'name': result[0].name, 'qid': newRow.fields.question_id});   
+               // });
+          });
+        
     }
  
-     //row updated 
-    if (oldRow !== null && newRow !== null) {
-      //update code goes here 
-         console.log('updat');
-       
-        
-
-           
-          
-       
-
-    }
+   
  
     
   }

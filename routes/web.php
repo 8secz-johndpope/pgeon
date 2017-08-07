@@ -50,7 +50,8 @@
     // Question Routes
     Route::get('questions/{format?}', 'QuestionController@index');
     Route::get('questions/new', 'QuestionController@newest');
-    Route::get('question/{id}', 'QuestionController@show');
+    Route::get('question/{id}/{format?}', 'QuestionController@show');
+      
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
     Route::get('ask', 'QuestionController@ask')->name('ask');
 

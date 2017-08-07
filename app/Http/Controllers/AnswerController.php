@@ -20,7 +20,8 @@ class AnswerController extends Controller
     public function insert()
     {
         Answer::insert(Request::get('answer'),Request::get('question_id'),Auth::user()->id);
-        return Redirect::to('question/'.Request::get('question_id').'/'.Request::get('question_url'));
+        
+       // return Redirect::to('question/'.Request::get('question_id').'/'.Request::get('question_url'));
 
     }
 

@@ -9,7 +9,6 @@ $(document).on('click', '.js-msgGroup', function () {
 
 $(function () {
 
-
   
 
 

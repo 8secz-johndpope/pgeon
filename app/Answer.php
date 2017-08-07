@@ -47,10 +47,10 @@ class Answer extends Model
      * @return mixed
      */
     public static function get_sorted($question_id) {
-        $answer = Answer::where('question_id', '=', $question_id)->get();
-        $answer = $answer->sortByDesc(function ($answer) {
-            return $answer->votes->sum('vote');
-        });
+        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name'));
+       // $answer = $answer->sortByDesc(function ($answer) {
+         //   return $answer->votes->sum('vote');
+       // });
         return $answer;
     }
 

@@ -839,9 +839,13 @@ Vue.use(__webpack_require__(40));
 
 Vue.component('follow', __webpack_require__(37));
 Vue.component('allq', __webpack_require__(36));
+Vue.component('answers', __webpack_require__(54));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var app = new Vue({
   el: '#app',
+  data: {
+    submitted_text: ''
+  },
   methods: {
     follow: function follow(id) {
       //  $.post('follow',  )
@@ -869,7 +873,19 @@ var app = new Vue({
       }, function (response) {
         // error callback
       });
+    },
+
+    submit_answer: function submit_answer(question_id) {
+      var _this = this;
+
+      var formData = { 'question_id': question_id, 'answer': this.submitted_text };
+      this.$http.post('/answer', formData).then(function (response) {
+        _this.submitted_text = '';
+      }, function (response) {
+        alert('error submitting');
+      });
     }
+
   }
 });
 
@@ -43503,6 +43519,178 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    data: function data() {
+        return {
+            answers: []
+        };
+    },
+    mounted: function mounted() {
+        console.log('answers mounted.');
+    },
+
+    methods: {},
+
+    created: function created() {
+
+        var current_qid = parseInt(window.location.pathname.split("/")[2]);
+        var com = this;
+
+        //got some new questions inserted
+        if (socket) {
+            //just specific to this question id
+            socket.emit('connect_me', 'Q_' + current_qid);
+            socket.on('new_answers', function (response) {
+                com.answers.push(response);
+            });
+        }
+
+        $.getJSON('/question/' + current_qid + '/json', function (response) {
+            console.log(this.answers);
+            this.answers = response;
+            console.log(this.answers);
+        }.bind(this));
+    }
+
+});
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(7)(
+  /* script */
+  __webpack_require__(53),
+  /* template */
+  __webpack_require__(55),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Answers.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Answers.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0959e930", Component.options)
+  } else {
+    hotAPI.reload("data-v-0959e930", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', _vm._l((_vm.answers), function(answer) {
+    return _c('div', {
+      staticClass: "col-md-12 subtract-margin-left"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md fa-ul"
+    }, [_c('li', {
+      staticClass: "media m-b-md"
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media media-current-user m-b-md media-divider"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-response media-user-response"
+    }, [_c('div', {
+      staticClass: "media-footer"
+    }, [_c('small', {
+      staticClass: "text-muted"
+    }, [_c('mark', [_vm._v(_vm._s(answer.name))])])]), _vm._v("\n                                     " + _vm._s(answer.answer) + "\n")])])])])])])])])
+  }))
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "media-left"
+  }, [_c('button', {
+    staticClass: "btn-borderless fa vote-arrow-up fa-arrow-up",
+    attrs: {
+      "id": "vote",
+      "onclick": "upVote()"
+    }
+  }, [_c('h1', {
+    attrs: {
+      "id": "counter"
+    }
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0959e930", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
