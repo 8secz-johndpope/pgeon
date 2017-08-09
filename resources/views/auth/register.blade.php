@@ -40,7 +40,7 @@
                              </div>
                              <div class="formgroup">
                                 <label for="pw"></label>
-                                <input type="text" id="pw" name="password" required placeholder="Password">
+                                <input type="password" id="pw" name="password" required placeholder="Password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -50,7 +50,7 @@
                              </div>
                              <div class="formgroup">
                                 <label for="cpw"></label>
-                                <input type="text" id="cpw" name="cpassword" name="password_confirmation" required  placeholder="Confirm Password">
+                                <input type="password" id="cpw" name="password_confirmation" required  placeholder="Confirm Password">
                              </div>
 
                              <div class="submit_panel">
