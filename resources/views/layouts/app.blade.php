@@ -14,6 +14,7 @@
     <title>{{ Voyager::setting('title') }}</title>
     @stack('styles')
     <!-- Styles -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toolkit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
 </head>

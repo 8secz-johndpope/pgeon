@@ -3,48 +3,76 @@
 @section('content')
 
 
-<div class="container-fluid container-fill-height">
-            <div class="container-content-middle">
-                <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('login') }}">
+
+     <div class="container p-t-md log-in">
+         <form role="form" class="" method="POST" action="{{ route('login') }}">
                   {{ csrf_field() }}
-                    <a href="/" class="app-brand m-b-lg">
-                        <img src="{{URL::asset('img/pgeon-logo.svg')}}" alt="Pgeon">
-                    </a>
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                      @if ($errors->has('email'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('email') }}</strong>
-                          </span>
-                      @endif
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-
+             
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contents white-bg conntents-padding">
+                        <div class="nav_details regs_form">
+                            <div class="title text-center">
+                                <h2>Log in</h2>
+                            </div>
+                            <div class="continue_with">
+                                <ul>
+                                    <li>
+                                        <a href="{{ url('/auth/twitter') }}"><i class="fa fa-twitter"></i> Continue with Twitter</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/auth/facebook') }}"><i class="fa fa-facebook"></i> Continue with Facebook</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <hr>
+                            <p>Or use email and password</p>
+                            <form action="">
+                                <div class="formgroup{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    @if ($errors->has('email'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('email') }}</strong>
+                                      </span>
+                                  @endif
+                                    <label for="email"></label>
+                                    <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
+                                </div>
+                                <div class="formgroup">
+                                     @if ($errors->has('password'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('password') }}</strong>
+                                      </span>
+                                    @endif
+                                    <label for="pw"></label>
+                                    <input type="text" id="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="submit_panel">
+                                    <input class="btn btn-primary-outline btn-sm" type="submit" value="Login" name="register">
+                                    <button class="cancel">Cancel</button>
+                                    <a class="pull-right" href="{{ route('password.request') }}" style="padding-top: 8px">Forgot my password</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="form-group m-b-md">
-                      @if ($errors->has('password'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                          </span>
-                      @endif
-                       <input id="password" type="password" class="form-control" name="password" required>
-
+                    <div class="footer_nav">
+                        <ul>
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('register') }}">Register</a>
+                            </li>
+                            <li>
+                                <a href="">About</a>
+                            </li>
+                            <li>
+                                <a href="">Contact</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="m-b-lg">
-                        <input class="btn btn-primary" type="submit" value="Log In" name="register">
-
-                                           <a href="{{ route('register') }}" class="btn btn-default">Sign up</a>
-
-                    </div>
-                    <div class="row">
-
-                      <a class="btn btn-default btn-twitter" href="{{ url('/auth/twitter') }}"><i class="fa fa-twitter"></i> Login with Twitter<span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 2267.31px; height: 2267.31px; transform: translate(-50%, -50%) translate(777px, 18px);"></span></span></a>
-                       <a class="btn btn-default btn-facebook" href="{{ url('/auth/facebook') }}" ><i class="fa fa-facebook"></i> Login with Facebook<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-                    </div>
-                    <footer class="screen-login">
-                        <a href="{{ route('password.request') }}" class="text-muted">Forgot password</a>
-                    </footer>
-                </form>
+                </div>
             </div>
+         </form>
         </div>
 
 
