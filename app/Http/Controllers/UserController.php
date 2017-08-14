@@ -73,6 +73,7 @@ class UserController extends Controller
 
     public function membership () {
       $user = Auth::user();
+      $followers_counts = $user->user_following()->count();    
       $error = "";
       if($user->subscribedToPlan('pgeon_monthly','main')) {
         $plan = "Monthly";
@@ -82,9 +83,9 @@ class UserController extends Controller
         $plan = "Free";
       }
 
+          
 
-
-      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan);
+      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts);
 
     }
 
@@ -205,4 +206,6 @@ class UserController extends Controller
             return view('user.public_profile')->with('user',$user);
     }
 
+
+  
 }

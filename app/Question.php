@@ -54,13 +54,22 @@ class Question extends Model {
       $now = date("Y-m-d H:i:s");
 
 
-        //will be converted to stored proc in future
-      $questions = DB::select( DB::raw("
+        //TODO will be converted to stored proc in future
+      //follower's live Qs
+      /*$questions = DB::select( DB::raw("
                             SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q INNER JOIN user_followings uf
                               ON q.user_id = uf.user_id
                               INNER JOIN users u ON u.id = uf.user_id
-                              WHERE uf.followed_by = $user_id ") );
-         //and q.expiring_at > '$now'
+                              WHERE uf.followed_by = $user_id and q.expiring_at > '$now'") );
+         and q.expiring_at > '$now'
+         */
+      
+      // all live Qs
+      $sql = "SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q  
+                              INNER JOIN users u ON u.id = q.user_id 
+                              and q.expiring_at > '$now'";
+      $questions = DB::select( DB::raw($sql) );
+        // and q.expiring_at > '$now'
 
     return $questions;
     }
@@ -90,9 +99,10 @@ class Question extends Model {
         //some life left
         if ($added_time > time()) {
           $remaining_time = $added_time - time();
-          return  date("H:i:s", $remaining_time);
+          return $remaining_time;
+          //return  date("H:i:s", $remaining_time);
         }else {
-          return 'expired';
+          return 0;
         }
         
 
@@ -111,6 +121,7 @@ class Question extends Model {
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;
+      //always insert as GMT+0...which is what php date() returns..don't depend on mysql date
         $question->expiring_at = date("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
         $question->save();
 

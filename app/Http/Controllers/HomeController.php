@@ -69,7 +69,7 @@ class HomeController extends Controller {
         $q = $request->input('q');
         $results = User::where(
           [ ['name', 'LIKE',  "%$q%"],
-            ['role_id', '=', '3'],
+          //  ['role_id', '=', '3'],
         ])->get();
         $users = array();
         foreach ($results as $value) {

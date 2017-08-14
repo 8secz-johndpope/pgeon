@@ -42,6 +42,10 @@ class User extends Authenticatable
     public function user_following() {
         return $this->hasMany('App\UserFollowing');
     }
+  
+    public function questions() {
+        return $this->hasMany('App\Question');
+    }
 
 
     public static function get_participation($user_id) {
@@ -59,5 +63,21 @@ class User extends Authenticatable
         return $questions;
     }
 
+  public function has_active_question() {
+    
+//     $user = Auth::user();
 
+    $q = $this->questions()->orderBy('expiring_at', 'desc')->take(1)->get();
+  //  print_r($q);
+    //exit;
+    if(isset($q[0])) {
+      if ($q[0]->expiring_at >=  date("Y-m-d H:i:s", time())) {
+        return $q[0]->expiring_at;
+      }
+    }
+    
+    return false;    
+    
+    
+  }
 }

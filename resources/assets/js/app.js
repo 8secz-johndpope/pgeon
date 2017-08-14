@@ -13,6 +13,7 @@ Vue.use(require('vue-resource'));
 Vue.component('follow', require('./components/Search.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
+Vue.component('allqtimer', require('./components/AllQTimer.vue')); 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 const app = new Vue({
     el: '#app',
@@ -104,3 +105,5 @@ Stripe.setPublishableKey(STRIPE_SECRET);
       
       
   });
+
+

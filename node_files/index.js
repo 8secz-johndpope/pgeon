@@ -45,7 +45,10 @@ io.on('connection', function(socket){
   });
     
   console.log('a room connected');
-  socket.on('disconnect', function(){
+
+  
+  socket.on('disconnect', function(room){
+   // console.log('a room disconnected'+ room);
     socket.leave(socket.room);
   });
     
@@ -67,6 +70,21 @@ var watcher =mysqlEventWatcher.add(
      //row inserted 
     if (oldRow === null) {
       //TODO will be converted to SP
+      
+      //just notify all the users connected via socket
+      
+      
+        rooms.forEach(function(room) {
+          console.log('yyss'+room)
+                    //skipe Q detail sockets
+                        if(room.indexOf('Q_') == -1) {
+                          console.log('ss'+room)
+                          io.sockets. in (room).emit('new_question', newRow.fields.id);   
+                        }
+                          
+                });
+      
+      /*
           //notify every users who are following asker
             var sql = "SELECT uf.followed_by FROM questions q INNER JOIN user_followings uf  ON q.user_id = uf.user_id      WHERE q.id = "+newRow.fields.id;
           con.query(sql, function (err, result) {
@@ -76,6 +94,9 @@ var watcher =mysqlEventWatcher.add(
                     io.sockets. in (rec.followed_by).emit('new_question', newRow.fields);   
                 });
           });
+          */
+      
+      
         
     }
  

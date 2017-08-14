@@ -42,11 +42,8 @@
                                <label for="basic-url">Display name</label>
                                <div class="input-group">
                                    <span class="input-group-addon" id="basic-addon3">pgeon.com/</span>
-                                   @if ($user->role_id == 3)
                                       <input type="text" class="form-control" id="basic-url" name="slug" value="{{ $user->slug}}">
-                                   @else
-                                      &nbsp; You need to be a member to avail this facility.
-                                   @endif
+                                  
 
 
                                </div>

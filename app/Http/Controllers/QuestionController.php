@@ -44,7 +44,8 @@ class QuestionController extends Controller
      */
     public function insert()
     {
-        if(Auth::user()->role_id == 3) {
+        $user = Auth::user();
+        if($user->role_id == 3 && !$user->has_active_question()) {
          $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
          return Redirect::to('ask');
        }else {
@@ -65,18 +66,20 @@ class QuestionController extends Controller
         if ($format == "json") {
             $fetched_questions = Question::get_live_questions();
             
-            /*
+            
             $questions[] = array();
             foreach($fetched_questions as $key => $question){
                 $questions [$key]['id'] = $question->id; 
                 $questions [$key]['question'] = $question->question; 
                 $questions [$key]['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
+              $questions [$key]['name'] = $question->name;
+                
                 $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
                 
                 
             }
-            */
-            return response()->json($fetched_questions);
+            
+            return response()->json($questions);
         }else {
             
             return view('questions.index');
@@ -85,6 +88,21 @@ class QuestionController extends Controller
         
     }
 
+  
+  public function details($id) {
+    $question = Question::find($id);
+    $details = array();
+    $details ['id'] = $question->id; 
+    $details ['question'] = $question->question; 
+    $details ['name'] = $question->user->name;
+    $details ['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
+    $details ['expiring_at'] = Question::question_validity_status($question->expiring_at);
+    return response()->json($details);
+    
+
+    
+    
+  }
     
     /**
      * GET /question/ask
@@ -92,8 +110,16 @@ class QuestionController extends Controller
      */
     public function ask()
     {
-        $questions = Question::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('questions.ask',['questions' => $questions]);
+        $user = Auth::user();
+        
+        if ($user->role_id != 3 ) {
+          abort(403, 'Access denied');
+        }
+        $aq = $user->has_active_question();
+      
+      //exit;
+        $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('questions.ask',['questions' => $questions, 'has_active_question' => $aq]);
     }
 
     /**
