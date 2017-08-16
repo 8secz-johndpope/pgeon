@@ -21,6 +21,21 @@ class Answer extends Model
      * Insert an answer
      */
     public static function insert($answer_text, $question_id, $user_id) {
+      
+        if(Answer::where([['user_id', '=', $user_id],['question_id', '=', $question_id]])->exists()) {
+          echo 'Already answered';
+          exit;    
+        }
+      
+        $question = Question::find($question_id);
+      
+        if( $user_id ==  $question->user_id){
+          echo 'Can\'t answer your own question';
+          exit;    
+        }
+      
+      
+        
         $answer = new Answer;
         $answer->answer = $answer_text;
         $answer->user_id = $user_id;
@@ -47,7 +62,7 @@ class Answer extends Model
      * @return mixed
      */
     public static function get_sorted($question_id) {
-        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name'));
+        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name','user_id'));
        // $answer = $answer->sortByDesc(function ($answer) {
          //   return $answer->votes->sum('vote');
        // });

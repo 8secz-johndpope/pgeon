@@ -422,6 +422,14 @@ ul.list_notifications
 
 
 
+#answers_container {
+  height:65vh;
+  overflow-y: auto;
+  
+  float: left;
+  padding-bottom: 80px;
+  
+}
 
 @media only screen and (max-width: 767px)
 {

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 47);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -374,6 +374,63 @@ module.exports = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+// this module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,64 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
 /* 3 */
@@ -825,32 +825,31 @@ module.exports = g;
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(32);
+__webpack_require__(33);
 
-window.Vue = __webpack_require__(44);
-Vue.use(__webpack_require__(43));
+window.Vue = __webpack_require__(47);
+Vue.use(__webpack_require__(46));
 
-Vue.component('follow', __webpack_require__(39));
-Vue.component('allq', __webpack_require__(37));
-Vue.component('answers', __webpack_require__(38));
-Vue.component('allqtimer', __webpack_require__(57));
+Vue.component('follow', __webpack_require__(41));
+Vue.component('allq', __webpack_require__(38));
+Vue.component('answers', __webpack_require__(40));
+Vue.component('allqtimer', __webpack_require__(39));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var app = new Vue({
   el: '#app',
-  data: {
-    submitted_text: ''
-  },
+  data: {},
   methods: {
     follow: function follow(id) {
       //  $.post('follow',  )
-      var formData = { 'user_id': id };
+      var formData = {
+        'user_id': id
+      };
       this.$http.post('/follow', formData).then(function (response) {
 
         $("#follow_" + id).addClass('hide');
@@ -864,7 +863,9 @@ var app = new Vue({
 
     unfollow: function unfollow(id) {
       //  $.post('unfollow',  )
-      var formData = { 'user_id': id };
+      var formData = {
+        'user_id': id
+      };
       this.$http.post('/unfollow', formData).then(function (response) {
 
         $("#follow_" + id).removeClass('hide');
@@ -873,17 +874,6 @@ var app = new Vue({
         // success callback
       }, function (response) {
         // error callback
-      });
-    },
-
-    submit_answer: function submit_answer(question_id) {
-      var _this = this;
-
-      var formData = { 'question_id': question_id, 'answer': this.submitted_text };
-      this.$http.post('/answer', formData).then(function (response) {
-        _this.submitted_text = '';
-      }, function (response) {
-        alert('error submitting');
       });
     }
 
@@ -946,7 +936,7 @@ module.exports = __webpack_require__(12);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
 var Axios = __webpack_require__(14);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Create an instance of Axios
@@ -1066,7 +1056,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(15);
 var dispatchRequest = __webpack_require__(16);
@@ -1220,7 +1210,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(19);
 var isCancel = __webpack_require__(5);
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1819,63 +1809,136 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    data: function data() {
-        return {
-            questions: []
-        };
+  data: function data() {
+    return {
+      questions: []
+    };
+  },
+  mounted: function mounted() {},
+
+
+  methods: {
+
+    redirect: function redirect(id) {
+      location.href = 'question/' + id;
     },
-    mounted: function mounted() {},
 
+    //will be called from timer comp
+    deleteQ: function deleteQ(id) {
 
-    methods: {
-
-        redirect: function redirect(id) {
-            location.href = 'question/' + id;
-        },
-
-        //will be called from timer comp
-        deleteQ: function deleteQ(id) {
-
-            var i = 0;
-            while (i < this.questions.length) {
-                if (this.questions[i]["id"] == id) {
-                    this.questions.splice(i, 1);
-                }
-                i++;
-            }
+      var i = 0;
+      while (i < this.questions.length) {
+        if (this.questions[i]["id"] == id) {
+          this.questions.splice(i, 1);
         }
-
-    },
-
-    created: function created() {
-
-        var com = this;
-        //got some new questions inserted
-        if (socket) socket.on('new_question', function (response_id) {
-
-            //once we get the new qid inserted we use ajax to get the details
-            $.getJSON('/question_details/' + response_id, function (response) {
-                //this.questions = response
-                com.questions.push(response);
-            }.bind(com));
-        });
-
-        $.getJSON('/questions/json', function (response) {
-            console.log('dd');
-            console.log(response[0]['id']);
-
-            if (response[0]['id'] !== undefined) this.questions = response;
-        }.bind(this));
+        i++;
+      }
     }
+
+  },
+  created: function created() {
+
+    var com = this;
+    //got some new questions inserted
+    if (socket) socket.on('new_question', function (response_id) {
+
+      //once we get the new qid inserted we use ajax to get the details
+      $.getJSON('/question_details/' + response_id, function (response) {
+        //this.questions = response
+        com.questions.push(response);
+      }.bind(com));
+    });
+
+    $.getJSON('/questions/json', function (response) {
+      console.log('dd');
+      console.log(response[0]['id']);
+
+      if (response[0]['id'] !== undefined) this.questions = response;
+    }.bind(this));
+  }
 
 });
 
 /***/ }),
 /* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  props: {
+    interval: {
+      type: Number,
+      default: 5
+    },
+    initial: {
+      type: Number
+    },
+    question_id: {
+      type: Number
+    }
+
+  },
+
+  data: function data() {
+    return {
+      current: this.initial,
+      timerInterval: null,
+      formatted: '...'
+    };
+  },
+
+  methods: {
+    to_time: function to_time() {
+      var sec_num = parseInt(this.current, 10); // don't forget the second param
+      var hours = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - hours * 3600) / 60);
+      var seconds = sec_num - hours * 3600 - minutes * 60;
+
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return hours + ' hr :' + minutes + 'min';
+    },
+    onInterval: function onInterval() {
+      this.current = this.current -= this.interval;
+      console.log(this.current);
+
+      this.formatted = this.to_time();
+      if (this.current <= 0) {
+        clearInterval(this.timerInterval);
+        this.current = 0;
+        //this.$dispatch('eventName', this.question_id)
+        this.$emit('event', this.question_id);
+        // this.$parent.$options.methods.delete(this.question_id)
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.timerInterval = setInterval(this.onInterval, this.interval * 1000);
+  }
+});
+
+/***/ }),
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1916,45 +1979,164 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    data: function data() {
-        return {
-            answers: []
-        };
-    },
-    mounted: function mounted() {
-        console.log('answers mounted.');
-    },
+  data: function data() {
+    return {
+      answers: [],
+      submitted_text: '',
+      already_answered: false,
+      placeholder: "Enter your response here"
 
-    methods: {},
+    };
+  },
+  props: ['question_id', 'current_user_id', 'question_owner_id'],
+  mounted: function mounted() {
+    console.log('answers mounted.');
+  },
 
-    created: function created() {
+  watch: {
+    answers: function answers() {
 
-        var current_qid = parseInt(window.location.pathname.split("/")[2]);
-        var com = this;
+      console.log('fored');
 
-        //got some new questions inserted
-        if (socket) {
-            //just specific to this question id
-            socket.emit('connect_me', 'Q_' + current_qid);
-            socket.on('new_answers', function (response) {
-                com.answers.push(response);
-            });
+      for (var i = 0; i < this.answers.length; i++) {
+        console.log(this.answers[i]["user_id"]);
+        if (this.answers[i]["user_id"] == this.current_user_id) {
+          console.log('answerwerd');
+          this.already_answered = true;
+          this.placeholder = "You already have posted an answer";
+          break;
         }
-
-        $.getJSON('/question/' + current_qid + '/json', function (response) {
-            console.log(this.answers);
-            this.answers = response;
-            console.log(this.answers);
-        }.bind(this));
+      }
     }
+  },
+  methods: {
+
+    scrollToEnd: function scrollToEnd() {
+      var container = this.$el;
+
+      container.scrollTop = container.scrollHeight - container.clientHeight;
+    },
+    submit_answer: function submit_answer() {
+      var _this = this;
+
+      // if (this.already_answered)
+      // return false;
+
+      var formData = {
+        'question_id': this.question_id,
+        'answer': this.submitted_text
+      };
+      this.$http.post('/answer', formData).then(function (response) {
+        _this.submitted_text = '';
+      }, function (response) {
+        alert('error submitting');
+      });
+    }
+  },
+
+  created: function created() {
+
+    var com = this;
+
+    //got some new questions inserted
+    if (socket) {
+      //just specific to this question id
+      socket.emit('connect_me', 'Q_' + this.question_id);
+      socket.on('new_answers', function (response) {
+        com.answers.push(response);
+        com.scrollToEnd();
+      });
+    }
+
+    $.getJSON('/question/' + this.question_id + '/json', function (response) {
+      this.answers = response;
+    }.bind(this));
+  }
 
 });
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2079,11 +2261,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(35);
+window._ = __webpack_require__(36);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2092,9 +2274,9 @@ window._ = __webpack_require__(35);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(34);
+  window.$ = window.jQuery = __webpack_require__(35);
 
-  __webpack_require__(33);
+  __webpack_require__(34);
 } catch (e) {}
 
 /**
@@ -2137,7 +2319,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4520,7 +4702,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14780,7 +14962,7 @@ return jQuery;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31869,10 +32051,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(45)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(48)(module)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -32062,14 +32244,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(45),
   /* scopeId */
   null,
   /* cssModules */
@@ -32096,14 +32278,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(44),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AllQTimer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AllQTimer.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-56a04250", Component.options)
+  } else {
+    hotAPI.reload("data-v-56a04250", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(31),
+  /* template */
+  __webpack_require__(42),
   /* scopeId */
   null,
   /* cssModules */
@@ -32130,14 +32346,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(31),
+  __webpack_require__(32),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(43),
   /* scopeId */
   null,
   /* cssModules */
@@ -32164,18 +32380,22 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', _vm._l((_vm.answers), function(answer) {
+  return _c('div', {
+    attrs: {
+      "id": "answers_container"
+    }
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._l((_vm.answers), function(answer) {
     return _c('div', {
       staticClass: "col-md-12 subtract-margin-left"
     }, [_c('ul', {
       staticClass: "media-list media-list-conversation c-w-md fa-ul"
     }, [_c('li', {
       staticClass: "media m-b-md"
-    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(2, true), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [_c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
@@ -32184,18 +32404,71 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text media-response media-user-response"
-    }, [_c('div', {
-      staticClass: "media-footer"
-    }, [_c('small', {
-      staticClass: "text-muted"
-    }, [_c('mark', [_vm._v(_vm._s(answer.name))])])]), _vm._v("\n                                     " + _vm._s(answer.answer) + "\n")])])])])])])])])
-  }))
+      staticClass: "media-body-text media-response media-user-response",
+      staticStyle: {
+        "cursor": "pointer",
+        "background": "#E8EFF7"
+      }
+    }, [_vm._m(3, true), _vm._v("\n                                        " + _vm._s(answer.answer) + "\n                                    ")])])])])])])])])
+  }), _vm._v(" "), (_vm.question_owner_id != _vm.current_user_id) ? _c('div', [_c('div', {
+    staticClass: "footer navbar-fixed-bottom"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('form', {
+    staticClass: "form-horizontal",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submit_answer()
+      }
+    }
+  }, [_c('ul', {
+    staticClass: "media-list"
+  }, [_c('li', {
+    staticClass: "media m-b-md media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('li', {
+    staticClass: "media media-current-user m-b-md"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.submitted_text),
+      expression: "submitted_text"
+    }],
+    staticClass: "form-control response-form",
+    attrs: {
+      "placeholder": _vm.placeholder,
+      "disabled": _vm.already_answered,
+      "type": "text",
+      "maxlength": "150"
+    },
+    domProps: {
+      "value": (_vm.submitted_text)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.submitted_text = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+    staticClass: "media-footer text-right"
+  })])])])])])])])]) : _vm._e()], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
+  return _c('div', {
+    staticClass: "col-md-12 subtract-margin-left"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md fa-ul"
+  }, [_c('li', {
+    staticClass: "media m-b-md"
+  }, [_c('a', {
     staticClass: "media-left"
   }, [_c('button', {
-    staticClass: "btn-borderless fa vote-arrow-up fa-arrow-up",
+    staticClass: "btn-borderless",
     attrs: {
       "id": "vote",
       "onclick": "upVote()"
@@ -32204,6 +32477,108 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "counter"
     }
+  }, [_vm._v("-")])])]), _vm._v(" "), _c('div', {
+    staticClass: "media-body"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media media-current-user m-b-md media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('div', {
+    staticClass: "media-body-text media-response media-user-response",
+    staticStyle: {
+      "background": "#E8EFF7"
+    }
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "alert",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "display": "block"
+    }
+  }, [_vm._v("\n   estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.")])])])])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-md-12 subtract-margin-left"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md fa-ul"
+  }, [_c('li', {
+    staticClass: "media m-b-md"
+  }, [_c('a', {
+    staticClass: "media-left"
+  }, [_c('button', {
+    staticClass: "btn-borderless",
+    attrs: {
+      "id": "vote",
+      "onclick": "upVote()"
+    }
+  }, [_c('h1', {
+    attrs: {
+      "id": "counter"
+    }
+  }, [_vm._v("-")])])]), _vm._v(" "), _c('div', {
+    staticClass: "media-body"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media media-current-user m-b-md media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('div', {
+    staticClass: "media-body-text media-response media-response-margin",
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    attrs: {
+      "onclick": "upVote();"
+    }
+  }, [_vm._v("\n                                                estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.\n")])])])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "media-left"
+  }, [_c('button', {
+    staticClass: "btn-borderless",
+    attrs: {
+      "id": "vote",
+      "onclick": "upVote()"
+    }
+  }, [_c('h1', {
+    attrs: {
+      "id": "counter"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "alert",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-default response-button",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_c('span', {
+    staticClass: "icon icon-circle-with-plus response-icon"
   })])])
 }]}
 module.exports.render._withStripped = true
@@ -32215,7 +32590,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32323,7 +32698,24 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('small', {
+    staticClass: "text-muted pull-right"
+  }, [_vm._v(" " + _vm._s(_vm.formatted) + " ")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-56a04250", module.exports)
+  }
+}
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32393,7 +32785,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33495,7 +33887,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(46);
+    var client = __webpack_require__(49);
 
     return new PromiseObj(function (resolve) {
 
@@ -33971,7 +34363,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43670,7 +44062,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -43698,151 +44090,18 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
-
-/***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-  props: {
-    interval: {
-      type: Number,
-      default: 5
-    },
-    initial: {
-      type: Number
-    },
-    question_id: {
-      type: Number
-    }
-
-  },
-
-  data: function data() {
-    return {
-      current: this.initial,
-      timerInterval: null,
-      formatted: '...'
-    };
-  },
-
-  methods: {
-    to_time: function to_time() {
-      var sec_num = parseInt(this.current, 10); // don't forget the second param
-      var hours = Math.floor(sec_num / 3600);
-      var minutes = Math.floor((sec_num - hours * 3600) / 60);
-      var seconds = sec_num - hours * 3600 - minutes * 60;
-
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      if (minutes < 10) {
-        minutes = "0" + minutes;
-      }
-      if (seconds < 10) {
-        seconds = "0" + seconds;
-      }
-      return hours + ' hr :' + minutes + 'min';
-    },
-    onInterval: function onInterval() {
-      this.current = this.current -= this.interval;
-      console.log(this.current);
-
-      this.formatted = this.to_time();
-      if (this.current <= 0) {
-        clearInterval(this.timerInterval);
-        this.current = 0;
-        //this.$dispatch('eventName', this.question_id)
-        this.$emit('event', this.question_id);
-        // this.$parent.$options.methods.delete(this.question_id)
-      }
-    }
-  },
-  mounted: function mounted() {
-    this.timerInterval = setInterval(this.onInterval, this.interval * 1000);
-  }
-});
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(2)(
-  /* script */
-  __webpack_require__(56),
-  /* template */
-  __webpack_require__(58),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AllQTimer.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AllQTimer.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-56a04250", Component.options)
-  } else {
-    hotAPI.reload("data-v-56a04250", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('small', {
-    staticClass: "text-muted pull-right"
-  }, [_vm._v(" " + _vm._s(_vm.formatted) + " ")])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-56a04250", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

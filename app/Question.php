@@ -91,7 +91,6 @@ class Question extends Model {
 
     public static function question_validity_status($expiring_at){
 
-       
         
         $added_time = strtotime($expiring_at);
 
