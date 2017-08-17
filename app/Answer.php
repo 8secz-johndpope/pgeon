@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Answer extends Model
 {
@@ -62,7 +63,10 @@ class Answer extends Model
      * @return mixed
      */
     public static function get_sorted($question_id) {
-        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name','user_id'));
+        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name','user_id','answers.id'));
+      
+
+      
        // $answer = $answer->sortByDesc(function ($answer) {
          //   return $answer->votes->sum('vote');
        // });
@@ -84,6 +88,19 @@ class Answer extends Model
         return $answer_array;
     }
 
+  
+    public static function get_current_user_votes_for_question($question_id) {
+         $sql = "SELECT SUM(vote) AS vote_count FROM votes 
+                    INNER JOIN answers ON answers.id = votes.answer_id
+                    WHERE answers.user_id = ". Auth::user()->id. " 
+                    AND question_id= ".$question_id;
+                      
+      $rec = DB::select( DB::raw($sql) );
+  
+        //print_r($rec[0]->vote_count);
+      
+        return $rec[0]->vote_count;
+    }
 
 
 }

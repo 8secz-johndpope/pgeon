@@ -32,7 +32,8 @@ class QuestionController extends Controller
         }
       //  $answer_ids = Answer::get_answer_ids($question_id);
         else {
-            return view('questions.show', ['question' => $question]);
+            $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
+            return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
         }
         
     }
@@ -98,11 +99,22 @@ class QuestionController extends Controller
     $details ['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
     $details ['expiring_at'] = Question::question_validity_status($question->expiring_at);
     return response()->json($details);
-    
 
     
     
   }
+  public static function get_votes($id) {
+    
+     $sql = "SELECT answer_id, vote FROM votes v  
+                              INNER JOIN answers a ON a.id = v.answer_id 
+                              WHERE a.question_id = '$id' AND v.user_id = ".Auth::user()->id;
+     $votes = DB::select( DB::raw($sql) );
+    //$votes_response = array();
+   // foreach ($votes as $key => $val)  {
+   //   $votes_response[$val->answer_id] = $val->vote;
+    //}
+    return response()->json($votes);
+  } 
     
     /**
      * GET /question/ask

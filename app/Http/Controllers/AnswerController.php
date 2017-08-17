@@ -37,4 +37,20 @@ class AnswerController extends Controller
             return Response::json(array('status'=>0));
     }
 
+  
+  	public function destroy($id)
+	{
+      
+        
+		// delete
+		$answer = Answer::find($id);
+        if($answer->user_id == Auth::user()->id){
+          //only owner can delete it
+          $answer->delete();  
+        }
+		
+		//echo 'sdfsd';exit;
+      
+		
+	}
 }

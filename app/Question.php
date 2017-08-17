@@ -24,16 +24,7 @@ class Question extends Model {
         return $this->hasMany('App\Answer');
     }
 
-    // Create the relationship to votes
-    public function votes() {
-        return $this->hasMany('App\Vote');
-    }
-
-    // Using a relationship table or a 'pivot' table.
-    // Use ->count() to get total
-    public function tags() {
-        return $this->belongsToMany('App\Tag', 'tags_questions', 'question_id','tag_id');
-    }
+   
 
     public function formatted_h_m() {
       return str_pad($this->active_hours,2,"0",STR_PAD_LEFT). ' hrs '.str_pad($this->active_mins,2,"0",STR_PAD_LEFT).' mins';

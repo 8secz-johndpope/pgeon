@@ -2011,51 +2011,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -2064,24 +2019,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       answers: [],
       submitted_text: '',
       already_answered: false,
-      placeholder: "Enter your response here"
+      placeholder: "Enter your response here",
+      votecount: 0,
+      my_votes: []
 
     };
   },
   props: ['question_id', 'current_user_id', 'question_owner_id'],
-  mounted: function mounted() {
-    console.log('answers mounted.');
-  },
+  mounted: function mounted() {},
 
   watch: {
     answers: function answers() {
 
-      console.log('fored');
-
       for (var i = 0; i < this.answers.length; i++) {
-        console.log(this.answers[i]["user_id"]);
+
         if (this.answers[i]["user_id"] == this.current_user_id) {
-          console.log('answerwerd');
           this.already_answered = true;
           this.placeholder = "You already have posted an answer";
           break;
@@ -2091,6 +2043,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
 
+    ownerOfAnswer: function ownerOfAnswer(user_id) {
+      return this.current_user_id == user_id;
+    },
     scrollToEnd: function scrollToEnd() {
       var container = this.$el;
 
@@ -2098,9 +2053,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     submit_answer: function submit_answer() {
       var _this = this;
-
-      // if (this.already_answered)
-      // return false;
 
       var formData = {
         'question_id': this.question_id,
@@ -2111,6 +2063,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, function (response) {
         alert('error submitting');
       });
+    },
+    delete_answer: function delete_answer(id) {
+      var _this2 = this;
+
+      var formData = {
+        'id': id
+
+      };
+      this.$http.delete('/answer/' + id, formData).then(function (response) {
+        _this2.submitted_text = '';
+      }, function (response) {
+        alert('error submitting');
+      });
+    },
+
+    upVote: function upVote(answer_id, e) {
+      var _this3 = this;
+
+      var formData = {
+        'answer_id': answer_id,
+        'user_id': this.current_user_id,
+        'vote_direction': 'up'
+        //   var el = e.target
+      };this.$http.post('/vote', formData).then(function (response) {
+        //it is upvoted.. remove other down vote highlited if any
+        _this3.updateVotesArray(answer_id, response['data'].vote);
+
+        //     $(el).parent().find('.icon-thumbs-down').removeClass('voted')
+        //    $(el).addClass('voted')
+      }, function (response) {
+        alert('error submitting');
+      });
+    },
+
+    downVote: function downVote(answer_id, e) {
+      var _this4 = this;
+
+      var formData = {
+        'answer_id': answer_id,
+        'user_id': this.current_user_id,
+        'vote_direction': 'down'
+        //   var el = e.target
+      };this.$http.post('/vote', formData).then(function (response) {
+        _this4.updateVotesArray(answer_id, response['data'].vote);
+        //    $(el).parent().find('.icon-thumbs-up').removeClass('voted')
+        //   $(el).addClass('voted')
+      }, function (response) {
+        alert('error submitting');
+      });
+    },
+
+    checkVoted: function checkVoted(answer_id) {
+      for (var i = 0; i < this.my_votes.length; i++) {
+        if (this.my_votes[i]["answer_id"] == answer_id) {
+          return this.my_votes[i]["vote"];
+          break;
+        }
+      }
+      return false;
+    },
+    updateVotesArray: function updateVotesArray(answer_id, vote) {
+      for (var i = 0; i < this.my_votes.length; i++) {
+        if (this.my_votes[i]["answer_id"] == answer_id) {
+          this.my_votes[i]["vote"] = vote;
+          break;
+        }
+      }
     }
   },
 
@@ -2126,10 +2145,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         com.answers.push(response);
         com.scrollToEnd();
       });
+
+      socket.on('answer_deleted', function (id) {
+
+        for (var i = 0; i < com.answers.length; i++) {
+          if (com.answers[i]["id"] == id) {
+            com.answers.splice(i, 1);
+            com.already_answered = false;
+            com.placeholder = "Enter your response here";
+            break;
+          }
+        }
+      });
     }
 
     $.getJSON('/question/' + this.question_id + '/json', function (response) {
       this.answers = response;
+
+      // var com = this
+      $.getJSON('/get_votes/' + this.question_id, function (votes) {
+        //   com.my_votes = votes
+        this.my_votes = votes;
+      }.bind(this));
     }.bind(this));
   }
 
@@ -32388,14 +32425,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "answers_container"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._l((_vm.answers), function(answer) {
+  }, [_vm._l((_vm.answers), function(answer) {
     return _c('div', {
       staticClass: "col-md-12 subtract-margin-left"
     }, [_c('ul', {
       staticClass: "media-list media-list-conversation c-w-md fa-ul"
     }, [_c('li', {
       staticClass: "media m-b-md"
-    }, [_vm._m(2, true), _vm._v(" "), _c('div', {
+    }, [_c('a', {
+      staticClass: "media-left"
+    }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
+      staticClass: "icon icon-thumbs-up",
+      class: {
+        voted: _vm.checkVoted(answer.id) == 1
+      },
+      on: {
+        "click": function($event) {
+          _vm.upVote(answer.id, $event)
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (!_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
+      staticClass: "icon icon-thumbs-down",
+      class: {
+        voted: _vm.checkVoted(answer.id) == -1
+      },
+      on: {
+        "click": function($event) {
+          _vm.downVote(answer.id, $event)
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
+      staticStyle: {
+        "color": "#eaeaea"
+      }
+    }, [_vm._v(_vm._s(_vm.votecount))]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [_c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
@@ -32405,11 +32468,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "media-body-text media-response media-user-response",
+      class: [_vm.ownerOfAnswer(answer.user_id) ? 'your_answer' : ''],
       staticStyle: {
-        "cursor": "pointer",
-        "background": "#E8EFF7"
+        "cursor": "point"
       }
-    }, [_vm._m(3, true), _vm._v("\n                                        " + _vm._s(answer.answer) + "\n                                    ")])])])])])])])])
+    }, [(_vm.ownerOfAnswer(answer.user_id)) ? _c('button', {
+      staticClass: "close",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "alert",
+        "aria-label": "Close"
+      },
+      on: {
+        "click": function($event) {
+          _vm.delete_answer(answer.id)
+        }
+      }
+    }, [_c('span', {
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }, [_vm._v("×")])]) : _vm._e(), _vm._v("\n                                    " + _vm._s(answer.answer) + "\n                                ")])])])])])])])])
   }), _vm._v(" "), (_vm.question_owner_id != _vm.current_user_id) ? _c('div', [_c('div', {
     staticClass: "footer navbar-fixed-bottom"
   }, [_c('div', {
@@ -32455,121 +32534,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submitted_text = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
     staticClass: "media-footer text-right"
   })])])])])])])])]) : _vm._e()], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-md-12 subtract-margin-left"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md fa-ul"
-  }, [_c('li', {
-    staticClass: "media m-b-md"
-  }, [_c('a', {
-    staticClass: "media-left"
-  }, [_c('button', {
-    staticClass: "btn-borderless",
-    attrs: {
-      "id": "vote",
-      "onclick": "upVote()"
-    }
-  }, [_c('h1', {
-    attrs: {
-      "id": "counter"
-    }
-  }, [_vm._v("-")])])]), _vm._v(" "), _c('div', {
-    staticClass: "media-body"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-current-user m-b-md media-divider"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text media-response media-user-response",
-    staticStyle: {
-      "background": "#E8EFF7"
-    }
-  }, [_c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "alert",
-      "aria-label": "Close"
-    }
-  }, [_c('span', {
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }, [_vm._v("×")])]), _vm._v(" "), _c('span', {
-    staticStyle: {
-      "display": "block"
-    }
-  }, [_vm._v("\n   estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.")])])])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-md-12 subtract-margin-left"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md fa-ul"
-  }, [_c('li', {
-    staticClass: "media m-b-md"
-  }, [_c('a', {
-    staticClass: "media-left"
-  }, [_c('button', {
-    staticClass: "btn-borderless",
-    attrs: {
-      "id": "vote",
-      "onclick": "upVote()"
-    }
-  }, [_c('h1', {
-    attrs: {
-      "id": "counter"
-    }
-  }, [_vm._v("-")])])]), _vm._v(" "), _c('div', {
-    staticClass: "media-body"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-current-user m-b-md media-divider"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text media-response media-response-margin",
-    staticStyle: {
-      "cursor": "pointer"
-    },
-    attrs: {
-      "onclick": "upVote();"
-    }
-  }, [_vm._v("\n                                                estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.\n")])])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "media-left"
-  }, [_c('button', {
-    staticClass: "btn-borderless",
-    attrs: {
-      "id": "vote",
-      "onclick": "upVote()"
-    }
-  }, [_c('h1', {
-    attrs: {
-      "id": "counter"
-    }
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "alert",
-      "aria-label": "Close"
-    }
-  }, [_c('span', {
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }, [_vm._v("×")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
   }, [_c('button', {

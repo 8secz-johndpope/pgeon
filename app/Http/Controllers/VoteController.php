@@ -12,6 +12,11 @@ use Log;
 
 class VoteController extends Controller
 {
+  
+    public static function index() {
+            
+    } 
+  
     public function vote_question()
     {
 
@@ -39,33 +44,15 @@ class VoteController extends Controller
         return Response::json($ajax_response);
     }
 
-    public function vote_answer()
+    public function vote()
     {
-
-        // Is the current and past vote the same?
-        // If so, remove all votes. They want to nullify vote..
-        $voted = Vote::where('user_id', Auth::id())
-            ->where('answer_id',Request::get('answer_id'))
-            ->first();
-
-        if (isset($voted->id)) {
-            Vote::destroy($voted->id);
-            $ajax_response = array(
-                'status' => 'success',
-                'msg' => 'vote nullified',
-            );
-        } else {
-            Vote::updateOrCreate(
-                ['answer_id' => Request::get('answer_id'),'user_id' => Auth::user()->id],
-                ['vote' => Request::get('vote')]
-            );
-
-            $ajax_response = array(
-                'status' => 'success',
-                'msg' => 'vote casted...',
-            );
-        }
-
-        return Response::json($ajax_response);
+      if(Auth::user()->id == Request::get('user_id')) {
+        
+        $vote = Vote::cast_vote(Auth::user()->id, Request::get('answer_id'),Request::get('vote_direction'));
+        //echo $vote;
+          return Response::json(array('vote' => $vote));
+    
+           }
+            
     }
 }

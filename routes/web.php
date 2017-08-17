@@ -52,6 +52,7 @@
     Route::get('questions/new', 'QuestionController@newest');
     Route::get('question/{id}/{format?}', 'QuestionController@show');
     Route::get('question_details/{id}', 'QuestionController@details');
+    Route::get('get_votes/{id}', 'QuestionController@get_votes');
     
       
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
@@ -73,8 +74,9 @@
 
 
   // Answer Routes
-  Route::post('answer', array( 'before'=>'csfr','uses'=>'AnswerController@insert' ) );
-  Route::post('answer/update', array( 'before'=>'csfr','uses'=>'AnswerController@update' ) );
+  Route::post('answer', array( 'uses'=>'AnswerController@insert' ) );
+  Route::post('answer/update', array( 'uses'=>'AnswerController@update' ) );
+  Route::delete('answer/{id}', array('uses'=>'AnswerController@destroy' ) );
 
   // Tag Routes
   Route::get('tag/{id}', 'TagController@show_new');
@@ -94,8 +96,9 @@
   });
 
   // Votes
-  Route::post('vote/answer', array( 'before'=>'csfr','uses'=>'VoteController@vote_answer' ) );
-  Route::post('vote/question', array( 'before'=>'csfr','uses'=>'VoteController@vote_question' ) );
+  Route::post('vote', array( 'before'=>'csfr','uses'=>'VoteController@vote' ) );
+  //Route::get('votes/{qid}', array( 'before'=>'csfr','uses'=>'VoteController@index' ) );
+ // Route::post('vote/question', array( 'before'=>'csfr','uses'=>'VoteController@vote_question' ) );
 
   //userfollowing
 

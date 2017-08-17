@@ -74,10 +74,8 @@ var watcher = mysqlEventWatcher.add(
 
 
       rooms.forEach(function (room) {
-        console.log('yyss' + room)
         //skipe Q detail sockets
         if (room.indexOf('Q_') == -1) {
-          console.log('ss' + room)
           io.sockets.in(room).emit('new_question', newRow.fields.id);
         }
 
@@ -122,7 +120,7 @@ var ans_watcher = mysqlEventWatcher.add(
           'answer': newRow.fields.answer,
           'name': result[0].name,
           'user_id': result[0].id,
-          'qid': newRow.fields.question_id
+          'id': newRow.fields.id
         });
         // });
       });
@@ -131,7 +129,51 @@ var ans_watcher = mysqlEventWatcher.add(
 
     //row deleted
     if (newRow === null) {
-      //delete code goes here
+        
+      //nofity all the question detail page who are all viewing this quesiont
+      io.sockets.in('Q_' + oldRow.fields.question_id).emit('answer_deleted', oldRow.fields.id);
+
+    }
+
+
+
+
+  }
+
+);
+
+
+
+
+var votes_watcher = mysqlEventWatcher.add(
+  'pgeon.votes',
+  function (oldRow, newRow, event) {
+    //row inserted 
+    if (oldRow === null) {
+      // if (oldRow != newRow) {
+      //TODO will be converted to SP
+      //notify the user who answered for the vote
+      var sql = "SELECT user_id, answer_id FROM  WHERE id = " + newRow.fields.user_id;
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        //  result.forEach(function(rec) {
+        io.sockets.in('Q_' + newRow.fields.question_id).emit('new_answers', {
+          'answer': newRow.fields.answer,
+          'name': result[0].name,
+          'user_id': result[0].id,
+          'id': newRow.fields.id
+        });
+        // });
+      });
+
+    }
+
+    //row deleted
+    if (newRow === null) {
+        
+      //nofity all the question detail page who are all viewing this quesiont
+     // io.sockets.in('Q_' + oldRow.fields.question_id).emit('answer_deleted', oldRow.fields.id);
+
     }
 
 

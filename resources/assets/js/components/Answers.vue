@@ -1,68 +1,23 @@
 <template>
     <div id="answers_container">
       
-      <div class="col-md-12 subtract-margin-left">
-                    <ul class="media-list media-list-conversation c-w-md fa-ul">
-                        <li class="media m-b-md">
-                            <a class="media-left">
-                                <button id="vote" onclick="upVote()" class="btn-borderless">
-                                    <h1 id="counter">-</h1>
-                                </button>
-                            </a>
-                            <div class="media-body">
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media media-current-user m-b-md media-divider">
-                                        <div class="media-body">
-                                            <div class="media-body-text media-response media-user-response" style="background: #E8EFF7;;</span></butt;</span></button>;</span></button>;</span></button>;">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <span style="display: block">
-   estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</span>
-                                            </div>
-                                        </div>
-                          
-                        </li>
-                    </ul>
-                </div>
-  </li></ul></div>
-      
-                <div class="col-md-12 subtract-margin-left">
-                    <ul class="media-list media-list-conversation c-w-md fa-ul">
-                        <li class="media m-b-md">
-                            <a class="media-left">
-                                <button id="vote" onclick="upVote()" class="btn-borderless">
-                                    <h1 id="counter">-</h1>
-                                </button>
-                            </a>
-                            <div class="media-body">
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media media-current-user m-b-md media-divider">
-                                        <div class="media-body">
-                                            <div class="media-body-text media-response media-response-margin" onclick="upVote();" style="cursor: pointer;">
-                                                estas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-</div>
-                                        </div>
-                            
-                        </li>
-                    </ul>
-                </div>
-  </li></ul></div>
-      
+    
         <div class="col-md-12 subtract-margin-left" v-for="answer in answers">
             <ul class="media-list media-list-conversation c-w-md fa-ul">
                 <li class="media m-b-md">
                     <a class="media-left">
-                        <button id="vote" onclick="upVote()" class="btn-borderless">
-                            <h1 id="counter"></h1>
-                        </button>
+                        
+                        <span v-bind:class="{ voted : checkVoted(answer.id) == 1 }" v-on:click="upVote(answer.id,$event)"  v-if="!ownerOfAnswer(answer.user_id)" class="icon icon-thumbs-up"></span>
+                        <span v-bind:class="{ voted : checkVoted(answer.id) == -1 }" v-on:click="downVote(answer.id,$event)" v-if="!ownerOfAnswer(answer.user_id)"  class="icon icon-thumbs-down" ></span>
+                        <span  v-if="ownerOfAnswer(answer.user_id)" style="color:#eaeaea">{{votecount}}</span>
+                        
                     </a>
                     <div class="media-body">
                         <ul class="media-list media-list-conversation c-w-md">
                             <li class="media media-current-user m-b-md media-divider">
                                 <div class="media-body">
-                                    <div class="media-body-text media-response media-user-response"  style="cursor: pointer; background: #E8EFF7;">
-                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <div v-bind:class="[ ownerOfAnswer(answer.user_id) ? 'your_answer' : '']" class="media-body-text media-response media-user-response"  style="cursor: point">
+                                         <button  v-if="ownerOfAnswer(answer.user_id)" type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="delete_answer(answer.id)" >
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                         {{answer.answer}}
@@ -120,24 +75,23 @@
         submitted_text: '',
         already_answered: false,
         placeholder: "Enter your response here",
+        votecount: 0,
+        my_votes: []
 
       };
     },
     props: ['question_id', 'current_user_id', 'question_owner_id'],
     mounted() {
-      console.log('answers mounted.')
 
 
     },
     watch: {
       answers() {
 
-        console.log('fored')
 
         for (var i = 0; i < this.answers.length; i++) {
-          console.log(this.answers[i]["user_id"])
+      
           if (this.answers[i]["user_id"] == this.current_user_id) {
-            console.log('answerwerd')
             this.already_answered = true
             this.placeholder = "You already have posted an answer"
             break;
@@ -149,6 +103,9 @@
     },
     methods: {
 
+      ownerOfAnswer: function(user_id) {
+        return this.current_user_id == user_id
+      },
       scrollToEnd: function() {
         var container = this.$el
 
@@ -156,8 +113,7 @@
 
       },
       submit_answer: function() {
-        // if (this.already_answered)
-        // return false;
+
 
         var formData = {
           'question_id': this.question_id,
@@ -168,7 +124,73 @@
         }, (response) => {
           alert('error submitting')
         });
+      },
+      delete_answer: function(id) {
+
+
+        var formData = {
+          'id': id
+
+        }
+        this.$http.delete('/answer/' + id, formData).then((response) => {
+          this.submitted_text = ''
+        }, (response) => {
+          alert('error submitting')
+        });
+      },
+
+      upVote: function(answer_id,e) {
+        var formData = {
+          'answer_id': answer_id,
+          'user_id': this.current_user_id,
+          'vote_direction': 'up'  
+        }
+     //   var el = e.target
+        this.$http.post('/vote' , formData).then((response) => {
+            //it is upvoted.. remove other down vote highlited if any
+          this.updateVotesArray(answer_id, response['data'].vote)
+            
+      //     $(el).parent().find('.icon-thumbs-down').removeClass('voted')
+       //    $(el).addClass('voted')
+        }, (response) => {
+          alert('error submitting')
+        });
+      },
+       
+      downVote: function(answer_id,e) {
+        var formData = {
+          'answer_id': answer_id,
+          'user_id': this.current_user_id,
+          'vote_direction': 'down'  
+        }
+     //   var el = e.target
+        this.$http.post('/vote' , formData).then((response) => {
+            this.updateVotesArray(answer_id, response['data'].vote)
+      //    $(el).parent().find('.icon-thumbs-up').removeClass('voted')
+       //   $(el).addClass('voted')
+        }, (response) => {
+          alert('error submitting')
+        });
+      },
+      
+      checkVoted(answer_id) {
+         for (var i = 0; i < this.my_votes.length; i++) {
+            if (this.my_votes[i]["answer_id"] == answer_id) {
+              return this.my_votes[i]["vote"];
+              break;
+            }
+         }
+        return false;
+      },
+      updateVotesArray(answer_id, vote) {
+        for (var i = 0; i < this.my_votes.length; i++) {
+            if (this.my_votes[i]["answer_id"] == answer_id) {
+               this.my_votes[i]["vote"] = vote;
+              break;
+            }
+         }
       }
+      
     }
 
 
@@ -185,11 +207,36 @@
           com.answers.push(response)
           com.scrollToEnd();
         });
+
+        socket.on('answer_deleted', function(id) {
+
+          for (var i = 0; i < com.answers.length; i++) {
+            if (com.answers[i]["id"] == id) {
+              com.answers.splice(i, 1);
+              com.already_answered = false
+              com.placeholder = "Enter your response here"
+              break;
+            }
+
+          }
+        });
+
       }
 
       $.getJSON('/question/' + this.question_id + '/json', function(response) {
         this.answers = response
+        
+        // var com = this
+        $.getJSON('/get_votes/'+this.question_id, function(votes) {
+       //   com.my_votes = votes
+            this.my_votes = votes
+          
       }.bind(this));
+        
+      }.bind(this));
+      
+       
+      
     },
 
 
