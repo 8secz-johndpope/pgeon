@@ -25,7 +25,7 @@
                             </a>
           <div class="media-body">
             <div class="media-heading">
-              <small class="pull-right"> <span class="question_clock">Validity : <answeringtimer initial="{{$question->expiring_at}}"></answeringtimer>
+              <small class="pull-right"> <span class="question_clock">Asked on : {{$question->expiring_at}}
 </span></small>
               <h5 class="m-b-0">{{$question->user->name}}</h5>
             </div>
@@ -50,7 +50,7 @@
 
 
   </div>
-  <answers question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" votecount="{{$user_answered_votes}}"></answers>
+  <answers_expired_owner question_id="{{$question->id}}" accepted_answer="{{$question->accepted_answer}}"></answers_expired_owner>
 
 </div>
 

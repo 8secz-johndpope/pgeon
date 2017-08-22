@@ -33,7 +33,20 @@ class QuestionController extends Controller
       //  $answer_ids = Answer::get_answer_ids($question_id);
         else {
             $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
-            return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
+            
+            if ($question->expiring_at > date("Y-m-d H:i:s", time())) {
+                $question->expiring_at = Question::question_validity_status($question->expiring_at);
+                return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);  
+            }else {
+              if (Auth::user()->id == $question->user_id) {
+                return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes]); 
+              }else {
+                  return view('questions.showexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);   
+              }
+               
+            }
+            
+            
         }
         
     }
@@ -103,6 +116,22 @@ class QuestionController extends Controller
     
     
   }
+  
+  public static function accept_answer() {
+    
+    $question = Question::find(Request::get('question_id'));
+
+    if (!$question)
+        abort(404, "Page Not Found");
+    
+    if (Auth::user()->id == $question->user_id) {
+        $question->accepted_answer = Request::get('answer_id');  
+        $question->save();
+        return Redirect::to('question/'.$question->id);
+    }
+    
+    
+  }
   public static function get_votes($id) {
     
      $sql = "SELECT answer_id, vote FROM votes v  
@@ -116,6 +145,19 @@ class QuestionController extends Controller
     return response()->json($votes);
   } 
     
+  
+    public static function get_votes_with_count($id) {
+    
+     $sql = "SELECT answer_id,  SUM(vote) as votecount FROM votes v  
+                              INNER JOIN answers a ON a.id = v.answer_id 
+                              WHERE a.question_id = '$id' GROUP BY v.answer_id";
+     $votes = DB::select( DB::raw($sql) );
+    //$votes_response = array();
+   // foreach ($votes as $key => $val)  {
+   //   $votes_response[$val->answer_id] = $val->vote;
+    //}
+    return response()->json($votes);
+  } 
     /**
      * GET /question/ask
      * @return Redirect

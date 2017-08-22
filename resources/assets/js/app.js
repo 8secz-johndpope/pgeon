@@ -8,16 +8,26 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 Vue.use(require('vue-resource'));
+import Slick from 'vue-slick';
 
 Vue.component('follow', require('./components/Search.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));
+Vue.component('answeringtimer', require('./components/AnsweringTimer.vue'));
+Vue.component('answers_expired', require('./components/AnswersExpired.vue'));
+Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner.vue'));
+
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 const app = new Vue({
   el: '#app',
-  data: {
+  components: { Slick },
 
+  data: {
+     slickOptions: {
+                slidesToShow: 3,
+                // Any other options that can be got from plugin documentation
+            },
   },
   methods: {
     follow: function (id) {

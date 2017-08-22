@@ -102,6 +102,7 @@ class Question extends Model {
 
 
 
+
     /**
      * Insert the question to the table.
      * @return object

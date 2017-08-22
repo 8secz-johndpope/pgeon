@@ -5,7 +5,7 @@
         <div class="col-md-12 subtract-margin-left" v-for="answer in answers">
             <ul class="media-list media-list-conversation c-w-md fa-ul">
                 <li class="media m-b-md">
-                    <a class="media-left">
+                    <a class="media-left" v-if="question_owner_id != current_user_id">
                         
                         <span v-bind:class="{ voted : checkVoted(answer.id) == 1 }" v-on:click="upVote(answer.id,$event)"  v-if="!ownerOfAnswer(answer.user_id)" class="icon icon-thumbs-up"></span>
                         <span v-bind:class="{ voted : checkVoted(answer.id) == -1 }" v-on:click="downVote(answer.id,$event)" v-if="!ownerOfAnswer(answer.user_id)"  class="icon icon-thumbs-down" ></span>
@@ -75,12 +75,11 @@
         submitted_text: '',
         already_answered: false,
         placeholder: "Enter your response here",
-        votecount: 0,
         my_votes: []
 
       };
     },
-    props: ['question_id', 'current_user_id', 'question_owner_id'],
+    props: ['question_id', 'current_user_id', 'question_owner_id','votecount'],
     mounted() {
 
 
@@ -183,12 +182,20 @@
         return false;
       },
       updateVotesArray(answer_id, vote) {
-        for (var i = 0; i < this.my_votes.length; i++) {
+        var i = 0;
+        while ( i < this.my_votes.length) {
             if (this.my_votes[i]["answer_id"] == answer_id) {
-               this.my_votes[i]["vote"] = vote;
-              break;
+               this.my_votes[i]["vote"] = vote; 
+               return
+              
             }
+          i++;
          }
+        
+        //if that vote didn't exist yet push that to array
+        var newVote = {}
+        newVote = {"answer_id" :  answer_id, "vote" : vote};
+        this.my_votes.push (newVote); 
       }
       
     }
@@ -230,6 +237,8 @@
         $.getJSON('/get_votes/'+this.question_id, function(votes) {
        //   com.my_votes = votes
             this.my_votes = votes
+          
+            console.log(this.my_votes[0])
           
       }.bind(this));
         

@@ -1,3 +1,4 @@
+
 <template>
     <small class="text-muted pull-right"> {{formatted}} </small>
   </template>
@@ -11,14 +12,12 @@
    props: {
     interval: {
       type: Number,
-      default: 5
+      default: 1
     },
     initial: {
-      type: Number
+      type: String
     },
-     question_id: {
-       type: Number
-     },
+ 
     
      
   },
@@ -40,7 +39,7 @@
       if (hours   < 10) {hours   = "0"+hours;}
       if (minutes < 10) {minutes = "0"+minutes;}
       if (seconds < 10) {seconds = "0"+seconds;}
-      return hours+' hr :'+minutes +'min';
+      return hours+' hr :'+minutes +'min'+seconds +'sec';
     },
     
     onInterval() {
@@ -51,9 +50,8 @@
       if (this.current <= 0) {
         clearInterval(this.timerInterval)
         this.current = 0
-        //this.$dispatch('eventName', this.question_id)
-        this.$emit('event', this.question_id);
-       // this.$parent.$options.methods.delete(this.question_id)
+        location.reload();
+
       }
     }
   },

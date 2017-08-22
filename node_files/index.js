@@ -145,6 +145,7 @@ var ans_watcher = mysqlEventWatcher.add(
 
 
 
+/*
 var votes_watcher = mysqlEventWatcher.add(
   'pgeon.votes',
   function (oldRow, newRow, event) {
@@ -153,7 +154,7 @@ var votes_watcher = mysqlEventWatcher.add(
       // if (oldRow != newRow) {
       //TODO will be converted to SP
       //notify the user who answered for the vote
-      var sql = "SELECT user_id, answer_id FROM  WHERE id = " + newRow.fields.user_id;
+      var sql = "SELECT answer_id FROM votes WHERE id = " + newRow.fields.user_id;
       con.query(sql, function (err, result) {
         if (err) throw err;
         //  result.forEach(function(rec) {
@@ -182,3 +183,4 @@ var votes_watcher = mysqlEventWatcher.add(
   }
 
 );
+*/

@@ -19,13 +19,14 @@
     <div class="col-md-12">
       <ul class="media-list media-list-conversation c-w-md">
         <li class="media p-a media-divider">
+          
           <a class="media-left" href="{{ ($question->user->slug)? '/'.$question->user->slug :  '/user/'.$question->user->id}}">
 
                                 <img class="media-object img-circle" src="{{ $question->user->avatar ? '/uploads/avatars/'.$question->user->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
                             </a>
           <div class="media-body">
             <div class="media-heading">
-              <small class="pull-right"> <span class="question_clock">Validity : <answeringtimer initial="{{$question->expiring_at}}"></answeringtimer>
+              <small class="pull-right"> <span class="question_clock">Asked on : {{$question->expiring_at}}
 </span></small>
               <h5 class="m-b-0">{{$question->user->name}}</h5>
             </div>
@@ -50,7 +51,7 @@
 
 
   </div>
-  <answers question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" votecount="{{$user_answered_votes}}"></answers>
+  <answers_expired question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" accepted_answer="{{$question->accepted_answer}}"></answers_expired>
 
 </div>
 

@@ -52,9 +52,10 @@
     Route::get('questions/new', 'QuestionController@newest');
     Route::get('question/{id}/{format?}', 'QuestionController@show');
     Route::get('question_details/{id}', 'QuestionController@details');
-    Route::get('get_votes/{id}', 'QuestionController@get_votes');
+    Route::get('get_votes/{id}/', 'QuestionController@get_votes');
+    Route::get('get_votes_with_count/{id}', 'QuestionController@get_votes_with_count');
     
-      
+    Route::post('accept_answer', array('before'=>'csfr', 'uses'=>'QuestionController@accept_answer' ) );  
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
     Route::get('ask', 'QuestionController@ask')->name('ask');
 

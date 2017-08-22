@@ -1,3 +1,4 @@
+
 .profile_upload img {
   width: 75px;
 }
@@ -374,6 +375,9 @@ ul.list_notifications {
 
 .your_answer {
   background: #E8EFF7 !important;
+}
+.accepted_answer {
+  background: #66cc99 !important;
 }
 .icon-thumbs-up, .icon-thumbs-down {
   color:darkgrey;
