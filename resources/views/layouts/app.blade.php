@@ -17,8 +17,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toolkit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.css" />
-  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick-theme.css" />
+   @stack('after-core-styles')
 </head>
 @if (Auth::guest())
 <body>
@@ -129,15 +128,6 @@
     <script src="{{ asset('js/toolkit.js') }}"></script>
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-
-    <script>
-      // execute/clear BS loaders for docs
-      $(function(){
-        if (window.BS&&window.BS.loader&&window.BS.loader.length) {
-          while(BS.loader.length){(BS.loader.pop())()}
-        }
-      })
-    </script>
 
 
 </body>
