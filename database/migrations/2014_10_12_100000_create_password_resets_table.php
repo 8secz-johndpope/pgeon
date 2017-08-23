@@ -13,6 +13,14 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
+      # create user table 
+      Schema::table('users', function ($table) {
+        $table->string('stripe_id')->nullable();
+        $table->string('card_brand')->nullable();
+        $table->string('card_last_four')->nullable();
+        $table->timestamp('trial_ends_at')->nullable();
+      });
+
       Schema::table('users', function ($table) {
         $table->string('stripe_id')->nullable();
         $table->string('card_brand')->nullable();
@@ -40,5 +48,7 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
+        Schema::drop('users');
+        Schema::drop('subscriptions');
     }
 }
