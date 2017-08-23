@@ -60,7 +60,7 @@
                           </li>
                           <li>
                               <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                  <img class="img-circle" src="{{ Auth::user()->avatar ? '/uploads/avatars/'.Auth::user()->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+                                  <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}   " alt="">
 
                               </button>
                           </li>

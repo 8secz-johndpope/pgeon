@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Answer;
 use App\Question;
 use App\Tag;
+use Helper;
 
 class QuestionController extends Controller
 {
@@ -85,7 +86,7 @@ class QuestionController extends Controller
             foreach($fetched_questions as $key => $question){
                 $questions [$key]['id'] = $question->id; 
                 $questions [$key]['question'] = $question->question; 
-                $questions [$key]['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
+                $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
               $questions [$key]['name'] = $question->name;
                 
                 $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
@@ -109,7 +110,7 @@ class QuestionController extends Controller
     $details ['id'] = $question->id; 
     $details ['question'] = $question->question; 
     $details ['name'] = $question->user->name;
-    $details ['avatar'] = $question->avatar ? '/uploads/avatars/'.$question->avatar:  asset('img/profile-placeholder.svg');
+    $details ['avatar'] =  Helper::avatar($question->avatar);
     $details ['expiring_at'] = Question::question_validity_status($question->expiring_at);
     return response()->json($details);
 
@@ -191,4 +192,6 @@ class QuestionController extends Controller
 		Session::flash('message', 'Successfully deleted the question!');
 		return Redirect::to('questions');
 	}
+  
+    
 }

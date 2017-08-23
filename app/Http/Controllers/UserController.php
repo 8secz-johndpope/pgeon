@@ -191,21 +191,31 @@ class UserController extends Controller
 
     public function getProfileBySlug($slug) {
         $user = User::where('slug', '=', $slug)->first();
-          if(!$user)
-            return view('user.usernotfound');
-          else
-            return view('user.public_profile')->with('user',$user);
-
+        return $this->showPublicProfile($user);  
     }
 
     public function getProfile($id) {
           $user =  User::find($id);
-          if(!$user)
-            return view('user.usernotfound');
-          else
-            return view('user.public_profile')->with('user',$user);
+          return $this->showPublicProfile($user);
     }
 
+    private function showPublicProfile($user) {
+      if(!$user)
+            return view('user.usernotfound');
+          else {
+            $most_replied = $this->getMostRepliedFor($user->id);
+            
+            
+            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', $user->points());
+          }
+    }
 
+   private function getMostRepliedFor($user_id) {
+      $users = User::get_users_of_accepted_answers($user_id);
+      return $users;
+   }
   
+  public function points() {
+      return $this->id;
+    }
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Question;
 use App\User;
 use App\UserFollowing;
-
+use Helper;
 class HomeController extends Controller {
 
     /**
@@ -36,7 +36,7 @@ class HomeController extends Controller {
         else
           $url = "/user/".$value->user_id;
 
-          $avatar = $value->user->avatar ? '/uploads/avatars/'.$value->user->avatar:  '/img/profile-placeholder.svg';
+          $avatar =  Helper::avatar($value->user->avatar);
           $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio, 'avatar' =>  $avatar, 'url' => $url);
 
       }
@@ -48,7 +48,7 @@ class HomeController extends Controller {
             $url = $follower->slug;
           else
             $url = "/user/".$follower->id;
-          $avatar = $value->user->avatar ? '/uploads/avatars/'.$value->user->avatar:  '/img/profile-placeholder.svg';
+          $avatar =  Helper::avatar($value->user->avatar);
           $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $avatar, 'url' => $url);
       }
 

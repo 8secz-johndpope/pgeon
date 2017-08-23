@@ -13,7 +13,7 @@
                  <li class="list-group-item">
                       <div class="media">
                           <a class="media-left" href="{{$value['obj']['url']}}">
-                              <img class="media-object img-circle" src="{{ $value['obj']->avatar ? '/uploads/avatars/'.$value['obj']->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+                              <img class="media-object img-circle" src="{{  Helper::avatar($value['obj']->avatar) }} " alt="">
 
                           </a>
                           <div class="media-body">

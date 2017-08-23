@@ -22,7 +22,7 @@
           
           <a class="media-left" href="{{ ($question->user->slug)? '/'.$question->user->slug :  '/user/'.$question->user->id}}">
 
-                                <img class="media-object img-circle" src="{{ $question->user->avatar ? '/uploads/avatars/'.$question->user->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+                                <img class="media-object img-circle" src="{{ Helper::avatar($question->user->avatar)  }} " alt="">
                             </a>
           <div class="media-body">
             <div class="media-heading">

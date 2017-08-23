@@ -7,15 +7,15 @@
       <div class="user-meta">
         <div class="avatar-wrapper">
           
-          <img class="avatar avatar-96 photo" src="{{ $user->avatar ? '/uploads/avatars/'.$user->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="" height="96" width="96">
+          <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
         </div>
         <div class="vote-points">
-          <span class="number"></span>points
+          <span class="number">{{$user->points() }}</span>points
         </div>
       </div>
       <div class="user-details">
-        <h3 class="profile-header-user"> <span class="icon-uncertified"></span> display-name</h3>
-        <p class="description">Love hearing what you guys have to say!</p>
+        <h3 class="profile-header-user"> <span class="icon-uncertified"></span> {{$user->name}}</h3>
+        <p class="description">{{$user->bio}}</p>
       </div>
       <div>
         <div class="panel-body" style="text-align:center">
@@ -24,49 +24,26 @@
           
     
      <div class="slider slider-nav" style="padding-bottom:15px">
-                                <div>
-                                    <li class="avatar-list-item">
-                                        <img class="img-circle" src="/uploads/avatars/1499249439.jpg" />
-                                    </li>
-                                </div>
-                                <div>
-                                    <li class="avatar-list-item">
-                                        <img class="img-circle" src="/uploads/avatars/1499249471.png" />
-                                    </li>
-                                </div>
-                                <div>
-                                    <li class="avatar-list-item">
-                                        <img class="img-circle" src="/uploads/avatars/1499249565.png" />
-                                    </li>
-                                </div>
-                                <div>
-                                    <li class="avatar-list-item">
-                                        <img class="img-circle" src="/img/profile-placeholder.svg" />
-                                    </li>
-                                </div>
-                                <div>
-                                    <li class="avatar-list-item">
-                                        <img class="img-circle" src="/img/profile-placeholder.svg" />
-                                    </li>
-                                </div>
+       
+                               @foreach ($most_replied as $follower)
+                                   <div>
+                                   <li class="avatar-list-item">
+                                       <img class="img-circle" src="{{ Helper::avatar($follower->avatar) }}" />
+                                   </li>
+                               </div>
+                               @endforeach 
+                                
+                                
                          
                             </div>
+              
                             <div class="slider slider-for">
+                               @foreach ($most_replied as $follower)
                                 <div>
-                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">display-name1</a>
+                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">{{ $follower->name }}</a>
                                 </div>
-                                <div>
-                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">display-name2</a>
-                                </div>
-                                <div>
-                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">display-name3</a>
-                                </div>
-                                <div>
-                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">display-name4</a>
-                                </div>
-                                <div>
-                                    <a data-toggle="modal" href="#msgModal" style="color:#3a8bbb">display-name5</a>
-                                </div>
+                                @endforeach 
+                               
                             </div>
     
     

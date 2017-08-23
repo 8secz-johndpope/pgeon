@@ -65,11 +65,8 @@ class User extends Authenticatable
 
   public function has_active_question() {
     
-//     $user = Auth::user();
 
     $q = $this->questions()->orderBy('expiring_at', 'desc')->take(1)->get();
-  //  print_r($q);
-    //exit;
     if(isset($q[0])) {
       if ($q[0]->expiring_at >=  date("Y-m-d H:i:s", time())) {
         return $q[0]->expiring_at;
@@ -80,4 +77,23 @@ class User extends Authenticatable
     
     
   }
+  
+  
+  public static function get_users_of_accepted_answers($user_id) {
+    
+    $sql = "SELECT users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
+              INNER JOIN answers ON questions.accepted_answer = answers.id
+              INNER JOIN users ON answers.user_id = users.id 
+              WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC";
+      $users = DB::select( DB::raw($sql) );
+      return $users;
+    
+  }
+  
+  public function points() {
+    
+    return $this->votes->sum('vote');
+    
+  }
 }
+

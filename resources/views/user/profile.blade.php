@@ -32,7 +32,7 @@
 
                                    <label for="file">
                                        <figure>
-                                           <img class="media-object img-circle" src="{{ $user->avatar ? '/uploads/avatars/'.$user->avatar:  URL::asset('img/profile-placeholder.svg')}} " alt="">
+                                           <img class="media-object img-circle" src="{{ Helper::avatar($user->avatar) }} " alt="">
                                        </figure>
                                        <span>Change</span>
                                    </label>
