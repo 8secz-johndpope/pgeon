@@ -44,7 +44,7 @@
                                       </span>
                                     @endif
                                     <label for="pw"></label>
-                                    <input type="text" id="password" name="password" placeholder="Password">
+                                    <input type="password" id="password" name="password" placeholder="Password">
                                 </div>
                                 <div class="submit_panel">
                                     <input class="btn btn-primary-outline btn-sm" type="submit" value="Login" name="register">

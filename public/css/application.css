@@ -1,3 +1,4 @@
+
 /*
  * Application level styles
  * (things that dont make sense in a toolkit :)
@@ -157,3 +158,116 @@ nav .navbar-header .nav.navbar-nav li
 full-width
 {
 }
+
+/* nav changes (copy:pasted needs refactoring )*/
+@media (max-width: 767px){
+    .hidden-xs {
+      display: block !important;
+    }
+  }
+  
+  .navbar-header{
+    float: left;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  }
+  .navbar-header::after{
+    display: table;
+    content: "";
+    clear: both;
+  }
+  .qt{
+    display: none;
+  }
+  .qt , .ad{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .navbar-right li{
+    height: 100%;
+  }
+  .navbar-right .navbar-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0; 
+    padding: 0;
+  }
+  
+  @media (min-width: 768px){
+  /* toolkit.css:4944 */
+    .navbar-right {
+      float: right !important;
+      margin-right: 0 ;
+    }
+  
+  }
+  
+@media (max-width: 768px){
+    /* toggle add question and ?  */
+    .ad{
+      display: none;
+    }
+    .qt{
+      display: inline-block;
+    }
+  #question_container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+  
+  .app-notifications {
+    margin-left: 0;
+    padding-bottom: 6px !important;
+  }
+  
+  .navbar-form{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  #question_container {
+    width: 100% !important; 
+    transition: margin-top .3s ease;
+    margin-top: -244px;
+    margin-left: 0 ; 
+    margin-right: 0 ; 
+    background: #828287;
+    max-height: 244px;
+  }
+  #question_container.open {
+    margin-top: 0;
+  }
+  
+  
+  @media (max-width: 768px){
+  /* toolkit.css?_ca…272966513:4880 */
+    .navbar-form {
+      padding: 0 15px;
+    }
+  
+  }
+  .icon-circle-with-plus.icon::before{
+    transition: transform 0.1s ease-in-out;
+  }
+  .button-open .icon::before{
+    transform: rotate(45deg) scale(1.1);
+    transform-origin: center;
+  }
+
+  /* hide clone_bar */
+  li > ul#clone_bar{
+      display: none;
+  }
+
+  /* fix spacing issues  */
+  .navbar-form{
+      padding: 0; 
+  }
+
+  .app-notifications {
+    margin: 0 10px;
+  }

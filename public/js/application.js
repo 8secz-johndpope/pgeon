@@ -190,3 +190,29 @@ $(function () {
       }
     }
 })
+
+// sliding form 
+$(function () {
+  $("#a_add_question" ).click(function() {
+      $("#question_container").toggleClass("open")
+      $("#a_add_question").toggleClass("button-open")
+  });
+})
+
+// Count down text_area 
+
+$("#question-input").on("input" , handleInput)
+$("#question-input").on("paste" , handleInput)
+
+function handleInput(e){
+
+  const maxLength = 150 
+  const currentLength = e.target.value.length
+
+  if(currentLength > maxLength ){ // exceded 
+    e.target.value = e.target.value.substring(0, maxLength);
+    return;
+  }
+
+  $(".current-length").text(currentLength)
+}
