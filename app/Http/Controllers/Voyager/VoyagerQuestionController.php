@@ -35,11 +35,8 @@ class VoyagerQuestionController
       public function publish($id)
       {
         $question = Question::find($id);
-        $question->published_at = date("Y-m-d H:i:s");
+        $question->published_at = gmdate("Y-m-d H:i:s");
         $question->save();
-
-      //  $question->status      =
-      //  $question->save();
 
         return view('voyager.questions.edit', ['question' => $question]);
 

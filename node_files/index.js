@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
+var moment = require('moment');
 
 var MySQLEvents = require('mysql-events');
 var dsn = {
@@ -68,10 +69,28 @@ var watcher = mysqlEventWatcher.add(
   function (oldRow, newRow, event) {
     //row inserted 
     if (oldRow === null) {
-      //TODO will be converted to SP
 
-      //just notify all the users connected via socket
-
+      //send out notificatoins when the time expires
+      var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
+      
+      
+      setTimeout(function(){ 
+        
+        //check the question is not deleted in meantime
+         var sql = "SELECT id FROM questions WHERE id = " + newRow.fields.id;
+        con.query(sql, function (err, result) {
+          if (err) throw err;
+          if(result[0].id > 0) {
+              console.log(newRow.fields.id)  
+          }else {
+            //question deleted..do nothing
+              console.log('delete')
+          }
+          
+        })
+          
+        
+      }, trigger_at);
 
       rooms.forEach(function (room) {
         //skipe Q detail sockets
@@ -80,19 +99,6 @@ var watcher = mysqlEventWatcher.add(
         }
 
       });
-
-      /*
-          //notify every users who are following asker
-            var sql = "SELECT uf.followed_by FROM questions q INNER JOIN user_followings uf  ON q.user_id = uf.user_id      WHERE q.id = "+newRow.fields.id;
-          con.query(sql, function (err, result) {
-            if (err) throw err;
-                          
-              result.forEach(function(rec) {
-                    io.sockets. in (rec.followed_by).emit('new_question', newRow.fields);   
-                });
-          });
-          */
-
 
 
     }
@@ -141,6 +147,8 @@ var ans_watcher = mysqlEventWatcher.add(
   }
 
 );
+
+
 
 
 

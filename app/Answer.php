@@ -35,7 +35,7 @@ class Answer extends Model
           exit;    
         }
       
-        if ($question->expiring_at < date("Y-m-d H:i:s", time())) {
+        if ($question->expiring_at <  time()) {
           echo 'question expired';
           exit;    
         }

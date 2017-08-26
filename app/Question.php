@@ -38,11 +38,11 @@ class Question extends Model {
             ->select(['questions.id'])
             ->where([
                 ['user_followings.followed_by', '=', $user_id],
-                ['questions.expiring_at', '<', date("Y-m-d H:i:s")],
+                ['questions.expiring_at', '<', time()],
             ]);
 */
       $user_id = Auth::user()->id;
-      $now = date("Y-m-d H:i:s");
+      $now = time();
 
 
         //TODO will be converted to stored proc in future
@@ -90,7 +90,6 @@ class Question extends Model {
         if ($added_time > time()) {
           $remaining_time = $added_time - time();
           return $remaining_time;
-          //return  date("H:i:s", $remaining_time);
         }else {
           return 0;
         }
@@ -113,7 +112,8 @@ class Question extends Model {
         $question->question = $question_text;
         $question->user_id = $user_id;
       //always insert as GMT+0...which is what php date() returns..don't depend on mysql date
-        $question->expiring_at = date("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
+        $question->expiring_at = time() +  ($hours * 60 * 60) + ($mins * 60);
+        //$question->expiring_at = gmdate("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
         $question->save();
 
         return $question;

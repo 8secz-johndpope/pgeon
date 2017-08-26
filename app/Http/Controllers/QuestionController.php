@@ -35,7 +35,7 @@ class QuestionController extends Controller
         else {
             $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
             
-            if ($question->expiring_at > date("Y-m-d H:i:s", time())) {
+            if ($question->expiring_at > time()) {
                 $question->expiring_at = Question::question_validity_status($question->expiring_at);
                 return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);  
             }else {

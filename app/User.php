@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     $q = $this->questions()->orderBy('expiring_at', 'desc')->take(1)->get();
     if(isset($q[0])) {
-      if ($q[0]->expiring_at >=  date("Y-m-d H:i:s", time())) {
+      if ($q[0]->expiring_at >= time()) {
         return $q[0]->expiring_at;
       }
     }
