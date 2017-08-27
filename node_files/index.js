@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
   res.send('<h1>Hello world</h1>');
 });
 
-//rooms 
+//rooms
 var rooms = [];
 
 
@@ -67,35 +67,45 @@ var mysqlEventWatcher = MySQLEvents(dsn);
 var watcher = mysqlEventWatcher.add(
   'pgeon.questions',
   function (oldRow, newRow, event) {
-    //row inserted 
+    //row inserted
     if (oldRow === null) {
 
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
-      
-      
-      setTimeout(function(){ 
-        
+      var question_id = newRow.fields.id
+
+      setTimeout(function(){
+
         //check the question is not deleted in meantime
-         var sql = "SELECT id FROM questions WHERE id = " + newRow.fields.id;
+         var sql = "SELECT id FROM questions WHERE id = " + question_id;
         con.query(sql, function (err, result) {
           if (err) throw err;
           if(result[0].id > 0) {
-              console.log(newRow.fields.id)  
+              //send notif to users whoever answered
+              var sql = "SELECT user_id FROM answers WHERE question_id = " + question_id;
+              con.query(sql, function (err, results) {
+                if (err) throw err;
+                  console.log(results)
+                for (i = 0; i < results.length; i++) {
+                    console.log(results[i]);
+                    var notification = "{question_id:"+question_id+"}"
+                    var sql = "INSERT INTO notifications (target_user, notification) VALUES ("+results[i].user_id+",)"
+                }
+              }
           }else {
             //question deleted..do nothing
               console.log('delete')
           }
-          
+
         })
-          
-        
+
+
       }, trigger_at);
 
       rooms.forEach(function (room) {
         //skipe Q detail sockets
         if (room.indexOf('Q_') == -1) {
-          io.sockets.in(room).emit('new_question', newRow.fields.id);
+          io.sockets.in(room).emit('new_question', question_id);
         }
 
       });
@@ -113,7 +123,7 @@ var watcher = mysqlEventWatcher.add(
 var ans_watcher = mysqlEventWatcher.add(
   'pgeon.answers',
   function (oldRow, newRow, event) {
-    //row inserted 
+    //row inserted
     if (oldRow === null) {
       // if (oldRow != newRow) {
       //TODO will be converted to SP
@@ -135,7 +145,7 @@ var ans_watcher = mysqlEventWatcher.add(
 
     //row deleted
     if (newRow === null) {
-        
+
       //nofity all the question detail page who are all viewing this quesiont
       io.sockets.in('Q_' + oldRow.fields.question_id).emit('answer_deleted', oldRow.fields.id);
 
@@ -157,7 +167,7 @@ var ans_watcher = mysqlEventWatcher.add(
 var votes_watcher = mysqlEventWatcher.add(
   'pgeon.votes',
   function (oldRow, newRow, event) {
-    //row inserted 
+    //row inserted
     if (oldRow === null) {
       // if (oldRow != newRow) {
       //TODO will be converted to SP
@@ -179,7 +189,7 @@ var votes_watcher = mysqlEventWatcher.add(
 
     //row deleted
     if (newRow === null) {
-        
+
       //nofity all the question detail page who are all viewing this quesiont
      // io.sockets.in('Q_' + oldRow.fields.question_id).emit('answer_deleted', oldRow.fields.id);
 
