@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 27, 2017 at 03:44 AM
--- Server version: 5.7.18
--- PHP Version: 7.1.8
+-- Generation Time: Aug 29, 2017 at 04:09 PM
+-- Server version: 5.7.18-log
+-- PHP Version: 7.0.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -277,9 +277,19 @@ CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `target_user` int(11) NOT NULL,
   `notification` text NOT NULL,
-  `seen` int(11) NOT NULL,
-  `type` varchar(10) NOT NULL
+  `seen` int(1) NOT NULL DEFAULT '0',
+  `created_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `target_user`, `notification`, `seen`, `created_at`) VALUES
+(13, 5, '{question_id:19,type:\'question_posted\'}', 0, 1504015286),
+(14, 5, '{question_id:19,type:\'question_posted\'}', 0, 1504015286),
+(15, 5, '{question_id:20,type:\'question_posted\'}', 0, 1504015307),
+(16, 5, '{question_id:20,type:\'question_posted\'}', 0, 1504015307);
 
 -- --------------------------------------------------------
 
@@ -490,7 +500,15 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `user_id`, `question`, `solved`, `created_at`, `updated_at`, `status`, `published_at`, `expiring_at`, `accepted_answer`) VALUES
-(31, 8, '<p>oioi</p>', 0, '2017-08-26 07:05:48', '2017-08-26 07:05:48', 'PUBLISHED', NULL, 1503751128, 0);
+(12, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(13, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(14, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(15, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(16, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(17, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(18, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(19, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0),
+(20, 6, '<p>what</p>', 0, '2017-08-28 04:53:29', '2017-08-28 04:53:29', 'PUBLISHED', NULL, 1503915809, 0);
 
 -- --------------------------------------------------------
 
@@ -655,11 +673,11 @@ INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `re
 (1, 1, 'Admin', 'admin@admin.com', '', '$2y$10$QXCKwWMssG4XZfY30UTnberfWKkzDmRkZjdT5pQVxQWXrsF//3DDS', 'HtPURCERWnMjdk56baUK6da2iyqcM07hgfhN9VUfDgEqoeI21rmVKHJkIGu5', '2017-05-17 07:37:07', '2017-05-17 07:37:07', NULL, NULL, NULL, NULL, 'my bio goes here', NULL, NULL, '1'),
 (2, 3, 'ram', 'ram@gmail.com', '', '$2y$10$bhMuTRz8Vr70AprzSkkXi./RWpfM5.3G8Zs9P2IM3GEeL.EnU3a86', '1kTTEZ9686wZAPyKdmUnbMzGA0pgLHWP9KdjfFLhDN2ZLqcuQ4l8HfGbt2FS', '2017-05-22 20:31:01', '2017-07-12 09:43:22', 'cus_B0fFoa4B6OFnhD', 'Visa', '4242', NULL, 'I am not a good guy', NULL, NULL, 'dras'),
 (3, 2, 'bal', 'bala@gmail.com', '', '$2y$10$qHvf4G84gqqvnkcErNXz0uqj9jaaKfeFcmbiSbFDxr31xmDYgOsrW', 'cHH9Se2mBfCdjNsEo7mOxpotTInsUUfpfuu5a4veU3FKrLarGojme7zu1xSx', '2017-06-01 08:44:59', '2017-06-01 08:44:59', NULL, NULL, NULL, NULL, 'good bal', NULL, NULL, ''),
-(4, 2, 'jac', 'jack@gmail.com', '', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', 'GMF1UaPqP6jThoeYkG1JeJYH7nwdenwxiW20UokIEXWMeNEC099j2GqsMvdT', '2017-06-01 08:51:55', '2017-06-01 08:51:55', NULL, NULL, NULL, NULL, '', NULL, NULL, '4'),
+(4, 2, 'jac', 'jack@gmail.com', '', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', 'oNS8SoDJnC6Z4sqzqKThr072NPROhq77yePJs35jKNaIOPizCRMblLxKjzu2', '2017-06-01 08:51:55', '2017-06-01 08:51:55', NULL, NULL, NULL, NULL, '', NULL, NULL, '4'),
 (5, 2, 'ba', 'bal@gmail.com', '', '$2y$10$D3kFGVEp0w/IljuUJRShEuLJjnIliPypWqGqq5C266TY8Pmd8dnoy', '0zk9XHDcazFVTZdsZd0JPYOqnUkwLsm6dvSa82W5ktqenaFEeHE8j1qNQpRj', '2017-06-10 04:14:43', '2017-08-11 09:35:06', NULL, NULL, NULL, NULL, '', NULL, NULL, 'LAS'),
 (6, 3, 'Jacob Thornton', 'jc@test.com', '1499249439.jpg', '$2y$10$OR1bEfvmMmMgqngCB7Auqujr8S8lwzceOF2OsD2eeZN2ogcXYpFaG', 'gPknbVjaZTSFC0gPMWLxhkAASnbWjMDp6kbweLFkR3BYeKu1P9XiNwYhQwAl', '2017-06-19 18:52:24', '2017-06-19 18:52:24', NULL, NULL, NULL, NULL, 'around the galaxy', NULL, NULL, 'jac'),
 (7, 3, 'jak Dave Gamache', 'dave@test.com', '', '$2y$10$qyb/rnJ3yOyYlePczbsCguuc01fv9Uyoq39as/.rNAXvq/RdV7lZm', 'gDSThYaE6BPcUvVHiOmWKwm1kTdejNhSkdODf8vNOSK7v7QOrd2rc86wZuKP', '2017-06-19 19:04:11', '2017-06-19 19:04:11', NULL, NULL, NULL, NULL, 'sailing into dreams', NULL, NULL, '7'),
-(8, 3, 'Mark Otto', 'mark@tes.com', '', '$2y$10$5CVkPSQbNPLuAQPlFEfPUumiqRTwUffPdS/r1ryKukemBRswio1Qu', NULL, '2017-06-19 19:05:49', '2017-06-19 19:05:49', NULL, NULL, NULL, NULL, 'Love nature', NULL, NULL, '8'),
+(8, 3, 'Mark Otto', 'mark@tes.com', '', '$2y$10$5CVkPSQbNPLuAQPlFEfPUumiqRTwUffPdS/r1ryKukemBRswio1Qu', 'QA0SgXv48FGFac8xW64fOgZQ20Im1RQiCOT3888rVdW1yN6kcoBw8jgLXeBo', '2017-06-19 19:05:49', '2017-06-19 19:05:49', NULL, NULL, NULL, NULL, 'Love nature', NULL, NULL, '8'),
 (9, 2, 'Ram Kumar', 'ramrumram@gmail.com', '', NULL, 'TLn5ymz7nlQwGgc7BvgNAPXuRAHA0eviWPvPLGWeMeJX9o8qbbNg5iH9ebN9', '2017-06-21 05:20:50', '2017-06-21 05:20:51', NULL, NULL, NULL, NULL, NULL, 'facebook', '544005219110827', '9'),
 (10, 2, 'prasanth', NULL, '', NULL, '0YCCpR1Mn08bfb9cGcSzHV2s21QbOgmep3AnV2EVMj22GyF128RzaJBEaSiO', '2017-06-21 05:59:01', '2017-07-05 08:31:31', NULL, NULL, NULL, NULL, 'dfdf', 'twitter', '877457031795326976', ''),
 (11, 2, 'one', 'on3@gmil.com', '1499249565.png', '$2y$10$FOzNS/rj6FJ9.d8oc/TGSO.6qz1RgPa8hzzRx.cArfOP7hgePbxr.', 'J2WEMRCq9yFGGDGF1G1o0PsUE8yKynaspVFD05mBOxyMY3rF2w2RG0Jpw1Y1', '2017-07-05 03:30:52', '2017-07-05 04:42:45', NULL, NULL, NULL, NULL, 'dfd', NULL, NULL, 'g');
@@ -917,7 +935,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -942,7 +960,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `roles`
 --
