@@ -105,3 +105,10 @@ jQuery(function ($) {
 
 
 });
+
+if(socket) {
+ socket.on('bubble', function (bubble) {
+        alert(bubble)
+      }); 
+}
+ 

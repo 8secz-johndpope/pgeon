@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
 var moment = require('moment');
-
+var aysnc=require('async') 
 var MySQLEvents = require('mysql-events');
 var dsn = {
   host: "localhost",
@@ -68,33 +68,86 @@ var watcher = mysqlEventWatcher.add(
   'pgeon.questions',
   function (oldRow, newRow, event) {
     //row inserted
+    var target_user = 0; 
     if (oldRow === null) {
 
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
       var question_id = newRow.fields.id
 
-      setTimeout(function(){
+       
+     
+      setTimeout(function () {
 
         //check the question is not deleted in meantime
-         var sql = "SELECT id FROM questions WHERE id = " + question_id;
+        var sql = "SELECT id FROM questions WHERE id = " + question_id;
+         console.log(sql)
         con.query(sql, function (err, result) {
           if (err) throw err;
-          if(result[0].id > 0) {
-              //send notif to users whoever answered
-              var sql = "SELECT user_id FROM answers WHERE question_id = " + question_id;
-              con.query(sql, function (err, results) {
-                if (err) throw err;
-                  console.log(results)
-                for (i = 0; i < results.length; i++) {
-                    console.log(results[i]);
-                    var notification = "{question_id:"+question_id+"}"
-                    var sql = "INSERT INTO notifications (target_user, notification) VALUES ("+results[i].user_id+",)"
-                }
+
+
+          if (result[0] !== undefined) {
+            //send notif to followers
+            var sql = "SELECT  uf.followed_by FROM  user_followings uf INNER JOIN questions q                            ON q.user_id = uf.user_id    INNER JOIN users u ON u.id = uf.user_id           WHERE q.id = " + question_id;
+            console.log(sql)
+
+
+             
+            con.query(sql, function (err, results) {
+              if (err) throw err;
+
+              aysnc.forEach(results, function(elem, callback){
+            	  	
+            	  	target_user = elem.followed_by
+            	       //delete seen notif which are created a day ago
+                    var sql = "DELETE FROM `notifications` WHERE created_at  <= UNIX_TIMESTAMP(CURDATE()) AND target_user = " + target_user + " AND seen=1";
+                    
+                    console.log(sql)
+                     console.log('out')
+                    console.log(target_user)
+                    con.query(sql, function (err) {
+                      if (err) throw err;
+                      console.log('in')
+                    console.log(target_user)
+                      var notification = "{question_id:" + question_id + ",type:\'question_posted\'}"
+                      var sql = "INSERT INTO notifications (target_user, notification,created_at) VALUES (" + target_user + ",\"" + notification + "\",\"" + new Date().getTime() / 1000 + "\")"
+                       console.log(sql)
+                      con.query(sql, function (err) {
+                        if (err) throw err;
+                         console.log(sql)
+                        //get the unseen notif count to send out bubble
+                        var sql = "SELECT COUNT(1) AS cnt FROM notifications WHERE target_user =  " + target_user + " GROUP BY target_user";
+                        console.log(sql)
+                        con.query(sql, function (err, cntresult) {
+                          if (err) throw err;
+                          console.log('emiting' + 'U_' + target_user)
+                          io.sockets.in('U_' + target_user).emit('bubble', cntresult[0]['cnt']);
+                        })
+
+
+
+                      })
+                    })
+              });
+              
+             
+              
+              
+              /*
+              for (i = 0; i < results.length; i++) {
+
+                target_user = results[i].followed_by
+         
+
+
               }
-          }else {
+              */
+            })
+
+
+          } else {
             //question deleted..do nothing
-              console.log('delete')
+            console.log('deleted')
           }
 
         })
@@ -114,6 +167,26 @@ var watcher = mysqlEventWatcher.add(
     }
 
 
+
+    //row deleted
+    if (newRow === null) {
+
+
+      //delete the old notifications for question posted
+      var notification = "question_id:" + oldRow.fields.id + ",type:\\'question_posted\\'"
+      var sql = "DELETE FROM notifications WHERE notification LIKE '%" + notification + "%'";
+      console.log(sql)
+
+      con.query(sql, function (err, results) {
+        if (err) throw err;
+
+
+      })
+
+
+
+
+    }
 
 
   }
@@ -201,4 +274,13 @@ var votes_watcher = mysqlEventWatcher.add(
   }
 
 );
+
+
+
+
+
+
+ //send notif to users whoever answered
+              var sql = "SELECT user_id FROM answers WHERE question_id = " + question_id;
+             
 */

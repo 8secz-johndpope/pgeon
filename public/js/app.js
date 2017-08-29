@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 59);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -528,7 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
 
 /***/ }),
 /* 3 */
@@ -823,27 +823,26 @@ module.exports = g;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(33);
+__webpack_require__(36);
 
-window.Vue = __webpack_require__(47);
-Vue.use(__webpack_require__(46));
+window.Vue = __webpack_require__(56);
+Vue.use(__webpack_require__(55));
 
-Vue.component('follow', __webpack_require__(41));
-Vue.component('allq', __webpack_require__(38));
-Vue.component('answers', __webpack_require__(40));
-Vue.component('allqtimer', __webpack_require__(39));
-Vue.component('answeringtimer', __webpack_require__(60));
-Vue.component('answers_expired', __webpack_require__(63));
-Vue.component('answers_expired_owner', __webpack_require__(66));
+Vue.component('follow', __webpack_require__(47));
+Vue.component('allq', __webpack_require__(41));
+Vue.component('answers', __webpack_require__(44));
+Vue.component('allqtimer', __webpack_require__(42));
+Vue.component('answeringtimer', __webpack_require__(43));
+Vue.component('answers_expired', __webpack_require__(45));
+Vue.component('answers_expired_owner', __webpack_require__(46));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var app = new Vue({
@@ -919,6 +918,12 @@ jQuery(function ($) {
     return false;
   });
 });
+
+if (socket) {
+  socket.on('bubble', function (bubble) {
+    alert(bubble);
+  });
+}
 
 /***/ }),
 /* 10 */
@@ -1955,6 +1960,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  props: {
+    interval: {
+      type: Number,
+      default: 1
+    },
+    initial: {
+      type: String
+    }
+
+  },
+
+  data: function data() {
+    return {
+      current: this.initial,
+      timerInterval: null,
+      formatted: '...'
+    };
+  },
+
+  methods: {
+    to_time: function to_time() {
+      var sec_num = parseInt(this.current, 10); // don't forget the second param
+      var hours = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - hours * 3600) / 60);
+      var seconds = sec_num - hours * 3600 - minutes * 60;
+
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return hours + ' hr :' + minutes + 'min' + seconds + 'sec';
+    },
+    onInterval: function onInterval() {
+      this.current = this.current -= this.interval;
+      //   console.log(this.current)
+
+      this.formatted = this.to_time();
+      if (this.current <= 0) {
+        clearInterval(this.timerInterval);
+        this.current = 0;
+        location.reload();
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.timerInterval = setInterval(this.onInterval, this.interval * 1000);
+  }
+});
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2187,7 +2262,197 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 32 */
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  data: function data() {
+    return {
+      answers: [],
+      my_votes: []
+
+    };
+  },
+  props: ['question_id', 'current_user_id', 'question_owner_id', 'accepted_answer'],
+  mounted: function mounted() {},
+
+
+  methods: {
+
+    ownerOfAnswer: function ownerOfAnswer(user_id) {
+      return this.current_user_id == user_id;
+    },
+
+    checkVoted: function checkVoted(answer_id) {
+      for (var i = 0; i < this.my_votes.length; i++) {
+        if (this.my_votes[i]["answer_id"] == answer_id) {
+          return this.my_votes[i]["votecount"];
+        }
+      }
+      return "-";
+    }
+  },
+
+  created: function created() {
+
+    $.getJSON('/question/' + this.question_id + '/json', function (response) {
+      this.answers = response;
+
+      // var com = this
+      $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
+        //   com.my_votes = votes
+        this.my_votes = votes;
+
+        console.log(this.my_votes[0].votecount);
+      }.bind(this));
+    }.bind(this));
+  }
+
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  data: function data() {
+    return {
+      answers: [],
+      my_votes: [],
+      csrf: ""
+
+    };
+  },
+  props: ['question_id', 'accepted_answer'],
+  mounted: function mounted() {
+    this.csrf = $('meta[name="csrf-token"]').attr('content');
+  },
+
+
+  methods: {
+    checkVoted: function checkVoted(answer_id) {
+      for (var i = 0; i < this.my_votes.length; i++) {
+        if (this.my_votes[i]["answer_id"] == answer_id) {
+          return this.my_votes[i]["votecount"];
+        }
+      }
+      return "-";
+    }
+  },
+
+  created: function created() {
+
+    $.getJSON('/question/' + this.question_id + '/json', function (response) {
+      this.answers = response;
+
+      // var com = this
+      $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
+        //   com.my_votes = votes
+        this.my_votes = votes;
+
+        console.log(this.my_votes[0].votecount);
+      }.bind(this));
+    }.bind(this));
+  }
+
+});
+
+/***/ }),
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2312,11 +2577,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(36);
+window._ = __webpack_require__(39);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2325,9 +2590,9 @@ window._ = __webpack_require__(36);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(35);
+  window.$ = window.jQuery = __webpack_require__(38);
 
-  __webpack_require__(34);
+  __webpack_require__(37);
 } catch (e) {}
 
 /**
@@ -2370,7 +2635,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4753,7 +5018,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15013,7 +15278,7 @@ return jQuery;
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32102,10 +32367,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(48)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(57)(module)))
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -32295,14 +32560,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(54),
   /* scopeId */
   null,
   /* cssModules */
@@ -32329,14 +32594,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(53),
   /* scopeId */
   null,
   /* cssModules */
@@ -32363,14 +32628,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(52),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnsweringTimer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AnsweringTimer.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-33f53a56", Component.options)
+  } else {
+    hotAPI.reload("data-v-33f53a56", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(32),
+  /* template */
+  __webpack_require__(48),
   /* scopeId */
   null,
   /* cssModules */
@@ -32397,14 +32696,82 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(33),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(50),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnswersExpired.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AnswersExpired.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-205b9585", Component.options)
+  } else {
+    hotAPI.reload("data-v-205b9585", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(49),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnswersExpiredOwner.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AnswersExpiredOwner.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1e531cde", Component.options)
+  } else {
+    hotAPI.reload("data-v-1e531cde", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(35),
+  /* template */
+  __webpack_require__(51),
   /* scopeId */
   null,
   /* cssModules */
@@ -32431,7 +32798,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32572,7 +32939,128 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "answers_container"
+    }
+  }, _vm._l((_vm.answers), function(answer) {
+    return _c('div', {
+      staticClass: "col-md-12 subtract-margin-left"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md fa-ul"
+    }, [_c('li', {
+      staticClass: "media m-b-md"
+    }, [_c('a', {
+      staticClass: "media-left"
+    }, [_c('span', [_vm._v("  " + _vm._s(_vm.checkVoted(answer.id)))])]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media media-current-user m-b-md media-divider"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-response media-user-response",
+      class: [_vm.accepted_answer == answer.id ? 'accepted_answer' : ''],
+      staticStyle: {
+        "cursor": "point"
+      }
+    }, [_vm._v("\n                                 \n                                    " + _vm._s(answer.answer) + "\n                                ")])]), _vm._v(" "), (_vm.accepted_answer < 1) ? _c('form', {
+      staticClass: "form-horizontal",
+      attrs: {
+        "method": "post",
+        "action": "/accept_answer"
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "answer_id"
+      },
+      domProps: {
+        "value": answer.id
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "question_id"
+      },
+      domProps: {
+        "value": _vm.question_id
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn pull-right",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Accept")])]) : _vm._e()])])])])])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1e531cde", module.exports)
+  }
+}
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "answers_container"
+    }
+  }, _vm._l((_vm.answers), function(answer) {
+    return _c('div', {
+      staticClass: "col-md-12 subtract-margin-left"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md fa-ul"
+    }, [_c('li', {
+      staticClass: "media m-b-md"
+    }, [_c('a', {
+      staticClass: "media-left"
+    }, [_c('span', [_vm._v("  " + _vm._s(_vm.checkVoted(answer.id)))])]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media media-current-user m-b-md media-divider"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-response media-user-response",
+      class: [_vm.accepted_answer == answer.id ? 'accepted_answer' : _vm.ownerOfAnswer(answer.user_id) ? 'your_answer' : ''],
+      staticStyle: {
+        "cursor": "point"
+      }
+    }, [_vm._v("\n                                 \n                                    " + _vm._s(answer.answer) + "\n                                ")])])])])])])])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-205b9585", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32680,7 +33168,24 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('small', {
+    staticClass: "text-muted pull-right"
+  }, [_vm._v(" " + _vm._s(_vm.formatted) + " ")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-33f53a56", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32697,7 +33202,7 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32767,7 +33272,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33869,7 +34374,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(49);
+    var client = __webpack_require__(58);
 
     return new PromiseObj(function (resolve) {
 
@@ -34345,7 +34850,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 47 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44044,7 +44549,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 48 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -44072,526 +44577,18 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 49 */
+/* 58 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 50 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
-
-/***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-  props: {
-    interval: {
-      type: Number,
-      default: 1
-    },
-    initial: {
-      type: String
-    }
-
-  },
-
-  data: function data() {
-    return {
-      current: this.initial,
-      timerInterval: null,
-      formatted: '...'
-    };
-  },
-
-  methods: {
-    to_time: function to_time() {
-      var sec_num = parseInt(this.current, 10); // don't forget the second param
-      var hours = Math.floor(sec_num / 3600);
-      var minutes = Math.floor((sec_num - hours * 3600) / 60);
-      var seconds = sec_num - hours * 3600 - minutes * 60;
-
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      if (minutes < 10) {
-        minutes = "0" + minutes;
-      }
-      if (seconds < 10) {
-        seconds = "0" + seconds;
-      }
-      return hours + ' hr :' + minutes + 'min' + seconds + 'sec';
-    },
-    onInterval: function onInterval() {
-      this.current = this.current -= this.interval;
-      //   console.log(this.current)
-
-      this.formatted = this.to_time();
-      if (this.current <= 0) {
-        clearInterval(this.timerInterval);
-        this.current = 0;
-        location.reload();
-      }
-    }
-  },
-  mounted: function mounted() {
-    this.timerInterval = setInterval(this.onInterval, this.interval * 1000);
-  }
-});
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(59),
-  /* template */
-  __webpack_require__(61),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnsweringTimer.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AnsweringTimer.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-33f53a56", Component.options)
-  } else {
-    hotAPI.reload("data-v-33f53a56", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('small', {
-    staticClass: "text-muted pull-right"
-  }, [_vm._v(" " + _vm._s(_vm.formatted) + " ")])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-33f53a56", module.exports)
-  }
-}
-
-/***/ }),
-/* 62 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-  data: function data() {
-    return {
-      answers: [],
-      my_votes: []
-
-    };
-  },
-  props: ['question_id', 'current_user_id', 'question_owner_id', 'accepted_answer'],
-  mounted: function mounted() {},
-
-
-  methods: {
-
-    ownerOfAnswer: function ownerOfAnswer(user_id) {
-      return this.current_user_id == user_id;
-    },
-
-    checkVoted: function checkVoted(answer_id) {
-      for (var i = 0; i < this.my_votes.length; i++) {
-        if (this.my_votes[i]["answer_id"] == answer_id) {
-          return this.my_votes[i]["votecount"];
-        }
-      }
-      return "-";
-    }
-  },
-
-  created: function created() {
-
-    $.getJSON('/question/' + this.question_id + '/json', function (response) {
-      this.answers = response;
-
-      // var com = this
-      $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
-        //   com.my_votes = votes
-        this.my_votes = votes;
-
-        console.log(this.my_votes[0].votecount);
-      }.bind(this));
-    }.bind(this));
-  }
-
-});
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(62),
-  /* template */
-  __webpack_require__(64),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnswersExpired.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AnswersExpired.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-205b9585", Component.options)
-  } else {
-    hotAPI.reload("data-v-205b9585", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "answers_container"
-    }
-  }, _vm._l((_vm.answers), function(answer) {
-    return _c('div', {
-      staticClass: "col-md-12 subtract-margin-left"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md fa-ul"
-    }, [_c('li', {
-      staticClass: "media m-b-md"
-    }, [_c('a', {
-      staticClass: "media-left"
-    }, [_c('span', [_vm._v("  " + _vm._s(_vm.checkVoted(answer.id)))])]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media media-current-user m-b-md media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-user-response",
-      class: [_vm.accepted_answer == answer.id ? 'accepted_answer' : _vm.ownerOfAnswer(answer.user_id) ? 'your_answer' : ''],
-      staticStyle: {
-        "cursor": "point"
-      }
-    }, [_vm._v("\n                                 \n                                    " + _vm._s(answer.answer) + "\n                                ")])])])])])])])])
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-205b9585", module.exports)
-  }
-}
-
-/***/ }),
-/* 65 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-  data: function data() {
-    return {
-      answers: [],
-      my_votes: [],
-      csrf: ""
-
-    };
-  },
-  props: ['question_id', 'accepted_answer'],
-  mounted: function mounted() {
-    this.csrf = $('meta[name="csrf-token"]').attr('content');
-  },
-
-
-  methods: {
-    checkVoted: function checkVoted(answer_id) {
-      for (var i = 0; i < this.my_votes.length; i++) {
-        if (this.my_votes[i]["answer_id"] == answer_id) {
-          return this.my_votes[i]["votecount"];
-        }
-      }
-      return "-";
-    }
-  },
-
-  created: function created() {
-
-    $.getJSON('/question/' + this.question_id + '/json', function (response) {
-      this.answers = response;
-
-      // var com = this
-      $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
-        //   com.my_votes = votes
-        this.my_votes = votes;
-
-        console.log(this.my_votes[0].votecount);
-      }.bind(this));
-    }.bind(this));
-  }
-
-});
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(65),
-  /* template */
-  __webpack_require__(67),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnswersExpiredOwner.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AnswersExpiredOwner.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1e531cde", Component.options)
-  } else {
-    hotAPI.reload("data-v-1e531cde", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "answers_container"
-    }
-  }, _vm._l((_vm.answers), function(answer) {
-    return _c('div', {
-      staticClass: "col-md-12 subtract-margin-left"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md fa-ul"
-    }, [_c('li', {
-      staticClass: "media m-b-md"
-    }, [_c('a', {
-      staticClass: "media-left"
-    }, [_c('span', [_vm._v("  " + _vm._s(_vm.checkVoted(answer.id)))])]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media media-current-user m-b-md media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-user-response",
-      class: [_vm.accepted_answer == answer.id ? 'accepted_answer' : ''],
-      staticStyle: {
-        "cursor": "point"
-      }
-    }, [_vm._v("\n                                 \n                                    " + _vm._s(answer.answer) + "\n                                ")])]), _vm._v(" "), (_vm.accepted_answer < 1) ? _c('form', {
-      staticClass: "form-horizontal",
-      attrs: {
-        "method": "post",
-        "action": "/accept_answer"
-      }
-    }, [_c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "answer_id"
-      },
-      domProps: {
-        "value": answer.id
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "_token"
-      },
-      domProps: {
-        "value": _vm.csrf
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "question_id"
-      },
-      domProps: {
-        "value": _vm.question_id
-      }
-    }), _vm._v(" "), _c('button', {
-      staticClass: "btn pull-right",
-      attrs: {
-        "type": "submit"
-      }
-    }, [_vm._v("Accept")])]) : _vm._e()])])])])])])
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-1e531cde", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

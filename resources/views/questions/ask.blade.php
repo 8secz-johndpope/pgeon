@@ -54,10 +54,10 @@
                          </select>
                          <select name="mins" class="custom-select time-select" id="minute-select">
                            
+                           <option value="01">01 min</option>
                              <option value="00">00 min</option>
-                           <option value="03">03 min</option>
-                             <option value="05">05 min</option>
-                             <option value="10">10 min</option>
+                             <option value="02">02 min</option>
+                             <option value="03">03 min</option>
                              <option value="15">15 min</option>
                              <option value="20">20 min</option>
                              <option value="25">25 min</option>
