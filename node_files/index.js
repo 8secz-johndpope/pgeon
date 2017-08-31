@@ -3,7 +3,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
 var moment = require('moment');
-var aysnc=require('async') 
 var MySQLEvents = require('mysql-events');
 var dsn = {
   host: "localhost",
@@ -62,14 +61,55 @@ http.listen(3001, function () {
   console.log('listening on *:3001');
 });
 
+var target_user = 0; 
 
 var mysqlEventWatcher = MySQLEvents(dsn);
+
+
+function deleteAndInsertResult(results, question_id)
+{
+    target_user = results[0].followed_by
+
+    //delete seen notif which are created a day ago
+ 
+  
+
+
+
+
+      var notification = "{question_id:" + question_id + ",type:\'question_posted\'}"	
+      var sql = "INSERT INTO notifications (target_user, created_at) VALUES (" + target_user + ",\"" + notification + "\",\"" + new Date().getTime() / 1000 + "\")"
+      console.log(sql)
+      con.query(sql, function (err) {
+        if (err) throw err;
+       
+        //get the unseen notif count to send out bubble
+      var sql = "SELECT COUNT(1) AS cnt FROM notifications WHERE target_user =  " + target_user + " GROUP BY target_user";
+      console.log(sql)
+      con.query(sql, function (err, cntresult) {
+        if (err) throw err;
+        console.log('emiting' + 'U_' + target_user)
+        io.sockets.in('U_' + target_user).emit('bubble', cntresult[0]['cnt']);
+        results.shift(); 
+        if(results.length){
+            return deleteAndInsertResult(results);
+          }
+      })
+        
+       
+
+      })
+  
+}
+
+
 var watcher = mysqlEventWatcher.add(
   'pgeon.questions',
   function (oldRow, newRow, event) {
     //row inserted
-    var target_user = 0; 
     if (oldRow === null) {
+   
+    	return false;
 
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
@@ -95,53 +135,12 @@ var watcher = mysqlEventWatcher.add(
              
             con.query(sql, function (err, results) {
               if (err) throw err;
-
-              aysnc.forEach(results, function(elem, callback){
-            	  	
-            	  	target_user = elem.followed_by
-            	       //delete seen notif which are created a day ago
-                    var sql = "DELETE FROM `notifications` WHERE created_at  <= UNIX_TIMESTAMP(CURDATE()) AND target_user = " + target_user + " AND seen=1";
-                    
-                    console.log(sql)
-                     console.log('out')
-                    console.log(target_user)
-                    con.query(sql, function (err) {
-                      if (err) throw err;
-                      console.log('in')
-                    console.log(target_user)
-                      var notification = "{question_id:" + question_id + ",type:\'question_posted\'}"
-                      var sql = "INSERT INTO notifications (target_user, notification,created_at) VALUES (" + target_user + ",\"" + notification + "\",\"" + new Date().getTime() / 1000 + "\")"
-                       console.log(sql)
-                      con.query(sql, function (err) {
-                        if (err) throw err;
-                         console.log(sql)
-                        //get the unseen notif count to send out bubble
-                        var sql = "SELECT COUNT(1) AS cnt FROM notifications WHERE target_user =  " + target_user + " GROUP BY target_user";
-                        console.log(sql)
-                        con.query(sql, function (err, cntresult) {
-                          if (err) throw err;
-                          console.log('emiting' + 'U_' + target_user)
-                          io.sockets.in('U_' + target_user).emit('bubble', cntresult[0]['cnt']);
-                        })
-
-
-
-                      })
-                    })
-              });
               
-             
+              deleteAndInsertResult(results, question_id);
               
+
               
-              /*
-              for (i = 0; i < results.length; i++) {
-
-                target_user = results[i].followed_by
-         
-
-
-              }
-              */
+            
             })
 
 
@@ -171,15 +170,14 @@ var watcher = mysqlEventWatcher.add(
     //row deleted
     if (newRow === null) {
 
+    	//delete all notifs for 'a question posted by a used being followed'
 
-      //delete the old notifications for question posted
-      var notification = "question_id:" + oldRow.fields.id + ",type:\\'question_posted\\'"
-      var sql = "DELETE FROM notifications WHERE notification LIKE '%" + notification + "%'";
-      console.log(sql)
+      var sql = "DELETE n.* FROM notifications n INNER JOIN notification_question_posted nqp " +
+      			"ON n.id = nqp.notification_id WHERE question_id = "  + oldRow.fields.id;
 
       con.query(sql, function (err, results) {
         if (err) throw err;
-
+        		
 
       })
 
@@ -232,7 +230,43 @@ var ans_watcher = mysqlEventWatcher.add(
 );
 
 
+//this insert will happen from application side and from node as well when an quesiton expires..
 
+var notification_watcher = mysqlEventWatcher.add(
+		  'pgeon.notifications',
+		  function (oldRow, newRow, event) {
+		    //row inserted
+		    if (oldRow === null) {
+		    	
+		    	
+		    	var target_user = newRow.fields.target_user
+		    	//delete notifs 24 hrs old
+		    	 var sql = "DELETE FROM `notifications` WHERE created_at  <= UNIX_TIMESTAMP(CURDATE()) AND target_user = " + target_user + " AND seen=1";
+		    	 
+		    	con.query(sql, function (err, result) {
+			        if (err) throw err;
+			        
+			        var sql = "SELECT COUNT(1) AS cnt FROM notifications WHERE  seen=0 AND target_user =  " + target_user + " GROUP BY target_user";
+			        console.log(sql)
+			        con.query(sql, function (err, cntresult) {
+			          if (err) throw err;
+			          console.log('emiting' + 'U_' + target_user)
+			          io.sockets.in('U_' + target_user).emit('bubble', cntresult[0]['cnt']);
+			         
+			        })
+			        
+		    	})
+		    	
+
+	
+
+		    }
+
+
+
+		  }
+
+		);
 
 
 

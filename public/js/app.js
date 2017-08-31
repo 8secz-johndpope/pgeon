@@ -843,13 +843,30 @@ Vue.component('allqtimer', __webpack_require__(42));
 Vue.component('answeringtimer', __webpack_require__(43));
 Vue.component('answers_expired', __webpack_require__(45));
 Vue.component('answers_expired_owner', __webpack_require__(46));
+Vue.component('notifications', __webpack_require__(69));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var app = new Vue({
   el: '#app',
 
   data: {},
+  mounted: function mounted() {
+
+    this.getBubbleCount();
+  },
+
   methods: {
+    getBubbleCount: function getBubbleCount() {
+      this.$http.get('/bubble').then(function (response) {
+        if (parseInt(response.data) > 0) $(".bubble").html(response.data);
+
+        //alert('ss')
+        // success callback
+      }, function (response) {
+        // error callback
+      });
+    },
+
     follow: function follow(id) {
       //  $.post('follow',  )
       var formData = {
@@ -917,11 +934,19 @@ jQuery(function ($) {
     // Prevent the form from submitting with the default action
     return false;
   });
+
+  function removeBubbles() {
+    $(".bubble").html('');
+    $("title").append('Pgeon');
+  }
 });
 
+//if there is a live notification
 if (socket) {
   socket.on('bubble', function (bubble) {
-    alert(bubble);
+    $(".bubble").html(bubble);
+
+    $("title").append(' (' + bubble + ') ');
   });
 }
 
@@ -44589,6 +44614,187 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  data: function data() {
+    return {
+      questions_created: [],
+      x: [{ uname: "Jacob Thornton", question: "<p>labr</p>" }]
+    };
+  },
+  mounted: function mounted() {},
+
+
+  methods: {
+
+    redirect: function redirect(id) {
+      location.href = 'question/' + id;
+    }
+
+  },
+  created: function created() {
+
+    $.getJSON('/notifications/json', function (response) {
+      this.questions_created = response;
+    }.bind(this));
+
+    //       var com = this
+    //       //got some new questions inserted
+    //       if (socket)
+    //         socket.on('new_question', function(response_id) {
+
+    //           //once we get the new qid inserted we use ajax to get the details
+    //           $.getJSON('/question_details/' + response_id, function(response) {
+    //             //this.questions = response
+    //             com.questions.push(response)
+    //           }.bind(com));
+
+
+    //         });
+
+
+    //       $.getJSON('/questions/json', function(response) {
+    //         console.log('dd')
+    //         console.log(response[0]['id'])
+
+    //         if (response[0]['id'] !== undefined)
+    //           this.questions = response
+
+    //       }.bind(this));
+  }
+
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(68),
+  /* template */
+  __webpack_require__(70),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Notifications.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Notifications.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-25410de3", Component.options)
+  } else {
+    hotAPI.reload("data-v-25410de3", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', _vm._l((_vm.questions_created), function(question_posted) {
+    return _c('li', {
+      staticClass: "list-group-item media p-a"
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-heading"
+    }, [_c('a', [_c('strong', [_vm._v(_vm._s(question_posted.uname))])]), _vm._v(" "), _c('small', {
+      staticClass: "pull-right text-muted"
+    }, [_vm._v(" hrs ago..")]), _vm._v(" posted a new question\n                                ")]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
+    }, [_c('li', {
+      staticClass: "media m-b-md"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-question",
+      staticStyle: {
+        "cursor": "pointer"
+      },
+      on: {
+        "click": function($event) {
+          _vm.redirect(question_posted.question_id)
+        }
+      }
+    }, [_vm._v("Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.\n")])])])])])])])
+  }))
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "media-left"
+  }, [_c('span', {
+    staticClass: "icon text-muted icon-message"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-25410de3", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -27,6 +27,8 @@ class UserFollowing extends Model
         return $this->belongsTo('App\User');
     }
 
+   
+    
 
 
 

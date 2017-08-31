@@ -56,7 +56,7 @@
                   <div class="navbar-collapse collapse" id="navbar-collapse-main">
                       <ul class="nav navbar-nav navbar-right m-r-0 hidden-xs">
                           <li>
-                              <a class="app-notifications" href="notifications/index.html"><span class="icon icon-bell"></span></a>
+                              <a class="app-notifications" href="notifications/index.html"><span class="bubble icon icon-bell"></span></a>
                           </li>
                           <li>
                               <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">

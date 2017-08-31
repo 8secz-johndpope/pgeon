@@ -24,6 +24,9 @@ class Question extends Model {
         return $this->hasMany('App\Answer');
     }
 
+    public function notification_question_posted() {
+        return $this->hasMany('App\NotificationQuestionPosted');
+    }
    
 
     public function formatted_h_m() {
@@ -114,9 +117,17 @@ class Question extends Model {
       //always insert as GMT+0...which is what php date() returns..don't depend on mysql date
         $question->expiring_at = time() +  ($hours * 60 * 60) + ($mins * 60);
         //$question->expiring_at = gmdate("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
-        $question->save();
-
+        
+         $question->save();
+         
+        foreach($question->user->user_followings as $key => $val) {
+            
+            NotificationQuestionPosted::insert($val['followed_by'], $question->id);
+        }
+              
         return $question;
+        
+      
     }
 
     // this is a recommended way to declare event handlers
@@ -134,3 +145,5 @@ class Question extends Model {
         }
 
 }
+
+

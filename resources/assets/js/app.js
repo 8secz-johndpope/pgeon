@@ -16,6 +16,7 @@ Vue.component('allqtimer', require('./components/AllQTimer.vue'));
 Vue.component('answeringtimer', require('./components/AnsweringTimer.vue'));
 Vue.component('answers_expired', require('./components/AnswersExpired.vue'));
 Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner.vue'));
+Vue.component('notifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 const app = new Vue({
@@ -24,7 +25,23 @@ const app = new Vue({
   data: {
      
   },
+  mounted() {
+
+	  this.getBubbleCount()
+
+  },
   methods: {
+	getBubbleCount() {
+		this.$http.get('/bubble').then((response) => {
+			if (parseInt(response.data) > 0) 
+				$(".bubble").html(response.data)
+	 
+	        //alert('ss')
+	        // success callback
+	      }, (response) => {
+	        // error callback
+	      });
+	},  
     follow: function (id) {
       //  $.post('follow',  )
       var formData = {
@@ -103,12 +120,20 @@ jQuery(function ($) {
     return false;
   });
 
-
+  function removeBubbles() {
+		 $(".bubble").html('')
+	     $("title").append('Pgeon')
+	}
 });
 
+
+
+//if there is a live notification
 if(socket) {
  socket.on('bubble', function (bubble) {
-        alert(bubble)
+        $(".bubble").html(bubble)
+        
+         $("title").append(' ('+bubble+') ')
       }); 
 }
  

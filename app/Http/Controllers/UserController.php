@@ -215,7 +215,14 @@ class UserController extends Controller
       return $users;
    }
   
-  public function points() {
+    public function points() {
       return $this->id;
     }
+    
+    public function notification_count() {
+        $user = Auth::user();
+        return $user->notifications()->where('seen','=',0)->count();
+    }
+    
+    
 }

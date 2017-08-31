@@ -29,7 +29,7 @@
 
 
 
-
+  Route::get('bubble', 'UserController@notification_count');
   //
 
 
@@ -47,6 +47,9 @@
 
   Route::group(array('middleware' => 'auth'), function()
   {
+    Route::get('bubble', 'UserController@notification_count');
+    
+    Route::get('notifications/{format?}', 'NotificationController@index');
     // Question Routes
     Route::get('questions/{format?}', 'QuestionController@index');
     Route::get('questions/new', 'QuestionController@newest');

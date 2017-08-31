@@ -39,7 +39,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Vote');
     }
 
-    public function user_following() {
+    public function user_followings() {
         return $this->hasMany('App\UserFollowing');
     }
   
@@ -47,6 +47,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Question');
     }
 
+    public function notifications() {
+        return $this->hasMany('App\Notification','target_user');
+    }
 
     public static function get_participation($user_id) {
 
