@@ -17,27 +17,7 @@
                     
                       <notifications></notifications>
                     
-                        <li class="list-group-item media p-a">
-                            <div class="media-left">
-                                <span class="icon text-muted icon-message"></span>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-heading">
-                                    <a><strong>display-name</strong></a>
-                                    <small class="pull-right text-muted">4 hrs ago..</small> posted a new question
-                                </div>
-                                <div class="media-body">
-                                    <ul class="media-list media-list-conversation c-w-md">
-                                        <li class="media m-b-md">
-                                            <div class="media-body">
-                                                <div class="media-body-text media-question" onclick="location.href='liveQ-selected.html';" style="cursor: pointer;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+          
                         
                         
                         
