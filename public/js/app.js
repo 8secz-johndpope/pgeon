@@ -44774,12 +44774,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "cursor": "pointer"
       },
+      domProps: {
+        "innerHTML": _vm._s(question_posted.question)
+      },
       on: {
         "click": function($event) {
           _vm.redirect(question_posted.question_id)
         }
       }
-    }, [_vm._v("Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.\n")])])])])])])])
+    })])])])])])])
   }))
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
