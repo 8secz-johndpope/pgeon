@@ -4,14 +4,21 @@
 
 
 <div id="exTab1" class="container">
-<ul  class="nav nav-pills m-y">
-     <li class="active">
-        <a  href="#1a" data-toggle="tab">Following <span class="badge">{{iam_following_count}}</span></a>
-     </li>
-     <li><a href="#2a" data-toggle="tab">Followers <span class="badge">{{my_followers_count}}</span></a>
-     </li>
 
-   </ul>
+   <ul class="nav nav-bordered">
+                    <li class="active">
+                        <a  href="#1a" data-toggle="tab">Following <span style="font-weight: 900">{{iam_following_count}}</span></a>
+                    </li>
+                    <li>
+                        <a href="#2a"  data-toggle="tab">
+    Followers<span style="font-weight: 900"> {{my_followers_count}}</span></a>
+                    </li>
+                    <li style="float: right">
+                        <a href="search.html"><span class="icon icon-magnifying-glass" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
+                    </li>
+                </ul>
+
+
 
      <div class="tab-content clearfix">
        <div class="tab-pane active" id="1a">

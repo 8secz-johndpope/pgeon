@@ -836,7 +836,7 @@ __webpack_require__(36);
 window.Vue = __webpack_require__(56);
 Vue.use(__webpack_require__(55));
 
-Vue.component('follow', __webpack_require__(47));
+Vue.component('follow', __webpack_require__(72));
 Vue.component('allq', __webpack_require__(41));
 Vue.component('answers', __webpack_require__(44));
 Vue.component('allqtimer', __webpack_require__(42));
@@ -2477,131 +2477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 35 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    data: function data() {
-        return {
-            iam_following: [],
-            my_followers: [],
-            iam_following_count: 0,
-            my_followers_count: 0
-        };
-    },
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
-
-    created: function created() {
-        $.getJSON('/followers', function (response) {
-            this.my_followers = response.my_followers;
-            this.iam_following = response.iam_following;
-            this.iam_following_count = response.iam_following_count;
-            this.my_followers_count = response.my_followers_count;
-            console.log(response.iam_following_count);
-        }.bind(this));
-    }
-
-});
-
-/***/ }),
+/* 35 */,
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32789,40 +32665,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(35),
-  /* template */
-  __webpack_require__(51),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Search.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Search.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2909233d", Component.options)
-  } else {
-    hotAPI.reload("data-v-2909233d", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 47 */,
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33085,114 +32928,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "container",
-    attrs: {
-      "id": "exTab1"
-    }
-  }, [_c('ul', {
-    staticClass: "nav nav-pills m-y"
-  }, [_c('li', {
-    staticClass: "active"
-  }, [_c('a', {
-    attrs: {
-      "href": "#1a",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("Following "), _c('span', {
-    staticClass: "badge"
-  }, [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#2a",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("Followers "), _c('span', {
-    staticClass: "badge"
-  }, [_vm._v(_vm._s(_vm.my_followers_count))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content clearfix"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "1a"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-users list-group"
-  }, _vm._l((_vm.iam_following), function(item) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_c('div', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
-      attrs: {
-        "href": item.url
-      }
-    }, [_c('img', {
-      staticClass: "media-object img-circle",
-      attrs: {
-        "src": item.avatar,
-        "alt": ""
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('button', {
-      staticClass: "btn btn-primary-outline btn-sm pull-right active"
-    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
-  }))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "2a"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-users list-group"
-  }, _vm._l((_vm.my_followers), function(item) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_c('div', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
-      attrs: {
-        "href": item.url
-      }
-    }, [_c('img', {
-      staticClass: "media-object img-circle",
-      attrs: {
-        "src": item.avatar,
-        "alt": ""
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('button', {
-      staticClass: "btn btn-primary-outline btn-sm pull-right active"
-    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
-  }))])])])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2909233d", module.exports)
-  }
-}
-
-/***/ }),
+/* 51 */,
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44796,6 +44532,302 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-25410de3", module.exports)
+  }
+}
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    data: function data() {
+        return {
+            iam_following: [],
+            my_followers: [],
+            iam_following_count: 0,
+            my_followers_count: 0
+        };
+    },
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+
+    created: function created() {
+        $.getJSON('/followers', function (response) {
+            this.my_followers = response.my_followers;
+            this.iam_following = response.iam_following;
+            this.iam_following_count = response.iam_following_count;
+            this.my_followers_count = response.my_followers_count;
+            console.log(response.iam_following_count);
+        }.bind(this));
+    }
+
+});
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(71),
+  /* template */
+  __webpack_require__(73),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Follow.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Follow.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4ae06674", Component.options)
+  } else {
+    hotAPI.reload("data-v-4ae06674", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "container",
+    attrs: {
+      "id": "exTab1"
+    }
+  }, [_c('ul', {
+    staticClass: "nav nav-bordered"
+  }, [_c('li', {
+    staticClass: "active"
+  }, [_c('a', {
+    attrs: {
+      "href": "#1a",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v("Following "), _c('span', {
+    staticStyle: {
+      "font-weight": "900"
+    }
+  }, [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
+    attrs: {
+      "href": "#2a",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v("\n    Followers"), _c('span', {
+    staticStyle: {
+      "font-weight": "900"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content clearfix"
+  }, [_c('div', {
+    staticClass: "tab-pane active",
+    attrs: {
+      "id": "1a"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-users list-group"
+  }, _vm._l((_vm.iam_following), function(item) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "media"
+    }, [_c('a', {
+      staticClass: "media-left",
+      attrs: {
+        "href": item.url
+      }
+    }, [_c('img', {
+      staticClass: "media-object img-circle",
+      attrs: {
+        "src": item.avatar,
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('button', {
+      staticClass: "btn btn-primary-outline btn-sm pull-right active"
+    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
+  }))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "2a"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-users list-group"
+  }, _vm._l((_vm.my_followers), function(item) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "media"
+    }, [_c('a', {
+      staticClass: "media-left",
+      attrs: {
+        "href": item.url
+      }
+    }, [_c('img', {
+      staticClass: "media-object img-circle",
+      attrs: {
+        "src": item.avatar,
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('button', {
+      staticClass: "btn btn-primary-outline btn-sm pull-right active"
+    }, [_vm._v(" Following\n     ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
+  }))])])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "search.html"
+    }
+  }, [_c('span', {
+    staticClass: "icon icon-magnifying-glass",
+    staticStyle: {
+      "font-size": "24px",
+      "position": "relative",
+      "right": "10px",
+      "bottom": "0px"
+    }
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4ae06674", module.exports)
   }
 }
 

@@ -270,11 +270,11 @@ ul.list_notifications
 
 .continue_with > ul li a
 {
-    background-color: #00b6ed;
-    border-radius: 0;
-    box-shadow: 0 0 0 #000;
-    height: 39px;
-    line-height: 19px;
+  background-color: #00b6ed;
+  border-radius: 4px;
+  box-shadow: 0 0 0 #000;
+  height: 39px;
+  line-height: 19px;
 }
 
 .continue_with > ul li a i
@@ -462,4 +462,8 @@ ul.list_notifications
     display: block;
     width: 37px;
   }
+}
+
+.list-group.media-list.media-list-stream{
+  margin: 0;
 }

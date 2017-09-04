@@ -2013,26 +2013,27 @@ select[multiple].input-lg
 
 .btn
 {
-  color: #fff;
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: normal;
-    text-align: center;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    background-image: none;
-    white-space: nowrap;
-    padding: 5px 12px;
-    font-size: 14px;
-    line-height: 1.6;
-    border-radius: 4px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;background-color: #24c4bc;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #24c4bc;
+  text-shadow: 0 1px 1px rgba(0,0,0,.1);
 }
 
 .btn:focus,
@@ -8070,10 +8071,10 @@ body
 
 .btn-default-outline
 {
-    color: #63c0c1;
-    background-color: transparent;
-    border: 2px solid #999;
-    text-transform: inherit;
+  color: #63c0c1;
+  background-color: transparent;
+  border: 2px solid #63c0c1;
+  text-transform: inherit;
 }
 
 .btn-default-outline:focus,
@@ -8083,9 +8084,9 @@ body
 .btn-default-outline.active,
 .open > .dropdown-toggle.btn-default-outline,.btn-default-outline.pg-state-hover,.btn-default-outline.pg-state-hover,.btn-default-outline.pg-state-focus,.btn-default-outline.pg-state-hover,.btn-default-outline.pg-state-active
 {
-    color: #ffffff;
-    background-color: #536570;
-    box-shadow: none;
+  color: #ffffff;
+  background-color: #63c0c1;
+  box-shadow: none;
 }
 
 .btn-default-outline.disabled,
@@ -8392,12 +8393,12 @@ fieldset[disabled] .btn-danger-outline.active,.btn-danger-outline[disabled].pg-s
 
 .btn-more:after
 {
-    position: relative;
-    top: 1px;
-    content: '„Äâ';
-    display: inline-block;
-    padding-left: .3em;
-    color: inherit;
+  position: relative;
+  top: 1px;
+  content: '〉';
+  display: inline-block;
+  padding-left: .3em;
+  color: inherit;
 }
 
 .btn-toolbar .btn-toolbar-item

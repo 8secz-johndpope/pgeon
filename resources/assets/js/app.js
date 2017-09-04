@@ -9,7 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.use(require('vue-resource'));
 
-Vue.component('follow', require('./components/Search.vue'));
+Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));

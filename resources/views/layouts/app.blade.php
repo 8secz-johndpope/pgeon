@@ -17,6 +17,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toolkit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
 </head>
 @if (Auth::guest())
@@ -111,6 +112,8 @@
         @yield('content')
 
 </div>
+
+
     @if (Auth::user())
         <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
