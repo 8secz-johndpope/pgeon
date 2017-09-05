@@ -42,43 +42,7 @@ const app = new Vue({
 	        // error callback
 	      });
 	},  
-    follow: function (id) {
-      //  $.post('follow',  )
-      var formData = {
-        'user_id': id
-      }
-      this.$http.post('/follow', formData).then((response) => {
 
-        $("#follow_" + id).addClass('hide')
-        $("#unfollow_" + id).removeClass('hide')
-        //alert('ss')
-        // success callback
-      }, (response) => {
-        // error callback
-      });
-
-
-
-    },
-
-    unfollow: function (id) {
-      //  $.post('unfollow',  )
-      var formData = {
-        'user_id': id
-      }
-      this.$http.post('/unfollow', formData).then((response) => {
-
-        $("#follow_" + id).removeClass('hide')
-        $("#unfollow_" + id).addClass('hide')
-        //alert('ss')
-        // success callback
-      }, (response) => {
-        // error callback
-      });
-
-
-
-    },
 
 
 

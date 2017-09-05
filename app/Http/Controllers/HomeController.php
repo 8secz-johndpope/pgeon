@@ -67,32 +67,55 @@ class HomeController extends Controller {
     public function search(Request $request) {
         $current_user = Auth::user()->id;
         $q = $request->input('q');
-        $results = User::where(
-          [ ['name', 'LIKE',  "%$q%"],
-          //  ['role_id', '=', '3'],
-        ])->get();
         $users = array();
+        $msg = '';
+        if (isset($q)) {
+        //  //  ['role_id', '=', '3'],
+        		 $sql = "SELECT users.*,  user_followings.id as af  FROM users
+        		 				 LEFT JOIN user_followings ON users.id = 	user_followings.user_id
+        		 				 AND user_followings.followed_by = $current_user
+                              WHERE (name LIKE '%$q%' OR slug LIKE '%$q%') ";
+                              
+    			 $results = DB::select( DB::raw($sql) );
+        		//$results = User::where( [['name', 'LIKE',  "%$q%"]])->orWhere([['slug', 'LIKE',  "%$q%"]]);->get();
+
+    			
+        if ($results) {
+       
         foreach ($results as $value) {
+        
           //skip the current user in search
-          if($value['id'] == $current_user)
+          if($value->id == $current_user)
             continue;
           //if he is a member and has a slug..search will give us role 3 anyway
-          if($value['slug'] )
-            $value['url'] = $value['slug'];
+          if($value->slug )
+            $value->url = $value->slug;
           else {
-            $value['url'] = "/user/".$value['id'];
+            $value->url = "/user/".$value->id;
           }
-          $af = false;
-          foreach ($value->user_following as $uf) {
+          
 
-              if ($uf->followed_by ==  Auth::user()->id)  {
-                $af = true;
-                continue;
-              }
-          }
-          $users[] = array('obj' => $value, 'already_followed' => $af);
+        
+       
+//           if($value->user_following) {
+//           foreach ($value->user_following as $uf) {
+
+//               if ($uf->followed_by ==  Auth::user()->id)  {
+//                 $af = true;
+//                 continue;
+//               }
+//           }
+//           }
+          $users[] = array('obj' => $value);
         }
+        }else {
+        	$msg = 'No one out there like that it seems!'; 
+        	
+        	}
+        }
+        
+        
 
-        return view('search',['users' => $users]);
+        return view('search',['users' => $users, 'msg' => $msg]);
     }
 }

@@ -25,87 +25,68 @@
 @else
 <body class="with-top-navbar" >
 <div  id="app">
-  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-              <div class="container">
-                  <div class="navbar-header">
-                      <div class="bell-for-mobile">
-                          <a data-toggle="modal" href="#msgModal" class="app-notifications"><span class="icon icon-bell"></span></a>
-                      </div>
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-main">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="/">
-                          <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
-                          <img class="logo-for-mobile" src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="">
-                      </a>
-                      <ul class="nav navbar-nav">
-                          <li>
-                              <a href="/">Home</a>
-                          </li>
-                          <li>
-                              <a href="{{ (Auth::user()->slug && Auth::user()->role_id == 3)? Auth::user()->slug :'/user/'.Auth::user()->id }}">Profile</a>
-                          </li>
-                          <li>
-                              <a href="{{ route('people') }}">People</a>
-                          </li>
 
-                      </ul>
-                  </div>
-                  <div class="navbar-collapse collapse" id="navbar-collapse-main">
-                      <ul class="nav navbar-nav navbar-right m-r-0 hidden-xs">
-                          <li>
-                              <a class="app-notifications" href="notifications/"><span class="bubble icon icon-bell"></span></a>
-                          </li>
-                          <li>
-                              <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                  <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}   " alt="">
+ <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
+          </a>
+             <ul class="nav navbar-nav">
+                         <li>
+                             <a href="/">Home</a>
+                         </li>
+                         <li>
+                             <a href="{{ (Auth::user()->slug && Auth::user()->role_id == 3)? Auth::user()->slug :'/user/'.Auth::user()->id }}">Profile</a>
+                         </li>
+                         <li>
+                             <a href="{{ route('people') }}">People</a>
+                         </li>
 
-                              </button>
-                          </li>
-                      </ul>
-                      <form class="navbar-form navbar-right app-search" role="search" action="{{ route('search') }}">
-                          <div class="form-group">
-                              <input type="text" class="form-control" data-action="grow" placeholder="Search" name="q">
-                          </div>
-                      </form>
-                      <ul id="clone_bar" class="nav navbar-nav hidden-sm hidden-md hidden-lg">
+                     </ul>
+                            <ul id="clone_bar" class="nav navbar-nav hidden">
 
-                          <li>
-                              <a href="{{ route('profile') }}">Settings</a>
-                          </li>
-                          <li>
-                            <a href="{{ route('profile') }}">Help</a>
-                        </li>
-                          <li>
-                              <a href="{{ route('logout') }}"
-                                              onclick="event.preventDefault();
-                                                       document.getElementById('logout-form').submit();">Logout</a>
-                          </li>
-                      </ul>
-                      <ul class="nav navbar-nav hidden">
-                          <li>
-                              <a href="help/index.html">Help</a>
-                          </li>
-                          <li>
-                              <a href="{{ route('profile') }}">Settings</a>
-                          </li>
-                          <li>
-                              <a href="{{ route('logout') }}"
-                                              onclick="event.preventDefault();
-                                                       document.getElementById('logout-form').submit();">Logout</a>
-                          </li>
-                      </ul>
-                  </div>
+                         <li>
+                             <a href="{{ route('profile') }}">Settings</a>
+                         </li>
+                         <li>
+                           <a href="{{ route('profile') }}">Help</a>
+                       </li>
+                         <li>
+                             <a href="{{ route('logout') }}"
+                                             onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">Logout</a>
+                         </li>
+                     </ul>
+        </div>
+        
+        <div class="navbar-right" id="navbar-collapse-main">
+          <ul class="nav navbar-nav m-r-0">
+            <li>
+              <form class="navbar-form">
+                <div>
+                  <a id="a_add_question" class="btn btn-sm btn-primary-outline active" style="font-weight: 600;"><span class="icon icon-typing"></span><span class="ad">my questions</span></a>
+                </div>
+              </form>
+            </li>
+            <li>
+              <a href="notifications/" class="app-notifications"><span class="icon icon-bell"></span></a>
+            </li>
+            <li>
+              <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
+                <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}   " alt="">
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                             {{ csrf_field() }}
+                                         </form>
+    </nav>
+    
+    
 
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                              {{ csrf_field() }}
-                                          </form>
-
-              </div>
-          </nav>
 
 @endif
 

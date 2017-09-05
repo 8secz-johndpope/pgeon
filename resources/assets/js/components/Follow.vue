@@ -14,74 +14,90 @@
     Followers<span style="font-weight: 900"> {{my_followers_count}}</span></a>
                     </li>
                     <li style="float: right">
-                        <a href="search.html"><span class="icon icon-magnifying-glass" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
+                        <a href="/search"><span class="icon icon-magnifying-glass" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
                     </li>
                 </ul>
 
 
 
+
+
      <div class="tab-content clearfix">
        <div class="tab-pane active" id="1a">
-       <div class="row">
+       
+       
+        <div class="row">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="margin-top: 5px">
                         <ul class="media-list media-list-users list-group">
+                        
+                        
+                        
+                              <li class="list-group-item" v-for="item in iam_following">
 
+                        
 
-                         <li class="list-group-item" v-for="item in iam_following">
-
-                         <div class="media">
-                             <a class="media-left" :href="item.url">
-
-                                 <img class="media-object img-circle" :src="item.avatar" alt="">
-                             </a>
-                             <div class="media-body">
-                                 <button class="btn btn-primary-outline btn-sm pull-right active"> Following
-     </button>
-                                 <strong>{{ item.user }}</strong>
-                                 <small>{{ item.bio }}...</small>
-                             </div>
-                         </div>
-
-                         </li>
-
-
-
+                                <div class="media">
+                                    <a class="media-left"  :href="item.url">
+                                        <img class="media-object img-circle" :src="item.avatar"  />
+                                    </a>
+                                    <div class="media-body">
+                                        <button v-on:click="unfollow(item.user_id)"  class="btn btn-primary-outline btn-sm pull-right active">
+                                            <span class="icon icon-remove-user"></span>
+                                            <span class="hidden-xs">following</span>
+                                        </button>
+                                        <strong>{{ item.user }}</strong>
+                                        <small>{{ item.bio }}...</small>
+                                    </div>
+                                </div>
+                            </li>
+                           
+                        
                         </ul>
                     </div>
                 </div>
             </div>
+            
+            
+       
+
 
        </div>
        <div class="tab-pane" id="2a">
        <div class="row">
+       
+            <div class="row">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="margin-top: 5px">
                         <ul class="media-list media-list-users list-group">
-
-
-                         <li class="list-group-item" v-for="item in my_followers">
-
-                         <div class="media">
-                             <a class="media-left" :href="item.url">
+                            <li class="list-group-item" v-for="item in my_followers">
+                                <div class="media">
+                                     <a class="media-left" :href="item.url">
                              <img class="media-object img-circle" :src="item.avatar" alt="">
 
                              </a>
-                             <div class="media-body">
-                                 <button class="btn btn-primary-outline btn-sm pull-right active"> Following
-     </button>
-                                 <strong>{{ item.user }}</strong>
+                                    <div class="media-body">
+                                        <button v-on:click="follow(item.user_id)" class="btn btn-primary-outline btn-sm pull-right">
+                                            <span class="icon icon-add-user"></span> 
+                                            <span class="hidden-xs">follow</span>
+                                        </button>
+                                          <strong>{{ item.user }}</strong>
                                  <small>{{ item.bio }}.</small>
-                             </div>
-                         </div>
-
-                         </li>
-
-
-
+                                    </div>
+                                </div>
+                            </li>
+                    
+                      
                         </ul>
                     </div>
                 </div>
+            </div>
+            
+            
+       
+       
+       
+               
             </div>
 
        </div>
@@ -113,14 +129,67 @@
 
         },
         created: function(){
-            $.getJSON('/followers', function(response){
-              this.my_followers = response.my_followers;
-              this.iam_following = response.iam_following;
-                this.iam_following_count = response.iam_following_count
-                this.my_followers_count = response.my_followers_count
-              console.log(response.iam_following_count)
-          }.bind(this ));
+            this.fetchData()
         },
+        methods: {
+        	fetchData() {
+        		$.getJSON('/followers', function(response){
+                    this.my_followers = response.my_followers;
+                    this.iam_following = response.iam_following;
+                      this.iam_following_count = response.iam_following_count
+                      this.my_followers_count = response.my_followers_count
+                    console.log(response.iam_following_count)
+                }.bind(this ));
+        	},
+        	getBubbleCount() {
+        		this.$http.get('/bubble').then((response) => {
+        			if (parseInt(response.data) > 0) 
+        				$(".bubble").html(response.data)
+        	 
+        	        //alert('ss')
+        	        // success callback
+        	      }, (response) => {
+        	        // error callback
+        	      });
+        	},  
+            follow: function (id) {
+              //  $.post('follow',  )
+              var formData = {
+                'user_id': id
+              }
+              this.$http.post('/follow', formData).then((response) => {
+            	 	 this.fetchData()
+                //alert('ss')
+                // success callback
+              }, (response) => {
+            	  console.log(response)
+                // error callback
+              });
+
+
+
+            },
+
+            unfollow: function (id) {
+              //  $.post('unfollow',  )
+              var formData = {
+                'user_id': id
+              }
+              this.$http.post('/unfollow', formData).then((response) => {
+
+	            	  this.fetchData()
+              }, (response) => {
+                	
+              });
+
+
+
+            },
+
+
+
+
+          }
 
 
     }
