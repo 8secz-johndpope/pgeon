@@ -62,13 +62,16 @@
         
         <div class="navbar-right" id="navbar-collapse-main">
           <ul class="nav navbar-nav m-r-0">
+          
+          @if( Auth::user()->role_id == 3)
             <li>
-              <form class="navbar-form">
                 <div>
-                  <a id="a_add_question" class="btn btn-sm btn-primary-outline active" style="font-weight: 600;"><span class="icon icon-typing"></span><span class="ad">my questions</span></a>
+                
+                  <a id="a_add_question" class="btn btn-sm btn-primary-outline active" href="my-questions" style="font-weight: 600;"><span class="icon icon-typing"></span><span class="ad">my questions</span></a>
                 </div>
-              </form>
             </li>
+            @endif
+            
             <li>
               <a href="notifications/" class="app-notifications"><span class="icon icon-bell"></span></a>
             </li>
@@ -110,9 +113,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/toolkit.js') }}"></script>
+    <script src="{{ asset('js/up-voting.js') }}"></script>
+    
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-
+	
 
 </body>
 

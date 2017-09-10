@@ -62,7 +62,7 @@ class QuestionController extends Controller
         $user = Auth::user();
         if($user->role_id == 3 && !$user->has_active_question()) {
          $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
-         return Redirect::to('ask');
+         return Redirect::to('my-questions');
        }else {
           Auth::logout();
           return Redirect::to('/');
@@ -170,11 +170,12 @@ class QuestionController extends Controller
         if ($user->role_id != 3 ) {
           abort(403, 'Access denied');
         }
-        $aq = $user->has_active_question();
+      //  $lq_expiring_at = $user->has_active_question();
+        $lq_expiring_at = $user->last_question_time();
       
       //exit;
         $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('questions.ask',['questions' => $questions, 'has_active_question' => $aq]);
+        return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at]);
     }
 
     /**

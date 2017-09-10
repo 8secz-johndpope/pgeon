@@ -33,21 +33,12 @@
   margin: 0;
   padding: 0;
 }
- .navbar-nav .icon-pgeon{
-   padding-right: 5px;
-   font-size: 26px;
-   vertical-align: sub;
- }
 
 @media (min-width: 768px){
 /* toolkit.css:4944 */
   .navbar-right {
     float: right !important;
     margin-right: 0 ;
-  }
-
-  .navbar-nav .icon-pgeon{
-    display: none;
   }
 }
 
@@ -84,68 +75,14 @@
   }
 
 }
-.icon-circle-with-plus.icon::before{
-  transition: transform 0.1s ease-in-out;
-}
-.button-open .icon::before{
-  transform: rotate(45deg) scale(1);
-  transform-origin: center;
-}
-
 
 .icon.icon-bell{
   display: block;
 }
 
-@font-face {
-  font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?4440vm');
-  src:  url('../fonts/icomoon.eot?4440vm#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?4440vm') format('truetype'),
-    url('../fonts/icomoon.woff?4440vm') format('woff'),
-    url('../fonts/icomoon.svg?4440vm#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
+.time-select-alignment {
+text-align:center;
+margin-top:10px;
 }
-
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-expert:before {
-  content: "\e900";
-  color: #999;
-}
-.icon-junior:before {
-  content: "\e901";
-  color: #999;
-}
-.icon-novice:before {
-  content: "\e902";
-  color: #999;
-}
-.icon-pgeon:before {
-  content: "\e903";
-  color: #999;
-}
-.icon-uncertified:before {
-  content: "\e904";
-  color: #999;
-}
-.icon-veteran:before {
-  content: "\e905";
-  color: #999;
-}
-
 import 'vue-smooth-picker/dist/css/style.css'
+

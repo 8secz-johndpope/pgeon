@@ -60,7 +60,7 @@
     
     Route::post('accept_answer', array('before'=>'csfr', 'uses'=>'QuestionController@accept_answer' ) );  
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
-    Route::get('ask', 'QuestionController@ask')->name('ask');
+    Route::get('my-questions', 'QuestionController@ask')->name('ask');
 
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('profile', 'UserController@update');
