@@ -51,7 +51,33 @@ io.on('connection', function (socket) {
     socket.leave(socket.room);
   });
 
+  
+  socket.on('end_now', function (question_id) {
+	  rooms.forEach(function (room) {
+		  
+		  
+	        //get Q details page..notify the question ended
+	        if (room.indexOf('Q_') != -1) {
+	          io.sockets.in(room).emit('question_ended', question_id);
+	        }
 
+	      });
+
+	  });
+
+  
+  socket.on('cancel_now', function (question_id) {
+	  rooms.forEach(function (room) {
+		  
+		  console.log('questoin cane')
+	        //get Q details page..notify the question ended
+	        if (room.indexOf('Q_') != -1) {
+	          io.sockets.in(room).emit('question_cancelled', question_id);
+	        }
+
+	      });
+
+	  });
 });
 
 

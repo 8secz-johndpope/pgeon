@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
 use App\Answer;
+use App\Vote;
 use App\Question;
-use App\Tag;
 use Helper;
 
 class QuestionController extends Controller
@@ -128,11 +128,36 @@ class QuestionController extends Controller
     if (Auth::user()->id == $question->user_id) {
         $question->accepted_answer = Request::get('answer_id');  
         $question->save();
-        return Redirect::to('question/'.$question->id);
+        return Redirect::to('my-questions');
     }
     
     
   }
+  
+  public static function end_now($id) {
+      
+      $question = Question::find($id);
+      if (Auth::user()->id == $question->user_id) {
+          $question->expiring_at = time();
+          $question->save();
+          return 'good';
+      }
+      abort(403, 'Access denied');
+  }
+  
+  public static function cancel_now($id) {
+      
+      $question = Question::find($id);
+      if (Auth::user()->id == $question->user_id) {
+          $question->expiring_at = time();
+          $question->save();
+          return 'good';
+      }
+      abort(403, 'Access denied');
+      
+      
+  }
+  
   public static function get_votes($id) {
     
      $sql = "SELECT answer_id, vote FROM votes v  
@@ -171,11 +196,55 @@ class QuestionController extends Controller
           abort(403, 'Access denied');
         }
       //  $lq_expiring_at = $user->has_active_question();
-        $lq_expiring_at = $user->last_question_time();
-      
-      //exit;
-        $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at]);
+        $q = $user->last_question();
+        $lq= null;
+        $lq_expiring_at = null;
+        $lq_expiring_in = null;
+        if($q) {
+            $lq = Question::find($q->id);
+            $lq_expiring_at = $user->last_question_time();
+            $lq_expiring_in = Question::question_validity_status($lq_expiring_at);
+        }
+        $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->orderBy('created_at', 'desc')->get();
+        
+       
+        $pending = array();
+        $published = array();
+        $answer = array();
+        foreach ($questions as $key => $val) {
+            
+            if($val->accepted_answer == 0) {
+                //$rec
+                /** check whether pending question will have an answer chosen for publishing **/
+                $chosen = Answer::get_chosen_answer($val->id);
+                  
+                
+                   if(count($chosen)) {
+                       $answer = $chosen[0];
+                   }else {
+                       /** get if it has top voted answer **/
+                       $answer_id = Vote::get_top_voted_answer_id($val->id);
+                       if($answer_id)
+                            $answer = Answer::find($answer_id);
+                       
+                       
+                   }
+                   $temp = array('question' => $val, 'answer' => $answer);
+               
+                 
+                   $pending [] = $temp;
+                
+            }else {
+                $answer = Answer::find($val->accepted_answer);
+                
+        
+                $temp = array('question' => $val, 'answer' => $answer);
+                $published [] = $temp;
+            }
+        }
+         
+        return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
+            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published]);
     }
 
     /**
@@ -184,15 +253,35 @@ class QuestionController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public static function destroy($id)
 	{
+	    $question = Question::find($id);
 		// delete
-		$question = Question::find($id);
-		$question->delete();
+	    if (Auth::user()->id == $question->user_id) {
+		 
+		  $question->delete();
+	    }
 		// redirect
-		Session::flash('message', 'Successfully deleted the question!');
-		return Redirect::to('questions');
+	//	Session::flash('message', 'Successfully deleted the question!');
+	//	return Redirect::to('questions');
 	}
   
-    
+	
+	public function delete_questions($Qs) {
+	    foreach ( explode(",", $Qs) as $key => $id) {
+	        Question::destroy($id);
+	    }
+	}
+	
+	/*public static function accept_answer($question_id, $answer_id) {
+	    
+	    $question = Question::find($question_id);
+	    if (Auth::user()->id == $question->user_id) {
+	        $question->accepted_answer = $answer_id;
+	        $question->save();
+	        return 'good';
+	    }
+	    abort(403, 'Access denied');
+	}
+    */
 }

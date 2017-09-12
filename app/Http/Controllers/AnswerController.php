@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Answer;
-
+use App\Question;
 class AnswerController extends Controller
 {
 
@@ -51,6 +51,24 @@ class AnswerController extends Controller
 		
 		//echo 'sdfsd';exit;
       
-		
+        
 	}
+	
+	    
+	public static function set_chosen_answer() {
+	    
+	    $question = Question::find(Request::get('question_id'));
+	    if (Auth::user()->id == $question->user_id) {
+	        //remove existing chosen answer
+	        Answer::where('question_id', Request::get('question_id'))
+	        ->update(['manually_chosen_as_top' => 0]);
+	        
+	        Answer::where('id', Request::get('answer_id'))
+	        ->update(['manually_chosen_as_top' => 1]);
+	        
+	        return Response::json(array('status'=>1));
+	    }
+	 }
+    	 
+	
 }

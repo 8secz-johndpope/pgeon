@@ -1991,11 +1991,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (seconds < 10) {
         seconds = "0" + seconds;
       }
-      return hours + ' hr :' + minutes + 'min' + seconds + 'sec';
+      return hours + ' hr ' + minutes + ' min ' + seconds + ' sec';
     },
     onInterval: function onInterval() {
       this.current = this.current -= this.interval;
-      //   console.log(this.current)
+
+      //  console.log(this.current)
 
       this.formatted = this.to_time();
       if (this.current <= 0) {
@@ -2131,7 +2132,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'answer': this.submitted_text
       };
       this.$http.post('/answer', formData).then(function (response) {
-        _this.submitted_text = '';
+        _this.ted_text = '';
       }, function (response) {
         alert('error submitting');
       });
@@ -2236,6 +2237,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
         }
       });
+
+      socket.on('question_ended', function (id) {
+        alert("Sorry! this question has been ended manually by the asker");
+        location.reload();
+      });
+
+      socket.on('question_cancelled', function (id) {
+        alert("Sorry! this question has been removed manually by the asker");
+        location.href = "/";
+        //location.reload();
+      });
     }
 
     $.getJSON('/question/' + this.question_id + '/json', function (response) {
@@ -2246,7 +2258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //   com.my_votes = votes
         this.my_votes = votes;
 
-        console.log(this.my_votes[0]);
+        // console.log(this.my_votes[0])
       }.bind(this));
     }.bind(this));
   }
@@ -2384,20 +2396,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -2409,16 +2407,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     };
   },
-  props: ['question_id', 'accepted_answer'],
+  props: ['question_id'],
   mounted: function mounted() {
     this.csrf = $('meta[name="csrf-token"]').attr('content');
   },
 
 
   methods: {
+    selectAnswer: function selectAnswer(answer_id) {
+
+      $("#reponse-updated").hide();
+      var formData = {
+        'question_id': this.question_id,
+        'answer_id': answer_id
+      };
+      this.$http.post('/set_chosen_answer', formData).then(function (response) {
+        $("#reponse-updated").show();
+      }, function (response) {
+        alert('error submitting');
+      });
+    },
     checkVoted: function checkVoted(answer_id) {
       for (var i = 0; i < this.my_votes.length; i++) {
         if (this.my_votes[i]["answer_id"] == answer_id) {
+          if (this.my_votes[i]["votecount"] > 0) return '+' + this.my_votes[i]["votecount"];
           return this.my_votes[i]["votecount"];
         }
       }
@@ -33055,41 +33067,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     }, [_vm._v("×")])]) : _vm._e(), _vm._v("\n                                    " + _vm._s(answer.answer) + "\n                                ")])])])])])])])])
-  }), _vm._v(" "), (_vm.question_owner_id != _vm.current_user_id) ? _c('div', [_c('div', {
-    staticClass: "footer navbar-fixed-bottom"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('form', {
-    staticClass: "form-horizontal",
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-        _vm.submit_answer()
-      }
+  }), _vm._v(" "), (_vm.question_owner_id != _vm.current_user_id) ? _c('div', {
+    staticClass: "navbar-fixed-bottom footer-toggle footer-closed",
+    staticStyle: {
+      "width": "auto",
+      "background-color": "#f4f5f6",
+      "border-top": "1px solid #eaeaea"
     }
+  }, [_c('div', {
+    staticClass: "container sub-nav2"
+  }, [_c('form', {
+    staticClass: "form-horizontal"
   }, [_c('ul', {
-    staticClass: "media-list"
+    staticClass: "media-list media-list-conversation c-w-md"
   }, [_c('li', {
-    staticClass: "media m-b-md media-divider"
+    staticClass: "media media-divider"
   }, [_c('div', {
     staticClass: "media-body"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
   }, [_c('li', {
-    staticClass: "media media-current-user m-b-md"
+    staticClass: "media media-current-user"
   }, [_c('div', {
-    staticClass: "input-group"
-  }, [_c('input', {
+    staticClass: "input-group "
+  }, [_c('textarea', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.submitted_text),
       expression: "submitted_text"
     }],
-    staticClass: "form-control response-form",
+    staticClass: "footer-textarea form-control custom-control",
     attrs: {
+      "id": "footer-textarea",
       "placeholder": _vm.placeholder,
       "disabled": _vm.already_answered,
-      "type": "text",
-      "maxlength": "150"
+      "rows": "1"
     },
     domProps: {
       "value": (_vm.submitted_text)
@@ -33100,20 +33113,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submitted_text = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "media-footer text-right"
-  })])])])])])])])]) : _vm._e()], 2)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-default response-button",
-    attrs: {
-      "type": "submit"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon btn btn-primary footer-btn",
+    on: {
+      "click": function($event) {
+        _vm.submit_answer()
+      }
     }
   }, [_c('span', {
-    staticClass: "icon icon-circle-with-plus response-icon"
-  })])])
+    staticClass: "icon icon-paper-plane response-icon"
+  })])]), _vm._v(" "), _vm._m(0)])])])])])])])]) : _vm._e()], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('small', {
+    staticClass: "charlimit"
+  }, [_c('span', {
+    staticClass: "current"
+  }, [_vm._v("0")]), _vm._v("/"), _c('span', {
+    staticClass: "max"
+  }, [_vm._v("150")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -33128,70 +33145,42 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "answers_container"
-    }
+  return _c('div', [_c('div', {
+    staticClass: "container"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', {
-      staticClass: "col-md-12 subtract-margin-left"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md fa-ul"
-    }, [_c('li', {
-      staticClass: "media m-b-md"
-    }, [_c('a', {
-      staticClass: "media-left"
-    }, [_c('span', [_vm._v("  " + _vm._s(_vm.checkVoted(answer.id)))])]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media media-current-user m-b-md media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-user-response",
-      class: [_vm.accepted_answer == answer.id ? 'accepted_answer' : ''],
-      staticStyle: {
-        "cursor": "point"
-      }
-    }, [_vm._v("\n                                 \n                                    " + _vm._s(answer.answer) + "\n                                ")])]), _vm._v(" "), (_vm.accepted_answer < 1) ? _c('form', {
-      staticClass: "form-horizontal",
-      attrs: {
-        "method": "post",
-        "action": "/accept_answer"
-      }
+      staticClass: "vote-item flex-center "
     }, [_c('input', {
       attrs: {
-        "type": "hidden",
-        "name": "answer_id"
+        "type": "radio",
+        "id": answer.id,
+        "name": "select"
       },
-      domProps: {
-        "value": answer.id
+      on: {
+        "click": function($event) {
+          _vm.selectAnswer(answer.id)
+        }
       }
-    }), _vm._v(" "), _c('input', {
+    }), _vm._v(" "), _c('label', {
+      staticClass: "vote_count",
       attrs: {
-        "type": "hidden",
-        "name": "_token"
-      },
-      domProps: {
-        "value": _vm.csrf
+        "for": answer.id
       }
-    }), _vm._v(" "), _c('input', {
+    }, [_c('a', {
+      staticClass: "vote-count"
+    }, [_c('button', {
+      staticClass: "btn-borderless btn-container",
       attrs: {
-        "type": "hidden",
-        "name": "question_id"
-      },
-      domProps: {
-        "value": _vm.question_id
+        "id": "vote"
       }
-    }), _vm._v(" "), _c('button', {
-      staticClass: "btn pull-right",
+    }, [_c('h1', {
       attrs: {
-        "type": "submit"
+        "id": "counter"
       }
-    }, [_vm._v("Accept")])]) : _vm._e()])])])])])])
-  }))
+    }, [_c('span', [_vm._v(" " + _vm._s(_vm.checkVoted(answer.id)))])])])]), _vm._v(" "), _c('p', {
+      staticClass: "flexone"
+    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(answer.answer) + "\n                        ")])])])
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33301,9 +33290,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('small', {
-    staticClass: "text-muted pull-right"
-  }, [_vm._v(" " + _vm._s(_vm.formatted) + " ")])
+  return _c('span', [_vm._v("   " + _vm._s(_vm.formatted))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

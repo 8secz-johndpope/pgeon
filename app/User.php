@@ -66,6 +66,16 @@ class User extends Authenticatable
         return $questions;
     }
 
+    
+
+   public function last_question() {
+        $q = $this->questions()->orderBy('expiring_at', 'desc')->take(1)->get();
+        if(isset($q[0])) {
+            return $q[0];
+        }
+        return null;
+   }
+    
   public function last_question_time() {
       $q = $this->questions()->orderBy('expiring_at', 'desc')->take(1)->get();
       if(isset($q[0])) {
@@ -74,6 +84,8 @@ class User extends Authenticatable
       return 0;
       
   }
+  
+  
   public function has_active_question() {
     
       if ($expiring_at = $this->last_question_time() ) {
@@ -97,6 +109,11 @@ class User extends Authenticatable
     
   }
   
+ 
+  
+  public static function get_pending_answers_count($user_id) {
+      
+  }
   public function points() {
     
     return $this->votes->sum('vote');

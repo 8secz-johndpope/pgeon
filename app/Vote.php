@@ -53,6 +53,24 @@ class Vote extends Model
      return false;
   }
   
+  
+  public static function get_top_voted_answer_id($question_id) {
+      //DB::enableQueryLog();
+      
+      $sql = "select `answers`.`id` from `votes` right join `answers` on `votes`.`answer_id` = `answers`.`id` 
+               where `question_id` = ".$question_id."  group by `answers`.`id`  order by sum(vote) DESC LIMIT 1";
+      //having sum(vote) > 0
+      $rec = DB::select( DB::raw($sql) );
+      
+      if(isset($rec[0])) {
+          return ($rec[0]->id);
+      }
+     
+      return false;
+      
+      
+     
+  }
 
          
       

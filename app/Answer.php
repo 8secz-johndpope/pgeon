@@ -106,6 +106,15 @@ class Answer extends Model
       
         return $rec[0]->vote_count;
     }
+    
+
+    
+    public static function get_chosen_answer($question_id) {
+       return Answer::where('question_id', $question_id)->where('manually_chosen_as_top', 1)->get();
+    }
+    
+    
 
 
+    
 }

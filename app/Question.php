@@ -27,7 +27,10 @@ class Question extends Model {
     public function notification_question_posted() {
         return $this->hasMany('App\NotificationQuestionPosted');
     }
-   
+  
+    public function votes() {
+        return $this->hasManyThrough('App\Vote','App\Answer');
+    }
 
     public function formatted_h_m() {
       return str_pad($this->active_hours,2,"0",STR_PAD_LEFT). ' hrs '.str_pad($this->active_mins,2,"0",STR_PAD_LEFT).' mins';
@@ -86,8 +89,7 @@ class Question extends Model {
     public static function question_validity_status($expiring_at){
 
         
-        $added_time = strtotime($expiring_at);
-
+        $added_time = $expiring_at;
 
         //some life left
         if ($added_time > time()) {
@@ -99,9 +101,6 @@ class Question extends Model {
         
 
     }
-
-
-
 
 
 
@@ -143,6 +142,8 @@ class Question extends Model {
 
 
         }
+        
+        
 
 }
 

@@ -467,3 +467,140 @@ ul.list_notifications
 .list-group.media-list.media-list-stream{
   margin: 0;
 }
+
+
+
+#publish_form {
+	float:right;
+	margin-left:6px;
+}
+
+
+#answers_expired_owner_container ul{
+                    display: flex;
+                }
+
+                #answers_expired_owner_container ul > li.hover-button-container{
+                    margin-left: auto;
+                    display: flex;
+                    align-content: center;
+                    align-items: center;
+                }
+
+                #answers_expired_owner_container .save-button{
+                    display: none;
+                    color: #66cc99 ;
+                    background-color: transparent;
+                    border: none;
+                }
+
+                
+                
+                    #answers_expired_owner_container .vote-count{
+                /* display: inline; */
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+           } 
+
+            #answers_expired_owner_container input[type="radio"] {
+                display: none;
+            }
+
+           #answers_expired_owner_container  label {
+               background-color: #eaeaea;
+                border-radius:  10px 10px 0px 10px;
+                padding: 10px 15px;
+                position: relative; 
+                display: flex;
+                transition: 200ms all;
+                box-shadow: 0 0 0 100px #eaeaea inset;
+                border-color: black;
+            }
+
+           #answers_expired_owner_container .vote-count .icon-thumbs-up {
+               display: none;
+           }
+
+           #answers_expired_owner_container p.flexone{
+               flex: 1;
+               margin-left: 10px;
+           }
+        #answers_expired_owner_container .btn-container{
+            position: relative;
+        }
+        #answers_expired_owner_container .check-mark{
+            position: absolute;
+            bottom: 10px;
+            right: 5px;
+            display: none;
+        }
+
+           /* checked */
+           #answers_expired_owner_container input[type="radio"]:checked + label .icon {
+               display: inline-block;
+           }
+
+           #answers_expired_owner_container input[type="radio"]:checked + label .icon {
+               display: inline-block;
+           }
+
+          #answers_expired_owner_container  input[type="radio"]:checked + label {
+               background-color: #66cc99;
+               color: white;
+           }
+
+          #answers_expired_owner_container  input[type="radio"]:checked + label span:before , #answers_expired_owner_container input[type="radio"]:checked + label span , #answers_expired_owner_container input[type="radio"]:checked + label #counter span  {
+               color: white;
+           }
+
+           /* effect */
+
+            #answers_expired_owner_container input:checked + label {
+                box-shadow: 0 0 0 -1px #FFF inset;
+                color: #FFF;
+                background-color: #66cc99;
+
+               /* box-shadow: 0 0 0 -1px #FFF inset; */
+                /* color: #FFF;
+                background: #7EB634;
+                border-color: #7EB634; */
+            }
+            
+            
+             .first , .second {
+                position: relative;
+            }
+
+            .answer-bubble.checked .first #overlay , .answer-bubble.checked .second #overlay{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255,114,113 , 0.15);
+                z-index: 2;
+                border-radius: 0px 10px 10px 10px;
+                margin-top: 2px;
+            }
+
+            .answer-bubble.checked .second #overlay{
+                margin-top: 7px;
+                border-radius: 10px 10px 0px 10px;
+            }
+
+            .answer-bubble{
+                transition: all 500ms cubic-bezier(0.84,-1.42, 0, 2.63);
+                overflow: hidden;
+                max-height: 500px;
+            }
+
+            .answer-bubble.deleted{
+                margin: 0;
+                max-height: 0;
+            }
+            
+            #footer-textarea {
+            		overflow:hidden;
+            }

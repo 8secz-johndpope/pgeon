@@ -118,51 +118,225 @@
 </div>
 
 
-@else You already have an active question running. Please wait for
+@else 
+<div style="background-color:#828287;width: auto">
+            <div class="container p-t-md">
+                <div class="col-md-12">
+                    <div class="media-body">
+                        <div class="media-header">
+                            <small class="text-muted"><a href="#" id="user-profile-text-link" style="color:#fff">live question</a></small>
+                            <span class="dropdown pull-right small" style="color:#fff"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:#fff">
+                            
+                            
+                            <answeringtimer initial="{{$lq_expiring_in}}"></answeringtimer>
+                            <span class="caret"></span></a><ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a id="end_now" rel="{{$lq->id}}" href="#">end now</a>
+                                    </li>
+                                    <li>
+                                        <a id="cancel_now" rel="{{$lq->id}}" href="#">cancel question</a>
+                                    </li>
+                                </ul></span>
+                        </div>
+                        <ul class="media-list media-list-conversation c-w-md">
+                            <li class="media">
+                                <div class="media-body">
+                                    <div class="media-body-text media-question">
+                                   {{$lq->question}} 
+</div>
+                                    <ul class="media-list media-list-conversation c-w-md">
+                                        <li class="media media-current-user media-divider">
+                                            <div class="media-body" style="text-align: center">
+                                                <div class="media-body-text media-response">
+                                                    <div class="statcard p-a-md" style="display: inline-block">
+                                                        <h3 class="statcard-number">{{$lq->answers->count()}}</h3>
+                                                        <span class="statcard-desc">responses</span>
+                                                    </div>
+                                                    <div class="statcard p-a-md" style="display: inline-block">
+                                                        <h3 class="statcard-number">{{$lq->votes->count() }}</h3>
+                                                        <span class="statcard-desc">votes</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endif
 
 
-<div class="container p-t-md">
-	<div class="col-md-12">
-		<ul class="nav nav-pills iconav-nav" style="padding-bottom: 10px;">
-			<li class="active"><a href="replies.html"><span class="text-muted">123</span><small
-					class="iconav-nav-label visible-xs-block"> replies</small></a></li>
-			<li><a href="published.html"> <span class="text-muted">123</span> <small
-					class="iconav-nav-label visible-xs-block"> published</small></a></li>
-		</ul>
-		<ul class="media-list media-list-stream c-w-md">
-			<div class="media-body m-b">
-				<ul class="media-list media-list-conversation c-w-md">
-					<li class="media">
-						<div class="media-body">
-							<div class="media-body-text media-question">Cras justo odio,
-								dapibus ac facilisis in, egestas eget quam. Duis mollis, est non
-								commodo luctus, nisi erat porttitor ligula, eget lacinia odio
-								sem nec elit. Praesent commodo cursus magna, vel scelerisque
-								nisl consectetur et.</div>
-						</div>
-					</li>
-				</ul>
-				<ul class="media-list media-list-conversation c-w-md">
-					<li class="media media-current-user media-divider">
-						<div class="media-body-text media-response">Cras justo odio,
-							dapibus ac facilisis in, egestas eget quam. Duis mollis, est non
-							commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
-							nec elit. Praesent commodo cursus magna, vel scelerisque nisl
-							consectetur et.</div>
-						<div style="padding-top: 10px;">
-							<div class="pull-left">Replied: 10/10/17</div>
-							<div class="pull-right">
-								<label class="btn btn-default">Delete</label> <label
-									class="btn btn-primary">Publish</label>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</ul>
-	</div>
+
+
+
+  <div class="container p-t-md">
+            <div class="col-md-12">
+                <ul class="nav nav-pills m-b">
+                    <li class="active">
+                        <a href="#" class="display-pending"><span class="text-muted">{{count($pending)}}</span><small class="iconav-nav-label visible-xs-block"> pending</small></a>
+                    </li>
+                    <li>
+                        <a href="#" class="display-published"> <span class="text-muted ">{{count($published)}}</span> <small class="iconav-nav-label visible-xs-block"> published</small></a>
+                    </li>
+                    <li style="position: absolute;right: 15px" class="edit hidden">
+                        <a href="#">
+                            <button type="button" class="btn btn-xs btn-info-outline">edit</button>
+                        </a>
+                        
+                        
+                    </li>
+                    <li  class="active number-checked ">
+                        <button type="button" data-toggle="modal" data-target="#deleteQ" class="btn btn-xs btn-danger-outline " style="margin-top: 6px">delete # selected</button>
+                    </li>
+                    <li id="done" class="pull-right hidden">
+                        <button type="button" class="btn btn-xs btn-info-outline" style="margin-top: 6px">done</button>
+                    </li>
+                </ul>
+                <div class="tabs">
+                    <div class="pending">
+                    
+                    
+                    @foreach ($pending as $key => $val) 
+                    
+                        <ul class="media-list media-list-stream c-w-md">
+                            <div class="media-body m-b">
+                            
+                                <ul class="media-list media-list-conversation c-w-md">
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="media-body-text media-question"> {{$val['question']->question}}
+</div>		
+                                        </div>
+                                    </li>
+                                </ul>
+                                
+                                
+                            
+                               <ul class="media-list media-list-conversation c-w-md">
+                                   <li class="media media-current-user media-divider">
+                                       <div class="media-body-text media-response">
+                                       @if ($val['answer'])
+                                          {{$val['answer']->answer}}
+                                       @endif   
 </div>
+                                       <div style="padding-top: 10px;">
+                                       @if ($val['answer'])
+                                           <a href="question/{{$val['question']->id}}" class="pull-left"> <span class="icon icon-swap"></span> change response</a>
+                                        @endif    
+                                           <div class="pull-right">
+                                                
+                                <button id="delete" type="button" rel="{{$val['question']->id}}" class="btn btn-default">Delete</button>
+                                           
+                                              @if ($val['answer'])
+                                                <form  method="post" id="publish_form" action="/accept_answer"> 
+                                                {{ Form::token() }}
+                                 <input type="hidden" value="{{$val['answer']->id}}" name="answer_id" >
+                                <input type="hidden" name="question_id" value="{{$val['question']->id}}" >
+                                <button type="submit"  class="btn btn-primary">Publish</button>
+                               </form>
+                                           
+                                        @endif          
+                                           </div>
+                                       </div>
+                                   </li>
+                               </ul>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            </div>
+                        </ul>
+                        
+                       @endforeach
+                        
+                    </div>
+      
+      
+      
+   <!-- pending !-->
+      <div class="published hidden">
+      
+              <div class="container p-t-md">
+            <div class="col-md-12">
+          
+        
+          
+        
+      
+      
+       
+       
+       
+               <ul class="media-list media-list-stream c-w-md answer-bubbles-container">
+               
+                @foreach ($published as $key => $val) 
+                    <!--  starting here -->
+                    <li class="media answer-bubble">
+                        <div style="float: left">
+                            <div class="checkbox-inline custom-control custom-checkbox hidden">
+                                <label>
+                                    <input type="checkbox" value="{{$val['question']->id}}" class="toggleOverlay">
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <ul class="media-list media-list-conversation c-w-md">
+                                <li class="media first">
+                                    <div class="media-body">
+                                        <div id="overlay"></div>
+                                        <div class="media-body-text media-question">
+                                         {{$val['question']->question}}
+                                        
+</div>
+                                    </div>
+                                </li>
+                                <li class="media second media-current-user">
+                                    <div class="media-body">
+                                        <div id="overlay"></div>
+                                        <div class="media-body-text media-response">
+                                           {{$val['answer']->answer}}
+                                            
+</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+           @endforeach
+                    <!-- end here -->
+                </ul>
+                
+                
+                
+                  </div>
+        </div>
+       
+       
+       
+
+          
+      </div>
+      <!-- published -->
+      
+      
+                </div>
+                <!-- end of tabs -->
+            </div>
+        </div>
+        
+        
+        
+
 
 
 

@@ -54,7 +54,11 @@
     Route::get('questions/{format?}', 'QuestionController@index');
     Route::get('questions/new', 'QuestionController@newest');
     Route::get('question/{id}/{format?}', 'QuestionController@show');
+    Route::post('end_now/{id}', 'QuestionController@end_now');
+    Route::delete('question/{id}', 'QuestionController@destroy');
+    Route::delete('delete_questions/{ids}', 'QuestionController@delete_questions');
     Route::get('question_details/{id}', 'QuestionController@details');
+    
     Route::get('get_votes/{id}/', 'QuestionController@get_votes');
     Route::get('get_votes_with_count/{id}', 'QuestionController@get_votes_with_count');
     
@@ -81,6 +85,8 @@
   Route::post('answer', array( 'uses'=>'AnswerController@insert' ) );
   Route::post('answer/update', array( 'uses'=>'AnswerController@update' ) );
   Route::delete('answer/{id}', array('uses'=>'AnswerController@destroy' ) );
+  Route::post('set_chosen_answer', array('uses'=>'AnswerController@set_chosen_answer' ) );
+  
 
   // Tag Routes
   Route::get('tag/{id}', 'TagController@show_new');

@@ -30,33 +30,33 @@
             </ul>
         </div>
 
-        <div v-if="question_owner_id != current_user_id"> 
-            <div class="footer navbar-fixed-bottom">
-                <div class="col-md-12">
 
-                    <form v-on:submit.prevent="submit_answer()" class='form-horizontal'>
-                        <ul class="media-list">
-                            <li class="media m-b-md media-divider">
-                                <div class="media-body">
-                                    <li class="media media-current-user m-b-md">
-                                        <div class="input-group">
-                                            <input v-model="submitted_text" class="form-control response-form" :placeholder="placeholder"  :disabled="already_answered"  type="text" maxlength="150" />
-                                            <span class="input-group-btn"><button  class="btn btn-default response-button" type="submit">
-                      <span class="icon icon-circle-with-plus response-icon"></span>
-                                            </button>
-                                            </span>
-                                        </div>
-                                        <div class="media-footer text-right">
-                                        </div>
-                                    </li>
+
+
+    <div v-if="question_owner_id != current_user_id" class="navbar-fixed-bottom footer-toggle footer-closed" style="width: auto;background-color:#f4f5f6;border-top:1px solid #eaeaea">
+        <div class="container sub-nav2">
+        <form  class='form-horizontal'>
+            <ul class="media-list media-list-conversation c-w-md">
+                <li class="media media-divider">
+                    <div class="media-body">
+                        <ul class="media-list media-list-conversation c-w-md">
+                            <li class="media media-current-user">
+                                <div class="input-group ">
+                                    <textarea  v-model="submitted_text" id="footer-textarea"  :placeholder="placeholder"  :disabled="already_answered"  rows="1" class="footer-textarea form-control custom-control"></textarea>
+                                    <span  v-on:click="submit_answer()" class="input-group-addon btn btn-primary footer-btn"><span class="icon icon-paper-plane response-icon"></span></span>
                                 </div>
+                                <small class="charlimit"><span class="current">0</span>/<span class="max">150</span></small>
                             </li>
                         </ul>
-                    </form>
-                </div>
-                <!-- /input-group -->
-            </div>
+                    </div>
+                </li>
+            </ul>
+             </form>
         </div>
+    </div>
+
+
+
 
     </div>
 
@@ -119,7 +119,7 @@
           'answer': this.submitted_text,
         }
         this.$http.post('/answer', formData).then((response) => {
-          this.submitted_text = ''
+          this.ted_text = ''
         }, (response) => {
           alert('error submitting')
         });
@@ -227,6 +227,20 @@
 
           }
         });
+        
+        
+        socket.on('question_ended', function(id) {
+        		alert("Sorry! this question has been ended manually by the asker")
+        		location.reload();
+        })
+        
+       
+         socket.on('question_cancelled', function(id) {
+        		alert("Sorry! this question has been removed manually by the asker")
+        		location.href = "/"
+        		//location.reload();
+        })
+        
 
       }
 
@@ -238,7 +252,7 @@
        //   com.my_votes = votes
             this.my_votes = votes
           
-            console.log(this.my_votes[0])
+           // console.log(this.my_votes[0])
           
       }.bind(this));
         
