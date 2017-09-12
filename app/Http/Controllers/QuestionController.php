@@ -37,7 +37,11 @@ class QuestionController extends Controller
             
             if ($question->expiring_at > time()) {
                 $question->expiring_at = Question::question_validity_status($question->expiring_at);
-                return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);  
+                if (Auth::user()->id == $question->user_id) {
+                    //    
+                }else {
+                    return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
+                }
             }else {
               if (Auth::user()->id == $question->user_id) {
                 return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes]); 

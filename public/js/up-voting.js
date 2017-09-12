@@ -2,20 +2,10 @@ var counter = document.getElementById("counter");
 // counter.innerHTML = "0";
 var score = 0;
 
-function upVote() {
-  // score++;
-  // counter.innerHTML = score;
-  // checkScore();
-}
-
-function checkScore() {
-  // if (score > 0) {
-  //   counter.style.color = "#70C1B3";
-  // }
-}
 
 
 
+/*
 
 $(".jsvote").mouseup(function(e){
   clearTimeout(pressTimer);
@@ -56,6 +46,8 @@ $(".jsvote").mousedown(function(e){
     $icon.addClass("icon-thumbs-down")
   },500);
 })
+
+*/
 
 
 

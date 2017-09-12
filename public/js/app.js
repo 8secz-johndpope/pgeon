@@ -2085,7 +2085,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var longpress;
+var pressTimer;
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   data: function data() {
@@ -2115,6 +2178,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    mup: function mup(answer_id, e) {
+      clearTimeout(pressTimer);
+
+      if (!longpress) {
+        var $icon;
+        var $parent;
+        $parent = $(e.target).parents(".jsvote");
+        $icon = $parent.find(".icon");
+
+        $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus");
+        $icon.hasClass("icon-thumbs-down") && $icon.removeClass("icon-thumbs-down");
+
+        if ($icon.hasClass("icon-thumbs-up")) {
+          $icon.removeClass("icon-thumbs-up") && $icon.addClass("icon-minus");
+          //('u to -')
+          this.downVote(answer_id);
+        } else {
+          //('- to u')
+          this.upVote(answer_id);
+          $icon.addClass("icon-thumbs-up");
+        }
+      }
+    },
+    mdown: function mdown(answer_id, e) {
+      var el = e.target;
+      longpress = 0;
+      var com = this;
+      pressTimer = window.setTimeout(function () {
+        longpress = 1;
+
+        var $icon;
+        var $parent;
+
+        $parent = $(e.target).parents(".jsvote");
+
+        $icon = $parent.find(".icon");
+
+        $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus");
+        $icon.hasClass("icon-thumbs-up") && $icon.removeClass("icon-thumbs-up");
+        //('- to d')
+        com.downVote(answer_id);
+        $icon.addClass("icon-thumbs-down");
+      }, 500);
+    },
 
     ownerOfAnswer: function ownerOfAnswer(user_id) {
       return this.current_user_id == user_id;
@@ -2133,6 +2240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       this.$http.post('/answer', formData).then(function (response) {
         _this.ted_text = '';
+        _this.fetchRecords();
       }, function (response) {
         alert('error submitting');
       });
@@ -2146,47 +2254,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       this.$http.delete('/answer/' + id, formData).then(function (response) {
         _this2.submitted_text = '';
+        location.reload();
+        // this.fetchRecords()
       }, function (response) {
         alert('error submitting');
       });
     },
 
-    upVote: function upVote(answer_id, e) {
+    upVote: function upVote(answer_id) {
       var _this3 = this;
 
       var formData = {
         'answer_id': answer_id,
         'user_id': this.current_user_id,
         'vote_direction': 'up'
-        //   var el = e.target
-      };this.$http.post('/vote', formData).then(function (response) {
-        //it is upvoted.. remove other down vote highlited if any
+      };
+      this.$http.post('/vote', formData).then(function (response) {
         _this3.updateVotesArray(answer_id, response['data'].vote);
-
-        //     $(el).parent().find('.icon-thumbs-down').removeClass('voted')
-        //    $(el).addClass('voted')
       }, function (response) {
         alert('error submitting');
       });
     },
 
-    downVote: function downVote(answer_id, e) {
+    dd: function dd() {
+      alert('ss');
+    },
+    downVote: function downVote(answer_id) {
       var _this4 = this;
 
       var formData = {
         'answer_id': answer_id,
         'user_id': this.current_user_id,
         'vote_direction': 'down'
-        //   var el = e.target
-      };this.$http.post('/vote', formData).then(function (response) {
+      };
+      this.$http.post('/vote', formData).then(function (response) {
         _this4.updateVotesArray(answer_id, response['data'].vote);
-        //    $(el).parent().find('.icon-thumbs-up').removeClass('voted')
-        //   $(el).addClass('voted')
       }, function (response) {
         alert('error submitting');
       });
     },
 
+    fetchRecords: function fetchRecords() {
+      $.getJSON('/question/' + this.question_id + '/json', function (response) {
+        this.answers = response;
+
+        // var com = this
+        $.getJSON('/get_votes/' + this.question_id, function (votes) {
+          //   com.my_votes = votes
+          this.my_votes = votes;
+
+          // console.log(this.my_votes[0])
+        }.bind(this));
+      }.bind(this));
+    },
+
+
+    //will return either -1 or 1 because this is current user's vote..not all users count..
     checkVoted: function checkVoted(answer_id) {
       for (var i = 0; i < this.my_votes.length; i++) {
         if (this.my_votes[i]["answer_id"] == answer_id) {
@@ -2250,17 +2373,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
 
-    $.getJSON('/question/' + this.question_id + '/json', function (response) {
-      this.answers = response;
-
-      // var com = this
-      $.getJSON('/get_votes/' + this.question_id, function (votes) {
-        //   com.my_votes = votes
-        this.my_votes = votes;
-
-        // console.log(this.my_votes[0])
-      }.bind(this));
-    }.bind(this));
+    this.fetchRecords();
   }
 
 });
@@ -33003,54 +33116,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "answers_container"
     }
-  }, [_vm._l((_vm.answers), function(answer) {
-    return _c('div', {
-      staticClass: "col-md-12 subtract-margin-left"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md fa-ul"
+  }, [_c('div', {
+    staticStyle: {
+      "width": "auto"
+    }
+  }, [_c('div', {
+    staticClass: "container sub-nav2"
+  }, [(!_vm.already_answered) ? _c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _vm._l((_vm.answers), function(answer) {
+    return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('ul', {
+      staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
-      staticClass: "media m-b-md"
-    }, [(_vm.question_owner_id != _vm.current_user_id) ? _c('a', {
-      staticClass: "media-left"
-    }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
-      staticClass: "icon icon-thumbs-up",
-      class: {
-        voted: _vm.checkVoted(answer.id) == 1
-      },
-      on: {
-        "click": function($event) {
-          _vm.upVote(answer.id, $event)
-        }
-      }
-    }) : _vm._e(), _vm._v(" "), (!_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
-      staticClass: "icon icon-thumbs-down",
-      class: {
-        voted: _vm.checkVoted(answer.id) == -1
-      },
-      on: {
-        "click": function($event) {
-          _vm.downVote(answer.id, $event)
-        }
-      }
-    }) : _vm._e(), _vm._v(" "), (_vm.ownerOfAnswer(answer.user_id)) ? _c('span', {
-      staticStyle: {
-        "color": "#eaeaea"
-      }
-    }, [_vm._v(_vm._s(_vm.votecount))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "media media-divider"
+    }, [_c('div', {
       staticClass: "media-body"
     }, [_c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
-      staticClass: "media media-current-user m-b-md media-divider"
+      staticClass: "media"
     }, [_c('div', {
       staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-user-response",
-      class: [_vm.ownerOfAnswer(answer.user_id) ? 'your_answer' : ''],
+    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "media-body-text media-response media-response-margin flex-center",
       staticStyle: {
-        "cursor": "point"
+        "background-color": "#e8eff7",
+        "margin-top": "0px"
       }
-    }, [(_vm.ownerOfAnswer(answer.user_id)) ? _c('button', {
+    }, [_c('a', {
+      staticClass: "media-left"
+    }, [_c('button', {
+      staticClass: "btn-borderless",
+      attrs: {
+        "id": "vote",
+        "onclick": "upVote()"
+      }
+    }, [_c('h1', {
+      attrs: {
+        "id": "counter"
+      }
+    }, [_c('span', [_vm._v(_vm._s(_vm.votecount))])])])]), _vm._v(" "), _c('p', {
+      staticClass: "flexone"
+    }, [_vm._v("\n                                             " + _vm._s(answer.answer) + "\n                      ")]), _vm._v(" "), _c('button', {
       staticClass: "close",
       attrs: {
         "type": "button",
@@ -33066,8 +33173,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-hidden": "true"
       }
-    }, [_vm._v("×")])]) : _vm._e(), _vm._v("\n                                    " + _vm._s(answer.answer) + "\n                                ")])])])])])])])])
-  }), _vm._v(" "), (_vm.question_owner_id != _vm.current_user_id) ? _c('div', {
+    }, [_vm._v("×")])])])])])])])])]) : _vm._e(), _vm._v(" "), (!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
+      staticClass: "media-list media-list-conversation c-w-md jsvote",
+      on: {
+        "mousedown": function($event) {
+          _vm.mdown(answer.id, $event)
+        },
+        "mouseup": function($event) {
+          _vm.mup(answer.id, $event)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "media media-divider"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-response media-response-margin flex-center"
+    }, [_c('a', {
+      staticClass: "media-left"
+    }, [_c('button', {
+      staticClass: "btn-borderless",
+      attrs: {
+        "id": "vote"
+      }
+    }, [_c('h1', {
+      attrs: {
+        "id": "counter"
+      }
+    }, [(_vm.checkVoted(answer.id) == 1) ? _c('span', {
+      staticClass: "icon icon-thumbs-up"
+    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) == -1) ? _c('span', {
+      staticClass: "icon icon-thumbs-down"
+    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) == 0) ? _c('span', {
+      staticClass: "icon icon-minus"
+    }) : _vm._e()])])]), _vm._v(" "), _c('p', {
+      staticClass: "flexone"
+    }, [_vm._v("\n                                " + _vm._s(answer.answer) + "\n                      ")])])])])]) : _vm._e()])
+  })], 2)]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "navbar-fixed-bottom footer-toggle footer-closed",
     staticStyle: {
       "width": "auto",
@@ -33101,7 +33243,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "footer-textarea",
       "placeholder": _vm.placeholder,
-      "disabled": _vm.already_answered,
       "rows": "1"
     },
     domProps: {
@@ -33122,8 +33263,66 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "icon icon-paper-plane response-icon"
-  })])]), _vm._v(" "), _vm._m(0)])])])])])])])]) : _vm._e()], 2)
+  })])]), _vm._v(" "), _vm._m(2)])])])])])])])]) : _vm._e()])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticClass: "media media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('div', {
+    staticClass: "media-body-text media-response media-user-response open-footer",
+    staticStyle: {
+      "cursor": "pointer",
+      "border": "2px dashed #e4e5e6",
+      "background-color": "transparent",
+      "min-height": "70px"
+    }
+  }, [_c('span', {
+    staticClass: "click-to-reply"
+  }, [_c('span', {
+    staticClass: "icon icon-reply"
+  }), _vm._v("\n  tap or click here to reply..")]), _vm._v(" "), _c('span', {
+    staticClass: "loading",
+    attrs: {
+      "id": "wait"
+    }
+  }, [_c('span', {
+    staticClass: "loading"
+  }, [_vm._v("...")])]), _vm._v(" "), _c('span', {
+    staticClass: "close-footer",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "alert",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "media-header"
+  }, [_c('small', {
+    staticClass: "text-muted"
+  }, [_c('a', {
+    staticStyle: {
+      "margin-left": "3px"
+    },
+    attrs: {
+      "href": "#",
+      "id": "user-profile-text-link"
+    }
+  }, [_vm._v("My reply")])]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted pull-right  hidden"
+  }, [_vm._v("3 min ago..")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('small', {
     staticClass: "charlimit"
   }, [_c('span', {
