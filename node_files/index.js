@@ -134,7 +134,7 @@ var watcher = mysqlEventWatcher.add(
     //row inserted
     if (oldRow === null) {
    
-    	return false;
+   // 	return false;
 
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()

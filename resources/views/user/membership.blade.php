@@ -2,62 +2,60 @@
 @section('content')
 <div class="container p-t-md">
     <div class="row">
-        <div class="col-md-3">
-            <div class="list-group m-b-md">
-                <a href="/profile" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Profile</a>
-
-                <a href="/settings" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Security</a>
-                <a href="#" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Membership</a>
-                <a href="/notifications" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Notifications</a>
-            </div>
-        </div>
-        <div class="col-md-9">
-
-
-
-
-             <form  action="/profile" method="POST">
-
-               <ul class="list-group media-list media-list-stream">
-                  <li class="list-group-item p-a">
-                      <h3 class="m-a-0">Profile</h3>
-                  </li>
-                  <li class="list-group-item media p-a">
-                      <div class="form-group">
-                          <ul class="list-group">
-                              <li class="list-group-item ng-binding">
-                                  <div class="pull-right">
-                                      <div class="ng-scope">
-                                          <span class="label">{{$plan}}</span>
-                                          @if ($plan == "Free")
-                                            <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">Upgrade Account</a>
-                                          @endif
-                                      </div>
-                                  </div>
-                                  Current Plan
-                              </li>
-                          </ul>
-                      </div>
-                      <div class="form-group">
-                          <label for="redem-code">REDEEM CODE</label>
-                          <div class="apply_codes">
-                              <input type="text" placeholder="Enter Code" id="redem-code" name="redemcode">
-                              <input type="submit" value="Apply" id="apply">
-                          </div>
-                      </div>
-                  </li>
-
-              </ul>
-
+    
+         <div class="col-md-4" style="margin-top:10px">
+                    <div class="list-group m-b-md">
+                        <a href="/profile" class="list-group-item ">
+          Profile</a>
+                   
+                        <a href="/settings" class="list-group-item">
+          Security</a>
+                        <a href="#" class="list-group-item active">
+          Membership</a>
+                        <a href="/preferences" class="list-group-item">
+          Preferences</a>
+                    </div>
+                </div>
+                
+    
+    
+    
+     <div class="col-md-8" style="margin-top:10px">
+      <form  action="/profile" method="POST">
+                    <ul class="list-group media-list media-list-stream">
+                        <li class="list-group-item media p-a">
+                            <div class="form-group">
+                                <ul class="list-group">
+                                    <a href="#" style="line-height:2.3"><span class="icon icon-info-with-circle" style="line-height:2.3;float: left"></span> &nbsp;Learn more about pgeon membership</a>
+                                    <li class="list-group-item ng-binding">
+                                        <div class="pull-right">
+                                            <div class="ng-scope">
+                                                <span class="label">{{$plan}}</span>
+                                                 @if ($plan == "Free")
+                                                <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">upgrade Account</a>
+                                                 @endif
+                                            </div>
+                                        </div>
+                                        {{$user_type}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                <label for="redem-code">Redeem code</label>
+                                <div class="apply_codes">
+                                    <input type="text" placeholder="enter code" id="redem-code" name="redemcode">
+                                    <input type="submit" value="apply" id="apply">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    
                               {{ csrf_field() }}
                       </form>
-
-
-                      <div id="stripe_box" class="collapse">
+                    
+                    
+                    
+                        <div id="stripe_box" class="collapse">
                         
                     @if ($followers_counts < env('FOLLOWERS_NEEDED')) 
                          <div class="alert alert-success alert-block">
@@ -131,12 +129,12 @@
                        {!! Form::close() !!}
                      @endif     
                  </div>
-
-
-
-               </div>
-        <div class="col-md-3">
-</div>
+                 
+                </div>
+    
+    
+    
+    
     </div>
 </div>
 

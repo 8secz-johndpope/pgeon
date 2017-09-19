@@ -2,65 +2,82 @@
 @section('content')
 <div class="container p-t-md">
     <div class="row">
-        <div class="col-md-3">
-            <div class="list-group m-b-md">
-                <a href="#" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Profile</a>
-
-                <a href="/settings" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Security</a>
-                <a href="/membership" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Membership</a>
-                <a href="/notifications" class="list-group-item"><span class="icon icon-chevron-thin-right pull-right"></span>
-  Notifications</a>
-            </div>
-        </div>
-        <div class="col-md-9">
-
-
-
-           <form enctype="multipart/form-data" action="/profile" method="POST">
-                       <ul class="list-group media-list media-list-stream">
-                           <li class="list-group-item p-a">
-                               <h3 class="m-a-0">Profile</h3>
-                           </li>
-                           <li class="list-group-item media p-a">
-                               <label for="basic-url">Profile picture</label>
-                               <div class="file-box profile_upload">
-                                      <input type="file" id="file" class="inputfile" name="avatar">
+    
+     <div class="col-md-4" style="margin-top:10px">
+                    <div class="list-group m-b-md">
+                        <a href="#" class="list-group-item active">
+          Profile</a>
+                   
+                        <a href="/settings" class="list-group-item">
+          Security</a>
+                        <a href="/membership" class="list-group-item">
+          Membership</a>
+                        <a href="/preferences" class="list-group-item">
+          Preferences</a>
+                    </div>
+                </div>
+                
+    
+        
+        
+        
+  <div class="col-md-8" style="margin-top:10px">
+   <form enctype="multipart/form-data" action="/profile" method="POST">
+            <ul class="list-group media-list media-list-stream">
+                <li class="list-group-item media p-a">
+                    <label for="basic-url">Profile picture</label>
+                    <div class="file-box profile_upload">
+                        
+                    <input type="file" id="file" class="inputfile" name="avatar">
                                       {{ csrf_field() }}
-
-                                   <label for="file">
-                                       <figure>
-                                           <img class="media-object img-circle" src="{{ Helper::avatar($user->avatar) }} " alt="">
-                                       </figure>
-                                       <span>Change</span>
-                                   </label>
-                               </div>
-                           </li>
-                           <li class="list-group-item media p-a">
-                               <label for="basic-url">Display name</label>
-                               <div class="input-group">
-                                   <span class="input-group-addon" id="basic-addon3">pgeon.com/</span>
-                                      <input type="text" class="form-control" id="basic-url" name="slug" value="{{ $user->slug}}">
-                                  
-
-
-                               </div>
-                               {{$error}}
-                               <br />
-                               <label for="basic-url">BIO</label>
-                               <div class="input-group">
-                                   <textarea class="form-control" name="bio" id="bio" cols="30" rows="5" placeholder="Some info about you…">{{ $user->bio}}</textarea>
-                               </div>
-                               <div class="input-group">
-                                   <input type="submit" value="Save Changes" name="submit" class="btn btn-primary-outline btn-sm">
-                                   <a href="#">Delete Account</a>
-                               </div>
-                           </li>
-                       </ul>
-                     </form>
-               </div>
+                                          
+                        <label for="file">
+                            <figure>
+                                <img class="media-object img-circle" src="{{ Helper::avatar($user->avatar) }} " alt="">
+                            </figure>
+                            <a href="#">
+                                <div style="padding-top:10px">
+                                    <input type="submit" value="Change" name="submit" class="btn btn-sm btn-default-outline" style="margin-left: 3px">
+                                </div>
+                            </a>
+                        </label>
+                    </div>
+                </li>
+                <li class="list-group-item media p-a">
+                    <label for="basic-url">Awarded badges display</label>
+                    <div class="file-box profile_upload">
+                        <input name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple="" type="file">
+                        <label for="file">
+                            <figure></figure>
+                            <span class="text-muted">you have not acquired any badges..</span>
+                        </label>
+                    </div>
+                </li>
+                <li class="list-group-item media p-a">
+                    <label for="basic-url">Display name</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">pgeon.com/</span>
+                        <input type="text" class="form-control" id="basic-url" name="slug" value="{{ $user->slug}}" aria-describedby="basic-addon3" style="border-color:#d4dbe0">
+                    </div>
+                    {{$error}}
+                    <br />
+                    <label for="basic-url">Bio</label>
+                    <div class="input-group">
+                        <textarea type="text" class="form-control" name="bio" id="bio" cols="30" rows="2" placeholder="some info about you…" style="resize: none;" maxlength="100">{{ $user->bio}}</textarea>
+                    </div>
+                    <div class="input-group" style="padding-top:10px;margin-bottom:0">
+                        <input type="submit" value="Save Changes" name="submit" class="btn btn-sm btn-default-outline" style="float: none">
+                        <a href="#" class="pull-right text-danger" style="padding-top: 6px; padding-right: 6px;margin-top: 0px;"> <span class="icon icon-squared-cross"></span> delete account</a>
+                    </div>
+                </li>
+            </ul>
+            </form>
+        </div>
+                
+        
+        
+        
+      
         <div class="col-md-3">
 </div>
     </div>

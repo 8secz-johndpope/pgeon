@@ -20,11 +20,44 @@
     <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
 </head>
-@if (Auth::guest())
-<body>
-@else
 <body class="with-top-navbar" >
 <div  id="app">
+@if (Auth::guest())
+	<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
+                    </a>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/">about</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-right" id="navbar-collapse-main">
+                    <ul class="nav navbar-nav m-r-0" style="height: 50px">
+                        <li style="padding-right: 15px;padding-top: 13px">
+                            <form class="navbar-form  app-search" role="search">
+                                <div>
+                                    <a href="/register" style="margin-top: 4px; font-weight: 900;">Sign up</a>
+                                </div>
+                            </form>
+                        </li>
+                        <li style="height: 50px;padding-top: 7px">
+                            <div>
+                                <a  href="/login"  class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+@else
+
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
       <div class="container">
@@ -97,16 +130,18 @@
 
 </div>
 
-
-    @if (Auth::user())
         <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
             var socket = io("{{ env('NODE_CONNECT') }}");
+        </script>
+        
+        @if (Auth::user())     
+        <script>    
             //connect socket room for the current user id..get all notifications related to the current user
              socket.emit('connect_me', 'U_{{Auth::user()->id}}');
                
         </script>
-    @endif
+		@endif   
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
       <script src="{{ asset('js/app.js') }}"></script>

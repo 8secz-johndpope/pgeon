@@ -4,76 +4,55 @@
 
 
 
-     <div class="container p-t-md log-in">
-         <form role="form" class="" method="POST" action="{{ route('login') }}">
+        <div class="container-fluid container-fill-height">
+        
+            <div class="container-content-middle">
+             <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('login') }}">
                   {{ csrf_field() }}
-             
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="contents white-bg conntents-padding">
-                        <div class="nav_details regs_form">
-                            <div class="title text-center">
-                                <h2>Log in</h2>
-                            </div>
-                            <div class="continue_with">
-                                <ul>
-                                    <li>
-                                        <a href="{{ url('/auth/twitter') }}"><i class="fa fa-twitter"></i> Continue with Twitter</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/auth/facebook') }}"><i class="fa fa-facebook"></i> Continue with Facebook</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <p>Or use email and password</p>
-                            <form action="">
-                                <div class="formgroup{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    @if ($errors->has('email'))
+                    <a href="/" class="app-brand m-b-md" style="width:55px">
+                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
+                    </a>
+                    <div class="continue_with">
+                        <ul>
+                            <li>
+                                <a href="{{ url('/auth/twitter') }}"><span class="icon icon-twitter" style="float: left;margin-left: 10px"></span>Continue with Twitter</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/auth/facebook') }}"><span class="icon icon-facebook" style="float: left;margin-left: 10px"></span>Continue with Facebook</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <p style="text-align: left;margin-left: 5px">Or use email and password</p>
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                     @if ($errors->has('email'))
                                       <span class="help-block">
                                           <strong>{{ $errors->first('email') }}</strong>
                                       </span>
-                                  @endif
-                                    <label for="email"></label>
-                                    <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
-                                </div>
-                                <div class="formgroup">
-                                     @if ($errors->has('password'))
+                      @endif
+                        <input class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                     @if ($errors->has('password'))
                                       <span class="help-block">
                                           <strong>{{ $errors->first('password') }}</strong>
                                       </span>
                                     @endif
-                                    <label for="pw"></label>
-                                    <input type="text" id="password" name="password" placeholder="Password">
-                                </div>
-                                <div class="submit_panel">
-                                    <input class="btn btn-primary-outline btn-sm" type="submit" value="Login" name="register">
-                                    <button class="cancel">Cancel</button>
-                                    <a class="pull-right" href="{{ route('password.request') }}" style="padding-top: 8px">Forgot my password</a>
-                                </div>
-                            </form>
-                        </div>
+                        <input type="password" class="form-control" placeholder="Password">
                     </div>
-                    <div class="footer_nav">
-                        <ul>
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('register') }}">Register</a>
-                            </li>
-                            <li>
-                                <a href="">About</a>
-                            </li>
-                            <li>
-                                <a href="">Contact</a>
-                            </li>
-                        </ul>
+                    <div class="m-b" style="margin-top: 10px;float: right">
+                        <a href="{{ route('register') }}" class="btn btn-default">Sign up</a>
+                        <button  type="submit" class="btn btn-primary">Log In</button>
                     </div>
-                </div>
+                    <a href="{{ route('password.request') }}" class="text-muted" style="float: left;margin-left: 5px;margin-top: 5px">Forgot password</a>
+                </form>
             </div>
-         </form>
         </div>
+        
+
+
+
+
 
 
 

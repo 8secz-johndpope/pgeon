@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Question;
 use App\User;
+use App\UserFollowing;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -73,19 +74,23 @@ class UserController extends Controller
 
     public function membership () {
       $user = Auth::user();
-      $followers_counts = $user->user_following()->count();    
+      
+       $followers_counts = UserFollowing::get_followers_count($user->id);    
       $error = "";
       if($user->subscribedToPlan('pgeon_monthly','main')) {
         $plan = "Monthly";
+        $user_type = "Member";
       }elseif($user->subscribedToPlan('pgeon_yearly','main')) {
         $plan = "Yearly";
+        $user_type = "Member";
       }else {
         $plan = "Free";
+        $user_type = "Standard";
       }
 
           
 
-      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts);
+      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type);
 
     }
 

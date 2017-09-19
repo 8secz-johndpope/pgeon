@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\DB;
 use App\Answer;
 use App\Vote;
 use App\Question;
+use App\UserFollowing;
 use Helper;
+use App\Traits\QuestionTrait;
 
 class QuestionController extends Controller
 {
+    use QuestionTrait; 
     /**
      * Display the question
      * @param  int  $question_id
@@ -83,31 +86,24 @@ class QuestionController extends Controller
     {
         
         if ($format == "json") {
-            $fetched_questions = Question::get_live_questions();
-            
-            
-            $questions[] = array();
-            foreach($fetched_questions as $key => $question){
-                $questions [$key]['id'] = $question->id; 
-                $questions [$key]['question'] = $question->question; 
-                $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
-              $questions [$key]['name'] = $question->name;
-                
-                $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
-                
-                
-            }
-            
-            return response()->json($questions);
+           return $this->get_questions();
         }else {
-            
-            return view('questions.index');
+           
+            $uf = array();
+            if(Auth::user()) {
+                $uf = UserFollowing::get_followers(Auth::user()->id);
+            }
+            return view('questions.index',['uf' => $uf]);
         }
         
         
     }
 
-  
+    
+    
+
+    
+    
   public function details($id) {
     $question = Question::find($id);
     $details = array();
@@ -250,7 +246,23 @@ class QuestionController extends Controller
         return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
             'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published]);
     }
+    
+    
+    
+    public function  responses($format=null) {
+        
+        if ($format == "json") {
+            return $this->live_qs_w_top_a();
+        }else {
+            $uf = array();
+            if(Auth::user()) {
+                $uf = UserFollowing::get_followers(Auth::user()->id);
+            }
+            return view('questions.responses',['uf' => $uf]);
+        }
+    }
 
+    
     /**
 	 * Remove the specified resource from storage.
 	 *

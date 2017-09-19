@@ -39,15 +39,8 @@ class Question extends Model {
 
     public static function get_live_questions() {
 
-/*
-      $questions = Question::join('user_followings', 'user_followings.user_id', '=', 'question.user_id')
-            ->select(['questions.id'])
-            ->where([
-                ['user_followings.followed_by', '=', $user_id],
-                ['questions.expiring_at', '<', time()],
-            ]);
-*/
-      $user_id = Auth::user()->id;
+
+    //  $user_id = Auth::user()->id;
       $now = time();
 
 
@@ -62,7 +55,7 @@ class Question extends Model {
          */
       
       // all live Qs
-      $sql = "SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q  
+      $sql = "SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.name FROM questions q  
                               INNER JOIN users u ON u.id = q.user_id 
                               and q.expiring_at > '$now'";
       $questions = DB::select( DB::raw($sql) );

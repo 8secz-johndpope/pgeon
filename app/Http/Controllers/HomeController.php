@@ -17,10 +17,14 @@ class HomeController extends Controller {
      * @return View
      */
     public function index() {
-        $questions = Question::orderBy('created_at', 'desc')->paginate(10);
-        $tags = Tag::distinct()->orderBy('name', 'asc')->get();
-        return view('index')->with('questions', $questions)->with('tags', $tags)->with('page_title','Q&A - Interview Questions');
+        $uf = array();
+        if(Auth::user()) {
+            $uf = UserFollowing::get_followers(Auth::user()->id);
+          }
+        return view('questions.index',['uf' => $uf]);
     }
+    
+    
 
     public function followers() {
       $current_user = Auth::user()->id;

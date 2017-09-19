@@ -2,63 +2,38 @@
 
 @section('content')
 
-
-
-  <div class="container p-t-md log-in lost">
-            <div class="row">
-                <div class="col-md-12">
+   <div class="container-fluid container-fill-height">
+            <div class="container-content-middle">
+                <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('password.email') }}">
+                  {{ csrf_field() }}
+                    <a href="/" class="app-brand" style="width:55px">
+                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="brand">
+                    </a>
+                    <p style="text-align: left;margin-left: 5px">Forgot password</p>
                     
-                    <div class="login_head">
-                         <div class="title text-center"><h2>Lost password</h2></div>
-                     </div>
-
                      @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                     <div class="contents white-bg conntents-padding">
-
-                         <div class="nav_details regs_form">
-
-
-
-                              <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
-                        {{ csrf_field() }}
-
-                                 <div class="formgroup{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label for="email"></label>
-                                    <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-                                     @if ($errors->has('email'))
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <input placeholder="Email" class="form-control" type="email" id="email" name="email"  value="{{ old('email') }}" required>
+                          @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
-                                 </div>
-
-                                 <div class="submit_panel">
-                                     <input class="btn btn-primary-outline btn-sm" type="submit" value="Send" name="send">
-                                     <a class="cancel" href="/">Cancel</a>
-                                 </div>
-                             </form>
-
-                         </div>
-                     </div>
-
-                     <div class="footer_nav">
-                         <ul>
-                             <li><a href="/">Home</a></li>
-                             <li><a href="{{ route('register') }}">Register</a></li>
-                             <li><a href="">Search</a></li>
-                             <li><a href="">About</a></li>
-                             <li><a href="">Contact</a></li>
-                         </ul>
-                     </div>
-                </div>
+                    </div>
+                    <div class="m-b" style="margin-top: 10px;float: right">
+                        <a href="/login" style="padding-right: 10px">Back</a>
+                        <input type="submit" class="btn btn-primary"  value="Send" >
+                    </div>
+                </form>
             </div>
         </div>
-
+        
+        
+        
 
 
 

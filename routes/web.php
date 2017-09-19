@@ -11,8 +11,9 @@
 |
 */
 
-  Route::get('/', 'Auth\LoginController@showLoginForm');
+  #Route::get('/', 'Auth\LoginController@showLoginForm');
 
+Route::get('/', 'HomeController@index');
 
   Route::group(['prefix' => 'admin'], function () {
       Voyager::routes();
@@ -44,20 +45,22 @@
 
   // User Routes
   Route::get('level/{level}', 'LevelController@index');
-
+  Route::get('questions/{format?}', 'QuestionController@index');
+  Route::get('question_details/{id}', 'QuestionController@details');
+  Route::get('responses/{format?}', 'QuestionController@responses');
+  
   Route::group(array('middleware' => 'auth'), function()
   {
     Route::get('bubble', 'UserController@notification_count');
     
     Route::get('notifications/{format?}', 'NotificationController@index');
     // Question Routes
-    Route::get('questions/{format?}', 'QuestionController@index');
     Route::get('questions/new', 'QuestionController@newest');
     Route::get('question/{id}/{format?}', 'QuestionController@show');
     Route::post('end_now/{id}', 'QuestionController@end_now');
     Route::delete('question/{id}', 'QuestionController@destroy');
     Route::delete('delete_questions/{ids}', 'QuestionController@delete_questions');
-    Route::get('question_details/{id}', 'QuestionController@details');
+    
     
     Route::get('get_votes/{id}/', 'QuestionController@get_votes');
     Route::get('get_votes_with_count/{id}', 'QuestionController@get_votes_with_count');
@@ -88,11 +91,7 @@
   Route::post('set_chosen_answer', array('uses'=>'AnswerController@set_chosen_answer' ) );
   
 
-  // Tag Routes
-  Route::get('tag/{id}', 'TagController@show_new');
-  Route::get('tag/{id}/top', 'TagController@show_top');
-  Route::get('tag/{id}/most_answered', 'TagController@show_most_answered');
-  Route::get('tag/{id}/unanswered', 'TagController@show_unanswered');
+
 
   // Create a quick API to get data for the tags
   Route::group(['prefix'=>'api','middleware' => 'auth'], function(){

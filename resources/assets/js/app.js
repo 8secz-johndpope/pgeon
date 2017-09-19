@@ -11,6 +11,7 @@ Vue.use(require('vue-resource'));
 
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
+Vue.component('allr', require('./components/AllR.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));
 Vue.component('answeringtimer', require('./components/AnsweringTimer.vue'));
@@ -28,7 +29,7 @@ const app = new Vue({
   mounted() {
 
 	  this.getBubbleCount()
-
+	  //this.$refs.allR.lo()
   },
   methods: {
 	getBubbleCount() {

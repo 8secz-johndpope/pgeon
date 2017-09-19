@@ -28,7 +28,13 @@ class UserFollowing extends Model
     }
 
    
-    
+    public static function get_followers($user_id) {
+        return UserFollowing::where('followed_by', $user_id)->pluck('user_id');
+    }
+   
+    public static function get_followers_count($user_id) {
+        return UserFollowing::where('user_id', $user_id)->count();
+    }
 
 
 

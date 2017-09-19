@@ -109,8 +109,7 @@ class User extends Authenticatable
     
   }
   
- 
-  
+
   public static function get_pending_answers_count($user_id) {
       
   }

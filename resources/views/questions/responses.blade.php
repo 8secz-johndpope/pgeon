@@ -2,11 +2,12 @@
 @section('content')
 
 <div class="container p-t-md">
-			 @if (Auth::user())    
-             	<allq user_id={{Auth::user()->id}} user_followings={{$uf}}></allq>
-             @else
-             	<allq></allq>
-            @endif  
+
+ @if (Auth::user())    
+                    <allr user_id={{Auth::user()->id}} user_followings={{$uf}}></allr>
+         @else
+             	<allr></allr>
+            @endif 
         </div>
 
 
