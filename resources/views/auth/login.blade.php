@@ -30,7 +30,7 @@
                                           <strong>{{ $errors->first('email') }}</strong>
                                       </span>
                       @endif
-                        <input class="form-control" placeholder="Email">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email">
                     </div>
                     <div class="form-group">
                      @if ($errors->has('password'))
@@ -38,7 +38,7 @@
                                           <strong>{{ $errors->first('password') }}</strong>
                                       </span>
                                     @endif
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" id="password" name="password"  class="form-control" placeholder="Password">
                     </div>
                     <div class="m-b" style="margin-top: 10px;float: right">
                         <a href="{{ route('register') }}" class="btn btn-default">Sign up</a>
