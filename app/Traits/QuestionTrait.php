@@ -26,9 +26,10 @@ trait QuestionTrait
         return response()->json($questions);
     }
     
-    
+    //TODO delete this
     protected static function live_qs_w_top_a()
     {
+        
         
         $fetched_questions = Question::get_live_questions();
         

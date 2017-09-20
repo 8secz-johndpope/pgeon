@@ -58,7 +58,7 @@ vertical-align:bottom">everyone
                                 <img class="media-object img-circle" :src="question.avatar" alt="" id="user-profile-image-link">
                             </a>
                             <div class="media-body">
-                                <small class="text-muted h6"><a href="#" style="margin-right: 3px">{{question.name}}</a> <allqtimer :initial="question.expiring_at" :question_id="question.id" @event="deleteQ"></allqtimer></small>
+                                <small class="text-muted h6"><a href="#" style="margin-right: 3px">{{question.name}}</a> </small>
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media">
                                         <div class="media-body">
@@ -109,7 +109,7 @@ vertical-align:bottom">everyone
 	    props: ['user_id','user_followings'],
 	    mounted() {
 			this.uf = JSON.parse(this.user_followings)
-		//	console.log(this.uf )
+			//console.log(this.uf )
 			//this.filter_questions()
 	    },
 
@@ -128,11 +128,12 @@ vertical-align:bottom">everyone
 	    			var filtered_questions = []
 	    			this.current_filter = 'follow'	
 	    			for (var i=0; i < this.all_questions.length; i++) {
+	    				console.log(this.all_questions[i])
 	    				if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-	    					filtered_questions[i] = this.all_questions[i]
+	    					filtered_questions.push(this.all_questions[i])
 	    				}
 	    			}
-	    			
+	    		//	console.log(filtered_questions)
 	    			//filtered_questions
 	    			this.questions = filtered_questions
 	    			
@@ -147,45 +148,23 @@ vertical-align:bottom">everyone
 	      },
 
 
-	      //will be called from timer comp
-	      deleteQ: function(id) {
-
-	        let i = 0
-	        while (i < this.questions.length) {
-	          if (this.questions[i]["id"] == id) {
-	            this.questions.splice(i, 1)
-	          }
-	          i++;
-	        }
-	      }
+	
 
 
 
 	    },
 	    created: function() {
 
-	      var com = this
-	      //got some new questions inserted
-	      if (socket)
-	        socket.on('new_question', function(response_id) {
-
-	          //once we get the new qid inserted we use ajax to get the details
-	          $.getJSON('/question_details/' + response_id, function(response) {
-	            //this.questions = response
-	            com.all_questions.push(response)
-	            com.decide_questions()
-	          }.bind(com));
-
-
-	        });
+     
 
 
 
       $.getJSON('/responses/json', function(response) {
 
+    	  	
         if (response[0]['id'] !== undefined)
-          this.questions = response
-
+          this.all_questions = response
+          this.decide_questions()			
       }.bind(this));
     },
 

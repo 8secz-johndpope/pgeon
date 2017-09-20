@@ -1898,7 +1898,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.current_filter = 'follow';
       for (var i = 0; i < this.all_questions.length; i++) {
         if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-          filtered_questions[i] = this.all_questions[i];
+          filtered_questions.push(this.all_questions[i]);
         }
       }
 
@@ -2140,7 +2140,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		props: ['user_id', 'user_followings'],
 		mounted: function mounted() {
 				this.uf = JSON.parse(this.user_followings);
-				//	console.log(this.uf )
+				//console.log(this.uf )
 				//this.filter_questions()
 		},
 
@@ -2160,11 +2160,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						var filtered_questions = [];
 						this.current_filter = 'follow';
 						for (var i = 0; i < this.all_questions.length; i++) {
+								console.log(this.all_questions[i]);
 								if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-										filtered_questions[i] = this.all_questions[i];
+										filtered_questions.push(this.all_questions[i]);
 								}
 						}
-
+						//	console.log(filtered_questions)
 						//filtered_questions
 						this.questions = filtered_questions;
 				},
@@ -2174,38 +2175,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				},
 				redirect: function redirect(id) {
 						location.href = 'question/' + id;
-				},
-
-				//will be called from timer comp
-				deleteQ: function deleteQ(id) {
-
-						var i = 0;
-						while (i < this.questions.length) {
-								if (this.questions[i]["id"] == id) {
-										this.questions.splice(i, 1);
-								}
-								i++;
-						}
 				}
 
 		},
 		created: function created() {
 
-				var com = this;
-				//got some new questions inserted
-				if (socket) socket.on('new_question', function (response_id) {
-
-						//once we get the new qid inserted we use ajax to get the details
-						$.getJSON('/question_details/' + response_id, function (response) {
-								//this.questions = response
-								com.all_questions.push(response);
-								com.decide_questions();
-						}.bind(com));
-				});
-
 				$.getJSON('/responses/json', function (response) {
 
-						if (response[0]['id'] !== undefined) this.questions = response;
+						if (response[0]['id'] !== undefined) this.all_questions = response;
+						this.decide_questions();
 				}.bind(this));
 		}
 
@@ -34076,15 +34054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": "#"
       }
-    }, [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('allqtimer', {
-      attrs: {
-        "initial": question.expiring_at,
-        "question_id": question.id
-      },
-      on: {
-        "event": _vm.deleteQ
-      }
-    })], 1), _vm._v(" "), _c('ul', {
+    }, [_vm._v(_vm._s(question.name))])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
       staticClass: "media"

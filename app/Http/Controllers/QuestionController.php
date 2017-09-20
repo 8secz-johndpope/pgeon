@@ -252,7 +252,21 @@ class QuestionController extends Controller
     public function  responses($format=null) {
         
         if ($format == "json") {
-            return $this->live_qs_w_top_a();
+            $fetched_questions = Question::where('accepted_answer', '>', 1)->orderBy('created_at', 'desc')->get();
+         
+            $questions[] = array();
+            foreach ($fetched_questions as $key => $question) {
+                $answer = Answer::find($question->accepted_answer);
+                $questions [$key]['id'] = $question->id;
+                $questions [$key]['question'] = $question->question;
+                $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
+                $questions [$key]['name'] = $question->name;
+                $questions [$key]['answer'] = $answer;
+                $questions [$key]['user_id'] = $question->user_id;
+                $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
+            }
+
+            return response()->json($questions);
         }else {
             $uf = array();
             if(Auth::user()) {

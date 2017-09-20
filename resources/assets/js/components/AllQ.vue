@@ -123,7 +123,7 @@ vertical-align:bottom">everyone
     			this.current_filter = 'follow'	
     			for (var i=0; i < this.all_questions.length; i++) {
     				if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-    					filtered_questions[i] = this.all_questions[i]
+    					filtered_questions.push(this.all_questions[i])
     				}
     			}
     			
