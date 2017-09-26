@@ -68,6 +68,11 @@
                          <li>
                              <a href="{{ route('people') }}">People</a>
                          </li>
+                         <li>
+                             <a href="{{ route('logout') }}"
+                                             onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">Logout</a>
+                         </li>
 
                      </ul>
                             <ul id="clone_bar" class="nav navbar-nav hidden">
