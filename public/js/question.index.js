@@ -18,10 +18,21 @@ $(function () {
 	  target.text(ele.val().length)
 	  
 	}
+	$("#q_next").on("click", function () {
+		$(".error").addClass('hidden')
+		if($("#question-input").val().trim().length < 1 ) {
+			return false;
+		}
+		if($("#question-input").val().indexOf('?')<0) {
+			$(".error").removeClass('hidden')
+			return false;
+		}
+	})
 	
 	$("#q_preview").on("click", function () {
 		$('#sp_hr').text($("#hour-select").val());
 		$('#sp_mn').text($("#minute-select").val());
+		
 		$("#q_preview_text").text($("#question-input").val())
 	})
 	

@@ -606,6 +606,11 @@ ul.list_notifications
             }
             
             
+            .va_slider_detail .error {
+            		color:#a94442;
+            		float:left;
+            		margin-left:25px;
+            }
             
              /*carousel  */
 

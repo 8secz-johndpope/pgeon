@@ -25,10 +25,11 @@
 										</div>
 									</div>
 									<div class="nxtbtn">
+										<span class="error hidden">Should have at-least one question mark.  </span>
 										<div
 											style="text-align: right; display: inline-flex; margin-right: 15px">
 											<span id="question_counter">0</span>/150</div>
-										<label class="btn btn-default" for="slides_2">next</label>
+										<label class="btn btn-default" for="slides_2" id="q_next">next</label>
 									</div>
 							
 							</li>
@@ -351,5 +352,4 @@
 <!-- Push a script dynamically from a view -->
 @push('scripts')
 <script src="{{ asset('js/question.index.js') }}"></script>
-<script src="{{ asset('js/jquery.countdownTimer.min.js') }}"></script>
 @endpush
