@@ -56,7 +56,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">
-            <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
+            <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
           </a>
              <ul class="nav navbar-nav">
                          <li>
