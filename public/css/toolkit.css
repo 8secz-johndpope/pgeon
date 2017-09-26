@@ -369,7 +369,7 @@ body
   font-size: 16px;
   line-height: 1.6;
   color: #676D7A;
-  background-color: #fff;
+  background-color: #fafafa;
 }
 
 input,
@@ -2568,7 +2568,7 @@ fieldset[disabled] .btn-link:focus,.btn-link[disabled].pg-state-hover,.btn-link[
 .btn-group-sm > .btn
 {
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -4645,7 +4645,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn
 .navbar-brand
 {
   float: left;
-  padding: 14px 15px;
+  padding: 13px 15px;
   font-size: 18px;
   line-height: 22px;
   height: 50px;
@@ -4706,7 +4706,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn
 {
   .navbar-toggle
   {
-    display: none;
+    /*display: none;*/
   }
 }
 
@@ -5074,7 +5074,7 @@ fieldset[disabled] .navbar-default .btn-link:focus,.navbar-default .btn-link[dis
 
 .navbar-inverse
 {
-  /*background-color: #f4f5f6;*/
+  background-color: rgba(255,255,255, 0.9);
   border-bottom: 1px solid #eaeaea;
 }
 
@@ -5097,7 +5097,7 @@ fieldset[disabled] .navbar-default .btn-link:focus,.navbar-default .btn-link[dis
 
 .navbar-inverse .navbar-nav > li > a
 {
-  color: #C9CCD4;
+  /*color: #777;*/
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -8359,8 +8359,7 @@ fieldset[disabled] .btn-danger-outline.active,.btn-danger-outline[disabled].pg-s
 {
   padding: 5px 10px;
   line-height: 1.3;
-  border-radius: 4px;
-  margin-top: 1px;
+  border-radius: 4px;/*margin-top: 4px */
 }
 
 .btn-xs,
@@ -11276,8 +11275,8 @@ background-color: #ccc;
 
 .navbar-btn-avitar img
 {
-  height: 32px;
-  width: 32px;
+  height: 31px;
+  width: 31px;
 }
 
 .nav-bordered > li
@@ -11901,7 +11900,13 @@ img.zoom-img {
 
 .media-response
 {
-  margin-top: 8px;
+  border-radius: 0px 0px 0px 10px;
+  background-color: #f6f7f9;
+  border-bottom: 2px solid #E0E1E3;
+}
+
+.live-response
+{
   border-radius: 10px 10px 0px 10px;
   background-color: #f6f7f9;
   border-bottom: 2px solid #E0E1E3;
@@ -11910,9 +11915,8 @@ img.zoom-img {
 .media-question
 {
   color: #333;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px 10px 0px 0px;
   background: #dddfe2;
-  border-bottom: 2px solid #C9CBCE;
 }
 
 .live-media-question
@@ -12256,5 +12260,15 @@ a:hover,a:focus,a.pg-state-hover,a.pg-state-hover,a.pg-state-focus
     min-height: 50px;
     border-bottom: 1px solid #e5e5e5;
     background: rgba(255,255,255,0.6);
+  }
+  .time-ago-align {
+    float: right;
+    margin-top: 7px;
+    margin-right: 2px;
+  }
+  .time-left-align {
+    float: right;
+    margin-top: 7px;
+    margin-right: 2px;
   }
 }

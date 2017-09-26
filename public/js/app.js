@@ -823,8 +823,11 @@ module.exports = g;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_AnswerMixin_js__ = __webpack_require__(77);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -835,6 +838,8 @@ __webpack_require__(38);
 
 window.Vue = __webpack_require__(62);
 Vue.use(__webpack_require__(61));
+
+
 
 Vue.component('follow', __webpack_require__(50));
 Vue.component('allq', __webpack_require__(43));
@@ -847,8 +852,11 @@ Vue.component('answers_expired_owner', __webpack_require__(49));
 Vue.component('notifications', __webpack_require__(51));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
 var app = new Vue({
   el: '#app',
+
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
 
   data: {},
   mounted: function mounted() {
@@ -45607,6 +45615,51 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnswerMixin; });
+var AnswerMixin = {
+
+    data: {
+        topAnswers: [],
+        selected_user: null
+    },
+
+    created: function created() {
+
+        // this.logged_user = JSON.parse(this.logged_user);
+    },
+
+    methods: {
+        getTopAnswers: function getTopAnswers() {
+            if (this.selected_user) {
+                $.getJSON("/user/" + this.selected_user + "/topanswers", function (response) {
+                    this.topAnswers = response;
+                }.bind(this));
+            }
+        },
+        resetTopAnswers: function resetTopAnswers(user_id) {
+            this.selected_user = user_id;
+            this.topAnswers = null;
+        }
+    }
+
+};
 
 /***/ })
 /******/ ]);

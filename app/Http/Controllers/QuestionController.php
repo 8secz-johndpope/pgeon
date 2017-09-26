@@ -210,9 +210,9 @@ class QuestionController extends Controller
        
         $pending = array();
         $published = array();
-        $answer = array();
+       
         foreach ($questions as $key => $val) {
-            
+            $answer = array();
             if($val->accepted_answer == 0) {
                 //$rec
                 /** check whether pending question will have an answer chosen for publishing **/

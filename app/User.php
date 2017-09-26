@@ -100,12 +100,18 @@ class User extends Authenticatable
   
   public static function get_users_of_accepted_answers($user_id) {
     
-    $sql = "SELECT users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
+    $sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
               INNER JOIN answers ON questions.accepted_answer = answers.id
               INNER JOIN users ON answers.user_id = users.id 
               WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC";
       $users = DB::select( DB::raw($sql) );
-      return $users;
+      $result = array();
+      foreach ($users as $key => $val) {
+          $val->points = User::get_points($val->id);
+         $result [] = $val;
+          
+      }
+      return $result;
     
   }
   
@@ -113,10 +119,42 @@ class User extends Authenticatable
   public static function get_pending_answers_count($user_id) {
       
   }
-  public function points() {
+  //public function points() {
     
-    return $this->votes->sum('vote');
+    //return $this->votes->sum('vote');
     
+  //}
+  
+  
+ 
+  
+  public static function get_points($user_id) {
+      
+      $sql = "SELECT 
+      (SELECT COUNT(accepted_answer) FROM `questions` INNER JOIN answers on answers.id = questions.accepted_answer
+      WHERE answers.user_id = $user_id) + 
+      
+      (SELECT COUNT(id) FROM `answers` WHERE answers.user_id = $user_id)
+       AS points 
+       ";
+    
+      $result = DB::select( DB::raw($sql) );
+      
+      return $result[0]->points;
+      
   }
+  
+  
+  public static function get_accepted_answers_of_user($user_id) {
+      
+      $SQL = "SELECT question, answer, expiring_at,  users.name as creator FROM `questions` 
+                INNER JOIN answers ON questions.accepted_answer = answers.id
+                INNER JOIN users ON questions.user_id = users.id
+                WHERE answers.user_id = $user_id;";
+      $records = DB::select( DB::raw($SQL) );
+      return $records;
+      
+  }
+  
 }
 

@@ -23,39 +23,32 @@
 <body class="with-top-navbar" >
 <div  id="app">
 @if (Auth::guest())
-	<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-            <div class="container">
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <img src="{{URL::asset('img/brand.svg')}}" alt="Pgeon">
+                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
                     </a>
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="/">about</a>
-                        </li>
-                    </ul>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0" style="height: 50px">
-                        <li style="padding-right: 15px;padding-top: 13px">
-                            <form class="navbar-form  app-search" role="search">
-                                <div>
-                                    <a href="/register" style="margin-top: 4px; font-weight: 900;">Sign up</a>
-                                </div>
-                            </form>
+                    <ul class="nav navbar-nav m-r-0">
+                        <li>
+                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
                         </li>
-                        <li style="height: 50px;padding-top: 7px">
+                        <li>
                             <div>
-                                <a  href="/login"  class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
+                                <a href="/login" class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        
+
+
 @else
 
 

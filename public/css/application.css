@@ -28,7 +28,7 @@
 
 .app-navbar
 {
-    font-weight: 400;
+    font-weight: 600;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -39,7 +39,7 @@
 
 .app-navbar .navbar-brand img
 {
-    width: 105px;
+  width: 28px
 }
 
 .app-navbar .navbar-collapse
@@ -65,7 +65,6 @@
 
 .app-notifications .icon:before
 {
-    font-size: 20px;
 }
 
 @media (min-width: 768px)
@@ -113,18 +112,6 @@
     display: none;
 }
 
-.logo-for-mobile
-{/*
- display: none
- */
-}
-
-.app-navbar .navbar-brand img
-{/*
- width: 105px
- */
-}
-
 nav .navbar-header .nav.navbar-nav
 {
     float: left;
@@ -144,10 +131,7 @@ nav .navbar-header .nav.navbar-nav li
         right: 70px;
         top: 15px;
     }
-    a.navbar-brand img
-    {
-        display: none;
-    }
+
 }
 
 full-width
@@ -491,4 +475,107 @@ ol
     width: 210px;
     position: static;
   }
+}
+
+/* mainnav profile-img dropdown */
+
+.user-profile-dropdown .list-group-item {
+  padding: 0;
+  border: none;
+}
+.user-profile-dropdown .list-group-item a {
+  display: block;
+  padding: 10px 15px;
+}
+
+/* fix main-nav icons spacing */
+
+.navbar-right ul.navbar-nav {
+  float: right;
+  justify-content: space-between;
+  width: 110px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 15px;
+  margin: 0;
+}
+div.navbar-right li {
+  height: auto;
+}
+/* stripping spacing "conflicting" */
+.nav > li > a.app-notifications-icon {
+  padding: 0;
+}
+.app-notifications-icon{
+  font-size: 22px;
+}
+.nav.navbar-nav::after , .nav.navbar-nav::before{
+  content: none;
+}
+
+/* active state */
+.app-notifications-icon [data-prefix=fa]{
+  display: none;
+}
+.active .app-notifications-icon [data-prefix=fa]{
+  display: inline-block ;
+}
+.active .app-notifications-icon [data-prefix=fal]{
+  display: none ;
+}
+
+.mobile-dropdown.no-height{
+  max-height: 0;
+  margin: 0;
+}
+
+.mobile-dropdown{
+  overflow: hidden;
+  transition: all .2s ease-in-out;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+  background: #eee;
+  position: fixed;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 2;
+}
+
+.mobile-dropdown li {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.mobile-dropdown li a {
+  display: block;
+  padding: 10px 15px;
+}
+
+/* active state for the profile img */
+
+button#profile-button:hover , button#profile-button {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transition: all .2s ease-in-out;
+}
+button.active#profile-button {
+  border: 2px solid #21b3ab;
+}
+
+/* remove myquestions button hover effect , adding active state */
+.my-questions.btn-primary-outline{
+  border-radius:0px 4px 4px 4px
+}
+
+.my-questions.btn-primary-outline:hover{
+  background-color: #24c4bc;
+}
+.my-questions.btn-primary-outline:active{
+  background-color: #21b3ab;
+}
+.nav-container{
+  position: relative;
 }

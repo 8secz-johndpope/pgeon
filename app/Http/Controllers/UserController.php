@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Image;
 use Route;
+use Helper;
 
 
 class UserController extends Controller
@@ -211,7 +212,7 @@ class UserController extends Controller
             $most_replied = $this->getMostRepliedFor($user->id);
             
             
-            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', $user->points());
+            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied);
           }
     }
 
@@ -229,5 +230,15 @@ class UserController extends Controller
         return $user->notifications()->where('seen','=',0)->count();
     }
     
-    
+    public static function getAcceptedAnswersOfUser($user_id) {
+        $topAnswers = User::get_accepted_answers_of_user($user_id);
+        $response = array();
+        
+        foreach ($topAnswers as $key => $val) {
+            $val->created_at =  Helper::calcElapsed($val->expiring_at);
+            $response[] = $val;
+        }
+        
+        return response()->json($response);
+    }
 }

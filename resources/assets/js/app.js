@@ -9,6 +9,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.use(require('vue-resource'));
 
+import {AnswerMixin} from './mixins/AnswerMixin.js';
+
+
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('allr', require('./components/AllR.vue'));
@@ -20,8 +23,12 @@ Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner
 Vue.component('notifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
+
 const app = new Vue({
   el: '#app',
+
+  mixins: [AnswerMixin],
 
   data: {
      
@@ -32,6 +39,9 @@ const app = new Vue({
 	  //this.$refs.allR.lo()
   },
   methods: {
+	
+
+	  
 	getBubbleCount() {
 		this.$http.get('/bubble').then((response) => {
 			if (parseInt(response.data) > 0) 
@@ -46,6 +56,7 @@ const app = new Vue({
 
 
 
+	
 
 
   }

@@ -90,7 +90,7 @@ textarea#footer-textarea {
   right: 14px;
 }
 
-.footer-btn:active:hover{
+.footer-btn:active:hover,.footer-btn.pg-state-active.pg-state-hover{
   background-color: #C9CCD4;
   /* border-color: #133d55;  */
 }
