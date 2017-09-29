@@ -202,13 +202,14 @@ input:checked + .slider
 
 .slider
 {
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: all 0.4s ease 0s;
+  background-color: #d4dbe0;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.4s ease 0s;
 }
 
 ul.list_notifications
@@ -321,7 +322,7 @@ ul.list_notifications
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
 
-.regs_form .formgroup > input:focus,.regs_form .formgroup > input.pg-state-focus
+.regs_form .formgroup > input:focus
 {
     border-color: #66afe9;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
@@ -403,7 +404,7 @@ ul.list_notifications
 {
     display: none;
 }
-.bell-for-mobile a:hover,.bell-for-mobile a.pg-state-hover
+.bell-for-mobile a:hover
 {
     color: #54595f;
 }
@@ -455,20 +456,24 @@ ul.list_notifications
     right: 70px;
     top: 15px;
   }
-  a.navbar-brand img {
-    display: none;
-  }
-  a.navbar-brand img.logo-for-mobile {
+  
+  a.navbar-brand img.logo-for-mobile
+  {
     display: block;
-    width: 37px;
+    width: 26px;
   }
 }
 
 .list-group.media-list.media-list-stream{
-  margin: 0;
+  margin: 0px;
 }
 
-
+.viewed-question{
+  color: #c9ccd4;
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+}
 
 #publish_form {
 	float:right;

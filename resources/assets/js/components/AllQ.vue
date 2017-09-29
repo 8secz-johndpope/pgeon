@@ -1,19 +1,21 @@
 	<template>
 <div>
     
-     <ul class="nav nav-bordered">
+     
+     
+         <ul class=" container nav nav-bordered second-nav">
                 <div class="iconav-slider">
-                    <ul class="nav nav-pills iconav-nav m-b">
-                    
+                    <ul class="nav nav-pills iconav-nav">
                         <li class="active">
-                            <a href="#" title="Overview" data-toggle="tooltip" data-placement="right" data-container="body"><span class="icon text-muted icon-message"></span><small class="iconav-nav-label visible-xs-block"> questions</small></a>
+                            <a href="#" data-placement="right" data-container="body"><span class="fa fa-comment"></span><small class="iconav-nav-label visible-xs-block"> questions</small></a>
                         </li>
-                        
                         <li>
-                            <a href="/responses" title="Order history" data-toggle="tooltip" data-placement="right" data-container="body"><span class="icon icon-chat"></span><small class="iconav-nav-label visible-xs-block"> responses</small></a>
+                            <a href="/responses" data-placement="right" data-container="body"><span class="fa fa-comments"></span><small class="iconav-nav-label visible-xs-block"> responses</small></a>
                         </li>
                         
-                        <li class="dropdown pull-right">
+                        
+                        
+                            <li class="dropdown pull-right small" style="margin-left:auto;">
                             <div v-if="current_filter == 'follow'" class="dropdown-toggle small" data-toggle="dropdown" role="button" aria-expanded="false" style="display:table-cell;
 height:33px;
 vertical-align:bottom">followed
@@ -40,6 +42,8 @@ vertical-align:bottom">everyone
                     </ul>
                 </div>
             </ul>
+            
+     
             
             
               <div class="row">

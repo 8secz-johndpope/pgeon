@@ -2,7 +2,7 @@
   background-color: transparent;
 }
 
-#vote:focus,#vote.pg-state-focus{
+#vote:focus{
   outline: 0;
 }
 
@@ -35,7 +35,7 @@
   flex: 1;
 }
 .icon-thumbs-up{
-  color: #66cc99
+  color: #66cc99;
 }
 
 .navbar-fixed-bottom.footer-toggle{
@@ -90,7 +90,7 @@ textarea#footer-textarea {
   right: 14px;
 }
 
-.footer-btn:active:hover,.footer-btn.pg-state-active.pg-state-hover{
+.footer-btn:active:hover{
   background-color: #C9CCD4;
   /* border-color: #133d55;  */
 }

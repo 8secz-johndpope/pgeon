@@ -77,6 +77,71 @@
   .navbar-form {
     padding: 0 15px;
   }
+}
 
-import 'vue-smooth-picker/dist/css/style.css'
+/* new nav and stuff  */
 
+.with-top-navbar {
+  padding-top: 0;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+position: relative;
+}
+
+.mr30{
+margin-right: 30px;
+}
+
+.up50{
+  transform: translateY(-50px);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.nav_all{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 200ms ease;
+  z-index: 2;
+}
+
+.content {
+  margin-top: 120px;
+  position: relative;
+}
+.app-navbar{
+  /*background: transparent;*/
+}
+.nav_all{
+  background: #fefefe;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.second-nav{
+  background-color: transparent;
+  padding: 5px;
+}
+
+.iconav-nav{
+  display: flex;
+  align-items: center;
+}
+
+.iconav-nav .f-right{
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.active-container{
+  background-color: #C9CBCE;
+  box-shadow: none;
+}
+
+.active-response-container{
+  background-color: #E0E1E3;
+  box-shadow: none;
+}

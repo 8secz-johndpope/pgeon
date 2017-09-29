@@ -25,6 +25,11 @@
 @if (Auth::guest())
 
 
+ 
+        
+        
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
@@ -33,7 +38,7 @@
                     </a>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0">
+                    <ul class="nav navbar-nav m-r-0" style="width: 125px;">
                         <li>
                             <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
                         </li>
@@ -52,72 +57,64 @@
 @else
 
 
- <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">
-            <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
-          </a>
-             <ul class="nav navbar-nav">
-                         <li>
-                             <a href="/">Home</a>
-                         </li>
-                         <li>
-                             <a href="{{ (Auth::user()->slug && Auth::user()->role_id == 3)? Auth::user()->slug :'/user/'.Auth::user()->id }}">Profile</a>
-                         </li>
-                         <li>
-                             <a href="{{ route('people') }}">People</a>
-                         </li>
-                         <li>
-                             <a href="{{ route('logout') }}"
-                                             onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">Logout</a>
-                         </li>
-
-                     </ul>
-                            <ul id="clone_bar" class="nav navbar-nav hidden">
-
-                         <li>
-                             <a href="{{ route('profile') }}">Settings</a>
-                         </li>
-                         <li>
-                           <a href="{{ route('profile') }}">Help</a>
-                       </li>
-                         <li>
-                             <a href="{{ route('logout') }}"
-                                             onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">Logout</a>
-                         </li>
-                     </ul>
-        </div>
-        
-        <div class="navbar-right" id="navbar-collapse-main">
-          <ul class="nav navbar-nav m-r-0">
-          
-          @if( Auth::user()->role_id == 3)
-            <li>
-                <div>
-                
-                  <a id="a_add_question" class="btn btn-sm btn-primary-outline active" href="my-questions" style="font-weight: 600;"><span class="icon icon-typing"></span><span class="ad">my questions</span></a>
-                </div>
-            </li>
-            @endif
+<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container nav-container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
+                    </a>
+                    <ul class="nav navbar-nav">
             
+                     @if( Auth::user()->role_id == 3)
+                        <li>
+                            <form class="navbar-form">
+                                <div>
+                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
+                                </div>
+                            </form>
+                        </li>
+                       @endif 
+                    </ul>
+                </div>
+                <div class="navbar-right" id="navbar-collapse-main">
+                    <ul class="nav navbar-nav m-r-0">
+                        <li>
+                            <a href="{{ route('people') }}" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
+                        </li>
+                        <li>
+                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span></a>
+                        </li>
+                        <li>
+                            <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
+                                <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}">
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <ul class="mobile-dropdown no-height">
             <li>
-              <a href="notifications/" class="app-notifications"><span class="icon icon-bell"></span></a>
+                <a href="{{ route('profile') }}"> Profile </a>
             </li>
             <li>
-              <button class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}   " alt="">
-              </button>
+                <a href="{{ route('profile') }}"> Setting </a>
             </li>
-          </ul>
-        </div>
-      </div>
-         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            <li>
+                <a href=""> Help </a>
+            </li>
+            <li>
+             <a href="{{ route('logout') }}"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
+           	  Logout
+             </a>
+               
+            </li>
+        </ul>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                              {{ csrf_field() }}
                                          </form>
-    </nav>
+        
+
     
     
 
@@ -150,7 +147,11 @@
     
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-	
+    
+	 <script defer src="{{ asset('/js/packs/light.js') }}"></script>
+        <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
+        <script defer src="{{ asset('/js/packs/brands.js') }}"></script>
+        <script defer src="{{ asset('/js/fontawesome.js') }}"></script>
 
 </body>
 

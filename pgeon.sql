@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 11, 2017 at 02:49 AM
+-- Generation Time: Sep 28, 2017 at 05:15 PM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.0.18
 
@@ -34,27 +34,30 @@ CREATE TABLE `answers` (
   `question_id` int(11) NOT NULL,
   `answer` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `manually_chosen_as_top` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `answers`
 --
 
-INSERT INTO `answers` (`id`, `user_id`, `question_id`, `answer`, `created_at`, `updated_at`) VALUES
-(1, 5, 1, 'this is bala\'s answer take it or leave it', '2017-08-22 01:00:59', '2017-08-22 01:00:59'),
-(2, 2, 1, 'ram@gmail.com answer', '2017-08-22 01:01:52', '2017-08-22 01:01:52'),
-(3, 7, 1, 'this is mark', '2017-08-22 03:56:20', '2017-08-22 03:56:20'),
-(4, 8, 1, 'real mark here', '2017-08-22 05:39:26', '2017-08-22 05:39:26'),
-(5, 2, 2, 'ram@gmil again', '2017-08-23 08:30:21', '2017-08-23 08:30:21'),
-(6, 8, 2, 'mark here get me some votes', '2017-08-23 08:30:59', '2017-08-23 08:30:59'),
-(7, 5, 2, 'bala here dont expect votes', '2017-08-23 08:31:11', '2017-08-23 08:31:11'),
-(8, 8, 3, 'mark here', '2017-08-23 08:35:47', '2017-08-23 08:35:47'),
-(9, 6, 3, 'jc@test.com here', '2017-08-23 08:36:00', '2017-08-23 08:36:00'),
-(10, 5, 3, 'bala herer', '2017-08-23 08:36:06', '2017-08-23 08:36:06'),
-(11, 8, 4, 'I am mark', '2017-08-23 08:39:55', '2017-08-23 08:39:55'),
-(12, 2, 4, 'I am ram', '2017-08-23 08:40:02', '2017-08-23 08:40:02'),
-(13, 5, 4, 'bala here', '2017-08-23 08:40:08', '2017-08-23 08:40:08');
+INSERT INTO `answers` (`id`, `user_id`, `question_id`, `answer`, `created_at`, `updated_at`, `manually_chosen_as_top`) VALUES
+(1, 5, 1, 'this is bala\'s answer take it or leave it', '2017-08-22 01:00:59', '2017-08-22 01:00:59', 0),
+(2, 2, 1, 'ram@gmail.com answer', '2017-08-22 01:01:52', '2017-08-22 01:01:52', 0),
+(3, 7, 1, 'this is mark', '2017-08-22 03:56:20', '2017-08-22 03:56:20', 0),
+(4, 8, 1, 'real mark here', '2017-08-22 05:39:26', '2017-08-22 05:39:26', 0),
+(5, 2, 2, 'ram@gmil again', '2017-08-23 08:30:21', '2017-08-23 08:30:21', 0),
+(6, 8, 2, 'mark here get me some votes', '2017-08-23 08:30:59', '2017-08-23 08:30:59', 0),
+(7, 5, 2, 'bala here dont expect votes', '2017-08-23 08:31:11', '2017-08-23 08:31:11', 0),
+(8, 8, 3, 'mark here', '2017-08-23 08:35:47', '2017-08-23 08:35:47', 0),
+(9, 6, 3, 'jc@test.com here', '2017-08-23 08:36:00', '2017-08-23 08:36:00', 0),
+(10, 5, 3, 'bala herer', '2017-08-23 08:36:06', '2017-08-23 08:36:06', 0),
+(23, 2, 25, 'rame;s answer', '2017-09-12 09:25:49', '2017-09-12 09:25:49', 0),
+(26, 5, 30, 'my first answer', '2017-09-18 20:33:13', '2017-09-18 20:33:13', 0),
+(27, 5, 31, 'take msy ans', '2017-09-19 04:50:32', '2017-09-25 02:33:50', 1),
+(28, 6, 32, 'want my answers', '2017-09-20 09:58:50', '2017-09-20 09:58:50', 0),
+(29, 4, 33, 'will garner some votes', '2017-09-25 02:34:48', '2017-09-25 02:34:48', 0);
 
 -- --------------------------------------------------------
 
@@ -285,12 +288,28 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `target_user`, `seen`, `created_at`) VALUES
-(54, 2, 0, 1504192129),
-(55, 5, 0, 1504192129),
-(56, 3, 0, 1504192173),
-(57, 5, 0, 1504192173),
-(58, 3, 0, 1505051079),
-(59, 5, 0, 1505051079);
+(60, 1, 0, 1505091266),
+(61, 5, 0, 1505091266),
+(72, 1, 0, 1505129976),
+(73, 5, 0, 1505129976),
+(76, 1, 0, 1505208463),
+(77, 5, 0, 1505208463),
+(78, 1, 0, 1505214338),
+(79, 5, 0, 1505214338),
+(80, 1, 0, 1505216053),
+(81, 5, 0, 1505216053),
+(82, 3, 0, 1505708944),
+(83, 5, 0, 1505708944),
+(84, 3, 0, 1505709002),
+(85, 5, 0, 1505709002),
+(90, 1, 0, 1505786033),
+(91, 5, 0, 1505786033),
+(92, 1, 0, 1505816342),
+(93, 5, 0, 1505816342),
+(94, 3, 0, 1505921276),
+(95, 5, 0, 1505921276),
+(96, 1, 0, 1506326670),
+(97, 5, 0, 1506326671);
 
 -- --------------------------------------------------------
 
@@ -319,12 +338,28 @@ CREATE TABLE `notification_question_posted` (
 --
 
 INSERT INTO `notification_question_posted` (`question_id`, `notification_id`) VALUES
-(11, 54),
-(11, 55),
-(12, 56),
-(12, 57),
-(13, 58),
-(13, 59);
+(14, 60),
+(14, 61),
+(20, 72),
+(20, 73),
+(22, 76),
+(22, 77),
+(23, 78),
+(23, 79),
+(24, 80),
+(24, 81),
+(26, 82),
+(26, 83),
+(27, 84),
+(27, 85),
+(30, 90),
+(30, 91),
+(31, 92),
+(31, 93),
+(32, 94),
+(32, 95),
+(33, 96),
+(33, 97);
 
 -- --------------------------------------------------------
 
@@ -364,7 +399,9 @@ CREATE TABLE `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('ramrumram@gmail.com', '$2y$10$.DnoSb4ozttWzd/pBQYRxOINWnLgKGBJZDPST.6.fxG9wQQhhz5lO', '2017-08-10 03:28:41');
+('ramrumram@gmail.com', '$2y$10$.DnoSb4ozttWzd/pBQYRxOINWnLgKGBJZDPST.6.fxG9wQQhhz5lO', '2017-08-10 03:28:41'),
+('test@test.com', '$2y$10$/yImiD5YBFqOFPvFLJ29u.rWdk/MlN65.7DWIcGbj8HPMImHCaZPS', '2017-09-19 06:45:07'),
+('bala@gmail.com', '$2y$10$ArbZxee/1lHAq31slmGMB.flWsqeF8vt9tPZobaZeQx4Srbc6ac6K', '2017-09-19 06:46:00');
 
 -- --------------------------------------------------------
 
@@ -535,10 +572,13 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `user_id`, `question`, `solved`, `created_at`, `updated_at`, `status`, `published_at`, `expiring_at`, `accepted_answer`) VALUES
-(9, 6, '<p>sjdfksjh</p>', 0, '2017-08-31 09:30:46', '2017-08-31 09:30:46', 'PUBLISHED', NULL, 1504191706, 0),
-(11, 6, '<p>labr</p>', 0, '2017-08-31 09:38:49', '2017-08-31 09:38:49', 'PUBLISHED', NULL, 1504875320, 0),
-(12, 2, '<p>lqiiieu</p>', 0, '2017-08-31 09:39:33', '2017-08-31 09:39:33', 'PUBLISHED', NULL, 1504192233, 0),
-(13, 2, 'wha do you wan', 0, '2017-09-10 08:14:39', '2017-09-10 08:14:39', 'PUBLISHED', NULL, 1505051139, 0);
+(24, 6, 'firs jdfh ksdjfhsdtsquest', 0, '2017-09-12 06:04:13', '2017-09-12 06:04:13', 'PUBLISHED', NULL, 1505227033, 0),
+(25, 8, 'marks\'s question', 0, '2017-09-12 09:09:31', '2017-09-12 10:26:13', 'PUBLISHED', NULL, 1505231773, 0),
+(27, 2, 'fitst uest', 0, '2017-09-17 23:00:02', '2017-09-17 23:00:02', 'PUBLISHED', NULL, 1505745062, 0),
+(30, 6, 'eexpeeting som answsres bor', 0, '2017-09-18 20:23:53', '2017-09-20 10:13:04', 'PUBLISHED', NULL, 1505814893, 26),
+(31, 6, 'another question..some one answer pls', 0, '2017-09-19 04:49:02', '2017-09-25 02:33:59', 'PUBLISHED', NULL, 1505899202, 27),
+(32, 2, 'my times wat what', 0, '2017-09-20 09:57:56', '2017-09-20 09:59:43', 'PUBLISHED', NULL, 1505921353, 28),
+(33, 6, 'gonna give you some points', 0, '2017-09-25 02:34:30', '2017-09-25 02:35:50', 'PUBLISHED', NULL, 1506326729, 29);
 
 -- --------------------------------------------------------
 
@@ -700,17 +740,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `created_at`, `updated_at`, `stripe_id`, `card_brand`, `card_last_four`, `trial_ends_at`, `bio`, `provider`, `provider_id`, `slug`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', '', '$2y$10$QXCKwWMssG4XZfY30UTnberfWKkzDmRkZjdT5pQVxQWXrsF//3DDS', 'HtPURCERWnMjdk56baUK6da2iyqcM07hgfhN9VUfDgEqoeI21rmVKHJkIGu5', '2017-05-17 07:37:07', '2017-05-17 07:37:07', NULL, NULL, NULL, NULL, 'my bio goes here', NULL, NULL, '1'),
-(2, 3, 'ram', 'ram@gmail.com', '', '$2y$10$bhMuTRz8Vr70AprzSkkXi./RWpfM5.3G8Zs9P2IM3GEeL.EnU3a86', 'gLLtZYWZxVp5wv91KDqHfAgO4Xyw1XKNnH6P7BEP5m93HMBLtKi7h5TqyK6H', '2017-05-22 20:31:01', '2017-07-12 09:43:22', 'cus_B0fFoa4B6OFnhD', 'Visa', '4242', NULL, 'I am not a good guy', NULL, NULL, 'dras'),
-(3, 2, 'bal', 'bala@gmail.com', '', '$2y$10$qHvf4G84gqqvnkcErNXz0uqj9jaaKfeFcmbiSbFDxr31xmDYgOsrW', 'cHH9Se2mBfCdjNsEo7mOxpotTInsUUfpfuu5a4veU3FKrLarGojme7zu1xSx', '2017-06-01 08:44:59', '2017-06-01 08:44:59', NULL, NULL, NULL, NULL, 'good bal', NULL, NULL, ''),
-(4, 2, 'jac', 'jack@gmail.com', '', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', 'b5SMNE6MSlmfm1qmhfF24ezsajEkH153ScVaSnuzfekSnOYjgz4d3zMQRQDZ', '2017-06-01 08:51:55', '2017-06-01 08:51:55', NULL, NULL, NULL, NULL, '', NULL, NULL, '4'),
-(5, 2, 'ba', 'bal@gmail.com', '', '$2y$10$D3kFGVEp0w/IljuUJRShEuLJjnIliPypWqGqq5C266TY8Pmd8dnoy', '0zk9XHDcazFVTZdsZd0JPYOqnUkwLsm6dvSa82W5ktqenaFEeHE8j1qNQpRj', '2017-06-10 04:14:43', '2017-08-11 09:35:06', NULL, NULL, NULL, NULL, '', NULL, NULL, 'LAS'),
-(6, 3, 'Jacob Thornton', 'jc@test.com', '1499249439.jpg', '$2y$10$OR1bEfvmMmMgqngCB7Auqujr8S8lwzceOF2OsD2eeZN2ogcXYpFaG', 'gPknbVjaZTSFC0gPMWLxhkAASnbWjMDp6kbweLFkR3BYeKu1P9XiNwYhQwAl', '2017-06-19 18:52:24', '2017-06-19 18:52:24', NULL, NULL, NULL, NULL, 'around the galaxy', NULL, NULL, 'jac'),
-(7, 3, 'jak Dave Gamache', 'dave@test.com', '', '$2y$10$qyb/rnJ3yOyYlePczbsCguuc01fv9Uyoq39as/.rNAXvq/RdV7lZm', 'gDSThYaE6BPcUvVHiOmWKwm1kTdejNhSkdODf8vNOSK7v7QOrd2rc86wZuKP', '2017-06-19 19:04:11', '2017-06-19 19:04:11', NULL, NULL, NULL, NULL, 'sailing into dreams', NULL, NULL, '7'),
-(8, 3, 'Mark Otto', 'mark@tes.com', '', '$2y$10$5CVkPSQbNPLuAQPlFEfPUumiqRTwUffPdS/r1ryKukemBRswio1Qu', 'EFISONLwurjvcSw4n8vg2oCJv40EGmW8uHBJhLSrBnu0RhkJUXMv6FdUyJ0e', '2017-06-19 19:05:49', '2017-06-19 19:05:49', NULL, NULL, NULL, NULL, 'Love nature', NULL, NULL, '8'),
-(9, 2, 'Ram Kumar', 'ramrumram@gmail.com', '', NULL, 'TLn5ymz7nlQwGgc7BvgNAPXuRAHA0eviWPvPLGWeMeJX9o8qbbNg5iH9ebN9', '2017-06-21 05:20:50', '2017-06-21 05:20:51', NULL, NULL, NULL, NULL, NULL, 'facebook', '544005219110827', '9'),
-(10, 2, 'prasanth', NULL, '', NULL, '0YCCpR1Mn08bfb9cGcSzHV2s21QbOgmep3AnV2EVMj22GyF128RzaJBEaSiO', '2017-06-21 05:59:01', '2017-07-05 08:31:31', NULL, NULL, NULL, NULL, 'dfdf', 'twitter', '877457031795326976', ''),
-(11, 2, 'one', 'on3@gmil.com', '1499249565.png', '$2y$10$FOzNS/rj6FJ9.d8oc/TGSO.6qz1RgPa8hzzRx.cArfOP7hgePbxr.', 'J2WEMRCq9yFGGDGF1G1o0PsUE8yKynaspVFD05mBOxyMY3rF2w2RG0Jpw1Y1', '2017-07-05 03:30:52', '2017-07-05 04:42:45', NULL, NULL, NULL, NULL, 'dfd', NULL, NULL, 'g');
+(1, 1, 'Admin', 'admin@admin.com', '', '$2y$10$QXCKwWMssG4XZfY30UTnberfWKkzDmRkZjdT5pQVxQWXrsF//3DDS', 'HtPURCERWnMjdk56baUK6da2iyqcM07hgfhN9VUfDgEqoeI21rmVKHJkIGu5', '2017-05-17 02:07:07', '2017-05-17 02:07:07', NULL, NULL, NULL, NULL, 'my bio goes here', NULL, NULL, '1'),
+(2, 3, 'ram', 'ram@gmail.com', '', '$2y$10$bhMuTRz8Vr70AprzSkkXi./RWpfM5.3G8Zs9P2IM3GEeL.EnU3a86', 'bnOmeS4Ld9eFLbEDlwAbH7pATtejnzM4SqKOi28RFEx1bcqRoaHxq2ucCDFJ', '2017-05-22 15:01:01', '2017-07-12 04:13:22', 'cus_B0fFoa4B6OFnhD', 'Visa', '4242', NULL, 'I am not a good guy', NULL, NULL, 'dras'),
+(3, 2, 'bal', 'bala223344@gmail.com', '', '$2y$10$dehD5gC99eX/mGW003Pc7uaIF0b5KN/ZmDR.0epSy9WisLABY4gOG', 'YBmZiDh7KrQ2kZzpkmTl9rzftYquJSrwEUmXqLFA3c5MXUUVbFMnMq4J8H3k', '2017-06-01 03:14:59', '2017-09-19 07:04:18', NULL, NULL, NULL, NULL, 'good bal', NULL, NULL, ''),
+(4, 2, 'jac', 'jack@gmail.com', '1505825657.png', '$2y$10$waOUu3GoLt6MT6Fp4ySSguYMIzaqpuz65j88i3wbRBvj90vt8nQ22', 'l5eQJH9IV6Qz5JEGK6vxNaePpHpJU1e5t0MX5TGNIWKqfKWVyoWaZi00aPaQ', '2017-06-01 03:21:55', '2017-09-19 07:26:16', NULL, NULL, NULL, NULL, 'what..', NULL, NULL, '45'),
+(5, 2, 'ba', 'bal@gmail.com', '', '$2y$10$D3kFGVEp0w/IljuUJRShEuLJjnIliPypWqGqq5C266TY8Pmd8dnoy', 'FeLHEdTuAaZfXWkPNJ6EuX7F0XQUedwbac0UwSWM9uDo7n4aQTa5bYQs8WbK', '2017-06-09 22:44:43', '2017-08-11 04:05:06', NULL, NULL, NULL, NULL, '', NULL, NULL, 'LAS'),
+(6, 3, 'Jacob Thornton', 'jc@test.com', '1499249439.jpg', '$2y$10$OR1bEfvmMmMgqngCB7Auqujr8S8lwzceOF2OsD2eeZN2ogcXYpFaG', '1gr7Za5lturZNsESejbqZxyCjW72sOEk5W15EQxOXgECAExoDe0bhjelZJ5J', '2017-06-19 13:22:24', '2017-06-19 13:22:24', NULL, NULL, NULL, NULL, 'around the galaxy', NULL, NULL, 'jac'),
+(7, 3, 'jak Dave Gamache', 'dave@test.com', '', '$2y$10$qyb/rnJ3yOyYlePczbsCguuc01fv9Uyoq39as/.rNAXvq/RdV7lZm', 'gDSThYaE6BPcUvVHiOmWKwm1kTdejNhSkdODf8vNOSK7v7QOrd2rc86wZuKP', '2017-06-19 13:34:11', '2017-06-19 13:34:11', NULL, NULL, NULL, NULL, 'sailing into dreams', NULL, NULL, '7'),
+(8, 3, 'Mark Otto', 'mark@tes.com', '', '$2y$10$5CVkPSQbNPLuAQPlFEfPUumiqRTwUffPdS/r1ryKukemBRswio1Qu', 'wMlWpZ9BFDG5O5vc0oyNhaHoMcgQiErLwUWg47k7eWvVUQhkqp00kGlPZpC3', '2017-06-19 13:35:49', '2017-06-19 13:35:49', NULL, NULL, NULL, NULL, 'Love nature', NULL, NULL, '8'),
+(9, 2, 'Ram Kumar', 'ramrumram@gmail.com', '', NULL, 'L1F7QQuGGxJqD1vs7sO8KbavngM8SGDx7CysXfEUQyWJy9OWtgmYfO0ypN10', '2017-06-20 23:50:50', '2017-06-20 23:50:51', NULL, NULL, NULL, NULL, NULL, 'facebook', '544005219110827', '9'),
+(10, 2, 'prasanth', NULL, '', NULL, '0YCCpR1Mn08bfb9cGcSzHV2s21QbOgmep3AnV2EVMj22GyF128RzaJBEaSiO', '2017-06-21 00:29:01', '2017-07-05 03:01:31', NULL, NULL, NULL, NULL, 'dfdf', 'twitter', '877457031795326976', ''),
+(11, 2, 'one', 'on3@gmil.com', '1499249565.png', '$2y$10$FOzNS/rj6FJ9.d8oc/TGSO.6qz1RgPa8hzzRx.cArfOP7hgePbxr.', 'J2WEMRCq9yFGGDGF1G1o0PsUE8yKynaspVFD05mBOxyMY3rF2w2RG0Jpw1Y1', '2017-07-04 22:00:52', '2017-07-04 23:12:45', NULL, NULL, NULL, NULL, 'dfd', NULL, NULL, 'g'),
+(12, 2, 'Яuss', NULL, '', NULL, 'snKOSsEZjFOBj3X65dxbzsW38RyQVFNagO7c5aPi0UiuuQxqfPZ2IfZQKWC6', '2017-09-01 00:42:59', '2017-09-01 00:42:59', NULL, NULL, NULL, NULL, NULL, 'twitter', '267011945', NULL),
+(13, 2, 'test', 'test@test.com', '', '$2y$10$0ns0Hw2.PJU2ekrYV895UOI9omfLWYfxkqR4FlaRuEIkBCQ0F2K0m', NULL, '2017-09-07 12:43:49', '2017-09-07 12:43:49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 2, 'testtest', 'test2@test.com', '', '$2y$10$AfrKfNfQKcrAPx2bsXOsxeOQwkuvMZVRd6ymqLXg4z8Y2eSGWNH8S', NULL, '2017-09-10 14:36:02', '2017-09-10 14:36:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -730,7 +773,6 @@ CREATE TABLE `user_followings` (
 
 INSERT INTO `user_followings` (`id`, `user_id`, `followed_by`) VALUES
 (20, 2, 3),
-(22, 2, 5),
 (33, 4, 1),
 (40, 4, 5),
 (31, 5, 2),
@@ -757,17 +799,22 @@ CREATE TABLE `votes` (
 --
 
 INSERT INTO `votes` (`user_id`, `answer_id`, `vote`, `created_at`, `updated_at`) VALUES
-(2, 1, -1, NULL, NULL),
-(2, 3, -1, NULL, NULL),
-(2, 6, 1, NULL, NULL),
+(2, 13, 1, NULL, NULL),
+(2, 15, 1, NULL, NULL),
+(2, 22, 1, NULL, NULL),
+(2, 29, 1, NULL, NULL),
 (5, 2, 1, NULL, NULL),
 (5, 5, -1, NULL, NULL),
 (5, 6, 1, NULL, NULL),
 (5, 8, 1, NULL, NULL),
+(5, 23, 1, NULL, NULL),
 (6, 8, 1, NULL, NULL),
+(6, 11, 1, NULL, NULL),
 (7, 1, 1, NULL, NULL),
 (7, 2, 1, NULL, NULL),
-(8, 10, 1, NULL, NULL);
+(7, 12, 1, NULL, NULL),
+(8, 10, 1, NULL, NULL),
+(8, 12, 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -943,7 +990,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -978,7 +1025,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -1003,7 +1050,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -1028,7 +1075,7 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user_followings`
 --

@@ -201,7 +201,10 @@
                     <div class="pending">
                     
                     
+                    
+                    
                     @foreach ($pending as $key => $val) 
+                    
                     
                         <ul class="media-list media-list-stream c-w-md">
                             <div class="media-body m-b">
@@ -266,26 +269,19 @@
    <!-- pending !-->
       <div class="published hidden">
       
-              <div class="container p-t-md">
-            <div class="col-md-12">
-          
+           
         
           
         
       
-      
-       
-       
-       
-               <ul class="media-list media-list-stream c-w-md answer-bubbles-container">
-               
-                @foreach ($published as $key => $val) 
+  <ul class="media-list media-list-stream c-w-md answer-bubbles-container">
                     <!--  starting here -->
+                     @foreach ($published as $key => $val) 
                     <li class="media answer-bubble">
                         <div style="float: left">
                             <div class="checkbox-inline custom-control custom-checkbox hidden">
                                 <label>
-                                    <input type="checkbox" value="{{$val['question']->id}}" class="toggleOverlay">
+                                    <input type="checkbox" value="{{$val['question']->id}}"  class="toggleOverlay">
                                     <span class="custom-control-indicator"></span>
                                 </label>
                             </div>
@@ -296,7 +292,7 @@
                                     <div class="media-body">
                                         <div id="overlay"></div>
                                         <div class="media-body-text media-question">
-                                         {{$val['question']->question}}
+                                        {{$val['question']->question}}
                                         
 </div>
                                     </div>
@@ -305,22 +301,24 @@
                                     <div class="media-body">
                                         <div id="overlay"></div>
                                         <div class="media-body-text media-response">
-                                           {{$val['answer']->answer}}
-                                            
+                                         {{$val['answer']->answer}}  
 </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </li>
-           @endforeach
+              @endforeach
                     <!-- end here -->
                 </ul>
                 
                 
+       
+       
+      
                 
-                  </div>
-        </div>
+                
+           
        
        
        

@@ -579,3 +579,17 @@ button.active#profile-button {
 .nav-container{
   position: relative;
 }
+
+/* profile index user list dropdown */
+.dropdown-user{
+  cursor: pointer;
+  border: none;
+}
+
+.dropdown-user-show-all{
+  border: none;
+}
+.dropdown-user-show-all a{
+  color: #24c4bc;
+}
+
