@@ -209,15 +209,18 @@ class UserController extends Controller
       if(!$user)
             return view('user.usernotfound');
           else {
-            $most_replied = $this->getMostRepliedFor($user->id);
-            
-            
-            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied);
+            $most_replied = $this->getMostRepliedTop10($user->id);
+            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', User::get_points($user->id));
           }
     }
 
-   private function getMostRepliedFor($user_id) {
+   public function topResponders($user_id) {
       $users = User::get_users_of_accepted_answers($user_id);
+      return response()->json($users);
+   }
+   
+   private function getMostRepliedTop10($user_id) {
+      $users = User::get_users_of_accepted_answers_top10($user_id);
       return $users;
    }
   

@@ -39,4 +39,9 @@ class Helper
             return 'go ahead and post your first question';
         }
     } 
+    
+    public static function slug($user_id, $slug) {
+    		return ($slug)? $slug : "/user/".$user_id;
+    }
 }
+

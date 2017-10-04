@@ -97,23 +97,37 @@ class User extends Authenticatable
     
   }
   
+  public static function fetch_most_replied_results($user_id, $limit_str = "" ) {
   
-  public static function get_users_of_accepted_answers($user_id) {
-    
-    $sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
+  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
               INNER JOIN answers ON questions.accepted_answer = answers.id
               INNER JOIN users ON answers.user_id = users.id 
-              WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC";
+              WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC $limit_str";
       $users = DB::select( DB::raw($sql) );
       $result = array();
       foreach ($users as $key => $val) {
-          $val->points = User::get_points($val->id);
+         $val->points = User::get_points($val->id);
+         $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
          $result [] = $val;
           
       }
       return $result;
+  }
+    
+  public static function get_users_of_accepted_answers_top10($user_id) {
+    
+    return User::fetch_most_replied_results($user_id, " LIMIT 10");
     
   }
+  
+  
+  
+  public static function get_users_of_accepted_answers($user_id) {
+    
+    return User::fetch_most_replied_results($user_id);
+    
+  }
+  
   
 
   public static function get_pending_answers_count($user_id) {
@@ -130,13 +144,10 @@ class User extends Authenticatable
   
   public static function get_points($user_id) {
       
-      $sql = "SELECT 
-      (SELECT COUNT(accepted_answer) FROM `questions` INNER JOIN answers on answers.id = questions.accepted_answer
-      WHERE answers.user_id = $user_id) + 
       
-      (SELECT COUNT(id) FROM `answers` WHERE answers.user_id = $user_id)
-       AS points 
-       ";
+      $sql = " 
+      SELECT COUNT(accepted_answer)  AS points  FROM `questions` INNER JOIN answers on answers.id = questions.accepted_answer
+      WHERE answers.user_id = $user_id ";
     
       $result = DB::select( DB::raw($sql) );
       

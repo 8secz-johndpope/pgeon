@@ -8,9 +8,12 @@
         <div class="avatar-wrapper">
           
           <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
+          
+          
+          
         </div>
         <div class="vote-points">
-          <span class="number"></span>points
+          <span class="number">{{$points}}</span>points
         </div>
       </div>
       <div class="user-details">
@@ -20,6 +23,8 @@
       <div>
         <div class="panel-body" style="text-align:center">
           <div>
+          
+          @if ($user->role_id==3)
             <div class="most-replied-container">
           
     
@@ -27,8 +32,10 @@
        
                                @foreach ($most_replied as $key => $follower)
                                    <div>
-                                   <li class="avatar-list-item" v-on:click="resetTopAnswers({{$follower->id}})"  data-index="{{$key}}" data-rank="{{$follower->points}}" data-name="{{$follower->name}}" data-topA="{{$follower->accepted_answers}}">
+                                   <li class="avatar-list-item" v-on:click="resetTopAnswers({{$follower->id}})"  data-index="{{$key}}" data-rank="{{$follower->points}}" data-name="{{$follower->name}}" data-topA="{{$follower->accepted_answers}}" data-slug="{{$follower->slug}}">
                                        <img class="img-circle" src="{{ Helper::avatar($follower->avatar) }}" />
+                                       
+                                       
                                    </li>
                                </div>
                                @endforeach 
@@ -43,21 +50,20 @@
               
                   
                   
-                   <div class="user-info">
+                   <div class="user-info overflow-hidden">
                                 <div class="answers-replies-info no-height overflow-hidden">
-                                    <ul class="nav nav-pills">
-                                        <li>
-                                            <h5><a href="#" style="color:#00b2a4;">
-                                                    <a href="#" class="user-info-count" style="color:#24b4bc"></a>
-                                                    top responses from
-                                                    <span class="dropdown"><a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" style="color:#24c4bc"><span class="user-info-name" v-on:click="getTopAnswers()"></span></a>
-                                                    </span>
-</h5>
-                                        </li>
+                                         <a href="#" class="user-info-count" style="color:#24b4bc" v-on:click="getTopAnswers()"></a>
+                                    <span class="top-responses"> top responses from </span>
+                                    <a  class="a_user-info-name"  href="" role="button" style="color:#24c4bc"><span class="user-info-name" ></span></a>
+                                    
+                                               
                                         <button type="button" data-dismiss="alert" aria-label="Close" class="close unselectUser" style="vertical-align: middle;display: table;height:40px">
-                                            <span class="unselectUser" aria-hidden="true">×</span>
+                                            <span class="unselectUser" aria-hidden="true"  v-on:click="clearVals()">×</span>
                                         </button>
-                                    </ul>
+                                    
+                                </div>
+                                <div class="showall">
+                                    <a href="#" v-on:click="showAllResponders({{$user->id}})">display all #</a>
                                 </div>
                             </div>
                             
@@ -67,12 +73,40 @@
 
                
                     </div>
+             @endif       
                   </div>
                 </div>
               </div>
             </div>
   
   
+  
+  		
+                        <div class="container p-t-md">
+            <div class="row">
+                <div class="col-md-8 col-md-push-2">
+                    <table class="table" v-if="topResponders.length > 0">
+                        <thead> 
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Responses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  v-for="(responder, key) in topResponders">
+                                <td>@{{key + 1}}</td>
+                                <td>@{{responder.name}}</td>
+                                <td>
+                                    <a  v-on:click="setUserAndGetTopAnswer(responder.id)" style="color:#24c4bc;cursor:pointer;">@{{responder.accepted_answers}}</a>
+                                </td>
+                            </tr>
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
   
   
   
@@ -113,8 +147,6 @@
         
 
 
-		
-                 
 
 
         

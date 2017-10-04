@@ -145,3 +145,134 @@ margin-right: 30px;
   background-color: #E0E1E3;
   box-shadow: none;
 }
+
+
+
+    .slick-slider {
+      background: url(../assets/img/slider.gif);
+    }
+
+    .slick-slider .slick-list {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .slick-slider.slick-initialized {
+      background: none;
+    }
+
+    .slick-slider.slick-initialized .slick-list {
+      opacity: 1;
+      position: relative;
+      transition: opacity 0.2s ease-in;
+    }
+
+    /*carousel  */
+
+    .slick-slide {
+      outline: none;
+    }
+
+    .pound {
+      font-size: 8px;
+      vertical-align: top;
+    }
+
+    .slick-next:before,
+    .slick-prev:before {
+      color: #484F66;
+    }
+
+    .slick-current li {
+      position: relative;
+      z-index: 1;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .activated li:after {
+      content: attr(data-rank);
+      font-weight: 900;
+      font-size: 9px;
+      background-color: #24c4bc;
+      color: white;
+      position: absolute;
+      width: 100%;
+      height: 22px;
+      left: 0;
+      z-index: 10;
+      bottom: -9px;
+    }
+
+    .answers-replies-info {
+      max-height: 500px;
+      transition: max-height .5s ease-in-out;
+    }
+
+    .overflow-hidden {
+      overflow: hidden;
+    }
+
+    .no-height {
+      max-height: 0;
+    }
+
+    .dropdown-menu {
+      width: 180px;
+      padding: 0;
+    }
+
+    .dropdown-user:hover,
+    .dropdown-user.pg-state-hover {
+      background: #24c4bc;
+      color: white;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .header-nav h4 {
+      flex: 1;
+      text-align: center;
+    }
+
+    .nav-contain {
+      background-color: #fff;
+       border-bottom: 1px solid rgba(0, 0, 0, .0975);
+    }
+
+    .answers-replies-info,
+              .user-info,
+              .showall {
+                height: 30px;
+              }
+
+              .answers-replies-info,
+              .showall {
+                display: flex;
+                align-items: center;
+                width: 100%;
+              }
+
+              .showall {
+                justify-content: center;
+              }
+
+              .unselectUser {
+                margin-left: auto;
+              }
+
+              .top-responses {
+                padding-left: 5px;
+                padding-right: 5px;
+              }
+
+              .showall p a {
+                color: #999;
+                text-align: center;
+                text-decoration: none;
+              }

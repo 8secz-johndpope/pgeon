@@ -3178,29 +3178,45 @@ if (token) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnswerMixin; });
 var AnswerMixin = {
 
-    data: {
-        topAnswers: [],
-        selected_user: null
-    },
+	data: {
+		topAnswers: [],
+		topResponders: [],
+		selected_user: null
+	},
 
-    created: function created() {
+	created: function created() {
 
-        // this.logged_user = JSON.parse(this.logged_user);
-    },
+		// this.logged_user = JSON.parse(this.logged_user);
+	},
 
-    methods: {
-        getTopAnswers: function getTopAnswers() {
-            if (this.selected_user) {
-                $.getJSON("/user/" + this.selected_user + "/topanswers", function (response) {
-                    this.topAnswers = response;
-                }.bind(this));
-            }
-        },
-        resetTopAnswers: function resetTopAnswers(user_id) {
-            this.selected_user = user_id;
-            this.topAnswers = null;
-        }
-    }
+	methods: {
+		getTopAnswers: function getTopAnswers() {
+			if (this.selected_user) {
+				$.getJSON("/user/" + this.selected_user + "/topanswers", function (response) {
+					this.topAnswers = response;
+				}.bind(this));
+			}
+		},
+		setUserAndGetTopAnswer: function setUserAndGetTopAnswer(user_id) {
+			this.selected_user = user_id;
+			this.getTopAnswers();
+		},
+		resetTopAnswers: function resetTopAnswers(user_id) {
+			this.selected_user = user_id;
+			this.clearVals();
+		},
+
+		clearVals: function clearVals() {
+			this.topAnswers = [];
+			this.topResponders = [];
+		},
+
+		showAllResponders: function showAllResponders(user_id) {
+			$.getJSON("/user/" + user_id + "/topresponders", function (response) {
+				this.topResponders = response;
+			}.bind(this));
+		}
+	}
 
 };
 

@@ -21,12 +21,12 @@
 
         $('.slider-nav').on('afterChange', function(event, slick, currentSlide){
         		
-        		var [topA,name] = [$(`[data-index=${currentSlide}]`).attr('data-topA'),$(`[data-index=${currentSlide}]`).attr('data-name')] 
+        		var [topA,name,slug] = [$(`[data-index=${currentSlide}]`).attr('data-topA'),$(`[data-index=${currentSlide}]`).attr('data-name'),$(`[data-index=${currentSlide}]`).attr('data-slug')] 
         		
         		
         		$(".user-info-count").html(topA)
         		$(".user-info-name").html(name)
-        		
+        		$(".a_user-info-name").attr('href',slug)
         		
             $(".slick-slide img").css("border" , "none")
             $(".slick-current img").css("border" , "2px solid #24c4bc")
@@ -35,19 +35,21 @@
           $(".answers-replies-info").hasClass("no-height") && setTimeout(() => {
                 $(".answers-replies-info").removeClass("no-height").css("max-height" , "500px")
                 setTimeout(() => {
+                		
                     $(".answers-replies-info").removeClass("overflow-hidden")
                 },500)
             }, 100)
         });
 
         $('.user-info').on("click" , ".unselectUser" , function(){
-
-        	$(".slick-current img").css("border" , "none")
-            $(".answers-replies-info").addClass("no-height").addClass("overflow-hidden").css("max-height" , "0")
-            $(".slick-slide").removeClass("activated")
-
-            // search remove event listener 
-         //   $(".user-dropdown-search").off("input"  , filterUsers) 
+	        		
+	        	$(".slick-current img").css("border" , "none")
+	        $(".answers-replies-info").addClass("no-height").addClass("overflow-hidden").css("max-height" , "0")
+	        $(".slick-slide").removeClass("activated")
+	        
+	        
+            // search remove event listener
+         // $(".user-dropdown-search").off("input" , filterUsers)
         })
 
 

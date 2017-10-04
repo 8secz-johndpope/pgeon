@@ -2,6 +2,7 @@ export var AnswerMixin = {
 
     data: {
         topAnswers: [],
+        topResponders: [],
         selected_user: null
     },
 
@@ -21,10 +22,25 @@ export var AnswerMixin = {
 	    		
 	    		
 	    },
+	    setUserAndGetTopAnswer:function (user_id) {
+	    		this.selected_user = user_id
+	    		this.getTopAnswers()
+	    },
 	    resetTopAnswers: function(user_id) {
 	    		this.selected_user=user_id
-	    		this.topAnswers = null
-	    }
+	    		this.clearVals()
+	    },
+	    
+	    clearVals: function () {
+		    	this.topAnswers = []
+	    		this.topResponders = []
+	    },
+	    
+	    showAllResponders: function (user_id){
+	    	$.getJSON(`/user/${user_id}/topresponders`, function(response) {
+ 				this.topResponders = response
+				}.bind(this));
+	    },
     }
 
 };

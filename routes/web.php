@@ -43,7 +43,8 @@ Route::get('/', 'HomeController@index');
   Route::get('user/{id}/answers', 'UserController@answers');
   Route::get('user/{id}/participation', 'UserController@participation');
   Route::get('user/{id}/topanswers', 'UserController@getAcceptedAnswersOfUser');
-  
+
+  Route::get('user/{id}/topresponders', 'UserController@topResponders');  
 
   // User Routes
   Route::get('level/{level}', 'LevelController@index');
