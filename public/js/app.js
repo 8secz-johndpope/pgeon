@@ -1907,6 +1907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -2072,17 +2073,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -34048,73 +34038,41 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('ul', {
-    staticClass: " container nav nav-bordered second-nav"
+  return _c('div', [_c('div', {
+    staticClass: "second-nav-container"
+  }, [_c('ul', {
+    staticClass: "container nav nav-bordered second-nav"
   }, [_c('div', {
     staticClass: "iconav-slider"
   }, [_c('ul', {
     staticClass: "nav nav-pills iconav-nav"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('li', {
-    staticClass: "dropdown pull-right small",
-    staticStyle: {
-      "margin-left": "auto"
-    }
-  }, [(_vm.current_filter == 'follow') ? _c('div', {
-    staticClass: "dropdown-toggle small",
-    staticStyle: {
-      "display": "table-cell",
-      "height": "33px",
-      "vertical-align": "bottom"
-    },
-    attrs: {
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("followed\n                                "), _c('span', {
-    staticClass: "caret"
-  })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('div', {
-    staticClass: "dropdown-toggle small",
-    staticStyle: {
-      "display": "table-cell",
-      "height": "33px",
-      "vertical-align": "bottom"
-    },
-    attrs: {
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("everyone\n                                "), _c('span', {
-    staticClass: "caret"
-  })]) : _vm._e(), _vm._v(" "), (_vm.user_id > 0) ? _c('ul', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "role": "menu"
-    }
-  }, [_c('li', {
-    staticClass: "dropdown-header"
-  }, [_vm._v("display replies")]), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), (_vm.user_id > 0) ? _c('li', {
+    staticClass: "f-right small"
+  }, [(_vm.current_filter == 'everyone') ? _c('span', {
+    staticClass: "f-right-text",
     on: {
       "click": function($event) {
         _vm.filter_questions()
       }
     }
-  }, [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("from followed")])]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
+  }, [_vm._v("Followed")]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('span', {
+    staticClass: "f-right-text",
     on: {
       "click": function($event) {
         _vm.unfilter_questions()
       }
     }
-  }, [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("from everyone")])]) : _vm._e()]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+    staticClass: "fa fa-sort"
+  })]) : _c('li', {
+    staticClass: "f-right small"
+  }, [_c('span', {
+    staticClass: "f-right-text"
+  }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+    staticClass: "fa fa-sort"
+  })])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -34132,35 +34090,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-object img-circle",
       attrs: {
         "src": question.avatar,
-        "alt": "",
         "id": "user-profile-image-link"
       }
     })]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
-    }, [_c('small', {
-      staticClass: "text-muted h6"
-    }, [_c('a', {
-      staticStyle: {
-        "margin-right": "3px"
-      },
-      attrs: {
-        "href": "#"
-      }
-    }, [_vm._v(_vm._s(question.name))])]), _vm._v(" "), _c('ul', {
+    }, [_c('div', {
+      staticClass: "h5 m-b-5"
+    }, [_c('span', [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('span', {
+      staticClass: "fa fa-long-arrow-left text-muted"
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(question.answered_by))]), _vm._v(" "), _c('span', {
+      staticClass: "text-muted time-align"
+    }, [_vm._v("3 min ago..")])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
       staticClass: "media"
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text media-question",
-      on: {
-        "click": function($event) {
-          _vm.redirect(question.id)
-        }
-      }
-    }, [_vm._v(_vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
+      staticClass: "media-body-text  media-question"
+    }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
+      staticClass: "media-list  media-secondary media-list-conversation c-w-md"
     }, [_c('li', {
       staticClass: "media media-current-user media-divider"
     }, [_c('div', {
@@ -34173,34 +34122,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "onclick": "location.href='';"
       }
-    }, [_vm._v("\n                                                        " + _vm._s(question.answer.answer) + "\n                                                           \n")])])])])])])])])])])
-  }))])])
+    }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
+  }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
-    staticClass: "active"
+    staticClass: "tab "
   }, [_c('a', {
     attrs: {
       "href": "/questions",
-      "data-placement": "right",
       "data-container": "body"
     }
-  }, [_c('span', {
-    staticClass: "fa fa-comment"
-  }), _c('small', {
-    staticClass: "iconav-nav-label visible-xs-block"
-  }, [_vm._v(" questions")])])])
+  }, [_c('small', [_vm._v("Questions")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', {
+  return _c('li', {
+    staticClass: "tab active"
+  }, [_c('a', {
     attrs: {
-      "href": "#",
-      "data-placement": "right",
-      "data-container": "body"
+      "href": "#"
     }
-  }, [_c('span', {
-    staticClass: "fa fa-comments"
-  }), _c('small', {
-    staticClass: "iconav-nav-label visible-xs-block"
-  }, [_vm._v(" responses")])])])
+  }, [_c('small', [_vm._v("Responses")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

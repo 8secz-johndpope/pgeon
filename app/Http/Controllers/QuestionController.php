@@ -260,8 +260,9 @@ class QuestionController extends Controller
                 $questions [$key]['id'] = $question->id;
                 $questions [$key]['question'] = $question->question;
                 $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
-                $questions [$key]['name'] = $question->name;
-                $questions [$key]['answer'] = $answer;
+                $questions [$key]['name'] = $question->user->name;
+                $questions [$key]['answer'] = $answer->answer;
+                $questions [$key]['answered_by'] = $answer->user->name;
                 $questions [$key]['user_id'] = $question->user_id;
                 $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
             }
