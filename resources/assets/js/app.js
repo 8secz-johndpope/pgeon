@@ -113,7 +113,3 @@ if(socket) {
       }); 
 }
  
-
-function goBack() {
-	 
-}

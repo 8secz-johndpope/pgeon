@@ -264,6 +264,7 @@ class QuestionController extends Controller
                 $questions [$key]['answer'] = $answer->answer;
                 $questions [$key]['answered_by'] = $answer->user->name;
                 $questions [$key]['user_id'] = $question->user_id;
+                $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
                 $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
             }
 

@@ -33,7 +33,7 @@
                 <div class="col-md-12">
                     <ul class="media-list media-list-conversation c-w-md"  v-for="question in questions">
                         <li class="media m-b">
-                            <a class="media-left" href="#">
+                            <a class="media-left" :href="question.slug">
                                 <img class="media-object img-circle" :src="question.avatar" id="user-profile-image-link">
                             </a>
                             <div class="media-body">

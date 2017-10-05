@@ -927,8 +927,6 @@ if (socket) {
   });
 }
 
-function goBack() {}
-
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
@@ -34090,7 +34088,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "media-left",
       attrs: {
-        "href": "#"
+        "href": question.slug
       }
     }, [_c('img', {
       staticClass: "media-object img-circle",
