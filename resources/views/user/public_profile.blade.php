@@ -1,5 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.app-profile')
 @section('content')
+
+ <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container nav-container">
+                <div class="navbar-header" style="margin-left: 0px">
+                    <a onclick="window.history.back();" style="margin-top: 5px;cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 24px;margin-right: 10px"></span></a>
+                    <ul class="nav navbar-nav">
+                        <li style="margin-left: 10%;width:100%;margin-top: 3px">
+                            <h4>
+                {{$user->name}}</h4>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav m-r-0">
+                        <li>
+</li>
+                        <li>
+                            <a href="#" role="button" aria-expanded="false"> <span class="fal fa-plus"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
 <div class="container p-t-md">
 
 
@@ -17,7 +41,6 @@
         </div>
       </div>
       <div class="user-details">
-        <h3 class="profile-header-user"> <span class="icon-uncertified"></span> {{$user->name}}</h3>
         <p class="description">{{$user->bio}}</p>
       </div>
       <div>

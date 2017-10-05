@@ -27,13 +27,9 @@
 
 @endsection
 
-<!-- Push a style dynamically from a view -->
-@push('styles')
-      <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
-@endpush
+
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
     <script src="{{ asset('js/question.index.js') }}"></script>
 @endpush

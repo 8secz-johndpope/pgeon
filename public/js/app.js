@@ -927,6 +927,8 @@ if (socket) {
   });
 }
 
+function goBack() {}
+
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
