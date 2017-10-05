@@ -60,7 +60,7 @@ vertical-align:bottom">everyone
 	</ul>
 
 
-	<div class="container"  v-if="question.length<1">
+	<div class="container"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			<img src="/img/chat-bubble.svg" />
 			<h4 class="text-muted m-t-0">
