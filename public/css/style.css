@@ -1,6 +1,6 @@
 .profile_upload img
 {
-    width: 75px;
+  width: 65px;
 }
 
 .file-box .inputfile
@@ -85,8 +85,9 @@ ul.list-group.social_list li.list-group-item a
 
 .list-group-item.ng-binding
 {
-    border: 1px solid #d4dbe0;
-    border-radius: 4px;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
 }
 
 .apply_codes > input[type="text"]
@@ -469,7 +470,7 @@ ul.list_notifications
 }
 
 .viewed-question{
-  color: #c9ccd4;
+  color: #D1D4D5;
   position: absolute;
   right: 10px;
   bottom: 7px;
@@ -484,6 +485,9 @@ ul.list_notifications
 #answers_expired_owner_container ul{
                     display: flex;
                 }
+.tab > a{
+  border-bottom: 2px solid transparent;
+}
 
                 #answers_expired_owner_container ul > li.hover-button-container{
                     margin-left: auto;

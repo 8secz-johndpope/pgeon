@@ -20,7 +20,7 @@
     <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
 </head>
-<body class="with-top-navbar" >
+<body>
 <div  id="app">
 @if (Auth::guest())
 

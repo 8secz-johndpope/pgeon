@@ -1874,6 +1874,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -1888,6 +1915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   props: ['user_id', 'user_followings'],
   mounted: function mounted() {
+    console.log(this.user_followings);
     this.uf = JSON.parse(this.user_followings);
     //	console.log(this.uf )
     //this.filter_questions()
@@ -1953,7 +1981,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
 
     $.getJSON('/questions/json', function (response) {
-
+      console.log(response);
       if (response[0]['id'] !== undefined) this.all_questions = response;
       this.decide_questions();
     }.bind(this));
@@ -34187,73 +34215,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('ul', {
-    staticClass: " container nav nav-bordered second-nav"
-  }, [_c('div', {
-    staticClass: "iconav-slider"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills iconav-nav"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('li', {
-    staticClass: "dropdown pull-right small",
-    staticStyle: {
-      "margin-left": "auto"
-    }
-  }, [(_vm.current_filter == 'follow') ? _c('div', {
-    staticClass: "dropdown-toggle small",
-    staticStyle: {
-      "display": "table-cell",
-      "height": "33px",
-      "vertical-align": "bottom"
-    },
-    attrs: {
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("followed\n                                "), _c('span', {
-    staticClass: "caret"
-  })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('div', {
-    staticClass: "dropdown-toggle small",
-    staticStyle: {
-      "display": "table-cell",
-      "height": "33px",
-      "vertical-align": "bottom"
-    },
-    attrs: {
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("everyone\n                                "), _c('span', {
-    staticClass: "caret"
-  })]) : _vm._e(), _vm._v(" "), (_vm.user_id > 0) ? _c('ul', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "role": "menu"
-    }
-  }, [_c('li', {
-    staticClass: "dropdown-header"
-  }, [_vm._v("display replies")]), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
-    on: {
-      "click": function($event) {
-        _vm.filter_questions()
-      }
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("from followed")])]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
-    on: {
-      "click": function($event) {
-        _vm.unfilter_questions()
-      }
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("from everyone")])]) : _vm._e()]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+  return _c('div', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -34314,31 +34276,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })])])])])])])
   }))])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "active"
+  return _c('ul', {
+    staticClass: "container nav nav-bordered second-nav"
+  }, [_c('div', {
+    staticClass: "iconav-slider"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills iconav-nav"
+  }, [_c('li', {
+    staticClass: "tab active"
   }, [_c('a', {
     attrs: {
       "href": "#",
-      "data-placement": "right",
       "data-container": "body"
     }
-  }, [_c('span', {
-    staticClass: "fa fa-comment"
-  }), _c('small', {
-    staticClass: "iconav-nav-label visible-xs-block"
-  }, [_vm._v(" questions")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', {
+  }, [_c('small', [_vm._v("Questions")])])]), _vm._v(" "), _c('li', {
+    staticClass: "tab"
+  }, [_c('a', {
     attrs: {
-      "href": "/responses",
-      "data-placement": "right",
-      "data-container": "body"
+      "href": "/responses"
     }
+  }, [_c('small', [_vm._v("Responses")])])]), _vm._v(" "), _c('li', {
+    staticClass: "f-right small"
   }, [_c('span', {
-    staticClass: "fa fa-comments"
-  }), _c('small', {
-    staticClass: "iconav-nav-label visible-xs-block"
-  }, [_vm._v(" responses")])])])
+    staticClass: "f-right-text"
+  }, [_vm._v("Followed")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+    staticClass: "fa fa-sort"
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

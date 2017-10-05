@@ -24,7 +24,6 @@ var rooms = [];
 
 
 
-
 io.on('connection', function (socket) {
 
 
