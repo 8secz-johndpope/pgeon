@@ -45,7 +45,7 @@ vertical-align:bottom">everyone
                 </div>
             </ul>
              -->
-
+<div class="second-nav-container">
 	<ul class="container nav nav-bordered second-nav">
 		<div class="iconav-slider">
 			<ul class="nav nav-pills iconav-nav">
@@ -53,12 +53,20 @@ vertical-align:bottom">everyone
 				</li>
 				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>
-				<li class="f-right small"><span class="f-right-text">Followed</span>
-					&nbsp; <span class="fa fa-sort"></span></li>
+				<li v-if="user_id > 0" class="f-right small">
+				
+				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">Followed</span>
+				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Everyone</span>
+					&nbsp; <span class="fa fa-sort"></span>
+					
+					</li>
+					
+				<li v-else class="f-right small"><span class="f-right-text">Everyone</span>
+					&nbsp; <span class="fa fa-sort"></span></li>	
 			</ul>
 		</div>
 	</ul>
-
+</div>
 
 	<div class="container"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
@@ -71,44 +79,42 @@ vertical-align:bottom">everyone
 
 
 
-	<div class="row">
-		<div class="col-md-12">
 
-			<ul class="media-list media-list-conversation c-w-md"
-				v-for="question in questions">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
+                        <li class="media m-b">
+                            <a class="media-left" href="#">
+                                <img class="media-object img-circle" :src="question.avatar"  id="user-profile-image-link">
+                            </a>
+                            <div class="media-body">
+                                <div class="h5 m-b-5">
+                                    <span>{{question.name}}</span>
+                                    <span class="text-muted time-align"><allqtimer :initial="question.expiring_at"
+								:question_id="question.id" @event="deleteQ"></allqtimer></span>
+                                </div>
+                                <ul class="media-list media-list-conversation c-w-md">
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="media-body-text live-media-question" onclick="" style="cursor: pointer;">
+                                            {{question.question}}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+  
+  
+                </div>
+            </div>
+        </div>
 
 
-				<li class="media p-a"><a class="media-left" href="#"> <img
-						class="media-object img-circle" :src="question.avatar" alt="">
 
-
-				</a>
-					<div class="media-body">
-						<div class="media-header">
-							<small class="text-muted"><a href="#"
-								id="user-profile-text-link">{{question.name}}</a> </small>
-							<allqtimer :initial="question.expiring_at"
-								:question_id="question.id" @event="deleteQ"></allqtimer>
-
-						</div>
-
-						<ul class="media-list media-list-conversation c-w-md">
-							<li class="media m-b-md">
-								<div class="media-body">
-									<div class="media-body-text media-question"
-										v-on:click="redirect(question.id)" v-html="question.question"
-										style="cursor: pointer;"></div>
-								</div>
-							</li>
-						</ul>
-					</div></li>
-
-
-
-			</ul>
-
-		</div>
-	</div>
 
 
 
@@ -133,9 +139,7 @@ vertical-align:bottom">everyone
     },
     props: ['user_id','user_followings'],
     mounted() {
-    		console.log(this.user_followings)
 		this.uf = JSON.parse(this.user_followings)
-	//	console.log(this.uf )
 		//this.filter_questions()
     },
 
@@ -207,7 +211,6 @@ vertical-align:bottom">everyone
 
 
       $.getJSON('/questions/json', function(response) {
-		console.log(response)
         if (response[0]['id'] !== undefined)
           this.all_questions = response
           this.decide_questions()	

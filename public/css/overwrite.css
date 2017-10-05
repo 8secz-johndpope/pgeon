@@ -285,3 +285,9 @@ margin-right: 30px;
   text-transform: inherit;
   float: right !important;
 }
+
+.second-nav-container {
+	background: #fff;
+	border-bottom:1px solid #E6EAEB;
+	margin-bottom: 8px;
+}

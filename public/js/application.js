@@ -273,8 +273,4 @@ $(".media-response" ).mouseleave( removeResponseFocus )
 
 // down container 
 
-$(".f-right").click(function(){
-  $(this).text().toLowerCase() === "featured" && 
-    $(this).text("Followed") || 
-    $(this).text("Featured")
-})
+

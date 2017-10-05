@@ -1,4 +1,3 @@
-
 <template>
  <span>   {{formatted}}</span> 
   </template>
