@@ -34215,7 +34215,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+  return _c('div', [_vm._m(0), _vm._v(" "), (_vm.question.length < 1) ? _c('div', {
+    staticClass: "container"
+  }, [_vm._m(1)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -34304,8 +34306,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
     staticClass: "container text-center m-t-5p"
   }, [_c('img', {
     attrs: {
@@ -34313,7 +34313,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])])
+  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
