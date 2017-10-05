@@ -34100,7 +34100,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "fa fa-long-arrow-left text-muted"
     }), _vm._v(" "), _c('span', [_vm._v(_vm._s(question.answered_by))]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
-    }, [_vm._v("3 min ago..")])]), _vm._v(" "), _c('ul', {
+    }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
       staticClass: "media"

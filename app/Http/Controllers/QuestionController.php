@@ -264,7 +264,7 @@ class QuestionController extends Controller
                 $questions [$key]['answer'] = $answer->answer;
                 $questions [$key]['answered_by'] = $answer->user->name;
                 $questions [$key]['user_id'] = $question->user_id;
-                $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
+                $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
             }
 
             return response()->json($questions);

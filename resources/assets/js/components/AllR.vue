@@ -41,7 +41,7 @@
                                     <span>{{question.name}}</span>
                                     <span class="fa fa-long-arrow-left text-muted"></span>
                                     <span>{{question.answered_by}}</span>
-                                    <span class="text-muted time-align">3 min ago..</span>
+                                    <span class="text-muted time-align">{{question.ago}}</span>
                                 </div>
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media">
