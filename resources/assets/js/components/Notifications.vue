@@ -1,5 +1,7 @@
 <template>
-<div>
+ <ul class="list-group media-list media-list-stream">
+
+    
     
          <li class="list-group-item media p-a"  v-for="question_posted in questions_created">
                             <div class="media-left">
@@ -7,7 +9,7 @@
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <a><strong>{{question_posted.uname}}</strong></a>
+                                    <a>{{question_posted.uname}}</a>
                                     <small class="pull-right text-muted"> hrs ago..</small> posted a new question
                                 </div>
                                 <div class="media-body">
@@ -23,7 +25,7 @@
                             </div>
                         </li>
 
-  </div>
+  </ul>
 
 
 

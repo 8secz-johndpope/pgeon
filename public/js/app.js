@@ -3080,6 +3080,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -33801,14 +33803,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', _vm._l((_vm.questions_created), function(question_posted) {
+  return _c('ul', {
+    staticClass: "list-group media-list media-list-stream"
+  }, _vm._l((_vm.questions_created), function(question_posted) {
     return _c('li', {
       staticClass: "list-group-item media p-a"
     }, [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "media-heading"
-    }, [_c('a', [_c('strong', [_vm._v(_vm._s(question_posted.uname))])]), _vm._v(" "), _c('small', {
+    }, [_c('a', [_vm._v(_vm._s(question_posted.uname))]), _vm._v(" "), _c('small', {
       staticClass: "pull-right text-muted"
     }, [_vm._v(" hrs ago..")]), _vm._v(" posted a new question\n                                ")]), _vm._v(" "), _c('div', {
       staticClass: "media-body"

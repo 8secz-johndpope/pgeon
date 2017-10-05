@@ -1,34 +1,24 @@
 @extends('layouts.app')
 @section('content')
 
-      <div class="container p-t-md">
+
+    <div class="container p-t-md">
             <div class="row">
-                <div class="col-md-3" style="margin-top:10px">
-                    <div class="list-group m-b-md">
-                    		
-                        <a href="index.html" class="list-group-item active"><span class="bubble badge"></span>
-          notifications</a>
-                        <a href="news-updates.html" class="list-group-item"><span class="badge" style="background-color:#c9ccd4">0</span>
-          news/updates</a>
-                    </div>
-                </div>
-                <div class="col-md-9" style="margin-top:10px">
+                <div class="col-md-12" style="margin-top:10px">
                     <ul class="list-group media-list media-list-stream">
-                    
-                      <notifications></notifications>
-                    
-          
+                        <li class="media list-group-item p-a">
+                            <h3 style="margin-top:0px"><span class="badge pull-right">                        <span class="bubble badge">0</span>
+                            </span>
+                Notifications</h3>
+                        </li>
+                      </ul>  
                         
-                        
-                        
-                        
-                       
-                    </ul>
+                 <notifications></notifications>
                 </div>
-                <div class="col-md-3">
-</div>
             </div>
         </div>
+
+
         
 
 
