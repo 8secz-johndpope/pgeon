@@ -1780,6 +1780,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(75);
 //
 //
 //
@@ -1908,6 +1909,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -1926,6 +1929,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //this.filter_questions()
   },
 
+
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
   methods: {
 
@@ -34240,8 +34245,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "cursor": "pointer"
       },
-      attrs: {
-        "onclick": ""
+      on: {
+        "mousedown": function($event) {
+          _vm.addResponseFocus($event)
+        },
+        "mouseup": function($event) {
+          _vm.removeResponseFocus($event)
+        },
+        "mouseleave": function($event) {
+          _vm.removeResponseFocus($event)
+        }
       }
     }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])
   }))])])])
@@ -45599,6 +45612,36 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommonMixin; });
+var CommonMixin = {
+
+  created: function created() {},
+
+  methods: {
+    addResponseFocus: function addResponseFocus(e) {
+      $(e.target).addClass("active-response-container");
+    },
+    removeResponseFocus: function removeResponseFocus(e) {
+      $(e.target).hasClass("active-response-container") && $(e.target).removeClass("active-response-container");
+    }
+
+  }
+
+};
 
 /***/ })
 /******/ ]);

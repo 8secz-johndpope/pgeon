@@ -233,7 +233,7 @@ $(window).scroll(function(event){
     !$(".nav_all").hasClass("up50") && $(".nav_all").addClass("up50")
     !$(".mobile-dropdown").hasClass("no-height") && $("#profile-button").click()
     !$(".user-popover").hasClass("out") && $(".user-popover").removeClass("in") && $(".user-popover").addClass("out")
-  } else if( lastScrollTop - st > 5 ){
+  } else if( lastScrollTop - st > 2 ){
     $(".nav_all").hasClass("up50") && $(".nav_all").removeClass("up50")
   }
   lastScrollTop = st;
@@ -271,6 +271,14 @@ $(".media-response").mousedown( addResponseFocus )
 $(".media-response" ).mouseup( removeResponseFocus )
 $(".media-response" ).mouseleave( removeResponseFocus )
 
-// down container 
+// live-response
+$(".live-response").mousedown( addResponseFocus )
+$(".live-response" ).mouseup( removeResponseFocus )
+$(".live-response" ).mouseleave( removeResponseFocus )
 
 
+$(".f-right").click(function(){
+  $(".f-right-text").text().toLowerCase() === "featured" &&
+    $(".f-right-text").text("Followed") ||
+    $(".f-right-textj").text("Featured")
+})

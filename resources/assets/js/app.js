@@ -11,7 +11,6 @@ Vue.use(require('vue-resource'));
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
 
-
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('allr', require('./components/AllR.vue'));
