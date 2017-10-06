@@ -3,20 +3,11 @@
 <div class="container p-t-md">
     <div class="row">
     
-         <div class="col-md-4" style="margin-top:10px">
-                    <div class="list-group m-b-md">
-                        <a href="/profile" class="list-group-item ">
-          Profile</a>
-                   
-                        <a href="/settings" class="list-group-item">
-          Security</a>
-                        <a href="#" class="list-group-item active">
-          Membership</a>
-                        <a href="/preferences" class="list-group-item">
-          Preferences</a>
-                    </div>
-                </div>
-                
+        @component('user.menu',['current_menu' => 'membership'])
+		@endcomponent
+    
+    
+
     
     
     

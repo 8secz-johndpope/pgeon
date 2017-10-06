@@ -89,13 +89,34 @@ class UserController extends Controller
         $user_type = "Standard";
       }
 
-          
-
       return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type);
 
     }
 
 
+    public function preferences () {
+      
+        /*
+        
+        $followers_counts = UserFollowing::get_followers_count($user->id);
+        $error = "";
+        if($user->subscribedToPlan('pgeon_monthly','main')) {
+            $plan = "Monthly";
+            $user_type = "Member";
+        }elseif($user->subscribedToPlan('pgeon_yearly','main')) {
+            $plan = "Yearly";
+            $user_type = "Member";
+        }else {
+            $plan = "Free";
+            $user_type = "Standard";
+        }
+        */
+        $user = Auth::user();
+        return view('user.preferences')->with('subscribed_to_newsletter',$user->subscribed_to_newsletter);
+        
+    }
+    
+    
     public function notifications () {
       $user = Auth::user();
       $error = "";
@@ -128,7 +149,7 @@ class UserController extends Controller
     public function update(){
       $user = Auth::user();
        $error = "";
-
+        
     	// Handle the user upload of avatar
     	if(Input::hasFile('avatar')){
         $image = Input::file('avatar');
@@ -187,7 +208,11 @@ class UserController extends Controller
       if (Request::input('bio')) {
         $user->bio = Request::input('bio');
       }
-
+      
+      
+      if (Request::input('subscribed_to_newsletter') != null ) {
+          $user->subscribed_to_newsletter = Request::input('subscribed_to_newsletter');
+      }
 
       $user->save();
 

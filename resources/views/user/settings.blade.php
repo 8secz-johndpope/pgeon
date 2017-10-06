@@ -4,14 +4,8 @@
 
 
 
-		<div class="col-md-4" style="margin-top: 10px">
-			<div class="list-group m-b-md">
-				<a href="/profile" class="list-group-item "> Profile</a> <a href="#"
-					class="list-group-item active"> Security</a> <a href="/membership"
-					class="list-group-item"> Membership</a> <a href="/preferences"
-					class="list-group-item"> Preferences</a>
-			</div>
-		</div>
+		@component('user.menu',['current_menu' => 'settings'])
+		@endcomponent
 
 
 		<div class="col-md-8" style="margin-top: 10px">

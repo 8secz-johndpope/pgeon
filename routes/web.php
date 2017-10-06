@@ -75,10 +75,10 @@ Route::get('/', 'HomeController@index');
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('profile', 'UserController@update');
     Route::post('subscribe', 'UserController@subscribe');
-    Route::get('settings', 'UserController@settings');
+    Route::get('security', 'UserController@security');
     Route::get('membership', 'UserController@membership');
     Route::get('notifications', 'UserController@notifications');
-
+    Route::get('preferences', 'UserController@preferences');
 
     Route::get('/people', 'HomeController@people')->name('people');
     Route::get('/search', 'HomeController@search')->name('search');
