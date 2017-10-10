@@ -97,7 +97,7 @@ vertical-align:bottom">everyone
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media">
                                         <div class="media-body">
-                                            <div class="media-body-text live-media-question"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)" style="cursor: pointer;">
+                                            <div class="media-body-text live-media-question"  v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)" style="cursor: pointer;">
                                             {{question.question}}
                                             </div>
                                         </div>

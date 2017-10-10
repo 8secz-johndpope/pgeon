@@ -101,13 +101,13 @@ class Question extends Model {
      * Insert the question to the table.
      * @return object
      */
-    public static function insert($user_id, $question_text, $hours, $mins ) {
+    public static function insert($user_id, $question_text, $days, $hours, $mins ) {
 
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;
       //always insert as GMT+0...which is what php date() returns..don't depend on mysql date
-        $question->expiring_at = time() +  ($hours * 60 * 60) + ($mins * 60);
+        $question->expiring_at = time() + ($days * 60 * 60 * 60) +  ($hours * 60 * 60) + ($mins * 60);
         //$question->expiring_at = gmdate("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
         
          $question->save();

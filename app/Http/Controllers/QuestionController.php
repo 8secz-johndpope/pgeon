@@ -31,17 +31,20 @@ class QuestionController extends Controller
 
         if ($format == "json") {
             $answers = Answer::get_sorted($question_id);
-          //  return response()->json(array(array("answer"=> 'sdfssf', "name" => 'namamamsm')));
               return response()->json($answers);
         }
       //  $answer_ids = Answer::get_answer_ids($question_id);
         else {
+            
             $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
             
+            //if it is a live quest
             if ($question->expiring_at > time()) {
                 $question->expiring_at = Question::question_validity_status($question->expiring_at);
+                //if owner
                 if (Auth::user()->id == $question->user_id) {
                     //    
+                   
                 }else {
                     return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
                 }
@@ -68,7 +71,7 @@ class QuestionController extends Controller
     {
         $user = Auth::user();
         if($user->role_id == 3 && !$user->has_active_question()) {
-         $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('hours'), Request::get('mins'));
+            $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('days'), Request::get('hours'), Request::get('mins'));
          return Redirect::to('my-questions');
        }else {
           Auth::logout();

@@ -218,7 +218,7 @@ full-width
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #f2f4f5;
+  background-color: #fff;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.1);
 }
@@ -423,10 +423,10 @@ ol
   width: 100%;
 }
 
+/**EDITED -- press **/ 
 .va_slider_detail_inner
 {
   vertical-align: baseline;
-  display: table-cell;
 }
 
 .nxtbtn label.btn.btn-primary:nth-last-child(1)
@@ -593,7 +593,7 @@ button.active#profile-button {
   width: 20px;
   height: 20px;
   display: block;
-  top: 50%;
+  top: 20%;
   left: 50%;
   margin: -10px 0 0 -10px;
 }

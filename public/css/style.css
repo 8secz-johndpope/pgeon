@@ -1,6 +1,6 @@
 .profile_upload img
 {
-  width: 65px;
+  width: 55px;
 }
 
 .file-box .inputfile
@@ -619,6 +619,7 @@ ul.list_notifications
             		color:#a94442;
             		float:left;
             		margin-left:25px;
+            		margin-top: 7px;
             }
             
      

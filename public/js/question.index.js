@@ -1,6 +1,6 @@
 $(function () {
  
-
+/*
 	$("#question-input").on("input", function () {
 		updatecounter($(this), $("#question_counter"), 150)
 	})
@@ -18,6 +18,7 @@ $(function () {
 	  target.text(ele.val().length)
 	  
 	}
+	*/
 	$("#q_next").on("click", function () {
 		$(".error").addClass('hidden')
 		if($("#question-input").val().trim().length < 1 ) {
@@ -27,14 +28,14 @@ $(function () {
 			$(".error").removeClass('hidden')
 			return false;
 		}
-	})
-	
-	$("#q_preview").on("click", function () {
+		$('#sp_days').text($("#day-select").val());
 		$('#sp_hr').text($("#hour-select").val());
 		$('#sp_mn').text($("#minute-select").val());
 		
 		$("#q_preview_text").text($("#question-input").val())
 	})
+	
+
 	
 	
 	$("#end_now").on("click", function () {

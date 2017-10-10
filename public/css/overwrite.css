@@ -291,3 +291,27 @@ margin-right: 30px;
 	border-bottom:1px solid #E6EAEB;
 	margin-bottom: 8px;
 }
+
+
+/** ADDED by Press..taken out from live-question template***/
+
+.nav-question .header-nav {
+      display: flex;
+      align-items: center;
+    }
+
+   .nav-question .header-nav h4 {
+      color: #8e8e93;
+      flex: 1;
+      text-align: center;
+
+    }
+
+    .nav-question .header-img {
+      height: 32px;
+    }
+
+    .nav-question .header-dropdown {
+      right: 0 !important;
+      left: auto;
+    }
