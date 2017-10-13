@@ -424,8 +424,8 @@ h5,
 .h5,
 h6,
 .h6 {
-    margin-top: 11px;
-    margin-bottom: 11px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 h4 small,
 .h4 small,
@@ -1517,7 +1517,7 @@ select[multiple].input-lg {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: #24BDB6;
+    background-color: #24C4BC;
 }
 .btn:focus,
 .btn:active:focus,
@@ -5009,13 +5009,13 @@ button.list-group-item-danger.active:focus {
     padding-bottom: 75%;
 }
 .well {
-    min-height: 18px;
-    /*border: 2px dashed #eaeaea */
-
-    border-radius: 0px 10px 10px 10px;
-    background: #fff;
-    padding-top: 18px;
-    padding-bottom: 18px;
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .well blockquote {
     border-color: #ddd;
@@ -6182,9 +6182,9 @@ fieldset[disabled] .btn-warning-outline.active {
     background-color: #c5b142;
 }
 .btn-danger-outline {
-    color: #aa4a24;
-    background-color: transparent;
-    border-color: #aa4a24;
+  color: #aa4a24;
+  background-color: transparent;
+  border: 1px solid #aa4a24;
 }
 .btn-danger-outline:focus,
 .btn-danger-outline.focus,
@@ -8304,15 +8304,14 @@ img.zoom-img {
     max-width: 300px;
     margin: 0 auto;
 }
-.profile-header .media-object {
+.profile-header .item {
     display: inline-block;
-    width: 80px;
-    margin-right: 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-top: 5px;
 }
 .profile-header-bio {
+    margin-top: 15px;
     font-size: 16px;
-    color: #fff;
+    color: #535353;
 }
 .profile-header-user {
     margin-top: 10px;
@@ -8499,6 +8498,7 @@ img.zoom-img {
 .panel-menu-item {
     display: inline-block;
     padding: 0 10px;
+    border-right: 1px solid #d4dbe0;
 }
 .panel-menu-item:last-child {
     border-right: 0;
@@ -8858,23 +8858,11 @@ a:focus {} .question-container {
 }
 .noselect {
     -webkit-touch-callout: none;
-    /* iOS Safari */
-
     -webkit-user-select: none;
-    /* Safari */
-
     -khtml-user-select: none;
-    /* Konqueror HTML */
-
     -moz-user-select: none;
-    /* Firefox */
-
     -ms-user-select: none;
-    /* Internet Explorer/Edge */
-
     user-select: none;
-    /* Non-prefixed version, currently
-                                    supported by Chrome and Opera */
 }
 .flexbox-container {
     display: -ms-flexbox;
@@ -8937,104 +8925,4 @@ a:focus {} .question-container {
 .share-buttons-container a:hover.linkedin {
     border-color: #0077b5;
     background: #0077b5;
-}
-
-.feedback {
-  background: #fff;
-  width: 415px;
-  height: 440px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  margin: 50px auto;
-  -moz-box-shadow: 0 0 3px #555;
-  -webkit-box-shadow: 0 0 3px #555;
-  box-shadow: 0 0 3px #555;
-  padding: 15px;
-}
-.feedback h1 {
-  font-size: 1.2em;
-  color: #336699;
-  font-weight: 500;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.feedback p {
-  font-size: 0.75em;
-  margin-bottom: 5px;
-}
-.feedback ul.type li {
-  display: inline-block;
-  margin-right: 5px;
-}
-.feedback ul.type li:last-child {
-  margin-right: 0;
-}
-.feedback ul.type li.active a {
-  background: #336699;
-  color: white;
-  position: relative;
-}
-.feedback ul.type li.active a:after {
-  top: 100%;
-  left: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-  border-color: rgba(136, 183, 213, 0);
-  border-top-color: #336699;
-  border-width: 5px;
-  margin-left: -5px;
-}
-.feedback ul.type a {
-  background: #f1f1f1;
-  padding: 5px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font-size: 0.8em;
-  color: #555;
-}
-.feedback ul.type a:hover {
-  background: #336699;
-  color: white;
-}
-.feedback ul.type a i {
-  margin-right: 2px;
-}
-.feedback ul.type.speed li:first-child a:hover {
-  background: #57a854;
-  color: white;
-}
-.feedback ul.type.speed li:nth-child(2) a:hover {
-  background: #208cb6;
-  color: white;
-}
-.feedback ul.type.speed li:last-child a:hover {
-  background: #f65b4f;
-  color: white;
-}
-.feedback .form {
-  margin-top: 10px;
-}
-.feedback .form textarea {
-  min-height: 150px;
-  resize: none;
-}
-.feedback .form input, .feedback .form textarea {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid #e6e6e6;
-}
-.feedback button.success {
-  padding: 10px 15px;
-  background: #339966;
-  margin-top: 20px;
 }

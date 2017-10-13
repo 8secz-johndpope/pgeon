@@ -2394,43 +2394,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -2469,20 +2432,27 @@ var pressTimer;
       if (!longpress) {
         var $icon;
         var $parent;
+
         $parent = $(e.target).parents(".jsvote");
-        $icon = $parent.find(".icon");
+        $icon = $parent.find("#vote");
 
-        $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus");
-        $icon.hasClass("icon-thumbs-down") && $icon.removeClass("icon-thumbs-down");
+        $icon.hasClass("minus") && $icon.removeClass("minus");
+        $icon.hasClass("thumbs-down") && $icon.removeClass("thumbs-down");
 
-        if ($icon.hasClass("icon-thumbs-up")) {
-          $icon.removeClass("icon-thumbs-up") && $icon.addClass("icon-minus");
-          //('u to -')
+        if ($icon.hasClass("thumbs-up")) {
+          $icon.removeClass("thumbs-up") &&
+          // $icon.addClass("minus").html(`
+          //   <span class="fa fa-minus"></span> 
+          // `)
+          console.log('u to -');
           this.downVote(answer_id);
         } else {
-          //('- to u')
+          console.log('- to u');
           this.upVote(answer_id);
-          $icon.addClass("icon-thumbs-up");
+
+          //$icon.addClass("thumbs-up").html(`
+          //<span class="fa fa-thumbs-up"></span> 
+          //`)
         }
       }
     },
@@ -2490,6 +2460,7 @@ var pressTimer;
       var el = e.target;
       longpress = 0;
       var com = this;
+
       pressTimer = window.setTimeout(function () {
         longpress = 1;
 
@@ -2498,13 +2469,15 @@ var pressTimer;
 
         $parent = $(e.target).parents(".jsvote");
 
-        $icon = $parent.find(".icon");
+        $icon = $parent.find("#vote");
 
-        $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus");
-        $icon.hasClass("icon-thumbs-up") && $icon.removeClass("icon-thumbs-up");
-        //('- to d')
+        $icon.hasClass("minus") && $icon.removeClass("minus");
+        $icon.hasClass("thumbs-up") && $icon.removeClass("thumbs-up");
+        console.log('- to d');
         com.downVote(answer_id);
-        $icon.addClass("icon-thumbs-down");
+        //  $icon.addClass("thumbs-down").html(`
+        //    <span class="fa fa-thumbs-down"></span> 
+        //  `)
       }, 500);
     },
 
@@ -2561,9 +2534,6 @@ var pressTimer;
       });
     },
 
-    dd: function dd() {
-      alert('ss');
-    },
     downVote: function downVote(answer_id) {
       var _this4 = this;
 
@@ -2598,6 +2568,7 @@ var pressTimer;
     checkVoted: function checkVoted(answer_id) {
       for (var i = 0; i < this.my_votes.length; i++) {
         if (this.my_votes[i]["answer_id"] == answer_id) {
+
           return this.my_votes[i]["vote"];
           break;
         }
@@ -2622,7 +2593,6 @@ var pressTimer;
   },
 
   created: function created() {
-
     var com = this;
 
     //got some new questions inserted
@@ -33511,46 +33481,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "width": "auto"
+      "width": "auto",
+      "box-shadow": "inset 0px 0px .05 black"
     }
   }, [_c('div', {
     staticClass: "container sub-nav2"
-  }, [(!_vm.already_answered) ? _c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _vm._l((_vm.answers), function(answer) {
-    return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('ul', {
+  }, _vm._l((_vm.answers), function(answer) {
+    return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
+    }, [_c('div', {
       staticClass: "media media-divider"
     }, [_c('div', {
       staticClass: "media-body"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
-      staticClass: "media-body-text media-response media-response-margin flex-center",
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+      staticClass: "media-body-text live-response flex-center",
       staticStyle: {
-        "background-color": "#e8eff7",
-        "margin-top": "0px"
+        "background-color": "#e8eff7"
       }
     }, [_c('a', {
       staticClass: "media-left"
-    }, [_c('button', {
-      staticClass: "btn-borderless",
-      attrs: {
-        "id": "vote",
-        "onclick": "upVote()"
-      }
-    }, [_c('h1', {
-      attrs: {
-        "id": "counter"
-      }
-    }, [_c('span', [_vm._v(_vm._s(_vm.votecount))])])])]), _vm._v(" "), _c('p', {
+    }), _vm._v(" "), _c('p', {
       staticClass: "flexone"
-    }, [_vm._v("\n                                             " + _vm._s(answer.answer) + "\n                      ")]), _vm._v(" "), _c('button', {
+    }, [_vm._v("\n             \t\t\t" + _vm._s(answer.answer) + "\n             ")]), _vm._v(" "), _c('button', {
       staticClass: "close",
       attrs: {
         "type": "button",
@@ -33566,7 +33518,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-hidden": "true"
       }
-    }, [_vm._v("×")])])])])])])])])]) : _vm._e(), _vm._v(" "), (!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
+    }, [_vm._v("×")])])])])])]) : _vm._e(), _vm._v(" "), (!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md jsvote",
       on: {
         "mousedown": function($event) {
@@ -33584,122 +33536,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body-text media-response media-response-margin flex-center"
     }, [_c('a', {
       staticClass: "media-left"
-    }, [_c('button', {
+    }, [_vm._v("\n                            " + _vm._s(_vm.checkVoted(answer.id)) + " \n                                "), _c('button', {
       staticClass: "btn-borderless",
+      class: {
+        'thumbs-up': _vm.checkVoted(answer.id) == 1, 'thumbs-down': _vm.checkVoted(answer.id) == -1, 'window-minimize': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
+      },
       attrs: {
         "id": "vote"
       }
-    }, [_c('h1', {
-      attrs: {
-        "id": "counter"
+    }, [_c('span', {
+      class: {
+        'fa fa-thumbs-up': _vm.checkVoted(answer.id) == 1, 'fa fa-thumbs-down': _vm.checkVoted(answer.id) == -1, 'fa fa-minus': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
       }
-    }, [(_vm.checkVoted(answer.id) == 1) ? _c('span', {
-      staticClass: "icon icon-thumbs-up"
-    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) == -1) ? _c('span', {
-      staticClass: "icon icon-thumbs-down"
-    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) == 0) ? _c('span', {
-      staticClass: "icon icon-minus"
-    }) : _vm._e()])])]), _vm._v(" "), _c('p', {
+    })])]), _vm._v(" "), _c('p', {
       staticClass: "flexone"
-    }, [_vm._v("\n                                " + _vm._s(answer.answer) + "\n                      ")])])])])]) : _vm._e()])
-  })], 2)]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
-    staticClass: "navbar-fixed-bottom footer-toggle footer-closed",
-    staticStyle: {
-      "width": "auto",
-      "background-color": "#f4f5f6",
-      "border-top": "1px solid #eaeaea"
-    }
-  }, [_c('div', {
-    staticClass: "container sub-nav2"
-  }, [_c('form', {
-    staticClass: "form-horizontal"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-divider"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-current-user"
-  }, [_c('div', {
-    staticClass: "input-group "
-  }, [_c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.submitted_text),
-      expression: "submitted_text"
-    }],
-    staticClass: "footer-textarea form-control custom-control",
-    attrs: {
-      "id": "footer-textarea",
-      "placeholder": _vm.placeholder,
-      "rows": "1"
-    },
-    domProps: {
-      "value": (_vm.submitted_text)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.submitted_text = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon btn btn-primary footer-btn",
-    on: {
-      "click": function($event) {
-        _vm.submit_answer()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "icon icon-paper-plane response-icon"
-  })])]), _vm._v(" "), _vm._m(2)])])])])])])])]) : _vm._e()])
+    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                  ")])])])])]) : _vm._e()])
+  }))])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "media media-divider"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text media-response media-user-response open-footer",
-    staticStyle: {
-      "cursor": "pointer",
-      "border": "2px dashed #e4e5e6",
-      "background-color": "transparent",
-      "min-height": "70px"
-    }
-  }, [_c('span', {
-    staticClass: "click-to-reply"
-  }, [_c('span', {
-    staticClass: "icon icon-reply"
-  }), _vm._v("\n  tap or click here to reply..")]), _vm._v(" "), _c('span', {
-    staticClass: "loading",
-    attrs: {
-      "id": "wait"
-    }
-  }, [_c('span', {
-    staticClass: "loading"
-  }, [_vm._v("...")])]), _vm._v(" "), _c('span', {
-    staticClass: "close-footer",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "alert",
-      "aria-label": "Close"
-    }
-  }, [_c('span', {
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }, [_vm._v("×")])])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "media-header"
   }, [_c('small', {
@@ -33715,14 +33568,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("My reply")])]), _vm._v(" "), _c('small', {
     staticClass: "text-muted pull-right  hidden"
   }, [_vm._v("3 min ago..")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('small', {
-    staticClass: "charlimit"
-  }, [_c('span', {
-    staticClass: "current"
-  }, [_vm._v("0")]), _vm._v("/"), _c('span', {
-    staticClass: "max"
-  }, [_vm._v("150")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -50,37 +50,19 @@
         
         
         
-        
-        
-            <div style="width: auto;border-bottom: 1px solid #E6EAEB;background-color: #fff;">
+          <div style="width: auto;border-bottom: 1px solid #E6EAEB;background-color: #fff;">
             <div class="container sub-nav2">
                 <ul class="media-list media-list-conversation c-w-md">
                     <li class="media media-divider">
                         <div class="h5 m-b-5">
                             <span>Display-name</span>
-                            <span class="text-muted time-align">
-                            <allqtimer :initial="{{$question->expiring_at}}"
-								:question_id="{{$question->id}}" @event="deleteQ"></allqtimer></span>
-                            </span>
+                            <span class="text-muted time-align">3hr 22min 01sec..</span>
                         </div>
                         <ul class="media-list media-list-conversation c-w-md">
                             <li class="media">
                                 <div class="media-body">
                                     <div class="media-body-text live-media-question">
-                                        <div class="overlay">
-                                            <div class="half-left">
-                                                <span class="number"></span>
-                                                <span>responses</span>
-                                            </div>
-                                            <div class="half-right">
-                                                <span class="number"><?php echo $user_answered_votes;?></span>
-                                                <span>votes</span>
-                                            </div>
-                                        </div>
-                                       
-                                       <?php echo $question->question; ?>
-                                       
-                                    </div>
+                                    <?php echo $question->question; ?></div>
                                 </div>
                             </li>
                         </ul>
@@ -89,6 +71,11 @@
             </div>
         </div>
         
+        
+        
+        
+        
+    
         
         
         

@@ -74,7 +74,6 @@ ul.list-group.social_list li.list-group-item a
     height: 21px;
     line-height: 19px;
     text-transform: uppercase;
-    width: 50px;
 }
 
 .pull-right .ng-scope a
@@ -115,7 +114,6 @@ ul.list-group.social_list li.list-group-item a
 .apply_codes
 {
     overflow: hidden;
-    width: 60%;
 }
 
 .text-uppercase > a
@@ -420,11 +418,7 @@ ul.list_notifications
 
 
 #answers_container {
-  height: 65vh;
-  overflow-y: auto;
 
-  float: left;
-  padding-bottom: 80px;
 }
 
 .your_answer {
@@ -619,7 +613,6 @@ ul.list_notifications
             		color:#a94442;
             		float:left;
             		margin-left:25px;
-            		margin-top: 7px;
             }
             
      

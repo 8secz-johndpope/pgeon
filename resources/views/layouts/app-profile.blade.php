@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Voyager::setting('title') }}ss</title>
+    <title>{{ Voyager::setting('title') }}</title>
     @stack('styles')
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -27,7 +27,18 @@
         @yield('content')
 
 </div>
+ <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("{{ env('NODE_CONNECT') }}");
+        </script>
 
+        @if (Auth::user())
+        <script>
+            //connect socket room for the current user id..get all notifications related to the current user
+             socket.emit('connect_me', 'U_{{Auth::user()->id}}');
+
+        </script>
+		@endif
        
     <script src="https://code.jquery.com/jquery.min.js"></script>
       <script src="{{ asset('js/app.js') }}"></script>

@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container p-t-md">
-            <span style="float: left"><a href="/people"><span class="icon icon-chevron-with-circle-left" style="font-size: 26px"></span></a></span>
+            <span style="float: left"><a href="/people"><span class="fal fa-arrow-left" style="font-size: 26px"></span></a></span>
             <form class="app-search" role="search">
                 <div class="form-group" style="text-align: center">
                     <a  href="/people"></a>
@@ -30,7 +30,7 @@
                                     		 @if ( $value['obj']->af)
                                     		 	<span class="pull-right">followed </span>
                                     		 @else
-                                        <button rel={{ $value['obj']->id }} class="follow btn btn-primary-outline btn-sm pull-right">
+                                        <button rel={{ $value['obj']->id }} class="follow btn btn-default-outline btn-md pull-right">
                                             <span class="icon icon-add-user"></span>
                                             <span class="hidden-xs">follow</span>
                                         </button>

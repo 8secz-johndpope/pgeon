@@ -2,63 +2,44 @@
     <div id="answers_container">
       
       
-          <div style="width: auto">
+           <div style="width: auto;box-shadow: inset 0px 0px .05 black;">
             <div class="container sub-nav2">
             
             
-                <ul v-if="!already_answered"  class="media-list media-list-conversation c-w-md">
-                    <li class="media media-divider">
-                        <div class="media-body">
-                            <ul class="media-list media-list-conversation c-w-md">
-                                <li class="media">
-                                    <div class="media-body">
-                                        <div class="media-body-text media-response media-user-response open-footer" style="cursor: pointer; border: 2px dashed #e4e5e6;background-color: transparent;min-height: 70px;">
-                                            <span class="click-to-reply"><span class="icon icon-reply"></span>
-&nbsp; tap or click here to reply..</span>
-                                            <span class="loading" id="wait"><span class="loading">...</span></span>
-                                            <span type="button" data-dismiss="alert" aria-label="Close" class="close-footer"><span aria-hidden="true">×</span></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                
+         
+            
                 
                 <div  v-for="answer in answers">
-                    <ul class="media-list media-list-conversation c-w-md"  v-if="ownerOfAnswer(answer.user_id)">
-                    <li class="media media-divider">
+                
+                
+                   <div class="media-list media-list-conversation c-w-md" v-if="ownerOfAnswer(answer.user_id)">
+                    <div class="media media-divider">
                         <div class="media-body">
-                            <ul class="media-list media-list-conversation c-w-md">
-                                <li class="media">
-                                    <div class="media-body">
-                                        <div class="media-header">
+                         <div class="media-header">
                                             <small class="text-muted"><a href="#" id="user-profile-text-link" style="margin-left: 3px">My reply</a></small>
                                             <small class="text-muted pull-right  hidden">3 min ago..</small>
                                         </div>
-                                        <div class="media-body-text media-response media-response-margin flex-center" style="background-color: #e8eff7; margin-top: 0px">
-                                            <a class="media-left">
-                                                <button id="vote" onclick="upVote()" class="btn-borderless">
-                                                    <h1 id="counter"><span>{{votecount}}</span></h1>
-                                                </button>
-                                            </a>
-                                            <p class="flexone">
-                                             {{answer.answer}}
-                      </p>
-                                            <button type="button" data-dismiss="alert" aria-label="Close" class="close" v-on:click="delete_answer(answer.id)">
+                            <div class="media-body-text live-response flex-center" style="background-color: #e8eff7;">
+                                <a class="media-left">
+                                    
+                                </a>
+                                <p class="flexone">
+                 			{{answer.answer}}
+                 </p>
+                 <button type="button" data-dismiss="alert" aria-label="Close" class="close" v-on:click="delete_answer(answer.id)">
                                                 <span aria-hidden="true">×</span>
                                             </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                            </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
                 
                 
                 
+           
+           
+           
+           
                 <div class="media-list media-list-conversation c-w-md jsvote" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"  v-if="!ownerOfAnswer(answer.user_id)">
                 
                 
@@ -66,13 +47,17 @@
                         <div class="media-body">
                             <div class="media-body-text media-response media-response-margin flex-center">
                                 <a class="media-left">
-                                    <button id="vote"  class="btn-borderless">
-                                        <h1 id="counter">
-                                        <span class="icon icon-thumbs-up" v-if="checkVoted(answer.id) == 1"></span>
-                                        <span class="icon icon-thumbs-down" v-if="checkVoted(answer.id) == -1"></span>
-                                        <span class="icon icon-minus" v-if="checkVoted(answer.id) === false || checkVoted(answer.id) == 0"></span>
-                                        </h1>
+                                {{checkVoted(answer.id)}} 
+                                    <button id="vote"  class="btn-borderless" v-bind:class="{ 'thumbs-up': checkVoted(answer.id) == 1, 'thumbs-down': checkVoted(answer.id) == -1, 'window-minimize':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
+                          			
+                                   <span v-bind:class="{ 'fa fa-thumbs-up': checkVoted(answer.id) == 1, 'fa fa-thumbs-down': checkVoted(answer.id) == -1, 'fa fa-minus':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}"></span>
+                                 
                                     </button>
+                                    
+                                    
+                                    
+                                    
+                                      
                                 </a>
                                 <p class="flexone">
                                 {{answer.answer}}
@@ -93,28 +78,6 @@
 
 
 
-
-    <div v-if="!already_answered" class="navbar-fixed-bottom footer-toggle footer-closed" style="width: auto;background-color:#f4f5f6;border-top:1px solid #eaeaea">
-        <div class="container sub-nav2">
-        <form  class='form-horizontal'>
-            <ul class="media-list media-list-conversation c-w-md">
-                <li class="media media-divider">
-                    <div class="media-body">
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media media-current-user">
-                                <div class="input-group ">
-                                    <textarea  v-model="submitted_text" id="footer-textarea"  :placeholder="placeholder"    rows="1" class="footer-textarea form-control custom-control"></textarea>
-                                    <span  v-on:click="submit_answer()" class="input-group-addon btn btn-primary footer-btn"><span class="icon icon-paper-plane response-icon"></span></span>
-                                </div>
-                                <small class="charlimit"><span class="current">0</span>/<span class="max">150</span></small>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-             </form>
-        </div>
-    </div>
 
 
 
@@ -168,48 +131,65 @@ var pressTimer;
       	 mup(answer_id, e) {
       		  clearTimeout(pressTimer);
       		  
-      		  if(!longpress){
+      		  
+      		  
+      		  if( !longpress ){
       		    var $icon
       		    var $parent 
+
       		    $parent = $(e.target).parents(".jsvote")
-      		    $icon = $parent.find(".icon")
+      		    $icon = $parent.find("#vote")
 
+      		    $icon.hasClass("minus") && $icon.removeClass("minus") 
+      		    $icon.hasClass("thumbs-down") && $icon.removeClass("thumbs-down") 
 
-      		    $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus") 
-      		    $icon.hasClass("icon-thumbs-down") && $icon.removeClass("icon-thumbs-down") 
-
-      		    if( $icon.hasClass("icon-thumbs-up") ){
-      		      $icon.removeClass("icon-thumbs-up") &&
-      		      $icon.addClass("icon-minus") 
-      		      //('u to -')
+      		    if( $icon.hasClass("thumbs-up") ){
+      		      $icon.removeClass("thumbs-up") &&
+      		     // $icon.addClass("minus").html(`
+      		     //   <span class="fa fa-minus"></span> 
+      		     // `)
+      		       console.log('u to -')
       		    	  this.downVote(answer_id)
       		    } else{
-      		    	  //('- to u')
-      		    	  this.upVote(answer_id)
-      		      $icon.addClass("icon-thumbs-up")
+      		      console.log('- to u')
+    		    	  		this.upVote(answer_id)
+      		     
+    		    	  		//$icon.addClass("thumbs-up").html(`
+      		        //<span class="fa fa-thumbs-up"></span> 
+      		      //`)
       		    }
       		  }
+      	
+      	
     	 }	,   	
     	 mdown(answer_id, e) {
     		 var el = e.target
     		 longpress = 0 
     		  var com = this
+    		  
+    		  
     		  pressTimer = window.setTimeout(function() { 
-    		    longpress = 1  
+    			    longpress = 1  
 
-    		    var $icon
-    		    var $parent 
+    			    var $icon
+    			    var $parent 
 
-    		    $parent = $(e.target).parents(".jsvote")
+    			    $parent = $(e.target).parents(".jsvote")
 
-    		    $icon = $parent.find(".icon")
+    			    $icon = $parent.find("#vote")
 
-    		    $icon.hasClass("icon-minus") && $icon.removeClass("icon-minus") 
-    		    $icon.hasClass("icon-thumbs-up") && $icon.removeClass("icon-thumbs-up") 
-    		    //('- to d')
-    		    com.downVote(answer_id)
-    		    $icon.addClass("icon-thumbs-down")
-    		  },500);
+    			    $icon.hasClass("minus") && $icon.removeClass("minus") 
+    			    $icon.hasClass("thumbs-up") && $icon.removeClass("thumbs-up") 
+    			      console.log('- to d')
+    		    		com.downVote(answer_id)
+    			  //  $icon.addClass("thumbs-down").html(`
+    			  //    <span class="fa fa-thumbs-down"></span> 
+    			  //  `)
+    			  },500);
+    		 
+    		  
+    		  
+
     	 }	,
       ownerOfAnswer: function(user_id) {
         return this.current_user_id == user_id
@@ -263,9 +243,7 @@ var pressTimer;
         });
       },
        
-      dd: function () {
-    	  	alert('ss')
-      },
+  
       downVote: function(answer_id) {
           var formData = {
             'answer_id': answer_id,
@@ -303,7 +281,8 @@ var pressTimer;
       checkVoted(answer_id) {
          for (var i = 0; i < this.my_votes.length; i++) {
             if (this.my_votes[i]["answer_id"] == answer_id) {
-              return this.my_votes[i]["vote"];
+         
+            	return this.my_votes[i]["vote"];
               break;
             }
          }
@@ -331,7 +310,6 @@ var pressTimer;
 
     ,
     created: function() {
-
       var com = this
 
       //got some new questions inserted

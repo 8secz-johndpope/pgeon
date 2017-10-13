@@ -25,9 +25,9 @@
 @if (Auth::guest())
 
 
- 
-        
-        
+
+
+
 
 
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </nav>
-        
+
 
 
 @else
@@ -64,7 +64,7 @@
                         <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
                     </a>
                     <ul class="nav navbar-nav">
-            
+
                      @if( Auth::user()->role_id == 3)
                         <li>
                             <form class="navbar-form">
@@ -73,7 +73,7 @@
                                 </div>
                             </form>
                         </li>
-                       @endif 
+                       @endif
                     </ul>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
@@ -95,28 +95,28 @@
         </nav>
         <ul class="mobile-dropdown no-height">
             <li>
-                <a href="{{ route('profile') }}"> Profile </a>
+                <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>
             </li>
             <li>
-                <a href="{{ route('profile') }}"> Setting </a>
+                <a href="{{ route('profile') }}">Settings</a>
             </li>
-            <li>
-                <a href=""> Help </a>
-            </li>
+            <!-- <li>
+                <a href="">Help</a>
+            </li> -->
             <li>
              <a href="{{ route('logout') }}"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
            	  Logout
              </a>
-               
+
             </li>
         </ul>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                              {{ csrf_field() }}
                                          </form>
-        
 
-    
-    
+
+
+
 
 
 @endif
@@ -129,14 +129,14 @@
         <script>
             var socket = io("{{ env('NODE_CONNECT') }}");
         </script>
-        
-        @if (Auth::user())     
-        <script>    
+
+        @if (Auth::user())
+        <script>
             //connect socket room for the current user id..get all notifications related to the current user
              socket.emit('connect_me', 'U_{{Auth::user()->id}}');
-               
+
         </script>
-		@endif   
+		@endif
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
       <script src="{{ asset('js/app.js') }}"></script>
@@ -144,10 +144,10 @@
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/toolkit.js') }}"></script>
     <script src="{{ asset('js/up-voting.js') }}"></script>
-    
+
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-    
+
 	 <script defer src="{{ asset('/js/packs/light.js') }}"></script>
         <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
         <script defer src="{{ asset('/js/packs/brands.js') }}"></script>

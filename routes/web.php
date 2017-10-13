@@ -52,6 +52,8 @@ Route::get('/', 'HomeController@index');
   Route::get('question_details/{id}', 'QuestionController@details');
   Route::get('responses/{format?}', 'QuestionController@responses');
   
+   Route::get('question/{id}/{format?}', 'QuestionController@show');
+  
   Route::group(array('middleware' => 'auth'), function()
   {
     Route::get('bubble', 'UserController@notification_count');
@@ -59,7 +61,7 @@ Route::get('/', 'HomeController@index');
     Route::get('notifications/{format?}', 'NotificationController@index');
     // Question Routes
     Route::get('questions/new', 'QuestionController@newest');
-    Route::get('question/{id}/{format?}', 'QuestionController@show');
+   
     Route::post('end_now/{id}', 'QuestionController@end_now');
     Route::delete('question/{id}', 'QuestionController@destroy');
     Route::delete('delete_questions/{ids}', 'QuestionController@delete_questions');

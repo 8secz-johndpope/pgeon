@@ -213,3 +213,17 @@ $(function () {
      
 	
 })
+
+
+function addResponseFocus(){
+  $(this).addClass("active-response-container")
+}
+
+function removeResponseFocus(){
+  $(this).hasClass("active-response-container") &&
+  $(this).removeClass("active-response-container")
+}
+
+$(".live-response").mousedown( addResponseFocus )
+$(".live-response" ).mouseup( removeResponseFocus )
+$(".live-response" ).mouseleave( removeResponseFocus )
