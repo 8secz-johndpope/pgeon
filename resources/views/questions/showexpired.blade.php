@@ -1,59 +1,79 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app-profile')
+@section('content')
 
 
-<div class="container p-t-md">
-  <ul class="nav nav-pills tabs-padding">
-    <li>
-      <a href="/questions"><span class="icon icon-home"></span></a>
-    </li>
-    <li class="disabled">
-      <a href="#"><span class="icon icon-chevron-left"></span>
-      Back</a>
-    </li>
-    <li>
-      <a href="#">
-      Next<span class="icon icon-chevron-right"></span></a>
-    </li>
-  </ul>
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="media-list media-list-conversation c-w-md">
-        <li class="media p-a media-divider">
-          
-          <a class="media-left" href="{{ ($question->user->slug)? '/'.$question->user->slug :  '/user/'.$question->user->id}}">
-
-                                <img class="media-object img-circle" src="{{ Helper::avatar($question->user->avatar)  }} " alt="">
-                            </a>
-          <div class="media-body">
-            <div class="media-heading">
-              <small class="pull-right"> <span class="question_clock">Asked on : {{$question->expiring_at}}
-</span></small>
-              <h5 class="m-b-0">{{$question->user->name}}</h5>
-            </div>
-            <ul class="media-list media-list-conversation c-w-md">
-              <li class="media m-b-md">
-                <div class="media-body">
-                  <div class="media-body-text media-question">
-                    <?php echo $question->question; ?>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
+ <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
+                <nav class="container nav-container header-nav">
+                    <a  style="cursor: pointer;" onclick="window.history.back()"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                    <h4>
+                    <img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}">
+                    </h4>
+                    
+                </nav>
+            </nav>
 
 
-
-
-
-
-
-  </div>
-  <answers_expired question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" accepted_answer="{{$question->accepted_answer}}"></answers_expired>
-
+      <div style="width: auto;">
+            <div class="container sub-nav2">
+                <ul class="media-list media-list-conversation c-w-md">
+                    <div class="media-body">
+                        <div class="h5 m-b-5">
+                            <span>{{$question->user->name}}</span>
+                               @if(isset($answer))
+                            <span class="fa fa-long-arrow-left text-muted"></span>
+                            <span>{{$answer->user->name}}</span>
+                            @endif
+                            <span class="text-muted time-align">Ended: {{date("m/d/Y H:i", $question->expiring_at)}}</span>
+                        </div>
+                        <ul class="media-list media-list-conversation c-w-md">
+                            <li class="media">
+                                <div class="media-body">
+                                    <div class="media-body-text media-question">
+                                    {{$question->question}}
 </div>
+                                    
+                                    @if(isset($answer))
+                                    <ul class="media-list media-seconday media-list-conversation c-w-md">
+                                        <li class="media media-current-user media-divider">
+                                            <div class="media-body">
+                                                <div class="media-body-text media-response media-response-margin" style="cursor: pointer;">
+                                                    {{$answer->answer}}
+</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    @else
+                                    
+                                         <ul class="media-list  media-secondary media-list-conversation c-w-md">
+                                <li class="media media-current-user media-divider">
+                                    <div class="media-body" style="text-align: center">
+                                        <div class="media-body-text media-response">
+                                            <div class="statcard p-a-md" style="display: inline-block">
+                                                <div class="loader-2 grey">
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            @endif
+                            
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+
+
+<!-- 
+  <answers_expired question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" accepted_answer="{{$question->accepted_answer}}"></answers_expired>
+ -->
 
 
 

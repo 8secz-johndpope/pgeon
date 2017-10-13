@@ -44,7 +44,8 @@ class QuestionController extends Controller
                     $lq_expiring_in = Question::question_validity_status($question->expiring_at);
                     return view('questions.showguest', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
                 }else {
-                        return view('questions.showguestexpired', ['question' => $question]);
+                        $answer = Answer::find($question->accepted_answer);
+                        return view('questions.showguestexpired', ['question' => $question, 'answer' => $answer]);
                     
                 }
                 
@@ -59,15 +60,20 @@ class QuestionController extends Controller
                     //if owner
                     if (Auth::user()->id == $question->user_id) {
                         //    
-                       echo 'asker rask';
+                        return Redirect::to('my-questions');
                     }else {
                         return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'lq_expiring_in' => $lq_expiring_in]);
                     }
                 }else {
+                   
+                    $answer = Answer::find($question->accepted_answer);
                   if (Auth::user()->id == $question->user_id) {
-                    return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes]); 
+                      
+                      return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'answer' => $answer]); 
                   }else {
-                      return view('questions.showexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);   
+                      
+                      
+                      return view('questions.showexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'answer' => $answer]);   
                   }
                    
                 }

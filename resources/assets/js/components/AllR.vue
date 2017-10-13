@@ -46,13 +46,13 @@
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media">
                                         <div class="media-body">
-                                            <div class="media-body-text  media-question">
+                                            <div class="media-body-text  media-question" v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)"  style="cursor: pointer;">
                                             {{question.question}}
 </div>
                                             <ul class="media-list  media-secondary media-list-conversation c-w-md">
                                                 <li class="media media-current-user media-divider">
                                                     <div class="media-body">
-                                                        <div class="media-body-text media-response media-response-margin" onclick="location.href='';" style="cursor: pointer;">
+                                                        <div class="media-body-text media-response media-response-margin" style="cursor: pointer;">
                                                         {{question.answer}}
 </div>
                                                     </div>
@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import {CommonMixin} from '../mixins/CommonMixin.js';
+
   export default {
 
 	  data: function() {
@@ -100,7 +102,8 @@
 			//console.log(this.uf )
 			//this.filter_questions()
 	    },
-
+	    mixins: [CommonMixin],
+	    
 	    methods: {
 	    	
 	    		decide_questions: function () {
