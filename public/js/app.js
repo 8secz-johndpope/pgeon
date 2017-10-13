@@ -845,6 +845,7 @@ Vue.component('follow', __webpack_require__(52));
 Vue.component('allq', __webpack_require__(45));
 Vue.component('allr', __webpack_require__(47));
 Vue.component('answers', __webpack_require__(49));
+Vue.component('answers_guest', __webpack_require__(77));
 Vue.component('allqtimer', __webpack_require__(46));
 Vue.component('answeringtimer', __webpack_require__(48));
 Vue.component('answers_expired', __webpack_require__(50));
@@ -860,7 +861,6 @@ var app = new Vue({
 
   data: {},
   mounted: function mounted() {
-
     this.getBubbleCount();
     //this.$refs.allR.lo()
   },
@@ -875,6 +875,9 @@ var app = new Vue({
       }, function (response) {
         // error callback
       });
+    },
+    reload: function reload() {
+      location.reload();
     }
   }
 });
@@ -2037,21 +2040,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     to_time: function to_time() {
-      var sec_num = parseInt(this.current, 10); // don't forget the second param
-      var hours = Math.floor(sec_num / 3600);
-      var minutes = Math.floor((sec_num - hours * 3600) / 60);
-      var seconds = sec_num - hours * 3600 - minutes * 60;
 
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      if (minutes < 10) {
-        minutes = "0" + minutes;
-      }
-      if (seconds < 10) {
-        seconds = "0" + seconds;
-      }
-      return hours + 'hr ' + minutes + 'min ';
+      //https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
+
+
+      var delta = this.current;
+      var days = Math.floor(delta / 86400);
+      delta -= days * 86400;
+
+      var hours = Math.floor(delta / 3600) % 24;
+      delta -= hours * 3600;
+
+      var minutes = Math.floor(delta / 60) % 60;
+      delta -= minutes * 60;
+
+      var seconds = delta % 60; // in theory the modulus is not required
+
+
+      return days + ' days ' + hours + ' hr ' + minutes + ' min ' + seconds + ' sec';
+      /*
+       var sec_num = parseInt(this.current, 10); // don't forget the second param
+       var hours   = Math.floor(sec_num / 3600);
+       var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+       var seconds = sec_num - (hours * 3600) - (minutes * 60);
+        if (hours   < 10) {hours   = "0"+hours;}
+       if (minutes < 10) {minutes = "0"+minutes;}
+       if (seconds < 10) {seconds = "0"+seconds;}
+       return hours+'hr '+minutes +'min ';*/
     },
     onInterval: function onInterval() {
       this.current = this.current -= this.interval;
@@ -2394,6 +2409,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -2441,18 +2485,12 @@ var pressTimer;
 
         if ($icon.hasClass("thumbs-up")) {
           $icon.removeClass("thumbs-up") &&
-          // $icon.addClass("minus").html(`
-          //   <span class="fa fa-minus"></span> 
-          // `)
-          console.log('u to -');
+
+          //      console.log('u to -')
           this.downVote(answer_id);
         } else {
-          console.log('- to u');
+          //      		      console.log('- to u')
           this.upVote(answer_id);
-
-          //$icon.addClass("thumbs-up").html(`
-          //<span class="fa fa-thumbs-up"></span> 
-          //`)
         }
       }
     },
@@ -2473,11 +2511,8 @@ var pressTimer;
 
         $icon.hasClass("minus") && $icon.removeClass("minus");
         $icon.hasClass("thumbs-up") && $icon.removeClass("thumbs-up");
-        console.log('- to d');
+        //	      console.log('- to d')
         com.downVote(answer_id);
-        //  $icon.addClass("thumbs-down").html(`
-        //    <span class="fa fa-thumbs-down"></span> 
-        //  `)
       }, 500);
     },
 
@@ -2575,6 +2610,14 @@ var pressTimer;
       }
       return false;
     },
+
+
+    //will be called from timer comp
+    deleteQ: function deleteQ() {
+
+      location.reload();
+    },
+
     updateVotesArray: function updateVotesArray(answer_id, vote) {
       var i = 0;
       while (i < this.my_votes.length) {
@@ -33479,7 +33522,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "answers_container"
     }
-  }, [_c('div', {
+  }, [(_vm.answers.length < 1) ? _c('div', {
+    staticStyle: {
+      "width": "auto",
+      "box-shadow": "inset 0px 0px .05 black"
+    }
+  }, [_vm._m(0)]) : _c('div', {
     staticStyle: {
       "width": "auto",
       "box-shadow": "inset 0px 0px .05 black"
@@ -33493,7 +33541,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media media-divider"
     }, [_c('div', {
       staticClass: "media-body"
-    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+    }, [_c('div', {
+      staticClass: "media-header"
+    }, [_c('small', {
+      staticClass: "text-muted"
+    }, [_c('a', {
+      staticStyle: {
+        "margin-left": "3px"
+      },
+      attrs: {
+        "href": "#",
+        "id": "user-profile-text-link"
+      }
+    }, [_vm._v("My reply")])]), _vm._v(" "), _c('small', {
+      staticClass: "text-muted pull-right  hidden"
+    }, [_vm._v("3 min ago..")])]), _vm._v(" "), _c('div', {
       staticClass: "media-body-text live-response flex-center",
       staticStyle: {
         "background-color": "#e8eff7"
@@ -33502,7 +33564,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-left"
     }), _vm._v(" "), _c('p', {
       staticClass: "flexone"
-    }, [_vm._v("\n             \t\t\t" + _vm._s(answer.answer) + "\n             ")]), _vm._v(" "), _c('button', {
+    }, [_vm._v("\n                \t\t\t" + _vm._s(answer.answer) + "\n                ")]), _vm._v(" "), _c('button', {
       staticClass: "close",
       attrs: {
         "type": "button",
@@ -33533,10 +33595,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text media-response media-response-margin flex-center"
+      staticClass: "media-body-text live-response flex-center"
     }, [_c('a', {
       staticClass: "media-left"
-    }, [_vm._v("\n                            " + _vm._s(_vm.checkVoted(answer.id)) + " \n                                "), _c('button', {
+    }, [_c('button', {
       staticClass: "btn-borderless",
       class: {
         'thumbs-up': _vm.checkVoted(answer.id) == 1, 'thumbs-down': _vm.checkVoted(answer.id) == -1, 'window-minimize': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
@@ -33544,30 +33606,97 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "id": "vote"
       }
-    }, [_c('span', {
-      class: {
-        'fa fa-thumbs-up': _vm.checkVoted(answer.id) == 1, 'fa fa-thumbs-down': _vm.checkVoted(answer.id) == -1, 'fa fa-minus': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
+    }, [_c('svg', {
+      attrs: {
+        "width": "16",
+        "height": "16"
       }
-    })])]), _vm._v(" "), _c('p', {
+    }, [(_vm.checkVoted(answer.id) == 1) ? _c('use', {
+      staticClass: "thumbs-up",
+      attrs: {
+        "xlink:href": "/img/sprites/solid.svg#thumbs-up"
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) == -1) ? _c('use', {
+      staticClass: "thumbs-down",
+      attrs: {
+        "xlink:href": "/img/sprites/solid.svg#thumbs-down"
+      }
+    }) : _vm._e(), _vm._v(" "), ((_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)) ? _c('use', {
+      staticClass: "window-minimize",
+      attrs: {
+        "xlink:href": "/img/sprites/solid.svg#window-minimize"
+      }
+    }) : _vm._e()])])]), _vm._v(" "), _c('p', {
       staticClass: "flexone"
-    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                  ")])])])])]) : _vm._e()])
-  }))])])
+    }, [_vm._v("\n                               " + _vm._s(answer.answer) + "\n                     ")])])])])]) : _vm._e()])
+  }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
+    staticClass: "fixed-bottom-footer"
+  }, [_c('div', {
+    staticClass: "navbar-fixed-bottom footer-toggle off-screen"
+  }, [_c('div', {
+    staticClass: "container m-t-15"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media media-current-user"
+  }, [_c('div', {
+    staticClass: "input-group "
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.submitted_text),
+      expression: "submitted_text"
+    }],
+    staticClass: "footer-textarea form-control custom-control",
+    attrs: {
+      "id": "footer-textarea",
+      "overflow": "hidden",
+      "rows": "1"
+    },
+    domProps: {
+      "value": (_vm.submitted_text)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.submitted_text = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon btn btn-primary footer-btn",
+    on: {
+      "click": function($event) {
+        _vm.submit_answer()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "fa fa-paper-plane response-icon"
+  })])]), _vm._v(" "), _vm._m(1)])])])])])])])]) : _vm._e()])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "media-header"
-  }, [_c('small', {
-    staticClass: "text-muted"
-  }, [_c('a', {
-    staticStyle: {
-      "margin-left": "3px"
-    },
+    staticClass: "container text-center m-t-10p"
+  }, [_c('img', {
     attrs: {
-      "href": "#",
-      "id": "user-profile-text-link"
+      "src": "file:///Users/russfranklin/Dropbox/Pgeon/Pgeon_UI/assets/img/tumbleweed.svg"
     }
-  }, [_vm._v("My reply")])]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted pull-right  hidden"
-  }, [_vm._v("3 min ago..")])])
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [_vm._v("\n  No responses yet.. ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('small', {
+    staticClass: "charlimit"
+  }, [_c('span', {
+    staticClass: "current"
+  }, [_vm._v("0")]), _vm._v("/"), _c('span', {
+    staticClass: "max"
+  }, [_vm._v("150")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -45482,6 +45611,241 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var longpress;
+var pressTimer;
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  data: function data() {
+    return {
+      answers: [],
+      submitted_text: '',
+      already_answered: false,
+      placeholder: "Enter your response here",
+      my_votes: []
+
+    };
+  },
+  props: ['question_id', 'question_owner_id'],
+  mounted: function mounted() {},
+
+
+  methods: {
+
+    scrollToEnd: function scrollToEnd() {
+      var container = this.$el;
+
+      container.scrollTop = container.scrollHeight - container.clientHeight;
+    },
+
+    fetchRecords: function fetchRecords() {
+      $.getJSON('/question/' + this.question_id + '/json', function (response) {
+        this.answers = response;
+
+        // var com = this
+        $.getJSON('/get_votes/' + this.question_id, function (votes) {
+          //   com.my_votes = votes
+          this.my_votes = votes;
+
+          // console.log(this.my_votes[0])
+        }.bind(this));
+      }.bind(this));
+    },
+
+
+    //will be called from timer comp
+    deleteQ: function deleteQ() {
+
+      location.reload();
+    }
+
+  },
+
+  created: function created() {
+    var com = this;
+
+    //got some new questions inserted
+    if (socket) {
+      //just specific to this question id
+      socket.emit('connect_me', 'Q_' + this.question_id);
+      socket.on('new_answers', function (response) {
+        com.answers.push(response);
+        com.scrollToEnd();
+      });
+
+      socket.on('answer_deleted', function (id) {
+
+        for (var i = 0; i < com.answers.length; i++) {
+          if (com.answers[i]["id"] == id) {
+            com.answers.splice(i, 1);
+            com.already_answered = false;
+            com.placeholder = "Enter your response here";
+            break;
+          }
+        }
+      });
+
+      socket.on('question_ended', function (id) {
+        alert("Sorry! this question has been ended manually by the asker");
+        location.reload();
+      });
+
+      socket.on('question_cancelled', function (id) {
+        alert("Sorry! this question has been removed manually by the asker");
+        location.href = "/";
+        //location.reload();
+      });
+    }
+
+    this.fetchRecords();
+  }
+
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(76),
+  /* template */
+  __webpack_require__(78),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/AnswersGuest.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AnswersGuest.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-97c10690", Component.options)
+  } else {
+    hotAPI.reload("data-v-97c10690", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "answers_container"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "width": "auto",
+      "box-shadow": "inset 0px 0px .05 black"
+    }
+  }, [_c('div', {
+    staticClass: "container sub-nav2"
+  }, _vm._l((_vm.answers), function(answer) {
+    return _c('div', [_c('div', {
+      staticClass: "media-list media-list-conversation c-w-md jsvote"
+    }, [_c('div', {
+      staticClass: "media media-divider"
+    }, [_c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-body-text media-response media-response-margin flex-center"
+    }, [_c('p', {
+      staticClass: "flexone"
+    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                  ")])])])])])])
+  }))])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-97c10690", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

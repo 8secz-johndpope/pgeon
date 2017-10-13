@@ -106,10 +106,12 @@ class Question extends Model {
         $question = new Question;
         $question->question = $question_text;
         $question->user_id = $user_id;
+      //  echo date("d-M-Y H:i:s", strtotime('+'.$days.' days +'.$hours.' hour +'.$mins.' minutes', time()));
+     //   exit;
+     
       //always insert as GMT+0...which is what php date() returns..don't depend on mysql date
-        $question->expiring_at = time() + ($days * 60 * 60 * 60) +  ($hours * 60 * 60) + ($mins * 60);
-        //$question->expiring_at = gmdate("Y-m-d H:i:s", time() +  ($hours * 60 * 60) + ($mins * 60));
-        
+        $question->expiring_at = strtotime('+'.$days.' days +'.$hours.' hour +'.$mins.' minutes', time());
+       
          $question->save();
          
         foreach($question->user->user_followings as $key => $val) {

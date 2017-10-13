@@ -1,11 +1,18 @@
 <template>
     <div id="answers_container">
+      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="answers.length<1">
+            <div class="container text-center m-t-10p">
+                <img src="file:///Users/russfranklin/Dropbox/Pgeon/Pgeon_UI/assets/img/tumbleweed.svg" />
+                <h4 class="text-muted m-t-0">
+   No responses yet.. </h4>
+            </div>
+        </div>
       
-      
-           <div style="width: auto;box-shadow: inset 0px 0px .05 black;">
+           <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
             <div class="container sub-nav2">
             
             
+         
          
             
                 
@@ -45,13 +52,16 @@
                 
                     <div class="media media-divider">
                         <div class="media-body">
-                            <div class="media-body-text media-response media-response-margin flex-center">
+                            <div class="media-body-text live-response flex-center">
                                 <a class="media-left">
-                                {{checkVoted(answer.id)}} 
                                     <button id="vote"  class="btn-borderless" v-bind:class="{ 'thumbs-up': checkVoted(answer.id) == 1, 'thumbs-down': checkVoted(answer.id) == -1, 'window-minimize':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
                           			
-                                   <span v-bind:class="{ 'fa fa-thumbs-up': checkVoted(answer.id) == 1, 'fa fa-thumbs-down': checkVoted(answer.id) == -1, 'fa fa-minus':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}"></span>
                                  
+                                  <svg width="16" height="16">
+   <use class="thumbs-up" v-if="checkVoted(answer.id) == 1" xlink:href='/img/sprites/solid.svg#thumbs-up'></use>
+      <use class="thumbs-down" v-if="checkVoted(answer.id) == -1" xlink:href='/img/sprites/solid.svg#thumbs-down'></use>
+         <use class="window-minimize" v-if="(checkVoted(answer.id) === false || checkVoted(answer.id) === 0)" xlink:href='/img/sprites/solid.svg#window-minimize'></use>
+ </svg>
                                     </button>
                                     
                                     
@@ -73,13 +83,32 @@
         </div>
         
         
-      
 
 
 
-
-
-
+        <div v-if="!already_answered"  class="fixed-bottom-footer">
+                <div class="navbar-fixed-bottom footer-toggle off-screen">
+                    <div class="container m-t-15">
+                        <ul class="media-list media-list-conversation c-w-md">
+                            <li class="media media-divider">
+                                <div class="media-body">
+                                    <ul class="media-list media-list-conversation c-w-md">
+                                        <li class="media media-current-user">
+                                            <div class="input-group ">
+                                                <textarea v-model="submitted_text"  id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
+                                                <span  v-on:click="submit_answer()" class="input-group-addon btn btn-primary footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
+                                            </div>
+                                            <small class="charlimit"><span class="current">0</span>/<span class="max">150</span></small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            
 
 
     </div>
@@ -145,18 +174,13 @@ var pressTimer;
 
       		    if( $icon.hasClass("thumbs-up") ){
       		      $icon.removeClass("thumbs-up") &&
-      		     // $icon.addClass("minus").html(`
-      		     //   <span class="fa fa-minus"></span> 
-      		     // `)
-      		       console.log('u to -')
+      		
+      		 //      console.log('u to -')
       		    	  this.downVote(answer_id)
       		    } else{
-      		      console.log('- to u')
+//      		      console.log('- to u')
     		    	  		this.upVote(answer_id)
-      		     
-    		    	  		//$icon.addClass("thumbs-up").html(`
-      		        //<span class="fa fa-thumbs-up"></span> 
-      		      //`)
+      		   
       		    }
       		  }
       	
@@ -180,11 +204,9 @@ var pressTimer;
 
     			    $icon.hasClass("minus") && $icon.removeClass("minus") 
     			    $icon.hasClass("thumbs-up") && $icon.removeClass("thumbs-up") 
-    			      console.log('- to d')
+    		//	      console.log('- to d')
     		    		com.downVote(answer_id)
-    			  //  $icon.addClass("thumbs-down").html(`
-    			  //    <span class="fa fa-thumbs-down"></span> 
-    			  //  `)
+    			
     			  },500);
     		 
     		  
@@ -288,6 +310,15 @@ var pressTimer;
          }
         return false;
       },
+
+
+
+        //will be called from timer comp
+        deleteQ: function() {
+
+        		location.reload()
+        },
+        
       updateVotesArray(answer_id, vote) {
         var i = 0;
         while ( i < this.my_votes.length) {

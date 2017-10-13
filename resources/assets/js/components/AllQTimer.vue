@@ -32,6 +32,27 @@
   },
   methods: {
     to_time() {
+    	
+    	//https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
+    	   
+    	
+    	var delta =   this.current
+    	var days = Math.floor(delta / 86400);
+    	delta -= days * 86400;
+    	
+    	var hours = Math.floor(delta / 3600) % 24;
+    	delta -= hours * 3600;
+    	
+    	var minutes = Math.floor(delta / 60) % 60;
+    	delta -= minutes * 60;
+    	
+    	var seconds = delta % 60;  // in theory the modulus is not required
+
+        	
+
+          
+          return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
+    	/*
       var sec_num = parseInt(this.current, 10); // don't forget the second param
       var hours   = Math.floor(sec_num / 3600);
       var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -40,7 +61,7 @@
       if (hours   < 10) {hours   = "0"+hours;}
       if (minutes < 10) {minutes = "0"+minutes;}
       if (seconds < 10) {seconds = "0"+seconds;}
-      return hours+'hr '+minutes +'min ';
+      return hours+'hr '+minutes +'min ';*/
     },
     
     onInterval() {

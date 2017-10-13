@@ -143,7 +143,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/toolkit.js') }}"></script>
-    <script src="{{ asset('js/up-voting.js') }}"></script>
 
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>

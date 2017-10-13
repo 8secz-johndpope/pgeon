@@ -532,15 +532,17 @@ input.pending-radio:checked+label {
 }
 
 
-.thumbs-up > .svg-inline--fa.fa-w-16 {
-  color: #3fc3ad;
+
+/*** EDITED by Prasanth ***/
+svg .thumbs-up  {
+  fill: #3fc3ad;
 }
-.thumbs-down > .svg-inline--fa.fa-w-16{
-  color: #da7a82;
+svg .thumbs-down{
+  fill: #da7a82;
 }
 
-.minus > svg {
-  color: #e0e1e3;
+svg .window-minimize{
+  fill: #e0e1e3;
 }
 
 

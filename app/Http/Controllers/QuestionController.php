@@ -41,25 +41,27 @@ class QuestionController extends Controller
              
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
-                    $question->expiring_at = Question::question_validity_status($question->expiring_at);
-                        return view('questions.showguest', ['question' => $question]);
+                    $lq_expiring_in = Question::question_validity_status($question->expiring_at);
+                    return view('questions.showguest', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
                 }else {
-                        return view('questions.showguestexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
+                        return view('questions.showguestexpired', ['question' => $question]);
                     
                 }
                 
             }else {
+                
+                
                 $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
                 
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
-                    $question->expiring_at = Question::question_validity_status($question->expiring_at);
+                    $lq_expiring_in =  Question::question_validity_status($question->expiring_at);
                     //if owner
                     if (Auth::user()->id == $question->user_id) {
                         //    
                        echo 'asker rask';
                     }else {
-                        return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
+                        return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'lq_expiring_in' => $lq_expiring_in]);
                     }
                 }else {
                   if (Auth::user()->id == $question->user_id) {
