@@ -888,6 +888,10 @@ var app = new Vue({
   },
 
   methods: {
+    callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+      var child = app.$refs.answersexpiredowner;
+      child.fetchRecords($question_id, $uname, $question, $ex_date);
+    },
     getBubbleCount: function getBubbleCount() {
       this.$http.get('/bubble').then(function (response) {
         if (parseInt(response.data) > 0) $(".bubble").html(response.data);
@@ -2833,6 +2837,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -2840,26 +2875,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       answers: [],
       my_votes: [],
-      csrf: ""
-
+      csrf: "",
+      question_id: 0,
+      uname: "",
+      question: "",
+      ex_date: ""
     };
   },
-  props: ['question_id'],
+
   mounted: function mounted() {
     this.csrf = $('meta[name="csrf-token"]').attr('content');
   },
 
 
   methods: {
+    fetchRecords: function fetchRecords(question_id, uname, question, ex_date) {
+      this.question_id = question_id;
+      this.uname = uname;
+      this.question = question;
+      this.ex_date = ex_date;
+      $.getJSON('/question/' + this.question_id + '/json', function (response) {
+        this.answers = response;
+
+        // var com = this
+        $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
+          //   com.my_votes = votes
+          this.my_votes = votes;
+        }.bind(this));
+      }.bind(this));
+    },
     selectAnswer: function selectAnswer(answer_id) {
 
-      $("#reponse-updated").hide();
+      this.answer_id = answer_id;
+    },
+    saveChosenAnswer: function saveChosenAnswer() {
+
       var formData = {
         'question_id': this.question_id,
-        'answer_id': answer_id
+        'answer_id': this.answer_id
       };
       this.$http.post('/set_chosen_answer', formData).then(function (response) {
-        $("#reponse-updated").show();
+        location.reload();
       }, function (response) {
         alert('error submitting');
       });
@@ -2875,20 +2931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
 
-  created: function created() {
-
-    $.getJSON('/question/' + this.question_id + '/json', function (response) {
-      this.answers = response;
-
-      // var com = this
-      $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
-        //   com.my_votes = votes
-        this.my_votes = votes;
-
-        console.log(this.my_votes[0].votecount);
-      }.bind(this));
-    }.bind(this));
-  }
+  created: function created() {}
 
 });
 
@@ -33904,12 +33947,69 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "container"
+  return _c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-primary pull-right app-new-msg js-newMsg",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveChosenAnswer()
+      }
+    }
+  }, [_vm._v("Save Changes")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("All Responses")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-header"
+  }, [_c('div', [_c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media media-divider"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('div', {
+    staticClass: "media-header"
+  }, [_c('small', {
+    staticClass: "text-muted"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "user-profile-text-link"
+    }
+  }, [_vm._v(_vm._s(_vm.uname))])]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted pull-right"
+  }, [_vm._v(" Ended: " + _vm._s(_vm.ex_date))])]), _vm._v(" "), _c('ul', {
+    staticClass: "media-list media-list-conversation c-w-md"
+  }, [_c('li', {
+    staticClass: "media"
+  }, [_c('div', {
+    staticClass: "media-body"
+  }, [_c('div', {
+    staticClass: "media-body-text live-media-question"
+  }, [_vm._v("\n                  \t" + _vm._s(_vm.question) + "\n                  ")])])])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body p-a-0 js-modalBody"
+  }, [_c('div', {
+    staticClass: "modal-body-scroller"
+  }, [_c('div', {
+    staticStyle: {
+      "margin": "15px"
+    }
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', {
-      staticClass: "vote-item flex-center "
+      staticClass: "vote-item flex-center"
     }, [_c('input', {
+      staticClass: "pending-radio",
       attrs: {
         "type": "radio",
         "id": answer.id,
@@ -33925,21 +34025,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "for": answer.id
       }
-    }, [_c('a', {
-      staticClass: "vote-count"
-    }, [_c('button', {
-      staticClass: "btn-borderless btn-container",
-      attrs: {
-        "id": "vote"
-      }
-    }, [_c('h1', {
-      attrs: {
-        "id": "counter"
-      }
-    }, [_c('span', [_vm._v(" " + _vm._s(_vm.checkVoted(answer.id)))])])])]), _vm._v(" "), _c('p', {
-      staticClass: "flexone"
-    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(answer.answer) + "\n                        ")])])])
-  }))])
+    }, [_c('p', [_vm._v("\n        \t\t" + _vm._s(answer.answer) + "\n        ")])])])
+  }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="/pending">
                             <div class="panel-footer flexbox-container">
                                 <span>View all</span>
                                 <span><i class="fa fa-arrow-right fa-lg"></i></span>
@@ -224,7 +224,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="/published">
                             <div class="panel-footer flexbox-container">
                                 <span>View all</span>
                                 <span><i class="fa fa-arrow-right fa-lg"></i></span>

@@ -73,10 +73,6 @@
 
 
 
-<!-- 
-    <answers_expired_owner question_id="{{$question->id}}" ></answers_expired_owner>
- -->
-
 
 
 @endsection

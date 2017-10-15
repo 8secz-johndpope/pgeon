@@ -39,6 +39,11 @@ const app = new Vue({
   },
   methods: {
 	
+	  callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+		  var child = app.$refs.answersexpiredowner
+		  child.fetchRecords($question_id, $uname, $question, $ex_date)
+		    
+	  },
 
 	  
 	getBubbleCount() {

@@ -58,6 +58,8 @@ Route::get('/', 'HomeController@index');
   {
     Route::get('bubble', 'UserController@notification_count');
     
+    Route::get('pending', 'QuestionController@pending');
+    Route::get('published', 'QuestionController@published');
     Route::get('notifications/{format?}', 'NotificationController@index');
     // Question Routes
     Route::get('questions/new', 'QuestionController@newest');

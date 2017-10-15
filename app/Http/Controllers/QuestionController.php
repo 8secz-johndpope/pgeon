@@ -229,48 +229,115 @@ class QuestionController extends Controller
             $lq_expiring_at = $user->last_question_time();
             $lq_expiring_in = Question::question_validity_status($lq_expiring_at);
         }
+        
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->orderBy('created_at', 'desc')->get();
         
-       
+        
         $pending = array();
         $published = array();
-       
+        
         foreach ($questions as $key => $val) {
             $answer = array();
             if($val->accepted_answer == 0) {
                 //$rec
                 /** check whether pending question will have an answer chosen for publishing **/
                 $chosen = Answer::get_chosen_answer($val->id);
-                  
                 
-                   if(count($chosen)) {
-                       $answer = $chosen[0];
-                   }else {
-                       /** get if it has top voted answer **/
-                       $answer_id = Vote::get_top_voted_answer_id($val->id);
-                       if($answer_id)
-                            $answer = Answer::find($answer_id);
-                       
-                       
-                   }
-                   $temp = array('question' => $val, 'answer' => $answer);
-               
-                 
-                   $pending [] = $temp;
+                
+                if(count($chosen)) {
+                    $answer = $chosen[0];
+                }else {
+                    /** get if it has top voted answer **/
+                    $answer_id = Vote::get_top_voted_answer_id($val->id);
+                    if($answer_id)
+                        $answer = Answer::find($answer_id);
+                        
+                        
+                }
+                $temp = array('question' => $val, 'answer' => $answer);
+                
+                
+                $pending [] = $temp;
                 
             }else {
                 $answer = Answer::find($val->accepted_answer);
                 
-        
+                
                 $temp = array('question' => $val, 'answer' => $answer);
                 $published [] = $temp;
             }
         }
-         
+        
         return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
             'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published]);
+         
+        
     }
     
+    
+    public function pending() {
+        $user = Auth::user();
+        
+        if ($user->role_id != 3 ) {
+            abort(403, 'Access denied');
+        }
+        
+        $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '=', 0)->orderBy('created_at', 'desc')->get();
+        
+        $pending = array();
+        
+        foreach ($questions as $key => $val) {
+            $answer = array();
+                /** check whether pending question will have an answer chosen for publishing **/
+                $chosen = Answer::get_chosen_answer($val->id);
+                
+                
+                if(count($chosen)) {
+                    $answer = $chosen[0];
+                }else {
+                    /** get if it has top voted answer **/
+                    $answer_id = Vote::get_top_voted_answer_id($val->id);
+                    if($answer_id)
+                        $answer = Answer::find($answer_id);
+                        
+                        
+                }
+                $temp = array('question' => $val, 'answer' => $answer);
+                                
+                $pending [] = $temp;
+                
+        }
+        
+        return view('questions.pending',['questions' => $questions, 'pending' => $pending]);
+    }
+    
+    public function published() {
+        
+        $user = Auth::user();
+        
+        if ($user->role_id != 3 ) {
+            abort(403, 'Access denied');
+        }
+        //  $lq_expiring_at = $user->has_active_question();
+        
+        
+        $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '>', 0)->orderBy('created_at', 'desc')->get();
+        
+        
+        $published = array();
+        
+        foreach ($questions as $key => $val) {
+                $answer = Answer::find($val->accepted_answer);
+                
+                
+                $temp = array('question' => $val, 'answer' => $answer);
+                $published [] = $temp;
+         
+        }
+        
+        return view('questions.published',['questions' => $questions,  'published' => $published]);
+        
+    }
     
     
     public function  responses($format=null) {
