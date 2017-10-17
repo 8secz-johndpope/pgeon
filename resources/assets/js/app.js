@@ -13,7 +13,10 @@ import {AnswerMixin} from './mixins/AnswerMixin.js';
 
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
+Vue.component('allqguest', require('./components/AllQGuest.vue'));
 Vue.component('allr', require('./components/AllR.vue'));
+Vue.component('allrguest', require('./components/AllRGuest.vue'));
+
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('answers_guest', require('./components/AnswersGuest.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));

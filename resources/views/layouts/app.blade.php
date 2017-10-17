@@ -29,7 +29,7 @@
 
 
 
-
+<div class="nav_all">
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
@@ -52,11 +52,11 @@
             </div>
         </nav>
 
-
+</div>
 
 @else
 
-
+<div class="nav_all">
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
@@ -93,6 +93,7 @@
                 </div>
             </div>
         </nav>
+
         <ul class="mobile-dropdown no-height">
             <li>
                 <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>

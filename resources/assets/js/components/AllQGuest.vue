@@ -3,61 +3,33 @@
 
 
 <div class="nav_all">
+
+
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
                         <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
                     </a>
-                    <ul class="nav navbar-nav">
-                        <li v-if="role_id==3">
-                            <form class="navbar-form">
-                                <div>
-                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0">
+                    <ul class="nav navbar-nav m-r-0" style="width: 125px;">
                         <li>
-                            <a href="/people" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
+                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
                         </li>
                         <li>
-                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span></a>
-                        </li>
-                        <li>
-                            <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                <img class="img-circle" :src="avatar">
-                            </button>
+                            <div>
+                                <a href="/login" class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <ul class="mobile-dropdown no-height">
-            <li>
-                <a :href="slug">Profile</a>
-            </li>
-            <li>
-                <a href="/profile">Settings</a>
-            </li>
-            <!-- <li>
-                <a href="">Help</a>
-            </li> -->
-            <li>
-             <a href="/logout"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
-           	  Logout
-             </a>
 
-            </li>
-        </ul>
-          <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                             <input type="hidden" name="_token" :value="csrf_field">
-                                             
-                                         </form>
 
 
 
@@ -88,7 +60,7 @@
 </div>
 
 
-	<div class="container content"  v-if="questions.length<1">
+	<div class="container"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			<img src="/img/chat-bubble.svg" />
 			<h4 class="text-muted m-t-0">
@@ -100,7 +72,7 @@
 
 
 
-        <div class="container content">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                 
