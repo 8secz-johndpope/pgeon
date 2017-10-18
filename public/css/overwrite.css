@@ -532,6 +532,16 @@ input.pending-radio:checked+label {
 }
 
 
+.responded-count{
+  color: #24b4bc;
+  margin: 0;
+}
+.social-icons{
+  fill: #fff;
+  margin: 10px;
+  width: 32px;
+  height: auto;
+}
 
 /*** EDITED by Prasanth ***/
 svg .thumbs-up  {
@@ -544,5 +554,6 @@ svg .thumbs-down{
 svg .window-minimize{
   fill: #e0e1e3;
 }
+
 
 

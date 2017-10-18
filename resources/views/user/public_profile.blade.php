@@ -1,193 +1,142 @@
 @extends('layouts.app-profile')
 @section('content')
 
- <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header" style="margin-left: 0px">
-                    <a onclick="window.history.back();" style="margin-top: 5px;cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 24px;margin-right: 10px"></span></a>
-                    <ul class="nav navbar-nav">
-                        <li style="margin-left: 10%;width:100%;margin-top: 3px">
-                            <h4>
-                {{$user->name}}</h4>
-                        </li>
-                    </ul>
+  <div class="nav-contain">
+            <nav class="container nav-container header-nav">
+                <a onclick="window.history.back();"  style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                <h4>{{$user->name}}</h4>
+                <a href="#" role="button" aria-expanded="false"> <span class="fal fa-plus" style="font-size: 20px;"></span></a>
+            </nav>
+        </div>
+
+  <div class="user-data">
+            <div class="user-meta">
+                <div class="avatar-wrapper">
+                    <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
                 </div>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav m-r-0">
-                        <li>
-</li>
-                        <li>
-                            <a href="#" role="button" aria-expanded="false"> <span class="fal fa-plus"></span></a>
-                        </li>
-                    </ul>
+                <div class="vote-points avatar-wrapper">
+                    <span class="number">{{$points}}</span>points
                 </div>
             </div>
-        </nav>
-
-<div class="container p-t-md">
-
-
-    <div class="user-data">
-      <div class="user-meta">
-        <div class="avatar-wrapper">
-          
-          <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
-          
-          
-          
         </div>
-        <div class="vote-points">
-          <span class="number">{{$points}}</span>points
-        </div>
-      </div>
-      <div class="user-details">
-        <p class="description">{{$user->bio}}</p>
-      </div>
-      <div>
-        <div class="panel-body" style="text-align:center">
-          <div>
-          
-          @if ($user->role_id==3)
-            <div class="most-replied-container">
-          
-    
-     <div class="slider slider-nav" style="padding-bottom:10px">
-       
-                               @foreach ($most_replied as $key => $follower)
-                                   <div>
-                                   <li class="avatar-list-item" v-on:click="resetTopAnswers({{$follower->id}})"  data-index="{{$key}}" data-rank="{{$follower->points}}" data-name="{{$follower->name}}" data-topA="{{$follower->accepted_answers}}" data-slug="{{$follower->slug}}">
-                                       <img class="img-circle" src="{{ Helper::avatar($follower->avatar) }}" />
-                                       
-                                       
-                                   </li>
-                               </div>
-                               @endforeach 
-                                
-                                
+        
+        
+<div class="top-container">
+            <div class="top-header">
+                <div>
+                    <span class="arrow-back"><i class="fal fa-angle-left" aria-hidden="true"></i></span>
+                    <h4>responders</h4>
+                    <span class="back-btn hide"><i class="fal fa-angle-left" aria-hidden="true"></i></span>
+                    <span class="arrow-forward"><i class="fal fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div class="top-content-container">
+                <div class="top-content top-responders">
+                
+                @foreach ($most_replied as $key => $follower)
+                	<a href="#" class="top-content-item">
+                        <div class="text-left">
+                            <img class="img-circle top-content-item-img" src="{{ Helper::avatar($follower->avatar) }}">
+                            <h5>{{$follower->name}}</h5>
+                            <span class="responses-count number-align">{{$follower->no_of_replies}}</span>
+                        </div>
+                    </a>
+                @endforeach 
+                    
+                
+               
+                </div>
+                <div class="responses-to-display hide">
+</div>
+                <div class="user-info hide">
+                    <div>
+                        <div class="profile-header">
+                            <div class="container-inner">
+                                <p class="profile-header-bio">{{$user->bio}}</p>
                          
                             </div>
-                            
-                             <div class="user-name hidden">
-                                <h3>...</h3>
-                            </div>
-              
-                  
-                  
-                   <div class="user-info overflow-hidden">
-                                <div class="answers-replies-info no-height overflow-hidden">
-                                         <a href="#" class="user-info-count" style="color:#24b4bc" v-on:click="getTopAnswers()"></a>
-                                    <span class="top-responses"> top responses from </span>
-                                    <a  class="a_user-info-name"  href="" role="button" style="color:#24c4bc"><span class="user-info-name" ></span></a>
-                                    
-                                               
-                                        <button type="button" data-dismiss="alert" aria-label="Close" class="close unselectUser" style="vertical-align: middle;display: table;height:40px">
-                                            <span class="unselectUser" aria-hidden="true"  v-on:click="clearVals()">×</span>
-                                        </button>
-                                    
-                                </div>
-                                <div class="showall">
-                                    <a href="#" v-on:click="showAllResponders({{$user->id}})">display all #</a>
-                                </div>
-                            </div>
-                            
-                            
-                     
-    
-
-               
+                        </div>
                     </div>
-             @endif       
-                  </div>
                 </div>
-              </div>
-            </div>
-  
-  
-  
-  		
-                        <div class="container p-t-md">
-            <div class="row">
-                <div class="col-md-8 col-md-push-2">
-                    <table class="table" v-if="topResponders.length > 0">
-                        <thead> 
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Responses</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="(responder, key) in topResponders">
-                                <td>@{{key + 1}}</td>
-                                <td>@{{responder.name}}</td>
-                                <td>
-                                    <a  v-on:click="setUserAndGetTopAnswer(responder.id)" style="color:#24c4bc;cursor:pointer;">@{{responder.accepted_answers}}</a>
-                                </td>
-                            </tr>
-                          
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-  
-  
-  
-
-<div class="container p-t-md">
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="media-list media-list-stream c-w-md">
+                <div class="most-responded hide" style="background-color: #F8F9F9;">
+                    <div style="margin-top: 15px;">
+                        <div class="container">
                         
-                        <li class="media"  v-for="answer in topAnswers">
-                            <div class="media-body">
-                                <small class="text-muted h6"><span class="fa fa-long-arrow-left"></span><a href="#" style="margin-right: 3px"> @{{answer.creator}}</a> <span class="time-ago-align">@{{answer.created_at}}..</span></small>
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media">
-                                        <div class="media-body">
-                                            <div class="media-body-text media-question">
-                                            @{{answer.question}}
-</div>
-                                            <ul class="media-list media-list-conversation c-w-md">
-                                                <li class="media media-current-user media-divider">
-                                                    <div class="media-body">
-                                                        <div class="media-body-text media-response media-response-margin" onclick="location.href='';" style="cursor: pointer;">
-                                                            @{{answer.answer}}
-</div>
+                        
+                        
+                         @foreach ($responded_to as $key => $responder)
+                            <div class="col-xs-6 col-sm-3">
+                                <div class="panel">
+                                    <a href="#">
+                                        <div class="panel-padding">
+                                            <div class="row">
+                                                <div class="col-xs-6" style="line-height: 62px;">
+                                                    <li class="avatar-list-item">
+                                                        <img class="img-circle" src="{{ Helper::avatar($follower->avatar) }}">
+                                                    </li>
+                                                </div>
+                                                <div class="text-right col-xs-6">
+                                                    <div class="h4">
+                                                        <span class="fa fa-reply" style="color: #BCC0C8;"></span>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                    <div>
+                                                        <div class="h4 responded-count">{{$responder->no_of_replies}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </a>
+                                </div>
                             </div>
-                        </li>
-              
-                    </ul>
+                            
+                            @endforeach 
+                          
+                            
+                          
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
+            </div>
 
 
 
 
-        
-        
-        
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
 
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
      
- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.css" />
- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick-theme.css" />
 
 @endpush
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')
-    <script type="text/javascript" src="http://cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.min.js"></script>
     <script src="{{ asset('js/profile.js') }}"></script>
 @endpush

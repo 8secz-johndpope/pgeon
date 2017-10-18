@@ -97,9 +97,10 @@ class User extends Authenticatable
     
   }
   
+  /** fetch users who are all have given answers to the selected users **/
   public static function fetch_most_replied_results($user_id, $limit_str = "" ) {
   
-  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers FROM questions
+  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers, COUNT(answers.id) no_of_replies FROM questions
               INNER JOIN answers ON questions.accepted_answer = answers.id
               INNER JOIN users ON answers.user_id = users.id 
               WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC $limit_str";
@@ -107,6 +108,7 @@ class User extends Authenticatable
       $result = array();
       foreach ($users as $key => $val) {
          $val->points = User::get_points($val->id);
+         $val->no_of_replies = $val->no_of_replies;
          $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
          $result [] = $val;
           
@@ -114,12 +116,36 @@ class User extends Authenticatable
       return $result;
   }
     
+  
+  /** fetch the users who posted something and got responses from the selected user **/
+  public static function fetch_responded_results($user_id ) {
+      
+      $sql = "
+            SELECT users.id, users.name, users.avatar, users.slug, COUNT(answers.id) no_of_replies FROM answers
+            INNER JOIN questions ON questions.id = answers.question_id
+            INNER JOIN users ON questions.user_id = users.id
+             WHERE answers.user_id = '$user_id'
+             GROUP BY users.id
+            ORDER BY COUNT(users.id) DESC
+ ";
+      $users = DB::select( DB::raw($sql) );
+      $result = array();
+      foreach ($users as $key => $val) {
+          $val->no_of_replies = $val->no_of_replies;
+          $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
+          $result [] = $val;
+          
+      }
+      return $result;
+  }
+  
+ /* 
   public static function get_users_of_accepted_answers_top10($user_id) {
     
     return User::fetch_most_replied_results($user_id, " LIMIT 10");
     
   }
-  
+  */
   
   
   public static function get_users_of_accepted_answers($user_id) {

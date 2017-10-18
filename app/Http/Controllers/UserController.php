@@ -234,8 +234,9 @@ class UserController extends Controller
       if(!$user)
             return view('user.usernotfound');
           else {
-            $most_replied = $this->getMostRepliedTop10($user->id);
-            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', User::get_points($user->id));
+              $most_replied = User::get_users_of_accepted_answers($user->id);
+              $responded_to = User::fetch_responded_results($user->id);
+            return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', User::get_points($user->id))->with( 'responded_to', $responded_to);
           }
     }
 
@@ -244,10 +245,8 @@ class UserController extends Controller
       return response()->json($users);
    }
    
-   private function getMostRepliedTop10($user_id) {
-      $users = User::get_users_of_accepted_answers_top10($user_id);
-      return $users;
-   }
+   
+  
   
     public function points() {
       return $this->id;
