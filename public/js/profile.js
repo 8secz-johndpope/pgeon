@@ -37,6 +37,7 @@
 
       $(".arrow-back").removeClass("hide")
       $(".arrow-forward").removeClass("hide")
+      $(".responses-to-display").html('')
     })
 
 
