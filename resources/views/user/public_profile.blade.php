@@ -4,7 +4,10 @@
             <nav class="container nav-container header-nav">
                 <a onclick="window.history.back();"  style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
                 <h4>{{$user->name}}</h4>
-                <a href="#" role="button" aria-expanded="false"> <span class="fal fa-plus" style="font-size: 20px;"></span></a>
+                @if ($is_following == false)
+                
+                <a href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow"> <span class="fal fa-plus" style="font-size: 20px;"></span></a>
+               @endif
             </nav>
         </div>
 
@@ -138,4 +141,5 @@
 <!-- Push a script dynamically from a view -->
 @push('scripts')
     <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
 @endpush
