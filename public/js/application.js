@@ -41,13 +41,13 @@ $(function () {
       <div class="user-profile-dropdown nav nav-stacked" style="width: 200px">
         <ul class="list-group" style="margin:0;">
           <li class="list-group-item">
-            <a href="/profile">Profile</a>
+          <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>
           </li>
           <li class="list-group-item">
-            <a href="/profile">Setting</a>
+            <a href="/profile">Settings</a>
           </li>
           <li class="list-group-item">
-            <a href="#">Help</a>
+          <a href="#">Help</a>
           </li>
           <li class="list-group-item">
             <a   onclick="event.preventDefault();   document.getElementById('logout-form').submit();">Logout</a>
@@ -223,7 +223,7 @@ function handleInput(e){
 }
 
 
-// hide and display nav on scroll up and down v3 
+// hide and display nav on scroll up and down v3
 var lastScrollTop = $(window).scrollTop();
 $(window).scroll(function(event){
   var st = $(this).scrollTop();
@@ -244,7 +244,7 @@ function addFocus(){
 }
 
 function removeFocus(){
-  $(this).hasClass("active-container") && 
+  $(this).hasClass("active-container") &&
   $(this).removeClass("active-container")
 }
 
@@ -253,7 +253,7 @@ function addResponseFocus(){
 }
 
 function removeResponseFocus(){
-  $(this).hasClass("active-response-container") && 
+  $(this).hasClass("active-response-container") &&
   $(this).removeClass("active-response-container")
 }
 

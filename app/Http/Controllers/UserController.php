@@ -65,18 +65,18 @@ class UserController extends Controller
 
     }
 
-    public function settings () {
+    public function security () {
       $user = Auth::user();
       $error = "";
-      return view('user.settings')->with('user',$user)->with('error',$error);
+      return view('user.security')->with('user',$user)->with('error',$error);
 
     }
 
 
     public function membership () {
       $user = Auth::user();
-      
-       $followers_counts = UserFollowing::get_followers_count($user->id);    
+
+       $followers_counts = UserFollowing::get_followers_count($user->id);
       $error = "";
       if($user->subscribedToPlan('pgeon_monthly','main')) {
         $plan = "Monthly";
@@ -95,9 +95,9 @@ class UserController extends Controller
 
 
     public function preferences () {
-      
+
         /*
-        
+
         $followers_counts = UserFollowing::get_followers_count($user->id);
         $error = "";
         if($user->subscribedToPlan('pgeon_monthly','main')) {
@@ -113,10 +113,10 @@ class UserController extends Controller
         */
         $user = Auth::user();
         return view('user.preferences')->with('subscribed_to_newsletter',$user->subscribed_to_newsletter);
-        
+
     }
-    
-    
+
+
     public function notifications () {
       $user = Auth::user();
       $error = "";
@@ -149,7 +149,7 @@ class UserController extends Controller
     public function update(){
       $user = Auth::user();
        $error = "";
-        
+
     	// Handle the user upload of avatar
     	if(Input::hasFile('avatar')){
         $image = Input::file('avatar');
@@ -208,8 +208,8 @@ class UserController extends Controller
       if (Request::input('bio')) {
         $user->bio = Request::input('bio');
       }
-      
-      
+
+
       if (Request::input('subscribed_to_newsletter') != null ) {
           $user->subscribed_to_newsletter = Request::input('subscribed_to_newsletter');
       }
@@ -222,7 +222,7 @@ class UserController extends Controller
 
     public function getProfileBySlug($slug) {
         $user = User::where('slug', '=', $slug)->first();
-        return $this->showPublicProfile($user);  
+        return $this->showPublicProfile($user);
     }
 
     public function getProfile($id) {
@@ -244,28 +244,33 @@ class UserController extends Controller
       $users = User::get_users_of_accepted_answers($user_id);
       return response()->json($users);
    }
-   
-   
-  
-  
+
+    public static function fetchConvoFromTargetUser($answered_by, $question_by) {
+        
+        $convo = User::fetchQandA($answered_by, $question_by);
+        return response()->json($convo);
+        
+    }
+
+
     public function points() {
       return $this->id;
     }
-    
+
     public function notification_count() {
         $user = Auth::user();
         return $user->notifications()->where('seen','=',0)->count();
     }
-    
+
     public static function getAcceptedAnswersOfUser($user_id) {
         $topAnswers = User::get_accepted_answers_of_user($user_id);
         $response = array();
-        
+
         foreach ($topAnswers as $key => $val) {
             $val->created_at =  Helper::calcElapsed($val->expiring_at);
             $response[] = $val;
         }
-        
+
         return response()->json($response);
     }
 }

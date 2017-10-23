@@ -53,6 +53,8 @@ Route::get('/', 'HomeController@index');
   Route::get('responses/{format?}', 'QuestionController@responses');
   
    Route::get('question/{id}/{format?}', 'QuestionController@show');
+   
+  Route::get('fetchconvo/{answered_by}/{question_by}', 'UserController@fetchConvoFromTargetUser');
   
   Route::group(array('middleware' => 'auth'), function()
   {

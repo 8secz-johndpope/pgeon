@@ -3,8 +3,7 @@
                     <div class="list-group m-b-md">
                         <a href="{{$current_menu == 'profile'?'/#':'/profile'}}" class="list-group-item {{$current_menu == 'profile'?'active':''}}">
           Profile</a>
-                   
-                        <a href="{{$current_menu == 'settings'?'/#':'/settings'}}" class="list-group-item {{$current_menu == 'settings'?'active':''}}">
+                        <a href="{{$current_menu == 'security'?'/#':'/security'}}" class="list-group-item {{$current_menu == 'security'?'active':''}}">
           Security</a>
                         <a href="{{$current_menu == 'membership'?'/#':'/membership'}}" class="list-group-item {{$current_menu == 'membership'?'active':''}}">
           Membership</a>
@@ -12,4 +11,3 @@
           Preferences</a>
                     </div>
                 </div>
-                

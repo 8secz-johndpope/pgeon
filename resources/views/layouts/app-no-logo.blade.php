@@ -7,7 +7,6 @@
 
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,17 +27,17 @@
 
 </div>
 
-       
+
     <script src="https://code.jquery.com/jquery.min.js"></script>
       <script src="{{ asset('js/app.js') }}"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="{{ asset('js/toolkit.js') }}"></script>
     <script src="{{ asset('js/up-voting.js') }}"></script>
-    
+
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-    
+
 	 <script defer src="{{ asset('/js/packs/light.js') }}"></script>
         <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
         <script defer src="{{ asset('/js/packs/brands.js') }}"></script>

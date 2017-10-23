@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
+use App\Helpers\Helper;
 
 
 use Illuminate\Support\Facades\DB;
@@ -133,6 +134,32 @@ class User extends Authenticatable
       foreach ($users as $key => $val) {
           $val->no_of_replies = $val->no_of_replies;
           $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
+          $result [] = $val;
+          
+      }
+      return $result;
+  }
+  
+  
+  
+  
+  /** fetch the responses of a user to a target user **/
+  public static function fetchQandA($answered_by, $question_by ) {
+      
+      $sql = "
+            SELECT answers.answer, answers.id, questions.question, questions.expiring_at   FROM answers
+            INNER JOIN questions ON questions.id = answers.question_id
+            INNER JOIN users ON questions.user_id = users.id
+             WHERE answers.user_id = '$answered_by'
+             AND questions.user_id = '$question_by'
+
+           
+ ";
+      
+      $users = DB::select( DB::raw($sql) );
+      $result = array();
+      foreach ($users as $key => $val) {
+          $val->expiring_at = Helper::calcElapsed($val->expiring_at);
           $result [] = $val;
           
       }

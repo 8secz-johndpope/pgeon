@@ -7,7 +7,10 @@
 
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <script defer src="{{ asset('/js/packs/light.js') }}"></script>
+    <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
+    <script defer src="{{ asset('/js/packs/brands.js') }}"></script>
+    <script defer src="{{ asset('/js/fontawesome.js') }}"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -56,7 +59,7 @@
 
 @else
 
-<div class="nav_all">
+<div>
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
@@ -101,9 +104,9 @@
             <li>
                 <a href="{{ route('profile') }}">Settings</a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="">Help</a>
-            </li> -->
+            </li>
             <li>
              <a href="{{ route('logout') }}"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
            	  Logout
@@ -147,11 +150,6 @@
 
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
-
-	 <script defer src="{{ asset('/js/packs/light.js') }}"></script>
-        <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
-        <script defer src="{{ asset('/js/packs/brands.js') }}"></script>
-        <script defer src="{{ asset('/js/fontawesome.js') }}"></script>
 
 </body>
 

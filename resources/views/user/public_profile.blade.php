@@ -1,6 +1,5 @@
 @extends('layouts.app-profile')
 @section('content')
-
   <div class="nav-contain">
             <nav class="container nav-container header-nav">
                 <a onclick="window.history.back();"  style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
@@ -19,8 +18,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
 <div class="top-container">
             <div class="top-header">
                 <div>
@@ -32,43 +31,44 @@
             </div>
             <div class="top-content-container">
                 <div class="top-content top-responders">
-                
+
                 @foreach ($most_replied as $key => $follower)
-                	<a href="#" class="top-content-item">
+                	<a href="#" class="top-content-item" data-answered-by="{{$follower->id}}" data-question-by="{{$user->id}}">
                         <div class="text-left">
                             <img class="img-circle top-content-item-img" src="{{ Helper::avatar($follower->avatar) }}">
                             <h5>{{$follower->name}}</h5>
                             <span class="responses-count number-align">{{$follower->no_of_replies}}</span>
                         </div>
                     </a>
-                @endforeach 
-                    
-                
-               
+                @endforeach
+
+
+
                 </div>
-                <div class="responses-to-display hide">
+                <div class="responses-to-display hide" style="min-height: fit-content;">
 </div>
-                <div class="user-info hide">
+                <div class="user-info hide" style="min-height: fit-content;">
                     <div>
                         <div class="profile-header">
                             <div class="container-inner">
                                 <p class="profile-header-bio">{{$user->bio}}</p>
-                         
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="most-responded hide" style="background-color: #F8F9F9;">
+                <div class="most-responded hide" style="background-color: #F8F9F9; min-height: fit-content;">
                     <div style="margin-top: 15px;">
-                        <div class="container">
-                        
-                        
-                        
+                        <div class="container r-top-content">
+
+
+
                          @foreach ($responded_to as $key => $responder)
                             <div class="col-xs-6 col-sm-3">
                                 <div class="panel">
-                                    <a href="#">
+                                    <a href="#" class="r-top-content-item" data-answered-by="{{$user->id}}" data-question-by="{{$responder->id}}">
                                         <div class="panel-padding">
+                                         <h5 class="hide">{{$responder->name}}</h5>
                                             <div class="row">
                                                 <div class="col-xs-6" style="line-height: 62px;">
                                                     <li class="avatar-list-item">
@@ -88,11 +88,10 @@
                                     </a>
                                 </div>
                             </div>
-                            
-                            @endforeach 
-                          
-                            
-                          
+                            @endforeach
+
+
+
                         </div>
                     </div>
                 </div>
@@ -132,7 +131,7 @@
 
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
-     
+
 
 @endpush
 

@@ -1,10 +1,3 @@
-/* toolkit.css:7836 */
-@media (max-width: 767px){
-  .hidden-xs {
-    display: block !important;
-  }
-}
-
 .navbar-header{
   float: left;
   display: flex;
@@ -201,12 +194,13 @@ margin-right: 30px;
 
 .top-header {
   padding: 15px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   line-height: 1.6;
+  background-color: #fff;
 }
 
 .top-header div {
-  max-width: 350px;
+  max-width: 200px;
   margin: 0 auto;
   position: relative;
 }
@@ -215,7 +209,6 @@ margin-right: 30px;
   text-align: center;
   margin: 0;
   color: #BCC0C8;
-  font-weight: 400;
 }
 
 .top-content-item-img {
@@ -226,8 +219,8 @@ margin-right: 30px;
 
 .top-content-item {
   display: block;
-  padding: 10px 0;
-  /*border-bottom: 1px solid #DCE1EB;*/
+  padding: 15px 0;
+  /*box-shadow: -1px 1px 0 0.1px #f8f9f9;*/
   transition: all .2s ease;
   text-align: center;
 }
@@ -260,7 +253,7 @@ a.top-content-item:focus {
 }
 
 .top-content-item div {
-  width: 160px;
+  width: 275px;
   display: inline-block;
   margin: auto;
   overflow: hidden;
@@ -314,6 +307,7 @@ a.top-content-item:focus {
 .arrow-forward svg,
 .arrow-back svg {
   font-size: 1.5em;
+  vertical-align: text-top;
 }
 
 .arrow-forward {
@@ -554,6 +548,3 @@ svg .thumbs-down{
 svg .window-minimize{
   fill: #e0e1e3;
 }
-
-
-

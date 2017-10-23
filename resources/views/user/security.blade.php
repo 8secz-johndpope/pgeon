@@ -1,10 +1,11 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app')
+@section('content')
 <div class="container p-t-md">
 	<div class="row">
 
 
 
-		@component('user.menu',['current_menu' => 'settings'])
+		@component('user.menu',['current_menu' => 'security'])
 		@endcomponent
 
 
