@@ -97,6 +97,9 @@
             </div>
         </nav>
 
+
+     
+      
         <ul class="mobile-dropdown no-height">
             <li>
                 <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>

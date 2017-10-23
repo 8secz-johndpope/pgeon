@@ -24,7 +24,26 @@
 
         @yield('content')
 
+
 </div>
+<div id="profile_popup_js" class="hidden">
+   <div class="user-profile-dropdown nav nav-stacked" style="width: 200px">
+        <ul class="list-group" style="margin:0;">
+          <li class="list-group-item">
+          <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>
+          </li>
+          <li class="list-group-item">
+            <a href="/profile">Settings</a>
+          </li>
+          <li class="list-group-item">
+          <a href="#">Help</a>
+          </li>
+          <li class="list-group-item">
+            <a   onclick="event.preventDefault();   document.getElementById('logout-form').submit();">Logout</a>
+          </li>
+        </ul>
+      </div>
+ </div>
 
         <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>

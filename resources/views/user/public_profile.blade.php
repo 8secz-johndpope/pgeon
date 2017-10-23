@@ -72,7 +72,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6" style="line-height: 62px;">
                                                     <li class="avatar-list-item">
-                                                        <img class="img-circle" src="{{ Helper::avatar($follower->avatar) }}">
+                                                        <img class="img-circle" src="{{ Helper::avatar($responder->avatar) }}">
                                                     </li>
                                                 </div>
                                                 <div class="text-right col-xs-6">

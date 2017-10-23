@@ -54,6 +54,7 @@
         <script defer src="{{ asset('/js/packs/brands.js') }}"></script>
         <script defer src="{{ asset('/js/fontawesome.js') }}"></script>
 
+
 </body>
 
 </html>
