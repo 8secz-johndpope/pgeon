@@ -101,10 +101,10 @@ class User extends Authenticatable
   /** fetch users who are all have given answers to the selected users **/
   public static function fetch_most_replied_results($user_id, $limit_str = "" ) {
   
-  	$sql = "SELECT  users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers, COUNT(answers.id) no_of_replies FROM questions
-              INNER JOIN answers ON questions.accepted_answer = answers.id
+  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers, COUNT(answers.id) no_of_replies FROM questions
+              INNER JOIN answers ON questions.id = answers.question_id
               INNER JOIN users ON answers.user_id = users.id 
-              WHERE questions.user_id = '$user_id' GROUP BY answers.id ORDER BY COUNT(users.id) DESC $limit_str";
+              WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC $limit_str";
       $users = DB::select( DB::raw($sql) );
       $result = array();
       foreach ($users as $key => $val) {
@@ -127,7 +127,7 @@ class User extends Authenticatable
             INNER JOIN users ON questions.user_id = users.id
              WHERE answers.user_id = '$user_id'
              GROUP BY users.id
-            ORDER BY COUNT(answers.id) DESC
+            ORDER BY COUNT(users.id) DESC
  ";
       $users = DB::select( DB::raw($sql) );
       $result = array();
