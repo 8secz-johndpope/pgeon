@@ -5,7 +5,7 @@
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
                 <nav class="container nav-container header-nav">
-                    <a  style="cursor: pointer;" onclick="window.history.back()"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                    <a  href="/"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
                     <h4>
                     <img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}">
                     <span style="vertical-align: text-bottom;color: #8e8e93;font-weight: 400;">&nbsp; Live question</span></h4>

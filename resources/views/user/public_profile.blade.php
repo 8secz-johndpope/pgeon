@@ -2,7 +2,7 @@
 @section('content')
   <div class="nav-contain">
             <nav class="container nav-container header-nav">
-                <a onclick="window.history.back();"  style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                <a href="/" style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
                 <h4>{{$user->name}}</h4>
                 @if ($is_following == false)
                 

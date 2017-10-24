@@ -26,6 +26,7 @@
 
 
 </div>
+@if (!Auth::guest())
 <div id="profile_popup_js" class="hidden">
    <div class="user-profile-dropdown nav nav-stacked" style="width: 200px">
         <ul class="list-group" style="margin:0;">
@@ -44,7 +45,7 @@
         </ul>
       </div>
  </div>
-
+@endif
         <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
             var socket = io("{{ env('NODE_CONNECT') }}");

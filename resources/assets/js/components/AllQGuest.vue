@@ -43,15 +43,9 @@
 				</li>
 				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>
-				<li v-if="user_id > 0" class="f-right small">
 				
-				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">Followed</span>
-				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Everyone</span>
-					&nbsp; <span class="fa fa-sort"></span>
 					
-					</li>
-					
-				<li v-else class="f-right small"><span class="f-right-text">Everyone</span>
+				<li  class="f-right small"><span class="f-right-text">Everyone</span>
 					&nbsp; <span class="fa fa-sort"></span></li>	
 			</ul>
 		</div>
@@ -60,10 +54,11 @@
 </div>
 
 
-	<div class="container"  v-if="questions.length<1">
+	<div class="container content"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			<img src="/img/chat-bubble.svg" />
 			<h4 class="text-muted m-t-0">
+			
 				No live questions to display. <br>Please check back soon!
 			</h4>
 		</div>
@@ -72,7 +67,7 @@
 
 
 
-        <div class="container">
+        <div class="container content">
             <div class="row">
                 <div class="col-md-12">
                 
@@ -126,16 +121,15 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 
     data: function() {
       return {
-        all_questions: [],
         questions: [],
         current_filter: 'everyone',
         uf: {}
         
       };
     },
-    props: ['user_id','user_followings', 'role_id', 'avatar', 'slug', 'csrf_field'],
+    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
     mounted() {
-		this.uf = JSON.parse(this.user_followings)
+	//	this.uf = JSON.parse(this.user_followings)
 		//this.filter_questions()
     },
     
@@ -145,33 +139,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     methods: {
     	
     		
-    		decide_questions: function () {
-    			if(this.current_filter == 'follow') {
-   				 this.filter_questions()
-    			}else{
-    				this.unfilter_questions()
-    			}
-    		},
-    		
-    		filter_questions: function() {
-    		//	console.log(this.uf)
-    			var filtered_questions = []
-    			this.current_filter = 'follow'	
-    			for (var i=0; i < this.all_questions.length; i++) {
-    				if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-    					filtered_questions.push(this.all_questions[i])
-    				}
-    			}
-    			
-    			//filtered_questions
-    			this.questions = filtered_questions
-    			
-    			
-    		},
     	
-    		unfilter_questions: function() {
-    			this.questions = this.all_questions
-    		},
       redirect: function(id) {
         location.href = 'question/' + id
       },
@@ -202,7 +170,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
           //once we get the new qid inserted we use ajax to get the details
           $.getJSON('/question_details/' + response_id, function(response) {
             //this.questions = response
-            com.all_questions.push(response)
+            com.questions.push(response)
             com.decide_questions()
           }.bind(com));
 
@@ -211,9 +179,9 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 
 
       $.getJSON('/questions/json', function(response) {
+    	  //console.log(response)
         if (response[0]['id'] !== undefined)
-          this.all_questions = response
-          this.decide_questions()	
+          this.questions = response
       }.bind(this));
     },
 
