@@ -107,7 +107,8 @@ class User extends Authenticatable
   	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers, COUNT(answers.id) no_of_replies FROM questions
               INNER JOIN answers ON questions.id = answers.question_id
               INNER JOIN users ON answers.user_id = users.id 
-              WHERE questions.user_id = '$user_id' GROUP BY users.id ORDER BY COUNT(users.id) DESC $limit_str";
+                
+              WHERE questions.user_id = '$user_id'  AND expiring_at < ".time()." GROUP BY users.id ORDER BY COUNT(users.id) DESC $limit_str";
       $users = DB::select( DB::raw($sql) );
       $result = array();
       foreach ($users as $key => $val) {
@@ -129,6 +130,7 @@ class User extends Authenticatable
             INNER JOIN questions ON questions.id = answers.question_id
             INNER JOIN users ON questions.user_id = users.id
              WHERE answers.user_id = '$user_id'
+             AND expiring_at < ".time()."
              GROUP BY users.id
             ORDER BY COUNT(users.id) DESC
  ";
@@ -155,7 +157,7 @@ class User extends Authenticatable
             INNER JOIN users ON questions.user_id = users.id
              WHERE answers.user_id = '$answered_by'
              AND questions.user_id = '$question_by'
-
+             AND expiring_at < ".time()."
            
  ";
       

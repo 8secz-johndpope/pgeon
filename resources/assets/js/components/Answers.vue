@@ -1,22 +1,42 @@
 <template>
-    <div id="answers_container">
-      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="answers.length<1">
-            <div class="container text-center m-t-10p">
-                <img src="file:///Users/russfranklin/Dropbox/Pgeon/Pgeon_UI/assets/img/tumbleweed.svg" />
-                <h4 class="text-muted m-t-0">
-   No responses yet.. </h4>
-            </div>
-        </div>
-      
-           <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
-            <div class="container sub-nav2">
-            
-            
+<div>
+<div style="width: auto;border-bottom: 1px solid #E6EAEB;background-color: #fff;">
+         <div class="container sub-nav2">
+             <ul class="media-list media-list-conversation c-w-md">
+                 <li class="media media-divider">
+                     <div class="h5 m-b-5">
+                         <span>{{question_user_name}}</span>
+                         <span class="text-muted time-align">
+                         <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>
+                         </span>
+                         </span>
+                     </div>
+                     <ul class="media-list media-list-conversation c-w-md">
+                         <li class="media">
+                             <div class="media-body">
+                                 <div class="media-body-text live-media-question">
+                                     <div class="overlay">
+                                         <div class="half-left">
+                                             <span class="number">{{q_answers_count}} </span>
+                                             <span>responses</span>
+                                         </div>
+                                         <div class="half-right">
+                                             <span class="number">{{q_votes_count}}</span>
+                                             <span>votes</span>
+                                         </div>
+                                     </div>
+                                    
+                                    {{question}}
+                                 </div>
+                             </div>
+                         </li>
+                     </ul>
+                 </li>
+             </ul>
+         </div>
          
-         
-            
-                
-                <div  v-for="answer in answers">
+          <div class="container sub-nav2">
+              <div  v-for="answer in answers">
                 
                 
                    <div class="media-list media-list-conversation c-w-md" v-if="ownerOfAnswer(answer.user_id)">
@@ -40,7 +60,33 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                 </div>
+                      </div>
+     
+
+    <div id="answers_container">
+    
+      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="answers.length<1">
+            <div class="container text-center m-t-10p">
+                <img src="/img/tumbleweed.svg" />
+                <h4 class="text-muted m-t-0">
+   No responses yet.. </h4>
+            </div>
+        </div>
+      
+           <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
+            <div class="container sub-nav2">
+            
+            
+         
+         
+            
                 
+                <div  v-for="answer in answers">
+                
+                
+                         
                 
                 
            
@@ -113,7 +159,7 @@
 
     </div>
 
-
+</div>
 
 
 
@@ -134,7 +180,7 @@ var pressTimer;
 
       };
     },
-    props: ['question_id', 'current_user_id', 'question_owner_id','votecount'],
+    props: ['question_id', 'current_user_id', 'question_owner_id','votecount', 'initial', 'question_id', 'q_answers_count', 'q_votes_count', 'question_user_name', 'question'],
     mounted() {
 
 
@@ -157,6 +203,13 @@ var pressTimer;
     },
     methods: {
      
+    	
+    
+    	reload() {
+    		location.reload()
+    	}
+    	,
+    	
       	 mup(answer_id, e) {
       		  clearTimeout(pressTimer);
       		  

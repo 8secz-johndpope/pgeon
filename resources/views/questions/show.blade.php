@@ -53,51 +53,9 @@
         
         
         
-            <div style="width: auto;border-bottom: 1px solid #E6EAEB;background-color: #fff;">
-            <div class="container sub-nav2">
-                <ul class="media-list media-list-conversation c-w-md">
-                    <li class="media media-divider">
-                        <div class="h5 m-b-5">
-                            <span>{{$question->user->name}}</span>
-                            <span class="text-muted time-align">
-                            <allqtimer :initial="{{$lq_expiring_in}}"
-								:question_id="{{$question->id}}" @event="reload"></allqtimer></span>
-                            </span>
-                        </div>
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media-body-text live-media-question">
-                                        <div class="overlay">
-                                            <div class="half-left">
-                                                <span class="number">{{$question->answers->count()}}</span>
-                                                <span>responses</span>
-                                            </div>
-                                            <div class="half-right">
-                                                <span class="number">{{$question->votes()->count() }}</span>
-                                                <span>votes</span>
-                                            </div>
-                                        </div>
-                                       
-                                       <?php echo $question->question; ?>
-                                       
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        
-        
-        
-  
-
-    
        
-         <answers question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" votecount="{{$user_answered_votes}}"></answers>
+      <answers q_answers_count="{{$question->answers->count()}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_name="{{$question->user->name}}" question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
+								question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" votecount="{{$user_answered_votes}}" ></answers>
        
 
 
