@@ -2,39 +2,41 @@
 @section('content')
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="nav-contain" style="background-color: #fff;">
                 <nav class="container nav-container header-nav">
-                    <a class="navbar-brand" href="/">
-                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
-                    </a>
-                    <h4><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"> </h4>
+                  <div style="width: 42px;">
+                      <a href="/"><i class="fal fa-home fa-lg text-muted"></i></a>
+                  </div>
+                    <h4>
+                      <img class="img-circle header-img" href="#" src="{{ Helper::avatar($question->user->avatar) }}">
+                    </h4>
                     <ul class="nav navbar-nav m-r-0">
                         <li>
                             <div>
-                                <a href="/login" class="btn btn-sm btn-primary-outline" style="font-weight: 600;">Log In</a>
+                                <a href="/login" class="btn btn-sm btn-default">Log In</a>
                             </div>
                         </li>
                     </ul>
                 </nav>
             </div>
         </nav>
-        
 
 
 
-        
-        
-        
-        
-        
-        
-          <div style="width: auto;border-bottom: 1px solid #E6EAEB;background-color: #fff;">
-            <div class="container sub-nav2">
-                <ul class="media-list media-list-conversation c-w-md">
+
+
+
+
+
+
+
+          <div style="width: auto;">
+            <div class="container">
+                <ul class="media-list">
                     <li class="media media-divider">
                               <div class="h5 m-b-5">
-                            <span>{{$question->user->name}}</span>
+                            <span class="tmw"><a href="#">{{$question->user->name}}</a></span>
                             <span class="text-muted time-align">
                             <allqtimer :initial="{{$lq_expiring_in}}"
 								:question_id="{{$question->id}}" @event="reload"></allqtimer></span>
@@ -52,21 +54,22 @@
                 </ul>
             </div>
         </div>
-        
-        
-        
-        
-        
-    
-        
-        
-        
-  
 
-    
-       
-         <answers_guest question_id="{{$question->id}}" question_owner_id="{{$question->user_id}}" ></answers_guest>
-       
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Guests are not able to view posted answers -->
+
+         <?php /* <answers_guest question_id="{{$question->id}}" question_owner_id="{{$question->user_id}}" ></answers_guest> */ ?>
+
 
 
 @endsection

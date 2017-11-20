@@ -7,7 +7,7 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
@@ -21,7 +21,7 @@
                         </li>
                         <li>
                             <div>
-                                <a href="/login" class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
+                                <a href="/login" class="btn btn-sm btn-default" style="margin-top: 4px;">Log in</a>
                             </div>
                         </li>
                     </ul>
@@ -43,10 +43,10 @@
 				</li>
 				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>
-				
-					
-				<li  class="f-right small"><span class="f-right-text">Everyone</span>
-					&nbsp; <span class="fa fa-sort"></span></li>	
+
+
+				<li  class="f-right small"><span class="f-right-text">All</span>
+					&nbsp; <span class="fa fa-sort"></span></li>
 			</ul>
 		</div>
 	</ul>

@@ -58,11 +58,11 @@
 
 /* new nav and stuff  */
 
-.with-top-navbar {
+.with-home-nav {
   padding-top: 0;
 }
-.navbar-fixed-top, .navbar-fixed-bottom {
-position: relative;
+.navbar-relative, .navbar-fixed-bottom {
+  position: relative;
 }
 
 .mr30{
@@ -112,7 +112,13 @@ margin-right: 30px;
   margin-left: auto;
   margin-right: 10px;
   cursor: pointer;
-  color: #535353;
+  color: #75797E;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
 }
 
@@ -177,7 +183,11 @@ margin-right: 30px;
 
 .nav-contain {
   background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, .0975);
+  border-bottom: 1px solid #E6EAEB;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 5px 15px;
 }
 
 .most-responded,
@@ -193,10 +203,10 @@ margin-right: 30px;
 }
 
 .top-header {
-  padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  line-height: 1.6;
+  padding: 10px 15px 20px 15px;
   background-color: #fff;
+  border-bottom: 1px solid #E6EAEB;
+  line-height: 1.6;
 }
 
 .top-header div {
@@ -208,7 +218,6 @@ margin-right: 30px;
 .top-header h4 {
   text-align: center;
   margin: 0;
-  color: #BCC0C8;
 }
 
 .top-content-item-img {
@@ -220,7 +229,7 @@ margin-right: 30px;
 .top-content-item {
   display: block;
   padding: 15px 0;
-  /*box-shadow: -1px 1px 0 0.1px #f8f9f9;*/
+  box-shadow: -1px 1px 0 0.1px #f8f9f9;
   transition: all .2s ease;
   text-align: center;
 }
@@ -330,12 +339,19 @@ a.top-content-item:focus {
 }
 
 .header-nav h4 {
-  flex: 1;
-  text-align: center;
+  /*flex: 1;
+  text-align: center;*/
 }
 
 .header-img {
+  border-radius: 50%;
+  box-sizing: border-box;
   height: 32px;
+  width: 32px;
+  padding: 0;
+  position: absolute;
+  top: 9px;
+  margin-left: -32px;
 }
 
 .header-dropdown {
@@ -448,8 +464,7 @@ input.pending-radio:checked+label {
   bottom: 0;
   background-color: rgba(255, 114, 113, 0.15);
   z-index: 2;
-  border-radius: 0px 10px 10px 10px;
-  margin-top: 2px;
+  border-radius: 0px 10px 0px 10px;
 }
 
 .answer-bubble.checked .second #overlay {
@@ -473,18 +488,13 @@ input.pending-radio:checked+label {
 .header-nav {
   display: flex;
   align-items: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 15px;
 }
 
 .header-nav h4 {
   flex: 1;
   text-align: center;
-}
-
-.nav-contain {
-  background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, .0975);
+  margin: 4px 4px;
 }
 
 .deleteNum{
@@ -516,7 +526,7 @@ input.pending-radio:checked+label {
   display: flex;
 }
 .qsi-overlay div {
-  background: rgba(63,68,84,0.5);
+  background: rgba(63,68,84,0.6);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -526,9 +536,37 @@ input.pending-radio:checked+label {
 }
 
 
+.vote-up{
+  font-size: 20px;
+  color: rgba(36,189,182, .6);
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+}
+.vote-down{
+  font-size: 20px;
+  color: rgba(189,36,43, .6);
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+}
+
+.vote-none{
+  font-size: 20px;
+  color: rgba(224, 225, 227, .6);
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+}
+
 .responded-count{
   color: #24b4bc;
   margin: 0;
+  font-family: 'Ropa Sans', sans-serif;
+  font-size: 16px;
 }
 .social-icons{
   fill: #fff;
@@ -547,4 +585,34 @@ svg .thumbs-down{
 
 svg .window-minimize{
   fill: #e0e1e3;
+}
+
+/*hover icon effect*/
+div a.icon {
+  padding: 8px;
+  line-height: 1;
+  opacity: 0.37;
+  border-radius: 50%;
+}
+div a.icon:hover {
+  opacity: 0.72;
+  background: rgba(0, 0, 0, 0.1);
+}
+div a.icon:focus {
+  text-decoration: none;
+  color: #535353;
+  background-color: #E5E9EA;
+}
+.back-arrow{
+  font-size: 20px !important;
+  color: #75797E;
+  text-decoration: none;
+  outline: none;
+}
+.ellipsis{
+  font-size: 24px !important;
+  margin-right: 10px;
+  color: #75797E;
+  text-decoration: none;
+  outline: none;
 }

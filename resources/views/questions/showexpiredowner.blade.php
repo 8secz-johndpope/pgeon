@@ -16,7 +16,7 @@
 
 
       <div style="width: auto;">
-            <div class="container sub-nav2">
+            <div class="container">
                 <ul class="media-list media-list-conversation c-w-md">
                     <div class="media-body">
                         <div class="h5 m-b-5">
@@ -51,7 +51,7 @@
                                     <div class="media-body" style="text-align: center">
                                         <div class="media-body-text media-response">
                                             <div class="statcard p-a-md" style="display: inline-block">
-                                                <div class="loader-2 grey">
+                                                <div class="loader-2">
                                                     <div class="dot"></div>
                                                     <div class="dot"></div>
                                                     <div class="dot"></div>

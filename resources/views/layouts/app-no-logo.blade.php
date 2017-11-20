@@ -1,3 +1,4 @@
+<!-- login and registration screens -->
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>

@@ -16,18 +16,41 @@
 						<div class="input-group">
 							<label for="email">Email</label>
 							<p>
-								{{$user->email}} <small><a href="#" style="color: #24c4bc">(change)</a></small>
+								{{$user->email}} <small><a href="#" type="button" data-toggle="modal" data-target="#changeE" style="color: #24c4bc">(change)</a></small>
 							</p>
 						</div>
 						<div class="input-group" style="margin-bottom: 0">
-							<label for="password">Password</label> <a
-								class="btn btn-sm btn-default-outline" href="password/reset"
-								style="margin-top: 6px">Reset Your Password</a>
+							<label for="password">Password</label>
+							<a class="btn btn-default-outline m-t-5" href="password/reset">Reset Your Password</a>
 						</div>
 					</li>
 				</ul>
 				{{ csrf_field() }}
 			</form>
+		</div>
+		<!-- email change modal start -->
+		<div class="modal" id="changeE">
+				<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h4 class="modal-title pull-left">Change email</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<input type="email" placeholder="Enter your new email" class="form-control m-b-sm">
+										<input type="email" placeholder="Confirm new email" class="form-control m-b-sm">
+										<input type="password" class="form-control m-b-xs" placeholder="Password">
+								</div>
+								<div class="modal-actions">
+										<button type="button" class="btn-link modal-action confirm" data-dismiss="modal">
+												<strong style="color: #3fc3ad;">Save</strong>
+										</button>
+										<button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Cancel</button>
+								</div>
+						</div>
+				</div>
 		</div>
 
 

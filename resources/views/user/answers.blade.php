@@ -17,7 +17,10 @@
                                         <div class="row panel">
                                             <div class="col-md-12">
                                                 <div class="header">
-                                                    <h4 style="margin: 0;display: inline;"><a href="/question/{{$answer->question->id}}/{{ \App\Question::get_url($answer->question->question) }}" title="{{ e($answer->question->question) }}">{{ ucfirst($answer->question->question) }}</a></h4> <small>{{ e($answer->created_at->diffForHumans()) }}</small>
+                                                    <h4 style="margin: 0;display: inline;">
+                                                      <a href="/question/{{$answer->question->id}}/{{ \App\Question::get_url($answer->question->question) }}" title="{{ e($answer->question->question) }}">{{ ucfirst($answer->question->question) }}</a>
+                                                    </h4>
+                                                    <small>{{ e($answer->created_at->diffForHumans()) }}</small>
                                                     <p>{{ e($answer->answer) }}</p>
                                                 </div>
                                             </div>

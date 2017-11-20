@@ -65,9 +65,9 @@
 	<ul class="container nav nav-bordered second-nav">
 		<div class="iconav-slider">
 			<ul class="nav nav-pills iconav-nav">
-				<li class="tab "><a href="/questions" data-container="body"><small>Questions</small></a>
+				<li class="tab active"><a href="#" data-container="body"><small>Questions</small></a>
 				</li>
-				<li class="tab active"><a href="#"><small>Responses</small></a>
+				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>
 				<li v-if="user_id > 0" class="f-right small">
 				
@@ -83,10 +83,22 @@
 		</div>
 	</ul>
 </div>
+</div>
 
-        </div>    
-            
-          <div class="container content">
+
+	<div class="container content"  v-if="questions.length<1">
+		<div class="container text-center m-t-5p">
+			<img src="/img/chat-bubble.svg" />
+			<h4 class="text-muted m-t-0">
+				No live questions to display. <br>Please check back soon!
+			</h4>
+		</div>
+	</div>
+
+
+
+
+        <div class="container content">
             <div class="row">
                 <div class="col-md-12">
                     <ul class="media-list media-list-conversation c-w-md"  v-for="question in questions">

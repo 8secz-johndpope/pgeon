@@ -2,28 +2,28 @@
 @section('content')
 <div class="container p-t-md">
     <div class="row">
-    
+
         @component('user.menu',['current_menu' => 'membership'])
 		@endcomponent
-    
-    
 
-    
-    
-    
+
+
+
+
+
      <div class="col-md-8" style="margin-top:10px">
       <form  action="/profile" method="POST">
                     <ul class="list-group media-list media-list-stream">
                         <li class="list-group-item media p-a">
                             <div class="form-group">
                                 <ul class="list-group">
-                                    <a href="#" style="line-height:2.3"><span class="icon icon-info-with-circle" style="line-height:2.3;float: left"></span> &nbsp;Learn more about pgeon membership</a>
+                                    <!-- <a href="#" style="line-height:2.3"><span class="icon icon-info-with-circle" style="line-height:2.3;float: left"></span> &nbsp;Learn more about pgeon membership</a> -->
                                     <li class="list-group-item ng-binding">
                                         <div class="pull-right">
                                             <div class="ng-scope">
                                                 <span class="label">{{$plan}}</span>
                                                  @if ($plan == "Free")
-                                                <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">upgrade Account</a>
+                                                <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">upgrade</a>
                                                  @endif
                                             </div>
                                         </div>
@@ -32,29 +32,30 @@
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <label for="redem-code">Redeem code</label>
-                                <div class="apply_codes">
-                                    <input type="text" placeholder="enter code" id="redem-code" name="redemcode">
-                                    <input type="submit" value="apply" id="apply">
+                              <label class="control-label">Redeem code</label>
+                              <div class="input-group">
+                                <input class="form-control" placeholder="enter code..">
+                                    <span class="input-group-btn"> <button class="btn btn-default" type="button" style="height: 36px;">apply</button> </span>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    
+
                               {{ csrf_field() }}
                       </form>
-                    
-                    
-                    
+
+
+
                         <div id="stripe_box" class="collapse">
-                        
-                    @if ($followers_counts < env('FOLLOWERS_NEEDED')) 
-                         <div class="alert alert-success alert-block">
-                          You should at least have <b>{{env('FOLLOWERS_NEEDED')}}</b> followers 
+
+                    @if ($followers_counts < env('FOLLOWERS_NEEDED'))
+                         <div class="alert alert-info alert-block m-t-10 text-center">
+                          Pgeon membership requires at least <b>{{env('FOLLOWERS_NEEDED')}}</b> followers.<br>
+                          To request manual approval please <a href="mailto:membership@pgeon.com">contact us</a>.
                          </div>
-            
+
                     @else
-                                             
+
                           {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
                          @if ($message = Session::get('success'))
                          <div class="alert alert-success alert-block">
@@ -118,14 +119,14 @@
                              </div>
                            </div>
                        {!! Form::close() !!}
-                     @endif     
+                     @endif
                  </div>
-                 
+
                 </div>
-    
-    
-    
-    
+
+
+
+
     </div>
 </div>
 

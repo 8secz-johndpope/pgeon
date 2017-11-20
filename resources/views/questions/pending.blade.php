@@ -1,17 +1,16 @@
 @extends('layouts.app-profile') @section('content')
 
   <div class="nav-contain">
-    <nav class="container nav-container header-nav">
-      <a onclick="window.history.back()"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+    <nav class="container app-navbar header-nav">
+      <a onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
       <h4>Pending</h4>
     </nav>
   </div>
   <div style="width: auto;">
   </div>
-  
-    <div class="container p-t-md" style="margin-top: 10px;">
-    
-    <div class="col-md-12">
+
+    <div class="container p-t-md">
+
       <div class="tabs">
         <div class="pending">
         
@@ -62,10 +61,9 @@
         </div>
      
       </div>
-    </div>
   </div>
-  
-    
+
+
 
 
         

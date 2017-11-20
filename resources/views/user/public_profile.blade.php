@@ -2,11 +2,12 @@
 @section('content')
   <div class="nav-contain">
             <nav class="container nav-container header-nav">
-                <a href="/" style="cursor:pointer;"><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                <a href="/" style="cursor:pointer;"><span class="fal fa-arrow-left fa-lg"></span></a>
                 <h4>{{$user->name}}</h4>
                 @if ($is_following == false)
-                
-                <a href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow"> <span class="fal fa-plus" style="font-size: 20px;"></span></a>
+                <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow follow btn-lg btn-link pull-right p-a-0">
+                  <span class="fal fa-plus"></span>
+                </button>
                @endif
             </nav>
         </div>
@@ -17,7 +18,7 @@
                     <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
                 </div>
                 <div class="vote-points avatar-wrapper">
-                    <span class="number">{{$points}}</span>points
+                    <span class="number">{{$points}}</span>{{ $points == 1 ? "point" : "points" }}
                 </div>
             </div>
         </div>
@@ -27,7 +28,7 @@
             <div class="top-header">
                 <div>
                     <span class="arrow-back"><i class="fal fa-angle-left" aria-hidden="true"></i></span>
-                    <h4>responders</h4>
+                    <h4>responses</h4>
                     <span class="back-btn hide"><i class="fal fa-angle-left" aria-hidden="true"></i></span>
                     <span class="arrow-forward"><i class="fal fa-angle-right" aria-hidden="true"></i></span>
                 </div>
@@ -55,7 +56,7 @@
                         <div class="profile-header">
                             <div class="container-inner">
                                 <p class="profile-header-bio">{{$user->bio}}</p>
-
+                                <small class="text-muted">Joined: {{$user->created_at->diffForHumans()}}..</small>
                             </div>
                         </div>
                     </div>

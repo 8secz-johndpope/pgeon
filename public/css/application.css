@@ -46,14 +46,7 @@
 {
     max-height: inherit;
 }
-
-.app-navbar .navbar-collapse:after
-{
-    height: 100vh;
-}
-
-.app-navbar .form-control
-{
+.app-navbar .form-control {
     border-color: #eaeaea;
 }
 
@@ -62,15 +55,8 @@
     margin-left: -12px;
     padding-bottom: 10px !important;
 }
-
-.app-notifications .icon:before
-{
-}
-
-@media (min-width: 768px)
-{
-    .app-navbar .navbar-collapse:after
-    {
+.app-notifications .icon:before {} @media (min-width: 768px) {
+    .app-navbar .navbar-collapse:after {
         height: auto;
     }
 }
@@ -547,8 +533,8 @@ button.active#profile-button {
 .my-questions.btn-primary-outline:hover{
   /*background-color: #24c4bc;*/
 }
-.my-questions.btn-primary-outline:active{
-  background-color: #21ACA6;
+.my-questions.btn-primary-outline:active {
+    background-color: #24c4bc;
 }
 .nav-container{
   position: relative;
@@ -748,7 +734,7 @@ button.active#profile-button {
     -moz-animation: loader-2 2.5s infinite linear;
     -o-animation: loader-2 2.5s infinite linear;
     animation: loader-2 2.5s infinite linear;
-    background-color: #26bbf0;
+    background-color: rgba(209, 212, 213, .6);
 }
 .loader-2 .dot:nth-child(1) {
     -webkit-animation-delay: 0.6s;
@@ -767,9 +753,6 @@ button.active#profile-button {
     -moz-animation-delay: 0s;
     -o-animation-delay: 0s;
     animation-delay: 0s;
-}
-.loader-2.grey .dot {
-    background-color: #ccc;
 }
 /*! CSS Used keyframes */
 

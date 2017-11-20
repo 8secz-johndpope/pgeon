@@ -2,17 +2,13 @@
 @section('content')
 
 
-    <div class="container p-t-md">
+    <div class="container m-t-10">
             <div class="row">
-                <div class="col-md-12" style="margin-top:10px">
-                    <ul class="list-group media-list media-list-stream">
-                        <li class="media list-group-item p-a">
-                            <h3 style="margin-top:0px"><span class="badge pull-right">                        <span class="bubble badge">0</span>
-                            </span>
-                Notifications</h3>
-                        </li>
-                      </ul>  
-                        
+                <div class="col-md-12">
+                            <div class="h3 m-b-5">Notifications
+                              <button class="btn-sm btn-link p-x-0 text-uppercase">Clear all</button>
+                              <span class="bubble badge pull-right m-x-sm" style="margin-top: 5px;">0</span>
+                          </div>
                  <notifications></notifications>
                 </div>
             </div>

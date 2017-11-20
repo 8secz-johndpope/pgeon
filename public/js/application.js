@@ -244,15 +244,15 @@ $(".live-media-question").mousedown(addFocus)
 $(".live-media-question" ).mouseup(removeFocus)
 $(".live-media-question" ).mouseleave(removeFocus)
 
-//media-body-text  media-question
-$(".media-question").mousedown(addFocus)
-$(".media-question" ).mouseup(removeFocus)
-$(".media-question" ).mouseleave(removeFocus)
+// //media-body-text  media-question
+// $(".media-question").mousedown(addFocus)
+// $(".media-question" ).mouseup(removeFocus)
+// $(".media-question" ).mouseleave(removeFocus)
 
-// media-list-conversation
-$(".media-response").mousedown( addResponseFocus )
-$(".media-response" ).mouseup( removeResponseFocus )
-$(".media-response" ).mouseleave( removeResponseFocus )
+// // media-list-conversation
+// $(".media-response").mousedown( addResponseFocus )
+// $(".media-response" ).mouseup( removeResponseFocus )
+// $(".media-response" ).mouseleave( removeResponseFocus )
 
 // live-response
 $(".live-response").mousedown( addResponseFocus )
@@ -265,3 +265,24 @@ $(".f-right").click(function(){
     $(".f-right-text").text("Followed") ||
     $(".f-right-textj").text("Featured")
 })
+
+
+// number abbreviations
+function nFormatter(num) {
+    isNegative = false
+    if (num < 0) {
+        isNegative = true
+    }
+    num = Math.abs(num)
+    if (num >= 1000000000) {
+        formattedNumber = (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    } else if (num >= 1000000) {
+        formattedNumber =  (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    } else  if (num >= 1000) {
+        formattedNumber =  (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    } else {
+        formattedNumber = num;
+    }
+    if(isNegative) { formattedNumber = '-' + formattedNumber }
+    return formattedNumber;
+}

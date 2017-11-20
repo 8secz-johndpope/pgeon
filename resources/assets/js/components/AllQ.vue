@@ -3,7 +3,7 @@
 
 
 <div class="nav_all">
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
@@ -56,7 +56,7 @@
         </ul>
           <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                              <input type="hidden" name="_token" :value="csrf_field">
-                                             
+
                                          </form>
 
 
@@ -72,15 +72,15 @@
 				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>
 				<li v-if="user_id > 0" class="f-right small">
-				
-				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">Followed</span>
-				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Everyone</span>
+
+				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">All</span>
+				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Followed</span>
 					&nbsp; <span class="fa fa-sort"></span>
-					
+
 					</li>
-					
-				<li v-else class="f-right small"><span class="f-right-text">Everyone</span>
-					&nbsp; <span class="fa fa-sort"></span></li>	
+
+				<li v-else class="f-right small"><span class="f-right-text">All</span>
+					&nbsp; <span class="fa fa-sort"></span></li>
 			</ul>
 		</div>
 	</ul>
@@ -103,7 +103,7 @@
         <div class="container content">
             <div class="row">
                 <div class="col-md-12">
-                
+
                     <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
                         <li class="media m-b">
                             <a class="media-left" :href="question.slug">
@@ -127,8 +127,8 @@
                             </div>
                         </li>
                     </ul>
-  
-  
+
+
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
         questions: [],
         current_filter: 'everyone',
         uf: {}
-        
+
       };
     },
     props: ['user_id','user_followings', 'role_id', 'avatar', 'slug', 'csrf_field'],
@@ -166,13 +166,13 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		this.uf = JSON.parse(this.user_followings)
 		//this.filter_questions()
     },
-    
+
     mixins: [CommonMixin],
-    
+
 
     methods: {
-    	
-    		
+
+
     		decide_questions: function () {
     			if(this.current_filter == 'follow') {
    				 this.filter_questions()
@@ -180,23 +180,23 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     				this.unfilter_questions()
     			}
     		},
-    		
+
     		filter_questions: function() {
     		//	console.log(this.uf)
     			var filtered_questions = []
-    			this.current_filter = 'follow'	
+    			this.current_filter = 'follow'
     			for (var i=0; i < this.all_questions.length; i++) {
     				if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
     					filtered_questions.push(this.all_questions[i])
     				}
     			}
-    			
+
     			//filtered_questions
     			this.questions = filtered_questions
-    			
-    			
+
+
     		},
-    	
+
     		unfilter_questions: function() {
     			this.questions = this.all_questions
     		},
@@ -241,7 +241,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       $.getJSON('/questions/json', function(response) {
         if (response[0]['id'] !== undefined)
           this.all_questions = response
-          this.decide_questions()	
+          this.decide_questions()
       }.bind(this));
     },
 

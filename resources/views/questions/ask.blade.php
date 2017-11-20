@@ -4,7 +4,7 @@
 
 <div style="width: auto">
 	<div class="container p-t-md">
-		<div class="col-md-12" style="margin-top: 5px;">
+		<div>
       <div class="error hidden alert alert-danger" role="alert">
     Please include at-least one question mark.
 </div>
@@ -125,21 +125,21 @@
 
 @else
 <div style="width: auto;">
-            <div class="container">
-                <div class="col-md-12">
+            <div class="container m-t-5">
+                <div class="form-group">
                     <div class="media-body">
                         <div class="media-header">
-                            <small class="text-muted"><a href="#" id="user-profile-text-link" style="color:#fff">live question</a></small>
-                            <span class="dropdown pull-right small" style="color:#fff"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:#fff">
+                            <small class="text-muted"><a href="#" id="user-profile-text-link">display-name</a></small>
+                            <span class="dropdown pull-right small"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 
 
                             <answeringtimer initial="{{$lq_expiring_in}}"></answeringtimer>
                             <span class="caret"></span></a><ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a id="end_now" rel="{{$lq->id}}" href="#">end now</a>
+                                        <a id="end_now" rel="{{$lq->id}}" href="#">End now <span class="fa fa-stop dropdown-icon"></span></a>
                                     </li>
                                     <li>
-                                        <a id="cancel_now" rel="{{$lq->id}}" href="#">cancel question</a>
+                                        <a id="cancel_now" rel="{{$lq->id}}" href="#">Cancel <span class="fa fa-eject dropdown-icon"></span></a>
                                     </li>
                                 </ul></span>
                         </div>
