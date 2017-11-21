@@ -130,7 +130,7 @@ class User extends Authenticatable
       foreach ($users as $key => $val) {
           //   $val->points = User::get_points($val->id);
           $val->no_of_replies = $val->no_of_replies;
-          $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
+          $val->slug = ($val->slug)? $val->slug : "/user/".$val->uid;
           $result [] = $val;
           
       }
