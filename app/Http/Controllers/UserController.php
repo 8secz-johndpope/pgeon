@@ -234,8 +234,7 @@ class UserController extends Controller
       if(!$user)
             return view('user.usernotfound');
           else {
-              $most_replied = User::get_users_of_accepted_answers($user->id);
-              $responded_to = User::fetch_responded_results($user->id);
+              $replies = User::replies($user->id);
               $current_user = Auth::user();
               $followings = UserFollowing::get_followers($current_user->id)->toArray();
          
@@ -245,7 +244,7 @@ class UserController extends Controller
                   $is_following = true;
               }
                           
-              return view('user.public_profile')->with('user',$user)->with('most_replied', $most_replied)->with('points', User::get_points($user->id))->with( 'responded_to', $responded_to)->with('is_following', $is_following);
+              return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points($user->id))->with('is_following', $is_following);
           }
     }
 

@@ -101,10 +101,48 @@ class User extends Authenticatable
     
   }
   
+  
+  public static function replies($user_id) {
+      $sql = "
+            SELECT uid,name, avatar, slug, COUNT(ans_id) no_of_replies from (
+                SELECT users.id as uid, users.name , users.avatar, users.slug, answers.id as ans_id FROM questions
+                INNER JOIN answers ON questions.id = answers.question_id
+                INNER JOIN users ON answers.user_id = users.id
+    
+                WHERE questions.user_id = '$user_id'  AND expiring_at < ".time()." 
+    
+                UNION ALL
+    
+                SELECT users.id as uid, users.name, users.avatar, users.slug,  answers.id as ans_id  FROM answers
+                INNER JOIN questions ON questions.id = answers.question_id
+                INNER JOIN users ON questions.user_id = users.id
+                WHERE answers.user_id = '$user_id'
+                AND expiring_at < ".time()."
+                ) 
+            AS tmp GROUP by uid, name, avatar, slug
+            ORDER BY COUNT(ans_id) DESC   
+               
+";
+      $users = DB::select( DB::raw($sql) );
+//      echo $sql;
+      
+      $result = array();
+      foreach ($users as $key => $val) {
+          //   $val->points = User::get_points($val->id);
+          $val->no_of_replies = $val->no_of_replies;
+          $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
+          $result [] = $val;
+          
+      }
+      return $result;
+      
+      
+  }
+  
   /** fetch users who are all have given answers to the selected users **/
   public static function fetch_most_replied_results($user_id, $limit_str = "" ) {
   
-  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(users.id) AS accepted_answers, COUNT(answers.id) no_of_replies FROM questions
+  	$sql = "SELECT users.id, users.name, users.avatar, users.slug, COUNT(answers.id) no_of_replies FROM questions
               INNER JOIN answers ON questions.id = answers.question_id
               INNER JOIN users ON answers.user_id = users.id 
                 
@@ -112,7 +150,7 @@ class User extends Authenticatable
       $users = DB::select( DB::raw($sql) );
       $result = array();
       foreach ($users as $key => $val) {
-         $val->points = User::get_points($val->id);
+      //   $val->points = User::get_points($val->id);
          $val->no_of_replies = $val->no_of_replies;
          $val->slug = ($val->slug)? $val->slug : "/user/".$val->id;
          $result [] = $val;
@@ -152,11 +190,13 @@ class User extends Authenticatable
   public static function fetchQandA($answered_by, $question_by ) {
       
       $sql = "
-            SELECT answers.answer, answers.id, questions.question, questions.expiring_at   FROM answers
+            SELECT answers.answer, answers.id, questions.question, questions.expiring_at, answers.user_id as ans_by, questions.user_id as q_by   FROM answers
             INNER JOIN questions ON questions.id = answers.question_id
             INNER JOIN users ON questions.user_id = users.id
-             WHERE answers.user_id = '$answered_by'
-             AND questions.user_id = '$question_by'
+             WHERE (answers.user_id = '$answered_by'
+             AND questions.user_id = '$question_by') OR
+             (answers.user_id = '$question_by'
+                AND questions.user_id = '$answered_by')
              AND expiring_at < ".time()."
            
  ";

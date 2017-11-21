@@ -4,11 +4,12 @@
     $(".top-content-item").click(function (e) {
 
       e.preventDefault()
-
+     
       $answered_by = $(this).attr('data-answered-by')
       $question_by = $(this).attr('data-question-by')
       $q_name = $(".nav-contain h4").html()
       $a_name = $(this).find('h5').html()
+      
       fillResponses($answered_by, $question_by, $q_name, $a_name)
 
       $(".responses-to-display").addClass("show-responses").removeClass("hide")
@@ -22,9 +23,13 @@
         <img alt="" src="${$imgSrc}" class="avatar avatar-96 photo" height="96" width="96" style=" border-radius: 50%; ">
       `)
 
-      $(".arrow-back").addClass("hide")
-      $(".arrow-forward").addClass("hide")
 
+    })
+    
+    
+    $(".nav_back").click(function (e){
+    		return 
+    		//alert('s')
     })
 
     $(".back-btn").click(function (e) {
@@ -42,6 +47,18 @@
 
 
     function fillResponses($answered_by, $question_by, $q_name, $a_name) {
+	 //change the back functionality once in..	
+	 $(".nav_back").click(function (e){
+ 		 e.preventDefault();
+ 		 $(".r-top-content").removeClass('hide')	
+ 	      $(".responses-to-display").removeClass("show-responses").addClass("hide")
+ 	      $(".back-btn").addClass("hide");
+ 	      $(".top-header h4").text(oldHeader)
+ 	      $(".vote-points").html(votePointsOldContent)
+ 	      $(".responses-to-display").html('')
+ 		
+	 })
+ 
       $(".responses-to-display").css("height", $(".top-content-container").height()+"px")
       $(".responses-to-display").css("overflow", "scroll")
       
@@ -52,11 +69,11 @@
         	  	responseHtml += `<li class="media">
   <div class="media-body">
     <div class="h5 m-b-5">
-      <span>${$q_name}</span>
+      <span>  ${($question_by == field.q_by)?$q_name:$a_name}</span>
       <svg class="svg-inline--fa fa-long-arrow-left fa-w-14 text-muted" aria-hidden="true" data-prefix="fa" data-icon="long-arrow-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
         <path fill="currentColor" d="M193.456 357.573L127.882 292H424c13.255 0 24-10.745 24-24v-24c0-13.255-10.745-24-24-24H127.882l65.574-65.573c9.373-9.373 9.373-24.569 0-33.941l-16.971-16.971c-9.373-9.373-24.569-9.373-33.941 0L7.029 239.029c-9.373 9.373-9.373 24.568 0 33.941l135.515 135.515c9.373 9.373 24.569 9.373 33.941 0l16.971-16.971c9.373-9.372 9.373-24.568 0-33.941z"></path>
       </svg>
-      <span>${$a_name}</span>
+      <span> ${($answered_by == field.ans_by)?$a_name:$q_name}</span>
       <span class="text-muted time-align">${field.expiring_at}..</span>
     </div>
     <ul class="media-list media-list-conversation c-w-md">
@@ -107,35 +124,9 @@
     var tabs=["user-info", "top-responders", "most-responded"]
     var activeIndex=1
 
-    $(".arrow-back").click(navigate)
-    $(".arrow-forward").click(navigate)
+   
 
-    function navigate(e) {
 
-      if ($(e.currentTarget).hasClass("disabled")) return;
-
-      // hide current
-      $("."+tabs[activeIndex]).addClass("hide")
-
-      if ($(e.currentTarget).hasClass("arrow-back")) {
-        activeIndex--
-        $(".arrow-forward").removeClass("disabled")
-        activeIndex==0&&$(e.currentTarget).addClass("disabled")
-        // $("." +  tabs[activeIndex] ).removeClass("hide")
-      }
-
-      if ($(e.currentTarget).hasClass("arrow-forward")) {
-        activeIndex++
-        $(".arrow-back").removeClass("disabled")
-        activeIndex==(tabs.length-1)&&$(e.currentTarget).addClass("disabled")
-        // $("." +  tabs[activeIndex] ).removeClass("hide")
-      }
-
-      // var render = ("render" + )
-      render=new Function(
-        "render"+tabs[activeIndex].replace("-", "")+"()"
-      )();
-    }
 
     function renderuserinfo() {
       $("."+tabs[activeIndex]).removeClass("hide")
@@ -193,53 +184,5 @@
 
 
 
-    function fillResponses($answered_by, $question_by, $q_name, $a_name) {
-      $(".responses-to-display").css("height", $(".top-content-container").height()+"px")
-      $(".responses-to-display").css("overflow", "scroll")
-      
-      $.getJSON(`/fetchconvo/${$answered_by}/${$question_by}`, function(result){
-    	  	var responseHtml = ""
-          $.each(result, function(i, field){
-              
-        	  	responseHtml += `<li class="media">
-  <div class="media-body">
-    <div class="h5 m-b-5">
-      <span>${$q_name}</span>
-      <svg class="svg-inline--fa fa-long-arrow-left fa-w-14 text-muted" aria-hidden="true" data-prefix="fa" data-icon="long-arrow-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path fill="currentColor" d="M193.456 357.573L127.882 292H424c13.255 0 24-10.745 24-24v-24c0-13.255-10.745-24-24-24H127.882l65.574-65.573c9.373-9.373 9.373-24.569 0-33.941l-16.971-16.971c-9.373-9.373-24.569-9.373-33.941 0L7.029 239.029c-9.373 9.373-9.373 24.568 0 33.941l135.515 135.515c9.373 9.373 24.569 9.373 33.941 0l16.971-16.971c9.373-9.372 9.373-24.568 0-33.941z"></path>
-      </svg>
-      <span>${$a_name}</span>
-      <span class="text-muted time-align">${field.expiring_at}..</span>
-    </div>
-    <ul class="media-list media-list-conversation c-w-md">
-      <li class="media">
-        <div class="media-body">
-          <div class="media-body-text media-question">
-          ${field.question}
-          </div>
-          <ul class="media-list media-list-conversation c-w-md">
-            <li class="media media-current-user media-divider">
-              <div class="media-body">
-                <div class="media-body-text media-response media-response-margin"  style="cursor: pointer;">
-                  ${field.answer}
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
-</li>`
-              
-          });
-    	    $(".responses-to-display").html(`
-    	    	      <ul class="media-list media-list-stream c-w-md" style="margin: 0 auto; max-width: 750px; padding: 15px;">
-    	    	        ${ responseHtml}
-    	    	      </ul>
-    	    	    `)
-      });
-      
-    
-    }
+
 
