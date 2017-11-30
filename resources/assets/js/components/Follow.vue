@@ -125,7 +125,7 @@
         };
     },
         mounted() {
-            console.log('Component mounted.')
+         //   console.log('Component mounted.')
 
         },
         created: function(){
@@ -138,7 +138,7 @@
                     this.iam_following = response.iam_following;
                       this.iam_following_count = response.iam_following_count
                       this.my_followers_count = response.my_followers_count
-                    console.log(response.iam_following_count)
+                   // console.log(response.iam_following_count)
                 }.bind(this ));
         	},
         	getBubbleCount() {

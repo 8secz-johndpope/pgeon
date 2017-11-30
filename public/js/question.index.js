@@ -83,29 +83,29 @@ $(function () {
 		
 	
 	})
-	
-	
-	   $(".display-published").on("click", function (e) {
 
-      e.preventDefault()
-      $(".edit").removeClass("hidden")
-      $(".published").removeClass("hidden")
-      $(".pending").addClass("hidden")
-      $(".display-published").parent().addClass("active");
-      $(".display-pending").parent().removeClass("active");
-    })
+    // 
+	  //  $(".display-published").on("click", function (e) {
+    //
+    //   e.preventDefault()
+    //   $(".edit").removeClass("hidden")
+    //   $(".published").removeClass("hidden")
+    //   $(".pending").addClass("hidden")
+    //   $(".display-published").parent().addClass("active");
+    //   $(".display-pending").parent().removeClass("active");
+    // })
+    //
+    // $(".display-pending").on("click", function (e) {
+    //
+    //   e.preventDefault()
+    //   $(".edit").addClass("hidden")
+    //   $(".pending").removeClass("hidden")
+    //   $(".published").addClass("hidden")
+    //   $(".display-published").parent().removeClass("active");
+    //   $(".display-pending").parent().addClass("active");
+    // })
+    //
 
-    $(".display-pending").on("click", function (e) {
-
-      e.preventDefault()
-      $(".edit").addClass("hidden")
-      $(".pending").removeClass("hidden")
-      $(".published").addClass("hidden")
-      $(".display-published").parent().removeClass("active");
-      $(".display-pending").parent().addClass("active");
-    })
-    
-    
 
     $(".toggleOverlay").on("change", function() {
       this.checked ?

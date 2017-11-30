@@ -46,9 +46,19 @@
 	var seconds = delta % 60;  // in theory the modulus is not required
 
     	
-
+	var t_str = '';
+	if(days > 0)
+		t_str += days + ' days ' 
+	if(hours > 0)
+		t_str += hours + ' hr ' 
+	if(minutes > 0)
+		t_str += minutes + ' min '
+	if(seconds > 0)
+		t_str += seconds + ' sec ' 
+				
+      return t_str
       
-      return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
+      //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },
     
     onInterval() {

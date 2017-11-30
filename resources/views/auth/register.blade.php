@@ -23,11 +23,11 @@
                     </div>
         <hr>
         <p style="text-align: left;margin-left: 5px">Or sign up with email</p>
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-          <input class="form-control" id="name" name="name" required value="{{ old('name') }}" placeholder="Name">
-           @if ($errors->has('name'))
+        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+          <input class="form-control" id="slug" name="slug" required value="{{ old('slug') }}" placeholder="Display name">
+           @if ($errors->has('slug'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('slug') }}</strong>
                                     </span>
                                 @endif
         </div>

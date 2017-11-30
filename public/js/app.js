@@ -2472,6 +2472,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2779,7 +2791,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var seconds = delta % 60; // in theory the modulus is not required
 
 
-      return days + ' days ' + hours + ' hr ' + minutes + ' min ' + seconds + ' sec';
+      var t_str = '';
+      if (days > 0) t_str += days + ' days ';
+      if (hours > 0) t_str += hours + ' hr ';
+      if (minutes > 0) t_str += minutes + ' min ';
+      if (seconds > 0) t_str += seconds + ' sec ';
+
+      return t_str;
+
+      //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },
     onInterval: function onInterval() {
       this.current = this.current -= this.interval;
@@ -3731,7 +3751,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    //   console.log('Component mounted.')
+
   },
 
   created: function created() {
@@ -3744,7 +3765,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.iam_following = response.iam_following;
         this.iam_following_count = response.iam_following_count;
         this.my_followers_count = response.my_followers_count;
-        console.log(response.iam_following_count);
+        // console.log(response.iam_following_count)
       }.bind(this));
     },
     getBubbleCount: function getBubbleCount() {
@@ -34914,7 +34935,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "nav_all"
   }, [_c('nav', {
-    staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
+    staticClass: "navbar navbar-inverse app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
   }, [_c('div', {
@@ -34950,15 +34971,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button"
     }
   }, [_vm._v("Sign up")])]), _vm._v(" "), _c('li', [_c('div', [_c('a', {
-    staticClass: "btn btn-sm btn-primary-outline",
+    staticClass: "btn btn-sm btn-default",
     staticStyle: {
-      "margin-top": "4px",
-      "font-weight": "600"
+      "margin-top": "4px"
     },
     attrs: {
       "href": "/login"
     }
-  }, [_vm._v("Log In")])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Log in")])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "second-nav-container"
   }, [_c('ul', {
     staticClass: "container nav nav-bordered second-nav"
@@ -34983,7 +35003,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35413,7 +35433,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "f-right-text"
   }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
-  })])])])])])]), _vm._v(" "), _c('div', {
+  })])])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
+    staticClass: "container content"
+  }, [_vm._m(8)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35539,21 +35561,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n           \t  Logout\n             ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
-    staticClass: "tab "
+    staticClass: "tab active"
   }, [_c('a', {
     attrs: {
-      "href": "/questions",
+      "href": "#",
       "data-container": "body"
     }
   }, [_c('small', [_vm._v("Questions")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
-    staticClass: "tab active"
+    staticClass: "tab"
   }, [_c('a', {
     attrs: {
-      "href": "#"
+      "href": "/responses"
     }
   }, [_c('small', [_vm._v("Responses")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35571,7 +35603,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('div', {
     staticClass: "nav_all"
   }, [_c('nav', {
-    staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
+    staticClass: "navbar navbar-inverse app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
   }, [_c('div', {
@@ -35636,20 +35668,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.filter_questions()
       }
     }
-  }, [_vm._v("Followed")]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('span', {
+  }, [_vm._v("All")]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('span', {
     staticClass: "f-right-text",
     on: {
       "click": function($event) {
         _vm.unfilter_questions()
       }
     }
-  }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Followed")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })]) : _c('li', {
     staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })])])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"

@@ -59,9 +59,16 @@ class LoginController extends Controller
    {
        $user = Socialite::driver($provider)->user();
 
-       $authUser = $this->findOrCreateUser($user, $provider);
-        Auth::login($authUser, true);
-        return redirect($this->redirectTo);
+       $array_user = $this->findOrCreateUser($user, $provider);
+       $authUser = $array_user['user'];
+       $registered_new =  $array_user['registred_new'];
+       Auth::login($authUser, true);
+       if($registered_new)
+            return redirect('/step2');
+       else 
+           return redirect($this->redirectTo);
+        
+       
 
        // $user->token;
    }
@@ -71,14 +78,18 @@ class LoginController extends Controller
    {
        $authUser = User::where('provider_id', $user->id)->first();
        if ($authUser) {
-           return $authUser;
-       }
-       return User::create([
+           $registred_new = false;
+       }else{
+       
+           $authUser = User::create([
            'name'     => $user->name,
            'email'    => $user->email,
            'provider' => $provider,
            'provider_id' => $user->id
        ]);
+        $registred_new = true;
+       }
+       return array('user' => $authUser, "registred_new" => $registred_new);
    }
 
 /*   protected function redirectTo()

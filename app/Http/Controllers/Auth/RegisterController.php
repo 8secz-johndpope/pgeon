@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -47,8 +49,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+       /* $messsages = array(
+            'slug.required'=>'You cant leave Email field empty',
+            'slug.alpha_num'=>'Cannot contain special characters',
+            'slug.max'=>'The field cannot exceed :max chars',
+        );*/
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'slug' => 'required|alpha_num|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -63,11 +70,33 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+/*            'slug' => $data['slug'],*/
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
     
     
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+        
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+                );
+        }
+        
+        // Removed to prevent auto login
+        //Auth::guard($this->getGuard())->login($this->create($request->all()));
+        $user = $this->create($request->all());
+        
+        Auth::login($user);
+        
+        
+       // return redirect($this->redirectPath());
+       return redirect('/step2');
+    }
+    
+   
 }

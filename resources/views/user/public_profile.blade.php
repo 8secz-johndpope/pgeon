@@ -3,7 +3,8 @@
 
   <div class="nav-contain">
             <nav class="container nav-container header-nav">
-                <a href="/" style="cursor:pointer;" class="nav_back"><span class="fal fa-arrow-left fa-lg"></span></a>
+                <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
+                 <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                 <h4>{{$user->name}}</h4>
                 @if ($is_following == false)
                 <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow follow btn-lg btn-link pull-right p-a-0">

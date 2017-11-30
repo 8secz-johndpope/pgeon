@@ -52,7 +52,7 @@ class HomeController extends Controller {
             $url = $follower->slug;
           else
             $url = "/user/".$follower->id;
-          $avatar =  Helper::avatar($value->user->avatar);
+            $avatar =  Helper::avatar($follower->avatar);
           $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $avatar, 'url' => $url);
       }
 

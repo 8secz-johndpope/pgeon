@@ -78,6 +78,9 @@ Route::get('/', 'HomeController@index');
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );
     Route::get('my-questions', 'QuestionController@ask')->name('ask');
 
+    
+    Route::get('step2', 'UserController@step2');
+    
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('profile', 'UserController@update');
     Route::post('subscribe', 'UserController@subscribe');
@@ -86,6 +89,7 @@ Route::get('/', 'HomeController@index');
     Route::get('notifications', 'UserController@notifications');
     Route::get('preferences', 'UserController@preferences');
 
+    
     Route::get('/people', 'HomeController@people')->name('people');
     Route::get('/search', 'HomeController@search')->name('search');
 

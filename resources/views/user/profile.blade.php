@@ -11,6 +11,8 @@
 
 
   <div class="col-md-8" style="margin-top:10px">
+  
+  
    <form enctype="multipart/form-data" action="/profile" method="POST">
             <ul class="list-group media-list media-list-stream">
                 <li class="list-group-item media p-a">
@@ -51,15 +53,19 @@
               </span>
               <span class="input-group-addon" style="border-left: none; padding-left: 0;" id="sizing-addon1"><img style="height: 16px" src="{{ asset('img/facebook-muted.svg') }}" /></span>
               <input class="form-control" style="background-color: transparent; border-left: none; margin-left: none;" id="disabledInput" type="text" placeholder="@facebook_name" disabled="">
-            </div> -->
-                </li>
+            </div></li> -->
+                
                 <li class="list-group-item media p-a">
+               
                     <label class="control-label">Profile address (url)</label>
                     <div class="input-group">
                         <span class="input-group-addon">pgeon.com/</span>
                         <input type="text" class="form-control" name="slug" value="{{ $user->slug}}">
+                        <br />
+                        
+                        
                     </div>
-                    {{$error}}
+                     @include('flash::message')
                     <li class="list-group-item media p-a">
                                 <label class="control-label">Bio</label>
                                 <div class="input-group">

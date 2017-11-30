@@ -72,6 +72,13 @@ class UserController extends Controller
 
     }
 
+    
+    public function step2 () {
+  
+        return view('user.step2');
+        
+    }
+    
 
     public function membership () {
       $user = Auth::user();
@@ -126,6 +133,10 @@ class UserController extends Controller
 
 
 
+    private function slugCheck() {
+        
+    }
+    
     public function subscribe()
     {
          $user = Auth::user();
@@ -148,8 +159,15 @@ class UserController extends Controller
 
     public function update(){
       $user = Auth::user();
-       $error = "";
 
+       if (Request::input('step2') == 1) {
+           $view = "user.step2";
+           $success_view = "/questions";
+       }else {
+           $success_view = '/profile';
+           $view = "user.profile";
+       }
+       
     	// Handle the user upload of avatar
     	if(Input::hasFile('avatar')){
         $image = Input::file('avatar');
@@ -176,7 +194,8 @@ class UserController extends Controller
 
 
          if ($validator->fails()) {
-             return view('user.profile')->with('user',$user)->with('error',"Too long");
+             flash('Invalid display name. Should not contain special chars and should not exceed 10 letters.');
+             return view($view)->with('user',$user);
          }
 
          $routes = [];
@@ -196,7 +215,8 @@ class UserController extends Controller
          $slug = Request::input('slug');
 
          if (in_array ($slug, $routes)) {
-           return view('user.profile')->with('user',$user)->with('error',"'$slug' already exists! Try another one.");
+             flash("'$slug' taken! Try another one.");
+             return view($view)->with('user',$user);
          }
 
 
@@ -215,8 +235,8 @@ class UserController extends Controller
       }
 
       $user->save();
-
-    	return view('user.profile')->with('user',$user)->with('error',$error);
+    
+      return redirect($success_view)->with('user',$user);
 
     }
 

@@ -3,6 +3,11 @@
 
     $(".top-content-item").click(function (e) {
 
+    	  $("#g_back").addClass('hidden');	
+    	  $("#profile_back").removeClass('hidden');
+    	  
+
+	 
       e.preventDefault()
      
       $answered_by = $(this).attr('data-answered-by')
@@ -27,10 +32,27 @@
     })
     
     
-    $(".nav_back").click(function (e){
+   /* $(".nav_back").on('click', function (e){
+    	alert('ss')
     		return 
     		//alert('s')
-    })
+    })*/
+    
+
+    
+      $("#profile_back").on('click', function (e){
+ 		 e.preventDefault();
+ 		 $(".r-top-content").removeClass('hide')	
+ 	      $(".responses-to-display").removeClass("show-responses").addClass("hide")
+ 	      $(".back-btn").addClass("hide");
+ 	      $(".top-header h4").text(oldHeader)
+ 	      $(".vote-points").html(votePointsOldContent)
+ 	      $(".responses-to-display").html('')
+ 	     $("#g_back").removeClass('hidden');	
+ 	      $("#profile_back").addClass('hidden');
+ 		
+	 })
+	 
 
     $(".back-btn").click(function (e) {
     	  $(".r-top-content").removeClass('hide')	
@@ -48,16 +70,7 @@
 
     function fillResponses($answered_by, $question_by, $q_name, $a_name) {
 	 //change the back functionality once in..	
-	 $(".nav_back").click(function (e){
- 		 e.preventDefault();
- 		 $(".r-top-content").removeClass('hide')	
- 	      $(".responses-to-display").removeClass("show-responses").addClass("hide")
- 	      $(".back-btn").addClass("hide");
- 	      $(".top-header h4").text(oldHeader)
- 	      $(".vote-points").html(votePointsOldContent)
- 	      $(".responses-to-display").html('')
- 		
-	 })
+	
  
       $(".responses-to-display").css("height", $(".top-content-container").height()+"px")
       $(".responses-to-display").css("overflow", "scroll")
