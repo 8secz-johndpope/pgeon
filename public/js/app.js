@@ -2292,8 +2292,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var seconds = delta % 60; // in theory the modulus is not required
 
+      var t_str = '';
+      if (days > 0) t_str += days + ' days ';
+      if (hours > 0) t_str += hours + ' hr ';
+      if (minutes > 0) t_str += minutes + ' min ';
+      if (seconds > 0) t_str += seconds + ' sec ';
 
-      return days + ' days ' + hours + ' hr ' + minutes + ' min ' + seconds + ' sec';
+      return t_str;
+
+      //  return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
       /*
        var sec_num = parseInt(this.current, 10); // don't forget the second param
        var hours   = Math.floor(sec_num / 3600);
