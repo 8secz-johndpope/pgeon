@@ -55,7 +55,7 @@
     		t_str += hours + ' hr ' 
     	if(minutes > 0)
     		t_str += minutes + ' min '
-    	if(seconds > 0)
+  //  	if(seconds > 0)
     		t_str += seconds + ' sec ' 
     				
           return t_str

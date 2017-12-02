@@ -21,6 +21,13 @@
                   {{ Form::select('status', array('PENDING' => 'Pending', 'PUBLISHED' => 'PUBLISHED'), null, array('class' => 'form-control')) }}
               </div>
 
+
+
+              <div class="form-group">
+                  {{ Form::label('featured', 'Featured') }}
+                  {{ Form::select('featured', array('0' => 'No', '1' => 'Yes'), null, array('class' => 'form-control')) }}
+              </div>
+
               <div class="row">
               {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
             </div>

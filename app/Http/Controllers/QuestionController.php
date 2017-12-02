@@ -124,7 +124,18 @@ class QuestionController extends Controller
     }
 
     
+    public function fromfollowers($p, $c)
+    {
+        
+        return $this->get_questions_from_followers($p, $c);
+    }
     
+    //$paginate_count, $current_page
+    public function featured($p, $c)
+    {
+        
+        return $this->get_featured($p, $c);
+    }
 
     
     

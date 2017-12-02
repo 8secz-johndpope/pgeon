@@ -7,6 +7,7 @@ use App\Vote;
 use Helper;
 trait QuestionTrait
 {
+    //TODO delete this dated dec-1
     protected function get_questions()
     {
         $fetched_questions = Question::get_live_questions();
@@ -26,34 +27,45 @@ trait QuestionTrait
         return response()->json($questions);
     }
     
-    //TODO delete this
-    protected static function live_qs_w_top_a()
+    
+    protected function get_questions_from_followers($p, $c)
     {
-        
-        
-        $fetched_questions = Question::get_live_questions();
+        $fetched_questions = Question::get_live_questions_from_followers($p, $c);
         
         $questions[] = array();
         foreach($fetched_questions as $key => $question){
-            $answer_id = Vote::get_top_voted_answer_id($question->id);
-            if($answer_id) {
-                $answer = Answer::find($answer_id);
-                $questions [$key]['id'] = $question->id;
-                $questions [$key]['question'] = $question->question;
-                $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
-                $questions [$key]['name'] = $question->name;
-                $questions [$key]['answer'] = $answer;
-                $questions [$key]['user_id'] = $question->user_id;
-                $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
-            }
-            
+            $questions [$key]['id'] = $question->id;
+            $questions [$key]['question'] = $question->question;
+            $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
+            $questions [$key]['name'] = $question->name;
+            $questions [$key]['user_id'] = $question->user_id;
+            $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
             
             
         }
         
         return response()->json($questions);
-        
-        
     }
+    
+    
+    protected function get_featured($p, $c)
+    {
+        $fetched_questions = Question::get_live_featured_questions($p, $c);
+        
+        $questions[] = array();
+        foreach($fetched_questions as $key => $question){
+            $questions [$key]['id'] = $question->id;
+            $questions [$key]['question'] = $question->question;
+            $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
+            $questions [$key]['name'] = $question->name;
+            $questions [$key]['user_id'] = $question->user_id;
+            $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
+            
+            
+        }
+        
+        return response()->json($questions);
+    }
+
     
 }

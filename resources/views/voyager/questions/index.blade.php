@@ -13,18 +13,23 @@
                               <td>Question</td>
                               <td>User id</td>
                               <td>Status</td>
+                              <td>Featured</td>
                               <td>Actions</td>
                           </tr>
                       </thead>
                       <tbody>
                       @foreach($questions as $key => $value)
+                      
                       @php
+                       
                         $answer_count = json_decode($value->answer_count,true);
+                        
                         if (isset($answer_count[0])) {
                             $answer_number = $answer_count[0]['total'];
                         } else  {
                             $answer_number = 0;
                         }
+                        
                       @endphp
 
                           <tr>
@@ -32,8 +37,9 @@
                               <td>{{ $value->question }}  <br /> Answers :
 
                               <a  href="{{ URL::route('questions.show' , array('id' => $value->id)) }}"> {{ $answer_number }}</a> </td>
-                              <td>{{ $value->user->name }}</td>
-                              <td>{{ $value->status }} </td>
+                              <td>{{ $value->user->slug }}</td>
+                              <td>{{ $value->status }}  </td>
+                               <td>{{ $value->featured }}  </td>
                               <!-- we will also add show, edit, and delete buttons -->
                               <td>
 

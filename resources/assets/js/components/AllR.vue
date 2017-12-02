@@ -65,9 +65,9 @@
 	<ul class="container nav nav-bordered second-nav">
 		<div class="iconav-slider">
 			<ul class="nav nav-pills iconav-nav">
-				<li class="tab active"><a href="#" data-container="body"><small>Questions</small></a>
+				<li class="tab"><a href="/questions" data-container="body"><small>Questions</small></a>
 				</li>
-				<li class="tab"><a href="/responses"><small>Responses</small></a>
+				<li class="tab active"><a href="#"><small>Responses</small></a>
 				</li>
 				<li v-if="user_id > 0" class="f-right small">
 				

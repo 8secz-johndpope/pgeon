@@ -49,6 +49,8 @@ Route::get('/', 'HomeController@index');
   // User Routes
   Route::get('level/{level}', 'LevelController@index');
   Route::get('questions/{format?}', 'QuestionController@index');
+  Route::get('qff/{p}/{c}', 'QuestionController@fromfollowers');
+  Route::get('featuredq/{p}/{c}', 'QuestionController@featured');
   Route::get('question_details/{id}', 'QuestionController@details');
   Route::get('responses/{format?}', 'QuestionController@responses');
   

@@ -20,6 +20,8 @@ class VoyagerQuestionController
     public function index()
     {
       $questions = Question::orderBy('created_at', 'desc')->paginate(10);
+  //    print_r($questions);
+    //  exit;
       return view('voyager.questions.index', ['questions' => $questions, 'page_title' => 'Questions', 'sort' =>'new']);
     }
 
@@ -31,6 +33,7 @@ class VoyagerQuestionController
 
       }
 
+      
 
       public function publish($id)
       {
@@ -80,6 +83,7 @@ class VoyagerQuestionController
             $question = Question::find($id);
             $question->question       = Input::get('question');
             $question->status      = Input::get('status');
+            $question->featured      = Input::get('featured');
             $question->save();
 
             // redirect

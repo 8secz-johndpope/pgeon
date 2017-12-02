@@ -96,6 +96,8 @@
                     </ul>
   
   
+  			 <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li v-on:click="get_paginated_results()">Load more..</li></ul>
+  				
                 </div>
             </div>
         </div>
@@ -123,9 +125,11 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       return {
         questions: [],
         current_filter: 'everyone',
-        uf: {}
+        paginate:2,
+		currently_fetched_records_count:0,
+		current_page:0,
         
-      };
+      }
     },
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
     mounted() {
@@ -145,6 +149,20 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       },
 
 
+
+		reset: function () {
+			this.questions = []
+			this.current_page = 0
+			this.currently_fetched_records_count = 0
+		},
+		
+		get_paginated_results: function () {
+		//	console.log(this.currently_fetched_records_count)
+			//pagination counters will be reset when we click on filters
+			this.current_page ++;
+			this.get_paginated_featured()
+		},
+		
       //will be called from timer comp
       deleteQ: function(id) {
 
@@ -155,8 +173,28 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
           }
           i++;
         }
-      }
-
+      },
+      
+		/** will be called only from load more links as well**/
+		get_paginated_featured: function () {
+			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
+				  this.currently_fetched_records_count = 0
+		          if (response[0]['id'] !== undefined) {
+		        	 	this.currently_fetched_records_count = response.length
+		          	this.questions.push(...response)
+		          }
+		        }.bind(this));
+		},
+		
+		/** will be called only from onclick..so to reset everything**/
+		featured_questions: function() {
+			this.reset()
+			this.current_filter = 'everyone'
+			this.get_paginated_featured()
+		
+		
+		},
+	
 
 
     },
@@ -178,13 +216,12 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
         });
 
 
-      $.getJSON('/questions/json', function(response) {
-    	  //console.log(response)
-        if (response[0]['id'] !== undefined)
-          this.questions = response
-      }.bind(this));
+      this.featured_questions()
+      
+     
     },
 
+   
 
   }
 
