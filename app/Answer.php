@@ -68,14 +68,18 @@ class Answer extends Model
      * @return mixed
      */
     public static function get_sorted($question_id) {
-        $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->get(array('answer','name','user_id','answers.id'));
-      
-
-      
-       // $answer = $answer->sortByDesc(function ($answer) {
-         //   return $answer->votes->sum('vote');
-       // });
+   //     $answer = Answer::where('question_id', '=', $question_id)->join('users', 'users.id', '=', 'answers.user_id')->join('votes', 'votes.answer_id', '=', 'answers.id')->get(array('answer','name','answers.user_id','answers.id'));
+     
+        $sql = "SELECT sum(vote) as vote_count, answer,name,answers.user_id,answers.id FROM answers
+                    INNER JOIN users ON users.id = answers.user_id
+                    LEFT JOIN votes on votes.answer_id = answers.id
+                    WHERE question_id= ".$question_id." GROUP BY votes.answer_id ORDER by vote_count DESC
+                ";
+        
+        $answer = DB::select( DB::raw($sql) );
         return $answer;
+      
+      
     }
 
     /**

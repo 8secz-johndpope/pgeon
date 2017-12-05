@@ -109,15 +109,15 @@ class User extends Authenticatable
                 INNER JOIN answers ON questions.id = answers.question_id
                 INNER JOIN users ON answers.user_id = users.id
     
-                WHERE questions.user_id = '$user_id'  AND expiring_at < ".time()." 
+                WHERE questions.user_id = '$user_id'  AND expiring_at < ".time(). " AND questions.accepted_answer > 0
     
                 UNION ALL
     
                 SELECT users.id as uid, users.name, users.avatar, users.slug,  answers.id as ans_id  FROM answers
                 INNER JOIN questions ON questions.id = answers.question_id
                 INNER JOIN users ON questions.user_id = users.id
-                WHERE answers.user_id = '$user_id'
-                AND expiring_at < ".time()."
+                WHERE answers.user_id = '$user_id' 
+                AND expiring_at < ".time()." AND questions.accepted_answer > 0
                 ) 
             AS tmp GROUP by uid, name, avatar, slug
             ORDER BY COUNT(ans_id) DESC   

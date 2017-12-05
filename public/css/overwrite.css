@@ -623,4 +623,5 @@ div a.icon:focus {
     width: 250px;
     margin: auto;
     cursor:pointer;
+    margin-bottom:25px;
 }
