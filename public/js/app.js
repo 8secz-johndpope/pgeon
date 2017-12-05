@@ -34904,7 +34904,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })])
 }]}
@@ -35161,7 +35161,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35576,7 +35576,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("Followed")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Following")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
     staticClass: "f-right small",
@@ -35587,7 +35587,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"
@@ -35833,7 +35833,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("Followed")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Following")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
     staticClass: "f-right small",
@@ -35844,7 +35844,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"

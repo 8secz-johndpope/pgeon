@@ -45,7 +45,7 @@
 				</li>
 
 
-				<li  class="f-right small"><span class="f-right-text">All</span>
+				<li  class="f-right small"><span class="f-right-text">Featured</span>
 					&nbsp; <span class="fa fa-sort"></span></li>
 			</ul>
 		</div>

@@ -73,14 +73,14 @@
 				</li>
 				<li v-if="current_filter == 'follow'" class="f-right small"  v-on:click="featured_questions()"  >
 
-				<span class="f-right-text" >Followed</span>
+				<span class="f-right-text" >Following</span>
 					&nbsp; <span class="fa fa-sort"></span>
 
 					</li>
 
 			<li v-if="current_filter == 'everyone'" class="f-right small" v-on:click="followed_questions()" >
 
-				<span class="f-right-text"  >All</span>
+				<span class="f-right-text"  >Featured</span>
 				
 					&nbsp; <span class="fa fa-sort"></span>
 
