@@ -96,7 +96,7 @@
                     </ul>
   
   
-  			 <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li v-on:click="get_paginated_results()">Load more..</li></ul>
+  			 <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline"  v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
   				
                 </div>
             </div>
@@ -128,6 +128,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
         paginate:2,
 		currently_fetched_records_count:0,
 		current_page:0,
+		loading_txt: "more"
         
       }
     },
@@ -182,6 +183,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		          if (response[0]['id'] !== undefined) {
 		        	 	this.currently_fetched_records_count = response.length
 		          	this.questions.push(...response)
+		          	this.loading_txt = "more"	
 		          }
 		        }.bind(this));
 		},

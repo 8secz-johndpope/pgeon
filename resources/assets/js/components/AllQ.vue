@@ -134,7 +134,7 @@
                     </ul>
                     
                     
-                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li v-on:click="get_paginated_results()">Load more..</li></ul>
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline" v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
 
 
                 </div>
@@ -167,6 +167,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		paginate:2,
 		currently_fetched_records_count:0,
 		current_page:0,
+		loading_txt: "more"
       };
     },
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
@@ -196,11 +197,13 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		},
     	
 		get_paginated_qff: function () {
+			 this.loading_txt = "loading.."	
 			 $.getJSON(`/qff/${this.paginate}/${this.current_page}`, function(response) {
 				 	this.currently_fetched_records_count = 0
 			        if (response[0]['id'] !== undefined) {
 			        		this.currently_fetched_records_count = response.length
 			        		this.questions.push(...response)
+			        		this.loading_txt = "more"	
 			        		
 			        }
 			      }.bind(this));
@@ -213,11 +216,13 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     		},
     		/** will be called only from load more links as well**/
     		get_paginated_featured: function () {
+    			this.loading_txt = "loading.."	
     			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
     				  this.currently_fetched_records_count = 0
    		          if (response[0]['id'] !== undefined) {
    		        	 	this.currently_fetched_records_count = response.length
    		          	this.questions.push(...response)
+   		         	this.loading_txt = "more"	
    		          }
    		        }.bind(this));
     		},

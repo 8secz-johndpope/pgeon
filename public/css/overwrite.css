@@ -616,3 +616,11 @@ div a.icon:focus {
   text-decoration: none;
   outline: none;
 }
+
+.load_more {
+	text-align: center;
+	list-style: none;
+    width: 250px;
+    margin: auto;
+    cursor:pointer;
+}

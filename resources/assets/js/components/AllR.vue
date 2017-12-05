@@ -69,16 +69,25 @@
 				</li>
 				<li class="tab active"><a href="#"><small>Responses</small></a>
 				</li>
-				<li v-if="user_id > 0" class="f-right small">
 				
-				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">Followed</span>
-				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Everyone</span>
+				<li v-if="current_filter == 'follow'" class="f-right small"  v-on:click="featured_questions()"  >
+
+				<span class="f-right-text" >Followed</span>
 					&nbsp; <span class="fa fa-sort"></span>
-					
+
+					</li>
+
+			<li v-if="current_filter == 'everyone'" class="f-right small" v-on:click="followed_questions()" >
+
+				<span class="f-right-text"  >All</span>
+				
+					&nbsp; <span class="fa fa-sort"></span>
+
 					</li>
 					
-				<li v-else class="f-right small"><span class="f-right-text">Everyone</span>
-					&nbsp; <span class="fa fa-sort"></span></li>	
+				
+					
+			
 			</ul>
 		</div>
 	</ul>
@@ -136,6 +145,9 @@
                        
               
                     </ul>
+                    
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline" v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
+                    
                 </div>
             </div>
         </div>
@@ -159,51 +171,83 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 
 	  data: function() {
 	      return {
-	        all_questions: [],
 	        questions: [],
-	        current_filter: 'everyone',
-	        uf: {}
+	        current_filter: 'follow',
+			paginate:2,
+			currently_fetched_records_count:0,
+			current_page:0,
+			loading_txt: "more"
 	        
 	      };
 	    },
-	    props: ['user_id','user_followings', 'role_id', 'avatar', 'slug', 'csrf_field'],
+	    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
 	    mounted() {
-			this.uf = JSON.parse(this.user_followings)
-			//console.log(this.uf )
-			//this.filter_questions()
 	    },
 	    mixins: [CommonMixin],
 	    
 	    methods: {
 	    	
-	    		decide_questions: function () {
-	    			if(this.current_filter == 'follow') {
-	   				 this.filter_questions()
-	    			}else{
-	    				this.unfilter_questions()
-	    			}
-	    		},
+	    	reset: function () {
+				this.questions = []
+				this.current_page = 0
+				this.currently_fetched_records_count = 0
+			},
+			
 	    		
-	    		filter_questions: function() {
-	    		//	console.log(this.uf)
-	    			var filtered_questions = []
-	    			this.current_filter = 'follow'	
-	    			for (var i=0; i < this.all_questions.length; i++) {
-	    				console.log(this.all_questions[i])
-	    				if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-	    					filtered_questions.push(this.all_questions[i])
-	    				}
-	    			}
-	    		//	console.log(filtered_questions)
-	    			//filtered_questions
-	    			this.questions = filtered_questions
-	    			
-	    			
-	    		},
+			get_paginated_results: function () {
+				//	console.log(this.currently_fetched_records_count)
+					//pagination counters will be reset when we click on filters
+					this.current_page ++;
+					if (this.current_filter == 'follow') {
+						this.get_paginated_qff()
+					}else {
+						this.get_paginated_featured()
+					}
+				},
+				
+	    		
+				get_paginated_qff: function () {
+					 this.loading_txt = "loading.."	
+					 $.getJSON(`/rff/${this.paginate}/${this.current_page}`, function(response) {
+						 	this.currently_fetched_records_count = 0
+					        if (response[0]['id'] !== undefined) {
+					        		this.currently_fetched_records_count = response.length
+					        		this.questions.push(...response)
+					        		this.loading_txt = "more"	
+					        		
+					        }
+					      }.bind(this));
+				},
+		    		followed_questions: function() {
+		    			this.reset()
+		    			this.current_filter = 'follow'
+		    			this.get_paginated_qff()	 
+
+		    		},
+		    		/** will be called only from load more links as well**/
+		    		get_paginated_featured: function () {
+		    			this.loading_txt = "loading.."	
+		    			 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
+		    				  this.currently_fetched_records_count = 0
+		   		          if (response[0]['id'] !== undefined) {
+		   		        	 	this.currently_fetched_records_count = response.length
+		   		          	this.questions.push(...response)
+		   		         	this.loading_txt = "more"	
+		   		          }
+		   		        }.bind(this));
+		    		},
+		    		
+		    		/** will be called only from onclick..so to reset everything**/
+		    		featured_questions: function() {
+		    			this.reset()
+		    			this.current_filter = 'everyone'
+		    			this.get_paginated_featured()
+					
+		    		
+		    		},
+		    		
+	    		
 	    	
-	    		unfilter_questions: function() {
-	    			this.questions = this.all_questions
-	    		},
 	      redirect: function(id) {
 	        location.href = 'question/' + id
 	      },
@@ -219,6 +263,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
      
 
 
+	    	
+	  this.followed_questions()  	
 
       $.getJSON('/responses/json', function(response) {
 

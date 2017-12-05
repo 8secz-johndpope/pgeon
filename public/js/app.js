@@ -1983,7 +1983,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       current_filter: 'follow',
       paginate: 2,
       currently_fetched_records_count: 0,
-      current_page: 0
+      current_page: 0,
+      loading_txt: "more"
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
@@ -2012,6 +2013,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     get_paginated_qff: function get_paginated_qff() {
+      this.loading_txt = "loading..";
       $.getJSON('/qff/' + this.paginate + '/' + this.current_page, function (response) {
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -2019,6 +2021,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
           this.currently_fetched_records_count = response.length;
           (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+          this.loading_txt = "more";
         }
       }.bind(this));
     },
@@ -2029,6 +2032,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     /** will be called only from load more links as well**/
     get_paginated_featured: function get_paginated_featured() {
+      this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -2036,6 +2040,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
           this.currently_fetched_records_count = response.length;
           (_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
+          this.loading_txt = "more";
         }
       }.bind(this));
     },
@@ -2220,7 +2225,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       current_filter: 'everyone',
       paginate: 2,
       currently_fetched_records_count: 0,
-      current_page: 0
+      current_page: 0,
+      loading_txt: "more"
 
     };
   },
@@ -2273,6 +2279,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
           this.currently_fetched_records_count = response.length;
           (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+          this.loading_txt = "more";
         }
       }.bind(this));
     },
@@ -2405,6 +2412,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(2);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2564,65 +2585,96 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-		data: function data() {
-				return {
-						all_questions: [],
-						questions: [],
-						current_filter: 'everyone',
-						uf: {}
+	data: function data() {
+		return {
+			questions: [],
+			current_filter: 'follow',
+			paginate: 2,
+			currently_fetched_records_count: 0,
+			current_page: 0,
+			loading_txt: "more"
 
-				};
+		};
+	},
+	props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
+	mounted: function mounted() {},
+
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
+
+	methods: {
+
+		reset: function reset() {
+			this.questions = [];
+			this.current_page = 0;
+			this.currently_fetched_records_count = 0;
 		},
-		props: ['user_id', 'user_followings', 'role_id', 'avatar', 'slug', 'csrf_field'],
-		mounted: function mounted() {
-				this.uf = JSON.parse(this.user_followings);
-				//console.log(this.uf )
-				//this.filter_questions()
+
+		get_paginated_results: function get_paginated_results() {
+			//	console.log(this.currently_fetched_records_count)
+			//pagination counters will be reset when we click on filters
+			this.current_page++;
+			if (this.current_filter == 'follow') {
+				this.get_paginated_qff();
+			} else {
+				this.get_paginated_featured();
+			}
 		},
 
-		mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
+		get_paginated_qff: function get_paginated_qff() {
+			this.loading_txt = "loading..";
+			$.getJSON('/rff/' + this.paginate + '/' + this.current_page, function (response) {
+				this.currently_fetched_records_count = 0;
+				if (response[0]['id'] !== undefined) {
+					var _questions;
 
-		methods: {
-
-				decide_questions: function decide_questions() {
-						if (this.current_filter == 'follow') {
-								this.filter_questions();
-						} else {
-								this.unfilter_questions();
-						}
-				},
-
-				filter_questions: function filter_questions() {
-						//	console.log(this.uf)
-						var filtered_questions = [];
-						this.current_filter = 'follow';
-						for (var i = 0; i < this.all_questions.length; i++) {
-								console.log(this.all_questions[i]);
-								if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-										filtered_questions.push(this.all_questions[i]);
-								}
-						}
-						//	console.log(filtered_questions)
-						//filtered_questions
-						this.questions = filtered_questions;
-				},
-
-				unfilter_questions: function unfilter_questions() {
-						this.questions = this.all_questions;
-				},
-				redirect: function redirect(id) {
-						location.href = 'question/' + id;
+					this.currently_fetched_records_count = response.length;
+					(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+					this.loading_txt = "more";
 				}
-
+			}.bind(this));
 		},
-		created: function created() {
+		followed_questions: function followed_questions() {
+			this.reset();
+			this.current_filter = 'follow';
+			this.get_paginated_qff();
+		},
+		/** will be called only from load more links as well**/
+		get_paginated_featured: function get_paginated_featured() {
+			this.loading_txt = "loading..";
+			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
+				this.currently_fetched_records_count = 0;
+				if (response[0]['id'] !== undefined) {
+					var _questions2;
 
-				$.getJSON('/responses/json', function (response) {
+					this.currently_fetched_records_count = response.length;
+					(_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
+					this.loading_txt = "more";
+				}
+			}.bind(this));
+		},
 
-						if (response[0]['id'] !== undefined) this.all_questions = response;
-						this.decide_questions();
-				}.bind(this));
+		/** will be called only from onclick..so to reset everything**/
+		featured_questions: function featured_questions() {
+			this.reset();
+			this.current_filter = 'everyone';
+			this.get_paginated_featured();
+		},
+
+		redirect: function redirect(id) {
+			location.href = 'question/' + id;
 		}
+
+	},
+	created: function created() {
+
+		this.followed_questions();
+
+		$.getJSON('/responses/json', function (response) {
+
+			if (response[0]['id'] !== undefined) this.all_questions = response;
+			this.decide_questions();
+		}.bind(this));
+	}
 
 });
 
@@ -2633,6 +2685,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(2);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
 //
 //
 //
@@ -2752,65 +2809,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-		data: function data() {
-				return {
-						all_questions: [],
-						questions: [],
-						current_filter: 'everyone',
-						uf: {}
+	data: function data() {
+		return {
+			questions: [],
+			current_filter: 'everyone',
+			paginate: 2,
+			currently_fetched_records_count: 0,
+			current_page: 0,
+			loading_txt: "more"
 
-				};
+		};
+	},
+	props: ['user_id'],
+	mounted: function mounted() {},
+
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
+
+	methods: {
+
+		reset: function reset() {
+			this.questions = [];
+			this.current_page = 0;
+			this.currently_fetched_records_count = 0;
 		},
-		props: ['user_id', 'user_followings'],
-		mounted: function mounted() {
-				this.uf = JSON.parse(this.user_followings);
-				//console.log(this.uf )
-				//this.filter_questions()
+
+		get_paginated_results: function get_paginated_results() {
+			//	console.log(this.currently_fetched_records_count)
+			//pagination counters will be reset when we click on filters
+			this.current_page++;
+			this.get_paginated_featured();
 		},
 
-		mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
+		redirect: function redirect(id) {
+			location.href = 'question/' + id;
+		},
 
-		methods: {
+		/** will be called only from load more links as well**/
+		get_paginated_featured: function get_paginated_featured() {
+			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
+				this.currently_fetched_records_count = 0;
+				if (response[0]['id'] !== undefined) {
+					var _questions;
 
-				decide_questions: function decide_questions() {
-						if (this.current_filter == 'follow') {
-								this.filter_questions();
-						} else {
-								this.unfilter_questions();
-						}
-				},
-
-				filter_questions: function filter_questions() {
-						//	console.log(this.uf)
-						var filtered_questions = [];
-						this.current_filter = 'follow';
-						for (var i = 0; i < this.all_questions.length; i++) {
-								console.log(this.all_questions[i]);
-								if (this.uf.indexOf(this.all_questions[i].user_id) != -1) {
-										filtered_questions.push(this.all_questions[i]);
-								}
-						}
-						//	console.log(filtered_questions)
-						//filtered_questions
-						this.questions = filtered_questions;
-				},
-
-				unfilter_questions: function unfilter_questions() {
-						this.questions = this.all_questions;
-				},
-				redirect: function redirect(id) {
-						location.href = 'question/' + id;
+					this.currently_fetched_records_count = response.length;
+					(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+					this.loading_txt = "more";
 				}
-
+			}.bind(this));
 		},
-		created: function created() {
 
-				$.getJSON('/responses/json', function (response) {
-
-						if (response[0]['id'] !== undefined) this.all_questions = response;
-						this.decide_questions();
-				}.bind(this));
+		/** will be called only from onclick..so to reset everything**/
+		featured_questions: function featured_questions() {
+			this.reset();
+			this.current_filter = 'everyone';
+			this.get_paginated_featured();
 		}
+
+	},
+	created: function created() {
+
+		this.featured_questions();
+	}
 
 });
 
@@ -34696,13 +34755,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
-  })]) : _c('li', {
-    staticClass: "f-right small"
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })])])])])])]), _vm._v(" "), _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _vm._m(3)])])]), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+    staticClass: "load_more"
+  }, [_c('li', {
+    staticClass: "btn btn-sm btn-default-outline",
+    on: {
+      "click": function($event) {
+        _vm.get_paginated_results()
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -34834,6 +34896,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#"
     }
   }, [_c('small', [_vm._v("Responses")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticClass: "f-right small"
+  }, [_c('span', {
+    staticClass: "f-right-text"
+  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+    staticClass: "fa fa-sort"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35009,12 +35079,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
     staticClass: "load_more"
   }, [_c('li', {
+    staticClass: "btn btn-sm btn-default-outline",
     on: {
       "click": function($event) {
         _vm.get_paginated_results()
       }
     }
-  }, [_vm._v("Load more..")])]) : _vm._e()], 2)])])])
+  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav_all"
@@ -35493,31 +35564,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "iconav-slider"
   }, [_c('ul', {
     staticClass: "nav nav-pills iconav-nav"
-  }, [_vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), (_vm.user_id > 0) ? _c('li', {
-    staticClass: "f-right small"
-  }, [(_vm.current_filter == 'everyone') ? _c('span', {
-    staticClass: "f-right-text",
+  }, [_vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
+    staticClass: "f-right small",
     on: {
       "click": function($event) {
-        _vm.filter_questions()
+        _vm.featured_questions()
       }
     }
-  }, [_vm._v("Followed")]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('span', {
-    staticClass: "f-right-text",
-    on: {
-      "click": function($event) {
-        _vm.unfilter_questions()
-      }
-    }
-  }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _c('li', {
-    staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
-  }, [_vm._v("Everyone")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
+  }, [_vm._v("Followed")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
-  })])])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
+  })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
+    staticClass: "f-right small",
+    on: {
+      "click": function($event) {
+        _vm.followed_questions()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "f-right-text"
+  }, [_vm._v("All")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
+    staticClass: "fa fa-sort"
+  })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"
   }, [_vm._m(8)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
@@ -35525,7 +35594,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
-  }, _vm._l((_vm.questions), function(question) {
+  }, [_vm._l((_vm.questions), function(question) {
     return _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
@@ -35586,7 +35655,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "cursor": "pointer"
       }
     }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
-  }))])])])
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+    staticClass: "load_more"
+  }, [_c('li', {
+    staticClass: "btn btn-sm btn-default-outline",
+    on: {
+      "click": function($event) {
+        _vm.get_paginated_results()
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "navbar-brand",
@@ -35832,12 +35910,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
     staticClass: "load_more"
   }, [_c('li', {
+    staticClass: "btn btn-sm btn-default-outline",
     on: {
       "click": function($event) {
         _vm.get_paginated_results()
       }
     }
-  }, [_vm._v("Load more..")])]) : _vm._e()], 2)])])])
+  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "navbar-brand",

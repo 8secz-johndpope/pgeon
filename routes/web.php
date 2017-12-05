@@ -52,7 +52,9 @@ Route::get('/', 'HomeController@index');
   Route::get('qff/{p}/{c}', 'QuestionController@fromfollowers');
   Route::get('featuredq/{p}/{c}', 'QuestionController@featured');
   Route::get('question_details/{id}', 'QuestionController@details');
-  Route::get('responses/{format?}', 'QuestionController@responses');
+  Route::get('rff/{p}/{c}', 'QuestionController@responsesfromfollowers');
+  Route::get('featuredr/{p}/{c}', 'QuestionController@featuredresponses');
+  Route::get('responses', 'QuestionController@responses');
   
    Route::get('question/{id}/{format?}', 'QuestionController@show');
    

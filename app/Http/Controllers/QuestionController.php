@@ -350,34 +350,57 @@ class QuestionController extends Controller
         
     }
     
-    
-    public function  responses($format=null) {
+    public function featuredresponses($p, $c)
+    {
+        $offset = $c*$p;
+        $fetched_questions = Question::where('accepted_answer', '>', 1)->where('featured', '=', 1)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
         
-        if ($format == "json") {
-            $fetched_questions = Question::where('accepted_answer', '>', 1)->orderBy('created_at', 'desc')->get();
-         
-            $questions[] = array();
-            foreach ($fetched_questions as $key => $question) {
-                $answer = Answer::find($question->accepted_answer);
-                $questions [$key]['id'] = $question->id;
-                $questions [$key]['question'] = $question->question;
-                $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
-                $questions [$key]['name'] = $question->user->name;
-                $questions [$key]['answer'] = $answer->answer;
-                $questions [$key]['answered_by'] = $answer->user->name;
-                $questions [$key]['user_id'] = $question->user_id;
-                $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
-                $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
-            }
-
-            return response()->json($questions);
-        }else {
-            $uf = array();
-            if(Auth::user()) {
-                $uf = UserFollowing::get_followers(Auth::user()->id);
-            }
-            return view('questions.responses',['uf' => $uf]);
+        $questions[] = array();
+        foreach ($fetched_questions as $key => $question) {
+            $answer = Answer::find($question->accepted_answer);
+            $questions [$key]['id'] = $question->id;
+            $questions [$key]['question'] = $question->question;
+            $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
+            $questions [$key]['name'] = $question->user->name;
+            $questions [$key]['answer'] = $answer->answer;
+            $questions [$key]['answered_by'] = $answer->user->name;
+            $questions [$key]['user_id'] = $question->user_id;
+            $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
+            $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
         }
+        
+        return response()->json($questions);
+    }
+    
+    
+    
+    public function responsesfromfollowers($p, $c)
+    {
+        
+        $uf = UserFollowing::get_followers(Auth::user()->id);
+        $offset = $c*$p;
+        $fetched_questions = Question::where('accepted_answer', '>', 1)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+        
+        $questions[] = array();
+        foreach ($fetched_questions as $key => $question) {
+            $answer = Answer::find($question->accepted_answer);
+            $questions [$key]['id'] = $question->id;
+            $questions [$key]['question'] = $question->question;
+            $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
+            $questions [$key]['name'] = $question->user->name;
+            $questions [$key]['answer'] = $answer->answer;
+            $questions [$key]['answered_by'] = $answer->user->name;
+            $questions [$key]['user_id'] = $question->user_id;
+            $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
+            $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
+        }
+        
+        return response()->json($questions);
+        
+    }
+    
+    public function  responses() {
+            return view('questions.responses');
     }
 
     
