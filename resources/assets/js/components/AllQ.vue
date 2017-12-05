@@ -166,7 +166,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
         current_filter: 'follow',
 		paginate:2,
 		currently_fetched_records_count:0,
-		current_page:0,
+		current_page:10,
 		loading_txt: "more"
       };
     },

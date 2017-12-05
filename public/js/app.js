@@ -1983,7 +1983,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       current_filter: 'follow',
       paginate: 2,
       currently_fetched_records_count: 0,
-      current_page: 0,
+      current_page: 10,
       loading_txt: "more"
     };
   },
@@ -2223,7 +2223,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return {
       questions: [],
       current_filter: 'everyone',
-      paginate: 2,
+      paginate: 10,
       currently_fetched_records_count: 0,
       current_page: 0,
       loading_txt: "more"
@@ -2590,7 +2590,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		return {
 			questions: [],
 			current_filter: 'follow',
-			paginate: 2,
+			paginate: 10,
 			currently_fetched_records_count: 0,
 			current_page: 0,
 			loading_txt: "more"
@@ -2815,7 +2815,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		return {
 			questions: [],
 			current_filter: 'everyone',
-			paginate: 2,
+			paginate: 10,
 			currently_fetched_records_count: 0,
 			current_page: 0,
 			loading_txt: "more"

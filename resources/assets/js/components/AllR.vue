@@ -173,7 +173,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	      return {
 	        questions: [],
 	        current_filter: 'follow',
-			paginate:2,
+			paginate:10,
 			currently_fetched_records_count:0,
 			current_page:0,
 			loading_txt: "more"
