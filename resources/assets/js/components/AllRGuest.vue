@@ -125,7 +125,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	      return {
 	    	  questions: [],
 	          current_filter: 'everyone',
-	          paginate:10,
+	          paginate:6,
 	  		currently_fetched_records_count:0,
 	  		current_page:0,
 	  		loading_txt: "more"

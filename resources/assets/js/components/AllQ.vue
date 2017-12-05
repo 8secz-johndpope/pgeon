@@ -134,7 +134,7 @@
                     </ul>
                     
                     
-                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline" v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="" v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
 
 
                 </div>
@@ -164,9 +164,9 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       return {
         questions: [],
         current_filter: 'follow',
-		paginate:2,
+		paginate:12,
 		currently_fetched_records_count:0,
-		current_page:10,
+		current_page:0,
 		loading_txt: "more"
       };
     },

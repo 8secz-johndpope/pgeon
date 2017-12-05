@@ -1981,9 +1981,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return {
       questions: [],
       current_filter: 'follow',
-      paginate: 2,
+      paginate: 12,
       currently_fetched_records_count: 0,
-      current_page: 10,
+      current_page: 0,
       loading_txt: "more"
     };
   },
@@ -2223,7 +2223,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return {
       questions: [],
       current_filter: 'everyone',
-      paginate: 10,
+      paginate: 12,
       currently_fetched_records_count: 0,
       current_page: 0,
       loading_txt: "more"
@@ -2590,7 +2590,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		return {
 			questions: [],
 			current_filter: 'follow',
-			paginate: 10,
+			paginate: 6,
 			currently_fetched_records_count: 0,
 			current_page: 0,
 			loading_txt: "more"
@@ -2815,7 +2815,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		return {
 			questions: [],
 			current_filter: 'everyone',
-			paginate: 10,
+			paginate: 6,
 			currently_fetched_records_count: 0,
 			current_page: 0,
 			loading_txt: "more"
@@ -35913,7 +35913,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
     staticClass: "load_more"
   }, [_c('li', {
-    staticClass: "btn btn-sm btn-default-outline",
     on: {
       "click": function($event) {
         _vm.get_paginated_results()
