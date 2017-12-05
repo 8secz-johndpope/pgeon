@@ -40,13 +40,7 @@
 				</li>
 				<li class="tab active"><a href="#"><small>Responses</small></a>
 				</li>
-				<li v-if="user_id > 0" class="f-right small">
-				
-				<span class="f-right-text"  v-on:click=filter_questions() v-if="current_filter == 'everyone'">Followed</span>
-				<span class="f-right-text"  v-on:click="unfilter_questions()"  v-if="current_filter == 'follow'">Everyone</span>
-					&nbsp; <span class="fa fa-sort"></span>
-					
-					</li>
+			
 					
 						<li  class="f-right small"><span class="f-right-text">Featured</span>
 					&nbsp; <span class="fa fa-sort"></span></li>

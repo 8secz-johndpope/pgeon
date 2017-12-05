@@ -260,11 +260,7 @@ $(".live-response" ).mouseup( removeResponseFocus )
 $(".live-response" ).mouseleave( removeResponseFocus )
 
 
-$(".f-right").click(function(){
-  $(".f-right-text").text().toLowerCase() === "featured" &&
-    $(".f-right-text").text("Followed") ||
-    $(".f-right-textj").text("Featured")
-})
+
 
 
 // number abbreviations

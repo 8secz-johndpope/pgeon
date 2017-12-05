@@ -2800,12 +2800,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34730,35 +34724,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "nav_all"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "second-nav-container"
-  }, [_c('ul', {
-    staticClass: "container nav nav-bordered second-nav"
-  }, [_c('div', {
-    staticClass: "iconav-slider"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills iconav-nav"
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.user_id > 0) ? _c('li', {
-    staticClass: "f-right small"
-  }, [(_vm.current_filter == 'everyone') ? _c('span', {
-    staticClass: "f-right-text",
-    on: {
-      "click": function($event) {
-        _vm.filter_questions()
-      }
-    }
-  }, [_vm._v("Followed")]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('span', {
-    staticClass: "f-right-text",
-    on: {
-      "click": function($event) {
-        _vm.unfilter_questions()
-      }
-    }
-  }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _vm._e(), _vm._v(" "), _vm._m(3)])])])])]), _vm._v(" "), _c('div', {
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -34836,7 +34802,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('nav', {
+  return _c('div', {
+    staticClass: "nav_all"
+  }, [_c('nav', {
     staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
@@ -34881,32 +34849,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/login"
     }
-  }, [_vm._v("Log In")])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
+  }, [_vm._v("Log In")])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "second-nav-container"
+  }, [_c('ul', {
+    staticClass: "container nav nav-bordered second-nav"
+  }, [_c('div', {
+    staticClass: "iconav-slider"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills iconav-nav"
+  }, [_c('li', {
     staticClass: "tab "
   }, [_c('a', {
     attrs: {
       "href": "/questions",
       "data-container": "body"
     }
-  }, [_c('small', [_vm._v("Questions")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
+  }, [_c('small', [_vm._v("Questions")])])]), _vm._v(" "), _c('li', {
     staticClass: "tab active"
   }, [_c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_c('small', [_vm._v("Responses")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
+  }, [_c('small', [_vm._v("Responses")])])]), _vm._v(" "), _c('li', {
     staticClass: "f-right small"
   }, [_c('span', {
     staticClass: "f-right-text"
   }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
-  })])
+  })])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
