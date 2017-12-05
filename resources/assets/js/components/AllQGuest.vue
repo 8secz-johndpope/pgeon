@@ -178,6 +178,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function () {
+			this.loading_txt = "loading.."	
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
 				  this.currently_fetched_records_count = 0
 		          if (response[0]['id'] !== undefined) {

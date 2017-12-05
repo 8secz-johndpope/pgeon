@@ -54,7 +54,6 @@
 		</div>
 	</ul>
 	
-	<ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline"  v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
 	
 </div>
 
@@ -99,6 +98,8 @@
                        
               
                     </ul>
+                    	<ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline"  v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
+                    
                 </div>
             </div>
         </div>
@@ -160,6 +161,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 
 	  	/** will be called only from load more links as well**/
 			get_paginated_featured: function () {
+				this.loading_txt = "loading.."	
 				 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
 					  this.currently_fetched_records_count = 0
 			          if (response[0]['id'] !== undefined) {

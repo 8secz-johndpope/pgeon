@@ -2272,6 +2272,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     /** will be called only from load more links as well**/
     get_paginated_featured: function get_paginated_featured() {
+      this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -2804,6 +2805,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -2846,6 +2848,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function get_paginated_featured() {
+			this.loading_txt = "loading..";
 			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
 				this.currently_fetched_records_count = 0;
 				if (response[0]['id'] !== undefined) {
@@ -34755,22 +34758,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Everyone")]) : _vm._e(), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
-  })]) : _vm._e(), _vm._v(" "), _vm._m(3)])])]), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
-    staticClass: "load_more"
-  }, [_c('li', {
-    staticClass: "btn btn-sm btn-default-outline",
-    on: {
-      "click": function($event) {
-        _vm.get_paginated_results()
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _vm._m(3)])])])])]), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
-  }, _vm._l((_vm.questions), function(question) {
+  }, [_vm._l((_vm.questions), function(question) {
     return _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
     }, [_c('li', {
@@ -34831,7 +34825,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "cursor": "pointer"
       }
     }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
-  }))])])])
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+    staticClass: "load_more"
+  }, [_c('li', {
+    staticClass: "btn btn-sm btn-default-outline",
+    on: {
+      "click": function($event) {
+        _vm.get_paginated_results()
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('nav', {
     staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
