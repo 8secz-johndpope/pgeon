@@ -92,7 +92,7 @@ class QuestionController extends Controller
     {
         $user = Auth::user();
         if($user->role_id == 3 && !$user->has_active_question()) {
-            $question = Question::insert(Auth::user()->id, Request::get('question'), Request::get('days'), Request::get('hours'), Request::get('mins'));
+            $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
          return Redirect::to('my-questions');
        }else {
           Auth::logout();
@@ -143,7 +143,7 @@ class QuestionController extends Controller
     $question = Question::find($id);
     $details = array();
     $details ['id'] = $question->id; 
-    $details ['question'] = $question->question; 
+    $details ['question'] = ($question->question); 
     $details ['name'] = $question->user->name;
     $details ['avatar'] =  Helper::avatar($question->avatar);
     $details ['expiring_at'] = Question::question_validity_status($question->expiring_at);
@@ -237,6 +237,7 @@ class QuestionController extends Controller
         $lq_expiring_in = null;
         if($q) {
             $lq = Question::find($q->id);
+            $lq->question = ( $lq->question );
             $lq_expiring_at = $user->last_question_time();
             $lq_expiring_in = Question::question_validity_status($lq_expiring_at);
         }
@@ -249,6 +250,7 @@ class QuestionController extends Controller
         
         foreach ($questions as $key => $val) {
             $answer = array();
+            $val->question = ( $val->question );
             if($val->accepted_answer == 0) {
                 //$rec
                 /** check whether pending question will have an answer chosen for publishing **/
@@ -298,6 +300,7 @@ class QuestionController extends Controller
         $pending = array();
         
         foreach ($questions as $key => $val) {
+            
             $answer = array();
                 /** check whether pending question will have an answer chosen for publishing **/
                 $chosen = Answer::get_chosen_answer($val->id);
@@ -359,7 +362,7 @@ class QuestionController extends Controller
         foreach ($fetched_questions as $key => $question) {
             $answer = Answer::find($question->accepted_answer);
             $questions [$key]['id'] = $question->id;
-            $questions [$key]['question'] = $question->question;
+            $questions [$key]['question'] = ($question->question);
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;
@@ -385,7 +388,7 @@ class QuestionController extends Controller
         foreach ($fetched_questions as $key => $question) {
             $answer = Answer::find($question->accepted_answer);
             $questions [$key]['id'] = $question->id;
-            $questions [$key]['question'] = $question->question;
+            $questions [$key]['question'] = ($question->question);
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;

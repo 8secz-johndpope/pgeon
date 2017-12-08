@@ -21,7 +21,7 @@
                             <span class="tmw"><a href="#">{{$question->user->name}}</a></span>
                                @if(isset($answer))
                             <span class="fa fa-long-arrow-left text-muted"></span>
-                            <spanclass="tmw"><a href="#">{{$answer->user->name}}</a></span>
+                            <span class="tmw"><a href="#">{{$answer->user->name}}</a></span>
                             @endif
                             <span class="text-muted time-align">Ended: {{date("m/d/Y H:i", $question->expiring_at)}}</span>
                         </div>
