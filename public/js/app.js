@@ -1989,7 +1989,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log(this.still_deciding_count);
+  },
 
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],

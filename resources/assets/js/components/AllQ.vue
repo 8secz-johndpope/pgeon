@@ -174,6 +174,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     },
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
     mounted() {
+    		console.log(this.still_deciding_count)
     },
 
     mixins: [CommonMixin],
