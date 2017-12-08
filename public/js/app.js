@@ -34775,7 +34775,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-muted m-t-0"
   }, [(_vm.still_deciding_count) ? _c('img', {
     attrs: {
-      "src": "/img/slider.gif"
+      "src": "/img/loader.gif"
     }
   }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
@@ -35050,7 +35050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-muted m-t-0"
   }, [(_vm.still_deciding_count) ? _c('img', {
     attrs: {
-      "src": "/img/slider.gif"
+      "src": "/img/loader.gif"
     }
   }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
@@ -35626,7 +35626,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-muted m-t-0"
   }, [(_vm.still_deciding_count) ? _c('img', {
     attrs: {
-      "src": "/img/slider.gif"
+      "src": "/img/loader.gif"
     }
   }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
@@ -35885,7 +35885,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-muted m-t-0"
   }, [(_vm.still_deciding_count) ? _c('img', {
     attrs: {
-      "src": "/img/slider.gif"
+      "src": "/img/loader.gif"
     }
   }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"

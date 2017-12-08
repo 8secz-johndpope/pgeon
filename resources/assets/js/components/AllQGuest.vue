@@ -59,7 +59,7 @@
 			<img src="/img/chat-bubble.svg" />
 			<h4 class="text-muted m-t-0">
 			
-				 <img v-if="still_deciding_count" src='/img/slider.gif' />
+				 <img v-if="still_deciding_count" src='/img/loader.gif' />
 				 <span v-else>No live questions to display. <br>Please check back soon!</span>
 			</h4>
 		</div>
