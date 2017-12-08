@@ -68,6 +68,15 @@
 
         <!-- Guests are not able to view posted answers -->
 
+
+	<div class="container content">
+		<div class="container text-center m-t-5p">
+			<img src="/img/chat-bubble.svg" />
+			<h4 class="text-muted m-t-0">
+				Login to view the responses!
+			</h4>
+		</div>
+	</div>
          <?php /* <answers_guest question_id="{{$question->id}}" question_owner_id="{{$question->user_id}}" ></answers_guest> */ ?>
 
 

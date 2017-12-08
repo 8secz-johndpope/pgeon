@@ -912,7 +912,6 @@ var app = new Vue({
 });
 
 var STRIPE_SECRET = "pk_test_vXMC20UiQF6daFo1sK5j0Fbm";
-
 Stripe.setPublishableKey(STRIPE_SECRET);
 var stripeResponseHandler = function stripeResponseHandler(status, response) {
   var $form = $('#payment-form');

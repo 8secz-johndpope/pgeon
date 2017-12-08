@@ -73,7 +73,7 @@ class Answer extends Model
         $sql = "SELECT sum(vote) as vote_count, answer,name,answers.user_id,answers.id FROM answers
                     INNER JOIN users ON users.id = answers.user_id
                     LEFT JOIN votes on votes.answer_id = answers.id
-                    WHERE question_id= ".$question_id." GROUP BY votes.answer_id ORDER by vote_count DESC
+                    WHERE question_id= ".$question_id." GROUP BY answers.user_id ORDER by vote_count DESC
                 ";
         
         $answer = DB::select( DB::raw($sql) );

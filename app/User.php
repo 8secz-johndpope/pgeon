@@ -109,7 +109,7 @@ class User extends Authenticatable
                 INNER JOIN answers ON questions.id = answers.question_id
                 INNER JOIN users ON answers.user_id = users.id
     
-                WHERE questions.user_id = '$user_id'  AND expiring_at < ".time(). " AND questions.accepted_answer > 0
+                WHERE questions.user_id = '$user_id'   AND questions.accepted_answer > 0
     
                 UNION ALL
     
@@ -117,7 +117,7 @@ class User extends Authenticatable
                 INNER JOIN questions ON questions.id = answers.question_id
                 INNER JOIN users ON questions.user_id = users.id
                 WHERE answers.user_id = '$user_id' 
-                AND expiring_at < ".time()." AND questions.accepted_answer > 0
+                AND questions.accepted_answer > 0
                 ) 
             AS tmp GROUP by uid, name, avatar, slug
             ORDER BY COUNT(ans_id) DESC   
@@ -193,11 +193,11 @@ class User extends Authenticatable
             SELECT answers.answer, answers.id, questions.question, questions.expiring_at, answers.user_id as ans_by, questions.user_id as q_by   FROM answers
             INNER JOIN questions ON questions.id = answers.question_id
             INNER JOIN users ON questions.user_id = users.id
-             WHERE (answers.user_id = '$answered_by'
+             WHERE questions.accepted_answer > 0 AND (answers.user_id = '$answered_by'
              AND questions.user_id = '$question_by') OR
              (answers.user_id = '$question_by'
                 AND questions.user_id = '$answered_by')
-             AND expiring_at < ".time()."
+             AND expiring_at < ".time()."  
            
  ";
       
@@ -243,8 +243,12 @@ class User extends Authenticatable
   public static function get_points($user_id) {
       
       
-      $sql = " 
+     /* $sql = " 
       SELECT COUNT(accepted_answer)  AS points  FROM `questions` INNER JOIN answers on answers.id = questions.accepted_answer
+      WHERE answers.user_id = $user_id ";*/
+      
+     $sql = "
+      SELECT IFNULL(SUM(vote),0)  AS points  FROM `votes` INNER JOIN answers on answers.id = votes.answer_id
       WHERE answers.user_id = $user_id ";
     
       $result = DB::select( DB::raw($sql) );
