@@ -1971,6 +1971,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -1983,7 +1984,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       paginate: 12,
       currently_fetched_records_count: 0,
       current_page: 0,
-      loading_txt: "more"
+      loading_txt: "more",
+      still_deciding_count: true
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
@@ -1998,6 +2000,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.questions = [];
       this.current_page = 0;
       this.currently_fetched_records_count = 0;
+      //questions.length will be zero but not finalized yet until push to array
+      this.still_deciding_count = true;
     },
 
     get_paginated_results: function get_paginated_results() {
@@ -2022,6 +2026,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
           this.loading_txt = "more";
         }
+        //if this is empty even after .push?
+        if (this.questions.length < 1) this.still_deciding_count = false;
       }.bind(this));
     },
     followed_questions: function followed_questions() {
@@ -2041,6 +2047,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           (_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
           this.loading_txt = "more";
         }
+        if (this.questions.length < 1) this.still_deciding_count = false;
       }.bind(this));
     },
 
@@ -2213,6 +2220,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -2225,7 +2233,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       paginate: 12,
       currently_fetched_records_count: 0,
       current_page: 0,
-      loading_txt: "more"
+      loading_txt: "more",
+      still_deciding_count: true
 
     };
   },
@@ -2248,6 +2257,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.questions = [];
       this.current_page = 0;
       this.currently_fetched_records_count = 0;
+      //questions.length will be zero but not finalized yet until push to array
+      this.still_deciding_count = true;
     },
 
     get_paginated_results: function get_paginated_results() {
@@ -2281,6 +2292,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
           this.loading_txt = "more";
         }
+        //if this is empty even after .push?
+        if (this.questions.length < 1) this.still_deciding_count = false;
       }.bind(this));
     },
 
@@ -2580,6 +2593,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -2592,7 +2606,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			paginate: 6,
 			currently_fetched_records_count: 0,
 			current_page: 0,
-			loading_txt: "more"
+			loading_txt: "more",
+			still_deciding_count: true
 
 		};
 	},
@@ -2607,6 +2622,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			this.questions = [];
 			this.current_page = 0;
 			this.currently_fetched_records_count = 0;
+			//questions.length will be zero but not finalized yet until push to array
+			this.still_deciding_count = true;
 		},
 
 		get_paginated_results: function get_paginated_results() {
@@ -2631,6 +2648,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 					(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
 					this.loading_txt = "more";
 				}
+				//if this is empty even after .push?
+				if (this.questions.length < 1) this.still_deciding_count = false;
 			}.bind(this));
 		},
 		followed_questions: function followed_questions() {
@@ -2650,6 +2669,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 					(_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
 					this.loading_txt = "more";
 				}
+				if (this.questions.length < 1) this.still_deciding_count = false;
 			}.bind(this));
 		},
 
@@ -2799,73 +2819,91 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-	data: function data() {
-		return {
-			questions: [],
-			current_filter: 'everyone',
-			paginate: 6,
-			currently_fetched_records_count: 0,
-			current_page: 0,
-			loading_txt: "more"
+		data: function data() {
+				return {
+						questions: [],
+						current_filter: 'everyone',
+						paginate: 6,
+						currently_fetched_records_count: 0,
+						current_page: 0,
+						loading_txt: "more",
+						still_deciding_count: true
 
-		};
-	},
-	props: ['user_id'],
-	mounted: function mounted() {},
-
-	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
-
-	methods: {
-
-		reset: function reset() {
-			this.questions = [];
-			this.current_page = 0;
-			this.currently_fetched_records_count = 0;
+				};
 		},
+		props: ['user_id'],
+		mounted: function mounted() {},
 
-		get_paginated_results: function get_paginated_results() {
-			//	console.log(this.currently_fetched_records_count)
-			//pagination counters will be reset when we click on filters
-			this.current_page++;
-			this.get_paginated_featured();
-		},
+		mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
-		redirect: function redirect(id) {
-			location.href = 'question/' + id;
-		},
+		methods: {
 
-		/** will be called only from load more links as well**/
-		get_paginated_featured: function get_paginated_featured() {
-			this.loading_txt = "loading..";
-			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
-				this.currently_fetched_records_count = 0;
-				if (response[0]['id'] !== undefined) {
-					var _questions;
+				reset: function reset() {
+						this.questions = [];
+						this.current_page = 0;
+						this.currently_fetched_records_count = 0;
+						//questions.length will be zero but not finalized yet until push to array
+						this.still_deciding_count = true;
+				},
 
-					this.currently_fetched_records_count = response.length;
-					(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
-					this.loading_txt = "more";
+				get_paginated_results: function get_paginated_results() {
+						//	console.log(this.currently_fetched_records_count)
+						//pagination counters will be reset when we click on filters
+						this.current_page++;
+						this.get_paginated_featured();
+				},
+
+				redirect: function redirect(id) {
+						location.href = 'question/' + id;
+				},
+
+				/** will be called only from load more links as well**/
+				get_paginated_featured: function get_paginated_featured() {
+						this.loading_txt = "loading..";
+						$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
+								this.currently_fetched_records_count = 0;
+								if (response[0]['id'] !== undefined) {
+										var _questions;
+
+										this.currently_fetched_records_count = response.length;
+										(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+										this.loading_txt = "more";
+								}
+								//if this is empty even after .push?
+								if (this.questions.length < 1) this.still_deciding_count = false;
+						}.bind(this));
+				},
+
+				/** will be called only from onclick..so to reset everything**/
+				featured_questions: function featured_questions() {
+						this.reset();
+						this.current_filter = 'everyone';
+						this.get_paginated_featured();
 				}
-			}.bind(this));
+
 		},
+		created: function created() {
 
-		/** will be called only from onclick..so to reset everything**/
-		featured_questions: function featured_questions() {
-			this.reset();
-			this.current_filter = 'everyone';
-			this.get_paginated_featured();
+				this.featured_questions();
 		}
-
-	},
-	created: function created() {
-
-		this.featured_questions();
-	}
 
 });
 
@@ -34723,7 +34761,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+  return _c('div', [_vm._m(0), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
+    staticClass: "container content"
+  }, [_c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [(_vm.still_deciding_count) ? _c('img', {
+    attrs: {
+      "src": "/img/slider.gif"
+    }
+  }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -34986,7 +35038,19 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"
-  }, [_vm._m(1)]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [(_vm.still_deciding_count) ? _c('img', {
+    attrs: {
+      "src": "/img/slider.gif"
+    }
+  }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35133,16 +35197,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
     staticClass: "fa fa-sort"
   })])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n\t\t\t\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35560,7 +35614,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-sort"
   })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"
-  }, [_vm._m(8)]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [(_vm.still_deciding_count) ? _c('img', {
+    attrs: {
+      "src": "/img/slider.gif"
+    }
+  }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35710,16 +35776,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#"
     }
   }, [_c('small', [_vm._v("Responses")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35817,7 +35873,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-sort"
   })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
     staticClass: "container content"
-  }, [_vm._m(8)]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "container text-center m-t-5p"
+  }, [_c('img', {
+    attrs: {
+      "src": "/img/chat-bubble.svg"
+    }
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [(_vm.still_deciding_count) ? _c('img', {
+    attrs: {
+      "src": "/img/slider.gif"
+    }
+  }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35961,16 +36029,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/responses"
     }
   }, [_c('small', [_vm._v("Responses")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n\t\t\t\tNo live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -99,7 +99,8 @@
 		<div class="container text-center m-t-5p">
 			<img src="/img/chat-bubble.svg" />
 			<h4 class="text-muted m-t-0">
-				No live questions to display. <br>Please check back soon!
+				 <img v-if="still_deciding_count" src='/img/slider.gif' />
+				 <span v-else>No responses to display. <br>Please check back soon!</span>
 			</h4>
 		</div>
 	</div>
@@ -176,7 +177,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 			paginate:6,
 			currently_fetched_records_count:0,
 			current_page:0,
-			loading_txt: "more"
+			loading_txt: "more",
+			still_deciding_count: true,
 	        
 	      };
 	    },
@@ -191,6 +193,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 				this.questions = []
 				this.current_page = 0
 				this.currently_fetched_records_count = 0
+				//questions.length will be zero but not finalized yet until push to array
+				this.still_deciding_count = true
 			},
 			
 	    		
@@ -216,6 +220,9 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 					        		this.loading_txt = "more"	
 					        		
 					        }
+						 	//if this is empty even after .push?
+						 	if (this.questions.length < 1)
+						 		this.still_deciding_count = false
 					      }.bind(this));
 				},
 		    		followed_questions: function() {
@@ -234,6 +241,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		   		          	this.questions.push(...response)
 		   		         	this.loading_txt = "more"	
 		   		          }
+		    				  if (this.questions.length < 1)
+		    				 		this.still_deciding_count = false
 		   		        }.bind(this));
 		    		},
 		    		
