@@ -94,7 +94,7 @@ class User extends Authenticatable
     
       if ($expiring_at = $this->last_question_time() ) {
           if($expiring_at >= time())
-            return $q[0]->expiring_at;
+            return $expiring_at;
       }
     return false;    
     

@@ -3908,8 +3908,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -3939,6 +3937,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // console.log(response.iam_following_count)
       }.bind(this));
     },
+    isExistsinFollowing: function isExistsinFollowing(user_id) {
+      for (var k in this.iam_following) {
+        if (user_id == this.iam_following[k].user_id) return true;
+      }
+      return false;
+    },
     getBubbleCount: function getBubbleCount() {
       this.$http.get('/bubble').then(function (response) {
         if (parseInt(response.data) > 0) $(".bubble").html(response.data);
@@ -3950,16 +3954,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
 
-    follow: function follow(id) {
+    follow: function follow(id, event) {
       var _this = this;
 
       //  $.post('follow',  )
+      $(event.target).children().remove();
       var formData = {
         'user_id': id
       };
       this.$http.post('/follow', formData).then(function (response) {
         _this.fetchData();
-        //alert('ss')
         // success callback
       }, function (response) {
         console.log(response);
@@ -35388,17 +35392,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [_c('button', {
-      staticClass: "btn btn-primary-outline btn-sm pull-right active",
+      staticClass: "btn btn-lg btn-link pull-right",
       on: {
         "click": function($event) {
           _vm.unfollow(item.user_id)
         }
       }
     }, [_c('span', {
-      staticClass: "icon icon-remove-user"
-    }), _vm._v(" "), _c('span', {
-      staticClass: "hidden-xs"
-    }, [_vm._v("following")])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
+      staticClass: "fal fa-check text-muted"
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -35435,18 +35437,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
-    }, [_c('button', {
-      staticClass: "btn btn-primary-outline btn-sm pull-right",
+    }, [(!_vm.isExistsinFollowing(item.user_id)) ? _c('button', {
+      staticClass: "btn btn-lg btn-link pull-right",
       on: {
         "click": function($event) {
-          _vm.follow(item.user_id)
+          _vm.follow(item.user_id, $event)
         }
       }
     }, [_c('span', {
-      staticClass: "icon icon-add-user"
-    }), _vm._v(" "), _c('span', {
-      staticClass: "hidden-xs"
-    }, [_vm._v("follow")])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
+      staticClass: "fal fa-plus"
+    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
   }))])])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

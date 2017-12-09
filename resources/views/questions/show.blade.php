@@ -38,18 +38,10 @@
                         </div>
                         <div class="modal-body p-y-sm">
                             <div class="flexbox-container">
-                                <network network="twitter">
-                                    <img class="social-icons" src="{{ asset('img/twitter.svg') }}" />
-                                </network>
-                                <network network="facebook">
-                                    <img class="social-icons" src="{{ asset('img/facebook.svg') }}" />
-                                </network>
-                                <network network="linkedin">
-                                    <img class="social-icons" src="{{ asset('img/linkedin.svg') }}" />
-                                </network>
-                                <network network="reddit">
-                                    <img class="social-icons" src="{{ asset('img/reddit-alien.svg') }}" />
-                                </network>
+                            
+                            <div class="sharethis-inline-share-buttons"></div>
+                            
+                            
                             </div>
                         </div>
                         <div class="modal-body p-a">

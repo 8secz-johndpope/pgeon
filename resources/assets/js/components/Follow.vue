@@ -42,9 +42,8 @@
                                         <img class="media-object img-circle" :src="item.avatar"  />
                                     </a>
                                     <div class="media-body">
-                                        <button v-on:click="unfollow(item.user_id)"  class="btn btn-primary-outline btn-sm pull-right active">
-                                            <span class="icon icon-remove-user"></span>
-                                            <span class="hidden-xs">following</span>
+                                        <button v-on:click="unfollow(item.user_id)"  class="btn btn-lg btn-link pull-right">
+                                             <span class="fal fa-check text-muted"></span>
                                         </button>
                                         <strong>{{ item.user }}</strong>
                                         <small>{{ item.bio }}...</small>
@@ -77,9 +76,8 @@
 
                              </a>
                                     <div class="media-body">
-                                        <button v-on:click="follow(item.user_id)" class="btn btn-primary-outline btn-sm pull-right">
-                                            <span class="icon icon-add-user"></span> 
-                                            <span class="hidden-xs">follow</span>
+                                        <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-lg btn-link pull-right">
+                                            <span class="fal fa-plus"></span>
                                         </button>
                                           <strong>{{ item.user }}</strong>
                                  <small>{{ item.bio }}.</small>
@@ -141,6 +139,14 @@
                    // console.log(response.iam_following_count)
                 }.bind(this ));
         	},
+        	
+        	isExistsinFollowing(user_id) {
+        		for(var k in this.iam_following) {
+        			   if (user_id == (this.iam_following[k].user_id))
+        				   return true;
+        			}
+        		return false	;
+        	},
         	getBubbleCount() {
         		this.$http.get('/bubble').then((response) => {
         			if (parseInt(response.data) > 0) 
@@ -152,15 +158,16 @@
         	        // error callback
         	      });
         	},  
-            follow: function (id) {
+            follow: function (id, event) {
               //  $.post('follow',  )
+              $(event.target).children().remove()
               var formData = {
                 'user_id': id
               }
               this.$http.post('/follow', formData).then((response) => {
             	 	 this.fetchData()
-                //alert('ss')
                 // success callback
+                
               }, (response) => {
             	  console.log(response)
                 // error callback
