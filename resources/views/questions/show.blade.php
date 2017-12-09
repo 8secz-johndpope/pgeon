@@ -49,8 +49,8 @@
                                 <div>
                                     <div>
                                         <div class="input-group">
-                                            <input class="form-control" value="...">
-                                            <span class="input-group-btn"> <button class="btn btn-default" type="button" style="height: 36px;">
+                                            <input class="form-control" id="txt_current_url" value="{{url()->current()}}">
+                                            <span class="input-group-btn"> <button id="copy_to_cb" class="btn btn-default" type="button" style="height: 36px;">
                                                     <span class="fa fa-copy"></span>
                                                 </button> </span>
                                         </div>
