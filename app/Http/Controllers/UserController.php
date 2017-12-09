@@ -255,13 +255,16 @@ class UserController extends Controller
             return view('user.usernotfound');
           else {
               $replies = User::replies($user->id);
-              $current_user = Auth::user();
-              $followings = UserFollowing::get_followers($current_user->id)->toArray();
+             
+              
          
               $is_following = false;
-              
-              if (in_array($user->id, $followings)) {
-                  $is_following = true;
+              if (Auth::user()) {
+                  $current_user = Auth::user();
+                  $followings = UserFollowing::get_followers($current_user->id)->toArray();
+                  if (in_array($user->id, $followings)) {
+                      $is_following = true;
+                  }
               }
                           
               return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points($user->id))->with('is_following', $is_following);
