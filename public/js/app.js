@@ -2239,6 +2239,19 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2612,6 +2625,19 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2725,6 +2751,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(2);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34785,17 +34824,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
+  }, [(_vm.still_deciding_count) ? _c('div', {
+    staticClass: "spinner"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })]) : _c('div', [_c('img', {
     attrs: {
       "src": "/img/chat-bubble.svg"
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [(_vm.still_deciding_count) ? _c('img', {
-    attrs: {
-      "src": "/img/loader.gif"
-    }
-  }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35060,17 +35121,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
+  }, [(_vm.still_deciding_count) ? _c('div', {
+    staticClass: "spinner"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })]) : _c('div', [_c('img', {
     attrs: {
       "src": "/img/chat-bubble.svg"
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [(_vm.still_deciding_count) ? _c('img', {
-    attrs: {
-      "src": "/img/loader.gif"
-    }
-  }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35630,17 +35713,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
+  }, [(_vm.still_deciding_count) ? _c('div', {
+    staticClass: "spinner"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })]) : _c('div', [_c('img', {
     attrs: {
       "src": "/img/chat-bubble.svg"
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [(_vm.still_deciding_count) ? _c('img', {
-    attrs: {
-      "src": "/img/loader.gif"
-    }
-  }) : _c('span', [_vm._v("No responses to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
@@ -35889,8 +35994,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [_c('h4', {
-    staticClass: "text-muted m-t-0"
   }, [(_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"
   }, [_c('div', {
@@ -35917,11 +36020,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('span', [_c('img', {
+  })]) : _c('div', [_c('img', {
     attrs: {
       "src": "/img/chat-bubble.svg"
     }
-  }), _vm._v("\n\t\t\t\t No live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"
