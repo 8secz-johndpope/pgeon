@@ -31,12 +31,6 @@ function displayLoader(){
 	 
 	}
 
-$("#copy_to_cb").click(function () {
-	var copyText = $("#txt_current_url");
-	copyText.select();
-	document.execCommand("Copy");
-})
-
 
 
 

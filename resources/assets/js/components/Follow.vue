@@ -66,7 +66,6 @@
        <div class="row">
        
             <div class="row">
-                <div class="row">
                     <div class="col-md-12" style="margin-top: 5px">
                         <ul class="media-list media-list-users list-group">
                             <li class="list-group-item" v-for="item in my_followers">
@@ -88,7 +87,6 @@
                       
                         </ul>
                     </div>
-                </div>
             </div>
             
             

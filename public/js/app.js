@@ -1972,6 +1972,22 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2382,11 +2398,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var seconds = delta % 60; // in theory the modulus is not required
 
       var t_str = '';
-      if (days > 0) t_str += days + ' days ';
-      if (hours > 0) t_str += hours + ' hr ';
-      if (minutes > 0) t_str += minutes + ' min ';
+      if (days > 0) t_str += days + ' d ';
+      if (hours > 0) t_str += hours + ' h ';
+      if (minutes > 0) t_str += minutes + ' m ';
       //  	if(seconds > 0)
-      t_str += seconds + ' sec ';
+      t_str += seconds + ' s ';
 
       return t_str;
 
@@ -2962,11 +2978,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
       var t_str = '';
-      if (days > 0) t_str += days + ' days ';
-      if (hours > 0) t_str += hours + ' hr ';
-      if (minutes > 0) t_str += minutes + ' min ';
+      if (days > 0) t_str += days + ' d ';
+      if (hours > 0) t_str += hours + ' h ';
+      if (minutes > 0) t_str += minutes + ' m ';
       //if(seconds > 0)
-      t_str += seconds + ' sec ';
+      t_str += seconds + ' s ';
 
       return t_str;
 
@@ -3795,8 +3811,6 @@ var pressTimer;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -35411,8 +35425,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
     staticClass: "col-md-12",
     staticStyle: {
       "margin-top": "5px"
@@ -35447,7 +35459,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', {
       staticClass: "fal fa-plus"
     })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.user))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
-  }))])])])])])])])])
+  }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
     staticStyle: {
@@ -35877,17 +35889,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [_c('img', {
+  }, [_c('h4', {
+    staticClass: "text-muted m-t-0"
+  }, [(_vm.still_deciding_count) ? _c('div', {
+    staticClass: "spinner"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })]) : _c('span', [_c('img', {
     attrs: {
       "src": "/img/chat-bubble.svg"
     }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [(_vm.still_deciding_count) ? _c('img', {
-    attrs: {
-      "src": "/img/loader.gif"
-    }
-  }) : _c('span', [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v("\n\t\t\t\t No live questions to display. "), _c('br'), _vm._v("Please check back soon!\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "container content"
   }, [_c('div', {
     staticClass: "row"

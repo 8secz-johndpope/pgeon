@@ -50,13 +50,13 @@
 
     	var t_str = '';
     	if(days > 0)
-    		t_str += days + ' days ' 
+    		t_str += days + ' d ' 
     	if(hours > 0)
-    		t_str += hours + ' hr ' 
+    		t_str += hours + ' h ' 
     	if(minutes > 0)
-    		t_str += minutes + ' min '
+    		t_str += minutes + ' m '
   //  	if(seconds > 0)
-    		t_str += seconds + ' sec ' 
+    		t_str += seconds + ' s ' 
     				
           return t_str
 

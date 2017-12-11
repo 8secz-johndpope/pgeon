@@ -1,6 +1,13 @@
 $(function () {
  
 
+	$("#copy_to_cb").click(function () {
+		var copyText = $("#txt_current_url");
+		copyText.select();
+		document.execCommand("Copy");
+	})
+
+
 	$("#q_next").on("click", function () {
 		$(".error").addClass('hidden')
 		if($("#question-input").val().trim().length < 1 ) {

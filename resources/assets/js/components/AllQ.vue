@@ -95,10 +95,26 @@
 
 	<div class="container content"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
-			<img src="/img/chat-bubble.svg" />
+			
 			<h4 class="text-muted m-t-0">
-				 <img v-if="still_deciding_count" src='/img/loader.gif' />
-				 <span v-else>No live questions to display. <br>Please check back soon!</span>
+				        <div  v-if="still_deciding_count" class="spinner">
+            <div class="b1 se"></div>
+            <div class="b2 se"></div>
+            <div class="b3 se"></div>
+            <div class="b4 se"></div>
+            <div class="b5 se"></div>
+            <div class="b6 se"></div>
+            <div class="b7 se"></div>
+            <div class="b8 se"></div>
+            <div class="b9 se"></div>
+            <div class="b10 se"></div>
+            <div class="b11 se"></div>
+            <div class="b12 se"></div>
+        </div>
+				 <span v-else>
+				 <img src="/img/chat-bubble.svg" />
+				 No live questions to display. <br>Please check back soon!
+				</span>
 			</h4>
 		</div>
 	</div>
