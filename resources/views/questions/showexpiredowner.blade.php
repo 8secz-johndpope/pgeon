@@ -25,7 +25,7 @@
                             <span class="fa fa-long-arrow-left text-muted"></span>
                             <span>{{$answer->user->name}}</span>
                             @endif
-                            <span class="text-muted time-align">Ended: {{date("m/d/Y H:i", $question->expiring_at)}}</span>
+                            <span class="text-muted time-align">Ended:  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
                         </div>
                         <ul class="media-list media-list-conversation c-w-md">
                             <li class="media">

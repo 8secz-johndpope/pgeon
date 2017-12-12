@@ -20,6 +20,7 @@ Vue.component('allrguest', require('./components/AllRGuest.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('answers_guest', require('./components/AnswersGuest.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));
+Vue.component('localtimezone', require('./components/LocalTimeZone.vue'));
 Vue.component('answeringtimer', require('./components/AnsweringTimer.vue'));
 Vue.component('answers_expired', require('./components/AnswersExpired.vue'));
 Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner.vue'));
@@ -36,6 +37,7 @@ const app = new Vue({
   data: {
      
   },
+  
   mounted() {
 	  this.getBubbleCount()
 	  //this.$refs.allR.lo()
