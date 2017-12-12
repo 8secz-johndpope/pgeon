@@ -165,6 +165,7 @@ class QuestionController extends Controller
         abort(404, "Page Not Found");
     
     if (Auth::user()->id == $question->user_id) {
+        $question->expiring_at = time();
         $question->accepted_answer = Request::get('answer_id');  
         $question->save();
         return Redirect::to('my-questions');
