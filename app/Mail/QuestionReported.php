@@ -25,7 +25,7 @@ class QuestionReported extends Mailable
     
     public function __construct($qid, $user_slug)
     {
-        $this->q_url =  Request::getSchemeAndHttpHost()."/questions/".$qid;
+        $this->q_url =  Request::getSchemeAndHttpHost()."/question/".$qid;
         $this->user_slug = Request::getSchemeAndHttpHost()."/".$user_slug;
     }
 
