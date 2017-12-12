@@ -21,7 +21,7 @@
                                 <a data-toggle="modal" href="#shareQuestion"> <span class="fa fa-share-alt dropdown-icon"></span>Share</a>
                             </li>
                             <li>
-                                <a data-toggle="modal" href="#reportQuestion"> <span class="fa fa-flag dropdown-icon"></span>Report</a>
+                                 <a  id="report_question" data-qid="{{$question->id}}"> <span class="fa fa-flag dropdown-icon"></span>Report</a>
                             </li>
                         </ul>
                     </div>

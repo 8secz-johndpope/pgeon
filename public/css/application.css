@@ -522,12 +522,12 @@ button#profile-button:hover , button#profile-button {
   transition: all .2s ease-in-out;
 }
 button.active#profile-button {
-  border: 2px solid #21ACA9;
+  border: 2px solid #2eb8b8;
 }
 
 /* remove myquestions button hover effect , adding active state */
 .my-questions.btn-primary-outline{
-  border-radius: 0px 4px 4px 4px;
+  border-radius: 0px 10px 10px 10px;
 }
 
 .my-questions.btn-primary-outline:hover{

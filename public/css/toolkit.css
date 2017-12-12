@@ -263,6 +263,7 @@ html {
 }
 body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-rendering: auto;
     font-size: 16px;
     color: #64656F;
     background-color: #F8F9F9;
@@ -276,7 +277,7 @@ textarea {
     line-height: inherit;
 }
 a {
-    color: #75797E;
+    color: #999;
     text-decoration: none;
     outline: none;
 }
@@ -516,7 +517,7 @@ mark,
     text-transform: capitalize;
 }
 .text-muted {
-    color: #BCC0C8;
+    color: #ababab;
 }
 .text-primary {
     color: #24C4BC;
@@ -1518,7 +1519,7 @@ select[multiple].input-lg {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: #24C4BC;
+    background-color: #33cccc;
 }
 .btn:focus,
 .btn:active:focus,
@@ -3324,7 +3325,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding-right: 4px;
 }
 .nav-pills > li > a {
-    padding: 15px;
+    padding: 10px 15px;
 }
 .nav-pills > li + li {
     margin-left: 0px;
@@ -3332,8 +3333,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-    color: #444;
-    border-bottom: 2px solid #24BDB6;
+    color: #777;
+    border-bottom: 2px solid #2eb8b8;
 }
 .nav-stacked > li {
     float: none;
@@ -3689,8 +3690,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-bottom-left-radius: 0;
 }
 .navbar-btn {
-    margin-top: 7px;
-    margin-bottom: 7px;
+    margin-top: 9px;
+    margin-bottom: 6px;
 }
 .navbar-btn.btn-sm {
     margin-top: 10px;
@@ -3833,7 +3834,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     color: #ffffff;
 }
 .navbar-inverse .navbar-nav > li > a {
-    color: #8e8e93;
+    color: #999;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -6024,7 +6025,7 @@ fieldset[disabled] .btn-default-outline.active {
 .btn-primary-outline {
     color: #fff;
     font-weight: 600;
-    border-bottom: 3px solid #21ACA6;
+    border-bottom: 2px solid #2eb8b8;
 }
 .btn-primary-outline:focus,
 .btn-primary-outline.focus,
@@ -8090,8 +8091,8 @@ background-color: #ccc;
     box-shadow: none !important;
 }
 .navbar-btn-avitar img {
-    height: 31px;
-    width: 31px;
+    height: 30px;
+    width: 30px;
 }
 .nav-bordered > li {
     float: left;
@@ -8674,6 +8675,7 @@ a:focus {} .question-container {
 }
 .user-data {
     background: #fff;
+    border-bottom: 1px solid #E6EAEB;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

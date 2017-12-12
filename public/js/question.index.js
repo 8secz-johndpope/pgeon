@@ -7,7 +7,18 @@ $(function () {
 		document.execCommand("Copy");
 	})
 
-
+	
+	$("#report_question").click(function () {
+		$qid = ""
+			//alert('ss')
+		$(this).html('Reported')
+		$parent = $(this)
+		$.post("/reportQ", { _token : $('meta[name="csrf-token"]').attr('content'), qid: $(this).data('qid')}, function () {
+			$parent.removeAttr("id")
+		})
+	})
+	
+	
 	$("#q_next").on("click", function () {
 		$(".error").addClass('hidden')
 		if($("#question-input").val().trim().length < 1 ) {

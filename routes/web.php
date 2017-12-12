@@ -62,6 +62,9 @@ Route::get('/', 'HomeController@index');
   
   Route::group(array('middleware' => 'auth'), function()
   {
+     
+    Route::post('reportQ', 'QuestionController@reportQ');
+      
     Route::get('bubble', 'UserController@notification_count');
     
     Route::get('pending', 'QuestionController@pending');

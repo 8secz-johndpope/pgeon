@@ -7,12 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
+
 use App\Answer;
 use App\Vote;
 use App\Question;
 use App\UserFollowing;
 use Helper;
+use Illuminate\Support\Facades\Mail;
+
 use App\Traits\QuestionTrait;
+use App\Mail\QuestionReported;
 
 class QuestionController extends Controller
 {
@@ -431,6 +435,17 @@ class QuestionController extends Controller
 	    foreach ( explode(",", $Qs) as $key => $id) {
 	        Question::destroy($id);
 	    }
+	}
+	
+	public function reportQ() {
+	    
+	    
+	    $qid = Request::get('qid');
+	    $user_slug = Helper::slug(Auth::user()->id ,Auth::user()->slug);
+	    
+	    Mail::to('russ@pgeon.com')
+	        ->cc('prasanth@object90.com')
+	        ->send(new QuestionReported($qid, $user_slug));
 	}
 	
 	/*public static function accept_answer($question_id, $answer_id) {
