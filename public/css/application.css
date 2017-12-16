@@ -409,7 +409,7 @@ ol
   width: 100%;
 }
 
-/**EDITED -- press **/ 
+/**EDITED -- press **/
 .va_slider_detail_inner
 {
   vertical-align: baseline;
@@ -531,10 +531,10 @@ button.active#profile-button {
 }
 
 .my-questions.btn-primary-outline:hover{
-  /*background-color: #24c4bc;*/
+  background-color: #33cccc;
 }
 .my-questions.btn-primary-outline:active {
-    background-color: #24c4bc;
+    background-color: #2eb8b8;
 }
 .nav-container{
   position: relative;

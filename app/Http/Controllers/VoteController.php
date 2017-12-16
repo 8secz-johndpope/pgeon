@@ -48,7 +48,7 @@ class VoteController extends Controller
     {
       if(Auth::user()->id == Request::get('user_id')) {
         
-        $vote = Vote::cast_vote(Auth::user()->id, Request::get('answer_id'),Request::get('vote_direction'));
+        $vote = Vote::cast_vote(Auth::user()->id, Request::get('answer_id'),Request::get('vote'));
         //echo $vote;
           return Response::json(array('vote' => $vote));
     

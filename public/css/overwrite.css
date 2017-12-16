@@ -106,7 +106,6 @@ margin-right: 30px;
 .iconav-nav{
   display: flex;
   align-items: center;
-  font-weight: 400;
 }
 
 .iconav-nav .f-right{
@@ -576,16 +575,33 @@ input.pending-radio:checked+label {
   height: auto;
 }
 
+
 /*** EDITED by Prasanth ***/
-svg .thumbs-up  {
+svg .arrow-circle-up  {
   fill: #3fc3ad;
+
+	shape-rendering: geometricprecision;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
 }
-svg .thumbs-down{
+svg .arrow-circle-down{
+	shape-rendering: geometricprecision;
   fill: #da7a82;
+    transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
 }
 
-svg .window-minimize{
+svg .circle{
+	shape-rendering: auto;
   fill: #e0e1e3;
+    transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
 }
 
 /*hover icon effect*/
@@ -625,4 +641,35 @@ div a.icon:focus {
     margin: auto;
     cursor:pointer;
     margin-bottom:25px;
+}
+
+
+/** PRESS taken out from question-selected/new-index.html **/
+.stats {
+  box-sizing: border-box;
+}
+.relative {
+  position: relative;
+}
+.bg-F8F9F9 {
+  background-color: #F8F9F9;
+}
+.ph3 {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+    .tc {
+  text-align: right;
+}
+
+.divide:before {
+  background: rgba(0, 0, 0, 0.1);
+  content: "";
+  height: 1px;
+  left: 5px;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  width: 90%;
+  z-index: -1;
 }

@@ -11,12 +11,7 @@
                     <div class="dropdown">
                         <a class="btn btn-link p-x-0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fal fa-ellipsis-v ellipsis"></span></a>
                         <ul class="dropdown-menu header-dropdown" role="menu">
-                            <li class="respond-li">
-                                <a class="header-dropdown-respond"> <span class="fa fa-reply dropdown-icon"></span>Respond</a>
-                            </li>
-                            <li class="hide-li hidden">
-                                <a class="header-dropdown-respond"> <span class="fa fa-times dropdown-icon"></span>Cancel</a>
-                            </li>
+                         
                             <li>
                                 <a data-toggle="modal" href="#shareQuestion"> <span class="fa fa-share-alt dropdown-icon"></span>Share</a>
                             </li>

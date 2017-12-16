@@ -22,9 +22,10 @@ class Vote extends Model
         return $this->belongsTo('App\Answer');
     }
  
-   public static function cast_vote($user_id, $answer_id, $vote_direction) {
+   public static function cast_vote($user_id, $answer_id, $vote) {
       $voted = Vote::where('user_id', $user_id)->where('answer_id',$answer_id)->first();
-      $vote = NULL;
+    //  $vote = NULL;
+      /*
       if($vote_direction == "up"){
         //to maintian max and min vote..if vote goes above 1 per user, nothing will happen
         if ($voted) {
@@ -44,6 +45,7 @@ class Vote extends Model
            $vote = -1;
         }   
       }
+      */
      
       if(isset($vote)) {
         $sql = 'REPLACE INTO votes SET user_id = '.$user_id.', answer_id = '.$answer_id.', vote =  '.$vote;
