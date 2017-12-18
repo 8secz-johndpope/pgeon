@@ -77,11 +77,11 @@ class QuestionController extends Controller
                     $answer = Answer::find($question->accepted_answer);
                   if (Auth::user()->id == $question->user_id) {
                       
-                      return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'answer' => $answer]); 
+                      return view('questions.showexpiredowner', ['question' => $question,  'answer' => $answer]); 
                   }else {
                       
                       
-                      return view('questions.showexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'answer' => $answer]);   
+                      return view('questions.showexpired', ['question' => $question,  'answer' => $answer]);   
                   }
                    
                 }

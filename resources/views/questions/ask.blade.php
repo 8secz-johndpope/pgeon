@@ -1,4 +1,4 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app-no-top-bar') @section('content')
  @if ($lq_expiring_at < time())
 
 
