@@ -52,8 +52,11 @@
                                     <div class="media-body-text media-question">{{$val['question']->question}}
 </div>
                                     <!-- <div id="overlay"></div> -->
+                                    
                                     <div class="media-body-text media-response" style="margin-top: 0;">
-                                        {{$val['answer']->answer}}
+                                    		  @if(!is_null($val['answer']))
+                                        		{{$val['answer']->answer}}
+                                        	  @endif	
 </div>
                                 </div>
                             </li>

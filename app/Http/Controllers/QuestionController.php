@@ -371,6 +371,8 @@ class QuestionController extends Controller
          
         }
         
+        //dd($published);
+        //exit;
         return view('questions.published',['questions' => $questions,  'published' => $published]);
         
     }
