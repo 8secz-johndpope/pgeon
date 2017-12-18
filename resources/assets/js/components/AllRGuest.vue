@@ -6,7 +6,7 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">

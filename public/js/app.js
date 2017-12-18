@@ -51230,7 +51230,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "nav_all"
   }, [_c('nav', {
-    staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
+    staticClass: "navbar navbar-inverse app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
   }, [_c('div', {
@@ -51939,7 +51939,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('div', {
     staticClass: "nav_all"
   }, [_c('nav', {
-    staticClass: "navbar navbar-inverse navbar-fixed-top app-navbar"
+    staticClass: "navbar navbar-inverse  app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
   }, [_c('div', {
