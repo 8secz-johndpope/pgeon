@@ -349,9 +349,9 @@ a.top-content-item:focus {
   height: 32px;
   width: 32px;
   padding: 0;
-  position: absolute;
-  top: 9px;
-  margin-left: -32px;
+  position: relative;
+  width: 34px;
+  z-index: 0;
 }
 
 .header-dropdown {
@@ -522,7 +522,7 @@ input.pending-radio:checked+label {
   opacity: 1;
 }
 
-.qsi-overlay{
+/* .qsi-overlay{
   display: flex;
 }
 .qsi-overlay div {
@@ -533,7 +533,7 @@ input.pending-radio:checked+label {
   justify-content: center;
   align-items: center;
   color: white;
-}
+} */
 
 
 .vote-up{
@@ -554,7 +554,6 @@ input.pending-radio:checked+label {
 .responded-count{
   color: #24b4bc;
   margin: 0;
-  font-family: 'Ropa Sans', sans-serif;
   font-size: 16px;
 }
 .social-icons{
