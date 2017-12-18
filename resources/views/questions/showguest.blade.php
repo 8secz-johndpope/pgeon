@@ -84,7 +84,7 @@
 @endsection
 
 <!-- Push a style dynamically from a view -->
-@push('styles')
+@push('after-core-styles')
 <link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
  @endpush
 

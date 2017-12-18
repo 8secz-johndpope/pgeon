@@ -80,6 +80,8 @@ Route::get('/', 'HomeController@index');
     
     Route::get('get_votes/{id}/', 'QuestionController@get_votes');
     Route::get('get_votes_with_count/{id}', 'QuestionController@get_votes_with_count');
+    Route::get('get_vote_count_for_question/{id}', 'QuestionController@get_vote_count_for_question');
+    
     
     Route::post('accept_answer', array('before'=>'csfr', 'uses'=>'QuestionController@accept_answer' ) );  
     Route::post('question', array( 'before'=>'csfr','uses'=>'QuestionController@insert' ) );

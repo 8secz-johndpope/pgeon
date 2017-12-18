@@ -28,6 +28,7 @@ class QuestionController extends Controller
      */
     public function show($question_id,$format=null)
     {
+        
         $question = Question::find($question_id);
 
         if (!$question)
@@ -40,6 +41,10 @@ class QuestionController extends Controller
       //  $answer_ids = Answer::get_answer_ids($question_id);
         else {
             
+            if(!session('hasVisited'))  {
+                session(['hasVisited' => '1']);
+                Question::pageHit($question->id);
+            }
             //non signed in
             if(Auth::guest()) {
              
@@ -56,7 +61,6 @@ class QuestionController extends Controller
             }else {
                 
                 
-                $user_answered_votes = Answer::get_current_user_votes_for_question($question->id);
                 
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
@@ -66,7 +70,7 @@ class QuestionController extends Controller
                         //    
                         return Redirect::to('my-questions');
                     }else {
-                        return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes, 'lq_expiring_in' => $lq_expiring_in]);
+                        return view('questions.show', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
                     }
                 }else {
                    
@@ -85,6 +89,19 @@ class QuestionController extends Controller
             
         }
         
+    }
+    
+   
+    public static function get_vote_count_for_question($question_id) {
+        
+        $sql = "SELECT count(1) AS vote_count FROM votes
+                    INNER JOIN answers ON answers.id = votes.answer_id
+                    WHERE question_id= ".$question_id;
+        
+        $rec = DB::select( DB::raw($sql) );
+        
+        
+        return response()->json($rec[0]);
     }
 
     /**

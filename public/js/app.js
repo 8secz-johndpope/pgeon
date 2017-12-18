@@ -19175,6 +19175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var longpress;
 var pressTimer;
@@ -19187,11 +19188,13 @@ var pressTimer;
       already_answered: false,
       placeholder: "Enter your response here",
       my_votes: [],
-      voted_now: 0
+      voted_now: 0,
+      vote_count: 0
 
     };
   },
-  props: ['question_id', 'current_user_id', 'question_owner_id', 'votecount', 'initial', 'question_id', 'q_answers_count', 'q_votes_count', 'question_user_name', 'question'],
+  //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
+  props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_name', 'question'],
   mounted: function mounted() {},
 
   watch: {
@@ -19305,11 +19308,21 @@ var pressTimer;
       };
       this.$http.post('/vote', formData).then(function (response) {
         _this3.updateVotesArray(answer_id, response['data'].vote);
+        _this3.getVoteCount();
       }, function (response) {
         alert('error submitting');
       });
     },
 
+    getVoteCount: function getVoteCount() {
+      var com = this;
+      $.getJSON('/get_vote_count_for_question/' + this.question_id, function (votes) {
+        console.log(this);
+        com.vote_count = votes['vote_count'];
+      }, function (response) {
+        alert('error fetching vote counts');
+      });
+    },
     fetchRecords: function fetchRecords() {
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
         this.answers = response;
@@ -19346,6 +19359,9 @@ var pressTimer;
     },
 
     updateVotesArray: function updateVotesArray(answer_id, vote) {
+
+      //	if(vote == 0 )
+
       var i = 0;
       while (i < this.my_votes.length) {
         if (this.my_votes[i]["answer_id"] == answer_id) {
@@ -19368,6 +19384,8 @@ var pressTimer;
     //got some new questions inserted
     if (socket) {
       //just specific to this question id
+
+
       socket.emit('connect_me', 'Q_' + this.question_id);
       socket.on('new_answers', function (response) {
         com.answers.push(response);
@@ -19399,6 +19417,7 @@ var pressTimer;
     }
 
     this.fetchRecords();
+    this.getVoteCount();
   }
 
 });
@@ -50862,9 +50881,9 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "container sub-nav2"
+    staticClass: "container"
   }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
+    staticClass: "media-list  m-b-0"
   }, [_c('li', {
     staticClass: "media media-divider"
   }, [_c('div', {
@@ -50897,8 +50916,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "divide tc relative m-t-5"
   }, [_c('div', {
-    staticClass: "stats dib bg-F8F9F9 ph3"
-  }, [_vm._m(0), _vm._v(" "), _c('span', {
+    staticClass: "stats dib bg-F8F9F9 ph3 pull-right"
+  }, [_c('span', {
+    staticClass: "number",
+    attrs: {
+      "data-toggle": "tooltip",
+      "title": "Views"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.hits) + " "), _c('i', {
+    staticClass: "fal fa-eye"
+  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
     staticClass: "number",
     attrs: {
       "data-toggle": "tooltip",
@@ -50912,10 +50939,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-toggle": "tooltip",
       "title": "Votes"
     }
-  }, [_vm._v(_vm._s(_vm.q_votes_count) + " "), _c('i', {
+  }, [_vm._v(_vm._s(_vm.vote_count) + " "), _c('i', {
     staticClass: "fal fa-check-square"
   })])])])])])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "container sub-nav2"
+    staticClass: "container"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md jsvote"
@@ -50923,18 +50950,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media media-divider"
     }, [_c('div', {
       staticClass: "media-body"
-    }, [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
+    }, [_c('div', {
       staticClass: "media-body-text live-response flex-center"
     }, [_c('a', {
-      staticClass: "media-left"
-    }), _vm._v(" "), _c('p', {
-      staticClass: "flexone"
-    }, [_vm._v("\n                 \t\t\t" + _vm._s(answer.answer) + "\n                 ")]), _vm._v(" "), _c('button', {
-      staticClass: "close",
-      attrs: {
-        "type": "button",
-        "data-dismiss": "alert",
-        "aria-label": "Close"
+      staticClass: "media-left",
+      staticStyle: {
+        "font-size": "20px",
+        "color": "rgba(224, 225, 227, .6)"
       },
       on: {
         "click": function($event) {
@@ -50942,10 +50964,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }, [_vm._v("×")])])]) : _vm._e()])])]) : _vm._e()])
+      staticClass: "fal fa-times-circle"
+    })]), _vm._v(" "), _c('p', {
+      staticClass: "flexone"
+    }, [_vm._v("\n                 \t\t\t" + _vm._s(answer.answer) + "\n                 ")])])])])]) : _vm._e()])
   })), _vm._v(" "), _c('div', {
     attrs: {
       "id": "answers_container"
@@ -50955,13 +50977,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "auto",
       "box-shadow": "inset 0px 0px .05 black"
     }
-  }, [_vm._m(1)]) : _c('div', {
+  }, [_vm._m(0)]) : _c('div', {
     staticStyle: {
       "width": "auto",
       "box-shadow": "inset 0px 0px .05 black"
     }
   }, [_c('div', {
-    staticClass: "container sub-nav2"
+    staticClass: "container"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md jsvote",
@@ -51015,7 +51037,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
   }, [_c('div', {
-    staticClass: "navbar-fixed-bottom footer-toggle "
+    staticClass: "navbar-fixed-bottom footer-toggle"
   }, [_c('div', {
     staticClass: "container m-t-15"
   }, [_c('ul', {
@@ -51029,7 +51051,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "media media-current-user"
   }, [_c('div', {
-    staticClass: "input-group "
+    staticClass: "input-group"
   }, [_c('textarea', {
     directives: [{
       name: "model",
@@ -51038,7 +51060,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "submitted_text"
     }],
     staticClass: "footer-textarea form-control custom-control",
+    staticStyle: {
+      "border-right": "none"
+    },
     attrs: {
+      "placeholder": "Responding as display-name..",
+      "autofocus": "",
       "id": "footer-textarea",
       "overflow": "hidden",
       "rows": "1"
@@ -51053,7 +51080,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon btn btn-primary footer-btn",
+    staticClass: "input-group-addon footer-btn",
     on: {
       "click": function($event) {
         _vm.submit_answer()
@@ -51061,18 +51088,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "fa fa-paper-plane response-icon"
-  })])]), _vm._v(" "), _vm._m(2)])])])])])])])]) : _vm._e()])])
+  })])])])])])])])])])]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "number",
-    attrs: {
-      "data-toggle": "tooltip",
-      "title": "Views"
-    }
-  }, [_vm._v(" N/A "), _c('i', {
-    staticClass: "fal fa-eye"
-  }), _vm._v(" ")])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container text-center m-t-10p"
   }, [_c('img', {
@@ -51082,14 +51099,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
   }, [_vm._v("\n   No responses yet.. ")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('small', {
-    staticClass: "charlimit"
-  }, [_c('span', {
-    staticClass: "current"
-  }, [_vm._v("0")]), _vm._v("/"), _c('span', {
-    staticClass: "max"
-  }, [_vm._v("150")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

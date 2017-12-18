@@ -48,7 +48,12 @@ class Vote extends Model
       */
      
       if(isset($vote)) {
-        $sql = 'REPLACE INTO votes SET user_id = '.$user_id.', answer_id = '.$answer_id.', vote =  '.$vote;
+          if($vote == 0) {
+              $sql = 'DELETE FROM votes WHERE user_id = '.$user_id.' AND answer_id = '.$answer_id;
+          }else {
+              $sql = 'REPLACE INTO votes SET user_id = '.$user_id.', answer_id = '.$answer_id.', vote =  '.$vote;
+          }
+   //     $sql = 'REPLACE INTO votes SET user_id = '.$user_id.', answer_id = '.$answer_id.', vote =  '.$vote;
         DB::statement($sql);
         return $vote;
       }

@@ -1,7 +1,7 @@
 <template>
 <div>
-         <div class="container sub-nav2">
-             <ul class="media-list media-list-conversation c-w-md">
+         <div class="container">
+             <ul class="media-list  m-b-0">
                  <li class="media media-divider">
                      <div class="h5 m-b-5">
                          <span>{{question_user_name}}</span>
@@ -20,11 +20,12 @@
                                  </div>
                                  
                                    <div class="media-footer">
-                                <small class="text-muted"><div class="divide tc relative m-t-5">
-                                        <div  class="stats dib bg-F8F9F9 ph3">
-                                            <span data-toggle="tooltip" title="Views" class="number"> N/A <i class="fal fa-eye"></i>&nbsp;</span>
+                                <small class="text-muted">
+                                <div class="divide tc relative m-t-5">
+                                        <div  class="stats dib bg-F8F9F9 ph3 pull-right">
+                                            <span data-toggle="tooltip" title="Views" class="number"> {{hits}} <i class="fal fa-eye"></i>&nbsp;</span>
                                             <span data-toggle="tooltip" title="Responses" class="number">{{answers.length}} <i class="fal fa-comments"></i>&nbsp;</span>
-                                            <span data-toggle="tooltip" title="Votes" class="number">{{q_votes_count}} <i class="fal fa-check-square"></i></span>
+                                            <span data-toggle="tooltip" title="Votes" class="number">{{vote_count}} <i class="fal fa-check-square"></i></span>
                                         </div>
                                     </div></small>
                             </div>
@@ -37,23 +38,22 @@
              </ul>
          </div>
          
-          <div class="container sub-nav2">
+          <div class="container">
               <div  v-for="answer in answers">
              
                                           <div class="media-list media-list-conversation c-w-md jsvote"  v-if="ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                     
-                       <div class="media-body-text live-response flex-center" v-if="ownerOfAnswer(answer.user_id)">
-                                <a class="media-left">
+                       <div class="media-body-text live-response flex-center">
+                                <a class="media-left" style="font-size: 20px; color: rgba(224, 225, 227, .6);"  v-on:click="delete_answer(answer.id)">
                                     
+                                                 <span  class="fal fa-times-circle"></span>
                                 </a>
                                 <p class="flexone">
                  			{{answer.answer}}
                  </p>
-                 <button type="button" data-dismiss="alert" aria-label="Close" class="close" v-on:click="delete_answer(answer.id)">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+          
                             </div>
                             
                             </div>
@@ -77,7 +77,7 @@
         </div>
       
            <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
-            <div class="container sub-nav2">
+            <div class="container">
             
             
             <div  v-for="answer in answers">
@@ -127,27 +127,28 @@
 
 
 
-        <div v-if="!already_answered"  class="fixed-bottom-footer">
-                <div class="navbar-fixed-bottom footer-toggle ">
-                    <div class="container m-t-15">
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media media-divider">
-                                <div class="media-body">
-                                    <ul class="media-list media-list-conversation c-w-md">
-                                        <li class="media media-current-user">
-                                            <div class="input-group ">
-                                                <textarea v-model="submitted_text"  id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
-                                                <span  v-on:click="submit_answer()" class="input-group-addon btn btn-primary footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
-                                            </div>
-                                            <small class="charlimit"><span class="current">0</span>/<span class="max">150</span></small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+        <div v-if="!already_answered" class="fixed-bottom-footer">
+            <div class="navbar-fixed-bottom footer-toggle">
+                <div class="container m-t-15">
+                    <ul class="media-list media-list-conversation c-w-md">
+                        <li class="media media-divider">
+                            <div class="media-body">
+                                <ul class="media-list media-list-conversation c-w-md">
+                                    <li class="media media-current-user">
+                                        <div class="input-group">
+                                            <textarea  v-model="submitted_text"  style="border-right: none;" placeholder="Responding as display-name.." autofocus id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
+                                            <span v-on:click="submit_answer()" class="input-group-addon footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
+        
+
             
             
 
@@ -172,11 +173,13 @@ var pressTimer;
         already_answered: false,
         placeholder: "Enter your response here",
         my_votes: [],
-        voted_now : 0
+        voted_now : 0,
+        vote_count: 0
 
       };
     },
-    props: ['question_id', 'current_user_id', 'question_owner_id','votecount', 'initial', 'question_id', 'q_answers_count', 'q_votes_count', 'question_user_name', 'question'],
+    //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
+    props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id',   'question_user_name', 'question'],
     mounted() {
 
 
@@ -309,13 +312,22 @@ var pressTimer;
         }
         this.$http.post('/vote' , formData).then((response) => {
           this.updateVotesArray(answer_id, response['data'].vote)
+       	  this.getVoteCount();
         }, (response) => {
           alert('error submitting')
         });
       },
        
-
-      
+      getVoteCount() {
+    	  	  var com = this	
+          $.getJSON('/get_vote_count_for_question/'+this.question_id, function(votes) {
+        	  		console.log(this)
+          		com.vote_count = votes['vote_count']
+          }, (response) => {
+              alert('error fetching vote counts')
+          });
+      }
+      ,
       fetchRecords() {
 	    	  $.getJSON('/question/' + this.question_id + '/json', function(response) {
 	    	        this.answers = response
@@ -331,7 +343,8 @@ var pressTimer;
 	    	      }.bind(this));
 	    	        
 	    	      }.bind(this));
-    	  
+	    	  
+	    	 
       },
       
       
@@ -358,6 +371,9 @@ var pressTimer;
         },
         
       updateVotesArray(answer_id, vote) {
+        	
+        //	if(vote == 0 )
+        	
         var i = 0;
         while ( i < this.my_votes.length) {
             if (this.my_votes[i]["answer_id"] == answer_id) {
@@ -377,6 +393,7 @@ var pressTimer;
     }
 
 
+    
     ,
     created: function() {
       var com = this
@@ -384,6 +401,8 @@ var pressTimer;
       //got some new questions inserted
       if (socket) {
         //just specific to this question id
+        
+        
         socket.emit('connect_me', 'Q_' + this.question_id);
         socket.on('new_answers', function(response) {
           com.answers.push(response)
@@ -420,7 +439,7 @@ var pressTimer;
       }
 
       this.fetchRecords();
-      
+      this.getVoteCount();
       
       
        

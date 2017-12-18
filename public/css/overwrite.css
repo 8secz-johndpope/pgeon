@@ -537,29 +537,18 @@ input.pending-radio:checked+label {
 
 
 .vote-up{
-  font-size: 20px;
-  color: rgba(36,189,182, .6);
-  transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -o-transition: all .1s linear;
+
+
 }
 .vote-down{
-  font-size: 20px;
-  color: rgba(189,36,43, .6);
-  transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -o-transition: all .1s linear;
+
+
+
 }
 
 .vote-none{
-  font-size: 20px;
-  color: rgba(224, 225, 227, .6);
-  transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -o-transition: all .1s linear;
+
+
 }
 
 .responded-count{

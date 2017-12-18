@@ -37,6 +37,9 @@ class Question extends Model {
 
     }
 
+    public static function  pageHit ($qid) {
+        Question::where('id', $qid)->increment('hits');
+    }
     
     
     //TODO delete this dated dec-1

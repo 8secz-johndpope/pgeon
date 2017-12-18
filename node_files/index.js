@@ -293,8 +293,10 @@ var notification_watcher = mysqlEventWatcher.add(
 		);
 
 
-
 /*
+
+can't emit to Q_ as we don't have question_field in votes tables..can't sent it to U_ either..as signed out users will not have uid
+
 var votes_watcher = mysqlEventWatcher.add(
   'pgeon.votes',
   function (oldRow, newRow, event) {
@@ -302,8 +304,8 @@ var votes_watcher = mysqlEventWatcher.add(
     if (oldRow === null) {
       // if (oldRow != newRow) {
       //TODO will be converted to SP
-      //notify the user who answered for the vote
-      var sql = "SELECT answer_id FROM votes WHERE id = " + newRow.fields.user_id;
+      //notify the user who are viewing the Q
+      var sql = "SELECT SUM(vote) AS vote_count FROM votes  WHERE answer_id = " + newRow.fields.answer_id;
       con.query(sql, function (err, result) {
         if (err) throw err;
         //  result.forEach(function(rec) {
@@ -337,8 +339,8 @@ var votes_watcher = mysqlEventWatcher.add(
 
 
 
-
  //send notif to users whoever answered
               var sql = "SELECT user_id FROM answers WHERE question_id = " + question_id;
              
+
 */

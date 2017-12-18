@@ -1,4 +1,4 @@
-@extends('layouts.app-profile')
+@extends('layouts.app-profile-no-top-bar')
 @section('content')
 
 
@@ -78,13 +78,13 @@
 
 
 
-      <answers q_answers_count="{{$question->answers->count()}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_name="{{$question->user->name}}" question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
-								question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" votecount="{{$user_answered_votes}}" ></answers>
+      <answers hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_name="{{$question->user->name}}" question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
+								question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" ></answers>
 
 @endsection
 
 <!-- Push a style dynamically from a view -->
-@push('styles')
+@push('after-core-styles')
 <link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
  @endpush
 

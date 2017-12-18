@@ -98,18 +98,7 @@ class Answer extends Model
     }
 
   
-    public static function get_current_user_votes_for_question($question_id) {
-         $sql = "SELECT SUM(vote) AS vote_count FROM votes 
-                    INNER JOIN answers ON answers.id = votes.answer_id
-                    WHERE answers.user_id = ". Auth::user()->id. " 
-                    AND question_id= ".$question_id;
-                      
-      $rec = DB::select( DB::raw($sql) );
-  
-        //print_r($rec[0]->vote_count);
-      
-        return $rec[0]->vote_count;
-    }
+ 
     
 
     

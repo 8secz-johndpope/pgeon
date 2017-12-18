@@ -20,8 +20,11 @@
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
     <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
+    <!--  used prasanth@object90.com login on sharethis -->
+	<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a2bca658c8f3c0013a020a0&product=sop' async='async'></script>
+   
 </head>
-<body class="">
+<body class="with-top-navbar">
 <div id="app">
 
 
