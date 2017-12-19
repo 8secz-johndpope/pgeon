@@ -48,7 +48,7 @@
                                         <button v-on:click="unfollow(item.user_id)"  class="btn btn-lg btn-link pull-right">
                                              <span class="fal fa-check text-muted"></span>
                                         </button>
-                                        <strong>{{ item.user }}</strong>
+                                        <strong>{{ item.url }}</strong>
                                         <small>{{ item.bio }}...</small>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-lg btn-link pull-right">
                                             <span class="fal fa-plus"></span>
                                         </button>
-                                          <strong>{{ item.user }}</strong>
+                                          <strong>{{ item.url }}</strong>
                                  <small>{{ item.bio }}.</small>
                                     </div>
                                 </div>

@@ -390,7 +390,7 @@ class QuestionController extends Controller
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;
-            $questions [$key]['answered_by'] = $answer->user->name;
+            $questions [$key]['answered_by'] = Helper::slug($answer->user->id,$answer->user->slug) ;;
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
             $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
@@ -416,7 +416,7 @@ class QuestionController extends Controller
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;
-            $questions [$key]['answered_by'] = $answer->user->name;
+            $questions [$key]['answered_by'] = Helper::slug($answer->user->id,$answer->user->slug) ;
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
             $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);

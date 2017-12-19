@@ -5,7 +5,7 @@
             <nav class="container nav-container header-nav">
                 <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                  <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
-                <h4>{{$user->name}}</h4>
+                <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
                 @if ($is_following == false)
                 <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow follow btn-lg btn-link pull-right p-a-0">
                   <span class="fal fa-plus"></span>
@@ -34,7 +34,7 @@
                     <a href="#" class="top-content-item" data-answered-by="{{$follower->uid}}" data-question-by="{{$user->id}}">
                         <div class="text-left">
                             <img class="img-circle top-content-item-img" src="{{ Helper::avatar($follower->avatar) }}">
-                            <h5 class="panel-title">{{$follower->name}}</h5>
+                            <h5 class="panel-title">{{Helper::slug($follower->uid ,$follower->slug)}} </h5>
                             <span class="responses-count number-align">{{$follower->no_of_replies}} &nbsp;<i class="fal fa-angle-right" style="margin-bottom: 1px;"></i></span>
                         </div>
                     </a>
