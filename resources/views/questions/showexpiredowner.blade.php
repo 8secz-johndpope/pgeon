@@ -23,7 +23,7 @@
                             <span>{{Helper::slug($question->user->id ,$question->user->slug)}}</span>
                                @if(isset($answer))
                             <span class="fa fa-long-arrow-left text-muted"></span>
-                            <span>{{$answer->user->name}}</span>
+                            <span>{{Helper::slug($answer->user->id ,$answer->user->slug)}}</span>
                             @endif
                             <span class="text-muted time-align">{{($question->accepted_answer>0)?"Published":"Ended"}} :  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
                         </div>
