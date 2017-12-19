@@ -50,7 +50,7 @@
                                 <div class="media-body closest-overlay">
                                     <div id="overlay"></div>
                                     <div class="media-body-text media-question">{{$val['question']->question}}
-</div>
+</div>	
                                     <!-- <div id="overlay"></div> -->
                                     
                                     <div class="media-body-text media-response" style="margin-top: 0;">

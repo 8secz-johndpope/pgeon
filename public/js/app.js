@@ -19926,6 +19926,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -51733,20 +51736,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#1a",
       "data-toggle": "tab"
     }
-  }, [_vm._v("Following "), _c('span', {
-    staticStyle: {
-      "font-weight": "900"
-    }
-  }, [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("Following "), _c('span', [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": "#2a",
       "data-toggle": "tab"
     }
-  }, [_vm._v("\n    Followers"), _c('span', {
-    staticStyle: {
-      "font-weight": "900"
-    }
-  }, [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n    Followers"), _c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
     staticClass: "tab-content clearfix"
   }, [_c('div', {
     staticClass: "tab-pane active",
@@ -51846,7 +51841,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/search"
     }
   }, [_c('span', {
-    staticClass: "icon icon-magnifying-glass",
+    staticClass: "fal fa-search",
     staticStyle: {
       "font-size": "24px",
       "position": "relative",

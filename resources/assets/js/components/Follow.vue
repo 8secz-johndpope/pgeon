@@ -7,14 +7,17 @@
 
    <ul class="nav nav-bordered">
                     <li class="active">
-                        <a  href="#1a" data-toggle="tab">Following <span style="font-weight: 900">{{iam_following_count}}</span></a>
+                        <a  href="#1a" data-toggle="tab">Following <span>{{iam_following_count}}</span></a>
                     </li>
                     <li>
                         <a href="#2a"  data-toggle="tab">
-    Followers<span style="font-weight: 900"> {{my_followers_count}}</span></a>
+    Followers<span> {{my_followers_count}}</span></a>
                     </li>
                     <li style="float: right">
-                        <a href="/search"><span class="icon icon-magnifying-glass" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
+                        <a href="/search">
+                        
+ 
+                        <span class="fal fa-search" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
                     </li>
                 </ul>
 
