@@ -14,7 +14,7 @@
                                           <form class="input-group" role="search" action="{{ route('search') }}">
                                               <input type="text" name="q" class="form-control" placeholder="search by name..">
                                               <div class="input-group-btn">
-                                                  <button type="button" class="btn btn-primary" style="height: 36px;">
+                                                  <button type="submit" class="btn btn-primary" style="height: 36px;">
                                                       <span class="fa fa-search"></span>
                                                   </button>
                                               </div>
