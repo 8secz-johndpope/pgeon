@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-no-top-bar')
 @section('content')
 <div class="add-new">
 <div class="notification_settings text-center">
