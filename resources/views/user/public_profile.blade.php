@@ -1,4 +1,4 @@
-@extends('layouts.app-profile-no-top-bar')
+@extends('layouts.app-profile')
 @section('content')
 
   <div class="nav-contain">
