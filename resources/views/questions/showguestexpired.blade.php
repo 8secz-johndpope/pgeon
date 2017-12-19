@@ -33,7 +33,7 @@
                 <ul class="media-list media-list-conversation c-w-md">
                     <div class="media-body">
                         <div class="h5 m-b-5">
-                            <span class="tmw"><a href="#">{{$question->user->name}}</a></span>
+                            <span class="tmw"><a href="#">{{Helper::slug($question->user->id ,$question->user->slug)}}</a></span>
                              @if(isset($answer))
                             <span class="fa fa-long-arrow-left text-muted"></span>
                             <span class="tmw"><a href="#">{{$answer->user->name}}</a></span>

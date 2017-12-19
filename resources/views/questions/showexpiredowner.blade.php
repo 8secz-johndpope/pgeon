@@ -20,7 +20,7 @@
                 <ul class="media-list media-list-conversation c-w-md">
                     <div class="media-body">
                         <div class="h5 m-b-5">
-                            <span>{{$question->user->name}}</span>
+                            <span>{{Helper::slug($question->user->id ,$question->user->slug)}}</span>
                                @if(isset($answer))
                             <span class="fa fa-long-arrow-left text-muted"></span>
                             <span>{{$answer->user->name}}</span>

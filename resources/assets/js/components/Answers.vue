@@ -4,7 +4,7 @@
              <ul class="media-list  m-b-0">
                  <li class="media media-divider">
                      <div class="h5 m-b-5">
-                         <span>{{question_user_name}}</span>
+                         <span>{{question_user_slug}}</span>
                          <span class="text-muted time-align">
                          <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>
                          </span>
@@ -179,7 +179,7 @@ var pressTimer;
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
-    props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id',   'question_user_name', 'question'],
+    props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id',   'question_user_slug', 'question'],
     mounted() {
 
 

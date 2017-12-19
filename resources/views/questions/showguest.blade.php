@@ -36,7 +36,7 @@
                 <ul class="media-list">
                     <li class="media media-divider">
                               <div class="h5 m-b-5">
-                            <span class="tmw"><a href="#">{{$question->user->name}}</a></span>
+                            <span class="tmw"><a href="#">{{Helper::slug($question->user->id ,$question->user->slug)}}</a></span>
                             <span class="text-muted time-align">
                             <allqtimer :initial="{{$lq_expiring_in}}"
 								:question_id="{{$question->id}}" @event="reload"></allqtimer></span>

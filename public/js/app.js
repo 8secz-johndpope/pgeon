@@ -19194,7 +19194,7 @@ var pressTimer;
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
-  props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_name', 'question'],
+  props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_slug', 'question'],
   mounted: function mounted() {},
 
   watch: {
@@ -50891,7 +50891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "media media-divider"
   }, [_c('div', {
     staticClass: "h5 m-b-5"
-  }, [_c('span', [_vm._v(_vm._s(_vm.question_user_name))]), _vm._v(" "), _c('span', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
     staticClass: "text-muted time-align"
   }, [_c('allqtimer', {
     attrs: {
