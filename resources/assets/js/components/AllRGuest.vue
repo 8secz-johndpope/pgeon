@@ -90,7 +90,7 @@
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span>{{question.name}}</span>
+                                    <span>{{question.slug}}</span>
                                     <span class="fa fa-long-arrow-left text-muted"></span>
                                     <span>{{question.answered_by}}</span>
                                     <span class="text-muted time-align">{{question.ago}}</span>

@@ -51178,7 +51178,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
       staticClass: "fa fa-long-arrow-left text-muted"
     }), _vm._v(" "), _c('span', [_vm._v(_vm._s(question.answered_by))]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
@@ -51475,7 +51475,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_c('allqtimer', {
       attrs: {
@@ -52355,7 +52355,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.name))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_c('allqtimer', {
       attrs: {

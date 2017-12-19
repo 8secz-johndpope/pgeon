@@ -42,34 +42,6 @@ class Question extends Model {
     }
     
     
-    //TODO delete this dated dec-1
-    public static function get_live_questions() {
-
-
-    //  $user_id = Auth::user()->id;
-      $now = time();
-
-
-        //TODO will be converted to stored proc in future
-      //follower's live Qs
-      /*$questions = DB::select( DB::raw("
-                            SELECT q.id, q.question, u.avatar, q.expiring_at, u.name FROM questions q INNER JOIN user_followings uf
-                              ON q.user_id = uf.user_id
-                              INNER JOIN users u ON u.id = uf.user_id
-                              WHERE uf.followed_by = $user_id and q.expiring_at > '$now'") );
-         and q.expiring_at > '$now'
-         */
-      
-      // all live Qs
-      $sql = "SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.name FROM questions q  
-                              INNER JOIN users u ON u.id = q.user_id 
-                              and q.expiring_at > '$now'";
-      $questions = DB::select( DB::raw($sql) );
-        // and q.expiring_at > '$now'
-
-    return $questions;
-    }
-
 
     
     public static function get_live_questions_from_followers($p, $c) {
@@ -82,7 +54,7 @@ class Question extends Model {
         //TODO will be converted to stored proc in future
         //follower's live Qs
         $questions = DB::select( DB::raw("
-         SELECT q.id, q.question, u.avatar, q.expiring_at, u.name, q.user_id FROM questions q INNER JOIN user_followings uf
+         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q INNER JOIN user_followings uf
          ON q.user_id = uf.user_id
          INNER JOIN users u ON u.id = uf.user_id
          WHERE uf.followed_by = $user_id and q.expiring_at > '$now' LIMIT $p OFFSET $offset") );
@@ -104,7 +76,7 @@ class Question extends Model {
         //TODO will be converted to stored proc in future
         //follower's live Qs
         $questions = DB::select( DB::raw("
-        SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.name FROM questions q  
+        SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q  
                               INNER JOIN users u ON u.id = q.user_id 
                               WHERE q.featured=1 and q.expiring_at > '$now' LIMIT $p OFFSET $offset"));
         

@@ -37,7 +37,7 @@ trait QuestionTrait
             $questions [$key]['id'] = $question->id;
             $questions [$key]['question'] = ($question->question);
             $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
-            $questions [$key]['name'] = $question->name;
+            $questions [$key]['slug'] = Helper::slug($question->user_id ,$question->slug);
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
             
@@ -57,7 +57,7 @@ trait QuestionTrait
             $questions [$key]['id'] = $question->id;
             $questions [$key]['question'] = ($question->question);
             $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
-            $questions [$key]['name'] = $question->name;
+            $questions [$key]['slug'] = Helper::slug($question->user_id ,$question->slug);
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
             

@@ -92,7 +92,7 @@
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span>{{question.name}}</span>
+                                    <span>{{question.slug}}</span>
                                     <span class="text-muted time-align"><allqtimer :initial="question.expiring_at"
 								:question_id="question.id" @event="deleteQ"></allqtimer></span>
                                 </div>
