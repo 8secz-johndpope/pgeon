@@ -565,31 +565,32 @@ input.pending-radio:checked+label {
 
 
 /*** EDITED by Prasanth ***/
-svg .arrow-circle-up  {
-  fill: #3fc3ad;
+#vote svg {
+	/** taken from auto generated css of fa **/
+	vertical-align:-12.5%;
+}
 
+svg .arrow-circle-up ,svg .arrow-circle-down, svg .circle{
+
+  		
 	shape-rendering: geometricprecision;
   transition: all .1s linear;
   -webkit-transition: all .1s linear;
   -moz-transition: all .1s linear;
   -o-transition: all .1s linear;
+	}
+	
+svg .arrow-circle-up  {
+  fill: #3fc3ad;
+	
 }
 svg .arrow-circle-down{
-	shape-rendering: geometricprecision;
   fill: #da7a82;
-    transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -o-transition: all .1s linear;
-}
+  }
 
 svg .circle{
-	shape-rendering: auto;
   fill: #e0e1e3;
-    transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -o-transition: all .1s linear;
+  
 }
 
 /*hover icon effect*/

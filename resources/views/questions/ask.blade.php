@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <div class="media-body">
                         <div class="media-header">
-                            <small class="text-muted"><a href="#" id="user-profile-text-link">display-name</a></small>
+                            <small class="text-muted"><a href="#" id="user-profile-text-link">{{$display_name}}</a></small>
                             <span class="dropdown pull-right small"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 
 

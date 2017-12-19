@@ -78,7 +78,7 @@ class HomeController extends Controller {
         		 $sql = "SELECT users.*,  user_followings.id as af  FROM users
         		 				 LEFT JOIN user_followings ON users.id = 	user_followings.user_id
         		 				 AND user_followings.followed_by = $current_user
-                              WHERE (name LIKE '%$q%' OR slug LIKE '%$q%') ";
+                              WHERE (slug LIKE '%$q%') ";
                               
     			 $results = DB::select( DB::raw($sql) );
         		//$results = User::where( [['name', 'LIKE',  "%$q%"]])->orWhere([['slug', 'LIKE',  "%$q%"]]);->get();

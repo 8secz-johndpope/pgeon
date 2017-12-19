@@ -51032,7 +51032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }) : _vm._e(), _vm._v(" "), ((_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)) ? _c('use', {
       staticClass: "circle",
       attrs: {
-        "xlink:href": "/img/sprites/solid.svg#circle"
+        "xlink:href": "/img/sprites/light.svg#circle"
       }
     }) : _vm._e()])])]), _vm._v(" "), _c('p', {
       staticClass: "flexone"

@@ -188,13 +188,13 @@ class UserController extends Controller
 
 
         $validator = Validator::make(Request::all(), [
-             'slug' => 'max:10|alpha_num',
+             'slug' => 'max:25|alpha_num',
 
          ]);
 
 
          if ($validator->fails()) {
-             flash('Invalid display name. Should not contain special chars and should not exceed 10 letters.');
+             flash('Invalid display name. Should not contain special chars and should not exceed 25 letters.');
              return view($view)->with('user',$user);
          }
 

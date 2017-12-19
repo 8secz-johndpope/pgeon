@@ -304,7 +304,7 @@ class QuestionController extends Controller
         }
         
         return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
-            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published]);
+            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published, 'display_name' => $user->slug]);
          
         
     }

@@ -46,7 +46,7 @@
                                             <span class="fal fa-plus"></span>
                                         </button>
                                         @endif
-                                        <strong>{{ $value['obj']->name }}</strong>
+                                        <strong>{{  $value['obj']->url }}</strong>
                                         <small>{{ $value['obj']->bio }}</small>
                                     </div>
                                 </div>

@@ -102,7 +102,7 @@
                                   <svg width="20" height="20">
    <use  class="arrow-circle-up" v-if="checkVoted(answer.id) == 1" xlink:href='/img/sprites/solid.svg#arrow-circle-up'></use>
       <use class="arrow-circle-down" v-if="checkVoted(answer.id) == -1" xlink:href='/img/sprites/solid.svg#arrow-circle-down'></use>
-         <use class="circle" v-if="(checkVoted(answer.id) === false || checkVoted(answer.id) === 0)" xlink:href='/img/sprites/solid.svg#circle'></use>
+         <use class="circle" v-if="(checkVoted(answer.id) === false || checkVoted(answer.id) === 0)" xlink:href='/img/sprites/light.svg#circle'></use>
  </svg>
                                     </button>
                                     

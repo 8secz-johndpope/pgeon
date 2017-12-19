@@ -55,7 +55,6 @@ class RegisterController extends Controller
             'slug.max'=>'The field cannot exceed :max chars',
         );*/
         return Validator::make($data, [
-            'slug' => 'required|alpha_num|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
