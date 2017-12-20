@@ -50999,7 +50999,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "container"
-  }, _vm._l((_vm.answers), function(answer) {
+  }, [_vm._v("\n            " + _vm._s(_vm.pushed_id) + "\n            "), _vm._l((_vm.answers), function(answer) {
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
@@ -51054,7 +51054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }) : _vm._e()])])]), _vm._v(" "), _c('p', {
       staticClass: "flexone"
     }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                ")])])])])]) : _vm._e()])
-  }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
+  })], 2)]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
   }, [_c('div', {
     staticClass: "navbar-fixed-bottom footer-toggle"
