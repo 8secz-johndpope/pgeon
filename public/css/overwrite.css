@@ -594,8 +594,8 @@ svg .circle{
 }
 
 .animated {
-    -webkit-animation-duration: -3s !important;
-    animation-duration: -3s !important;
+
+    -webkit-transform: translateZ(0);
 }
 
 /*hover icon effect*/
