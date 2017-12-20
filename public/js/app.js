@@ -19176,6 +19176,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -19189,8 +19196,9 @@ var pressTimer;
       placeholder: "Enter your response here",
       my_votes: [],
       voted_now: 0,
-      vote_count: 0
-
+      vote_count: 0,
+      //animateion will work only for the new items coming in not while refreshing the page...
+      pushed_id: 0
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -19388,6 +19396,7 @@ var pressTimer;
 
       socket.emit('connect_me', 'Q_' + this.question_id);
       socket.on('new_answers', function (response) {
+        com.pushed_id = response.id;
         com.answers.push(response);
         com.scrollToEnd();
       });
@@ -50948,7 +50957,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
-      staticClass: "media-list media-list-conversation c-w-md jsvote"
+      staticClass: "media-list media-list-conversation c-w-md jsvote animated",
+      class: {
+        'fadeIn': answer.id == _vm.pushed_id
+      }
     }, [_c('div', {
       staticClass: "media media-divider"
     }, [_c('div', {
@@ -50988,8 +51000,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "container"
   }, _vm._l((_vm.answers), function(answer) {
-    return _c('div', [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
-      staticClass: "media-list media-list-conversation c-w-md jsvote",
+    return _c('div', {
+      key: answer
+    }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
+      staticClass: "media-list media-list-conversation c-w-md jsvote animated",
+      class: {
+        'fadeIn': answer.id == _vm.pushed_id
+      },
       on: {
         "mousedown": function($event) {
           _vm.mdown(answer.id, $event)

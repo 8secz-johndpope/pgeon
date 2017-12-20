@@ -12,6 +12,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+	
+	
     <title>{{ Voyager::setting('title') }}</title>
     @stack('styles')
     <!-- Styles -->

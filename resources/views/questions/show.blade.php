@@ -78,6 +78,7 @@
 
 
 
+
       <answers hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								question_id="{{$question->id}}" current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" ></answers>
 
@@ -86,6 +87,8 @@
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
 <link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
  @endpush
 
 <!-- Push a script dynamically from a view -->

@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Helper
 {
-  public static function avatar(string $avatar)
+  public static function avatar($avatar)
     {
         return ($avatar) ? '/uploads/avatars/'.($avatar):  '/img/profile-placeholder.svg';
     }

@@ -165,7 +165,7 @@ class QuestionController extends Controller
     $details = array();
     $details ['id'] = $question->id; 
     $details ['question'] = ($question->question); 
-    $details ['name'] = $question->user->name;
+    $details ['name'] = Helper::slug($question->user->id,$question->user->slug) ;
     $details ['avatar'] =  Helper::avatar($question->avatar);
     $details ['expiring_at'] = Question::question_validity_status($question->expiring_at);
     return response()->json($details);
@@ -390,7 +390,7 @@ class QuestionController extends Controller
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;
-            $questions [$key]['answered_by'] = Helper::slug($answer->user->id,$answer->user->slug) ;;
+            $questions [$key]['answered_by'] = Helper::slug($answer->user->id,$answer->user->slug) ;
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
             $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);

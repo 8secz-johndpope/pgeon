@@ -38,10 +38,12 @@
              </ul>
          </div>
          
+         
+         
           <div class="container">
               <div  v-for="answer in answers">
              
-                                          <div class="media-list media-list-conversation c-w-md jsvote"  v-if="ownerOfAnswer(answer.user_id)">
+                                          <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                     
@@ -71,20 +73,21 @@
       		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="answers.length<1">
             <div class="container text-center m-t-10p">
                 <img src="/img/tumbleweed.svg" />
-                <h4 class="text-muted m-t-0">
+                          
+                <h4 class="text-muted m-t-0" >
    No responses yet.. </h4>
+  
             </div>
         </div>
       
            <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
             <div class="container">
             
-            
-            <div  v-for="answer in answers">
+            <div  v-for="answer in answers"  v-bind:key="answer">
          
             
                                            
-                            <div class="media-list media-list-conversation c-w-md jsvote" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"   v-if="!ownerOfAnswer(answer.user_id)">
+                            <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"   v-if="!ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                             
@@ -108,6 +111,9 @@
                                     
                                     
                             </a>
+                            
+   
+
                             <p class="flexone">
                             {{answer.answer}}
                 </p>
@@ -119,7 +125,8 @@
             </div>
             
            </div>
-             
+           
+           
                          </div>
         </div>
         
@@ -174,8 +181,9 @@ var pressTimer;
         placeholder: "Enter your response here",
         my_votes: [],
         voted_now : 0,
-        vote_count: 0
-
+        vote_count: 0,
+        //animateion will work only for the new items coming in not while refreshing the page...
+		pushed_id:0
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -405,6 +413,7 @@ var pressTimer;
         
         socket.emit('connect_me', 'Q_' + this.question_id);
         socket.on('new_answers', function(response) {
+        	  com.pushed_id = response.id;	
           com.answers.push(response)
           com.scrollToEnd();
         });
