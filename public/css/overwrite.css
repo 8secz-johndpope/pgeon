@@ -593,6 +593,11 @@ svg .circle{
   
 }
 
+.animated {
+    -webkit-animation-duration: -3s;
+    animation-duration: -3s;
+}
+
 /*hover icon effect*/
 div a.icon {
   padding: 8px;
