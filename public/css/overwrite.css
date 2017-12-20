@@ -593,10 +593,7 @@ svg .circle{
   
 }
 
-.animated {
--webkit-transform-style: preserve-3d;
-	
-}
+
 
 /*hover icon effect*/
 div a.icon {
