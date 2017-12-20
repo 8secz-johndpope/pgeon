@@ -85,9 +85,13 @@
 @endsection
 
 <!-- Push a style dynamically from a view -->
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+ @endpush
 @push('after-core-styles')
 <link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
 
  @endpush
 

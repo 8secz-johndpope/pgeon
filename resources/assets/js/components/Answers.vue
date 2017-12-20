@@ -82,7 +82,7 @@
       
            <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
             <div class="container">
-            {{pushed_id}}
+            
             <div  v-for="answer in answers"  v-bind:key="answer">
          
             
