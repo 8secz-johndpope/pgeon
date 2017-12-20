@@ -20,7 +20,7 @@ class Helper
         $mins = floor(($seconds - ($hours*3600)) / 60);
         $secs = floor($seconds % 60);
         if($seconds < 60) $time = $secs." seconds ago";
-        else if($seconds < 3600 ) $time =($mins==1)?$mins."now":$mins." mins ago";
+        else if($seconds < 3600 ) $time =($mins==1)?"Just now":$mins." mins ago";
         else if($seconds < 86400) $time = ($hours==1)?$hours." hour ago":$hours." hours ago";
         else if($seconds < 604800) $time = ($day==1)?$day." day ago":$day." days ago";
         else if($seconds < 2629743) $time = ($week==1)?$week." week ago":$week." weeks ago";
