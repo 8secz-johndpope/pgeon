@@ -50959,7 +50959,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md jsvote animated",
       class: {
-        'fadeIn': answer.id == _vm.pushed_id
+        'fadeInUp': answer.id == _vm.pushed_id
       }
     }, [_c('div', {
       staticClass: "media media-divider"
@@ -51005,7 +51005,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
       staticClass: "media-list media-list-conversation c-w-md jsvote animated",
       class: {
-        'fadeIn': answer.id == _vm.pushed_id
+        'fadeInUp': answer.id == _vm.pushed_id
       },
       on: {
         "mousedown": function($event) {

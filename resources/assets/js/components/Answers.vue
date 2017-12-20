@@ -43,7 +43,7 @@
           <div class="container">
               <div  v-for="answer in answers">
              
-                                          <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
+                                          <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeInUp':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                     
@@ -87,7 +87,7 @@
          
             
                                            
-                            <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"   v-if="!ownerOfAnswer(answer.user_id)">
+                            <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeInUp':  answer.id == pushed_id}" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"   v-if="!ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                             
