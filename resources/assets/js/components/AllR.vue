@@ -131,9 +131,9 @@
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span>{{question.slug}}</span>
+                                    <span><a :href="question.slug">{{question.slug}}</a></span>
                                     <span class="fa fa-long-arrow-left text-muted"></span>
-                                    <span>{{question.answered_by}}</span>
+                                    <span><a :href="question.answered_by">{{question.answered_by}}</a></span>
                                     <span class="text-muted time-align">{{question.ago}}</span>
                                 </div>
                                 <ul class="media-list media-list-conversation c-w-md">

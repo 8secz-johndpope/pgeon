@@ -87,12 +87,12 @@
                 
                     <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
                         <li class="media m-b">
-                            <a class="media-left" href="#">
+                            <a class="media-left" :href="question.slug">
                                 <img class="media-object img-circle" :src="question.avatar"  id="user-profile-image-link">
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span>{{question.slug}}</span>
+                                    <span><a :href="question.slug">{{question.slug}}</a></span>
                                     <span class="text-muted time-align"><allqtimer :initial="question.expiring_at"
 								:question_id="question.id" @event="deleteQ"></allqtimer></span>
                                 </div>

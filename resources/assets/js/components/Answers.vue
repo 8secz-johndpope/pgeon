@@ -143,7 +143,7 @@
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media media-current-user">
                                         <div class="input-group">
-                                            <textarea  v-model="submitted_text"  style="border-right: none;" placeholder="Responding as display-name.." autofocus id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
+                                            <textarea  v-model="submitted_text"  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
                                             <span v-on:click="submit_answer()" class="input-group-addon footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
                                         </div>
                                     </li>
@@ -187,7 +187,7 @@ var pressTimer;
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
-    props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id',   'question_user_slug', 'question'],
+    props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id',   'question_user_slug', 'question', 'current_user_slug'],
     mounted() {
 
 

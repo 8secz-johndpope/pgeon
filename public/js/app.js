@@ -19202,7 +19202,7 @@ var pressTimer;
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
-  props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_slug', 'question'],
+  props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_slug', 'question', 'current_user_slug'],
   mounted: function mounted() {},
 
   watch: {
@@ -51084,7 +51084,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "border-right": "none"
     },
     attrs: {
-      "placeholder": "Responding as display-name..",
+      "placeholder": 'Responding as ' + _vm.current_user_slug + '..',
       "autofocus": "",
       "id": "footer-textarea",
       "overflow": "hidden",
@@ -51195,9 +51195,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": question.slug
+      }
+    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
       staticClass: "fa fa-long-arrow-left text-muted"
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(question.answered_by))]), _vm._v(" "), _c('span', {
+    }), _vm._v(" "), _c('span', [_c('a', {
+      attrs: {
+        "href": question.answered_by
+      }
+    }, [_vm._v(_vm._s(question.answered_by))])]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
@@ -51480,7 +51488,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "media-left",
       attrs: {
-        "href": "#"
+        "href": question.slug
       }
     }, [_c('img', {
       staticClass: "media-object img-circle",
@@ -51492,7 +51500,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": question.slug
+      }
+    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_c('allqtimer', {
       attrs: {
@@ -52091,9 +52103,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": question.slug
+      }
+    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
       staticClass: "fa fa-long-arrow-left text-muted"
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(question.answered_by))]), _vm._v(" "), _c('span', {
+    }), _vm._v(" "), _c('span', [_c('a', {
+      attrs: {
+        "href": question.answered_by
+      }
+    }, [_vm._v(_vm._s(question.answered_by))])]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
@@ -52372,7 +52392,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "h5 m-b-5"
-    }, [_c('span', [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": question.slug
+      }
+    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_c('allqtimer', {
       attrs: {
