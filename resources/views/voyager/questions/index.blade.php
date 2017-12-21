@@ -12,7 +12,7 @@
                               <td>ID</td>
                               <td>Question</td>
                               <td>User id</td>
-                              <td>Status</td>
+                              <td>Status NY - Timezone</td>
                               <td>Featured</td>
                               <td>Actions</td>
                           </tr>
@@ -38,7 +38,15 @@
 
                               <a  href="{{ URL::route('questions.show' , array('id' => $value->id)) }}"> {{ $answer_number }}</a> </td>
                               <td>{{ $value->user->slug }}</td>
-                              <td>{{ $value->status }}  </td>
+                              <td>
+                              <?php date_default_timezone_set('America/New_York');
+                              ?>
+                                @if ($value->expiring_at > time())
+                                 	Exipiring at : {{date('m/d/Y h:m:i a', $value->expiring_at)}} 	
+                                @else
+                                		{{($value->accepted_answer>0)?"Published":"Ended"}}:  {{date('m/d/Y h:m:i a', $value->expiring_at)}} 	
+                                @endif
+                                </td>
                                <td>{{ $value->featured }}  </td>
                               <!-- we will also add show, edit, and delete buttons -->
                               <td>

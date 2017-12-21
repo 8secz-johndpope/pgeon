@@ -18378,10 +18378,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (days > 0) t_str += days + 'd ';
       if (hours > 0) t_str += hours + 'h ';
       if (minutes > 0) t_str += minutes + 'm ';
-      //  	if(seconds > 0)
-      t_str += seconds + 's ';
+      //if(seconds > 0)
+      t_str += seconds + 's';
 
-      return t_str;
+      return t_str + "..";
 
       //  return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
       /*
@@ -18985,9 +18985,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (hours > 0) t_str += hours + 'h ';
       if (minutes > 0) t_str += minutes + 'm ';
       //if(seconds > 0)
-      t_str += seconds + 's ';
+      t_str += seconds + 's';
 
-      return t_str;
+      return t_str + "..";
 
       //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },
@@ -20053,7 +20053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     to_time: function to_time() {
 
-      this.formatted = __WEBPACK_IMPORTED_MODULE_0_moment___default.a.unix(this.ts).format("MM/DD/YYYY HH:mm");
+      this.formatted = __WEBPACK_IMPORTED_MODULE_0_moment___default.a.unix(this.ts).format("MM/DD/YYYY");
       //  return t_str      
     }
   },
@@ -51365,7 +51365,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveChosenAnswer()
       }
     }
-  }, [_vm._v("Save Changes")]), _vm._v(" "), _c('h4', {
+  }, [_vm._v("Save")]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title"
   }, [_vm._v("All Responses")])]), _vm._v(" "), _c('div', {
     staticClass: "modal-header"

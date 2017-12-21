@@ -25,7 +25,7 @@
                             <span class="fa fa-long-arrow-left text-muted"></span>
                             <span>{{Helper::slug($answer->user->id ,$answer->user->slug)}}</span>
                             @endif
-                            <span class="text-muted time-align">{{($question->accepted_answer>0)?"Published":"Ended"}} :  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
+                            <span class="text-muted time-align">{{($question->accepted_answer>0)?"Published":"Ended"}}:  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
                         </div>
                         <ul class="media-list media-list-conversation c-w-md">
                             <li class="media">

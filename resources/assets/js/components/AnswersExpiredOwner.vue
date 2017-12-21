@@ -4,7 +4,7 @@
     
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <button type="button" class="btn btn-sm btn-primary pull-right app-new-msg js-newMsg"  v-on:click="saveChosenAnswer()" >Save Changes</button>
+        <button type="button" class="btn btn-sm btn-primary pull-right app-new-msg js-newMsg"  v-on:click="saveChosenAnswer()" >Save</button>
         <h4 class="modal-title">All Responses</h4>
       </div>
       <div class="modal-header">

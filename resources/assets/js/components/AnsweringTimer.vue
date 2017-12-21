@@ -54,9 +54,9 @@
 	if(minutes > 0)
 		t_str += minutes + 'm '
 	//if(seconds > 0)
-		t_str += seconds + 's ' 
+		t_str += seconds + 's' 
 				
-      return t_str
+      return t_str +".."
       
       //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },

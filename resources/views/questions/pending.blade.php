@@ -35,7 +35,7 @@
                   </div>
                   <div style="padding-top: 10px;">
                    @if ($val['answer'])
-                        <a data-toggle="modal" href="#viewAll" v-on:click="callChildPendingAnswers({{$val['question']->id}}, '{{Helper::slug($val['question']->user->id ,$val['question']->user->slug)}}', '{{addslashes($val['question']->question)}}', '{{date('m/d/Y H:i', $val['question']->expiring_at)}}')" style="vertical-align: sub;">&nbsp;<i class="fal fa-comments"></i>&nbsp;View all</a>
+                        <a data-toggle="modal" href="#viewAll" v-on:click="callChildPendingAnswers({{$val['question']->id}}, '{{Helper::slug($val['question']->user->id ,$val['question']->user->slug)}}', '{{addslashes($val['question']->question)}}', '{{date('m/d/Y', $val['question']->expiring_at)}}')" style="vertical-align: sub;">&nbsp;<i class="fal fa-comments"></i>&nbsp;View all</a>
                                     @endif
                     <div class="pull-right">
                     <button type="button" rel="{{$val['question']->id}}" class="btn btn-danger-outline delete">Delete</button>

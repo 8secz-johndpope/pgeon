@@ -27,7 +27,7 @@ import moment from 'moment';
   methods: {
     to_time() {
    
-    		this.formatted = moment.unix(this.ts).format("MM/DD/YYYY HH:mm");
+    		this.formatted = moment.unix(this.ts).format("MM/DD/YYYY");
     //  return t_str      
     },
 
