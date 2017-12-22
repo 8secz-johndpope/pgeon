@@ -38,7 +38,7 @@
                                     </a>
                                     <div class="media-body">
                                     		 @if ( $value['obj']->af)
-                                         <button class="follow btn-lg btn-link pull-right">
+                                         <button  class="btn-lg btn-link pull-right">
                                              <span class="fal fa-check text-muted"></span>
                                          </button>
                                     		 @else

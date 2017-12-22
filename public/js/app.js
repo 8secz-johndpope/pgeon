@@ -16861,7 +16861,11 @@ var app = new Vue({
     },
     getBubbleCount: function getBubbleCount() {
       this.$http.get('/bubble').then(function (response) {
-        if (parseInt(response.data) > 0) $(".bubble").html(response.data);
+        if (parseInt(response.data) > 0) {
+          //	alert('ss')
+          $(".bubble").html(response.data);
+          $(".fa-bell").addClass('red');
+        }
 
         //alert('ss')
         // success callback
