@@ -20,6 +20,9 @@
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
     <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
+   <link href="{{URL::asset('favicon.ico')}}" rel="icon">
+<link href="{{URL::asset('favicon.ico')}}" rel="apple-touch-icon">
+<link href="{{URL::asset('favicon.ico')}}" rel="apple-touch-icon" sizes="120x120" />
    <!--  used prasanth@object90.com login on sharethis -->
 	<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a2bca658c8f3c0013a020a0&product=sop' async='async'></script>
    

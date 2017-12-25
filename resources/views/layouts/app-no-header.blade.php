@@ -18,6 +18,9 @@
     <link href="{{ asset('css/application.css') }}" rel="stylesheet">
     <link href="{{ asset('css/overwrite.css') }}" rel="stylesheet">
    @stack('after-core-styles')
+   <link href="{{URL::asset('favicon.ico')}}" rel="icon">
+<link href="{{URL::asset('favicon.ico')}}" rel="apple-touch-icon">
+<link href="{{URL::asset('favicon.ico')}}" rel="apple-touch-icon" sizes="120x120" />
 </head>
 <body>
 <div  id="app">

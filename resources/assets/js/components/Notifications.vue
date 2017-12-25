@@ -33,7 +33,7 @@
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">{{notification.message}}
-                                    <small class="pull-right text-muted">{{notification.ago}}..</small> 
+                                    <small class="pull-right text-muted">{{notification.ago}}</small> 
                                 </div>
                             </div>
                         </li>

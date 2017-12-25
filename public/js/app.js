@@ -51764,7 +51764,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-heading"
     }, [_vm._v(_vm._s(notification.message) + "\n                                    "), _c('small', {
       staticClass: "pull-right text-muted"
-    }, [_vm._v(_vm._s(notification.ago) + "..")])])])])
+    }, [_vm._v(_vm._s(notification.ago))])])])])
   })], 2)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
