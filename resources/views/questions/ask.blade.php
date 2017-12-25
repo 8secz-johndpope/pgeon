@@ -9,7 +9,7 @@
     Please include at-least one question mark.
 </div>
 			<div class="question-container">
-				<div class="form-group">
+				<div>
 					{{ Form::open( array('url'=>'question','class' =>'form-horizontal')
 					) }} {{ Form::token() }}
 
@@ -68,8 +68,8 @@
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;"></span>
                                                     <select name="mins" id="minute-select" class="custom-select time-select">
-                                                        <option value="05">05 min</option>
                                                         <option value="00">00 min</option>
+                                                        <option value="05">05 min</option>
                                                         <option value="10">10 min</option>
                                                         <option value="15">15 min</option>
                                                         <option value="20">20 min</option>
@@ -83,8 +83,8 @@
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;"></span>
                                                 </div>
-                                                <label for="slides_2" id="q_next" style="color: #24BDB6; font-size: 28px;margin-right: 5px;margin-top: -2px;">
-                                                    <span class="fa fa-arrow-circle-right"></span>
+                                                <label for="slides_2" id="q_next" style="font-size: 28px;margin-right: 5px;margin-top: -2px;">
+                                                    <a><span class="fal fa-arrow-circle-right"></span></a>
                                                 </label>
                                             </div>
                                     </li>
@@ -93,8 +93,8 @@
                                             <div id="q_preview_text" class="media-body-text" style="padding: 15px; font-size: 16px; height: 130px;">
                                             </div>
                                             <div class="nxtbtn">
-                                                <label for="slides_1" style="color: #BCC0C8; font-size: 28px;margin-right: 10px;margin-top: -3px;">
-                                                    <span class="fa fa-arrow-circle-left"></span>
+                                                <label for="slides_1" style="font-size: 28px; margin-right: 10px; margin-top: -3px;">
+                                                    <a> <span class="fal fa-arrow-circle-left"></span></a>
                                                 </label>
 
 {{
@@ -125,16 +125,15 @@
 
 @else
 <div style="width: auto;">
-            <div class="container m-t-5">
-                <div class="form-group">
+            <div class="container m-t-10">
+                <div>
                     <div class="media-body">
-                        <div class="media-header">
+                        <div class="media-header m-b-5">
                             <small class="text-muted"><a href="#" id="user-profile-text-link">{{$display_name}}</a></small>
-                            <span class="dropdown pull-right small"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="dropdown time-align"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 
-
-                            <answeringtimer initial="{{$lq_expiring_in}}"></answeringtimer>
-                            <span class="caret"></span></a><ul class="dropdown-menu" role="menu">
+                              <span style="margin-right: 3px;" class="fa fa-caret-down"></span>
+                            <answeringtimer initial="{{$lq_expiring_in}}"></answeringtimer></a><ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a id="end_now" rel="{{$lq->id}}" href="#">End now <span class="fa fa-stop dropdown-icon"></span></a>
                                     </li>
@@ -186,8 +185,8 @@
 
 
         <div style="width: auto;">
-            <div class="container" style="padding: 0;">
-                <div class="col-md-6">
+            <div class="container" style="padding: 0px;">
+                <div class="col-sm-6">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
@@ -207,12 +206,12 @@
                         <a href="/pending">
                             <div class="panel-footer flexbox-container">
                                 <span>View all</span>
-                                <span><i class="fa fa-arrow-right fa-lg"></i></span>
+                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
@@ -228,7 +227,7 @@
                         <a href="/published">
                             <div class="panel-footer flexbox-container">
                                 <span>View all</span>
-                                <span><i class="fa fa-arrow-right fa-lg"></i></span>
+                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
                             </div>
                         </a>
                     </div>

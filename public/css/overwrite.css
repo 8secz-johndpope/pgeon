@@ -350,7 +350,6 @@ a.top-content-item:focus {
   width: 32px;
   padding: 0;
   position: relative;
-  width: 34px;
   z-index: 0;
 }
 
@@ -600,7 +599,7 @@ svg .circle{
 
 /*hover icon effect*/
 div a.icon {
-  padding: 8px;
+  padding: 5px;
   line-height: 1;
   opacity: 0.37;
   border-radius: 50%;
