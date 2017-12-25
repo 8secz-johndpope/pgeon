@@ -1,34 +1,49 @@
 <template>
- <ul class="list-group media-list media-list-stream">
+<div>
+<div class="h3 m-b-5">Notifications
+                              <button v-if="notifications.length>0" v-on:click="clear_all"  class="btn-sm btn-link p-x-0 text-uppercase">Clear all</button>
+                          </div>
+                          
+        <div  v-if="still_deciding_count" class="spinner">
+            <div class="b1 se"></div>
+            <div class="b2 se"></div>
+            <div class="b3 se"></div>
+            <div class="b4 se"></div>
+            <div class="b5 se"></div>
+            <div class="b6 se"></div>
+            <div class="b7 se"></div>
+            <div class="b8 se"></div>
+            <div class="b9 se"></div>
+            <div class="b10 se"></div>
+            <div class="b11 se"></div>
+            <div class="b12 se"></div>
+        </div>
+         <div v-else>
+ <ul  class="list-group media-list media-list-stream">
 
     
+    		<li class="alert alert-info new_notif_bar" v-on:click="fetchRecords"  v-if="bubble>0">You have <b>{{bubble}}</b> new notifications</li>
     
-         <li class="list-group-item media p-a"  v-for="question_posted in questions_created">
+    
+    
+ 
+ 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification.link_to)" style="cursor: pointer;" v-for="notification in notifications">
                             <div class="media-left">
-                                <span class="icon text-muted icon-message"></span>
+                                <span class="fa text-muted" :class="notification.class"></span>
                             </div>
                             <div class="media-body">
-                                <div class="media-heading">
-                                    <a>{{question_posted.uname}}</a>
-                                    <small class="pull-right text-muted"> hrs ago..</small> posted a new question
-                                </div>
-                                <div class="media-body">
-                                    <ul class="media-list media-list-conversation c-w-md">
-                                        <li class="media m-b-md">
-                                            <div class="media-body">
-                                                <div class="media-body-text media-question" v-on:click="redirect(question_posted.question_id)"   v-html="question_posted.question"  style="cursor: pointer;">
-</div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div class="media-heading">{{notification.message}}
+                                    <small class="pull-right text-muted">{{notification.ago}}..</small> 
                                 </div>
                             </div>
                         </li>
+                        
+                        
 
   </ul>
+</div>
 
-
-
+</div>
 
 </template>
 
@@ -37,8 +52,9 @@
 
     data: function() {
       return {
-        questions_created: [],
-        x: [{uname: "Jacob Thornton", question: "<p>labr</p>"}]
+        bubble: 0,
+        notifications: [],
+      still_deciding_count: true,
       };
     },
     mounted() {
@@ -48,46 +64,62 @@
 
     methods: {
 
-      redirect: function(id) {
-        location.href = 'question/' + id
+      redirect: function(url) {
+        location.href = url
       },
 
 
+      clear_all() {
+	    	  this.$http.delete('/notification').then((response) => {
+	    		  	this.still_deciding_count = false
+	    		  	this.notifications =  []
+	             // this.fetchRecords()
+	            }, (response) => {
+	              alert('error clearing')
+	            });
+      },
+      
+      fetchRecords() {
+    	  	
+    	  	this.still_deciding_count = true
+    		$.getJSON('/notifications/json', function(response) {
+    			
+    			this.notifications = response
+    			this.still_deciding_count = false
+    			this.bubble = 0 //will be updated on live updates
+   			$(".bubble").html('')
+   			$(".fa-bell").removeClass('red')
+   		    $("title").html('Pgeon')
+    	    }.bind(this));
+    	  
+    	 
+  },
      
 
+   
 
 
     },
     created: function() {
 
-	    	$.getJSON('/notifications/json', function(response) {
-	            this.questions_created = response
-	  		
-	          }.bind(this));
+ 
+    	  
+    	 this.fetchRecords();
+    	 
+    	var com = this	
     	
-    	//       var com = this
-//       //got some new questions inserted
-//       if (socket)
-//         socket.on('new_question', function(response_id) {
+    	 if (socket) {
+    		 socket.on('bubble', function (bubble) {
+    			 	 com.bubble = bubble 
+    		      });  	   	
+        }
+    	 
+	   
+    	
+	    	
 
-//           //once we get the new qid inserted we use ajax to get the details
-//           $.getJSON('/question_details/' + response_id, function(response) {
-//             //this.questions = response
-//             com.questions.push(response)
-//           }.bind(com));
+       
 
-
-//         });
-
-
-//       $.getJSON('/questions/json', function(response) {
-//         console.log('dd')
-//         console.log(response[0]['id'])
-
-//         if (response[0]['id'] !== undefined)
-//           this.questions = response
-
-//       }.bind(this));
      }
 
 

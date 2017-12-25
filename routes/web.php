@@ -74,6 +74,7 @@ Route::get('/', 'HomeController@index');
     Route::get('questions/new', 'QuestionController@newest');
    
     Route::post('end_now/{id}', 'QuestionController@end_now');
+    Route::delete('notification', 'NotificationController@destroy');
     Route::delete('question/{id}', 'QuestionController@destroy');
     Route::delete('delete_questions/{ids}', 'QuestionController@delete_questions');
     

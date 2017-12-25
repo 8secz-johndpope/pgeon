@@ -637,6 +637,9 @@ div a.icon:focus {
     margin-bottom:25px;
 }
 
+.new_notif_bar {
+	cursor:pointer;
+}
 
 /** PRESS taken out from question-selected/new-index.html **/
 .stats {

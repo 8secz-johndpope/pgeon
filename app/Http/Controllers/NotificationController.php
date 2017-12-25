@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Image;
 use Route;
-
+use App\UserFollowing;
+use App\Question;
+use App\User;
+use Helper;
 
 class NotificationController extends Controller
 {
@@ -28,40 +31,141 @@ class NotificationController extends Controller
 //             abort(404, "Page Not Found");
             
             if ($format == "json") {
-                $get_posted_question = Notification::get_posted_questions();
-                return response()->json($get_posted_question);
-               // $answers = Answer::get_sorted($question_id);
-                //  return response()->json(array(array("answer"=> 'sdfssf', "name" => 'namamamsm')));
-               // return response()->json($answers);
+                    
+                $notifications = Notification::where('target_user', Auth::user()->id)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+                
+                $responses = array();                            
+                foreach ($notifications as $notif) {
+                    $meta =  json_decode($notif->meta);
+                    switch ($notif->type) {
+                        
+                        case "question_posted":
+                            $q = Question::find($meta->question_id);
+                            if($q) {
+                                $user = User::find($q->user_id);
+                                if($user) {
+                                    
+                                    $responses[] = array('type' => $notif->type, 
+                                        'message' => Helper::slug($user->id,$user->slug) . ' posted a new question ',
+                                        'link_to' => 'question/'.$q->id,
+                                        'ago' => Helper::calcElapsed($notif->created_at->timestamp),
+                                        'class' => 'fa-comment-alt'
+                                        
+                                    );
+                                }
+                            }
+                             
+                        break;
+                        case "user_followed":
+                            $user = User::find($meta->followed_by);
+                            if($user) {
+                                
+                                $responses[] = array('type' => $notif->type,
+                                    'message' => 'You were followed by '.Helper::slug($user->id,$user->slug),
+                                    'link_to' => Helper::slug($user->id,$user->slug),
+                                    'ago' => Helper::calcElapsed($notif->created_at->timestamp),
+                                    'class' => 'fa-user-plus'
+                                );
+                        }
+                        break;
+                        case "answer_accepted":
+                            $q = Question::find($meta->question_id);
+                            if($q) {
+                                $user = User::find($q->user_id);
+                                if($user) {
+                                    
+                                    $responses[] = array('type' => $notif->type,
+                                        'message' => 'Your reply to '.Helper::slug($user->id,$user->slug).' was selected as the top response!',
+                                        'link_to' => 'question/'.$q->id,
+                                        'ago' => Helper::calcElapsed($notif->created_at->timestamp),
+                                        'class' => 'fa-trophy-alt'
+                                    );
+                                }
+                            }
+                        break;
+                        
+                    }
+                }
+                
+                NotificationController::markAsSeen();
+                
+                return response()->json($responses);
+                
             }
-//             //  $answer_ids = Answer::get_answer_ids($question_id);
              else {
                  
                  
                  
         
                  return view('notifications.index', ['user_id' => Auth::user()->id]);
-//                 if ($question->expiring_at > time()) {
-//                     $question->expiring_at = Question::question_validity_status($question->expiring_at);
-//                     return view('questions.show', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
-//                 }else {
-//                     if (Auth::user()->id == $question->user_id) {
-//                         return view('questions.showexpiredowner', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
-//                     }else {
-//                         return view('questions.showexpired', ['question' => $question, 'user_answered_votes' => $user_answered_votes]);
-//                     }
-                    
-//                 }
+
                 
                 
            }
             
     }
     
+    
+    public static function destroy()
+    {
+        //notify all the followers that the question is posted
+        Notification::where('target_user', Auth::user()->id)
+                    ->delete();
+    }
 
+    public static function markAsSeen()
+    {
+        //notify all the followers that the question is posted
+        Notification::where('target_user', Auth::user()->id)
+                           ->update(['seen' => 1]);
+        
+        
+    }
+    
+    public static function insertQuestionPostedToFollowers($qid)
+    {
+        //notify all the followers that the question is posted
+        $ufs = UserFollowing::get_followers(Auth::user()->id);
+        
+       
+        foreach ($ufs as $uf) {
+            $data[] = array('target_user'=>$uf, 'created_at'=>  time(), 'type' => 'question_posted', 'meta' => json_encode(array('question_id' => $qid)));
+        }
+                
+        Notification::insert($data);
+        
+        
+    }
+    
     
 
+    public static function insertAnswerAccepted($qid, $q_by, $answered_by)
+    {
+        
+        $data = array('target_user'=>$answered_by, 'created_at'=>  time(), 'type' => 'answer_accepted', 'meta' => json_encode(array('question_id' => $qid)));
+        Notification::insert($data);
+        
+        
+    }
+    
    
+    public static function insertUserFollowed($uid, $follower)
+    {
+        
+        /** don't send duplicate notifications if he unfollow/ follow in quick sucession..seen or not  **/
+        
+        $rec = Notification::where('target_user', $uid)
+                           ->where('meta->followed_by',$follower)
+                           ->first();
+        if(!$rec) {
+            $data = array('target_user'=>$uid, 'created_at'=>  time(), 'type' => 'user_followed', 'meta' => json_encode(array('followed_by' => $follower)));
+            Notification::insert($data);
+        }
+        
+        
+    }
 
     
 

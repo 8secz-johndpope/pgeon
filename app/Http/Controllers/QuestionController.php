@@ -114,6 +114,12 @@ class QuestionController extends Controller
         $user = Auth::user();
         if($user->role_id == 3 && !$user->has_active_question()) {
             $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
+            
+            /** insert notifications for all followers **/
+            if($question->id) {
+                NotificationController::insertQuestionPostedToFollowers($question->id);
+            }
+            
          return Redirect::to('my-questions');
        }else {
           Auth::logout();
@@ -185,6 +191,11 @@ class QuestionController extends Controller
         $question->expiring_at = time();
         $question->accepted_answer = Request::get('answer_id');  
         $question->save();
+        /**notify the answerer**/
+        NotificationController::insertAnswerAccepted($question->id, $question->user_id, Request::get('answered_by'));
+        
+        ///**TODO notify users for votes garnered***/
+        //NotificationController::insertVotesGarnered(->id, $question->user_id, Request::get('answered_by'));
         return Redirect::to('my-questions');
     }
     

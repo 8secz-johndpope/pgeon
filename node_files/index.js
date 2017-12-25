@@ -1,3 +1,15 @@
+/*
+FLOW
+=============
+var socket object is created on app.blade
+rooms are created on server when we call socket.emit('connect_me', 'U_{{Auth::user()->id}}'),  socket.emit('connect_me', 'Q_' + this.question_id);
+.emit is for firing events. When fired from clients will be catched on servers and vice-versa
+From clients the possible events are
+  connect_me -- when rooms are created and joined
+  disconnect -- sockets will leave the room array
+  end_now -- will emit a question_ended to client
+  cancel_now - will emit a question_cancelled to client
+ */ 
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -96,10 +108,6 @@ function deleteAndInsertResult(results, question_id)
 
     //delete seen notif which are created a day ago
  
-  
-
-
-
 
       var notification = "{question_id:" + question_id + ",type:\'question_posted\'}"	
       var sql = "INSERT INTO notifications (target_user, created_at) VALUES (" + target_user + ",\"" + notification + "\",\"" + new Date().getTime() / 1000 + "\")"
@@ -133,8 +141,11 @@ var watcher = mysqlEventWatcher.add(
     //row inserted
     if (oldRow === null) {
    
-   // 	return false;
-
+     var question_id = newRow.fields.id
+    	 
+  
+    	
+/*
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
       var question_id = newRow.fields.id
@@ -177,6 +188,8 @@ var watcher = mysqlEventWatcher.add(
 
 
       }, trigger_at);
+      
+      */
 
       rooms.forEach(function (room) {
         //skipe Q detail sockets
@@ -194,6 +207,7 @@ var watcher = mysqlEventWatcher.add(
     //row deleted
     if (newRow === null) {
 
+    	/*
     	//delete all notifs for 'a question posted by a used being followed'
 
       var sql = "DELETE n.* FROM notifications n INNER JOIN notification_question_posted nqp " +
@@ -205,7 +219,7 @@ var watcher = mysqlEventWatcher.add(
 
       })
 
-
+*/
 
 
     }

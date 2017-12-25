@@ -16865,6 +16865,7 @@ var app = new Vue({
           //	alert('ss')
           $(".bubble").html(response.data);
           $(".fa-bell").addClass('red');
+          $("title").html('Pgeon (' + response.data + ') ');
         }
 
         //alert('ss')
@@ -16910,19 +16911,14 @@ jQuery(function ($) {
     // Prevent the form from submitting with the default action
     return false;
   });
-
-  function removeBubbles() {
-    $(".bubble").html('');
-    $("title").append('Pgeon');
-  }
 });
 
 //if there is a live notification
 if (socket) {
   socket.on('bubble', function (bubble) {
     $(".bubble").html(bubble);
-
-    $("title").append(' (' + bubble + ') ');
+    $(".fa-bell").addClass('red');
+    $("title").html('Pgeon (' + bubble + ') ');
   });
 }
 
@@ -17973,9 +17969,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
-  mounted: function mounted() {
-    console.log(this.still_deciding_count);
-  },
+  mounted: function mounted() {},
 
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
@@ -20106,13 +20100,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   data: function data() {
     return {
-      questions_created: [],
-      x: [{ uname: "Jacob Thornton", question: "<p>labr</p>" }]
+      bubble: 0,
+      notifications: [],
+      still_deciding_count: true
     };
   },
   mounted: function mounted() {},
@@ -20120,40 +20130,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
 
-    redirect: function redirect(id) {
-      location.href = 'question/' + id;
-    }
+    redirect: function redirect(url) {
+      location.href = url;
+    },
 
+    clear_all: function clear_all() {
+      var _this = this;
+
+      this.$http.delete('/notification').then(function (response) {
+        _this.still_deciding_count = false;
+        _this.notifications = [];
+        // this.fetchRecords()
+      }, function (response) {
+        alert('error clearing');
+      });
+    },
+    fetchRecords: function fetchRecords() {
+
+      this.still_deciding_count = true;
+      $.getJSON('/notifications/json', function (response) {
+
+        this.notifications = response;
+        this.still_deciding_count = false;
+        this.bubble = 0; //will be updated on live updates
+        $(".bubble").html('');
+        $(".fa-bell").removeClass('red');
+        $("title").html('Pgeon');
+      }.bind(this));
+    }
   },
   created: function created() {
 
-    $.getJSON('/notifications/json', function (response) {
-      this.questions_created = response;
-    }.bind(this));
+    this.fetchRecords();
 
-    //       var com = this
-    //       //got some new questions inserted
-    //       if (socket)
-    //         socket.on('new_question', function(response_id) {
+    var com = this;
 
-    //           //once we get the new qid inserted we use ajax to get the details
-    //           $.getJSON('/question_details/' + response_id, function(response) {
-    //             //this.questions = response
-    //             com.questions.push(response)
-    //           }.bind(com));
-
-
-    //         });
-
-
-    //       $.getJSON('/questions/json', function(response) {
-    //         console.log('dd')
-    //         console.log(response[0]['id'])
-
-    //         if (response[0]['id'] !== undefined)
-    //           this.questions = response
-
-    //       }.bind(this));
+    if (socket) {
+      socket.on('bubble', function (bubble) {
+        com.bubble = bubble;
+      });
+    }
   }
 
 });
@@ -51686,47 +51702,71 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
+  return _c('div', [_c('div', {
+    staticClass: "h3 m-b-5"
+  }, [_vm._v("Notifications\n                              "), (_vm.notifications.length > 0) ? _c('button', {
+    staticClass: "btn-sm btn-link p-x-0 text-uppercase",
+    on: {
+      "click": _vm.clear_all
+    }
+  }, [_vm._v("Clear all")]) : _vm._e()]), _vm._v(" "), (_vm.still_deciding_count) ? _c('div', {
+    staticClass: "spinner"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })]) : _c('div', [_c('ul', {
     staticClass: "list-group media-list media-list-stream"
-  }, _vm._l((_vm.questions_created), function(question_posted) {
+  }, [(_vm.bubble > 0) ? _c('li', {
+    staticClass: "alert alert-info new_notif_bar",
+    on: {
+      "click": _vm.fetchRecords
+    }
+  }, [_vm._v("You have "), _c('b', [_vm._v(_vm._s(_vm.bubble))]), _vm._v(" new notifications")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
     return _c('li', {
-      staticClass: "list-group-item media p-a"
-    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-heading"
-    }, [_c('a', [_vm._v(_vm._s(question_posted.uname))]), _vm._v(" "), _c('small', {
-      staticClass: "pull-right text-muted"
-    }, [_vm._v(" hrs ago..")]), _vm._v(" posted a new question\n                                ")]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media m-b-md"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-question",
+      staticClass: "list-group-item media p-a noselect",
       staticStyle: {
         "cursor": "pointer"
       },
-      domProps: {
-        "innerHTML": _vm._s(question_posted.question)
-      },
       on: {
         "click": function($event) {
-          _vm.redirect(question_posted.question_id)
+          _vm.redirect(notification.link_to)
         }
       }
-    })])])])])])])
-  }))
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "media-left"
-  }, [_c('span', {
-    staticClass: "icon text-muted icon-message"
-  })])
-}]}
+    }, [_c('div', {
+      staticClass: "media-left"
+    }, [_c('span', {
+      staticClass: "fa text-muted",
+      class: notification.class
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('div', {
+      staticClass: "media-heading"
+    }, [_vm._v(_vm._s(notification.message) + "\n                                    "), _c('small', {
+      staticClass: "pull-right text-muted"
+    }, [_vm._v(_vm._s(notification.ago) + "..")])])])])
+  })], 2)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

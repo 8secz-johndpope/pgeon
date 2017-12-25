@@ -57,6 +57,7 @@ const app = new Vue({
 			//	alert('ss')
 				$(".bubble").html(response.data)
 				$(".fa-bell").addClass('red')
+				$("title").html('Pgeon ('+response.data+') ')
 			}
 	 
 	        //alert('ss')
@@ -109,10 +110,7 @@ jQuery(function ($) {
     return false;
   });
 
-  function removeBubbles() {
-		 $(".bubble").html('')
-	     $("title").append('Pgeon')
-	}
+
 });
 
 
@@ -121,8 +119,8 @@ jQuery(function ($) {
 if(socket) {
  socket.on('bubble', function (bubble) {
         $(".bubble").html(bubble)
-        
-         $("title").append(' ('+bubble+') ')
+        $(".fa-bell").addClass('red')
+         $("title").html('Pgeon ('+bubble+') ')
       }); 
 }
  

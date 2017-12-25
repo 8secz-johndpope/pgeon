@@ -44,6 +44,7 @@
                                                 <form  method="post" id="publish_form" action="/accept_answer"> 
                                                 {{ Form::token() }}
                                  <input type="hidden" value="{{$val['answer']->id}}" name="answer_id" >
+                                  <input type="hidden" value="{{$val['answer']->user_id}}" name="answered_by" >
                                 <input type="hidden" name="question_id" value="{{$val['question']->id}}" >
                                 <button type="submit"  class="btn btn-primary">Publish</button>
                                </form>

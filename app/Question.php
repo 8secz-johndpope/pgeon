@@ -24,10 +24,7 @@ class Question extends Model {
         return $this->hasMany('App\Answer');
     }
 
-    public function notification_question_posted() {
-        return $this->hasMany('App\NotificationQuestionPosted');
-    }
-  
+    
     public function votes() {
         return $this->hasManyThrough('App\Vote','App\Answer');
     }
@@ -135,11 +132,11 @@ class Question extends Model {
        
          $question->save();
          
-        foreach($question->user->user_followings as $key => $val) {
+     /*   foreach($question->user->user_followings as $key => $val) {
             
             NotificationQuestionPosted::insert($val['followed_by'], $question->id);
         }
-              
+       */       
         return $question;
         
       

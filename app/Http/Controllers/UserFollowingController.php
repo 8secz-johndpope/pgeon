@@ -22,8 +22,10 @@ class UserFollowingController extends Controller
     public function insert()
     {
         $question = UserFollowing::insert(['user_id' =>  Request::get('user_id'), 'followed_by' => Auth::user()->id]);
+        
+        /** notify the star who is being followed **/
+        NotificationController::insertUserFollowed(Request::get('user_id'), Auth::user()->id);
         return response()->json(['status' => 'done']);
-      //  return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 
 
@@ -42,6 +44,11 @@ class UserFollowingController extends Controller
     );
 		$uf->delete();
 
+		/** TODO notify the unlucky guy who is being unfollowed 
+		 * Logic : if there is a notification unseen from the follower who just unfollowed before the receiver read the notification, remove the notification..
+		 * delete WHERE meta->followed_by Auth::user()->id AND target_user Request::get('user_id')
+		 * **/
+		//NotificationController::insertAnswerAccepted(Request::get('user_id'), Auth::user()->id);
 		return response()->json(['status' => 'done']);
 	}
 }
