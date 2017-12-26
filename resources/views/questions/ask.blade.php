@@ -24,7 +24,7 @@
                                         <div class="va_slider_detail">
                                             <div>
                                                 <div class="va_slider_heading">
-                                                    <textarea id="question-input" class="form-control question-input" rows="3"  placeholder="{{  Helper::since($lq->created_at->timestamp) }}" style="border-radius: 0 10px 0 0;text-align: left; font-family: inherit; padding: 15px; font-size: 16px; height: 130px;" name="question"></textarea>
+                                                    <textarea id="question-input" class="form-control question-input" rows="3"  placeholder="{{  Helper::since($lq_created_at) }}" style="border-radius: 0 10px 0 0;text-align: left; font-family: inherit; padding: 15px; font-size: 16px; height: 130px;" name="question"></textarea>
                                                 </div>
                                             </div>
                                             <div class="nxtbtn">

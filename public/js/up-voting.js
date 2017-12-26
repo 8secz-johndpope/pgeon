@@ -2,12 +2,7 @@ var score = 0;
 
 
 
-
-
-
 autosize($("#footer-textarea"));
-
-
 
 
 function displayLoader(){
@@ -18,7 +13,4 @@ function displayLoader(){
 
 	 
 	}
-
-
-
 

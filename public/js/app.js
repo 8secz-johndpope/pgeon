@@ -16821,6 +16821,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(163);
 
 window.Vue = __webpack_require__(197);
+var longpress = __webpack_require__(210);
+Vue.use(longpress, { duration: 1000 });
+
 Vue.use(__webpack_require__(196));
 
 
@@ -19181,6 +19184,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 var longpress;
 var pressTimer;
@@ -19217,6 +19222,9 @@ var pressTimer;
     }
   },
   methods: {
+    clickky: function clickky() {
+      alert('ss');
+    },
     reload: function reload() {
       location.reload();
     },
@@ -50913,6 +50921,13 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
+    directives: [{
+      name: "long-press",
+      rawName: "v-long-press",
+      value: (_vm.clickky),
+      expression: "clickky"
+    }]
+  }, [_vm._v("click me")]), _vm._v(" "), _c('div', {
     staticClass: "container"
   }, [_c('ul', {
     staticClass: "media-list  m-b-0"
@@ -63856,6 +63871,53 @@ module.exports = Vue$3;
 
 __webpack_require__(130);
 module.exports = __webpack_require__(131);
+
+
+/***/ }),
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */
+/***/ (function(module, exports) {
+
+exports.install = function (Vue, options) {
+  if (!options) options = {}
+  if (!options.duration) options.duration = 2000
+
+  Vue.directive('long-press', {
+    bind: function (el, binding) {
+      var self = this
+
+      this._timeout = null
+      this._onmouseup = function () {
+        clearTimeout(self._timeout)
+      }
+
+      this._onmousedown = function (e) {
+        var context = this
+
+        self._timeout = setTimeout(function () {
+          binding.value.call(context, e)
+        }, options.duration)
+      }
+
+      el.addEventListener('mousedown', this._onmousedown)
+      document.addEventListener('mouseup', this._onmouseup)
+    },
+    unbind: function (el) {
+      clearTimeout(this._timeout)
+      el.addEventListener('mousedown', this._onmousedown)
+      document.removeEventListener('mouseup', this._onmouseup)
+    }
+  })
+}
 
 
 /***/ })

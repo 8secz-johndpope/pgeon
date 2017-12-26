@@ -133,7 +133,8 @@ class NotificationController extends Controller
         foreach ($ufs as $uf) {
             $data[] = array('target_user'=>$uf, 'created_at'=>  time(), 'type' => 'question_posted', 'meta' => json_encode(array('question_id' => $qid)));
         }
-                
+             
+        if($data)
         Notification::insert($data);
         
         

@@ -313,9 +313,9 @@ class QuestionController extends Controller
                 $published [] = $temp;
             }
         }
-        
+        $lq_created_at = ($lq)?$lq->created_at->timestamp:0;
         return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
-            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published, 'display_name' => $user->slug]);
+            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published, 'display_name' => $user->slug, 'lq_created_at' => $lq_created_at]);
          
         
     }

@@ -1,5 +1,7 @@
 <template>
 <div>
+
+<div  v-long-press="clickky">click me</div>
          <div class="container">
              <ul class="media-list  m-b-0">
                  <li class="media media-divider">
@@ -210,7 +212,9 @@ var pressTimer;
     },
     methods: {
      
-    	
+    	clickky() {
+    		alert('ss')	
+    	},
     
     	reload() {
     		location.reload()
