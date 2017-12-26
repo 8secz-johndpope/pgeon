@@ -7,12 +7,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-var longpress = require('vue-long-press-directive');
-Vue.use(longpress, { duration: 1000 })
-
-
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
-
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
 
