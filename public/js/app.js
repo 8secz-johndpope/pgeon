@@ -19220,56 +19220,45 @@ var pressTimer;
     }
   },
   methods: {
-    clickky: function clickky() {
-      alert('ss');
-    },
     reload: function reload() {
       location.reload();
     },
     mup: function mup(answer_id, e) {
-      clearTimeout(pressTimer);
 
-      if (!longpress) {
-        var $icon;
-        var $parent;
+      var $icon;
+      var $parent;
 
-        $parent = $(e.target).parents(".jsvote");
-        $icon = $parent.find("#vote");
+      $parent = $(e.target).parents(".jsvote");
+      $icon = $parent.find("#vote");
 
-        $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
-        $icon.hasClass("vote-down") && $icon.removeClass("vote-down");
+      $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
+      $icon.hasClass("vote-down") && $icon.removeClass("vote-down");
 
-        if ($icon.hasClass("vote-up")) {
-          $icon.removeClass("vote-up") &&
+      if ($icon.hasClass("vote-up")) {
+        $icon.removeClass("vote-up") &&
 
-          // console.log('u to -')
-          this.castVote(answer_id, 0);
-        } else {
-          //   console.log('- to u')
-          this.castVote(answer_id, 1);
-        }
+        // console.log('u to -')
+        this.castVote(answer_id, 0);
+      } else {
+        //   console.log('- to u')
+        this.castVote(answer_id, 1);
       }
     },
     mdown: function mdown(answer_id, e) {
       var el = e.target;
-      longpress = 0;
       var com = this;
 
-      pressTimer = window.setTimeout(function () {
-        longpress = 1;
+      var $icon;
+      var $parent;
 
-        var $icon;
-        var $parent;
+      $parent = $(e.target).parents(".jsvote");
 
-        $parent = $(e.target).parents(".jsvote");
+      $icon = $parent.find("#vote");
 
-        $icon = $parent.find("#vote");
-
-        $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
-        $icon.hasClass("vote-up") && $icon.removeClass("vote-up");
-        //    console.log('- to d')
-        com.castVote(answer_id, -1);
-      }, 500);
+      $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
+      $icon.hasClass("vote-up") && $icon.removeClass("vote-up");
+      //    console.log('- to d')
+      com.castVote(answer_id, -1);
     },
 
     ownerOfAnswer: function ownerOfAnswer(user_id) {
@@ -50918,14 +50907,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('v-touch', {
-    attrs: {
-      "tag": "button"
-    },
-    on: {
-      "press": _vm.clickky
-    }
-  }, [_vm._v("sfsf")]), _vm._v(" "), _c('div', {
+  return _c('div', [_c('div', {
     staticClass: "container"
   }, [_c('ul', {
     staticClass: "media-list  m-b-0"
@@ -51035,17 +51017,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', {
       key: answer
-    }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
-      staticClass: "media-list media-list-conversation c-w-md jsvote animated",
-      class: {
+    }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
+      class: [{
         'fadeIn': answer.id == _vm.pushed_id
+      }, 'media-list media-list-conversation c-w-md jsvote animated'],
+      attrs: {
+        "press-options": {
+          time: '500'
+        }
       },
       on: {
-        "mousedown": function($event) {
-          _vm.mdown(answer.id, $event)
-        },
-        "mouseup": function($event) {
+        "tap": function($event) {
           _vm.mup(answer.id, $event)
+        },
+        "press": function($event) {
+          _vm.mdown(answer.id, $event)
         }
       }
     }, [_c('div', {
@@ -51086,7 +51072,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }) : _vm._e()])])]), _vm._v(" "), _c('p', {
       staticClass: "flexone"
-    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                ")])])])])]) : _vm._e()])
+    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                ")])])])])]) : _vm._e()], 1)
   }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
   }, [_c('div', {
@@ -51141,7 +51127,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "fa fa-paper-plane response-icon"
-  })])])])])])])])])])]) : _vm._e()])], 1)
+  })])])])])])])])])])]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container text-center m-t-10p"

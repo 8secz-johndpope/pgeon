@@ -1,6 +1,6 @@
 <template>
 <div>
-<v-touch tag="button" v-on:press="clickky">sfsf</v-touch>
+
          <div class="container">
              <ul class="media-list  m-b-0">
                  <li class="media media-divider">
@@ -86,9 +86,8 @@
             
             <div  v-for="answer in answers"  v-bind:key="answer">
          
-            
                                            
-                            <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}" @mousedown="mdown(answer.id, $event)" @mouseup="mup(answer.id, $event)"   v-if="!ownerOfAnswer(answer.user_id)">
+                            <v-touch v-on:tap="mup(answer.id, $event)"  v-on:press="mdown(answer.id, $event)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated'] "  v-if="!ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                             
@@ -98,6 +97,7 @@
                                   <div  class="media-body-text live-response flex-center">
                             <a class="media-left">
                                
+                                
                                 
                                 
                                         <button id="vote"  class="btn-borderless" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
@@ -123,7 +123,7 @@
                
                     </div>
                 </div>
-            </div>
+            </v-touch>
             
            </div>
            
@@ -211,9 +211,7 @@ var pressTimer;
     },
     methods: {
      
-    	clickky() {
-    		alert('ss')	
-    	},
+  
     
     	reload() {
     		location.reload()
@@ -221,11 +219,7 @@ var pressTimer;
     	,
     	
       	 mup(answer_id, e) {
-      		  clearTimeout(pressTimer);
       		  
-      		  
-      		  
-      		  if( !longpress ){
       		    var $icon
       		    var $parent 
 
@@ -245,18 +239,14 @@ var pressTimer;
       		    	  this.castVote(answer_id, 1)
       		   
       		    }
-      		  }
       	
       	
     	 }	,   	
     	 mdown(answer_id, e) {
     		 var el = e.target
-    		 longpress = 0 
     		  var com = this
     		  
     		  
-    		  pressTimer = window.setTimeout(function() { 
-    			    longpress = 1  
 
     			    var $icon
     			    var $parent 
@@ -268,9 +258,8 @@ var pressTimer;
     			    $icon.hasClass("vote-none") && $icon.removeClass("vote-none") 
     			    $icon.hasClass("vote-up") && $icon.removeClass("vote-up") 
     			  //    console.log('- to d')
-    			      com.castVote(answer_id, -1)
+    			    com.castVote(answer_id, -1)
     			
-    			  },500);
     		 
     		  
     		  
