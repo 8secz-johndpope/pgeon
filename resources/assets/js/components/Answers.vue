@@ -53,9 +53,13 @@
                                     
                                                  <span  class="fal fa-times-circle"></span>
                                 </a>
-                                <p class="flexone">
-                 			{{answer.answer}}
-                 </p>
+                                
+       
+                                                    <table>
+<tr>
+<td>{{answer.answer}}</td>
+</tr>
+</table>
           
                             </div>
                             
@@ -115,9 +119,12 @@
                             
    
 
-                            <p class="flexone">
-                            {{answer.answer}}
-                </p>
+                                                     <table>
+<tr>
+<td>{{answer.answer}}</td>
+</tr>
+</table>
+
                         </div>
                             
                
@@ -136,17 +143,24 @@
 
 
         <div v-if="!already_answered" class="fixed-bottom-footer">
-            <div class="navbar-fixed-bottom footer-toggle">
+                                           <div class="alert container" :class="'alert-'+submit_error.class" v-if="submit_error">
+                                        <a href="#" class="close" v-on:click="clearError()">&times;</a>
+   <b>{{this.submit_error.title}}</b>{{this.submit_error.error}}
+</div>
+            <div class="navbar-fixed-bottom footer-toggle" v-else>
                 <div class="container m-t-15">
                     <ul class="media-list media-list-conversation c-w-md">
                         <li class="media media-divider">
                             <div class="media-body">
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media media-current-user">
-                                        <div class="input-group">
+     
+
+                                        <div class="input-group" >
                                             <textarea  v-model="submitted_text"  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
                                             <span v-on:click="submit_answer()" class="input-group-addon footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
                                         </div>
+                                        
                                     </li>
                                 </ul>
                             </div>
@@ -184,7 +198,9 @@ var pressTimer;
         voted_now : 0,
         vote_count: 0,
         //animateion will work only for the new items coming in not while refreshing the page...
-		pushed_id:0
+		pushed_id:0,
+		submit_error: false,
+		error_class: "danger"
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -211,13 +227,15 @@ var pressTimer;
     },
     methods: {
      
-  
     
     	reload() {
     		location.reload()
     	}
     	,
     	
+    	clearError() {
+    		this.submit_error = false	
+    	},
       	 mup(answer_id, e) {
       		  
       		    var $icon
@@ -285,7 +303,8 @@ var pressTimer;
           this.ted_text = ''
           this.fetchRecords()
         }, (response) => {
-          alert('error submitting')
+        	 	this.submit_error = response.body
+        	 //	console.log(response.body.error)
         });
       },
       delete_answer: function(id) {
@@ -297,7 +316,7 @@ var pressTimer;
         }
         this.$http.delete('/answer/' + id, formData).then((response) => {
           this.submitted_text = ''
-          location.reload()
+         	 location.reload()
          // this.fetchRecords()
         }, (response) => {
           alert('error submitting')
@@ -321,7 +340,6 @@ var pressTimer;
       getVoteCount() {
     	  	  var com = this	
           $.getJSON('/get_vote_count_for_question/'+this.question_id, function(votes) {
-        	  		console.log(this)
           		com.vote_count = votes['vote_count']
           }, (response) => {
               alert('error fetching vote counts')

@@ -67,6 +67,8 @@ Route::get('/', 'HomeController@index');
       
     Route::get('bubble', 'UserController@notification_count');
     
+    Route::post('markasseen', 'NotificationController@markAsSeen');
+    
     Route::get('pending', 'QuestionController@pending');
     Route::get('published', 'QuestionController@published');
     Route::get('notifications/{format?}', 'NotificationController@index');

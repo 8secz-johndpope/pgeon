@@ -34,7 +34,8 @@ app.get('/', function (req, res) {
 //rooms
 var rooms = [];
 
-
+//settimeout will be set and will be stored this array...this should be cleared when the question is ended prematurely
+var timeouts = {};
 
 io.on('connection', function (socket) {
 
@@ -72,7 +73,7 @@ io.on('connection', function (socket) {
 	        }
 
 	      });
-
+	  		sendNotifToVoters(question_id)
 	  });
 
   
@@ -102,6 +103,11 @@ var target_user = 0;
 var mysqlEventWatcher = MySQLEvents(dsn);
 
 
+
+/*
+
+
+/*
 function deleteAndInsertResult(results, question_id)
 {
     target_user = results[0].followed_by
@@ -133,7 +139,31 @@ function deleteAndInsertResult(results, question_id)
       })
   
 }
+*/
 
+function sendNotifToVoters(question_id) {
+	clearTimeout(timeouts[question_id])
+	delete timeouts[question_id]
+	
+	
+	 
+	$SQL = `SELECT  a.user_id as a_by, q.user_id as q_by, SUM(vote) as votecount FROM votes v INNER JOIN answers a ON a.id = v.answer_id 
+		INNER JOIN  questions q on q.id = a.question_id WHERE a.question_id = ${question_id}  GROUP BY v.answer_id HAVING votecount != 0`;
+
+		con.query($SQL, function (err, results) {
+			for (var i = 0; i < results.length; i++) {
+				
+				var meta = `{"question_id":${question_id}, "votes": ${results[i]['votecount']}}`;
+				var sql = `INSERT INTO notifications (target_user, type, created_at, meta) VALUES (${results[i]['a_by']},"votes_earned",  ${new Date().getTime() / 1000}, '${meta}')`
+
+			     
+		      con.query(sql, function (err) {
+		    	  if (err) throw err;
+		      })
+			}
+				  
+		})
+}
 
 var watcher = mysqlEventWatcher.add(
   'pgeon.questions',
@@ -145,51 +175,17 @@ var watcher = mysqlEventWatcher.add(
     	 
   
     	
-/*
+
       //send out notificatoins when the time expires
       var trigger_at = (newRow.fields.expiring_at * 1000) - new Date().getTime()
-      var question_id = newRow.fields.id
 
        
      
-      setTimeout(function () {
-
-        //check the question is not deleted in meantime
-        var sql = "SELECT id FROM questions WHERE id = " + question_id;
-         console.log(sql)
-        con.query(sql, function (err, result) {
-          if (err) throw err;
-
-
-          if (result[0] !== undefined) {
-            //send notif to followers
-            var sql = "SELECT  uf.followed_by FROM  user_followings uf INNER JOIN questions q                            ON q.user_id = uf.user_id    INNER JOIN users u ON u.id = uf.user_id           WHERE q.id = " + question_id;
-            console.log(sql)
-
-
-             
-            con.query(sql, function (err, results) {
-              if (err) throw err;
-              
-              deleteAndInsertResult(results, question_id);
-              
-
-              
-            
-            })
-
-
-          } else {
-            //question deleted..do nothing
-            console.log('deleted')
-          }
-
-        })
-
-
+     timeouts[question_id] =  setTimeout(function () {
+    	 	sendNotifToVoters(question_id)
       }, trigger_at);
       
-      */
+
 
       rooms.forEach(function (room) {
         //skipe Q detail sockets
@@ -285,10 +281,10 @@ var notification_watcher = mysqlEventWatcher.add(
 			        if (err) throw err;
 			        
 			        var sql = "SELECT COUNT(1) AS cnt FROM notifications WHERE  seen=0 AND target_user =  " + target_user + " GROUP BY target_user";
-			        console.log(sql)
+			       // console.log(sql)
 			        con.query(sql, function (err, cntresult) {
 			          if (err) throw err;
-			          console.log('emiting' + 'U_' + target_user)
+			        //  console.log('emiting' + 'U_' + target_user)
 			          io.sockets.in('U_' + target_user).emit('bubble', cntresult[0]['cnt']);
 			         
 			        })

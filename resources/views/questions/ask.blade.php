@@ -69,6 +69,9 @@
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;"></span>
                                                     <select name="mins" id="minute-select" class="custom-select time-select">
                                                         <option value="00">00 min</option>
+                                                         <option value="01">01 min</option>
+                                                          <option value="02">02 min</option>
+                                                           <option value="03">03 min</option>
                                                         <option value="05">05 min</option>
                                                         <option value="10">10 min</option>
                                                         <option value="15">15 min</option>

@@ -51,7 +51,9 @@ class NotificationController extends Controller
                                         'message' => Helper::slug($user->id,$user->slug) . ' posted a new question ',
                                         'link_to' => 'question/'.$q->id,
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
-                                        'class' => 'fa-comment-alt'
+                                        'class' => 'fa-comment-alt',
+                                        'id' => $notif->id,
+                                        'seen' => $notif->seen
                                         
                                     );
                                 }
@@ -66,7 +68,9 @@ class NotificationController extends Controller
                                     'message' => 'You were followed by '.Helper::slug($user->id,$user->slug),
                                     'link_to' => Helper::slug($user->id,$user->slug),
                                     'ago' => Helper::calcElapsed($notif->created_at->timestamp),
-                                    'class' => 'fa-user-plus'
+                                    'class' => 'fa-user-plus',
+                                    'id' => $notif->id,
+                                    'seen' => $notif->seen
                                 );
                         }
                         break;
@@ -80,16 +84,34 @@ class NotificationController extends Controller
                                         'message' => 'Your reply to '.Helper::slug($user->id,$user->slug).' was selected as the top response!',
                                         'link_to' => 'question/'.$q->id,
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
-                                        'class' => 'fa-trophy-alt'
+                                        'class' => 'fa-trophy-alt',
+                                        'id' => $notif->id,
+                                        'seen' => $notif->seen
                                     );
                                 }
                             }
                         break;
-                        
+                        case "votes_earned":
+                            $q = Question::find($meta->question_id);
+                            if($q) {
+                                $user = User::find($q->user_id);
+                                if($user) {
+                                    
+                                    $responses[] = array('type' => $notif->type,
+                                        'message' => 'Your reply to '.Helper::slug($user->id,$user->slug).' received '.$meta->votes.' votes!',
+                                        'link_to' => 'question/'.$q->id,
+                                        'ago' => Helper::calcElapsed($notif->created_at->timestamp),
+                                        'class' => 'fa-thumbs-up',
+                                        'id' => $notif->id,
+                                        'seen' => $notif->seen
+                                    );
+                                }
+                            }
+                            break;
                     }
                 }
                 
-                NotificationController::markAsSeen();
+               // NotificationController::markAsSeen();
                 
                 return response()->json($responses);
                 
@@ -108,16 +130,21 @@ class NotificationController extends Controller
     }
     
     
+    public static function markAsSeen() {
+        $id = Request::get('id');
+        Notification::where('id', $id)
+        ->update(['seen' => 1]);
+        
+    }
     public static function destroy()
     {
-        //notify all the followers that the question is posted
         Notification::where('target_user', Auth::user()->id)
                     ->delete();
     }
 
-    public static function markAsSeen()
+    /** TODO - not used..can be delted - dec-28 **/
+    public static function markAllAsSeen()
     {
-        //notify all the followers that the question is posted
         Notification::where('target_user', Auth::user()->id)
                            ->update(['seen' => 1]);
         
@@ -129,13 +156,13 @@ class NotificationController extends Controller
         //notify all the followers that the question is posted
         $ufs = UserFollowing::get_followers(Auth::user()->id);
         
-       
+        $data = array();
         foreach ($ufs as $uf) {
             $data[] = array('target_user'=>$uf, 'created_at'=>  time(), 'type' => 'question_posted', 'meta' => json_encode(array('question_id' => $qid)));
         }
              
         if($data)
-        Notification::insert($data);
+         Notification::insert($data);
         
         
     }

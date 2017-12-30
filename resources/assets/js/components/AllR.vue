@@ -24,7 +24,9 @@
                             <a href="/people" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
                         </li>
                         <li>
-                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span></a>
+                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span>
+                              <span class="bubble_wrap hidden"><span class="fas fa-circle fa-xs "></span></span> 
+                            </a> 
                         </li>
                         <li>
                             <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">

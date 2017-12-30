@@ -2,6 +2,8 @@
 <div>
 <div class="h3 m-b-5">Notifications
                               <button v-if="notifications.length>0" v-on:click="clear_all"  class="btn-sm btn-link p-x-0 text-uppercase">Clear all</button>
+                              <span class="bubble badge pull-right m-x-sm" style="margin-top: 5px;">{{bubble}}</span>
+                              
                           </div>
                           
         <div  v-if="still_deciding_count" class="spinner">
@@ -22,12 +24,12 @@
  <ul  class="list-group media-list media-list-stream">
 
     
-    		<li class="alert alert-info new_notif_bar" v-on:click="fetchRecords"  v-if="bubble>0">You have <b>{{bubble}}</b> new notifications</li>
+    		<li class="alert alert-info new_notif_bar" v-on:click="fetchRecords"  v-if="new_recs_in>0">You have new notifications</li>
     
     
     
  
- 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification.link_to)" style="cursor: pointer;" v-for="notification in notifications">
+ 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'bold':  notification.seen == 0}"  v-for="notification in notifications">
                             <div class="media-left">
                                 <span class="fa text-muted" :class="notification.class"></span>
                             </div>
@@ -48,24 +50,43 @@
 </template>
 
 <script>
+
   export default {
 
     data: function() {
       return {
-        bubble: 0,
         notifications: [],
       still_deciding_count: true,
+      new_recs_in: false
       };
     },
+    props: ['bubble'],
     mounted() {
-
+		//alert(window.bubbleCount)
 
     },
 
     methods: {
 
-      redirect: function(url) {
-        location.href = url
+      redirect: function(notification) {
+    	 
+	//if already seen..just redirct it
+    	  if (notification.seen == 1) {
+    		  location.href = notification.link_to
+    	  }else {
+    		  //mark that rec as seen.
+    		  var formData = {
+    	                'id': notification.id
+    	              }
+    	    	  	console.log(formData)
+    	        this.$http.post('/markasseen', formData).then((response) => {
+    	        		//	this.$emit('bubbleCountChanged', this.bubble-1)    	  
+    	        	 		location.href = notification.link_to
+    	          }, (response) => {
+    	            alert('error navigating')
+    	          });  
+    	  }
+       
       },
 
 
@@ -81,15 +102,13 @@
       
       fetchRecords() {
     	  	
+    	  	
     	  	this.still_deciding_count = true
     		$.getJSON('/notifications/json', function(response) {
     			
     			this.notifications = response
     			this.still_deciding_count = false
-    			this.bubble = 0 //will be updated on live updates
-   			$(".bubble").html('')
-   			$(".fa-bell").removeClass('red')
-   		    $("title").html('Pgeon')
+    			
     	    }.bind(this));
     	  
     	 
@@ -110,11 +129,13 @@
     	
     	 if (socket) {
     		 socket.on('bubble', function (bubble) {
-    			 	 com.bubble = bubble 
+    			 	 com.new_recs_in = bubble
+    			 	 com.bubble = bubble
     		      });  	   	
         }
     	 
 	   
+    	
     	
 	    	
 

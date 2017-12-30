@@ -16821,6 +16821,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(163);
 
 window.Vue = __webpack_require__(197);
+
 var VueTouch = __webpack_require__(209);
 Vue.use(VueTouch, { name: 'v-touch' });
 Vue.use(__webpack_require__(196));
@@ -16849,11 +16850,34 @@ var app = new Vue({
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
 
-  data: {},
+  data: {
+    bubble: 0
+  },
 
   mounted: function mounted() {
     this.getBubbleCount();
     //this.$refs.allR.lo()
+  },
+
+
+  created: function created() {
+
+    /** bubble FLOW
+     * 
+     * on page load bubblecount will be updated
+     * this socket will receive the new notifications..there is one more listener on Notif.vue
+     * bubble_wrap in three places now.
+     * 
+     * **/
+
+    //if there is a live notification
+    if (socket) {
+      socket.on('bubble', function (bubble) {
+        this.bubble = bubble;
+        $(".bubble_wrap").removeClass('hidden');
+        //  $("title").html('Pgeon ('+bubble+') ')
+      });
+    }
   },
 
   methods: {
@@ -16861,13 +16885,17 @@ var app = new Vue({
       var child = app.$refs.answersexpiredowner;
       child.fetchRecords($question_id, $uname, $question, $ex_date);
     },
+    bubbleChangedFromChild: function bubbleChangedFromChild(value) {
+      //  this.bubble=(value) // someValue
+      //    alert(value)
+    },
     getBubbleCount: function getBubbleCount() {
+      var _this = this;
+
       this.$http.get('/bubble').then(function (response) {
         if (parseInt(response.data) > 0) {
-          //	alert('ss')
-          $(".bubble").html(response.data);
-          $(".fa-bell").addClass('red');
-          $("title").html('Pgeon (' + response.data + ') ');
+          _this.bubble = response.data;
+          $(".bubble_wrap").removeClass('hidden');
         }
 
         //alert('ss')
@@ -16914,15 +16942,6 @@ jQuery(function ($) {
     return false;
   });
 });
-
-//if there is a live notification
-if (socket) {
-  socket.on('bubble', function (bubble) {
-    $(".bubble").html(bubble);
-    $(".fa-bell").addClass('red');
-    $("title").html('Pgeon (' + bubble + ') ');
-  });
-}
 
 /***/ }),
 /* 131 */
@@ -17954,6 +17973,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
 
 
 
@@ -18422,6 +18444,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(3);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
 //
 //
 //
@@ -19184,6 +19208,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -19199,7 +19237,9 @@ var pressTimer;
       voted_now: 0,
       vote_count: 0,
       //animateion will work only for the new items coming in not while refreshing the page...
-      pushed_id: 0
+      pushed_id: 0,
+      submit_error: false,
+      error_class: "danger"
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -19222,6 +19262,9 @@ var pressTimer;
   methods: {
     reload: function reload() {
       location.reload();
+    },
+    clearError: function clearError() {
+      this.submit_error = false;
     },
     mup: function mup(answer_id, e) {
 
@@ -19280,7 +19323,8 @@ var pressTimer;
         _this.ted_text = '';
         _this.fetchRecords();
       }, function (response) {
-        alert('error submitting');
+        _this.submit_error = response.body;
+        //	console.log(response.body.error)
       });
     },
     delete_answer: function delete_answer(id) {
@@ -19318,7 +19362,6 @@ var pressTimer;
     getVoteCount: function getVoteCount() {
       var com = this;
       $.getJSON('/get_vote_count_for_question/' + this.question_id, function (votes) {
-        console.log(this);
         com.vote_count = votes['vote_count'];
       }, function (response) {
         alert('error fetching vote counts');
@@ -20110,23 +20153,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   data: function data() {
     return {
-      bubble: 0,
       notifications: [],
-      still_deciding_count: true
+      still_deciding_count: true,
+      new_recs_in: false
     };
   },
-  mounted: function mounted() {},
+  props: ['bubble'],
+  mounted: function mounted() {
+    //alert(window.bubbleCount)
+
+  },
 
 
   methods: {
 
-    redirect: function redirect(url) {
-      location.href = url;
+    redirect: function redirect(notification) {
+
+      //if already seen..just redirct it
+      if (notification.seen == 1) {
+        location.href = notification.link_to;
+      } else {
+        //mark that rec as seen.
+        var formData = {
+          'id': notification.id
+        };
+        console.log(formData);
+        this.$http.post('/markasseen', formData).then(function (response) {
+          //	this.$emit('bubbleCountChanged', this.bubble-1)    	  
+          location.href = notification.link_to;
+        }, function (response) {
+          alert('error navigating');
+        });
+      }
     },
 
     clear_all: function clear_all() {
@@ -20147,10 +20213,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.notifications = response;
         this.still_deciding_count = false;
-        this.bubble = 0; //will be updated on live updates
-        $(".bubble").html('');
-        $(".fa-bell").removeClass('red');
-        $("title").html('Pgeon');
       }.bind(this));
     }
   },
@@ -20162,6 +20224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     if (socket) {
       socket.on('bubble', function (bubble) {
+        com.new_recs_in = bubble;
         com.bubble = bubble;
       });
     }
@@ -50995,9 +51058,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-times-circle"
-    })]), _vm._v(" "), _c('p', {
-      staticClass: "flexone"
-    }, [_vm._v("\n                 \t\t\t" + _vm._s(answer.answer) + "\n                 ")])])])])]) : _vm._e()])
+    })]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()])
   })), _vm._v(" "), _c('div', {
     attrs: {
       "id": "answers_container"
@@ -51070,12 +51131,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "xlink:href": "/img/sprites/light.svg#circle"
       }
-    }) : _vm._e()])])]), _vm._v(" "), _c('p', {
-      staticClass: "flexone"
-    }, [_vm._v("\n                            " + _vm._s(answer.answer) + "\n                ")])])])])]) : _vm._e()], 1)
+    }) : _vm._e()])])]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()], 1)
   }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
-  }, [_c('div', {
+  }, [(_vm.submit_error) ? _c('div', {
+    staticClass: "alert container",
+    class: 'alert-' + _vm.submit_error.class
+  }, [_c('a', {
+    staticClass: "close",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.clearError()
+      }
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('b', [_vm._v(_vm._s(this.submit_error.title))]), _vm._v(_vm._s(this.submit_error.error) + "\n")]) : _c('div', {
     staticClass: "navbar-fixed-bottom footer-toggle"
   }, [_c('div', {
     staticClass: "container m-t-15"
@@ -51708,7 +51780,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.clear_all
     }
-  }, [_vm._v("Clear all")]) : _vm._e()]), _vm._v(" "), (_vm.still_deciding_count) ? _c('div', {
+  }, [_vm._v("Clear all")]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "bubble badge pull-right m-x-sm",
+    staticStyle: {
+      "margin-top": "5px"
+    }
+  }, [_vm._v(_vm._s(_vm.bubble))])]), _vm._v(" "), (_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"
   }, [_c('div', {
     staticClass: "b1 se"
@@ -51736,20 +51813,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b12 se"
   })]) : _c('div', [_c('ul', {
     staticClass: "list-group media-list media-list-stream"
-  }, [(_vm.bubble > 0) ? _c('li', {
+  }, [(_vm.new_recs_in > 0) ? _c('li', {
     staticClass: "alert alert-info new_notif_bar",
     on: {
       "click": _vm.fetchRecords
     }
-  }, [_vm._v("You have "), _c('b', [_vm._v(_vm._s(_vm.bubble))]), _vm._v(" new notifications")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
+  }, [_vm._v("You have new notifications")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
     return _c('li', {
       staticClass: "list-group-item media p-a noselect",
+      class: {
+        'bold': notification.seen == 0
+      },
       staticStyle: {
         "cursor": "pointer"
       },
       on: {
         "click": function($event) {
-          _vm.redirect(notification.link_to)
+          _vm.redirect(notification)
         }
       }
     }, [_c('div', {
@@ -52247,7 +52327,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-bell"
   }), _c('span', {
     staticClass: "fa fa-bell"
-  })])])
+  }), _vm._v(" "), _c('span', {
+    staticClass: "bubble_wrap hidden"
+  }, [_c('span', {
+    staticClass: "fas fa-circle fa-xs "
+  })])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
@@ -52526,7 +52610,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-bell"
   }), _c('span', {
     staticClass: "fa fa-bell"
-  })])])
+  }), _vm._v(" "), _c('span', {
+    staticClass: "bubble_wrap hidden"
+  }, [_c('span', {
+    staticClass: "fas fa-circle fa-xs "
+  })])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {

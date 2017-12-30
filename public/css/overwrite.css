@@ -597,6 +597,18 @@ svg .circle{
 	color:red;
 }
 
+#answers_container .alert {
+	margin-bottom : 10px;
+}
+
+/** p flexone was removed and this was added to force line break on lengthy no space  texts **/
+.live-response table {
+	    table-layout: fixed;
+    width: 94%;
+    word-wrap: break-word;
+    
+}
+
 /*hover icon effect*/
 div a.icon {
   padding: 5px;
@@ -640,6 +652,19 @@ div a.icon:focus {
 	cursor:pointer;
 }
 
+.bubble_wrap {
+     position: absolute;
+     top: 11%;
+     transform: translateY(-50%);
+     right: 2px;
+     font-size: 8px;
+     color: red;
+   }
+
+    
+   .bold {
+   		font-weight: bold;
+   } 
 /** PRESS taken out from question-selected/new-index.html **/
 .stats {
   box-sizing: border-box;

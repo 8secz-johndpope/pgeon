@@ -7,6 +7,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+
+
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
@@ -37,13 +40,42 @@ const app = new Vue({
   mixins: [AnswerMixin],
 
   data: {
-     
+	  bubble: 0
   },
   
   mounted() {
 	  this.getBubbleCount()
 	  //this.$refs.allR.lo()
+	
   },
+  
+  created: function() {
+
+	  
+ 	
+ 	/** bubble FLOW
+ 	 * 
+ 	 * on page load bubblecount will be updated
+ 	 * this socket will receive the new notifications..there is one more listener on Notif.vue
+ 	 * bubble_wrap in three places now.
+ 	 * 
+ 	 * **/
+
+ 	//if there is a live notification
+ 	if(socket) {
+ 	 socket.on('bubble', function (bubble) {
+ 		 		this.bubble = bubble
+ 		 		$(".bubble_wrap").removeClass('hidden')
+ 	       //  $("title").html('Pgeon ('+bubble+') ')
+ 	      }); 
+ 	}
+ 	
+	    	
+
+    
+
+  },
+
   methods: {
 	
 	  callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
@@ -51,15 +83,18 @@ const app = new Vue({
 		  child.fetchRecords($question_id, $uname, $question, $ex_date)
 		    
 	  },
+	  
+	  bubbleChangedFromChild (value) {
+	    //  this.bubble=(value) // someValue
+	  //    alert(value)
+	    },
 
 	  
 	getBubbleCount() {
 		this.$http.get('/bubble').then((response) => {
 			if (parseInt(response.data) > 0)  {
-			//	alert('ss')
-				$(".bubble").html(response.data)
-				$(".fa-bell").addClass('red')
-				$("title").html('Pgeon ('+response.data+') ')
+				this.bubble = response.data 
+				$(".bubble_wrap").removeClass('hidden')
 			}
 	 
 	        //alert('ss')
@@ -117,12 +152,4 @@ jQuery(function ($) {
 
 
 
-//if there is a live notification
-if(socket) {
- socket.on('bubble', function (bubble) {
-        $(".bubble").html(bubble)
-        $(".fa-bell").addClass('red')
-         $("title").html('Pgeon ('+bubble+') ')
-      }); 
-}
  
