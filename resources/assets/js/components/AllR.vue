@@ -133,7 +133,7 @@
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span><a :href="question.slug">{{question.slug}}</a></span>←
+                                    <span><a :href="'r/'+question.rslug">{{question.rslug_formatted}}</a></span>
                                     <span><a :href="question.answered_by">{{question.answered_by}}</a></span>
                                     <span class="text-muted time-align">{{question.ago}}</span>
                                 </div>

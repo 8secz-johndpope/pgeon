@@ -45,8 +45,15 @@ class Helper
     }
     
     public static function shared_slug($user_id1, $slug1, $user_id2, $slug2) {
-        return  '/r/'.($slug1)? $slug : "/user/".$user_id.($slug2)? $slug2 : "/user/".$user_id2;
+        $str1 = ($slug1)? $slug1 : "/user/".$user_id;
+        $str2 = ($slug2)? $slug2 : "/user/".$user_id2;
+        return  $str1.'/'.$str2;
     }
   
+    public static function shared_formatted_string($user_id1, $slug1, $user_id2, $slug2) {
+        $str1 = ($slug1)? $slug1 : "/user/".$user_id;
+        $str2 = ($slug2)? $slug2 : "/user/".$user_id2;
+        return  $str1.'←'.$str2;
+    }
 }
 

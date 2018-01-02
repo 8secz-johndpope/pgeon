@@ -18,7 +18,7 @@ var MySQLEvents = require('mysql-events');
 var dsn = {
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "05093d8a1cf495ac0acd5640a@",
   database: "pgeon"
 
 };

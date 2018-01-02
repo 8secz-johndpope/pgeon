@@ -57,10 +57,11 @@
       return {
         notifications: [],
       still_deciding_count: true,
-      new_recs_in: false
+      new_recs_in: false,
+      bubble: 0
       };
     },
-    props: ['bubble'],
+   // props: ['bubble'],
     mounted() {
 		//alert(window.bubbleCount)
 

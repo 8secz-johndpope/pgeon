@@ -20162,10 +20162,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       notifications: [],
       still_deciding_count: true,
-      new_recs_in: false
+      new_recs_in: false,
+      bubble: 0
     };
   },
-  props: ['bubble'],
+  // props: ['bubble'],
   mounted: function mounted() {
     //alert(window.bubbleCount)
 
@@ -54877,9 +54878,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "h5 m-b-5"
     }, [_c('span', [_c('a', {
       attrs: {
-        "href": question.slug
+        "href": 'r/' + question.rslug
       }
-    }, [_vm._v(_vm._s(question.slug))])]), _vm._v("←\n                                    "), _c('span', [_c('a', {
+    }, [_vm._v(_vm._s(question.rslug_formatted))])]), _vm._v(" "), _c('span', [_c('a', {
       attrs: {
         "href": question.answered_by
       }

@@ -245,6 +245,11 @@ class UserController extends Controller
         return $this->showPublicProfile($user);
     }
 
+    public function getUserIdFromSlug($slug) {
+        $id = User::where('slug', '=', $slug)->pluck('id');
+        return ($id)?$id[0]:0;
+    }
+    
     public function getProfile($id) {
           $user =  User::find($id);
           return $this->showPublicProfile($user);
@@ -284,24 +289,34 @@ class UserController extends Controller
     }
 
 
-    public static function fetchOneWayConvoFromTargetUser($keyw1orslug1,$id1orslug2,$keyw2 = null,$id2 = null) {
+    public  function fetchOneWayConvoFromTargetUser($keyw1orslug1,$id1orslug2,$keyw2 = null,$id2 = null) {
+      
         
-        //r/user/2/john or r/john/(*)
-        //if the first keyword is "user"then take the id from the slash next to it
-        if($keyw1orslug1 == "user") {
+    //    echo ' $keyw1orslug1 '.$keyw1orslug1.' $id1orslug2 '.$id1orslug2.' $keyw2 '.$keyw2.' $id2 '.$id2;
+        $from_user = $target_user = null;
+        if($keyw1orslug1 == "user") { //r/user/2/
             $target_user =  $id1orslug2;
-        }else { // this is a slug
-            $target_user =  UserController::getProfileBySlug($keyw1orslug1);
+        }else { // this is a slug /r/john
+            $target_user =  $this->getUserIdFromSlug($keyw1orslug1);
         }
-        //r/john/jac
-        if (!$keyw2) {
-            $from_user =  UserController::getProfileBySlug($id1orslug2);
-        }elseif($keyw2 == "user") { //r/(*)/user/45
-            $from_user =  $id2;
-        }else { 
-            echo 'dont knmow';
-       //     $from_user =  UserController::getProfileBySlug($id2);
+        if ($id1orslug2 =="user") {   //jac/user/5
+            $from_user =  $keyw2;
         }
+        
+
+        if(!$from_user) {
+            //r/john/jac
+            if (!$keyw2) { //if no keyw2 found
+                $from_user =  UserController::getUserIdFromSlug($id1orslug2);
+            }elseif($keyw2 == "user") { //r/(*)/user/45
+                $from_user =  $id2;
+            }else {  //user/34/john
+                
+                $from_user =  UserController::getUserIdFromSlug($keyw2);
+            }
+        }
+        
+        echo UserController::fetchConvoFromTargetUser($from_user, $target_user);
         
     }
     public function points() {

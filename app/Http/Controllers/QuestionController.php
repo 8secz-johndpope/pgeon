@@ -403,7 +403,7 @@ class QuestionController extends Controller
     public function featuredresponses($p, $c)
     {
         $offset = $c*$p;
-        $fetched_questions = Question::where('accepted_answer', '>', 1)->where('featured', '=', 1)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+        $fetched_questions = Question::where('accepted_answer', '>', 0)->where('featured', '=', 1)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
         
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
@@ -428,8 +428,10 @@ class QuestionController extends Controller
     {
         
         $uf = UserFollowing::get_followed_by(Auth::user()->id);
+        //print_r($uf);
+        
         $offset = $c*$p;
-        $fetched_questions = Question::where('accepted_answer', '>', 1)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+        $fetched_questions = Question::where('accepted_answer', '>', 0)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
         
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
@@ -441,6 +443,7 @@ class QuestionController extends Controller
             $questions [$key]['answer'] = $answer->answer;
             $questions [$key]['user_id'] = $question->user_id;
             $questions [$key]['rslug'] = Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug) ;
+            $questions [$key]['rslug_formatted'] = Helper::shared_formatted_string($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug) ;
             $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
         }
         
