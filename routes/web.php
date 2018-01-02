@@ -41,13 +41,11 @@ Route::get('/', 'HomeController@index');
   Route::get('user/{id}', 'UserController@getProfile');
   Route::get('user/{id}/questions', 'UserController@questions');
   Route::get('user/{id}/answers', 'UserController@answers');
-  Route::get('user/{id}/participation', 'UserController@participation');
   Route::get('user/{id}/topanswers', 'UserController@getAcceptedAnswersOfUser');
 
   Route::get('user/{id}/topresponders', 'UserController@topResponders');  
 
   // User Routes
-  Route::get('level/{level}', 'LevelController@index');
   Route::get('questions/{format?}', 'QuestionController@index');
   Route::get('qff/{p}/{c}', 'QuestionController@fromfollowers');
   Route::get('featuredq/{p}/{c}', 'QuestionController@featured');
@@ -58,6 +56,8 @@ Route::get('/', 'HomeController@index');
   
    Route::get('question/{id}/{format?}', 'QuestionController@show');
    
+   /** r/user/2/user/54 or r/john/jac or r/user/1/jac or r/jac/user/54 **/
+   Route::get('r/{keyw1orslug1}/{id1orslug2}/{keyw2?}/{id2?}', 'UserController@fetchOneWayConvoFromTargetUser');
   Route::get('fetchconvo/{answered_by}/{question_by}', 'UserController@fetchConvoFromTargetUser');
   
   Route::group(array('middleware' => 'auth'), function()
@@ -68,7 +68,7 @@ Route::get('/', 'HomeController@index');
     Route::get('bubble', 'UserController@notification_count');
     
     Route::post('markasseen', 'NotificationController@markAsSeen');
-    
+    Route::get('live', 'QuestionController@live');
     Route::get('pending', 'QuestionController@pending');
     Route::get('published', 'QuestionController@published');
     Route::get('notifications/{format?}', 'NotificationController@index');

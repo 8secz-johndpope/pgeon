@@ -112,7 +112,7 @@ class QuestionController extends Controller
     public function insert()
     {
         $user = Auth::user();
-        if($user->role_id == 3 && !$user->has_active_question()) {
+        if($user->role_id == 3) {
             $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
             
             /** insert notifications for all followers **/
@@ -263,59 +263,41 @@ class QuestionController extends Controller
         if ($user->role_id != 3 ) {
           abort(403, 'Access denied');
         }
-      //  $lq_expiring_at = $user->has_active_question();
-        $q = $user->last_question();
-        $lq= null;
-        $lq_expiring_at = null;
-        $lq_expiring_in = null;
-        if($q) {
-            $lq = Question::find($q->id);
-            $lq->question = ( $lq->question );
-            $lq_expiring_at = $user->last_question_time();
-            $lq_expiring_in = Question::question_validity_status($lq_expiring_at);
-        }
         
-        $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->orderBy('created_at', 'desc')->get();
+
+        $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         
+        $lq = (sizeof($questions)>0)?$questions[0]:null;
+        $lq_created_at = ($lq)?$lq->created_at->timestamp:0;
         
         $pending = array();
         $published = array();
+        $live = array();
         
         foreach ($questions as $key => $val) {
             $answer = array();
-            $val->question = ( $val->question );
-            if($val->accepted_answer == 0) {
-                //$rec
-                /** check whether pending question will have an answer chosen for publishing **/
-                $chosen = Answer::get_chosen_answer($val->id);
+            //live
+            if($val->expiring_at > time()) {
+                $temp = array('question' => $val);
+                $live [] = $temp;
                 
-                
-                if(count($chosen)) {
-                    $answer = $chosen[0];
-                }else {
-                    /** get if it has top voted answer **/
-                    $answer_id = Vote::get_top_voted_answer_id($val->id);
-                    if($answer_id)
-                        $answer = Answer::find($answer_id);
-                        
-                        
+            } else  {   //expired/ ended  
+                if($val->accepted_answer == 0) { //pending
+                    $temp = array('question' => $val);
+                    $pending [] = $temp;
+                    
+                }else if ($val->accepted_answer > 0){
+                    //publisehd
+                    $temp = array('question' => $val);
+                    $published [] = $temp;
                 }
-                $temp = array('question' => $val, 'answer' => $answer);
-                
-                
-                $pending [] = $temp;
-                
-            }else {
-                $answer = Answer::find($val->accepted_answer);
-                
-                
-                $temp = array('question' => $val, 'answer' => $answer);
-                $published [] = $temp;
             }
+            
+            
+           
         }
-        $lq_created_at = ($lq)?$lq->created_at->timestamp:0;
-        return view('questions.ask',['questions' => $questions, 'lq_expiring_at' => $lq_expiring_at, 'lq' => $lq,
-            'lq_expiring_in' => $lq_expiring_in, 'pending' => $pending, 'published' => $published, 'display_name' => $user->slug, 'lq_created_at' => $lq_created_at]);
+        return view('questions.ask',[
+            'pending' => $pending, 'published' => $published, 'live' => $live, 'lq_created_at' => $lq_created_at]);
          
         
     }
@@ -365,7 +347,6 @@ class QuestionController extends Controller
         if ($user->role_id != 3 ) {
             abort(403, 'Access denied');
         }
-        //  $lq_expiring_at = $user->has_active_question();
         
         
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '>', 0)->orderBy('created_at', 'desc')->get();
@@ -385,6 +366,37 @@ class QuestionController extends Controller
         //dd($published);
         //exit;
         return view('questions.published',['questions' => $questions,  'published' => $published]);
+        
+    }
+    
+    
+    public function live() {
+        
+        $user = Auth::user();
+        
+        if ($user->role_id != 3 ) {
+            abort(403, 'Access denied');
+        }
+        
+        
+        $questions = Question::where('user_id', $user->id)->where('expiring_at', '>', time())->orderBy('created_at', 'desc')->get();
+        
+        
+        $live = array();
+        
+        foreach ($questions as $key => $val) {
+            
+          //  dd($val->answers()->votes);
+            $val->expiring_in = Question::question_validity_status($val->expiring_at);
+            $live [] = $val;
+          
+            
+        }
+        
+        
+        
+        //exit;
+          return view('questions.live',['questions' => $live, 'display_name' => $user->slug]);
         
     }
     
@@ -415,7 +427,7 @@ class QuestionController extends Controller
     public function responsesfromfollowers($p, $c)
     {
         
-        $uf = UserFollowing::get_followers(Auth::user()->id);
+        $uf = UserFollowing::get_followed_by(Auth::user()->id);
         $offset = $c*$p;
         $fetched_questions = Question::where('accepted_answer', '>', 1)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
         
@@ -427,9 +439,9 @@ class QuestionController extends Controller
             $questions [$key]['avatar'] =  Helper::avatar($question->user->avatar);
             $questions [$key]['name'] = $question->user->name;
             $questions [$key]['answer'] = $answer->answer;
-            $questions [$key]['answered_by'] = Helper::slug($answer->user->id,$answer->user->slug) ;
+            $questions [$key]['answered_by'] =  ;
             $questions [$key]['user_id'] = $question->user_id;
-            $questions [$key]['slug'] = Helper::slug($question->user->id,$question->user->slug) ;
+            $questions [$key]['rslug'] = Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug) ;
             $questions [$key]['ago'] = Helper::calcElapsed($question->expiring_at);
         }
         

@@ -1,5 +1,4 @@
 @extends('layouts.app-no-top-bar') @section('content')
- @if ($lq_expiring_at < time())
 
 
 <div style="width: auto">
@@ -126,69 +125,36 @@
 </div>
 
 
-@else
-<div style="width: auto;">
-            <div class="container m-t-10">
-                <div>
-                    <div class="media-body">
-                        <div class="media-header m-b-5">
-                            <small class="text-muted"><a href="#" id="user-profile-text-link">{{$display_name}}</a></small>
-                            <span class="dropdown time-align"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-
-                              <span style="margin-right: 3px;" class="fa fa-caret-down"></span>
-                            <answeringtimer initial="{{$lq_expiring_in}}"></answeringtimer></a><ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a id="end_now" rel="{{$lq->id}}" href="#">End now <span class="fa fa-stop dropdown-icon"></span></a>
-                                    </li>
-                                    <li>
-                                        <a id="cancel_now" rel="{{$lq->id}}" href="#">Cancel <span class="fa fa-eject dropdown-icon"></span></a>
-                                    </li>
-                                </ul></span>
-                        </div>
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media-body-text media-question">
-                                   {{$lq->question}}
-</div>
-
-
-
-
-
-
-
-
-                                    <ul class="media-list media-list-conversation c-w-md">
-                                        <li class="media media-current-user media-divider">
-                                            <div class="media-body" style="text-align: center">
-                                                <div class="media-body-text media-response">
-                                                    <div class="statcard p-a-md" style="display: inline-block">
-                                                        <h3 class="statcard-number">{{$lq->answers->count()}}</h3>
-                                                        <span class="statcard-desc">responses</span>
-                                                    </div>
-                                                    <div class="statcard p-a-md" style="display: inline-block">
-                                                        <h3 class="statcard-number">{{$lq->votes->count() }}</h3>
-                                                        <span class="statcard-desc">votes</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-@endif
-
 
 
 
         <div style="width: auto;">
             <div class="container" style="padding: 0px;">
+                        <div class="col-sm-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fal fa-hourglass-half fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="h3">
+                                        {{count($live)}}
+</div>
+                                    <div>
+                                        <div class="h4" style="margin-bottom: 0;">Live</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/live">
+                            <div class="panel-footer flexbox-container">
+                                <span>View all</span>
+                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <div class="col-sm-6">
                     <div class="panel">
                         <div class="panel-heading">

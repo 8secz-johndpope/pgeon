@@ -43,5 +43,10 @@ class Helper
     public static function slug($user_id, $slug) {
     		return ($slug)? $slug : "/user/".$user_id;
     }
+    
+    public static function shared_slug($user_id1, $slug1, $user_id2, $slug2) {
+        return  '/r/'.($slug1)? $slug : "/user/".$user_id.($slug2)? $slug2 : "/user/".$user_id2;
+    }
+  
 }
 

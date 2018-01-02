@@ -115,7 +115,7 @@
         </div>
 				 <div v-else>
 				 <img src="/img/chat-bubble.svg" />
-				 <h4 class="text-muted m-t-0">No live questions to display. <br>Please check back soon!</h4>
+				 <h4 class="text-muted m-t-0">Nothing to display. <br>Please check back soon!</h4>
 				</div>
 		</div>
 	</div>
@@ -133,8 +133,7 @@
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
-                                    <span><a :href="question.slug">{{question.slug}}</a></span>
-                                    <span class="fa fa-long-arrow-left text-muted"></span>
+                                    <span><a :href="question.slug">{{question.slug}}</a></span>←
                                     <span><a :href="question.answered_by">{{question.answered_by}}</a></span>
                                     <span class="text-muted time-align">{{question.ago}}</span>
                                 </div>

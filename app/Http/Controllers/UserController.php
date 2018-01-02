@@ -284,6 +284,26 @@ class UserController extends Controller
     }
 
 
+    public static function fetchOneWayConvoFromTargetUser($keyw1orslug1,$id1orslug2,$keyw2 = null,$id2 = null) {
+        
+        //r/user/2/john or r/john/(*)
+        //if the first keyword is "user"then take the id from the slash next to it
+        if($keyw1orslug1 == "user") {
+            $target_user =  $id1orslug2;
+        }else { // this is a slug
+            $target_user =  UserController::getProfileBySlug($keyw1orslug1);
+        }
+        //r/john/jac
+        if (!$keyw2) {
+            $from_user =  UserController::getProfileBySlug($id1orslug2);
+        }elseif($keyw2 == "user") { //r/(*)/user/45
+            $from_user =  $id2;
+        }else { 
+            echo 'dont knmow';
+       //     $from_user =  UserController::getProfileBySlug($id2);
+        }
+        
+    }
     public function points() {
       return $this->id;
     }
