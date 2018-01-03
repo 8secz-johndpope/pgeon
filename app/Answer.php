@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
 
 class Answer extends Model
 {
@@ -108,6 +109,52 @@ class Answer extends Model
     
     
 
-
+    /** fetch the responses of a user to a target user **/
+    public static function fetchR($answered_by, $question_by ) {
+        
+        $sql = "
+            SELECT answers.answer, answers.id, questions.question, UNIX_TIMESTAMP(answers.created_at) as created_at, answers.user_id as ans_by, questions.user_id as q_by   FROM answers
+            INNER JOIN questions ON questions.id = answers.question_id
+            INNER JOIN users ON questions.user_id = users.id
+             WHERE questions.accepted_answer > 0 AND (answers.user_id = '$answered_by'
+             AND questions.user_id = '$question_by')";
+        
+        $users = DB::select( DB::raw($sql) );
+        $result = array();
+        foreach ($users as $key => $val) {
+            $val->ago = Helper::calcElapsed($val->created_at);
+            $result [] = $val;
+            
+        }
+        return $result;
+    }
+    
+    
+    /** JAN - 3 can be deleted..but can be useful 
+     *  fetch the responses of a user to and fro a target user **/
+    public static function fetchQandA($answered_by, $question_by ) {
+        
+        $sql = "
+            SELECT answers.answer, answers.id, questions.question, questions.expiring_at, answers.user_id as ans_by, questions.user_id as q_by   FROM answers
+            INNER JOIN questions ON questions.id = answers.question_id
+            INNER JOIN users ON questions.user_id = users.id
+             WHERE questions.accepted_answer > 0 AND (answers.user_id = '$answered_by'
+             AND questions.user_id = '$question_by') OR
+             (answers.user_id = '$question_by'
+                AND questions.user_id = '$answered_by')
+             AND expiring_at < ".time()."
+                 
+ ";
+        
+        $users = DB::select( DB::raw($sql) );
+        $result = array();
+        foreach ($users as $key => $val) {
+            $val->expiring_at = Helper::calcElapsed($val->expiring_at);
+            $result [] = $val;
+            
+        }
+        return $result;
+    }
+    
     
 }

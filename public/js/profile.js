@@ -1,6 +1,7 @@
  var oldHeader=$(".top-header h4").text()
     var votePointsOldContent=$(".vote-points").html()
 
+    /*
     $(".top-content-item").click(function (e) {
 
     	  $("#g_back").addClass('hidden');	
@@ -30,7 +31,7 @@
 
 
     })
-    
+    */
     
    /* $(".nav_back").on('click', function (e){
     	alert('ss')

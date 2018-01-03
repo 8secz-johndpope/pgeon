@@ -259,14 +259,24 @@ class UserController extends Controller
       if(!$user)
             return view('user.usernotfound');
           else {
-              $replies = User::replies($user->id);
-             
+              $users = User::convoDetails($user->id);
+              
+              //$replies = User::replies($user->id);
+              $replies = array();
+              foreach ($users as $key => $val) {
+                  $val->rslug = Helper::shared_slug($val->q_by_uid, $val->q_by_slug, $val->ans_by_uid, $val->ans_by_slug) ;
+                  $val->rslug_formatted = Helper::shared_formatted_string($val->q_by_uid, $val->q_by_slug, $val->ans_by_uid, $val->ans_by_slug) ;
+                  //dd($val->created_at);
+                  $val->ago = Helper::calcElapsed($val->created_at);
+                  $replies [] = $val;
+              }
+              
               
          
               $is_following = false;
               if (Auth::user()) {
                   $current_user = Auth::user();
-                  $followings = UserFollowing::get_followers($current_user->id)->toArray();
+                  $followings = UserFollowing::get_followed_by($current_user->id)->toArray();
                   if (in_array($user->id, $followings)) {
                       $is_following = true;
                   }
@@ -283,8 +293,8 @@ class UserController extends Controller
 
     public static function fetchConvoFromTargetUser($answered_by, $question_by) {
         
-        $convo = User::fetchQandA($answered_by, $question_by);
-        return response()->json($convo);
+        $convo = Answer::fetchR($answered_by, $question_by);
+        return $convo;
         
     }
 
@@ -316,7 +326,17 @@ class UserController extends Controller
             }
         }
         
-        echo UserController::fetchConvoFromTargetUser($from_user, $target_user);
+        $replies =  UserController::fetchConvoFromTargetUser($from_user, $target_user);
+        
+        
+        $fuser = User::find($from_user);
+        $tuser = User::find($target_user);
+        
+        $rslug_formatted = Helper::shared_formatted_string($tuser->id, $tuser->slug, $fuser->id, $fuser->slug) ;
+        
+        return view('user.friendship')->with('replies', $replies)->with('rslug_formatted', $rslug_formatted)->with('fuser', $fuser)->with('tuser', $tuser);
+      //  print_r($replies);
+        
         
     }
     public function points() {

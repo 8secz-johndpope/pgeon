@@ -55,8 +55,41 @@ class User extends Authenticatable
 
 
     
+  
+    public static function convoDetails($user_id) {
+        $sql = "
+                    
+        
+        SELECT ans_by_uid, q_by_uid, q_by_uid, ans_by_slug, q_by_slug, answer, UNIX_TIMESTAMP(created_at) as created_at, question  from (
+        SELECT answers.user_id as ans_by_uid, questions.user_id as q_by_uid, au.slug as ans_by_slug, qu.slug as q_by_slug, answers.created_at, answers.answer, question FROM questions 
+        INNER JOIN users qu ON questions.user_id = qu.id 
+        INNER JOIN answers ON questions.id = answers.question_id 
+        INNER JOIN users au ON answers.user_id = au.id 
+        WHERE questions.user_id = '$user_id' AND questions.accepted_answer > 0
+        
+        UNION ALL 
+        
+        
+        SELECT answers.user_id as ans_by_uid, questions.user_id as q_by_uid, au.slug as ans_by_slug, qu.slug as q_by_slug, answers.created_at, answers.answer, question FROM answers 
+        	INNER JOIN users au ON au.id = answers.user_id
+        	INNER JOIN questions ON questions.id = answers.question_id
+        	INNER JOIN users qu ON qu.id = questions.user_id
+        WHERE answers.user_id='$user_id' AND questions.accepted_answer > 0
+        )  AS tmp  ORDER BY created_at DESC
+        
+        ";
+        
+        
+        $users = DB::select( DB::raw($sql) );
+        
+        return $users;
+        
+  }
+    
+    
 
 
+  /** can be deleted..but very useful to get the accumulation of convo between the users... so will be kept here for long*/
   
   public static function replies($user_id) {
       $sql = "
@@ -140,32 +173,10 @@ class User extends Authenticatable
   }
   
   
+
   
   
-  /** fetch the responses of a user to a target user **/
-  public static function fetchQandA($answered_by, $question_by ) {
-      
-      $sql = "
-            SELECT answers.answer, answers.id, questions.question, questions.expiring_at, answers.user_id as ans_by, questions.user_id as q_by   FROM answers
-            INNER JOIN questions ON questions.id = answers.question_id
-            INNER JOIN users ON questions.user_id = users.id
-             WHERE questions.accepted_answer > 0 AND (answers.user_id = '$answered_by'
-             AND questions.user_id = '$question_by') OR
-             (answers.user_id = '$question_by'
-                AND questions.user_id = '$answered_by')
-             AND expiring_at < ".time()."  
-           
- ";
-      
-      $users = DB::select( DB::raw($sql) );
-      $result = array();
-      foreach ($users as $key => $val) {
-          $val->expiring_at = Helper::calcElapsed($val->expiring_at);
-          $result [] = $val;
-          
-      }
-      return $result;
-  }
+
   
  /* 
   public static function get_users_of_accepted_answers_top10($user_id) {

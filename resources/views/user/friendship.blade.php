@@ -4,23 +4,19 @@
   <div class="nav-contain">
             <nav class="container nav-container header-nav">
                 <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
-                 <a onclick="window.history.back()" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
-                <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
-                @if ($is_following == false)
-                <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow follow btn-lg btn-link pull-right p-a-0">
-                  <span class="fal fa-plus"></span>
-                </button>
-               @endif
+                 <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
+                <h4>{{Helper::slug($tuser->id ,$tuser->slug)}}</h4>
+          
             </nav>
         </div>
 
   <div class="user-data">
             <div class="user-meta">
                 <div class="avatar-wrapper">
-                    <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
+                    <img class="avatar avatar-96 photo" src="{{ Helper::avatar($tuser->avatar) }} " alt="" height="96" width="96">
                 </div>
-                <div class="vote-points avatar-wrapper">
-                    <span class="number">{{$points}}</span>{{ $points == 1 ? "point" : "points" }}
+                 <div class="avatar-wrapper">
+                    <img class="avatar avatar-96 photo" src="{{ Helper::avatar($fuser->avatar) }} " alt="" height="96" width="96">
                 </div>
             </div>
         </div>
@@ -37,7 +33,7 @@
             <li class="media">
             <div class="media-body">
               <div class="h5 m-b-5">
-                <a href="r/{{$reply->rslug}}"><span>{{$reply->rslug_formatted}}</span> </a>
+                <a><span>{{$rslug_formatted}}</span> </a>
                 <span class="text-muted time-align">{{$reply->ago}}</span>
               </div>
               <ul class="media-list media-list-conversation c-w-md">
