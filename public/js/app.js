@@ -19214,13 +19214,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -19265,7 +19258,7 @@ var pressTimer;
     clearError: function clearError() {
       this.submit_error = false;
     },
-    mup: function mup(answer_id, e) {
+    mup: function mup(answer_id, e, i) {
 
       var $icon;
       var $parent;
@@ -19275,18 +19268,18 @@ var pressTimer;
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
       $icon.hasClass("vote-down") && $icon.removeClass("vote-down");
-
       if ($icon.hasClass("vote-up")) {
         $icon.removeClass("vote-up") &&
-
         // console.log('u to -')
         this.castVote(answer_id, 0);
+        //  	  this.answers[i].vote_count =  this.answers[i].vote_count-1 
       } else {
         //   console.log('- to u')
         this.castVote(answer_id, 1);
+        //this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+1
       }
     },
-    mdown: function mdown(answer_id, e) {
+    mdown: function mdown(answer_id, e, i) {
       var el = e.target;
       var com = this;
 
@@ -19300,7 +19293,10 @@ var pressTimer;
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
       $icon.hasClass("vote-up") && $icon.removeClass("vote-up");
       //    console.log('- to d')
-      com.castVote(answer_id, -1);
+      if (!$icon.hasClass("vote-down")) {
+        com.castVote(answer_id, -1);
+        // com.answers[i].vote_count =  com.answers[i].vote_count-1	
+      }
     },
 
     ownerOfAnswer: function ownerOfAnswer(user_id) {
@@ -19370,7 +19366,6 @@ var pressTimer;
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
         this.answers = response;
 
-        // console.log(this.answers.length)
         // var com = this
         $.getJSON('/get_votes/' + this.question_id, function (votes) {
           //   com.my_votes = votes
@@ -53725,7 +53720,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "container"
-  }, _vm._l((_vm.answers), function(answer) {
+  }, _vm._l((_vm.answers), function(answer, index) {
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
@@ -53739,10 +53734,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "tap": function($event) {
-          _vm.mup(answer.id, $event)
+          _vm.mup(answer.id, $event, index)
         },
         "press": function($event) {
-          _vm.mdown(answer.id, $event)
+          _vm.mdown(answer.id, $event, index)
         }
       }
     }, [_c('div', {
@@ -53750,11 +53745,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text live-response flex-center"
-    }, [_c('a', {
-      staticClass: "media-left"
-    }, [_c('button', {
-      staticClass: "btn-borderless",
+      staticClass: "media-body-text-voting live-response flex-center"
+    }, [_c('div', {
+      staticClass: "voting_container",
       class: {
         'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1, 'vote-none': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
       },
@@ -53763,25 +53756,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('svg', {
       attrs: {
-        "width": "20",
-        "height": "20"
+        "width": "12",
+        "height": "12",
+        "transform": "translate(0,7)"
       }
-    }, [(_vm.checkVoted(answer.id) == 1) ? _c('use', {
-      staticClass: "arrow-circle-up",
+    }, [_c('use', {
+      staticClass: "caret-up",
+      class: {
+        'vote-up': _vm.checkVoted(answer.id) == 1
+      },
       attrs: {
-        "xlink:href": "/img/sprites/solid.svg#arrow-circle-up"
+        "xlink:href": "/img/sprites/solid.svg#caret-up"
       }
-    }) : _vm._e(), _vm._v(" "), (_vm.checkVoted(answer.id) == -1) ? _c('use', {
-      staticClass: "arrow-circle-down",
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "v_count",
+      class: {
+        'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1
+      }
+    }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
       attrs: {
-        "xlink:href": "/img/sprites/solid.svg#arrow-circle-down"
+        "width": "12",
+        "height": "12",
+        "transform": "translate(0,-11)"
       }
-    }) : _vm._e(), _vm._v(" "), ((_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)) ? _c('use', {
-      staticClass: "circle",
+    }, [_c('use', {
+      staticClass: "caret-down",
+      class: {
+        'vote-down': _vm.checkVoted(answer.id) == -1
+      },
       attrs: {
-        "xlink:href": "/img/sprites/light.svg#circle"
+        "xlink:href": "/img/sprites/solid.svg#caret-down"
       }
-    }) : _vm._e()])])]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()], 1)
+    })])]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()], 1)
   }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
   }, [(_vm.submit_error) ? _c('div', {

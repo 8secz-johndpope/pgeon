@@ -88,35 +88,28 @@
            <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
             <div class="container">
             
-            <div  v-for="answer in answers"  v-bind:key="answer">
+            <div  v-for="(answer, index) in answers"  v-bind:key="answer">
          
                                            
-                            <v-touch v-on:tap="mup(answer.id, $event)"  v-on:press="mdown(answer.id, $event)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated'] "  v-if="!ownerOfAnswer(answer.user_id)">
+                            <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated'] "  v-if="!ownerOfAnswer(answer.user_id)">
                 <div class="media media-divider">
                     <div class="media-body">
                             
                             
                             
                             
-                                  <div  class="media-body-text live-response flex-center">
-                            <a class="media-left">
-                               
-                                
-                                
-                                
-                                        <button id="vote"  class="btn-borderless" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
-                          			
-                                 
-                                  <svg width="20" height="20">
-   <use  class="arrow-circle-up" v-if="checkVoted(answer.id) == 1" xlink:href='/img/sprites/solid.svg#arrow-circle-up'></use>
-      <use class="arrow-circle-down" v-if="checkVoted(answer.id) == -1" xlink:href='/img/sprites/solid.svg#arrow-circle-down'></use>
-         <use class="circle" v-if="(checkVoted(answer.id) === false || checkVoted(answer.id) === 0)" xlink:href='/img/sprites/light.svg#circle'></use>
- </svg>
-                                    </button>
-                                    
-                                    
-                            </a>
-                            
+                                  <div  class="media-body-text-voting live-response flex-center">
+                                  
+                                  <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
+              <svg width="12" height="12" transform="translate(0,7)">
+              <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
+              </svg>
+  <div class="v_count" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1,  'vote-down': checkVoted(answer.id) == -1 }" >{{(answer.vote_count)?answer.vote_count:0 }}</div>
+   <svg width="12" height="12"  transform="translate(0,-11)">
+              <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
+              </svg>
+              
+              </div>              
    
 
                                                      <table>
@@ -236,7 +229,7 @@ var pressTimer;
     	clearError() {
     		this.submit_error = false	
     	},
-      	 mup(answer_id, e) {
+      	 mup(answer_id, e, i) {
       		  
       		    var $icon
       		    var $parent 
@@ -246,21 +239,21 @@ var pressTimer;
 
       		    $icon.hasClass("vote-none") && $icon.removeClass("vote-none") 
       		    $icon.hasClass("vote-down") && $icon.removeClass("vote-down") 
-
       		    if( $icon.hasClass("vote-up") ){
       		      $icon.removeClass("vote-up") &&
-      		
       		      // console.log('u to -')
       		    	  this.castVote(answer_id, 0)
+      		  //  	  this.answers[i].vote_count =  this.answers[i].vote_count-1 
       		    } else{
       		   //   console.log('- to u')
       		    	  this.castVote(answer_id, 1)
+      		    	 //this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+1
       		   
       		    }
       	
       	
     	 }	,   	
-    	 mdown(answer_id, e) {
+    	 mdown(answer_id, e, i) {
     		 var el = e.target
     		  var com = this
     		  
@@ -276,8 +269,11 @@ var pressTimer;
     			    $icon.hasClass("vote-none") && $icon.removeClass("vote-none") 
     			    $icon.hasClass("vote-up") && $icon.removeClass("vote-up") 
     			  //    console.log('- to d')
-    			    com.castVote(answer_id, -1)
-    			
+    			  	if(!$icon.hasClass("vote-down")) {
+    			  		com.castVote(answer_id, -1)
+        			   // com.answers[i].vote_count =  com.answers[i].vote_count-1	
+    			  	} 
+    			    
     		 
     		  
     		  
@@ -350,7 +346,6 @@ var pressTimer;
 	    	  $.getJSON('/question/' + this.question_id + '/json', function(response) {
 	    	        this.answers = response
 	    	        
-	    	       // console.log(this.answers.length)
 	    	        // var com = this
 	    	        $.getJSON('/get_votes/'+this.question_id, function(votes) {
 	    	       //   com.my_votes = votes

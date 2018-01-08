@@ -567,10 +567,11 @@ input.pending-radio:checked+label {
 #vote svg {
 	/** taken from auto generated css of fa **/
 	vertical-align:-12.5%;
+	fill:#c2c2c3;
 }
 
-svg .arrow-circle-up ,svg .arrow-circle-down, svg .circle{
-
+svg .vote-up ,svg .vote-down, svg .vote-none{
+fill:#c2c2c3;
   		
 	shape-rendering: geometricprecision;
   transition: all .1s linear;
@@ -578,20 +579,33 @@ svg .arrow-circle-up ,svg .arrow-circle-down, svg .circle{
   -moz-transition: all .1s linear;
   -o-transition: all .1s linear;
 	}
-	
-svg .arrow-circle-up  {
+.vote-up {
+	color:#3fc3ad;
+}	
+.vote-down{
+  color: #da7a82;
+  }
+  .vote-none{
+  color:#c2c2c3;
+}
+  
+  
+svg .vote-up  {
   fill: #3fc3ad;
 	
 }
-svg .arrow-circle-down{
+svg .vote-down{
   fill: #da7a82;
   }
 
-svg .circle{
-  fill: #e0e1e3;
+svg .vote-none{
+  fill: #c2c2c3;
   
 }
 
+.media-body-text-voting {
+	padding:0px 5px;
+}
 
 .red {
 	color:red;
@@ -665,6 +679,19 @@ div a.icon:focus {
    .bold {
    		font-weight: bold;
    } 
+   
+.voting_container  {
+	width: 45px;
+	text-align:center;
+}   
+   
+.voting_container .v_count{
+		font-size: 18px;
+    		font-weight: bold;
+}   
+   
+   
+
 /** PRESS taken out from question-selected/new-index.html **/
 .stats {
   box-sizing: border-box;
@@ -694,3 +721,6 @@ div a.icon:focus {
   width: 90%;
   z-index: -1;
 }
+
+
+
