@@ -19267,16 +19267,20 @@ var pressTimer;
       $icon = $parent.find("#vote");
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
-      $icon.hasClass("vote-down") && $icon.removeClass("vote-down");
+
       if ($icon.hasClass("vote-up")) {
-        $icon.removeClass("vote-up") &&
-        // console.log('u to -')
-        this.castVote(answer_id, 0);
-        //  	  this.answers[i].vote_count =  this.answers[i].vote_count-1 
+        $icon.removeClass("vote-up") && this.castVote(answer_id, 0);
+        this.answers[i].vote_count = this.answers[i].vote_count - 1;
       } else {
-        //   console.log('- to u')
+        //up voting
+
+        //are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
+        if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
+          this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 2;
+        } else {
+          this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 1;
+        }
         this.castVote(answer_id, 1);
-        //this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+1
       }
     },
     mdown: function mdown(answer_id, e, i) {
@@ -19292,10 +19296,11 @@ var pressTimer;
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
       $icon.hasClass("vote-up") && $icon.removeClass("vote-up");
-      //    console.log('- to d')
+
       if (!$icon.hasClass("vote-down")) {
+        console.log('- to d');
         com.castVote(answer_id, -1);
-        // com.answers[i].vote_count =  com.answers[i].vote_count-1	
+        com.answers[i].vote_count = com.answers[i].vote_count - 1;
       }
     },
 
