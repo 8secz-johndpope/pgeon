@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -38,6 +40,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        Session::put('backUrl', URL::previous());
+        
     }
 
     /**
@@ -92,15 +96,10 @@ class LoginController extends Controller
        return array('user' => $authUser, "registred_new" => $registred_new);
    }
 
-/*   protected function redirectTo()
+   protected function redirectTo()
    {
-      $user = Auth::user();
-       if($user->role_id == 3) {
-         return '/questions';
-       }else {
-         return '/people';
-       }
-
+       return Session::get('backUrl') ? Session::get('backUrl') :   $this->redirectTo;
+       
    }
-   */
+   
 }
