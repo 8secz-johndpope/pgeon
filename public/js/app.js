@@ -19261,6 +19261,7 @@ var pressTimer;
     },
     mup: function mup(answer_id, e, i) {
 
+      console.log(this.lock_voting);
       if (this.lock_voting) return;
       this.lock_voting = true;
       var $icon;
@@ -19274,10 +19275,10 @@ var pressTimer;
       if ($icon.hasClass("vote-up")) {
         $icon.removeClass("vote-up") && this.castVote(answer_id, 0);
         this.answers[i].vote_count = this.answers[i].vote_count - 1;
-        console.log('u to -');
+        //    	   console.log('u to -')
       } else {
         //up voting
-        console.log('- to u');
+        //	    console.log('- to u')
         //are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
         if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
           console.log('+2 voting');
@@ -19306,7 +19307,7 @@ var pressTimer;
 
       if (!$icon.hasClass("vote-down")) {
 
-        console.log('- to d');
+        //  console.log('- to d')
         //are we longpressing from an up vote..then we need a -2 bcz from 1 it should go to -1 not 0
 
         if ($icon.hasClass("vote-up") && $icon.removeClass("vote-up")) {
@@ -19315,6 +19316,9 @@ var pressTimer;
           com.answers[i].vote_count = com.answers[i].vote_count - 1;
         }
         com.castVote(answer_id, -1);
+      } else {
+        //-1 achieved no futher downpressing allowd..but lock will not release becz we never hit db
+        this.lock_voting = false;
       }
     },
 
