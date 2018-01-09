@@ -243,12 +243,15 @@ var pressTimer;
       		      $icon.removeClass("vote-up") &&
       		    	  this.castVote(answer_id, 0)
       		    	  this.answers[i].vote_count =  this.answers[i].vote_count-1 
+      		    	   console.log('u to -')
       		    } else{ //up voting
-      		    		
+      		    		    console.log('- to u')
       		    		//are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
       		    		if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
+      		    		  	console.log('+2 voting')
       		    			this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+2
       		    		} else {
+      		    			
       		    			this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+1
       		    		}
       		    	  this.castVote(answer_id, 1)
