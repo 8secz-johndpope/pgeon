@@ -49,7 +49,7 @@
                                              <span class="fal fa-check text-muted"></span>
                                         </button>
                                         <strong>{{ item.url }}</strong>
-                                        <small>{{ item.bio }}...</small>
+                                        <p>{{ item.last_posted }}</p>
                                     </div>
                                 </div>
                             </li>
@@ -82,7 +82,7 @@
                                             <span class="fal fa-plus"></span>
                                         </button>
                                           <strong>{{ item.url }}</strong>
-                                 <small>{{ item.bio }}.</small>
+                                 <p>{{ item.last_posted }}</p>
                                     </div>
                                 </div>
                             </li>

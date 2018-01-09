@@ -41,7 +41,9 @@ class HomeController extends Controller {
           $url = "/user/".$value->user_id;
 
           $avatar =  Helper::avatar($value->user->avatar);
-          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'bio' => $value->user->bio, 'avatar' =>  $avatar, 'url' => $url);
+          $lq_created_at = User::get_last_posted_timestamp($value->user->id);
+          
+          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $url);
 
       }
       $my_followers = array();
@@ -53,7 +55,9 @@ class HomeController extends Controller {
           else
             $url = "/user/".$follower->id;
             $avatar =  Helper::avatar($follower->avatar);
-          $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'bio' => $follower->bio, 'avatar' => $avatar, 'url' => $url);
+            $lq_created_at = User::get_last_posted_timestamp($follower->id);
+            
+            $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' => $avatar, 'url' => $url);
       }
 
     return response()->json(['iam_following' => $iam_following,
@@ -99,6 +103,8 @@ class HomeController extends Controller {
           }
           
 
+          $value->last_posted =  Helper::user_posted_since(User::get_last_posted_timestamp($value->id));
+          
         
        
 //           if($value->user_following) {

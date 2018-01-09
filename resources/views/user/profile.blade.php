@@ -66,12 +66,14 @@
                         
                     </div>
                      @include('flash::message')
+                     <!-- 
                     <li class="list-group-item media p-a">
                                 <label class="control-label">Bio</label>
                                 <div class="input-group">
                                   <textarea type="text" class="form-control" name="bio" id="bio" cols="30" rows="2" placeholder="some info about you…" style="resize: none; border-radius: 4px;" maxlength="100">{{ $user->bio}}</textarea>
                                 </div>
                               </li>
+                           -->    
                               <li class="list-group-item media p-a" style="background-color: #fefefe;">
                     <div class="input-group" style="margin-bottom: 0;">
                         <input type="submit" value="Save changes" name="submit" class="btn btn-md btn-default-outline" style="float: none">

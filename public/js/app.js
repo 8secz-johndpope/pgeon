@@ -19281,7 +19281,7 @@ var pressTimer;
         //	    console.log('- to u')
         //are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
         if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
-          console.log('+2 voting');
+          //  	console.log('+2 voting')
           this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 2;
         } else {
 
@@ -54617,7 +54617,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + "...")])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -54661,7 +54661,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-plus"
-    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.bio) + ".")])])])])
+    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

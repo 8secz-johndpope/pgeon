@@ -252,7 +252,7 @@ var pressTimer;
       		    	//	    console.log('- to u')
       		    		//are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
       		    		if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
-      		    		  	console.log('+2 voting')
+      		    		//  	console.log('+2 voting')
       		    			this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+2
       		    		} else {
       		    			

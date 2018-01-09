@@ -47,7 +47,7 @@
                                         </button>
                                         @endif
                                         <strong>{{  $value['obj']->url }}</strong>
-                                        <small>{{ $value['obj']->bio }}</small>
+                                        <p>{{ $value['obj']->last_posted }}</p>
                                     </div>
                                 </div>
                             </li>

@@ -225,9 +225,9 @@ class UserController extends Controller
       //}
       }
 
-      if (Request::input('bio')) {
-        $user->bio = Request::input('bio');
-      }
+     // if (Request::input('bio')) {
+    //    $user->bio = Request::input('bio');
+   //   }
 
 
       if (Request::input('subscribed_to_newsletter') != null ) {

@@ -40,6 +40,17 @@ class Helper
         }
     } 
     
+    public static function user_posted_since($seconds) {
+        
+        if($seconds > 0) {
+            $time = Helper::calcElapsed($seconds);
+            return 'Last posted a question '.$time;
+        }else {
+            return 'Has never posted a question';
+        }
+        
+    }
+    
     public static function slug($user_id, $slug) {
     		return ($slug)? $slug : "/user/".$user_id;
     }
