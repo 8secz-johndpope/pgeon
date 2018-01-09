@@ -19231,7 +19231,8 @@ var pressTimer;
       //animateion will work only for the new items coming in not while refreshing the page...
       pushed_id: 0,
       submit_error: false,
-      error_class: "danger"
+      error_class: "danger",
+      lock_voting: false
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -19260,6 +19261,8 @@ var pressTimer;
     },
     mup: function mup(answer_id, e, i) {
 
+      if (this.lock_voting) return;
+      this.lock_voting = true;
       var $icon;
       var $parent;
 
@@ -19287,6 +19290,8 @@ var pressTimer;
       }
     },
     mdown: function mdown(answer_id, e, i) {
+      if (this.lock_voting) return;
+      this.lock_voting = true;
       var el = e.target;
       var com = this;
 
@@ -19298,12 +19303,18 @@ var pressTimer;
       $icon = $parent.find("#vote");
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
-      $icon.hasClass("vote-up") && $icon.removeClass("vote-up");
 
       if (!$icon.hasClass("vote-down")) {
+
         console.log('- to d');
+        //are we longpressing from an up vote..then we need a -2 bcz from 1 it should go to -1 not 0
+
+        if ($icon.hasClass("vote-up") && $icon.removeClass("vote-up")) {
+          com.answers[i].vote_count = com.answers[i].vote_count - 2;
+        } else {
+          com.answers[i].vote_count = com.answers[i].vote_count - 1;
+        }
         com.castVote(answer_id, -1);
-        com.answers[i].vote_count = com.answers[i].vote_count - 1;
       }
     },
 
@@ -19357,6 +19368,7 @@ var pressTimer;
       this.$http.post('/vote', formData).then(function (response) {
         _this3.updateVotesArray(answer_id, response['data'].vote);
         _this3.getVoteCount();
+        _this3.lock_voting = false;
       }, function (response) {
         alert('error submitting');
       });
