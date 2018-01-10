@@ -6,7 +6,7 @@
 
   <div class="container-fluid container-fill-height">
     <div class="container-content-middle">
-        <form class="m-x-auto text-center app-login-form" role="form" method="POST" action="{{ route('register') }}">
+        <form class="m-x-auto text-center app-login-form" role="form" method="POST" id="frm_register" action="{{ route('register') }}">
                         {{ csrf_field() }}
         <a href="/" class="app-brand m-b-md" style="width:55px">
                         <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
@@ -39,13 +39,18 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+			                             
         </div>
         <div class="form-group">
           <input type="password" id="cpw" name="password_confirmation" required  class="form-control" placeholder="Confirm password">
+          
         </div>
         <div class="m-b" style="margin-top: 10px;float: right">
           <a href="/" style="padding-right: 10px">Back</a>
-          <button class="btn btn-primary" type="submit"  name="register">Sign up</button>
+          
+          <invisible-recaptcha sitekey="6Lff8j8UAAAAABzFzl1iB44SwsOgtJckdUbO8C9A" :validate="captcha_validate" :callback="captcha_callback" class="btn btn-primary" type="submit" id="do-something-btn" :disabled="captcha_loading" >
+   Sign up
+</invisible-recaptcha>
         </div>
       </form>
     </div>

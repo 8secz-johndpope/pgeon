@@ -16812,6 +16812,8 @@ module.exports = function(module) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_AnswerMixin_js__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_invisible_recaptcha__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_invisible_recaptcha___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_invisible_recaptcha__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16825,6 +16827,7 @@ window.Vue = __webpack_require__(199);
 var VueTouch = __webpack_require__(198);
 Vue.use(VueTouch, { name: 'v-touch' });
 Vue.use(__webpack_require__(197));
+
 
 
 
@@ -16851,7 +16854,12 @@ var app = new Vue({
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
 
   data: {
-    bubble: 0
+    bubble: 0,
+    captcha_loading: true
+  },
+
+  components: {
+    "invisible-recaptcha": __WEBPACK_IMPORTED_MODULE_1_vue_invisible_recaptcha___default.a
   },
 
   mounted: function mounted() {
@@ -16881,6 +16889,12 @@ var app = new Vue({
   },
 
   methods: {
+    captcha_callback: function captcha_callback(recaptchaToken) {
+      $("#frm_register").submit();
+    },
+    captcha_validate: function captcha_validate() {
+      this.captcha_loading = true;
+    },
     callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
       var child = app.$refs.answersexpiredowner;
       child.fetchRecords($question_id, $uname, $question, $ex_date);
@@ -19263,6 +19277,8 @@ var pressTimer;
 
       console.log(this.lock_voting);
       if (this.lock_voting) return;
+      //convert null to 0
+      this.answers[i].vote_count = this.answers[i].vote_count || 0;
       this.lock_voting = true;
       var $icon;
       var $parent;
@@ -19284,7 +19300,6 @@ var pressTimer;
           //  	console.log('+2 voting')
           this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 2;
         } else {
-
           this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 1;
         }
         this.castVote(answer_id, 1);
@@ -19292,6 +19307,8 @@ var pressTimer;
     },
     mdown: function mdown(answer_id, e, i) {
       if (this.lock_voting) return;
+      //convert null to 0
+      this.answers[i].vote_count = this.answers[i].vote_count || 0;
       this.lock_voting = true;
       var el = e.target;
       var com = this;
@@ -66893,6 +66910,184 @@ module.exports = Vue$3;
 __webpack_require__(130);
 module.exports = __webpack_require__(131);
 
+
+/***/ }),
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: {
+		sitekey: {
+			type: String,
+			required: true
+		},
+
+		badge: {
+			type: String,
+			required: false
+		},
+
+		validate: {
+			type: Function,
+			required: false
+		},
+
+		callback: {
+			type: Function,
+			required: true
+		},
+
+		disabled: {
+			type: Boolean,
+			required: false
+		},
+
+		id: {
+			type: String,
+			required: false
+		},
+
+		type: {
+			type: String,
+			required: false
+		}
+	},
+
+	data: function data() {
+		return {
+			widgetId: false,
+			loaded: false
+		};
+	},
+
+	methods: {
+		render: function render() {
+			var _this = this;
+
+			this.widgetId = grecaptcha.render(this.id || this._uid, {
+				sitekey: this.sitekey,
+				size: 'invisible',
+				badge: this.badge || 'bottomright',
+				theme: "dark",
+				callback: function callback(token) {
+					_this.callback(token);
+					grecaptcha.reset(_this.widgetId);
+				}
+			});
+			this.loaded = true;
+		},
+
+		renderWait: function renderWait() {
+			var self = this;
+			setTimeout(function () {
+				if (typeof grecaptcha !== "undefined") self.render();else self.renderWait();
+			}, 200);
+		},
+
+		click: function click() {
+			if (this.validate) this.validate();
+			grecaptcha.execute();
+		}
+	},
+
+	computed: {
+		computedClass: function computedClass() {
+			var classArray = this.class ? this.class.split(' ') : [];
+
+			if (this.value) {
+				classArray.push('invisible-recaptcha');
+			}
+
+			return classArray;
+		}
+	},
+
+	mounted: function mounted() {
+		if (typeof grecaptcha === "undefined") {
+			var script = document.createElement('script');
+			script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
+			script.onload = this.renderWait;
+
+			document.head.appendChild(script);
+		} else this.render();
+	}
+});
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(210),
+  /* template */
+  __webpack_require__(212),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/node_modules/vue-invisible-recaptcha/src/InvisibleRecaptcha.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] InvisibleRecaptcha.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e8179e8e", Component.options)
+  } else {
+    hotAPI.reload("data-v-e8179e8e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    class: _vm.computedClass,
+    attrs: {
+      "type": _vm.type,
+      "disabled": !_vm.loaded || _vm.disabled,
+      "id": _vm.id || _vm._uid
+    },
+    on: {
+      "click": _vm.click
+    }
+  }, [_vm._t("default")], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-e8179e8e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

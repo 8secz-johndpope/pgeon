@@ -15,6 +15,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
+import InvisibleRecaptcha from 'vue-invisible-recaptcha';
 
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
@@ -40,7 +41,12 @@ const app = new Vue({
   mixins: [AnswerMixin],
 
   data: {
-	  bubble: 0
+	  bubble: 0,
+	  captcha_loading: true
+  },
+  
+  components: {
+      "invisible-recaptcha": InvisibleRecaptcha
   },
   
   mounted() {
@@ -77,7 +83,12 @@ const app = new Vue({
   },
 
   methods: {
-	
+	  captcha_callback(recaptchaToken) {
+		  $("#frm_register").submit()
+	  },
+	  captcha_validate() {
+		  this.captcha_loading = true
+	  },
 	  callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
 		  var child = app.$refs.answersexpiredowner
 		  child.fetchRecords($question_id, $uname, $question, $ex_date)

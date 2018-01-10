@@ -234,7 +234,9 @@ var pressTimer;
       		  
     		console.log (this.lock_voting)
     				if (this.lock_voting) return
-    				 this.lock_voting = true
+    				//convert null to 0
+    				this.answers[i].vote_count =  this.answers[i].vote_count || 0
+    				this.lock_voting = true
       		    var $icon
       		    var $parent 
 
@@ -255,7 +257,6 @@ var pressTimer;
       		    		//  	console.log('+2 voting')
       		    			this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+2
       		    		} else {
-      		    			
       		    			this.answers[i].vote_count =  parseInt(this.answers[i].vote_count)+1
       		    		}
       		    	  this.castVote(answer_id, 1)
@@ -266,6 +267,8 @@ var pressTimer;
     	 }	,   	
     	 mdown(answer_id, e, i) {
     		 if (this.lock_voting) return
+    		//convert null to 0
+		this.answers[i].vote_count =  this.answers[i].vote_count || 0
     		 this.lock_voting = true
     		 var el = e.target
     		  var com = this
