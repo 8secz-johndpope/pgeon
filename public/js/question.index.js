@@ -129,6 +129,8 @@ $(function () {
       this.checked ?
         $(this).closest(".answer-bubble").addClass("checked") :
         $(this).closest(".answer-bubble").removeClass("checked")
+        
+        $(".cancel_edit").addClass("hidden")
 
         $(".deleteNum").css("display" , "block")
         $(".deleteNum").text(
@@ -140,7 +142,8 @@ $(function () {
       )
 
       numberCheckedBoxes() == 0 &&
-        $(".deleteNum").css("display" , "none")
+        $(".deleteNum").css("display" , "none") &&
+         $(".cancel_edit").removeClass("hidden")
     })
 
 
@@ -192,9 +195,12 @@ $(function () {
     
      $(".edit").on("click", function () {
     	 	$(".custom-checkbox").removeClass("hidden")
-    	 	$(this).addClass('hidden')
+    	 	$(this).addClass('hidden') && $(".cancel_edit").removeClass("hidden")
      })
-     
+   
+      $(".cancel_edit").on("click", function () {
+    	  	$(".custom-checkbox").addClass("hidden") && $(this).addClass('hidden') && $(".edit").removeClass("hidden")
+     })
      
      $("#done").on("click", function () {
 	    	 var str = ""

@@ -5,6 +5,8 @@
       <a onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
       <h4>Published</h4>
        <button type="button" class="btn btn-sm btn-default-outline edit">Edit</button>
+       <button type="button" class="btn btn-sm btn-default-outline cancel_edit hidden">Cancel</button>
+       
        <button type="button" data-toggle="modal" data-target="#deleteQ" id="delete" class="btn btn-xs btn-danger-outline deleteNum">##</button>
     </nav>
   </div>

@@ -174,6 +174,7 @@ margin-right: 30px;
   align-items: center;
   padding-top: 5px;
   padding-bottom: 5px;
+  position:relative;
 }
 
 .header-nav h4 {
@@ -672,7 +673,7 @@ div a.icon:focus {
      transform: translateY(-50%);
      right: 2px;
      font-size: 8px;
-     color: red;
+     color: #cc3333;
    }
 
     
