@@ -79,29 +79,6 @@ $(function () {
 	
 	
 	
-		$(".delete").on("click", function () {
-		var att_id = $(this).attr('rel')
-		
-		$.ajax({
-		    url: '/question/'+att_id,
-		    method: 'DELETE',
-		    contentType: 'application/json',
-		    headers: { 
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-	        },
-		  //  data: { _token : $('meta[name="csrf-token"]').attr('content') },
-		    success: function(result) {
-	    		
-		    		setTimeout(function(){ location.href = "/pending"; }, 1000);
-		    },
-		    error: function(request,msg,error) {
-		        // handle failure
-		    }
-		});
-		
-	
-	})
-
     // 
 	  //  $(".display-published").on("click", function (e) {
     //

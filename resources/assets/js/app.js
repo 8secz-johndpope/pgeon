@@ -16,6 +16,7 @@ Vue.use(require('vue-resource'));
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
 import InvisibleRecaptcha from 'vue-invisible-recaptcha';
+import Longpress from 'vue-longpress';
 
 Vue.component('follow', require('./components/Follow.vue'));
 Vue.component('allq', require('./components/AllQ.vue'));
@@ -46,7 +47,8 @@ const app = new Vue({
   },
   
   components: {
-      "invisible-recaptcha": InvisibleRecaptcha
+      "invisible-recaptcha": InvisibleRecaptcha,
+      "longpress" : Longpress
   },
   
   mounted() {
@@ -83,6 +85,16 @@ const app = new Vue({
   },
 
   methods: {
+	  deleteQ(id) {
+
+		  this.$http.delete(`/question/${id}`).then((response) => {
+			   location.href = "/pending"; 
+	      }, (response) => {
+	        // error callback
+	      });
+			
+		  
+	  },
 	  captcha_callback(recaptchaToken) {
 		  $("#frm_register").submit()
 	  },

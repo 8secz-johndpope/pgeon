@@ -38,7 +38,8 @@
                         <a data-toggle="modal" href="#viewAll" v-on:click="callChildPendingAnswers({{$val['question']->id}}, '{{Helper::slug($val['question']->user->id ,$val['question']->user->slug)}}', '{{addslashes($val['question']->question)}}', '{{date('m/d/Y', $val['question']->expiring_at)}}')" style="vertical-align: sub;">&nbsp;<i class="fal fa-comments"></i>&nbsp;View all</a>
                                     @endif
                     <div class="pull-right">
-                    <button type="button" rel="{{$val['question']->id}}" class="btn btn-danger-outline delete">Delete</button>
+                    	    <longpress duration="3" :on-confirm="deleteQ" :value={{$val['question']->id}} pressing-text="Deleing in {$rcounter} secs" class="btn btn-danger-outline" action-text="Deleting">Delete</longpress>
+                    
                        
                                               @if ($val['answer'])
                                                 <form  method="post" id="publish_form" action="/accept_answer"> 
