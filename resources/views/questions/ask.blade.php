@@ -30,40 +30,40 @@
 
                                                 <div class="pull-left" style="padding-top: 2px;">
                                                     <select name="days" id="day-select" class="custom-select time-select">
-                                                        <option value="00">00 day</option>
-                                                        <option value="01">01 day</option>
-                                                        <option value="02">02 day</option>
-                                                        <option value="03">03 day</option>
-                                                        <option value="04">04 day</option>
-                                                        <option value="05">05 day</option>
-                                                        <option value="06">06 day</option>
+                                                        <option value="00">00 d</option>
+                                                        <option value="01">01 d</option>
+                                                        <option value="02">02 d</option>
+                                                        <option value="03">03 d</option>
+                                                        <option value="04">04 d</option>
+                                                        <option value="05">05 d</option>
+                                                        <option value="06">06 d</option>
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;margin-left: -3px;"></span>
                                                     <select name="hours" id="hour-select" class="custom-select time-select">
-                                                        <option value="00">00 hr</option>
-                                                        <option value="01">01 hr</option>
-                                                        <option value="02">02 hr</option>
-                                                        <option value="03">03 hr</option>
-                                                        <option value="04">04 hr</option>
-                                                        <option value="05">05 hr</option>
-                                                        <option value="06">06 hr</option>
-                                                        <option value="07">07 hr</option>
-                                                        <option value="08">08 hr</option>
-                                                        <option value="09">09 hr</option>
-                                                        <option value="10">10 hr</option>
-                                                        <option value="11">11 hr</option>
-                                                        <option value="12">12 hr</option>
-                                                        <option value="13">13 hr</option>
-                                                        <option value="14">14 hr</option>
-                                                        <option value="15">15 hr</option>
-                                                        <option value="16">16 hr</option>
-                                                        <option value="17">17 hr</option>
-                                                        <option value="18">18 hr</option>
-                                                        <option value="19">19 hr</option>
-                                                        <option value="20">20 hr</option>
-                                                        <option value="21">21 hr</option>
-                                                        <option value="22">22 hr</option>
-                                                        <option value="23">23 hr</option>
+                                                        <option value="00">00 h</option>
+                                                        <option value="01">01 h</option>
+                                                        <option value="02">02 h</option>
+                                                        <option value="03">03 h</option>
+                                                        <option value="04">04 h</option>
+                                                        <option value="05">05 h</option>
+                                                        <option value="06">06 h</option>
+                                                        <option value="07">07 h</option>
+                                                        <option value="08">08 h</option>
+                                                        <option value="09">09 h</option>
+                                                        <option value="10">10 h</option>
+                                                        <option value="11">11 h</option>
+                                                        <option value="12">12 h</option>
+                                                        <option value="13">13 h</option>
+                                                        <option value="14">14 h</option>
+                                                        <option value="15">15 h</option>
+                                                        <option value="16">16 h</option>
+                                                        <option value="17">17 h</option>
+                                                        <option value="18">18 h</option>
+                                                        <option value="19">19 h</option>
+                                                        <option value="20">20 h</option>
+                                                        <option value="21">21 h</option>
+                                                        <option value="22">22 h</option>
+                                                        <option value="23">23 h</option>
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;"></span>
                                                     <select name="mins" id="minute-select" class="custom-select time-select">
@@ -103,9 +103,9 @@
 									Form::submit('Submit',['class' => 'btn btn-sm btn-primary pull-right', 'id' =>
 									"submit-question", "style" => "font-size: 15px;display: inline-block;margin-top: 2px;"]) }}
                                                 <div class="pull-left" style="font-size: 16px;margin-top: 6px;"><span id="sp_days"></span>
-                                                    <small style="margin-left: -3px;">day</small> <span id="sp_hr"></span>
-                                                    <small style="margin-left: -3px;">hr</small> <span id="sp_mn"></span>
-                                                    <small style="margin-left: -3px;">min</small>
+                                                    <small style="margin-left: -3px;">d</small> <span id="sp_hr"></span>
+                                                    <small style="margin-left: -3px;">h</small> <span id="sp_mn"></span>
+                                                    <small style="margin-left: -3px;">m</small>
 
                                                 </div>
                                             </div>
