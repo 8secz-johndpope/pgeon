@@ -49,9 +49,9 @@
                     <div class="media-body">
                     
                        <div class="media-body-text live-response flex-center">
-                                <a class="media-left" style="font-size: 20px; color: rgba(224, 225, 227, .6);"  v-on:click="delete_answer(answer.id)">
+                                <a class="media-left" style="font-size: 20px; color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
                                     
-                                                 <span  class="fal fa-times-circle"></span>
+                                                 <span  class="fal fa-trash"></span>
                                 </a>
                                 
        

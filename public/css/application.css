@@ -465,6 +465,7 @@ div.navbar-right li {
 /* stripping spacing "conflicting" */
 .nav > li > a.app-notifications-icon {
   padding: 0;
+  line-height:22px;
 }
 .app-notifications-icon{
   font-size: 22px;
@@ -500,7 +501,7 @@ div.navbar-right li {
   padding-left: 0;
   margin: 0;
   list-style: none;
-  z-index: 2;
+  z-index: 100;
 }
 
 .mobile-dropdown li {

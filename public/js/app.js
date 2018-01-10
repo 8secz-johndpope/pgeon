@@ -53735,7 +53735,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-left",
       staticStyle: {
         "font-size": "20px",
-        "color": "rgba(224, 225, 227, .6)"
+        "color": "rgba(177, 179, 182, 0.6)"
       },
       on: {
         "click": function($event) {
@@ -53743,7 +53743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      staticClass: "fal fa-times-circle"
+      staticClass: "fal fa-trash"
     })]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()])
   })), _vm._v(" "), _c('div', {
     attrs: {
