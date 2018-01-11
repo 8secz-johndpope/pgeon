@@ -1,44 +1,6 @@
  var oldHeader=$(".top-header h4").text()
     var votePointsOldContent=$(".vote-points").html()
 
-    /*
-    $(".top-content-item").click(function (e) {
-
-    	  $("#g_back").addClass('hidden');	
-    	  $("#profile_back").removeClass('hidden');
-    	  
-
-	 
-      e.preventDefault()
-     
-      $answered_by = $(this).attr('data-answered-by')
-      $question_by = $(this).attr('data-question-by')
-      $q_name = $(".nav-contain h4").html()
-      $a_name = $(this).find('h5').html()
-      
-      fillResponses($answered_by, $question_by, $q_name, $a_name)
-
-      $(".responses-to-display").addClass("show-responses").removeClass("hide")
-      $(".back-btn").removeClass("hide");
-      var resps=$(this).find(".responses-count").text()
-      $(".top-header h4").text(resps)
-
-      $imgSrc=$(this).find("img").attr("src")
-
-      $(".vote-points").html(`
-        <img alt="" src="${$imgSrc}" class="avatar avatar-96 photo" height="96" width="96" style=" border-radius: 50%; ">
-      `)
-
-
-    })
-    */
-    
-   /* $(".nav_back").on('click', function (e){
-    	alert('ss')
-    		return 
-    		//alert('s')
-    })*/
-    
 
     
       $("#profile_back").on('click', function (e){

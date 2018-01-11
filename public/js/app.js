@@ -54638,7 +54638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [_c('button', {
-      staticClass: "btn btn-lg btn-link pull-right",
+      staticClass: "btn btn-md btn-link pull-right",
       on: {
         "click": function($event) {
           _vm.unfollow(item.user_id)
@@ -54646,7 +54646,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -54682,7 +54682,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('div', {
       staticClass: "media-body"
     }, [(!_vm.isExistsinFollowing(item.user_id)) ? _c('button', {
-      staticClass: "btn btn-lg btn-link pull-right",
+      staticClass: "btn btn-md btn-link pull-right",
       on: {
         "click": function($event) {
           _vm.follow(item.user_id, $event)
@@ -54690,7 +54690,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-plus"
-    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

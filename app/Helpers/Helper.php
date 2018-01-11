@@ -44,9 +44,9 @@ class Helper
         
         if($seconds > 0) {
             $time = Helper::calcElapsed($seconds);
-            return 'Last posted a question '.$time;
+            return 'last posted a question '.$time;
         }else {
-            return 'Has never posted a question';
+            return 'has never posted a question';
         }
         
     }
