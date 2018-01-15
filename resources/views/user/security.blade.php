@@ -19,10 +19,12 @@
 								{{$user->email}} <small><a href="#" type="button" data-toggle="modal" data-target="#changeE" style="color: #24c4bc">(change)</a></small>
 							</p>
 						</div>
+						@if (!Auth::user()->provider)
 						<div class="input-group" style="margin-bottom: 0">
 							<label for="password">Password</label>
-							<a class="btn btn-default-outline m-t-5" href="password/reset">Reset Your Password</a>
+							<a class="btn btn-default-outline m-t-5" href="/cpwd">Reset Your Password</a>
 						</div>
+						@endif
 					</li>
 				</ul>
 				{{ csrf_field() }}

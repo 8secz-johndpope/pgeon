@@ -63,6 +63,10 @@ Route::get('/', 'HomeController@index');
   Route::group(array('middleware' => 'auth'), function()
   {
      
+    Route::get('cpwd','HomeController@showChangePasswordForm');
+    Route::post('cpwd','HomeController@cpwd');
+    
+      
     Route::post('reportQ', 'QuestionController@reportQ');
       
     Route::get('bubble', 'UserController@notification_count');
