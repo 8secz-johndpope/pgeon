@@ -19254,6 +19254,7 @@ var pressTimer;
       my_votes: [],
       voted_now: 0,
       vote_count: 0,
+      records_loaded: false,
       //animateion will work only for the new items coming in not while refreshing the page...
       pushed_id: 0,
       submit_error: false,
@@ -19264,6 +19265,7 @@ var pressTimer;
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
   props: ['question_id', 'hits', 'current_user_id', 'question_owner_id', 'initial', 'question_id', 'question_user_slug', 'question', 'current_user_slug'],
   mounted: function mounted() {},
+
 
   watch: {
     answers: function answers() {
@@ -19383,7 +19385,7 @@ var pressTimer;
       };
       this.$http.delete('/answer/' + id, formData).then(function (response) {
         _this2.submitted_text = '';
-        location.reload();
+        // location.reload()
         // this.fetchRecords()
       }, function (response) {
         alert('error submitting');
@@ -19423,7 +19425,7 @@ var pressTimer;
         $.getJSON('/get_votes/' + this.question_id, function (votes) {
           //   com.my_votes = votes
           this.my_votes = votes;
-
+          this.records_loaded = true;
           // console.log(this.my_votes[0])
         }.bind(this));
       }.bind(this));
@@ -20234,6 +20236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           'id': notification.id
         };
         console.log(formData);
+        this.bubble -= 1;
         this.$http.post('/markasseen', formData).then(function (response) {
           //	this.$emit('bubbleCountChanged', this.bubble-1)    	  
           location.href = notification.link_to;
@@ -20256,10 +20259,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     fetchRecords: function fetchRecords() {
 
+      this.new_recs_in = false;
       this.still_deciding_count = true;
       $.getJSON('/notifications/json', function (response) {
 
         this.notifications = response;
+        var com = this;
+        response.forEach(function (val, index) {
+          if (val.seen == 0) com.bubble++;
+        });
         this.still_deciding_count = false;
       }.bind(this));
     }
@@ -20272,6 +20280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     if (socket) {
       socket.on('bubble', function (bubble) {
+        //total unseen
         com.new_recs_in = bubble;
         com.bubble = bubble;
       });
@@ -53761,7 +53770,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "answers_container"
     }
-  }, [(_vm.answers.length < 1) ? _c('div', {
+  }, [(_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
     staticStyle: {
       "width": "auto",
       "box-shadow": "inset 0px 0px .05 black"

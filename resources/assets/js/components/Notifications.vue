@@ -80,6 +80,7 @@
     	                'id': notification.id
     	              }
     	    	  	console.log(formData)
+    	    	  	this.bubble -= 1
     	        this.$http.post('/markasseen', formData).then((response) => {
     	        		//	this.$emit('bubbleCountChanged', this.bubble-1)    	  
     	        	 		location.href = notification.link_to
@@ -103,11 +104,16 @@
       
       fetchRecords() {
     	  	
-    	  	
+    	  	this.new_recs_in=false
     	  	this.still_deciding_count = true
     		$.getJSON('/notifications/json', function(response) {
     			
     			this.notifications = response
+    		 	var com = this
+    			response.forEach(function(val,index) {
+    					if(val.seen == 0 )
+    						com.bubble++; 
+    				}) 
     			this.still_deciding_count = false
     			
     	    }.bind(this));
@@ -130,6 +136,7 @@
     	
     	 if (socket) {
     		 socket.on('bubble', function (bubble) {
+    			 //total unseen
     			 	 com.new_recs_in = bubble
     			 	 com.bubble = bubble
     		      });  	   	

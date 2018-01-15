@@ -4,7 +4,7 @@
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
                 <nav class="container nav-container header-nav">
-                    <a href="/" class="btn btn-link p-x-0"><span class="fal fa-arrow-left back-arrow"></span></a>
+                    <a onclick="window.history.back()" class="btn btn-link p-x-0"><span class="fal fa-arrow-left back-arrow"></span></a>
                     <h4>
                      <img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}">
                     </h4>

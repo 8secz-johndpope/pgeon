@@ -75,7 +75,7 @@
 
     <div id="answers_container">
     
-      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="answers.length<1">
+      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="records_loaded && answers.length<1">
             <div class="container text-center m-t-10p">
                 <img src="/img/tumbleweed.svg" />
                           
@@ -190,6 +190,7 @@ var pressTimer;
         my_votes: [],
         voted_now : 0,
         vote_count: 0,
+        records_loaded: false,
         //animateion will work only for the new items coming in not while refreshing the page...
 		pushed_id:0,
 		submit_error: false,
@@ -203,6 +204,7 @@ var pressTimer;
 
 
     },
+    
     watch: {
       answers() {
 
@@ -340,7 +342,7 @@ var pressTimer;
         }
         this.$http.delete('/answer/' + id, formData).then((response) => {
           this.submitted_text = ''
-         	 location.reload()
+         	// location.reload()
          // this.fetchRecords()
         }, (response) => {
           alert('error submitting')
@@ -379,7 +381,7 @@ var pressTimer;
 	    	        $.getJSON('/get_votes/'+this.question_id, function(votes) {
 	    	       //   com.my_votes = votes
 	    	            this.my_votes = votes
-	    	          
+	    	          	this.records_loaded = true
 	    	           // console.log(this.my_votes[0])
 	    	          
 	    	      }.bind(this));
