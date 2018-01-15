@@ -23,7 +23,7 @@
                       @include('flash::message')
                     
                     <div class="m-b" style="margin-top: 10px;float: right">
-                        <a href="/questions" class="text-muted" style="padding-right: 10px">Skip this step</a>
+                        <a href="{{$skip_url}}" class="text-muted" style="padding-right: 10px">Skip this step</a>
                         <input type="hidden" name="step2" value="1" />
                          <button type="submit" class="btn btn-primary">Submit</button>
                     </div>

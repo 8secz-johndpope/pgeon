@@ -42,12 +42,12 @@
                                              <span class="fal fa-check text-muted"></span>
                                          </button>
                                     		 @else
-                                        <button rel={{ $value['obj']->id }} class="follow btn-lg btn-link pull-right">
+                                        <button rel={{ $value['obj']->id }} class="follow btn-md btn-link pull-right">
                                             <span class="fal fa-plus"></span>
                                         </button>
                                         @endif
                                         <strong>{{  $value['obj']->url }}</strong>
-                                        <p>{{ $value['obj']->last_posted }}</p>
+                                        <small>{{ $value['obj']->last_posted }}</small>
                                     </div>
                                 </div>
                             </li>

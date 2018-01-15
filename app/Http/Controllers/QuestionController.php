@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Traits\QuestionTrait;
 use App\Mail\QuestionReported;
+use Illuminate\Support\Facades\Session;
 
 class QuestionController extends Controller
 {
@@ -28,7 +29,8 @@ class QuestionController extends Controller
      */
     public function show($question_id,$format=null)
     {
-        
+     
+        Session::forget('backUrl');
         $question = Question::find($question_id);
 
         if (!$question)

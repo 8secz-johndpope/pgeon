@@ -41,7 +41,8 @@
                         <input type="password" id="password" name="password"  class="form-control" placeholder="Password">
                     </div>
                     <div class="m-b" style="margin-top: 10px;float: right">
-                        <a href="{{ route('register') }}" class="btn btn-default">Sign up</a>
+                    <!--  if users go to signup directly they will not have any back url..but if users go from live url we need to carry that url from login to signup -->
+                        <a href="{{ route('register') }}?backUrl={{base64_encode(Session::get('backUrl'))}}" class="btn btn-default">Sign up</a>
                         <button  type="submit" class="btn btn-primary">Log In</button>
                     </div>
                     <a href="{{ route('password.request') }}" class="text-muted" style="float: left;margin-left: 5px;margin-top: 5px">Forgot password</a>

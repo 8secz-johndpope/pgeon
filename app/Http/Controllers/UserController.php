@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+
 use Image;
 use Route;
 use Helper;
@@ -75,7 +77,8 @@ class UserController extends Controller
     
     public function step2 () {
   
-        return view('user.step2');
+        $skip_url = Session::get('backUrl')?Session::get('backUrl'):"/questions";
+        return view('user.step2')->with('skip_url',$skip_url);
         
     }
     
@@ -162,7 +165,8 @@ class UserController extends Controller
 
        if (Request::input('step2') == 1) {
            $view = "user.step2";
-           $success_view = "/questions";
+           $success_view = Session::get('backUrl') ? Session::get('backUrl') : "/questions";
+           
        }else {
            $success_view = '/profile';
            $view = "user.profile";
@@ -195,7 +199,7 @@ class UserController extends Controller
 
          if ($validator->fails()) {
              flash('Invalid display name. Should not contain special chars and should not exceed 25 letters.');
-             return view($view)->with('user',$user);
+             return view($view)->with('user',$user)->with('skip_url', $success_view);
          }
 
          $routes = [];
@@ -216,7 +220,7 @@ class UserController extends Controller
 
          if (in_array ($slug, $routes)) {
              flash("'$slug' taken! Try another one.");
-             return view($view)->with('user',$user);
+             return view($view)->with('user',$user)->with('skip_url',  $success_view);;
          }
 
 

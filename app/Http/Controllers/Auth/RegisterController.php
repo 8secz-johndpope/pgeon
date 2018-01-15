@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -30,15 +31,20 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/search';
+    protected $backUrl = '';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        //from login.blade
+        Session::put('backUrl', base64_decode($request->get('backUrl')));
         $this->middleware('guest');
+        
+        
     }
 
     /**
@@ -92,10 +98,9 @@ class RegisterController extends Controller
         
         Auth::login($user);
         
-        
+        $skip_url = (Session::get('backUrl'))?Session::get('backUrl'):'/questions';
        // return redirect($this->redirectPath());
-       return redirect('/step2');
-    }
+        return redirect('/step2')->with('skip_url', $skip_url);
     
-   
+    }
 }

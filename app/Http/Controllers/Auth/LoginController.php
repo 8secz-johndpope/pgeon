@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -40,6 +41,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        /** flow 
+         * backUrl is mainly for redirecting user to question detail page where they were visiting before login/signup
+         * for login simply redirect to questions if no backurl
+         * FOR registration
+         *      login.blade will carry backUrl to registration controller
+         *      it will passt it to step2.
+         *      step2 submit is handled in usercontroller update..it will set redirct url after submit to backurl
+         *      finally backUrl session will be deleted on question detail page 
+         */
         Session::put('backUrl', URL::previous());
         
     }

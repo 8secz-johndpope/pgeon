@@ -723,5 +723,8 @@ div a.icon:focus {
   z-index: -1;
 }
 
+.fixed {
+	position:fixed !important;
+}
 
 
