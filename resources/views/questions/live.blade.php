@@ -1,11 +1,19 @@
-@extends('layouts.app-profile') @section('content')
+@extends('layouts.app-no-header-no-top-bar') @section('content')
 
-  <div class="nav-contain">
-    <nav class="container app-navbar header-nav">
-      <a onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
-      <h4>Live</h4>
-    </nav>
-  </div>
+
+
+<nav class="navbar  navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container nav-container">
+                <div class="navbar-header w-100">
+                  
+                    <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
+                    <h4>Live</h4>
+                </div>
+             
+            </div>
+        </nav>
+
+
   <div style="width: auto;">
   </div>
 

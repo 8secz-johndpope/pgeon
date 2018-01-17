@@ -42,14 +42,13 @@ class NotificationController extends Controller
                     switch ($notif->type) {
                         
                         case "question_posted":
-                            $q = Question::find($meta->question_id);
-                            if($q) {
-                                $user = User::find($q->user_id);
+                            $user = User::find($meta->created_by);
+                               
                                 if($user) {
                                     
                                     $responses[] = array('type' => $notif->type, 
                                         'message' => Helper::slug($user->id,$user->slug) . ' posted a new question ',
-                                        'link_to' => 'question/'.$q->id,
+                                        'link_to' => 'question/'.$meta->question_id,
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                         'class' => 'fa-comment-alt',
                                         'id' => $notif->id,
@@ -57,7 +56,6 @@ class NotificationController extends Controller
                                         
                                     );
                                 }
-                            }
                              
                         break;
                         case "user_followed":
@@ -151,14 +149,14 @@ class NotificationController extends Controller
         
     }
     
-    public static function insertQuestionPostedToFollowers($qid)
+    public static function insertQuestionPostedToFollowers($qid, $uid)
     {
         //notify all the followers that the question is posted
-        $ufs = UserFollowing::get_followers(Auth::user()->id);
+        $ufs = UserFollowing::get_followers($uid);
         
         $data = array();
         foreach ($ufs as $uf) {
-            $data[] = array('target_user'=>$uf, 'created_at'=>  time(), 'type' => 'question_posted', 'meta' => json_encode(array('question_id' => $qid)));
+            $data[] = array('target_user'=>$uf, 'created_at'=>  time(), 'type' => 'question_posted', 'meta' => json_encode(array('question_id' => $qid, 'created_by' => $uid)));
         }
              
         if($data)

@@ -34,7 +34,8 @@ class QuestionController extends Controller
         $question = Question::find($question_id);
 
         if (!$question)
-            abort(404, "Page Not Found");
+            abort(410);
+
 
         if ($format == "json") {
             $answers = Answer::get_sorted($question_id);
@@ -119,7 +120,7 @@ class QuestionController extends Controller
             
             /** insert notifications for all followers **/
             if($question->id) {
-                NotificationController::insertQuestionPostedToFollowers($question->id);
+                NotificationController::insertQuestionPostedToFollowers($question->id,Auth::user()->id);
             }
             
          return Redirect::to('my-questions');

@@ -1,15 +1,24 @@
-@extends('layouts.app-profile') @section('content')
+@extends('layouts.app-no-header-no-top-bar') @section('content')
 
-  <div class="nav-contain">
-    <nav class="container app-navbar header-nav">
-      <a onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
-      <h4>Published</h4>
-       <button type="button" class="btn btn-sm btn-default-outline edit">Edit</button>
-       <button type="button" class="btn btn-sm btn-default-outline cancel_edit hidden">Cancel</button>
+
+
+
+
+<nav class="navbar  navbar-inverse navbar-fixed-top app-navbar">
+            <div class="container nav-container">
+                <div class="navbar-header w-100">
+                  
+                    <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-arrow-left fa-lg"></span></a>
+                    <h4>Published</h4>
+                    <button type="button" class="btn btn-sm btn-default-outline edit">Edit</button>
+                    <button type="button" class="btn btn-sm btn-default-outline cancel_edit hidden">Cancel</button>
        
-       <button type="button" data-toggle="modal" data-target="#deleteQ" id="delete" class="btn btn-xs btn-danger-outline deleteNum">##</button>
-    </nav>
-  </div>
+                    <button type="button" data-toggle="modal" data-target="#deleteQ" id="delete" class="btn btn-xs btn-danger-outline deleteNum">##</button>
+                </div>
+             
+            </div>
+        </nav>
+
 <div class="modal" id="deleteQ">
    <div class="modal-dialog modal-sm">
       <div class="modal-content">
