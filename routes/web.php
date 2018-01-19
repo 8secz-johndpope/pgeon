@@ -20,6 +20,9 @@ Route::get('/', 'HomeController@index');
       Route::group(['middleware' => 'admin.user'], function()
       {
             Route::resource('questions', 'Voyager\VoyagerQuestionController');
+            Route::resource('users', 'Voyager\VoyagerUserController');
+            //just an override
+              Route::get('users', 'Voyager\VoyagerUserController@index')->name('voyager.users.index');
             Route::post('question/{id}/publish', 'Voyager\VoyagerQuestionController@publish')->name('voyager.publish');
       });
   });

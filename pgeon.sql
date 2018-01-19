@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2017 at 04:03 PM
+-- Generation Time: Jan 19, 2018 at 02:33 AM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.1.8
 
@@ -155,29 +155,10 @@ CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `target_user` int(11) NOT NULL,
   `seen` int(1) NOT NULL DEFAULT '0',
-  `created_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notification_question_expired`
---
-
-CREATE TABLE `notification_question_expired` (
-  `question_id` int(11) NOT NULL,
-  `notification_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notification_question_posted`
---
-
-CREATE TABLE `notification_question_posted` (
-  `question_id` int(11) NOT NULL,
-  `notification_id` int(11) NOT NULL
+  `created_at` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL COMMENT 'question_posted,answer_accepted,user_followed,general,votes_earned',
+  `meta` json NOT NULL COMMENT 'will be a json of all data',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -284,7 +265,6 @@ CREATE TABLE `questions` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `question` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `featured` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PUBLISHED',
@@ -384,7 +364,8 @@ CREATE TABLE `users` (
   `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `subscribed_to_newsletter` tinyint(1) DEFAULT NULL
+  `subscribed_to_newsletter` tinyint(1) DEFAULT NULL,
+  `featured` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -471,18 +452,6 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notification_question_expired`
---
-ALTER TABLE `notification_question_expired`
-  ADD KEY `question_expired` (`notification_id`);
-
---
--- Indexes for table `notification_question_posted`
---
-ALTER TABLE `notification_question_posted`
-  ADD KEY `question_potsed` (`notification_id`);
 
 --
 -- Indexes for table `pages`
@@ -587,12 +556,12 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `data_rows`
 --
@@ -622,7 +591,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=386;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -647,7 +616,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -672,12 +641,12 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `user_followings`
 --
 ALTER TABLE `user_followings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- Constraints for dumped tables
 --
@@ -699,18 +668,6 @@ ALTER TABLE `data_rows`
 --
 ALTER TABLE `menu_items`
   ADD CONSTRAINT `menu_items_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `notification_question_expired`
---
-ALTER TABLE `notification_question_expired`
-  ADD CONSTRAINT `question_expired` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `notification_question_posted`
---
-ALTER TABLE `notification_question_posted`
-  ADD CONSTRAINT `question_potsed` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `permission_role`

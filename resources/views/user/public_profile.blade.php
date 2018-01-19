@@ -6,11 +6,20 @@
                 <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                  <a onclick="window.history.back()" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                 <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
-                @if ($is_following == false)
-                <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow follow btn-lg btn-link pull-right p-a-0">
-                  <span class="fal fa-plus"></span>
-                </button>
-               @endif
+             
+                @if ($user->id == Auth::user()->id )
+                 <a href="/profile"> <span class="fal fa-edit"></span>/a>
+                @else
+                  <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'hidden' : ''}}">
+                    <span class="fal fa-plus"></span>
+                  </button>
+                
+                  <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'' : 'hidden'}}">
+                    <span class="fal fa-check"></span>
+                  </button>
+                @endif
+                
+              
             </nav>
         </div>
 
@@ -20,7 +29,7 @@
                     <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
                 </div>
                 <div class="vote-points avatar-wrapper">
-                    <span class="number">{{$points}}</span>{{ $points == 1 ? "point" : "points" }}
+                    <span class="number">{{Helper::formatWithSuffix($points)}}</span>{{ $points == 1 ? "point" : "points" }}
                 </div>
             </div>
         </div>

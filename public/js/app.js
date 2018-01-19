@@ -18360,21 +18360,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -20020,6 +20005,9 @@ var pressTimer;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -54551,34 +54539,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/login"
     }
-  }, [_vm._v("Log in")])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "second-nav-container"
-  }, [_c('ul', {
-    staticClass: "container nav nav-bordered second-nav"
-  }, [_c('div', {
-    staticClass: "iconav-slider"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills iconav-nav"
-  }, [_c('li', {
-    staticClass: "tab active"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "data-container": "body"
-    }
-  }, [_c('small', [_vm._v("Questions")])])]), _vm._v(" "), _c('li', {
-    staticClass: "tab"
-  }, [_c('a', {
-    attrs: {
-      "href": "/responses"
-    }
-  }, [_c('small', [_vm._v("Responses")])])]), _vm._v(" "), _c('li', {
-    staticClass: "f-right small"
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })])])])])])])
+  }, [_vm._v("Log in")])])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -54799,7 +54760,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      staticClass: "fal fa-check text-muted"
+      staticClass: "fal fa-check"
     })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
@@ -54844,7 +54805,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-plus"
-    })]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]) : _c('button', {
+      staticClass: "btn btn-md btn-link pull-right"
+    }, [_c('span', {
+      staticClass: "fal fa-check text-muted"
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

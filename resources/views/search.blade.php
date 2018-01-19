@@ -37,15 +37,16 @@
                                         <img class="media-object img-circle" src="{{  Helper::avatar($value['obj']->avatar) }} " />
                                     </a>
                                     <div class="media-body">
-                                    		 @if ( $value['obj']->af)
-                                         <button  class="btn-lg btn-link pull-right">
-                                             <span class="fal fa-check text-muted"></span>
-                                         </button>
-                                    		 @else
-                                        <button rel={{ $value['obj']->id }} class="follow btn-md btn-link pull-right">
-                                            <span class="fal fa-plus"></span>
-                                        </button>
-                                        @endif
+
+                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{( $value['obj']->af)?'hidden' : ''}}">
+                  <span class="fal fa-plus"></span>
+                </button>
+               
+                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($value['obj']->af)?'' : 'hidden'}}">
+                  <span class="fal fa-check"></span>
+                </button>
+
+                                    
                                         <strong>{{  $value['obj']->url }}</strong>
                                         <small>{{ $value['obj']->last_posted }}</small>
                                     </div>

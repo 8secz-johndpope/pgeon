@@ -35,22 +35,7 @@
 
 
 
-<div class="second-nav-container">
-	<ul class="container nav nav-bordered second-nav">
-		<div class="iconav-slider">
-			<ul class="nav nav-pills iconav-nav">
-				<li class="tab active"><a href="#" data-container="body"><small>Questions</small></a>
-				</li>
-				<li class="tab"><a href="/responses"><small>Responses</small></a>
-				</li>
 
-
-				<li  class="f-right small"><span class="f-right-text">Featured</span>
-					&nbsp; <span class="fa fa-sort"></span></li>
-			</ul>
-		</div>
-	</ul>
-</div>
 </div>
 
 

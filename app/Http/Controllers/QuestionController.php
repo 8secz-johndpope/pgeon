@@ -406,7 +406,10 @@ class QuestionController extends Controller
     public function featuredresponses($p, $c)
     {
         $offset = $c*$p;
-        $fetched_questions = Question::where('accepted_answer', '>', 0)->where('featured', '=', 1)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+        $fetched_questions = Question::where('accepted_answer', '>', 0)
+                                     ->with(['users'])
+                                     ->where('featured', '=', 1)
+                                     ->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
         
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {

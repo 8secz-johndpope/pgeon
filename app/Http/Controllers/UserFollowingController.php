@@ -21,6 +21,10 @@ class UserFollowingController extends Controller
      */
     public function insert()
     {
+		//can't follow yourself
+		if(Request::get('user_id') == Auth::user()->id) {
+			abort(403);
+		}
         $question = UserFollowing::insert(['user_id' =>  Request::get('user_id'), 'followed_by' => Auth::user()->id]);
         
         /** notify the star who is being followed **/

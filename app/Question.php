@@ -75,7 +75,7 @@ class Question extends Model {
         $questions = DB::select( DB::raw("
         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q  
                               INNER JOIN users u ON u.id = q.user_id 
-                              WHERE q.featured=1 and q.expiring_at > '$now' LIMIT $p OFFSET $offset"));
+                              WHERE u.featured=1 and q.expiring_at > '$now' LIMIT $p OFFSET $offset"));
         
         
         

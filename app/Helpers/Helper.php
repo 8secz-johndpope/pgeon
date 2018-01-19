@@ -66,5 +66,26 @@ class Helper
         $str2 = ($slug2)? $slug2 : "/user/".$user_id2;
         return  $str1.' ← '.$str2;
     }
+
+
+    public static function formatWithSuffix($input)
+    {
+        $suffixes = array('', 'k', 'm', 'g', 't');
+        $suffixIndex = 0;
+    
+        while(abs($input) >= 1000 && $suffixIndex < sizeof($suffixes))
+        {
+            $suffixIndex++;
+            $input /= 1000;
+        }
+    
+        return (
+            $input > 0
+                // precision of 3 decimal places
+                ? floor($input * 1000) / 1000
+                : ceil($input * 1000) / 1000
+            )
+            . $suffixes[$suffixIndex];
+    }
 }
 

@@ -4,11 +4,20 @@ $(function () {
     		//
     		var button = $(this) 
     		$.post( "/follow", {user_id: $(this).attr('rel'), _token : $('meta[name="csrf-token"]').attr('content')}, function( data ) {
-   			
-    			button.remove()
+          $(".unfollow").removeClass('hidden')
+          $(".follow").addClass('hidden')
     			});
     })
        
+
+    $(".unfollow").click(function () {
+      //
+      $.post( "/unfollow", {user_id: $(this).attr('rel'), _token : $('meta[name="csrf-token"]').attr('content')}, function( data ) {
+        $(".unfollow").addClass('hidden')
+        $(".follow").removeClass('hidden')
+
+        });
+  })
 
 
       /*
