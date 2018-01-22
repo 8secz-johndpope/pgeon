@@ -8,7 +8,7 @@
                 <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
              
                 @if ($user->id == Auth::user()->id )
-                 <a href="/profile"> <span class="fal fa-edit"></span>/a>
+                 <a href="/profile"> <span class="fal fa-edit"></span></a>
                 @else
                   <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'hidden' : ''}}">
                     <span class="fal fa-plus"></span>

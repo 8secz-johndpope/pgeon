@@ -4,19 +4,21 @@
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
                 <nav class="container nav-container header-nav">
-                    <a onclick="window.history.back()" class="btn btn-link p-x-0"><span class="fal fa-arrow-left back-arrow"></span></a>
+                    <a onclick="window.history.back()" class="btn btn-link p-x-0"><span class="fal fa-times back-arrow"></span></a>
                     <h4>
-                     <img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}">
+                     <a href="#"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"></a>
                     </h4>
                     <div class="dropdown">
                         <a class="btn btn-link p-x-0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fal fa-ellipsis-v ellipsis"></span></a>
                         <ul class="dropdown-menu header-dropdown" role="menu">
-                         
+                          <li>
+                              <a href="#"> <span class="fal fa-plus dropdown-icon"></span>Follow</a>
+                          </li>
                             <li>
-                                <a data-toggle="modal" href="#shareQuestion"> <span class="fa fa-share-alt dropdown-icon"></span>Share</a>
+                                <a data-toggle="modal" href="#shareQuestion"> <span class="fal fa-share-alt dropdown-icon"></span>Share</a>
                             </li>
                             <li>
-                                 <a  id="report_question" data-qid="{{$question->id}}"> <span class="fa fa-flag dropdown-icon"></span>Report</a>
+                                 <a  id="report_question" data-qid="{{$question->id}}"> <span class="fal fa-flag dropdown-icon"></span>Report</a>
                             </li>
                         </ul>
                     </div>

@@ -39,9 +39,9 @@
           <li class="list-group-item">
             <a href="/profile">Settings</a>
           </li>
-          <!-- <li class="list-group-item">
-          <a href="#">Help</a>
-          </li> -->
+          <li class="list-group-item">
+          <a href="mailto:help@pgeon.com">Help</a>
+          </li>
           <li class="list-group-item">
             <a   onclick="event.preventDefault();   document.getElementById('logout-form').submit();">Logout</a>
           </li>

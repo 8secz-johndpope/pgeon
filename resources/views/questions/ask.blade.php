@@ -4,9 +4,7 @@
 <div style="width: auto">
 	<div class="container p-t-md">
 		<div>
-      <div class="error hidden alert alert-danger" role="alert">
-    Please include at-least one question mark.
-</div>
+
 			<div class="question-container">
 				<div>
 					{{ Form::open( array('url'=>'question','class' =>'form-horizontal')
@@ -17,7 +15,7 @@
 					 <div class="csslider infinity" id="slider1">
                                 <input type="radio" name="slides" checked="checked" id="slides_1" />
                                 <input type="radio" name="slides" id="slides_2" />
-                                <input type="radio" name="slides" id="slides_3" />
+                                <!-- <input type="radio" name="slides" id="slides_3" /> -->
                                 <ul>
                                     <li>
                                         <div class="va_slider_detail">
@@ -30,40 +28,40 @@
 
                                                 <div class="pull-left" style="padding-top: 2px;">
                                                     <select name="days" id="day-select" class="custom-select time-select">
-                                                        <option value="00">00 d</option>
-                                                        <option value="01">01 d</option>
-                                                        <option value="02">02 d</option>
-                                                        <option value="03">03 d</option>
-                                                        <option value="04">04 d</option>
-                                                        <option value="05">05 d</option>
-                                                        <option value="06">06 d</option>
+                                                        <option value="00">00 day</option>
+                                                        <option value="01">01 day</option>
+                                                        <option value="02">02 day</option>
+                                                        <option value="03">03 day</option>
+                                                        <option value="04">04 day</option>
+                                                        <option value="05">05 day</option>
+                                                        <option value="06">06 day</option>
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;margin-left: -3px;"></span>
                                                     <select name="hours" id="hour-select" class="custom-select time-select">
-                                                        <option value="00">00 h</option>
-                                                        <option value="01">01 h</option>
-                                                        <option value="02">02 h</option>
-                                                        <option value="03">03 h</option>
-                                                        <option value="04">04 h</option>
-                                                        <option value="05">05 h</option>
-                                                        <option value="06">06 h</option>
-                                                        <option value="07">07 h</option>
-                                                        <option value="08">08 h</option>
-                                                        <option value="09">09 h</option>
-                                                        <option value="10">10 h</option>
-                                                        <option value="11">11 h</option>
-                                                        <option value="12">12 h</option>
-                                                        <option value="13">13 h</option>
-                                                        <option value="14">14 h</option>
-                                                        <option value="15">15 h</option>
-                                                        <option value="16">16 h</option>
-                                                        <option value="17">17 h</option>
-                                                        <option value="18">18 h</option>
-                                                        <option value="19">19 h</option>
-                                                        <option value="20">20 h</option>
-                                                        <option value="21">21 h</option>
-                                                        <option value="22">22 h</option>
-                                                        <option value="23">23 h</option>
+                                                        <option value="00">00 hrs</option>
+                                                        <option value="01">01 hrs</option>
+                                                        <option value="02">02 hrs</option>
+                                                        <option value="03">03 hrs</option>
+                                                        <option value="04">04 hrs</option>
+                                                        <option value="05">05 hrs</option>
+                                                        <option value="06">06 hrs</option>
+                                                        <option value="07">07 hrs</option>
+                                                        <option value="08">08 hrs</option>
+                                                        <option value="09">09 hrs</option>
+                                                        <option value="10">10 hrs</option>
+                                                        <option value="11">11 hrs</option>
+                                                        <option value="12">12 hrs</option>
+                                                        <option value="13">13 hrs</option>
+                                                        <option value="14">14 hrs</option>
+                                                        <option value="15">15 hrs</option>
+                                                        <option value="16">16 hrs</option>
+                                                        <option value="17">17 hrs</option>
+                                                        <option value="18">18 hrs</option>
+                                                        <option value="19">19 hrs</option>
+                                                        <option value="20">20 hrs</option>
+                                                        <option value="21">21 hrs</option>
+                                                        <option value="22">22 hrs</option>
+                                                        <option value="23">23 hrs</option>
                                                     </select>
                                                     <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;"></span>
                                                     <select name="mins" id="minute-select" class="custom-select time-select">
@@ -121,6 +119,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="error hidden alert alert-warning animated shake" role="alert">
+	Please include at-least one question mark.
+	</div>
 	</div>
 </div>
 
@@ -130,75 +131,65 @@
 
         <div style="width: auto;">
             <div class="container" style="padding: 0px;">
-                        <div class="col-sm-6">
+              <div class="col-sm-4">
+													<a href="/live">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-hourglass-half fa-4x"></i>
+                                    <i class="fal fa-hourglass-half fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="h3">
+                                    <div style="margin-top: 0;" class="h4">
                                         {{count($live)}}
 </div>
                                     <div>
-                                        <div class="h4" style="margin-bottom: 0;">Live</div>
+                                        <div class="h5" style="margin: 0;">Live</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/live">
-                            <div class="panel-footer flexbox-container">
-                                <span>View all</span>
-                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
-                            </div>
-                        </a>
+											</a>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+									<a href="/pending">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-clock fa-4x"></i>
+                                    <i class="fal fa-clock fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="h3">
+                                    <div style="margin-top: 0;" class="h4">
                                         {{count($pending)}}
 </div>
                                     <div>
-                                        <div class="h4" style="margin-bottom: 0;">Pending</div>
+                                        <div class="h5" style="margin: 0;">Pending</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/pending">
-                            <div class="panel-footer flexbox-container">
-                                <span>View all</span>
-                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
-                            </div>
-                        </a>
+											</a>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+									<a href="/published">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-newspaper fa-4x"></i>
+                                    <i class="fal fa-newspaper fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="h3">{{count($published)}}</div>
-                                    <div class="h4" style="margin-bottom: 0;">Published</div>
+                                    <div style="margin-top: 0;" class="h4">
+																			{{count($published)}}
+																		</div>
+                                    <div class="h5" style="margin: 0;">Published</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/published">
-                            <div class="panel-footer flexbox-container">
-                                <span>View all</span>
-                                <span><i class="fal fa-long-arrow-right fa-lg"></i></span>
-                            </div>
-                        </a>
+											</a>
                     </div>
                 </div>
             </div>
@@ -207,8 +198,6 @@
 
 
 
-
-                </div>
                 <!-- end of tabs -->
             </div>
         </div>
@@ -224,7 +213,9 @@
 @endsection
 
 <!-- Push a style dynamically from a view -->
-@push('styles') @endpush
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+@endpush
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')

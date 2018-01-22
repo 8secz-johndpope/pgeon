@@ -5,7 +5,7 @@
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
                 <nav class="container nav-container header-nav">
-                    <a href="/responses"  ><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                    <a href="/responses"  ><span class="fal fa-times" style="font-size: 20px;"></span></a>
                     <h4>
                     <img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}">
                  

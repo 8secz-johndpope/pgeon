@@ -586,7 +586,6 @@ ul.list_notifications
                 background-color: rgba(255,114,113 , 0.15);
                 z-index: 2;
                 border-radius: 0px 10px 10px 10px;
-                margin-top: 2px;
             }
 
             .answer-bubble.checked .second #overlay{

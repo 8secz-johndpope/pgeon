@@ -112,9 +112,9 @@
             <li>
                 <a href="{{ route('profile') }}">Settings</a>
             </li>
-            <!-- <li>
-                <a href="">Help</a>
-            </li> -->
+            <li>
+            <a href="mailto:help@pgeon.com">Help</a>
+            </li>
             <li>
              <a href="{{ route('logout') }}"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
            	  Logout
@@ -138,9 +138,9 @@
           <li class="list-group-item">
             <a href="/profile">Settings</a>
           </li>
-          <!-- <li class="list-group-item">
-          <a href="#">Help</a>
-          </li> -->
+          <li class="list-group-item">
+            <a href="mailto:help@pgeon.com">Help</a>
+          </li>
           <li class="list-group-item">
             <a   onclick="event.preventDefault();   document.getElementById('logout-form').submit();">Logout</a>
           </li>
