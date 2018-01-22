@@ -18,11 +18,14 @@ class HomeController extends Controller {
      * @return View
      */
     public function index() {
-        $uf = array();
+        //if we change soemthing here it should be changed in Questioncontroller index as well
+                    
+        $eligible_to_ask = false;
         if(Auth::user()) {
-            $uf = UserFollowing::get_followers(Auth::user()->id);
-          }
-        return view('questions.index',['uf' => $uf]);
+            $eligible_to_ask = User::eligible_to_ask();
+        }
+
+        return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
     }
     
     

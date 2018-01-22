@@ -9,8 +9,8 @@
                     <a class="navbar-brand" href="/">
                         <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
                     </a>
-                    <ul class="nav navbar-nav">
-                        <li >
+                    <ul class="nav navbar-nav"> 
+                        <li v-if="eligible_to_ask">
                             <form class="navbar-form">
                                 <div>
                                     <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
@@ -191,7 +191,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		still_deciding_count: true,
       };
     },
-    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
+    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
     mounted() {
     },
 

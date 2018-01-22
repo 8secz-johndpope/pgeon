@@ -40,6 +40,6 @@ class ResetWeeklyQuestionCounter extends Command
     public function handle()
     {
         //
-        DB::table('question_counter')->truncate();
+        DB::table('question_counters')->truncate();
     }
 }

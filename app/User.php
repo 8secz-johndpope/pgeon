@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
 use App\Helpers\Helper;
 
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +52,10 @@ class User extends Authenticatable
 
     public function notifications() {
         return $this->hasMany('App\Notification','target_user');
+    }
+
+    public function question_counters() {
+        return $this->hasOne('App\QuestionCounter');
     }
 
 
@@ -237,9 +242,23 @@ class User extends Authenticatable
   }
   
   
+  public static function eligible_to_ask() {
+
+    $eligible_to_ask = false;
+    if (Auth::user()->id && Auth::user()->role_id != 3) {
+         $followers_counts = UserFollowing::get_followers_count(Auth::user()->id);
+        if ($followers_counts >= env('FOLLOWERS_NEEDED')) {
+            $eligible_to_ask = true;
+        }
+
+    }else { //if role 3
+        $eligible_to_ask = true;  
+    }
+
+    return $eligible_to_ask;  
+  }
+
   public static function get_last_posted_timestamp($user_id) {
-      $lq = Question::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
-      return ($lq)?$lq->created_at->timestamp:0;
   }
 }
 

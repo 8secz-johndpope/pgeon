@@ -69,6 +69,7 @@
                     <a class="navbar-brand" href="/">
                         <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
                     </a>
+                    @if (Helper::eligible_to_ask())
                     <ul class="nav navbar-nav">
 
                         <li>
@@ -79,6 +80,7 @@
                             </form>
                         </li>
                     </ul>
+                    @endif
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
                     <ul class="nav navbar-nav m-r-0">

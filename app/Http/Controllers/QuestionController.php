@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
+use App\User;
 
 use App\Answer;
 use App\Vote;
 use App\Question;
 use App\UserFollowing;
+use App\QuestionCounter;
 use Helper;
 use Illuminate\Support\Facades\Mail;
 
@@ -115,7 +117,16 @@ class QuestionController extends Controller
     public function insert()
     {
         $user = Auth::user();
-        if($user->role_id == 3) {
+        if($user->role_id != 3) {
+
+            $total_posted = QuestionCounter::get_weekly_counter($user->id);
+            if ($total_posted >=  env('QS_ALLOWED_PER_WEEK'))
+                abort(401);
+
+            $matchThese = array('user_id'=>Auth::user()->id);
+            QuestionCounter::updateOrCreate($matchThese,['questions_posted'=>$total_posted + 1]);    
+            
+        }
             $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
             
             /** insert notifications for all followers **/
@@ -124,10 +135,7 @@ class QuestionController extends Controller
             }
             
          return Redirect::to('my-questions');
-       }else {
-          Auth::logout();
-          return Redirect::to('/');
-       }
+       
     //    return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 
@@ -142,12 +150,15 @@ class QuestionController extends Controller
         if ($format == "json") {
            return $this->get_questions();
         }else {
+//if we change soemthing here it should be changed in homecontroller index as well
+                    
+        $eligible_to_ask = false;
+        if(Auth::user()) {
+            $eligible_to_ask = User::eligible_to_ask();
+        }
+
+        return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
            
-            $uf = array();
-            if(Auth::user()) {
-                $uf = UserFollowing::get_followers(Auth::user()->id);
-            }
-            return view('questions.index',['uf' => $uf]);
         }
         
         
@@ -255,17 +266,25 @@ class QuestionController extends Controller
     //}
     return response()->json($votes);
   } 
-    /**
+
+     /**
      * GET /question/ask
      * @return Redirect
      */
     public function ask()
     {
         $user = Auth::user();
-        
+     
+        $total_posted = 0;
+        $total_count_exhausted = false;
         if ($user->role_id != 3 ) {
          // abort(403, 'Access denied');
+            $total_posted = QuestionCounter::get_weekly_counter($user->id);
+            if ($total_posted >=  env('QS_ALLOWED_PER_WEEK')) {
+                $total_count_exhausted = true;
+            }    
         }
+        
         
 
         $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
@@ -300,7 +319,7 @@ class QuestionController extends Controller
            
         }
         return view('questions.ask',[
-            'pending' => $pending, 'published' => $published, 'live' => $live, 'lq_created_at' => $lq_created_at]);
+            'pending' => $pending, 'published' => $published, 'live' => $live, 'lq_created_at' => $lq_created_at, 'total_posted' =>  $total_posted, 'qs_allowed' => env('QS_ALLOWED_PER_WEEK'),'total_count_exhausted' => $total_count_exhausted, 'role_id' => $user->role_id]);
          
         
     }
@@ -407,9 +426,9 @@ class QuestionController extends Controller
     {
         $offset = $c*$p;
         $fetched_questions = Question::where('accepted_answer', '>', 0)
-                                     ->with(['users'])
-                                     ->where('featured', '=', 1)
-                                     ->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+                                     ->join('users', 'users.id', '=', 'questions.user_id')
+                                     ->where('users.featured', '=', 1)
+                                     ->orderBy('questions.created_at', 'desc')->offset($offset)->limit($p)->get();
         
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
@@ -459,7 +478,12 @@ class QuestionController extends Controller
     }
     
     public function  responses() {
-            return view('questions.responses');
+
+        $eligible_to_ask = false;
+        if(Auth::user()) {
+            $eligible_to_ask = User::eligible_to_ask();
+        }
+            return view('questions.responses', ['eligible_to_ask' =>  $eligible_to_ask]);
     }
 
     

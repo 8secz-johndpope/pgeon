@@ -1,6 +1,7 @@
 <?php // Code within app\Helpers\Helper.php
 
 namespace App\Helpers;
+use App\User;
 
 class Helper
 {
@@ -87,5 +88,9 @@ class Helper
             )
             . $suffixes[$suffixIndex];
     }
+
+    public static function eligible_to_ask() {
+        return User::eligible_to_ask();
+}
 }
 
