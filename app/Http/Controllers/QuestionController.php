@@ -264,7 +264,7 @@ class QuestionController extends Controller
         $user = Auth::user();
         
         if ($user->role_id != 3 ) {
-          abort(403, 'Access denied');
+         // abort(403, 'Access denied');
         }
         
 

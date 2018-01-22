@@ -71,7 +71,6 @@
                     </a>
                     <ul class="nav navbar-nav">
 
-                     @if( Auth::user()->role_id == 3)
                         <li>
                             <form class="navbar-form">
                                 <div>
@@ -79,7 +78,6 @@
                                 </div>
                             </form>
                         </li>
-                       @endif
                     </ul>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">

@@ -55233,18 +55233,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "navbar navbar-inverse app-navbar"
   }, [_c('div', {
     staticClass: "container nav-container"
-  }, [_c('div', {
-    staticClass: "navbar-header"
-  }, [_vm._m(0), _vm._v(" "), _c('ul', {
-    staticClass: "nav navbar-nav"
-  }, [(_vm.role_id == 3) ? _c('li', [_vm._m(1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "navbar-right",
     attrs: {
       "id": "navbar-collapse-main"
     }
   }, [_c('ul', {
     staticClass: "nav navbar-nav m-r-0"
-  }, [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('li', [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('li', [_c('button', {
     staticClass: "btn btn-default navbar-btn navbar-btn-avitar",
     attrs: {
       "id": "profile-button",
@@ -55261,7 +55257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": _vm.slug
     }
-  }, [_vm._v("Profile")])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('form', {
+  }, [_vm._v("Profile")])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('form', {
     staticStyle: {
       "display": "none"
     },
@@ -55286,7 +55282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "iconav-slider"
   }, [_c('ul', {
     staticClass: "nav nav-pills iconav-nav"
-  }, [_vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
+  }, [_vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
     staticClass: "f-right small",
     on: {
       "click": function($event) {
@@ -55420,7 +55416,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
+  return _c('div', {
+    staticClass: "navbar-header"
+  }, [_c('a', {
     staticClass: "navbar-brand",
     attrs: {
       "href": "/"
@@ -55430,16 +55428,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/img/pgeon-logo-mobile.svg",
       "alt": "Pgeon"
     }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('form', {
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "nav navbar-nav"
+  }, [_c('li', [_c('form', {
     staticClass: "navbar-form"
   }, [_c('div', [_c('a', {
     staticClass: "my-questions btn btn-sm btn-primary-outline",
     attrs: {
       "href": "/my-questions"
     }
-  }, [_c('span', [_vm._v("My Questions")])])])])
+  }, [_c('span', [_vm._v("My Questions")])])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     staticClass: "app-notifications-icon",

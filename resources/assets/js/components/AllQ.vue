@@ -10,7 +10,7 @@
                         <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
                     </a>
                     <ul class="nav navbar-nav">
-                        <li v-if="role_id==3">
+                        <li >
                             <form class="navbar-form">
                                 <div>
                                     <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
