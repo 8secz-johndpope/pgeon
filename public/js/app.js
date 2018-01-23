@@ -55210,7 +55210,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tab active"
   }, [_c('a', {
     attrs: {
-      "href": "#"
+      "href": "/responses"
     }
   }, [_c('small', [_vm._v("Responses")])])])
 }]}
@@ -55484,7 +55484,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tab active"
   }, [_c('a', {
     attrs: {
-      "href": "#",
+      "href": "/questions",
       "data-container": "body"
     }
   }, [_c('small', [_vm._v("Questions")])])])

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 use App\User;
 
@@ -34,6 +35,13 @@ class QuestionController extends Controller
      
         Session::forget('backUrl');
         $question = Question::find($question_id);
+
+        if (strstr(URL::previous(), "step2")) {
+            $back = "/questions";
+        }else {
+            $back = URL::previous();
+        }
+
 
         if (!$question)
             abort(410);
@@ -65,6 +73,7 @@ class QuestionController extends Controller
                 
             }else {
                 
+
                 
                 
                 //if it is a live quest
@@ -75,7 +84,7 @@ class QuestionController extends Controller
                         //    
                         return Redirect::to('my-questions');
                     }else {
-                        return view('questions.show', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
+                        return view('questions.show', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in, 'back' => $back]);
                     }
                 }else {
                    
@@ -86,7 +95,7 @@ class QuestionController extends Controller
                   }else {
                       
                       
-                      return view('questions.showexpired', ['question' => $question,  'answer' => $answer]);   
+                      return view('questions.showexpired', ['question' => $question,  'answer' => $answer, 'back' => $back]);   
                   }
                    
                 }

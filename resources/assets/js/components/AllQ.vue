@@ -70,7 +70,7 @@
 	<ul class="container nav nav-bordered second-nav">
 		<div class="iconav-slider">
 			<ul class="nav nav-pills iconav-nav">
-				<li class="tab active"><a href="#" data-container="body"><small>Questions</small></a>
+				<li class="tab active"><a href="/questions" data-container="body"><small>Questions</small></a>
 				</li>
 				<li class="tab"><a href="/responses"><small>Responses</small></a>
 				</li>

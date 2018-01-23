@@ -69,7 +69,7 @@
 			<ul class="nav nav-pills iconav-nav">
 				<li class="tab"><a href="/questions" data-container="body"><small>Questions</small></a>
 				</li>
-				<li class="tab active"><a href="#"><small>Responses</small></a>
+				<li class="tab active"><a href="/responses"><small>Responses</small></a>
 				</li>
 				
 				<li v-if="current_filter == 'follow'" class="f-right small"  v-on:click="featured_questions()"  >
