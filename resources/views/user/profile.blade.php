@@ -10,9 +10,18 @@
 
 
 
-  <div class="col-md-8" style="margin-top:10px">
+
+
+
+
+
+
+
+                        <div class="col-md-8" style="margin-top:10px">
+
   
-  
+
+
    <form enctype="multipart/form-data" action="/profile" method="POST">
             <ul class="list-group media-list media-list-stream">
                 <li class="list-group-item media p-a">
@@ -24,36 +33,27 @@
 
                         <label for="file">
                             <figure class="m-t-5">
-                                <img class="img-circle" src="{{ Helper::avatar($user->avatar) }}" alt="">
-                                <input type="submit" value="Upload" name="submit" class="btn btn-default-outline" style="margin-left: 10px">
+                                <img class="img-circle"  alt="">
+
+                                  
+
+									<label class="cabinet center-block">
+										<figure>
+											<img src="{{ Helper::avatar($user->avatar) }}" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+										  <figcaption><i class="fa fa-camera"></i></figcaption>
+								    </figure>
+										<input type="file" class="item-img file center-block" name="avatar"/>
+									</label>
+								
+
+
+                               
                             </figure>
                         </label>
+                        <input type="submit" value="Upload" name="submit" class="btn btn-default-outline" style="margin-left: 10px">
                     </div>
                 </li>
-                <!-- <li class="list-group-item media p-a">
-            <label class="control-label">Display name</label>
-            <div class="input-group">
-              <span class="input-group-addon">
-                <input type="radio" aria-label="...">
-              </span>
-              <input type="text" class="form-control" maxlength="28" aria-label="...">
-            </div> -->
-            <!-- twitter input start -->
-            <!-- <div class="input-group">
-              <span class="input-group-addon">
-                <input type="radio" aria-label="...">
-              </span>
-              <span class="input-group-addon" style="border-left: none; padding-left: 0;" id="sizing-addon1"><img style="height: 16px" src="{{ asset('img/twitter-muted.svg') }}" /></span>
-              <input class="form-control" style="background-color: transparent; border-left: none; margin-left: none;" id="disabledInput" type="text" placeholder="@twitter_name" disabled="">
-            </div> -->
-            <!-- facebook input start -->
-            <!-- <div class="input-group">
-              <span class="input-group-addon">
-                <input type="radio" aria-label="...">
-              </span>
-              <span class="input-group-addon" style="border-left: none; padding-left: 0;" id="sizing-addon1"><img style="height: 16px" src="{{ asset('img/facebook-muted.svg') }}" /></span>
-              <input class="form-control" style="background-color: transparent; border-left: none; margin-left: none;" id="disabledInput" type="text" placeholder="@facebook_name" disabled="">
-            </div></li> -->
+         
                 
                 <li class="list-group-item media p-a">
                
@@ -84,6 +84,7 @@
             </form>
         </div>
 
+
         <div class="modal" id="deleteA">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
@@ -109,11 +110,44 @@
         </div>
 
 
-
-
+        <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+							<div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  <h4 class="modal-title" id="myModalLabel">
+                                  sd
+                            </h4>
+							</div>
+							<div class="modal-body">
+				            <div id="upload-demo" class="center-block"></div>
+				      </div>
+							 <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+      </div>
+						    </div>
+						  </div>
+						</div>
 
         <div class="col-md-3">
 </div>
     </div>
 </div>
 @endsection
+
+<!-- Push a style dynamically from a view -->
+@push('styles') 
+<link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+@endpush
+
+<!-- Push a script dynamically from a view -->
+@push('scripts')
+<script src='https://foliotek.github.io/Croppie/croppie.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+<script src="{{ asset('js/settings.js') }}"></script>
+
+@endpush
