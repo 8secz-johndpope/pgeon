@@ -198,6 +198,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	    },
 	    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field','eligible_to_ask'],
 	    mounted() {
+            alert(this.eligible_to_ask)
 	    },
 	    mixins: [CommonMixin],
 	    

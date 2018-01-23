@@ -483,7 +483,7 @@ class QuestionController extends Controller
         if(Auth::user()) {
             $eligible_to_ask = User::eligible_to_ask();
         }
-            return view('questions.responses', ['eligible_to_ask' =>  $eligible_to_ask]);
+            return view('questions.responses', ['eligible_to_ask' =>  $eligible_to_ask, 'mmm' => 'sfsfd']);
     }
 
     
