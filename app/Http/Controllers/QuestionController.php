@@ -327,11 +327,11 @@ class QuestionController extends Controller
     
     public function pending() {
         $user = Auth::user();
-        
+      /*   
         if ($user->role_id != 3 ) {
             abort(403, 'Access denied');
         }
-        
+       */  
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '=', 0)->orderBy('created_at', 'desc')->get();
         
         $pending = array();
@@ -365,10 +365,11 @@ class QuestionController extends Controller
     public function published() {
         
         $user = Auth::user();
-        
+    
+        /*
         if ($user->role_id != 3 ) {
             abort(403, 'Access denied');
-        }
+        }*/
         
         
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '>', 0)->orderBy('created_at', 'desc')->get();
@@ -395,11 +396,11 @@ class QuestionController extends Controller
     public function live() {
         
         $user = Auth::user();
-        
+       /* 
         if ($user->role_id != 3 ) {
             abort(403, 'Access denied');
         }
-        
+        */
         
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '>', time())->orderBy('created_at', 'desc')->get();
         
