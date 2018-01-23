@@ -18765,9 +18765,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		};
 	},
 	props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
-	mounted: function mounted() {
-		alert(this.eligible_to_ask);
-	},
+	mounted: function mounted() {},
 
 	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
