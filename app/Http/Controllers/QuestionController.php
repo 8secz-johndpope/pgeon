@@ -117,6 +117,9 @@ class QuestionController extends Controller
     public function insert()
     {
         $user = Auth::user();
+        if(!User::eligible_to_ask()) {
+            abort(401);
+        }
         if($user->role_id != 3) {
 
             $total_posted = QuestionCounter::get_weekly_counter($user->id);

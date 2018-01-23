@@ -7,7 +7,7 @@
     @if ($role_id !=  3)
         @if ($total_count_exhausted)
         <div class="alert alert-danger">
-                Sorry you have reached your question quota...upgrade.
+                Sorry you have reached your question quota...<a href="/membership">upgrade.</a>
             </div>
         @else
             <div class="alert alert-info">
