@@ -9,7 +9,6 @@
                          <span class="text-muted time-align">
                          <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>
                          </span>
-                         </span>
                      </div>
                      <ul class="media-list media-list-conversation c-w-md">
                          <li class="media">
