@@ -8,18 +8,20 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VueRouter from 'vue-router'
 
 
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
+Vue.use(VueRouter)
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
 import InvisibleRecaptcha from 'vue-invisible-recaptcha';
 import Longpress from 'vue-longpress';
 
 Vue.component('follow', require('./components/Follow.vue'));
-Vue.component('allq', require('./components/AllQ.vue'));
+const allq = Vue.component('allq', require('./components/AllQ.vue'));
 Vue.component('allqguest', require('./components/AllQGuest.vue'));
 Vue.component('allr', require('./components/AllR.vue'));
 Vue.component('allrguest', require('./components/AllRGuest.vue'));
@@ -36,7 +38,24 @@ Vue.component('notifications', require('./components/Notifications.vue'));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
 
+const Foo = { template: '<div>foo</div>' }
+const Bar = { template: '<div>bar</div>' }
+
+
+const routes = [
+  { path: '/questions', component:allq },
+  { path: '/bar', component: Bar }
+]
+
+const router = new VueRouter({
+	mode: 'history',
+
+  routes // short for `routes: routes`
+})
+
 const app = new Vue({
+	router,
+
   el: '#app',
 
   mixins: [AnswerMixin],

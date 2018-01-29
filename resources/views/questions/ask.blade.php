@@ -11,11 +11,11 @@
             </div>
         @else
             <div class="alert alert-info">
-                <strong>{{$total_posted }} / {{ $qs_allowed }}</strong> questions remaining.
+                <strong>{{$total_posted }} / {{ $qs_allowed }}</strong> questions posted.
             </div>
         @endif    
 @else 
-    ∞ questions remaining
+   
 @endif
 
 @if ($role_id !=  3 && $total_count_exhausted) 

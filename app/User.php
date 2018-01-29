@@ -259,6 +259,8 @@ class User extends Authenticatable
   }
 
   public static function get_last_posted_timestamp($user_id) {
+    $lq = Question::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();		
+    return ($lq)?$lq->created_at->timestamp:0;
   }
 }
 

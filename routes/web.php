@@ -13,6 +13,7 @@
 
   #Route::get('/', 'Auth\LoginController@showLoginForm');
 
+
 Route::get('/', 'HomeController@index');
 
   Route::group(['prefix' => 'admin'], function () {
@@ -49,7 +50,6 @@ Route::get('/', 'HomeController@index');
   Route::get('user/{id}/topresponders', 'UserController@topResponders');  
 
   // User Routes
-  Route::get('questions/{format?}', 'QuestionController@index');
   Route::get('qff/{p}/{c}', 'QuestionController@fromfollowers');
   Route::get('featuredq/{p}/{c}', 'QuestionController@featured');
   Route::get('question_details/{id}', 'QuestionController@details');
@@ -149,7 +149,11 @@ Route::get('/', 'HomeController@index');
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+  Route::any('{vue_routes}', [
+    'uses' => 'QuestionController@index'
+  ])->where('vue_routes', '(questions|bar)');;
 
   Route::get('{slug}', [
     'uses' => 'UserController@getProfileBySlug'
 ])->where('slug', '([A-Za-z0-9\-\/]+)');
+

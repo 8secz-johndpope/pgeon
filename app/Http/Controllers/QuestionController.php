@@ -159,9 +159,7 @@ class QuestionController extends Controller
     public function index($format=null)
     {
         
-        if ($format == "json") {
-           return $this->get_questions();
-        }else {
+  
 //if we change soemthing here it should be changed in homecontroller index as well
                     
         $eligible_to_ask = false;
@@ -171,8 +169,6 @@ class QuestionController extends Controller
 
         return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
            
-        }
-        
         
     }
 
