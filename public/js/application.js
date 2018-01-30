@@ -25,7 +25,6 @@ $(function () {
     selector: '[data-toggle="popover"]',
     html: true,
     placement:'bottom',
-    trigger: 'manual',
     viewport: {
       selector: 'body',
       padding: getRight()
