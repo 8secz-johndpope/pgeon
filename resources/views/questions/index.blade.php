@@ -1,6 +1,7 @@
-@extends('layouts.app-no-h-vue-route')
+@extends('layouts.app-no-top-bar')
 @section('content')
 		
+<router-view></router-view>
 
 
 

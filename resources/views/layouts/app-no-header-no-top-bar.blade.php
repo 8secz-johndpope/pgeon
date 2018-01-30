@@ -29,7 +29,7 @@
 
 
 </div>
-@if (!Auth::guest())
+@if (!Auth::guest()) 
 <div id="profile_popup_js" class="hidden">
    <div class="user-profile-dropdown nav nav-stacked" style="width: 200px">
         <ul class="list-group" style="margin:0;">

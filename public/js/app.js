@@ -16832,6 +16832,12 @@ window.Vue = __webpack_require__(203);
 var VueTouch = __webpack_require__(202);
 Vue.use(VueTouch, { name: 'v-touch' });
 Vue.use(__webpack_require__(201));
+/** router logic
+ * homepage (/), questions, response will go to questioncontroller.index which simply has routerview to display contents
+ * path const down here dictates which url fetches respective components and loaded into the routerview..
+ * just straightforward approach as in vue-router doc
+ * 
+ */
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
@@ -16840,7 +16846,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 Vue.component('follow', __webpack_require__(183));
 var allq = Vue.component('allq', __webpack_require__(173));
-Vue.component('allqguest', __webpack_require__(174));
+var allqguest = Vue.component('allqguest', __webpack_require__(174));
 Vue.component('allr', __webpack_require__(176));
 Vue.component('allrguest', __webpack_require__(177));
 
@@ -16854,136 +16860,146 @@ Vue.component('answers_expired_owner', __webpack_require__(181));
 Vue.component('notifications', __webpack_require__(185));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+var defcomp = allqguest;
+Vue.http.get('/u_s/').then(function (response) {
+	//location.href = "/pending"; 
+	if (response.body.id) {
+		defcomp = allq;
+	} else {
+		defcomp = allqguest;
+	}
 
-var Foo = { template: '<div>foo</div>' };
-var Bar = { template: '<div>bar</div>' };
+	var Bar = { template: '<div>bar</div>' };
 
-var routes = [{ path: '/questions', component: allq }, { path: '/bar', component: Bar }];
+	var routes = [{ path: '/questions', component: defcomp }, { path: '/', component: defcomp }, { path: '/bar', component: Bar }];
 
-var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
-  mode: 'history',
+	var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+		mode: 'history',
 
-  routes: routes // short for `routes: routes`
-});
+		routes: routes // short for `routes: routes`
+	});
 
-var app = new Vue({
-  router: router,
+	var app = new Vue({
+		router: router,
 
-  el: '#app',
+		el: '#app',
 
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
+		mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
 
-  data: {
-    bubble: 0,
-    captcha_loading: true
-  },
+		data: {
+			bubble: 0,
+			captcha_loading: true
+		},
 
-  components: {
-    "invisible-recaptcha": __WEBPACK_IMPORTED_MODULE_2_vue_invisible_recaptcha___default.a,
-    "longpress": __WEBPACK_IMPORTED_MODULE_3_vue_longpress___default.a
-  },
+		components: {
+			"invisible-recaptcha": __WEBPACK_IMPORTED_MODULE_2_vue_invisible_recaptcha___default.a,
+			"longpress": __WEBPACK_IMPORTED_MODULE_3_vue_longpress___default.a
+		},
 
-  mounted: function mounted() {
-    this.getBubbleCount();
-    //this.$refs.allR.lo()
-  },
+		mounted: function mounted() {
+			this.getBubbleCount();
+			//this.$refs.allR.lo()
+		},
 
 
-  created: function created() {
+		created: function created() {
 
-    /** bubble FLOW
-     * 
-     * on page load bubblecount will be updated
-     * this socket will receive the new notifications..there is one more listener on Notif.vue
-     * bubble_wrap in three places now.
-     * 
-     * **/
+			/** bubble FLOW
+    * 
+   * on page load bubblecount will be updated
+   * this socket will receive the new notifications..there is one more listener on Notif.vue
+   * bubble_wrap in three places now.
+   * 
+   * **/
 
-    //if there is a live notification
-    if (socket) {
-      socket.on('bubble', function (bubble) {
-        this.bubble = bubble;
-        $(".bubble_wrap").removeClass('hidden');
-        //  $("title").html('Pgeon ('+bubble+') ')
-      });
-    }
-  },
+			//if there is a live notification
+			if (socket) {
+				socket.on('bubble', function (bubble) {
+					this.bubble = bubble;
+					$(".bubble_wrap").removeClass('hidden');
+					//  $("title").html('Pgeon ('+bubble+') ')
+				});
+			}
+		},
 
-  methods: {
-    deleteQ: function deleteQ(id) {
+		methods: {
+			deleteQ: function deleteQ(id) {
 
-      this.$http.delete('/question/' + id).then(function (response) {
-        location.href = "/pending";
-      }, function (response) {
-        // error callback
-      });
-    },
-    captcha_callback: function captcha_callback(recaptchaToken) {
-      $("#frm_register").submit();
-    },
-    captcha_validate: function captcha_validate() {
-      this.captcha_loading = true;
-    },
-    callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
-      var child = app.$refs.answersexpiredowner;
-      child.fetchRecords($question_id, $uname, $question, $ex_date);
-    },
-    bubbleChangedFromChild: function bubbleChangedFromChild(value) {
-      //  this.bubble=(value) // someValue
-      //    alert(value)
-    },
-    getBubbleCount: function getBubbleCount() {
-      var _this = this;
+				this.$http.delete('/question/' + id).then(function (response) {
+					location.href = "/pending";
+				}, function (response) {
+					// error callback
+				});
+			},
+			captcha_callback: function captcha_callback(recaptchaToken) {
+				$("#frm_register").submit();
+			},
+			captcha_validate: function captcha_validate() {
+				this.captcha_loading = true;
+			},
+			callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+				var child = app.$refs.answersexpiredowner;
+				child.fetchRecords($question_id, $uname, $question, $ex_date);
+			},
+			bubbleChangedFromChild: function bubbleChangedFromChild(value) {
+				//  this.bubble=(value) // someValue
+				//    alert(value)
+			},
+			getBubbleCount: function getBubbleCount() {
+				var _this = this;
 
-      this.$http.get('/bubble').then(function (response) {
-        if (parseInt(response.data) > 0) {
-          _this.bubble = response.data;
-          $(".bubble_wrap").removeClass('hidden');
-        }
+				this.$http.get('/bubble').then(function (response) {
+					if (parseInt(response.data) > 0) {
+						_this.bubble = response.data;
+						$(".bubble_wrap").removeClass('hidden');
+					}
 
-        //alert('ss')
-        // success callback
-      }, function (response) {
-        // error callback
-      });
-    },
-    reload: function reload() {
-      location.reload();
-    }
-  }
+					//alert('ss')
+					// success callback
+				}, function (response) {
+					// error callback
+				});
+			},
+			reload: function reload() {
+				location.reload();
+			}
+		}
+	});
+}, function (response) {
+	// error callback
 });
 
 var STRIPE_SECRET = "pk_test_vXMC20UiQF6daFo1sK5j0Fbm";
 Stripe.setPublishableKey(STRIPE_SECRET);
 var stripeResponseHandler = function stripeResponseHandler(status, response) {
-  var $form = $('#payment-form');
+	var $form = $('#payment-form');
 
-  if (response.error) {
-    // Show the errors on the form
-    $form.find('.payment-errors').text(response.error.message);
-    $form.find('button').prop('disabled', false);
-  } else {
-    // token contains id, last4, and card type
-    var token = response.id;
-    // Insert the token into the form so it gets submitted to the server
-    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-    // and re-submit
-    $form.get(0).submit();
-  }
+	if (response.error) {
+		// Show the errors on the form
+		$form.find('.payment-errors').text(response.error.message);
+		$form.find('button').prop('disabled', false);
+	} else {
+		// token contains id, last4, and card type
+		var token = response.id;
+		// Insert the token into the form so it gets submitted to the server
+		$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		// and re-submit
+		$form.get(0).submit();
+	}
 };
 
 jQuery(function ($) {
-  $('#payment-form').submit(function (e) {
-    var $form = $(this);
+	$('#payment-form').submit(function (e) {
+		var $form = $(this);
 
-    // Disable the submit button to prevent repeated clicks
-    $form.find('button').prop('disabled', true);
+		// Disable the submit button to prevent repeated clicks
+		$form.find('button').prop('disabled', true);
 
-    Stripe.card.createToken($form, stripeResponseHandler);
+		Stripe.card.createToken($form, stripeResponseHandler);
 
-    // Prevent the form from submitting with the default action
-    return false;
-  });
+		// Prevent the form from submitting with the default action
+		return false;
+	});
 });
 
 /***/ }),

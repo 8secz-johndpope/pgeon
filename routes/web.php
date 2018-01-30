@@ -14,8 +14,8 @@
   #Route::get('/', 'Auth\LoginController@showLoginForm');
 
 
-Route::get('/', 'HomeController@index');
-
+Route::get('/', 'QuestionController@index');
+Route::get('/u_s', 'UserController@status');
   Route::group(['prefix' => 'admin'], function () {
       Voyager::routes();
       Route::group(['middleware' => 'admin.user'], function()

@@ -136,8 +136,9 @@ class UserController extends Controller
 
 
 
-    private function slugCheck() {
-        
+    public function status () {
+        $user = Auth::user();
+        return response()->json($user);
     }
     
     public function subscribe()

@@ -14,6 +14,12 @@ import VueRouter from 'vue-router'
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
+/** router logic
+ * homepage (/), questions, response will go to questioncontroller.index which simply has routerview to display contents
+ * path const down here dictates which url fetches respective components and loaded into the routerview..
+ * just straightforward approach as in vue-router doc
+ * 
+ */
 Vue.use(VueRouter)
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
@@ -22,7 +28,7 @@ import Longpress from 'vue-longpress';
 
 Vue.component('follow', require('./components/Follow.vue'));
 const allq = Vue.component('allq', require('./components/AllQ.vue'));
-Vue.component('allqguest', require('./components/AllQGuest.vue'));
+const allqguest = Vue.component('allqguest', require('./components/AllQGuest.vue'));
 Vue.component('allr', require('./components/AllR.vue'));
 Vue.component('allrguest', require('./components/AllRGuest.vue'));
 
@@ -36,126 +42,139 @@ Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner
 Vue.component('notifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
-
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-
-
-const routes = [
-  { path: '/questions', component:allq },
-  { path: '/bar', component: Bar }
-]
-
-const router = new VueRouter({
-	mode: 'history',
-
-  routes // short for `routes: routes`
-})
-
-const app = new Vue({
-	router,
-
-  el: '#app',
-
-  mixins: [AnswerMixin],
-
-  data: {
-	  bubble: 0,
-	  captcha_loading: true
-  },
-  
-  components: {
-      "invisible-recaptcha": InvisibleRecaptcha,
-      "longpress" : Longpress
-  },
-  
-  mounted() {
-	  this.getBubbleCount()
-	  //this.$refs.allR.lo()
-	
-  },
-  
-  created: function() {
-
-	  
- 	
- 	/** bubble FLOW
- 	 * 
- 	 * on page load bubblecount will be updated
- 	 * this socket will receive the new notifications..there is one more listener on Notif.vue
- 	 * bubble_wrap in three places now.
- 	 * 
- 	 * **/
-
- 	//if there is a live notification
- 	if(socket) {
- 	 socket.on('bubble', function (bubble) {
- 		 		this.bubble = bubble
- 		 		$(".bubble_wrap").removeClass('hidden')
- 	       //  $("title").html('Pgeon ('+bubble+') ')
- 	      }); 
- 	}
- 	
-	    	
-
-    
-
-  },
-
-  methods: {
-	  deleteQ(id) {
-
-		  this.$http.delete(`/question/${id}`).then((response) => {
-			   location.href = "/pending"; 
-	      }, (response) => {
-	        // error callback
-	      });
-			
-		  
-	  },
-	  captcha_callback(recaptchaToken) {
-		  $("#frm_register").submit()
-	  },
-	  captcha_validate() {
-		  this.captcha_loading = true
-	  },
-	  callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
-		  var child = app.$refs.answersexpiredowner
-		  child.fetchRecords($question_id, $uname, $question, $ex_date)
-		    
-	  },
-	  
-	  bubbleChangedFromChild (value) {
-	    //  this.bubble=(value) // someValue
-	  //    alert(value)
-	    },
-
-	  
-	getBubbleCount() {
-		this.$http.get('/bubble').then((response) => {
-			if (parseInt(response.data) > 0)  {
-				this.bubble = response.data 
-				$(".bubble_wrap").removeClass('hidden')
-			}
-	 
-	        //alert('ss')
-	        // success callback
-	      }, (response) => {
-	        // error callback
-	      });
-	},  
-
-
-
-	reload() {
-		location.reload()
+var defcomp = allqguest
+Vue.http.get(`/u_s/`).then((response) => {
+	//location.href = "/pending"; 
+	if(response.body.id) {
+		defcomp = allq
+	}else{
+		defcomp = allqguest
 	}
-	
 
 
-  }
+	const Bar = { template: '<div>bar</div>' }
+
+
+	const routes = [
+		{ path: '/questions', component:defcomp },
+		{ path: '/', component:defcomp },
+		{ path: '/bar', component: Bar }
+	]
+
+	const router = new VueRouter({
+		mode: 'history',
+
+		routes // short for `routes: routes`
+	})
+
+	const app = new Vue({
+		router,
+
+		el: '#app',
+
+		mixins: [AnswerMixin],
+
+		data: {
+			bubble: 0,
+			captcha_loading: true
+		},
+		
+		components: {
+				"invisible-recaptcha": InvisibleRecaptcha,
+				"longpress" : Longpress
+		},
+		
+		mounted() {
+			this.getBubbleCount()
+			//this.$refs.allR.lo()
+		
+		},
+		
+		created: function() {
+
+			
+		
+		/** bubble FLOW
+		 * 
+		* on page load bubblecount will be updated
+		* this socket will receive the new notifications..there is one more listener on Notif.vue
+		* bubble_wrap in three places now.
+		* 
+		* **/
+
+		//if there is a live notification
+		if(socket) {
+		socket.on('bubble', function (bubble) {
+					this.bubble = bubble
+					$(".bubble_wrap").removeClass('hidden')
+					//  $("title").html('Pgeon ('+bubble+') ')
+					}); 
+		}
+		
+					
+
+			
+
+		},
+
+		methods: {
+			deleteQ(id) {
+
+				this.$http.delete(`/question/${id}`).then((response) => {
+					location.href = "/pending"; 
+					}, (response) => {
+						// error callback
+					});
+				
+				
+			},
+			captcha_callback(recaptchaToken) {
+				$("#frm_register").submit()
+			},
+			captcha_validate() {
+				this.captcha_loading = true
+			},
+			callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+				var child = app.$refs.answersexpiredowner
+				child.fetchRecords($question_id, $uname, $question, $ex_date)
+					
+			},
+			
+			bubbleChangedFromChild (value) {
+				//  this.bubble=(value) // someValue
+			//    alert(value)
+				},
+
+			
+		getBubbleCount() {
+			this.$http.get('/bubble').then((response) => {
+				if (parseInt(response.data) > 0)  {
+					this.bubble = response.data 
+					$(".bubble_wrap").removeClass('hidden')
+				}
+		
+						//alert('ss')
+						// success callback
+					}, (response) => {
+						// error callback
+					});
+		},  
+
+
+
+		reload() {
+			location.reload()
+		}
+		
+
+
+		}
 });
+
+
+ }, (response) => {
+	 // error callback
+ });
 
 var STRIPE_SECRET = "pk_test_vXMC20UiQF6daFo1sK5j0Fbm"
 Stripe.setPublishableKey(STRIPE_SECRET);
