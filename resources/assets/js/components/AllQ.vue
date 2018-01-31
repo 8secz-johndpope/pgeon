@@ -2,77 +2,22 @@
 <div>
 
 
-<div class="nav_all">
-<nav class="navbar navbar-inverse app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
-                    </a>
-                    <ul class="nav navbar-nav"> 
-                        <li v-if="eligible_to_ask">
-                            <form class="navbar-form">
-                                <div>
-                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0">
-                        <li>
-                            <a href="/people" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
-                        </li>
-                        <li>
-                            <a href="/notifications" class="app-notifications-icon">
-                            <span class="fal fa-bell"></span><span class="fa fa-bell"></span>
-                              <span class="bubble_wrap hidden"><span class="fas fa-circle fa-xs "></span></span>
-                            </a>
-                        </li>
-                        <li>
-                            <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                <img class="img-circle" :src="avatar">
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <ul class="mobile-dropdown no-height">
-            <li>
-                <a :href="slug">Profile</a>
-            </li>
-            <li>
-                <a href="/profile">Settings</a>
-            </li>
-            <!-- <li>
-                <a href="">Help</a>
-            </li> -->
-            <li>
-             <a href="/logout"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
-           	  Logout
-             </a>
-
-            </li>
-        </ul>
-          <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                             <input type="hidden" name="_token" :value="csrf_field">
-
-                                         </form>
 
 
 
 
 
-<div class="second-nav-container">
+
+
+<div class="second-nav-container  navbar-inverse navbar-fixed-top">
 	<ul class="container nav nav-bordered second-nav">
 		<div class="iconav-slider">
 			<ul class="nav nav-pills iconav-nav">
-				<li class="tab active"><a href="/questions" data-container="body"><small>Questions</small></a>
+				<li class="tab active">
+                    <router-link class="small" to="/questions">Questions</router-link>
 				</li>
-				<li class="tab"><a href="/responses"><small>Responses</small></a>
+				<li class="tab">
+                     <router-link class="small" to="/responses">Responses</router-link>
 				</li>
 				<li v-if="current_filter == 'follow'" class="f-right small"  v-on:click="featured_questions()"  >
 
@@ -92,7 +37,6 @@
 			</ul>
 		</div>
 	</ul>
-</div>
 </div>
 
 

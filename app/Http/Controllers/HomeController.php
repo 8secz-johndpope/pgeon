@@ -69,6 +69,7 @@ class HomeController extends Controller {
       $iam_following = array();
       foreach( $iam_following1 as $value ) {
 
+      //  print_r($value);exit;
         if($value->user->slug)
           $url = $value->user->slug;
         else

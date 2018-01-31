@@ -95,7 +95,8 @@
       clear_all() {
 	    	  this.$http.delete('/notification').then((response) => {
 	    		  	this.still_deciding_count = false
-	    		  	this.notifications =  []
+              this.notifications =  []
+              this.bubble = 0; 
 	             // this.fetchRecords()
 	            }, (response) => {
 	              alert('error clearing')

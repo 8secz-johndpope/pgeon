@@ -30,32 +30,13 @@
 
 
             
-            
-            
-            <div class="second-nav-container">
-	<ul class="container nav nav-bordered second-nav">
-		<div class="iconav-slider">
-			<ul class="nav nav-pills iconav-nav">
-				<li class="tab "><a href="/questions" data-container="body"><small>Questions</small></a>
-				</li>
-				<li class="tab active"><a href="#"><small>Responses</small></a>
-				</li>
-			
-					
-						<li  class="f-right small"><span class="f-right-text">Featured</span>
-					&nbsp; <span class="fa fa-sort"></span></li>
-			</ul>
-		</div>
-	</ul>
-	
-	
-</div>
+  
 
 </div>
             
           
           
-	<div class="container content"  v-if="questions.length<1">
+	<div class="container "  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			      <div  v-if="still_deciding_count" class="spinner">
             <div class="b1 se"></div>

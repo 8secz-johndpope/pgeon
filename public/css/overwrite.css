@@ -87,7 +87,7 @@ margin-right: 30px;
 }
 
 .content {
-  margin-top: 115px;
+  margin-top: 55px;
   position: relative;
 }
 .app-navbar{
@@ -767,4 +767,12 @@ figure figcaption {
     padding-left: 9px;
     padding-bottom: 5px;
     text-shadow: 0 0 10px #000;
+}
+.second-nav-container {
+  top:52px;
+  transition: transform 200ms ease;
+  z-index: 1;
+}
+.up0 {
+  transform: translateY(-54px);
 }

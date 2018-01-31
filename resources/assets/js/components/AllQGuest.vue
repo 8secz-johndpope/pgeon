@@ -2,42 +2,6 @@
 <div>
 
 
-<div class="nav_all">
-
-
-
-
-<nav class="navbar navbar-inverse app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
-                    </a>
-                </div>
-                <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0" style="width: 125px;">
-                        <li>
-                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="/login" class="btn btn-sm btn-default" style="margin-top: 4px;">Log in</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-
-
-
-
-
-
-</div>
-
 
 	<div class="container content"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
@@ -66,7 +30,7 @@
 
 
 
-        <div class="container content">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                 

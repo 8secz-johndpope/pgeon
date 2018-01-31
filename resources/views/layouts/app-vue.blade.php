@@ -28,6 +28,12 @@
 
 </head>
 <body class="with-top-navbar">
+@if (Auth::guest())
+@else
+<script>
+    var user = true 
+</script>
+@endif
 
 <div  id="app">
 @if (Auth::guest())
@@ -64,7 +70,7 @@
 @else
 
 
-<div >
+<div class="nav_all">
 <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header">
@@ -156,6 +162,7 @@
 @endif
 
         @yield('content')
+        <router-view></router-view>
 
 </div>
 

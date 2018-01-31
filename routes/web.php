@@ -55,7 +55,6 @@ Route::get('/u_s', 'UserController@status');
   Route::get('question_details/{id}', 'QuestionController@details');
   Route::get('rff/{p}/{c}', 'QuestionController@responsesfromfollowers');
   Route::get('featuredr/{p}/{c}', 'QuestionController@featuredresponses');
-  Route::get('responses', 'QuestionController@responses');
   
    Route::get('question/{id}/{format?}', 'QuestionController@show');
    
@@ -149,9 +148,15 @@ Route::get('/u_s', 'UserController@status');
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-  Route::any('{vue_routes}', [
+  Route::any('{vue_q}', [
     'uses' => 'QuestionController@index'
-  ])->where('vue_routes', '(questions|bar)');;
+  ])->where('vue_q', '(questions)');
+
+  Route::any('{vue_r}', [
+    'uses' => 'QuestionController@responses'
+  ])->where('vue_r', '(responses)');
+
+  //Route::get('responses', 'QuestionController@responses');
 
   Route::get('{slug}', [
     'uses' => 'UserController@getProfileBySlug'

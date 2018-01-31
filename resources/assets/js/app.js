@@ -29,8 +29,8 @@ import Longpress from 'vue-longpress';
 Vue.component('follow', require('./components/Follow.vue'));
 const allq = Vue.component('allq', require('./components/AllQ.vue'));
 const allqguest = Vue.component('allqguest', require('./components/AllQGuest.vue'));
-Vue.component('allr', require('./components/AllR.vue'));
-Vue.component('allrguest', require('./components/AllRGuest.vue'));
+const allr = Vue.component('allr', require('./components/AllR.vue'));
+const allrguest = Vue.component('allrguest', require('./components/AllRGuest.vue'));
 
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('answers_guest', require('./components/AnswersGuest.vue'));
@@ -42,23 +42,25 @@ Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner
 Vue.component('notifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
-var defcomp = allqguest
-Vue.http.get(`/u_s/`).then((response) => {
-	//location.href = "/pending"; 
-	if(response.body.id) {
-		defcomp = allq
-	}else{
-		defcomp = allqguest
+var defqcomp = allq
+var defrcomp = allr
+	if(typeof user !== "undefined") {
+		defqcomp = allq
+		defrcomp = allr
+	}
+	else{
+		defqcomp = allqguest
+		defrcomp = allrguest
 	}
 
+	
 
-	const Bar = { template: '<div>bar</div>' }
-
+ const Bar = { template: '<div>bar</div>' }
 
 	const routes = [
-		{ path: '/questions', component:defcomp },
-		{ path: '/', component:defcomp },
-		{ path: '/bar', component: Bar }
+		{ path: '/questions', component:defqcomp },
+		{ path: '/', component:defqcomp },
+		{ path: '/responses', component: defrcomp }
 	]
 
 	const router = new VueRouter({
@@ -170,11 +172,6 @@ Vue.http.get(`/u_s/`).then((response) => {
 
 		}
 });
-
-
- }, (response) => {
-	 // error callback
- });
 
 var STRIPE_SECRET = "pk_test_vXMC20UiQF6daFo1sK5j0Fbm"
 Stripe.setPublishableKey(STRIPE_SECRET);

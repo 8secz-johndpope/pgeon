@@ -1,9 +1,6 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-vue')
 @section('content')
 		
-<router-view></router-view>
-
-
 
 @endsection
 

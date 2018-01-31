@@ -18,45 +18,7 @@ $(function () {
       instance.options.viewport.padding = getRight()
     }
   })
-  $('body').popover({
-    template: '<div class="popover user-popover" role="tooltip"><div class="arrow"></div><div class="popover-content p-x-0" style="padding:0;"></div></div>',
-    title: '',
-    html: true,
-    selector: '[data-toggle="popover"]',
-    html: true,
-    placement:'bottom',
-    viewport: {
-      selector: 'body',
-      padding: getRight()
-    },
-    content: function () {
 
-      if(window.innerWidth <= 500 ){
-        $(".mobile-dropdown").toggleClass("no-height")
-        $(".navbar-btn-avitar").toggleClass("active")
-        return;
-      }
-      return $("#profile_popup_js").html()
-    }
-});
-$('body').on("click", "[data-toggle='popover']", function (e) {
-  e.stopPropagation()
-
-  if ($('[data-toggle="popover"]').data('bs.popover').tip().hasClass('in')) {
-    $('[data-toggle="popover"]').popover('hide')
-    $(document).off('click.app.popover')
-
-  } else {
-    $('[data-toggle="popover"]').popover('show')
-
-    setTimeout(function () {
-      $(document).one('click.app.popover', function () {
-        $('[data-toggle="popover"]').popover('hide')
-      })
-    }, 1)
-  }
-})
-/*
   $('[data-toggle="popover"]').popover({
 
     template: '<div class="popover user-popover" role="tooltip"><div class="arrow"></div><div class="popover-content p-x-0" style="padding:0;"></div></div>',
@@ -69,22 +31,18 @@ $('body').on("click", "[data-toggle='popover']", function (e) {
       padding: getRight()
     },
     content: function () {
-      return 'sdfsfs';
       if(window.innerWidth <= 500 ){
         $(".mobile-dropdown").toggleClass("no-height")
         $(".navbar-btn-avitar").toggleClass("active")
         return;
       }
-
-
-      //return $("#profile_popup_js").html()
+      // var $nav = $('.app-navbar .navbar-nav:last-child').clone()
+      return $("#profile_popup_js").html()
     }
   })
 
-  /*
   $('[data-toggle="popover"]').on('click', function (e) {
     e.stopPropagation()
-
     if ($('[data-toggle="popover"]').data('bs.popover').tip().hasClass('in')) {
       $('[data-toggle="popover"]').popover('hide')
       $(document).off('click.app.popover')
@@ -99,7 +57,6 @@ $('body').on("click", "[data-toggle='popover']", function (e) {
       }, 1)
     }
   })
-  */
 
 })
 
@@ -256,10 +213,12 @@ $(window).scroll(function(event){
 
   if ( st - lastScrollTop > 5 ){
     !$(".nav_all").hasClass("up50") && $(".nav_all").addClass("up50")
+    !$(".second-nav-container").hasClass("up0") && $(".second-nav-container").addClass("up0")
     !$(".mobile-dropdown").hasClass("no-height") && $("#profile-button").click()
     !$(".user-popover").hasClass("out") && $(".user-popover").removeClass("in") && $(".user-popover").addClass("out")
   } else if( lastScrollTop - st > 2 ){
     $(".nav_all").hasClass("up50") && $(".nav_all").removeClass("up50")
+    $(".second-nav-container").hasClass("up0") && $(".second-nav-container").removeClass("up0")
   }
   lastScrollTop = st;
 })
