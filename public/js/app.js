@@ -18105,7 +18105,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    $(".up50").removeClass("up50");
+  },
 
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
@@ -18651,7 +18653,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		};
 	},
 	props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
-	mounted: function mounted() {},
+	mounted: function mounted() {
+		$(".up50").removeClass("up50");
+	},
 
 	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 

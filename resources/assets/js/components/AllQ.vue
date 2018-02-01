@@ -137,6 +137,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     },
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
     mounted() {
+		$(".up50").removeClass("up50")
     },
 
     mixins: [CommonMixin],

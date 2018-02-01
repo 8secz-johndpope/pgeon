@@ -776,3 +776,6 @@ figure figcaption {
 .up0 {
   transform: translateY(-54px);
 }
+.nav_all .mobile-dropdown {
+  top:52px;
+}
