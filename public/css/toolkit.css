@@ -8580,7 +8580,7 @@ img.zoom-img {
 }
 .media-question {
     color: #535353;
-    z-index: 1;
+    /*z-index: 1;*/
     border-radius: 0px 10px 0px 0px;
     background: #E5E9EA;
     -webkit-box-shadow: 0px 0px 0px 1px rgba(209, 212, 213, .6);

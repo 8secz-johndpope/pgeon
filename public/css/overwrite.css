@@ -54,10 +54,6 @@
   .navbar-form {
     padding: 0 15px;
   }
-  .second-nav-container {
-
-    z-index: 3 !important;
-  }
 }
 
 /* new nav and stuff  */
@@ -258,7 +254,6 @@ a.top-content-item:focus {
   .top-content {
     max-height: calc(100vh - 225px);
   }
-  
 }
 
 @media (min-width: 766px) {
