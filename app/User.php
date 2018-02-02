@@ -93,6 +93,51 @@ class User extends Authenticatable
     
     
 
+  public static function fetchConvoCountBetween($user1, $user2) {
+    $sql = "
+
+    SELECT   COUNT(ans_id) no_of_replies from (
+        SELECT    answers.id as ans_id FROM questions
+        INNER JOIN answers ON questions.id = answers.question_id
+
+        WHERE questions.user_id = '$user1'   AND answers.user_id = '$user2'  AND questions.accepted_answer > 0
+
+        UNION ALL
+
+        SELECT    answers.id as ans_id FROM questions
+        INNER JOIN answers ON questions.id = answers.question_id
+        INNER JOIN users ON answers.user_id = users.id
+
+        WHERE questions.user_id = '$user2' AND answers.user_id = '$user1'  AND questions.accepted_answer > 0
+        ) 
+    AS tmp
+    
+    
+
+  
+     
+           
+             
+";
+    $result = DB::select( DB::raw($sql) );
+//      echo $sql;
+    
+   
+    return $result[0]->no_of_replies;
+    
+    
+}
+
+/** fetch number of replies given to a user from a user  **/
+public static function fetchRepliesCount($user_id , $replied_by) {
+    $sql = "SELECT  COUNT(answers.id) no_of_replies FROM questions
+    INNER JOIN answers ON questions.id = answers.question_id
+    WHERE questions.user_id = '$user_id'  AND answers.user_id = '$replied_by' AND expiring_at < ".time();
+    $result  = DB::select( DB::raw($sql) );
+    return $result[0]->no_of_replies;
+}
+
+
 
   /** can be deleted..but very useful to get the accumulation of convo between the users... so will be kept here for long*/
   

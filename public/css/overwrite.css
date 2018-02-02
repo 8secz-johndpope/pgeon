@@ -536,14 +536,12 @@ input.pending-radio:checked+label {
 } */
 
 
-.vote-up{
-
+.c-up{
+  transform: translate(0px, 8px);
 
 }
-.vote-down{
-
-
-
+.c-down{
+  transform: translate(0px, -9px);
 }
 
 .vote-none{
@@ -567,7 +565,6 @@ input.pending-radio:checked+label {
 /*** EDITED by Prasanth ***/
 #vote svg {
 	/** taken from auto generated css of fa **/
-	vertical-align:-12.5%;
 	fill:#c2c2c3;
 }
 
@@ -682,7 +679,7 @@ div a.icon:focus {
    } 
    
 .voting_container  {
-	width: 45px;
+	width: 55px;
 	text-align:center;
 }   
    

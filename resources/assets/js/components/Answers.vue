@@ -48,17 +48,18 @@
                     <div class="media-body">
                     
                        <div class="media-body-text live-response flex-center">
-                                <a class="media-left" style="font-size: 20px; color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
-                                    
-                                                 <span  class="fal fa-trash"></span>
-                                </a>
-                                
+                             
        
                                                     <table>
 <tr>
 <td>{{answer.answer}}</td>
 </tr>
 </table>
+   <a class="media-left" style="font-size: 20px; color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
+                                    
+                                                 <span  class="fal fa-trash"></span>
+                                </a>
+                                
           
                             </div>
                             
@@ -97,18 +98,9 @@
                             
                             
                             
-                                  <div  class="media-body-text-voting live-response flex-center">
+                                  <div  class="media-body-text live-response flex-center">
                                   
-                                  <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
-              <svg width="12" height="12" transform="translate(0,7)">
-              <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
-              </svg>
-  <div class="v_count" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1,  'vote-down': checkVoted(answer.id) == -1 }" >{{(answer.vote_count)?answer.vote_count:0 }}</div>
-   <svg width="12" height="12"  transform="translate(0,-11)">
-              <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
-              </svg>
-              
-              </div>              
+                             
    
 
                                                      <table>
@@ -116,6 +108,17 @@
 <td>{{answer.answer}}</td>
 </tr>
 </table>
+
+               <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
+              <svg width="12" height="12" class="c-up" >
+              <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
+              </svg>
+  <div class="v_count" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1,  'vote-down': checkVoted(answer.id) == -1 }" >{{(answer.vote_count)?answer.vote_count:0 }}</div>
+   <svg width="12" height="12" class="c-down" >
+              <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
+              </svg>
+              
+              </div>    
 
                         </div>
                             

@@ -7,18 +7,30 @@
 
    <ul class="nav nav-bordered">
                     <li class="active">
-                        <a  href="#1a" data-toggle="tab">Following <span>{{iam_following_count}}</span></a>
+                        <a  href="#1a" v-on:click="setcurrenttab('iam_following')" data-toggle="tab">Following <span>{{iam_following_count}}</span></a>
                     </li>
                     <li>
-                        <a href="#2a"  data-toggle="tab">
+                        <a href="#2a" v-on:click="setcurrenttab('my_followers')"  data-toggle="tab">
     Followers<span> {{my_followers_count}}</span></a>
                     </li>
-                    <li style="float: right">
+
+                     <li style="float: right">
+                      
                         <a href="/search">
                         
  
                         <span class="fal fa-search" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
                     </li>
+                    <li style="float: right;margin-top:5px;" v-on:click="sort()">
+                           <svg width="18" height="18">
+              <use   v-if="current_order===false" class="f-sort" xlink:href='/img/sprites/light.svg#sort'></use>
+               <use   v-else-if="current_order=='ASC'"  class="f-sort" xlink:href='/img/sprites/solid.svg#sort-up'></use>
+                <use  v-else class="f-sort" xlink:href='/img/sprites/solid.svg#sort-down'></use>
+              </svg>
+                    </li>
+                   
+
+                   
                 </ul>
 
 
@@ -50,6 +62,8 @@
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>
+                                        <strong>[{{ item.convo_count }}]</strong>
+
                                     </div>
                                 </div>
                             </li>
@@ -86,6 +100,7 @@
                                         </button>
                                           <strong>{{ item.url }}</strong>
                                  <small>{{ item.last_posted }}</small>
+                                  <strong>[{{ item.convo_count }}]</strong>
                                     </div>
                                 </div>
                             </li>
@@ -123,7 +138,9 @@
             iam_following: [],
             my_followers: [],
             iam_following_count : 0,
-            my_followers_count : 0
+            my_followers_count : 0,
+            current_tab: "iam_following",
+            current_order: false,
         };
     },
         mounted() {
@@ -133,7 +150,27 @@
         created: function(){
             this.fetchData()
         },
+
         methods: {
+            setcurrenttab(tab) {
+                this.current_tab = tab
+                
+            },
+            sort() {
+                if(!this.current_order ||  this.current_order == 'ASC') {
+                    this.current_order = 'DESC'
+                    this[this.current_tab].sort(function(a, b){
+                        return b.convo_count - a.convo_count;
+                    });
+                }else if(this.current_order == 'DESC') {
+                    this.current_order = 'ASC'
+                    this[this.current_tab].sort(function(a, b){
+                        return a.convo_count - b.convo_count;
+                    });
+                     
+                }
+                
+            },
         	fetchData() {
         		$.getJSON('/followers', function(response){
                     this.my_followers = response.my_followers;

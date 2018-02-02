@@ -19206,6 +19206,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -19992,83 +19995,117 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  data: function data() {
-    return {
-      iam_following: [],
-      my_followers: [],
-      iam_following_count: 0,
-      my_followers_count: 0
-    };
-  },
-  mounted: function mounted() {
-    //   console.log('Component mounted.')
-
-  },
-
-  created: function created() {
-    this.fetchData();
-  },
-  methods: {
-    fetchData: function fetchData() {
-      $.getJSON('/followers', function (response) {
-        this.my_followers = response.my_followers;
-        this.iam_following = response.iam_following;
-        this.iam_following_count = response.iam_following_count;
-        this.my_followers_count = response.my_followers_count;
-        // console.log(response.iam_following_count)
-      }.bind(this));
+    data: function data() {
+        return {
+            iam_following: [],
+            my_followers: [],
+            iam_following_count: 0,
+            my_followers_count: 0,
+            current_tab: "iam_following",
+            current_order: false
+        };
     },
-    isExistsinFollowing: function isExistsinFollowing(user_id) {
-      for (var k in this.iam_following) {
-        if (user_id == this.iam_following[k].user_id) return true;
-      }
-      return false;
-    },
-    getBubbleCount: function getBubbleCount() {
-      this.$http.get('/bubble').then(function (response) {
-        if (parseInt(response.data) > 0) $(".bubble").html(response.data);
+    mounted: function mounted() {
+        //   console.log('Component mounted.')
 
-        //alert('ss')
-        // success callback
-      }, function (response) {
-        // error callback
-      });
     },
 
-    follow: function follow(id, event) {
-      var _this = this;
-
-      //  $.post('follow',  )
-      $(event.target).children().remove();
-      var formData = {
-        'user_id': id
-      };
-      this.$http.post('/follow', formData).then(function (response) {
-        _this.fetchData();
-        // success callback
-      }, function (response) {
-        console.log(response);
-        // error callback
-      });
+    created: function created() {
+        this.fetchData();
     },
 
-    unfollow: function unfollow(id) {
-      var _this2 = this;
+    methods: {
+        setcurrenttab: function setcurrenttab(tab) {
+            this.current_tab = tab;
+        },
+        sort: function sort() {
+            if (!this.current_order || this.current_order == 'ASC') {
+                this.current_order = 'DESC';
+                this[this.current_tab].sort(function (a, b) {
+                    return b.convo_count - a.convo_count;
+                });
+            } else if (this.current_order == 'DESC') {
+                this.current_order = 'ASC';
+                this[this.current_tab].sort(function (a, b) {
+                    return a.convo_count - b.convo_count;
+                });
+            }
+        },
+        fetchData: function fetchData() {
+            $.getJSON('/followers', function (response) {
+                this.my_followers = response.my_followers;
+                this.iam_following = response.iam_following;
+                this.iam_following_count = response.iam_following_count;
+                this.my_followers_count = response.my_followers_count;
+                // console.log(response.iam_following_count)
+            }.bind(this));
+        },
+        isExistsinFollowing: function isExistsinFollowing(user_id) {
+            for (var k in this.iam_following) {
+                if (user_id == this.iam_following[k].user_id) return true;
+            }
+            return false;
+        },
+        getBubbleCount: function getBubbleCount() {
+            this.$http.get('/bubble').then(function (response) {
+                if (parseInt(response.data) > 0) $(".bubble").html(response.data);
 
-      //  $.post('unfollow',  )
-      var formData = {
-        'user_id': id
-      };
-      this.$http.post('/unfollow', formData).then(function (response) {
+                //alert('ss')
+                // success callback
+            }, function (response) {
+                // error callback
+            });
+        },
 
-        _this2.fetchData();
-      }, function (response) {});
+        follow: function follow(id, event) {
+            var _this = this;
+
+            //  $.post('follow',  )
+            $(event.target).children().remove();
+            var formData = {
+                'user_id': id
+            };
+            this.$http.post('/follow', formData).then(function (response) {
+                _this.fetchData();
+                // success callback
+            }, function (response) {
+                console.log(response);
+                // error callback
+            });
+        },
+
+        unfollow: function unfollow(id) {
+            var _this2 = this;
+
+            //  $.post('unfollow',  )
+            var formData = {
+                'user_id': id
+            };
+            this.$http.post('/unfollow', formData).then(function (response) {
+
+                _this2.fetchData();
+            }, function (response) {});
+        }
+
     }
-
-  }
 
 });
 
@@ -53756,7 +53793,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "media-body-text live-response flex-center"
-    }, [_c('a', {
+    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('a', {
       staticClass: "media-left",
       staticStyle: {
         "font-size": "20px",
@@ -53769,7 +53806,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-trash"
-    })]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()])
+    })])])])])]) : _vm._e()])
   })), _vm._v(" "), _c('div', {
     attrs: {
       "id": "answers_container"
@@ -53811,8 +53848,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text-voting live-response flex-center"
-    }, [_c('div', {
+      staticClass: "media-body-text live-response flex-center"
+    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('div', {
       staticClass: "voting_container",
       class: {
         'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1, 'vote-none': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
@@ -53821,10 +53858,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "id": "vote"
       }
     }, [_c('svg', {
+      staticClass: "c-up",
       attrs: {
         "width": "12",
-        "height": "12",
-        "transform": "translate(0,7)"
+        "height": "12"
       }
     }, [_c('use', {
       staticClass: "caret-up",
@@ -53840,10 +53877,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1
       }
     }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
+      staticClass: "c-down",
       attrs: {
         "width": "12",
-        "height": "12",
-        "transform": "translate(0,-11)"
+        "height": "12"
       }
     }, [_c('use', {
       staticClass: "caret-down",
@@ -53853,7 +53890,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "xlink:href": "/img/sprites/solid.svg#caret-down"
       }
-    })])]), _vm._v(" "), _c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])])])])])]) : _vm._e()], 1)
+    })])])])])])]) : _vm._e()], 1)
   }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
     staticClass: "fixed-bottom-footer"
   }, [(_vm.submit_error) ? _c('div', {
@@ -54507,13 +54544,53 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#1a",
       "data-toggle": "tab"
+    },
+    on: {
+      "click": function($event) {
+        _vm.setcurrenttab('iam_following')
+      }
     }
   }, [_vm._v("Following "), _c('span', [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": "#2a",
       "data-toggle": "tab"
+    },
+    on: {
+      "click": function($event) {
+        _vm.setcurrenttab('my_followers')
+      }
     }
-  }, [_vm._v("\n    Followers"), _c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n    Followers"), _c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('li', {
+    staticStyle: {
+      "float": "right",
+      "margin-top": "5px"
+    },
+    on: {
+      "click": function($event) {
+        _vm.sort()
+      }
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "18",
+      "height": "18"
+    }
+  }, [(_vm.current_order === false) ? _c('use', {
+    staticClass: "f-sort",
+    attrs: {
+      "xlink:href": "/img/sprites/light.svg#sort"
+    }
+  }) : (_vm.current_order == 'ASC') ? _c('use', {
+    staticClass: "f-sort",
+    attrs: {
+      "xlink:href": "/img/sprites/solid.svg#sort-up"
+    }
+  }) : _c('use', {
+    staticClass: "f-sort",
+    attrs: {
+      "xlink:href": "/img/sprites/solid.svg#sort-down"
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-content clearfix"
   }, [_c('div', {
     staticClass: "tab-pane active",
@@ -54557,7 +54634,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-check"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))]), _vm._v(" "), _c('strong', [_vm._v("[" + _vm._s(item.convo_count) + "]")])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -54605,7 +54682,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-md btn-link pull-right"
     }, [_c('span', {
       staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))]), _vm._v(" "), _c('strong', [_vm._v("[" + _vm._s(item.convo_count) + "]")])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

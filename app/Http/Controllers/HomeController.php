@@ -77,8 +77,8 @@ class HomeController extends Controller {
 
           $avatar =  Helper::avatar($value->user->avatar);
           $lq_created_at = User::get_last_posted_timestamp($value->user->id);
-          
-          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $url);
+          $convo_count_between = User::fetchConvoCountBetween($current_user, $value->user->id);
+          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $url , 'convo_count' => $convo_count_between);
 
       }
       $my_followers = array();
@@ -91,8 +91,8 @@ class HomeController extends Controller {
             $url = "/user/".$follower->id;
             $avatar =  Helper::avatar($follower->avatar);
             $lq_created_at = User::get_last_posted_timestamp($follower->id);
-            
-            $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' => $avatar, 'url' => $url);
+            $replies_count = User::fetchRepliesCount($current_user, $follower->id);
+            $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' => $avatar, 'url' => $url , 'convo_count' => $replies_count);
       }
 
     return response()->json(['iam_following' => $iam_following,
