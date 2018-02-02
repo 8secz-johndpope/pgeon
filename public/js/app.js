@@ -19354,7 +19354,7 @@ var pressTimer;
       };
       this.$http.delete('/answer/' + id, formData).then(function (response) {
         _this2.submitted_text = '';
-        // location.reload()
+        location.reload();
         // this.fetchRecords()
       }, function (response) {
         alert('error submitting');

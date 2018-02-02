@@ -344,7 +344,7 @@ var pressTimer;
         }
         this.$http.delete('/answer/' + id, formData).then((response) => {
           this.submitted_text = ''
-         	// location.reload()
+         	 location.reload()
          // this.fetchRecords()
         }, (response) => {
           alert('error submitting')
