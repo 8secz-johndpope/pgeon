@@ -4,19 +4,7 @@
 <div style="width: auto">
 	<div class="container p-t-md">
     
-    @if ($role_id !=  3)
-        @if ($total_count_exhausted)
-        <div class="alert alert-danger">
-                Sorry you have reached your question quota...<a href="/membership">upgrade.</a>
-            </div>
-        @else
-            <div class="alert alert-info">
-                <strong>{{$total_posted }} / {{ $qs_allowed }}</strong> questions posted.
-            </div>
-        @endif    
-@else 
-   
-@endif
+ 
 
 @if ($role_id !=  3 && $total_count_exhausted) 
 @else
@@ -136,6 +124,21 @@
         </div>
     </div>
     </div>
+
+		@if ($role_id !=  3)
+				@if ($total_count_exhausted)
+				<div class="alert alert-warning">
+								Oh no, You've reached your question quota! You can ask more in 3days 1hr 10min.. </a>
+				</div>
+				@else
+				<div class="alert alert-info">
+								<strong>{{$total_posted }} / {{ $qs_allowed }}</strong> questions posted..
+				</div>
+				@endif
+@else
+
+@endif
+
     <div class="error hidden alert alert-warning animated shake" role="alert">
     Please include at-least one question mark.
     </div>
