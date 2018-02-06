@@ -6,7 +6,7 @@
                 <nav class="container nav-container header-nav">
                     <a  href="{{$back}}" ><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
                     <h4>
-                    <a href="{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"></a>
+                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"></a>
                     </h4>
                     
                         <div class="dropdown">
