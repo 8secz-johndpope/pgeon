@@ -14,7 +14,7 @@
       default: 1
     },
     initial: {
-      type: String
+      type: Number
     },
  
     

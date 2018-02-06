@@ -8,8 +8,22 @@
                          <span>{{question_user_slug}}</span>
                          <span class="text-muted time-align">
                 
-                            <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>
-                          
+
+                            <span class="dropdown time-align">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-caret-down"></i>
+                            <answeringtimer :initial="parseInt(initial)"></answeringtimer>
+                          </a>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a v-on:click="endnow()">End now <span class="fal fa-stop dropdown-icon"></span></a>
+                                    </li>
+
+                                    <li>
+                                        <a v-on:click="cancelnow()">Cancel <span class="fal fa-eject dropdown-icon"></span></a>
+                                    </li>
+                            </ul>
+                          </span>
                          </span>
                      </div>
                      <ul class="media-list media-list-conversation c-w-md">
@@ -156,11 +170,8 @@ var pressTimer;
     },
     methods: {
      
-    //callback 
-    	reload() {
-    		location.reload()
-    	}
-    	,
+    
+    
     	
     	clearError() {
     		this.submit_error = false	

@@ -42,7 +42,7 @@
 											<img src="{{ Helper::avatar($user->avatar) }}" class="gambar img-responsive img-thumbnail" id="item-img-output" />
 										  <figcaption><i class="fa fa-camera"></i></figcaption>
 								    </figure>
-										<input type="file" class="item-img file center-block" name="avatar"/>
+										<input type="file" class="item-img file center-block"  name="avatar"/>
 									</label>
 
 
@@ -110,25 +110,7 @@
         </div>
 
 
-        <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-							<div class="modal-header">
-							  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							  <h4 class="modal-title" id="myModalLabel">
-                                  sd
-                            </h4>
-							</div>
-							<div class="modal-body">
-				            <div id="upload-demo" class="center-block"></div>
-				      </div>
-							 <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
-      </div>
-						    </div>
-						  </div>
-						</div>
+        
 
         <div class="col-md-3">
 </div>
@@ -138,14 +120,12 @@
 
 <!-- Push a style dynamically from a view -->
 @push('styles')
-<link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
 <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.6/js/all.js'>
 
 @endpush
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')
-<script src='https://foliotek.github.io/Croppie/croppie.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
 <script src="{{ asset('js/settings.js') }}"></script>

@@ -21,7 +21,7 @@
  
                         <span class="fal fa-search" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
                     </li>
-                    <li style="float: right;margin-top:5px;" v-on:click="sort()">
+                    <li v-if="showsorting" style="float: right;margin-top:5px;" v-on:click="sort()">
                            <svg width="18" height="18">
               <use   v-if="current_order===false" class="f-sort" xlink:href='/img/sprites/light.svg#sort'></use>
                <use   v-else-if="current_order=='ASC'"  class="f-sort" xlink:href='/img/sprites/solid.svg#sort-up'></use>
@@ -62,7 +62,6 @@
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>
-                                        <strong>[{{ item.convo_count }}]</strong>
 
                                     </div>
                                 </div>
@@ -100,7 +99,6 @@
                                         </button>
                                           <strong>{{ item.url }}</strong>
                                  <small>{{ item.last_posted }}</small>
-                                  <strong>[{{ item.convo_count }}]</strong>
                                     </div>
                                 </div>
                             </li>
@@ -140,7 +138,9 @@
             iam_following_count : 0,
             my_followers_count : 0,
             current_tab: "iam_following",
-            current_order: false,
+          //  current_order: false,
+            current_order: 'DESC',
+            showsorting:false
         };
     },
         mounted() {

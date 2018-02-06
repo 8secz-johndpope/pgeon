@@ -62,6 +62,8 @@ Route::get('/u_s', 'UserController@status');
    Route::get('r/{keyw1orslug1}/{id1orslug2}/{keyw2?}/{id2?}', 'UserController@fetchOneWayConvoFromTargetUser');
   Route::get('fetchconvo/{answered_by}/{question_by}', 'UserController@fetchConvoFromTargetUser');
   
+  Route::get('get_vote_count_for_question/{id}', 'QuestionController@get_vote_count_for_question');
+
   Route::group(array('middleware' => 'auth'), function()
   {
      
@@ -89,7 +91,6 @@ Route::get('/u_s', 'UserController@status');
     
     Route::get('get_votes/{id}/', 'QuestionController@get_votes');
     Route::get('get_votes_with_count/{id}', 'QuestionController@get_votes_with_count');
-    Route::get('get_vote_count_for_question/{id}', 'QuestionController@get_vote_count_for_question');
     
     
     Route::post('accept_answer', array('before'=>'csfr', 'uses'=>'QuestionController@accept_answer' ) );  
@@ -103,7 +104,7 @@ Route::get('/u_s', 'UserController@status');
     Route::post('profile', 'UserController@update');
     Route::post('subscribe', 'UserController@subscribe');
     Route::get('security', 'UserController@security');
-    Route::get('membership', 'UserController@membership');
+    // Route::get('membership', 'UserController@membership');
     Route::get('notifications', 'UserController@notifications');
     Route::get('preferences', 'UserController@preferences');
 

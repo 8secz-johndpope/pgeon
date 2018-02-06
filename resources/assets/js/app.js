@@ -38,6 +38,8 @@ Vue.component('allqtimer', require('./components/AllQTimer.vue'));
 Vue.component('localtimezone', require('./components/LocalTimeZone.vue'));
 Vue.component('answeringtimer', require('./components/AnsweringTimer.vue'));
 Vue.component('answers_expired', require('./components/AnswersExpired.vue'));
+Vue.component('answers_live_owner', require('./components/AnswersLiveOwner.vue'));
+
 Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner.vue'));
 Vue.component('notifications', require('./components/Notifications.vue'));
 

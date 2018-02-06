@@ -38,44 +38,8 @@ $(function () {
 
 
 
-	$("#end_now").on("click", function () {
-		var att_id = $(this).attr('rel')
-		$.post("/end_now/"+att_id, { _token : $('meta[name="csrf-token"]').attr('content')}, function () {
-
-			socket.emit('end_now', att_id);
-
-			setTimeout(function(){ location.reload(); }, 1000);
-
-		})
-
-	})
 
 
-
-	$("#cancel_now").on("click", function () {
-		var att_id = $(this).attr('rel')
-
-		$.ajax({
-		    url: '/question/'+att_id,
-		    method: 'DELETE',
-		    contentType: 'application/json',
-		    headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-	        },
-		  //  data: { _token : $('meta[name="csrf-token"]').attr('content') },
-		    success: function(result) {
-
-		    		//notify all the opened window that question is deleted
-		    		socket.emit('cancel_now', att_id);
-		    		setTimeout(function(){ location.href = "/my-questions"; }, 1000);
-		    },
-		    error: function(request,msg,error) {
-		        // handle failure
-		    }
-		});
-
-
-	})
 
 
 
@@ -304,6 +268,10 @@ $(function () {
            `)
          }
        }, 550)
+     })
+
+     $(".goto-qdetail").click(function () {
+       location.href=`/question/${$(this).data('id')}`
      })
 
 })

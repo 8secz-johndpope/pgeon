@@ -82,7 +82,7 @@ class QuestionController extends Controller
                     //if owner
                     if (Auth::user()->id == $question->user_id) {
                         //    
-                        return Redirect::to('my-questions');
+                        return view('questions.showliveowner', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in, 'back' => $back]);
                     }else {
                         return view('questions.show', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in, 'back' => $back]);
                     }
@@ -225,7 +225,8 @@ class QuestionController extends Controller
   }
   
   public static function end_now($id) {
-      
+     // echo $id;
+     // exit;
       $question = Question::find($id);
       if (Auth::user()->id == $question->user_id) {
           $question->expiring_at = time();

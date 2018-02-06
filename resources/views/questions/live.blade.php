@@ -7,7 +7,7 @@
                 <div class="navbar-header w-100">
 
                     <a class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
-                    <h4>Live (#)</h4>
+                    <h4>Live ({{count($questions)}})</h4>
                 </div>
 
             </div>
@@ -28,27 +28,11 @@
             <div class="container p-t-md">
                 <div>
                     <div class="media-body">
-                        <div class="media-header m-b-5">
-                            <small class="text-muted">{{$display_name}}</small>
-                            <span class="dropdown time-align">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <i class="fa fa-caret-down"></i>
-                            <answeringtimer initial="{{$val->expiring_in}}"></answeringtimer>
-                          </a>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a id="end_now" rel="{{$val->id}}" href="#">End now <span class="fal fa-stop dropdown-icon"></span></a>
-                                    </li>
-                                    <li>
-                                        <a id="cancel_now" rel="{{$val->id}}" href="#">Cancel <span class="fal fa-eject dropdown-icon"></span></a>
-                                    </li>
-                            </ul>
-                          </span>
-                        </div>
+                     
                         <ul class="media-list media-list-conversation c-w-md">
                             <li class="media">
                                 <div class="media-body">
-                                    <div class="media-body-text live-media-question">
+                                    <div class="media-body-text live-media-question goto-qdetail" data-id={{$val->id}}>
                                    {{$val->question}}
 </div>
 

@@ -29,7 +29,7 @@
     
     
  
- 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'bold':  notification.seen == 0}"  v-for="notification in notifications">
+ 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'text-muted':  notification.seen == 1}"  v-for="notification in notifications">
                             <div class="media-left">
                                 <span class="fa text-muted" :class="notification.class"></span>
                             </div>

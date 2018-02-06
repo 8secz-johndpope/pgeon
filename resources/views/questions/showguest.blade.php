@@ -60,46 +60,8 @@
 
 
 
-
-
-
-
-
-
-
-          <div style="width: auto;">
-            <div class="container">
-                <ul class="media-list">
-                    <li class="media media-divider">
-                              <div class="h5 m-b-5">
-                            <span class="tmw"><a href="#">{{Helper::slug($question->user->id ,$question->user->slug)}}</a></span>
-                            <span class="text-muted time-align">
-                            <allqtimer :initial="{{$lq_expiring_in}}"
-								:question_id="{{$question->id}}" @event="reload"></allqtimer></span>
-                            </span>
-                        </div>
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media-body-text live-media-question">
-                                    <?php echo $question->question; ?></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
+        <answers_guest hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
+								  ></answers_guest>
 
 
         <!-- Guests are not able to view posted answers -->

@@ -8,7 +8,7 @@
 
                     <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
                     <h4>Pending</h4>
-                    <span>#</span>
+                    <span> {{count($pending)}}</span>
                 </div>
 
             </div>
