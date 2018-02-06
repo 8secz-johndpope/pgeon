@@ -25,7 +25,7 @@
 <link href="{{URL::asset('favicon.ico')}}" rel="apple-touch-icon" sizes="120x120" />
    <!--  used prasanth@object90.com login on sharethis -->
 	<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a2bca658c8f3c0013a020a0&product=sop' async='async'></script>
-   
+
 </head>
 <body>
 <div id="app">
@@ -57,7 +57,7 @@
     @stack('scripts')
     <script src="{{ asset('js/application.js') }}"></script>
 
-	 <script defer src="{{ asset('/js/packs/light.js') }}"></script>
+	      <script defer src="{{ asset('/js/packs/light.js') }}"></script>
         <script defer src="{{ asset('/js/packs/solid.js') }}"></script>
         <script defer src="{{ asset('/js/packs/brands.js') }}"></script>
         <script defer src="{{ asset('/js/fontawesome.js') }}"></script>

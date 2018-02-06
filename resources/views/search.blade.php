@@ -38,15 +38,15 @@
                                     </a>
                                     <div class="media-body">
 
-                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{( $value['obj']->af)?'hidden' : ''}}">
+                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn-md btn-link pull-right p-a-0 {{( $value['obj']->af)?'hidden' : ''}}">
                   <span class="fal fa-plus"></span>
                 </button>
-               
-                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($value['obj']->af)?'' : 'hidden'}}">
-                  <span class="fal fa-check"></span>
+
+                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn-md btn-link pull-right p-a-0 {{($value['obj']->af)?'' : 'hidden'}}">
+                  <span class="text-muted fal fa-check"></span>
                 </button>
 
-                                    
+
                                         <strong>{{  $value['obj']->url }}</strong>
                                         <small>{{ $value['obj']->last_posted }}</small>
                                     </div>

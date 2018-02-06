@@ -21,9 +21,9 @@
             @endif
 
             @if ($answer->created_at != $answer->updated_at)
-                <P class="text-right" style="margin-top: 10px"><strong><small><a href="/user/{{$answer->user->id}}" title="{{ $answer->user->name }}">{{ ucfirst($answer->user->name) }}</a> | edited {{ e($answer->updated_at->diffForHumans()) }}</small></strong></P>
+                <P class="text-right" style="margin-top: 10px;"><strong><small><a href="/user/{{$answer->user->id}}" title="{{ $answer->user->name }}">{{ ucfirst($answer->user->name) }}</a> | edited {{ e($answer->updated_at->diffForHumans()) }}</small></strong></P>
             @else
-                <P class="text-right" style="margin-top: 10px"><strong><small><a href="/user/{{$answer->user->id}}" title="{{ $answer->user->name }}">{{ ucfirst($answer->user->name) }}</a> | {{ e($answer->created_at->diffForHumans()) }}</small></strong></P>
+                <P class="text-right" style="margin-top: 10px;"><strong><small><a href="/user/{{$answer->user->id}}" title="{{ $answer->user->name }}">{{ ucfirst($answer->user->name) }}</a> | {{ e($answer->created_at->diffForHumans()) }}</small></strong></P>
             @endif
 
         </div>

@@ -1,25 +1,25 @@
 @extends('layouts.app-profile')
 @section('content')
 
-  <div class="nav-contain">
+  <div class="nav-contain navbar-fixed-top">
             <nav class="container nav-container header-nav">
                 <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                  <a onclick="window.history.back()" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                 <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
-             
+
                 @if ($user->id == Auth::user()->id )
                  <a href="/profile"> <span class="fal fa-edit"></span></a>
                 @else
                   <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'hidden' : ''}}">
                     <span class="fal fa-plus"></span>
                   </button>
-                
+
                   <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'' : 'hidden'}}">
-                    <span class="fal fa-check"></span>
+                    <span class="text-muted fal fa-check"></span>
                   </button>
                 @endif
-                
-              
+
+
             </nav>
         </div>
 
@@ -38,11 +38,11 @@
 
    <div class="top-container">
           <div class="top-content-container">
-              <div class="responses-to-display show-responses" style="height: 453px; overflow: scroll;">
+              <div class="responses-to-display show-responses">
     <ul class="media-list media-list-stream c-w-md" style="margin: 0 auto; max-width: 750px; padding: 15px;">
-    
+
          @foreach ($replies as $key => $reply)
-    
+
             <li class="media">
             <div class="media-body">
               <div class="h5 m-b-5">

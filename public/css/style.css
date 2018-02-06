@@ -3,6 +3,7 @@
 .profile_upload img
 {
   width: 55px;
+  border-radius: 50%;
 }
 
 .file-box .inputfile
@@ -452,7 +453,7 @@ ul.list_notifications
     right: 70px;
     top: 15px;
   }
-  
+
   a.navbar-brand img.logo-for-mobile
   {
     display: block;
@@ -481,7 +482,7 @@ ul.list_notifications
                     display: flex;
                 }
 .tab > a{
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid transparent;
 }
 
                 #answers_expired_owner_container ul > li.hover-button-container{
@@ -498,15 +499,15 @@ ul.list_notifications
                     border: none;
                 }
 
-                
-                
+
+
                     #answers_expired_owner_container .vote-count{
                 /* display: inline; */
                display: flex;
                justify-content: center;
                align-items: center;
                flex-direction: column;
-           } 
+           }
 
             #answers_expired_owner_container input[type="radio"] {
                 display: none;
@@ -516,7 +517,7 @@ ul.list_notifications
                background-color: #eaeaea;
                 border-radius:  10px 10px 0px 10px;
                 padding: 10px 15px;
-                position: relative; 
+                position: relative;
                 display: flex;
                 transition: 200ms all;
                 box-shadow: 0 0 0 100px #eaeaea inset;
@@ -571,8 +572,8 @@ ul.list_notifications
                 background: #7EB634;
                 border-color: #7EB634; */
             }
-            
-            
+
+
              .first , .second {
                 position: relative;
             }
@@ -603,17 +604,14 @@ ul.list_notifications
                 margin: 0;
                 max-height: 0;
             }
-            
+
             #footer-textarea {
             		overflow:hidden;
             }
-            
-            
+
+
             .va_slider_detail .error {
             		color:#a94442;
             		float:left;
             		margin-left:25px;
             }
-            
-     
- 

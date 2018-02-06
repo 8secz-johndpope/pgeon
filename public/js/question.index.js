@@ -1,5 +1,5 @@
 $(function () {
- 
+
 
 	$("#copy_to_cb").click(function () {
 		var copyText = $("#txt_current_url");
@@ -7,7 +7,7 @@ $(function () {
 		document.execCommand("Copy");
 	})
 
-	
+
 	$("#report_question").click(function () {
 		$qid = ""
 			//alert('ss')
@@ -17,8 +17,8 @@ $(function () {
 			$parent.removeAttr("id")
 		})
 	})
-	
-	
+
+
 	$("#q_next").on("click", function () {
 		$(".error").addClass('hidden')
 		if($("#question-input").val().trim().length < 1 ) {
@@ -31,13 +31,13 @@ $(function () {
 		$('#sp_days').text($("#day-select").val());
 		$('#sp_hr').text($("#hour-select").val());
 		$('#sp_mn').text($("#minute-select").val());
-		
+
 		$("#q_preview_text").text($("#question-input").val())
 	})
-	
 
-	
-	
+
+
+
 	$("#end_now").on("click", function () {
 		var att_id = $(this).attr('rel')
 		$.post("/end_now/"+att_id, { _token : $('meta[name="csrf-token"]').attr('content')}, function () {
@@ -47,24 +47,24 @@ $(function () {
 			setTimeout(function(){ location.reload(); }, 1000);
 
 		})
-		
-	})
-	
 
-	
+	})
+
+
+
 	$("#cancel_now").on("click", function () {
 		var att_id = $(this).attr('rel')
-		
+
 		$.ajax({
 		    url: '/question/'+att_id,
 		    method: 'DELETE',
 		    contentType: 'application/json',
-		    headers: { 
+		    headers: {
 	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
 	        },
 		  //  data: { _token : $('meta[name="csrf-token"]').attr('content') },
 		    success: function(result) {
-		    		
+
 		    		//notify all the opened window that question is deleted
 		    		socket.emit('cancel_now', att_id);
 		    		setTimeout(function(){ location.href = "/my-questions"; }, 1000);
@@ -73,13 +73,13 @@ $(function () {
 		        // handle failure
 		    }
 		});
-		
-	
+
+
 	})
-	
-	
-	
-    // 
+
+
+
+    //
 	  //  $(".display-published").on("click", function (e) {
     //
     //   e.preventDefault()
@@ -106,7 +106,7 @@ $(function () {
       this.checked ?
         $(this).closest(".answer-bubble").addClass("checked") :
         $(this).closest(".answer-bubble").removeClass("checked")
-        
+
         $(".cancel_edit").addClass("hidden")
 
         $(".deleteNum").css("display" , "block")
@@ -166,54 +166,54 @@ $(function () {
             checkToggleOverlay()
         }
     })
-    
-    
-    
-    
+
+
+
+
      $(".edit").on("click", function () {
     	 	$(".custom-checkbox").removeClass("hidden")
     	 	$(this).addClass('hidden') && $(".cancel_edit").removeClass("hidden")
      })
-   
+
       $(".cancel_edit").on("click", function () {
     	  	$(".custom-checkbox").addClass("hidden") && $(this).addClass('hidden') && $(".edit").removeClass("hidden")
      })
-     
+
      $("#done").on("click", function () {
 	    	 var str = ""
-	    	 var q = [];	 
+	    	 var q = [];
 	    	 $(".toggleOverlay:checked").each(function() {
 	             q.push(this.value);
 	         });
 	    	 if(q.length > 0) {
 	    		str = q.join(",")
-				
+
 			$.ajax({
 			    url: '/delete_questions/'+str,
 			    method: 'DELETE',
 			    contentType: 'application/json',
-			    headers: { 
+			    headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
 		        },
 			  //  data: { _token : $('meta[name="csrf-token"]').attr('content') },
 			    success: function(result) {
-		    		
+
 			    		setTimeout(function(){ location.href = "/published"; }, 1000);
 			    },
 			    error: function(request,msg,error) {
 			        // handle failure
 			    }
 			});
-				
-			
-			
+
+
+
 	    	 }
      })
-     
-     
-     
-    /* 
-     
+
+
+
+    /*
+
      $(".toggleOverlay").on("change" , function(){
     	    (this.checked) ?
     	        $(this).closest(".answer-bubble").addClass("checked") :
@@ -227,10 +227,10 @@ $(function () {
 
     	        numberCheckedBoxes() == 0 &&  $(".number-checked").hide();
     	  })
-    	 
 
 
-   
+
+
 
 
     	    $(".number-checked").hide();
@@ -253,7 +253,7 @@ $(function () {
     	    })
      */
 
-     
+
 
      $(".toggleOverlay").on("change", function() {
        this.checked ?
@@ -273,13 +273,13 @@ $(function () {
          $(".deleteNum").css("display" , "none")
      })
 
-       
+
 
      function numberCheckedBoxes() {
     		var num = 0;
        document.querySelectorAll(".toggleOverlay").forEach(checkbox => {
          checkbox.checked && num++
-         
+
        })
 
        return num
@@ -310,32 +310,32 @@ $(function () {
 
 
 
-
-
-    
-    $(".media-response").click(checkToggleOverlay )
-    $(".media-question").click(checkToggleOverlay )
-
-    function checkToggleOverlay(){
-        $(".toggleOverlay").trigger("click");
-    }
-
-    $(".closest-overlay").click(function(e){
-        if(e.target.id == "overlay"){
-            checkToggleOverlay()
-        }
-    })
-    
-
-function addResponseFocus(){
-  $(this).addClass("active-response-container")
-}
-
-function removeResponseFocus(){
-  $(this).hasClass("active-response-container") &&
-  $(this).removeClass("active-response-container")
-}
-
-$(".live-response").mousedown( addResponseFocus )
-$(".live-response" ).mouseup( removeResponseFocus )
-$(".live-response" ).mouseleave( removeResponseFocus )
+// 
+//
+//
+//     $(".media-response").click(checkToggleOverlay )
+//     $(".media-question").click(checkToggleOverlay )
+//
+//     function checkToggleOverlay(){
+//         $(".toggleOverlay").trigger("click");
+//     }
+//
+//     $(".closest-overlay").click(function(e){
+//         if(e.target.id == "overlay"){
+//             checkToggleOverlay()
+//         }
+//     })
+//
+//
+// function addResponseFocus(){
+//   $(this).addClass("active-response-container")
+// }
+//
+// function removeResponseFocus(){
+//   $(this).hasClass("active-response-container") &&
+//   $(this).removeClass("active-response-container")
+// }
+//
+// $(".live-response").mousedown( addResponseFocus )
+// $(".live-response" ).mouseup( removeResponseFocus )
+// $(".live-response" ).mouseleave( removeResponseFocus )

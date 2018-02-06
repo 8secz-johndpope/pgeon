@@ -8,8 +8,9 @@
 
                     <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
                     <h4>Pending</h4>
+                    <span>#</span>
                 </div>
-             
+
             </div>
         </nav>
 
@@ -20,9 +21,9 @@
 
       <div class="tabs">
         <div class="pending">
-        
-         @foreach ($pending as $key => $val) 
-        
+
+         @foreach ($pending as $key => $val)
+
           <ul class="media-list media-list-stream c-w-md">
             <div class="media-body m-b">
               <ul class="media-list media-list-conversation c-w-md">
@@ -38,7 +39,7 @@
                   <div class="media-body-text media-response">
                      @if ($val['answer'])
                                           {{$val['answer']->answer}}
-                                       @endif   
+                                       @endif
                   </div>
                   <div style="padding-top: 10px;">
                    @if ($val['answer'])
@@ -46,45 +47,45 @@
                                     @endif
                     <div class="pull-right">
                     	    <longpress duration="3" :on-confirm="deleteQ" :value={{$val['question']->id}} pressing-text="Deleing in {$rcounter} secs" class="btn btn-danger-outline" action-text="Deleting">Delete</longpress>
-                    
-                       
+
+
                                               @if ($val['answer'])
-                                                <form  method="post" id="publish_form" action="/accept_answer"> 
+                                                <form  method="post" id="publish_form" action="/accept_answer">
                                                 {{ Form::token() }}
                                  <input type="hidden" value="{{$val['answer']->id}}" name="answer_id" >
                                   <input type="hidden" value="{{$val['answer']->user_id}}" name="answered_by" >
                                 <input type="hidden" name="question_id" value="{{$val['question']->id}}" >
                                 <button type="submit"  class="btn btn-primary">Publish</button>
                                </form>
-                                           
-                                        @endif  
+
+                                        @endif
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
           </ul>
-          
+
            @endforeach
-          
+
         </div>
-     
+
       </div>
   </div>
 
 
 
 
-        
-        
-        
+
+
+
 <div class="modal fade" id="viewAll" tabindex="-1" role="dialog" aria-labelledby="viewAll" aria-hidden="true">
   <div class="modal-dialog">
   <answers_expired_owner ref="answersexpiredowner"></answers_expired_owner>
 
   </div>
 </div>
- 
+
 
 
 

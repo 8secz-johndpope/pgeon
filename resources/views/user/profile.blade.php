@@ -19,7 +19,7 @@
 
                         <div class="col-md-8" style="margin-top:10px">
 
-  
+
 
 
    <form enctype="multipart/form-data" action="/profile" method="POST">
@@ -35,7 +35,7 @@
                             <figure class="m-t-5">
                                 <img class="img-circle"  alt="">
 
-                                  
+
 
 									<label class="cabinet center-block">
 										<figure>
@@ -44,36 +44,36 @@
 								    </figure>
 										<input type="file" class="item-img file center-block" name="avatar"/>
 									</label>
-								
 
 
-                               
+
+
                             </figure>
                         </label>
                         <input type="submit" value="Upload" name="submit" class="btn btn-default-outline" style="margin-left: 10px">
                     </div>
                 </li>
-         
-                
+
+
                 <li class="list-group-item media p-a">
-               
+
                     <label class="control-label">Profile address (url)</label>
                     <div class="input-group">
                         <span class="input-group-addon">pgeon.com/</span>
                         <input type="text" class="form-control" name="slug" value="{{ $user->slug}}">
                         <br />
-                        
-                        
+
+
                     </div>
                      @include('flash::message')
-                     <!-- 
+                     <!--
                     <li class="list-group-item media p-a">
                                 <label class="control-label">Bio</label>
                                 <div class="input-group">
                                   <textarea type="text" class="form-control" name="bio" id="bio" cols="30" rows="2" placeholder="some info about you…" style="resize: none; border-radius: 4px;" maxlength="100">{{ $user->bio}}</textarea>
                                 </div>
                               </li>
-                           -->    
+                           -->
                               <li class="list-group-item media p-a" style="background-color: #fefefe;">
                     <div class="input-group" style="margin-bottom: 0;">
                         <input type="submit" value="Save changes" name="submit" class="btn btn-md btn-default-outline" style="float: none">
@@ -137,9 +137,9 @@
 @endsection
 
 <!-- Push a style dynamically from a view -->
-@push('styles') 
+@push('styles')
 <link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
-<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.6/js/all.js'>
 
 @endpush
 

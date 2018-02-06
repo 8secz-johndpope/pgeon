@@ -96,7 +96,7 @@
                         </li>
                         <li>
                             <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                
+
                                 <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}">
                             </button>
                         </li>
@@ -106,17 +106,14 @@
         </nav>
 
 
-     
-      
+
+
         <ul class="mobile-dropdown no-height">
             <li>
                 <a href="{{  Helper::slug(Auth::user()->id, Auth::user()->slug) }}">Profile</a>
             </li>
             <li>
                 <a href="{{ route('profile') }}">Settings</a>
-            </li>
-            <li>
-            <a href="mailto:help@pgeon.com">Help</a>
             </li>
             <li>
              <a href="{{ route('logout') }}"          onclick="event.preventDefault();   document.getElementById('logout-form').submit();">
@@ -140,9 +137,6 @@
           </li>
           <li class="list-group-item">
             <a href="/profile">Settings</a>
-          </li>
-          <li class="list-group-item">
-            <a href="mailto:help@pgeon.com">Help</a>
           </li>
           <li class="list-group-item">
             <a   onclick="event.preventDefault();   document.getElementById('logout-form').submit();">Logout</a>

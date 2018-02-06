@@ -2,20 +2,18 @@
 
 
 
-
-
-<nav class="navbar  navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
             <div class="container nav-container">
                 <div class="navbar-header w-100">
 
                     <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
-                    <h4>Published</h4>
+                    <h4>Published (#)</h4>
                     <button type="button" class="btn btn-sm btn-default-outline edit">Edit</button>
                     <button type="button" class="btn btn-sm btn-default-outline cancel_edit hidden">Cancel</button>
-       
+
                     <button type="button" data-toggle="modal" data-target="#deleteQ" id="delete" class="btn btn-xs btn-danger-outline deleteNum">##</button>
                 </div>
-             
+
             </div>
         </nav>
 
@@ -43,7 +41,7 @@
 <div style="width: auto;">
 </div>
         <div class="container p-t-md">
-        
+
          <ul class="media-list media-list-stream c-w-md answer-bubbles-container">
                 @foreach ($published as $key => $val)
                 <li class="media answer-bubble">
@@ -61,13 +59,13 @@
                                 <div class="media-body closest-overlay">
                                     <div id="overlay"></div>
                                     <div class="media-body-text media-question">{{$val['question']->question}}
-</div>	
+</div>
                                     <!-- <div id="overlay"></div> -->
-                                    
+
                                     <div class="media-body-text media-response" style="margin-top: 0;">
                                     		  @if(!is_null($val['answer']))
                                         		{{$val['answer']->answer}}
-                                        	  @endif	
+                                        	  @endif
 </div>
                                 </div>
                             </li>
@@ -76,13 +74,13 @@
                 </li>
                 @endforeach
             </ul>
-            
-   
+
+
         </div>
-        
 
 
- 
+
+
 
 
 

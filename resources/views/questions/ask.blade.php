@@ -3,14 +3,14 @@
 
 <div style="width: auto">
 	<div class="container p-t-md">
-    
- 
 
-@if ($role_id !=  3 && $total_count_exhausted) 
+
+
+@if ($role_id !=  3 && $total_count_exhausted)
 @else
     <div>
 
-    <div class="question-container">
+    <div class="question-container" >
         <div>
             {{ Form::open( array('url'=>'question','class' =>'form-horizontal')
             ) }} {{ Form::token() }}
@@ -33,13 +33,13 @@
 
                                         <div class="pull-left" style="padding-top: 2px;">
                                             <select name="days" id="day-select" class="custom-select time-select">
-                                                <option value="00">00 day</option>
-                                                <option value="01">01 day</option>
-                                                <option value="02">02 day</option>
-                                                <option value="03">03 day</option>
-                                                <option value="04">04 day</option>
-                                                <option value="05">05 day</option>
-                                                <option value="06">06 day</option>
+                                                <option value="00">00 days</option>
+                                                <option value="01">01 days</option>
+                                                <option value="02">02 days</option>
+                                                <option value="03">03 days</option>
+                                                <option value="04">04 days</option>
+                                                <option value="05">05 days</option>
+                                                <option value="06">06 days</option>
                                             </select>
                                             <span class="fa fa-sort text-muted" style="vertical-align: text-bottom;margin-left: -3px;"></span>
                                             <select name="hours" id="hour-select" class="custom-select time-select">
@@ -156,12 +156,12 @@
         <div style="width: auto;">
             <div class="container" style="padding: 0px;">
               <div class="col-sm-4">
-													<a href="/live">
+													<div onclick="window.location.href='/live'">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-hourglass-half fa-3x"></i>
+                                    <i class="text-muted fal fa-circle-notch fa-3x fa-spin"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div style="margin-top: 0;" class="h4">
@@ -173,16 +173,16 @@
                                 </div>
                             </div>
                         </div>
-											</a>
+											</div>
                     </div>
                 </div>
                 <div class="col-sm-4">
-									<a href="/pending">
+									<div onclick="window.location.href='/pending'">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-clock fa-3x"></i>
+                                    <i class="text-muted fal fa-clock fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div style="margin-top: 0;" class="h4">
@@ -194,16 +194,16 @@
                                 </div>
                             </div>
                         </div>
-											</a>
+											</div>
                     </div>
                 </div>
                 <div class="col-sm-4">
-									<a href="/published">
+									<div onclick="window.location.href='/published'">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fal fa-newspaper fa-3x"></i>
+                                    <i class="text-muted fal fa-check-circle fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div style="margin-top: 0;" class="h4">
@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                         </div>
-											</a>
+											</div>
                     </div>
                 </div>
             </div>

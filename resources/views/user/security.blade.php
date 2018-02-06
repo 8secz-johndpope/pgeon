@@ -22,7 +22,7 @@
 						@if (!Auth::user()->provider)
 						<div class="input-group" style="margin-bottom: 0">
 							<label for="password">Password</label>
-							<a class="btn btn-default-outline m-t-5" href="/cpwd">Reset Your Password</a>
+							<a class="btn btn-default-outline m-t-5" href="/cpwd">Change Password</a>
 						</div>
 						@endif
 					</li>

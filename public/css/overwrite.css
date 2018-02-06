@@ -74,7 +74,7 @@ margin-right: 30px;
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
 }
 
 .nav_all{
@@ -87,7 +87,7 @@ margin-right: 30px;
 }
 
 .content {
-  margin-top: 55px;
+  margin-top: 50px;
   position: relative;
 }
 .app-navbar{
@@ -128,7 +128,7 @@ margin-right: 30px;
 }
 
 .active-response-container{
-  background-color: #E0E1E3;
+  background-color: #8E8E93;
   box-shadow: none;
 }
 
@@ -364,15 +364,15 @@ a.top-content-item:focus {
   overflow: hidden;
 }
 .overlay{
-  position: absolute;
+  /* position: absolute;
   top:0;
   bottom:0;
   left:0;
-  right:0;
+  right:0; */
   /* transform: translateY(-100%); */
-  opacity: 0;
+  /* opacity: 0;
   transition: opacity 0.5s ease;
-  background: transparent;
+  background: transparent; */
 }
 
 .active-container .overlay{
@@ -495,6 +495,8 @@ input.pending-radio:checked+label {
   flex: 1;
   text-align: center;
   margin: 4px 4px;
+  /* font-weight: 400;
+  color: #8E8E93; */
 }
 
 .deleteNum{
@@ -565,12 +567,11 @@ input.pending-radio:checked+label {
 /*** EDITED by Prasanth ***/
 #vote svg {
 	/** taken from auto generated css of fa **/
-	fill:#c2c2c3;
+	fill:#E0E1E3;
 }
 
 svg .vote-up ,svg .vote-down, svg .vote-none{
-fill:#c2c2c3;
-  		
+  fill:#33cccced;
 	shape-rendering: geometricprecision;
   transition: all .1s linear;
   -webkit-transition: all .1s linear;
@@ -578,27 +579,27 @@ fill:#c2c2c3;
   -o-transition: all .1s linear;
 	}
 .vote-up {
-	color:#3fc3ad;
-}	
+	color:#33cccced;
+}
 .vote-down{
-  color: #da7a82;
+  color: #cc3333ed;
   }
   .vote-none{
-  color:#c2c2c3;
+  color:#C4C6CA;
 }
-  
-  
+
+
 svg .vote-up  {
-  fill: #3fc3ad;
-	
+  fill: #33cccced;
+
 }
 svg .vote-down{
-  fill: #da7a82;
+  fill: #cc3333;
   }
 
 svg .vote-none{
-  fill: #c2c2c3;
-  
+  fill: #8E8E93;
+
 }
 
 .media-body-text-voting {
@@ -616,9 +617,9 @@ svg .vote-none{
 /** p flexone was removed and this was added to force line break on lengthy no space  texts **/
 .live-response table {
 	    table-layout: fixed;
-    width: 94%;
+    width: 97%;
     word-wrap: break-word;
-    
+
 }
 
 /*hover icon effect*/
@@ -666,29 +667,67 @@ div a.icon:focus {
 
 .bubble_wrap {
      position: absolute;
-     top: 11%;
+     top: 4px;
      transform: translateY(-50%);
-     right: 2px;
+     right: 1px;
      font-size: 8px;
      color: #cc3333;
+     animation: fadein .5s;
+     -moz-animation: fadein .5s; /* Firefox */
+     -webkit-animation: fadein .5s; /* Safari and Chrome */
+     -o-animation: fadein .5s; /* Opera */
    }
 
-    
+   @keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
    .bold {
    		font-weight: bold;
-   } 
-   
+   }
+
 .voting_container  {
-	width: 55px;
-	text-align:center;
-}   
-   
+	/* width: 40px; */
+	text-align: center;
+}
+
 .voting_container .v_count{
-		font-size: 18px;
-    		font-weight: bold;
-}   
-   
-   
+		font-size: 14px;
+    font-weight: 400;
+
+}
+
+
 
 /** PRESS taken out from question-selected/new-index.html **/
 .stats {
@@ -766,7 +805,7 @@ figure figcaption {
     text-shadow: 0 0 10px #000;
 }
 .second-nav-container {
-  top:52px;
+  top: 51px;
   transition: transform 200ms ease;
   z-index: 1;
 }

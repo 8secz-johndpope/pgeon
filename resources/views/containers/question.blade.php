@@ -20,15 +20,12 @@ $shown = false;
                     <div class="media-body">
                         <div class="media-body-text media-question">  <?php echo $question->question; ?>
 {!! ($question->expiring_at) !!}
-
-</div>
+                        </div>
                     </div>
                 </li>
             </ul>
-
         </div>
     </li>
-
 </ul>
 
 
