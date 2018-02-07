@@ -35,13 +35,15 @@ class QuestionController extends Controller
      
         Session::forget('backUrl');
         $question = Question::find($question_id);
-
-        if (strstr(URL::previous(), "step2")) {
+/*
+        if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
             $back = "/questions";
         }else {
-            $back = URL::previous();
+        
+              $back = URL::previous();
         }
-
+*/
+        $back = "/questions";
 
         if (!$question)
             abort(410);

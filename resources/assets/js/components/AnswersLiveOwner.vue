@@ -9,7 +9,7 @@
                          <span class="text-muted time-align">
                 
 
-                            <span class="dropdown time-align">
+                            <span class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <i class="fa fa-caret-down"></i>
                             <answeringtimer :initial="parseInt(initial)"></answeringtimer>

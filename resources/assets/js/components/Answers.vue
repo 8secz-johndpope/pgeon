@@ -55,7 +55,7 @@
 <td>{{answer.answer}}</td>
 </tr>
 </table>
-   <a class="media-left" style="color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
+   <a  style="color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
                                     
                                                  <span  class="fal fa-trash"></span>
                                 </a>

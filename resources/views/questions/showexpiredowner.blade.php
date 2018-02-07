@@ -20,11 +20,15 @@
                 <ul class="media-list media-list-conversation c-w-md">
                     <div class="media-body">
                         <div class="h5 m-b-5">
-                            <span>{{Helper::slug($question->user->id ,$question->user->slug)}}</span>
-                               @if(isset($answer))
-                            <span class="fa fa-long-arrow-left text-muted"></span>
-                            <span>{{Helper::slug($answer->user->id ,$answer->user->slug)}}</span>
-                            @endif
+                            @if(isset($answer))
+                            <span class="tmw"><a href="/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}">
+                             {{Helper::shared_formatted_string($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}
+                            </a></span>
+                        
+                         @else 
+                         <span class="tmw"><a href="/{{Helper::slug($question->user->id ,$question->user->slug)}}">{{Helper::slug($question->user->id ,$question->user->slug)}}</a></span>
+
+                         @endif
                             <span class="text-muted time-align">{{($question->accepted_answer>0)?"Published":"Ended"}}:  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
                         </div>
                         <ul class="media-list media-list-conversation c-w-md">
