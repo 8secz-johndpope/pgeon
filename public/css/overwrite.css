@@ -815,3 +815,7 @@ figure figcaption {
 .nav_all .mobile-dropdown {
   top:52px;
 }
+.notif_item .media-heading span {
+  width:72%;
+  float:left;
+}

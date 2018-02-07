@@ -20607,6 +20607,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54897,7 +54898,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('ul', {
+  })]) : _c('div', {
+    staticClass: "m-b-5"
+  }, [_c('ul', {
     staticClass: "list-group media-list media-list-stream"
   }, [(_vm.new_recs_in > 0) ? _c('li', {
     staticClass: "alert alert-info new_notif_bar",
@@ -54906,7 +54909,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("You have new notifications")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
     return _c('li', {
-      staticClass: "list-group-item media p-a noselect",
+      staticClass: "list-group-item media p-a noselect notif_item",
       class: {
         'text-muted': notification.seen == 1
       },
@@ -54927,7 +54930,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "media-heading"
-    }, [_vm._v(_vm._s(notification.message) + "\n                                    "), _c('small', {
+    }, [_c('span', [_vm._v(_vm._s(notification.message))]), _vm._v(" "), _c('small', {
       staticClass: "pull-right text-muted"
     }, [_vm._v(_vm._s(notification.ago))])])])])
   })], 2)])])

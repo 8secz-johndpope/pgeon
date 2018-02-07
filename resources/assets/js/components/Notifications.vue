@@ -20,7 +20,7 @@
             <div class="b11 se"></div>
             <div class="b12 se"></div>
         </div>
-         <div v-else>
+         <div class="m-b-5" v-else>
  <ul  class="list-group media-list media-list-stream">
 
     
@@ -29,12 +29,13 @@
     
     
  
- 	<li class="list-group-item media p-a noselect" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'text-muted':  notification.seen == 1}"  v-for="notification in notifications">
+ 	<li class="list-group-item media p-a noselect notif_item" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'text-muted':  notification.seen == 1}"  v-for="notification in notifications">
                             <div class="media-left">
                                 <span class="fa text-muted" :class="notification.class"></span>
                             </div>
                             <div class="media-body">
-                                <div class="media-heading">{{notification.message}}
+                                <div class="media-heading">
+                                  <span>{{notification.message}}</span>
                                     <small class="pull-right text-muted">{{notification.ago}}</small> 
                                 </div>
                             </div>
