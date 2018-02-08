@@ -44,7 +44,7 @@
 </div>
 
 
-	<div class="container content"  v-if="questions.length<1">
+	<div class="container scroll-content mt-50"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 				      <div  v-if="still_deciding_count" class="spinner">
             <div class="b1 se"></div>
@@ -70,7 +70,7 @@
 
 
 
-        <div class="container content">
+        <div class="container scroll-content mt-50">
             <div class="row">
                 <div class="col-md-12">
                     <ul class="media-list media-list-conversation c-w-md"  v-for="question in questions">
@@ -146,7 +146,10 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field','eligible_to_ask'],
 	    mounted() {
 			$(".up50").removeClass("up50")
-	    },
+		
+		},
+		
+
 	    mixins: [CommonMixin],
 	    
 	    methods: {
@@ -157,6 +160,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 				this.currently_fetched_records_count = 0
 				//questions.length will be zero but not finalized yet until push to array
 				this.still_deciding_count = true
+				$(".up50").removeClass("up50") && $(".up0").removeClass("up0")
+
 			},
 			
 	    		

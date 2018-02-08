@@ -40,7 +40,7 @@
 </div>
 
 
-	<div class="container content"  v-if="questions.length<1">
+	<div class="container scroll-content mt-50"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			
 			
@@ -69,7 +69,7 @@
 
 
 
-        <div class="container content">
+        <div class="container scroll-content mt-50">
             <div class="row">
                 <div class="col-md-12">
 
@@ -137,7 +137,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
     },
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
     mounted() {
-		$(".up50").removeClass("up50")
+		
+			$(".up50").removeClass("up50")
     },
 
     mixins: [CommonMixin],
@@ -151,6 +152,8 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 			this.currently_fetched_records_count = 0
 			//questions.length will be zero but not finalized yet until push to array
 			this.still_deciding_count = true
+			$(".up50").removeClass("up50") && $(".up0").removeClass("up0")
+
 		},
 		
 		get_paginated_results: function () {

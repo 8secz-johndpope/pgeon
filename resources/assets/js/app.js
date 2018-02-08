@@ -7,9 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
+Vue.use(Vuex)
 
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
@@ -55,9 +56,19 @@ var defrcomp = allr
 		defrcomp = allrguest
 	}
 
-	
 
- const Bar = { template: '<div>bar</div>' }
+	//vuex state for maintinaing window scroll position of response and questions
+	//presently not working..will be used in future
+	const store = new Vuex.Store({
+		state: {
+			rposition: 0,
+			qposition: 0
+		},
+		mutations: {
+			rScrollPosition: (state, val) => state.rposition=val,
+			qScrollPosition: (state, val) => state.qposition=val,
+		}
+	  })
 
 	const routes = [
 		{ path: '/questions', component:defqcomp },
@@ -75,7 +86,7 @@ var defrcomp = allr
 		router,
 
 		el: '#app',
-
+		store,
 		mixins: [AnswerMixin],
 
 		data: {
@@ -93,7 +104,7 @@ var defrcomp = allr
 			//this.$refs.allR.lo()
 		
 		},
-		
+	
 		created: function() {
 
 			

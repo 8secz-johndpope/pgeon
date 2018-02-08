@@ -209,16 +209,22 @@ function handleInput(e){
 var lastScrollTop = $(window).scrollTop();
 $(window).scroll(function(event){
   var st = $(this).scrollTop();
+  //console.log(st);
   if(st < 50 ) return ;
+
 
   if ( st - lastScrollTop > 5 ){
     !$(".nav_all").hasClass("up50") && $(".nav_all").addClass("up50")
     !$(".second-nav-container").hasClass("up0") && $(".second-nav-container").addClass("up0")
+  //  $(".scroll-content").hasClass("mt-50") && $(".scroll-content").removeClass("mt-50")
+//    !$(".scroll-content").hasClass("mt-50") && $(".scroll-content").addClass("mt-50")
     !$(".mobile-dropdown").hasClass("no-height") && $("#profile-button").click()
     !$(".user-popover").hasClass("out") && $(".user-popover").removeClass("in") && $(".user-popover").addClass("out")
   } else if( lastScrollTop - st > 2 ){
     $(".nav_all").hasClass("up50") && $(".nav_all").removeClass("up50")
     $(".second-nav-container").hasClass("up0") && $(".second-nav-container").removeClass("up0")
+  //  !$(".scroll-content").hasClass("mt-50") && $(".scroll-content").addClass("mt-50")
+
   }
   lastScrollTop = st;
 })
