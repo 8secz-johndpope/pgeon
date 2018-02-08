@@ -67,12 +67,14 @@ Route::get('/u_s', 'UserController@status');
   Route::group(array('middleware' => 'auth'), function()
   {
      
+
     Route::get('cpwd','HomeController@showChangePasswordForm');
     Route::post('cpwd','HomeController@cpwd');
     
       
     Route::post('reportQ', 'QuestionController@reportQ');
-      
+     
+    Route::delete('user', 'UserController@delete');
     Route::get('bubble', 'UserController@notification_count');
     
     Route::post('markasseen', 'NotificationController@markAsSeen');

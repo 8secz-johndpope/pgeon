@@ -85,7 +85,9 @@
         </div>
 
 
-        <div class="modal" id="deleteA">
+
+
+        <div class="modal" id="deleteA" >
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -97,10 +99,14 @@
                         <div class="modal-body">
                             <p class="m-a-0">{{ $user->slug}}, are you sure you want to delete your Pgeon account?</p>
                             <p>This will delete all published content, top response rankings, and any/all points acquired. This action cannot be undone.</p>
-                            <input type="password" class="form-control p-a" placeholder="Provide account password">
+                            <div class="alert alert-warning hide password-error">
+                            Password did not match
+                            </div>
+
+                            <input type="password" id="acc-passwd" class="form-control p-a" placeholder="Provide account password">
                         </div>
                     <div class="modal-actions">
-                        <button type="button" class="btn-link modal-action confirm" data-dismiss="modal">
+                        <button type="button" id="delete-acc" data-id={{ $user->id}} class="btn-link modal-action confirm" data-dismiss="modal">
                             <strong class="text-danger">Confirm deletion</strong>
                         </button>
                         <button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Keep account</button>
@@ -126,7 +132,6 @@
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
 <script src="{{ asset('js/settings.js') }}"></script>
 

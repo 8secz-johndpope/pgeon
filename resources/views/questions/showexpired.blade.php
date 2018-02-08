@@ -67,7 +67,7 @@
                     <div class="media-body">
                         <div class="h5 m-b-5">
                                @if(isset($answer))
-                               <span class="tmw"><a href="/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}">
+                               <span class="tmw"><a href="/r/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}">
                                 {{Helper::shared_formatted_string($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}
                                </a></span>
                            

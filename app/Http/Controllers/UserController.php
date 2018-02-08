@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 use Image;
 use Route;
@@ -364,4 +365,19 @@ class UserController extends Controller
 
         return response()->json($response);
     }
+
+    public static function delete() {
+        $id = Request::input('id');
+        $password = Request::input('password');
+        $user = User::find($id);
+        $status = array();
+
+        if(Hash::check($password, $user->password)) {
+            return response()->json(array('status' => 1, 'message' => 'Account deleted successfully!'));
+        }else {
+            return response()->json(array('status' => 0, 'message' => 'Wrong did not match'));
+        }
+
+    }
+
 }
