@@ -102,13 +102,20 @@
                             <div class="alert alert-warning hide password-error">
                             Password did not match
                             </div>
-
+                            @if (!Auth::user()->provider)
                             <input type="password" id="acc-passwd" class="form-control p-a" placeholder="Provide account password">
+                            @endif
                         </div>
                     <div class="modal-actions">
-                        <button type="button" id="delete-acc" data-id={{ $user->id}} class="btn-link modal-action confirm" data-dismiss="modal">
+                    @if (!Auth::user()->provider)
+                        <button type="button" id="delete-acc" data-id={{ $user->id}} class="btn-link modal-action confirm" >
                             <strong class="text-danger">Confirm deletion</strong>
                         </button>
+                    @else 
+                        <button type="button" id="delete-sso" data-id={{ $user->id}} class="btn-link modal-action confirm" >
+                            <strong class="text-danger">Confirm deletion</strong>
+                        </button>
+                    @endif    
                         <button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Keep account</button>
                     </div>
                 </div>

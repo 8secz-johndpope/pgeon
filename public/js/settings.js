@@ -1,10 +1,7 @@
 $(function () {
 	$("#delete-acc").click(function () {
 		
-		// $.delete( "/user", {id: $(this).data("id"),password:  $("#acc-passwd").val(),_token : $('meta[name="csrf-token"]').attr('content')}, function( data ) {
-		// 	//alert('ss')
-		// 	//button.remove()
-		// });
+	
 		$(".password-error").addClass('hide')
 		if($("#acc-passwd").val().length>1) {
 			$.ajax({
@@ -15,13 +12,36 @@ $(function () {
 				//play with data
 					if(data.status == 0) {
 						$(".password-error").removeClass('hide')
+					}else if (data.status == 1) {
+						$(".password-error").html('Account deleted. Redirecting..').removeClass('hide')
+						setTimeout(function(){ window.location.reload() }, 2000);
+
 					}
 				}, error:function () {
 					alert('something wrong!')
 				}
 			});
 		}
-		return false;
+		
+	})
+
+
+	$("#delete-sso").click(function () {
+		
+			$.ajax({
+				url: "/usersso",
+				type: 'DELETE',
+				data: {id: $(this).data("id"),_token : $('meta[name="csrf-token"]').attr('content')},
+				success: function(data) {
+					if (data.status == 1) {
+						$(".password-error").html('Account deleted. Redirecting..').removeClass('hide')
+						setTimeout(function(){ window.location.reload() }, 2000);
+
+					}
+				}, error:function () {
+					alert('something wrong!')
+				}
+			});
 		
 	})
 })

@@ -75,6 +75,8 @@ Route::get('/u_s', 'UserController@status');
     Route::post('reportQ', 'QuestionController@reportQ');
      
     Route::delete('user', 'UserController@delete');
+    Route::delete('usersso', 'UserController@deletesso');
+
     Route::get('bubble', 'UserController@notification_count');
     
     Route::post('markasseen', 'NotificationController@markAsSeen');

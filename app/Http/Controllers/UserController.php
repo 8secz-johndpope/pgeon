@@ -366,6 +366,7 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    
     public static function delete() {
         $id = Request::input('id');
         $password = Request::input('password');
@@ -373,9 +374,20 @@ class UserController extends Controller
         $status = array();
 
         if(Hash::check($password, $user->password)) {
-            return response()->json(array('status' => 1, 'message' => 'Account deleted successfully!'));
+            //delete the questions created by user
+            if(User::deleteEntities($id))
+                return response()->json(array('status' => 1, 'message' => 'Account deleted successfully!'));
         }else {
             return response()->json(array('status' => 0, 'message' => 'Wrong did not match'));
+        }
+
+    }
+
+    public static function deletesso() {
+        $id = Request::input('id');
+        if(User::deleteEntities($id)) {
+                Auth::logout();
+                return response()->json(array('status' => 1, 'message' => 'Account deleted successfully!'));
         }
 
     }

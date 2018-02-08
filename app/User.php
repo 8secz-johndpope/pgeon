@@ -307,5 +307,36 @@ public static function fetchRepliesCount($user_id , $replied_by) {
     $lq = Question::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();		
     return ($lq)?$lq->created_at->timestamp:0;
   }
+
+  public static function deleteEntities($id) {
+      //delte all Q's,A's,V's
+    $qs =  Question::where('user_id', '=', $id)->get();
+    foreach ($qs as $key => $val) {
+        $q = Question::find($val->id);
+        $q->votes()->delete();
+        $q->delete(); //will delete A's
+    }
+
+    UserFollowing::where('user_id', '=', $id)
+                    ->orWhere('followed_by', '=', $id)  
+                    ->delete();
+
+    
+    $u = User::find($id);
+    $u->email = NULL;
+    $u->avatar = "";
+    $u->password = "";
+    $u->provider = "";
+    $u->provider_id = "";
+    $u->slug = "";
+    $u->deleted = 1;
+    $u->save();
+
+    return true;
+                    
+
+    }
+
+    
 }
 

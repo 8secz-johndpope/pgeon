@@ -148,7 +148,7 @@ class Question extends Model {
 
             static::deleting(function($question) { // before delete() method call this
                  $question->answers()->delete();
-                 $question->votes()->delete();
+            //     $question->votes()->delete();
                  // do the rest of the cleanup...
             });
 
