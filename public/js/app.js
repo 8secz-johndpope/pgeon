@@ -18756,11 +18756,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 		this.followed_questions();
 
-		$.getJSON('/responses/json', function (response) {
+		//   $.getJSON('/responses/json', function(response) {
 
-			if (response[0]['id'] !== undefined) this.all_questions = response;
-			this.decide_questions();
-		}.bind(this));
+
+		//     if (response[0]['id'] !== undefined)
+		//       this.all_questions = response
+		//       this.decide_questions()			
+		//   }.bind(this));
 	}
 
 });

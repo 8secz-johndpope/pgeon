@@ -242,13 +242,15 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	    	
 	  this.followed_questions()  	
 
-      $.getJSON('/responses/json', function(response) {
+
+    //   $.getJSON('/responses/json', function(response) {
 
     	  	
-        if (response[0]['id'] !== undefined)
-          this.all_questions = response
-          this.decide_questions()			
-      }.bind(this));
+    //     if (response[0]['id'] !== undefined)
+    //       this.all_questions = response
+    //       this.decide_questions()			
+	//   }.bind(this));
+	  
     },
 
 

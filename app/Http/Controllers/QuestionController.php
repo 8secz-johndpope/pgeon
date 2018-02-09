@@ -35,6 +35,7 @@ class QuestionController extends Controller
      
         Session::forget('backUrl');
         $question = Question::find($question_id);
+      
 /*
         if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
             $back = "/questions";
@@ -436,12 +437,13 @@ class QuestionController extends Controller
     
     public function featuredresponses($p, $c)
     {
+
         $offset = $c*$p;
         $fetched_questions = Question::where('accepted_answer', '>', 0)
                                      ->join('users', 'users.id', '=', 'questions.user_id')
                                      ->where('users.featured', '=', 1)
-                                     ->orderBy('questions.created_at', 'desc')->offset($offset)->limit($p)->get();
-        
+                                     ->orderBy('questions.created_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
+
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
             $answer = Answer::find($question->accepted_answer);
@@ -468,7 +470,7 @@ class QuestionController extends Controller
         //print_r($uf);
         
         $offset = $c*$p;
-        $fetched_questions = Question::where('accepted_answer', '>', 0)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get();
+        $fetched_questions = Question::where('accepted_answer', '>', 0)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
         
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
