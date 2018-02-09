@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasOne('App\QuestionCounter');
     }
 
+    public function question_last_posted() {
+        return $this->hasOne('App\QuestionLastPosted');
+    }
+
+
 
     
   
@@ -304,8 +309,8 @@ public static function fetchRepliesCount($user_id , $replied_by) {
   }
 
   public static function get_last_posted_timestamp($user_id) {
-    $lq = Question::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();		
-    return ($lq)?$lq->created_at->timestamp:0;
+    $lq = QuestionLastPosted::where('user_id', $user_id)->first();
+    return ($lq)? strtotime($lq->posted_at):0;
   }
 
   public static function deleteEntities($id) {

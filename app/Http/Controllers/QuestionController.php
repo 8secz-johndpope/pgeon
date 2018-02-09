@@ -15,6 +15,7 @@ use App\Vote;
 use App\Question;
 use App\UserFollowing;
 use App\QuestionCounter;
+use App\QuestionLastPosted;
 use Helper;
 use Illuminate\Support\Facades\Mail;
 
@@ -132,17 +133,26 @@ class QuestionController extends Controller
         if(!User::eligible_to_ask()) {
             abort(401);
         }
+        $matchThese = array('user_id'=>Auth::user()->id);
+
         if($user->role_id != 3) {
 
             $total_posted = QuestionCounter::get_weekly_counter($user->id);
             if ($total_posted >=  env('QS_ALLOWED_PER_WEEK'))
                 abort(401);
 
-            $matchThese = array('user_id'=>Auth::user()->id);
             QuestionCounter::updateOrCreate($matchThese,['questions_posted'=>$total_posted + 1]);    
+
+
             
         }
+
+            
+            QuestionLastPosted::where('user_id',Auth::user()->id)->delete();
+            QuestionLastPosted::insert(Auth::user()->id);
+
             $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
+            
             
             /** insert notifications for all followers **/
             if($question->id) {
@@ -151,7 +161,6 @@ class QuestionController extends Controller
             
          return Redirect::to('my-questions');
        
-    //    return Redirect::to('question/'.$question->id.'/'.\App\Question::get_url($question->question));
     }
 
     /**
@@ -300,10 +309,12 @@ class QuestionController extends Controller
         
 
         $questions = Question::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-        
-        $lq = (sizeof($questions)>0)?$questions[0]:null;
-        $lq_created_at = ($lq)?$lq->created_at->timestamp:0;
-        
+        //  $lq = (sizeof($questions)>0)?$questions[0]:null;
+        //  $mlq_created_at = ($lq)?$lq->created_at->timestamp:0;
+        $lq_created_at = User::get_last_posted_timestamp($user->id);
+  
+ 
+ 
         $pending = array();
         $published = array();
         $live = array();
@@ -326,8 +337,6 @@ class QuestionController extends Controller
                     $published [] = $temp;
                 }
             }
-            
-            
            
         }
         return view('questions.ask',[
@@ -339,11 +348,7 @@ class QuestionController extends Controller
     
     public function pending() {
         $user = Auth::user();
-      /*   
-        if ($user->role_id != 3 ) {
-            abort(403, 'Access denied');
-        }
-       */  
+     
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '=', 0)->orderBy('created_at', 'desc')->get();
         
         $pending = array();
@@ -378,10 +383,7 @@ class QuestionController extends Controller
         
         $user = Auth::user();
     
-        /*
-        if ($user->role_id != 3 ) {
-            abort(403, 'Access denied');
-        }*/
+     
         
         
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '<', time())->where('accepted_answer', '>', 0)->orderBy('created_at', 'desc')->get();
@@ -398,8 +400,6 @@ class QuestionController extends Controller
          
         }
         
-        //dd($published);
-        //exit;
         return view('questions.published',['questions' => $questions,  'published' => $published]);
         
     }
@@ -408,11 +408,7 @@ class QuestionController extends Controller
     public function live() {
         
         $user = Auth::user();
-       /* 
-        if ($user->role_id != 3 ) {
-            abort(403, 'Access denied');
-        }
-        */
+     
         
         $questions = Question::where('user_id', $user->id)->where('expiring_at', '>', time())->orderBy('created_at', 'desc')->get();
         
@@ -421,7 +417,6 @@ class QuestionController extends Controller
         
         foreach ($questions as $key => $val) {
             
-          //  dd($val->answers()->votes);
             $val->expiring_in = Question::question_validity_status($val->expiring_at);
             $live [] = $val;
           
