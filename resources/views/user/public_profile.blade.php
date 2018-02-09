@@ -7,18 +7,21 @@
                  <a onclick="window.history.back()" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                 <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
 
-                @if ($user->id == Auth::user()->id )
-                 <a href="/profile"> <span class="fal fa-edit"></span></a>
-                @else
-                  <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'hidden' : ''}}">
-                    <span class="fal fa-plus"></span>
-                  </button>
+                @if  (Auth::user())
+                  @if ($user->id == Auth::user()->id )
+                  <a href="/profile"> <span class="fal fa-edit"></span></a>
+                  @else
+                    <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="follow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'hidden' : ''}}">
+                      <span class="fal fa-plus"></span>
+                    </button>
 
-                  <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'' : 'hidden'}}">
-                    <span class="text-muted fal fa-check"></span>
-                  </button>
-                @endif
+                    <button href="#" rel={{ $user->id }} role="button" aria-expanded="false" class="unfollow btn-lg btn-link pull-right p-a-0 {{($is_following == true)?'' : 'hidden'}}">
+                      <span class="text-muted fal fa-check"></span>
+                    </button>
+                  @endif
 
+                @endif  
+               
 
             </nav>
         </div>
