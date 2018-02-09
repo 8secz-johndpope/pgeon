@@ -81,19 +81,18 @@
                             <div class="media-body">
                                 <div class="h5 m-b-5">
                                     <span><a :href="'r/'+question.rslug">{{question.rslug_formatted}}</a></span>
-                                    <span><a :href="question.answered_by">{{question.answered_by}}</a></span>
                                     <span class="text-muted time-align">{{question.ago}}</span>
                                 </div>
                                 <ul class="media-list media-list-conversation c-w-md">
                                     <li class="media">
                                         <div class="media-body">
-                                            <div class="media-body-text  media-question" v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)"  style="cursor: pointer;">
+                                            <div class="media-body-text  media-question" >
                                             {{question.question}}
 </div>
                                             <ul class="media-list  media-secondary media-list-conversation c-w-md">
                                                 <li class="media media-current-user media-divider">
                                                     <div class="media-body">
-                                                        <div class="media-body-text media-response media-response-margin" style="cursor: pointer;">
+                                                        <div class="media-body-text media-response media-response-margin" >
                                                         {{question.answer}}
 </div>
                                                     </div>
@@ -148,7 +147,28 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 			$(".up50").removeClass("up50")
 		
 		},
-		
+		/*
+			destroyed:function(){
+			console.log($(window).scrollTop());
+			
+			this.$store.commit('rScrollPosition', $(window).scrollTop());
+		},
+		updated: function() {
+			if($(".nav_all").hasClass("up50"))
+				$(".scroll-content").removeClass("mt-50")
+			
+			//console.log(this.rposition) // -> 1
+		},
+		beforeUpdate: function() {
+			console.log($(window).scrollTop());
+			this.$store.commit('rScrollPosition', $(window).scrollTop());
+			
+		},
+		computed: {
+			rposition () {
+				return this.$store.state.rposition
+			}
+		},*/
 
 	    mixins: [CommonMixin],
 	    

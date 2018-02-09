@@ -12,7 +12,7 @@
                 <h4><a href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
                         <img class="img-circle header-img" src="{{ Helper::avatar($tuser->avatar) }}">
                     </a>
-                    <a href="/{{Helper::slug($fuser->id ,$fuser->slug)}}">
+                    <a href="{{Helper::slug($fuser->id ,$fuser->slug)}}/">
                             <img class="img-circle header-img" src="{{ Helper::avatar($fuser->avatar) }}">
                         </a>
                         

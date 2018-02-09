@@ -601,6 +601,9 @@ svg .vote-none{
   fill: #8E8E93;
 
 }
+.fa-trash path {
+  fill: #C4C6CA;
+}
 
 .media-body-text-voting {
 	padding:0px 5px;

@@ -139,80 +139,61 @@ ul.list-group.social_list li.list-group-item a
     width: 90%;
 }
 
-.switch
-{
-    display: inline-block;
-    height: 31px;
-    margin-top: 28px;
-    position: relative;
-    width: 59px;
-}
 
-.switch input
-{
-    display: none;
-}
 
-.notif_switch .switch
-{
+
+
+/*begin switch*/
+
+.switch {
+    display: flex;
+    width: 40px;
     height: 20px;
-    margin-bottom: 0;
-    margin-top: 0;
-    width: 45px;
-}
-
-input:checked + .slider::before
-{
-    transform: translateX(26px);
-}
-
-input:checked + .slider
-{
-    background-color: #18D2BA;
-}
-
-.notif_switch .slider::before
-{
-    bottom: 2.5px;
-    height: 15px;
-    left: 2px;
-    width: 15px;
-}
-
-.slider.round::before
-{
-    border-radius: 50%;
-}
-
-.slider::before
-{
-    background-color: white;
-    bottom: 3px;
+    padding: 0px;
+    border-radius: 20px;
+    background: #D4D9DA;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: background 350ms ease;
+  }
+  .switch:before, .switch:after {
     content: "";
-    height: 26px;
-    left: 4px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     position: absolute;
-    transition: all 0.4s ease 0s;
-    width: 26px;
-}
-
-.slider.round
-{
-    border-radius: 34px;
-}
-
-.slider
-{
-  background-color: #d4dbe0;
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: all 0.4s ease 0s;
-}
-
+    top: 50%;
+    transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
+  }
+  .switch:before {
+    background: rgba(128, 128, 128, 0.075);
+    transform: translate3d(0, -50%, 0) scale(0);
+  }
+  .switch:after {
+    background: grey;
+    transform: translate3d(0, -50%, 0);
+  }
+  .switch:active:before {
+    transform: translate3d(0, -50%, 0) scale(3);
+  }
+  input:checked + .switch {
+    background: #24C4BC;
+  }
+  input:checked + .switch:before {
+    background: rgba(131, 177, 84, 0.075);
+    transform: translate3d(100%, -50%, 0) scale(1);
+  }
+  input:checked + .switch:after {
+    background: #146B67;
+    transform: translate3d(100%, -50%, 0);
+  }
+  input:checked + .switch:active:before {
+    background: rgba(131, 177, 84, 0.075);
+    transform: translate3d(100%, -50%, 0) scale(3);
+  }
+  
 ul.list_notifications
 {
     list-style: outside none none;

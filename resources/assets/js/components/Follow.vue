@@ -7,11 +7,11 @@
 
    <ul class="nav nav-bordered">
                     <li class="active">
-                        <a  href="#1a" v-on:click="setcurrenttab('iam_following')" data-toggle="tab">Following <span>{{iam_following_count}}</span></a>
+                        <a  href="#1a" v-on:click="setcurrenttab('iam_following')" data-toggle="tab"><span>{{iam_following_count}}</span> Following </a>
                     </li>
                     <li>
                         <a href="#2a" v-on:click="setcurrenttab('my_followers')"  data-toggle="tab">
-    Followers<span> {{my_followers_count}}</span></a>
+    <span> {{my_followers_count}}</span> Followers</a>
                     </li>
 
                      <li style="float: right">
@@ -19,7 +19,7 @@
                         <a href="/search">
                         
  
-                        <span class="fal fa-search" style="font-size: 24px;position: relative;right: 10px;bottom:0px"></span></a>
+                        <span class="fal fa-search" style=" "></span></a>
                     </li>
                     <li v-if="showsorting" style="float: right;margin-top:5px;" v-on:click="sort()">
                            <svg width="18" height="18">

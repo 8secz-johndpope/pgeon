@@ -18656,7 +18656,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
 
 
 
@@ -18679,6 +18678,28 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		$(".up50").removeClass("up50");
 	},
 
+	/*
+ 	destroyed:function(){
+ 	console.log($(window).scrollTop());
+ 	
+ 	this.$store.commit('rScrollPosition', $(window).scrollTop());
+ },
+ updated: function() {
+ 	if($(".nav_all").hasClass("up50"))
+ 		$(".scroll-content").removeClass("mt-50")
+ 	
+ 	//console.log(this.rposition) // -> 1
+ },
+ beforeUpdate: function() {
+ 	console.log($(window).scrollTop());
+ 	this.$store.commit('rScrollPosition', $(window).scrollTop());
+ 	
+ },
+ computed: {
+ 	rposition () {
+ 		return this.$store.state.rposition
+ 	}
+ },*/
 
 	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
@@ -55006,7 +55027,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.setcurrenttab('iam_following')
       }
     }
-  }, [_vm._v("Following "), _c('span', [_vm._v(_vm._s(_vm.iam_following_count))])])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.iam_following_count))]), _vm._v(" Following ")])]), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": "#2a",
       "data-toggle": "tab"
@@ -55016,7 +55037,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.setcurrenttab('my_followers')
       }
     }
-  }, [_vm._v("\n    Followers"), _c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.showsorting) ? _c('li', {
+  }, [_c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))]), _vm._v(" Followers")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.showsorting) ? _c('li', {
     staticStyle: {
       "float": "right",
       "margin-top": "5px"
@@ -55151,12 +55172,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "fal fa-search",
-    staticStyle: {
-      "font-size": "24px",
-      "position": "relative",
-      "right": "10px",
-      "bottom": "0px"
-    }
+    staticStyle: {}
   })])])
 }]}
 module.exports.render._withStripped = true
@@ -55636,11 +55652,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": 'r/' + question.rslug
       }
-    }, [_vm._v(_vm._s(question.rslug_formatted))])]), _vm._v(" "), _c('span', [_c('a', {
-      attrs: {
-        "href": question.answered_by
-      }
-    }, [_vm._v(_vm._s(question.answered_by))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(question.rslug_formatted))])]), _vm._v(" "), _c('span', {
       staticClass: "text-muted time-align"
     }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list media-list-conversation c-w-md"
@@ -55649,24 +55661,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text  media-question",
-      staticStyle: {
-        "cursor": "pointer"
-      },
-      on: {
-        "click": function($event) {
-          _vm.redirect(question.id)
-        },
-        "mousedown": function($event) {
-          _vm.addResponseFocus($event)
-        },
-        "mouseup": function($event) {
-          _vm.removeResponseFocus($event)
-        },
-        "mouseleave": function($event) {
-          _vm.removeResponseFocus($event)
-        }
-      }
+      staticClass: "media-body-text  media-question"
     }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
       staticClass: "media-list  media-secondary media-list-conversation c-w-md"
     }, [_c('li', {
@@ -55674,10 +55669,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body"
     }, [_c('div', {
-      staticClass: "media-body-text media-response media-response-margin",
-      staticStyle: {
-        "cursor": "pointer"
-      }
+      staticClass: "media-body-text media-response media-response-margin"
     }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
     staticClass: "load_more"

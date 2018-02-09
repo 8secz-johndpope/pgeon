@@ -45,7 +45,7 @@ $(function () {
 		
 	})
 })
-$(".slider").click(function () {
+$(".switch").click(function () {
 	var subscribed = 0;
 	subscribed = ($("#chk_nws").prop("checked"))?0:1; 
 	

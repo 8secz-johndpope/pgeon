@@ -376,6 +376,7 @@ class UserController extends Controller
         if(Hash::check($password, $user->password)) {
             //delete the questions created by user
             if(User::deleteEntities($id))
+                Auth::logout();
                 return response()->json(array('status' => 1, 'message' => 'Account deleted successfully!'));
         }else {
             return response()->json(array('status' => 0, 'message' => 'Wrong did not match'));
