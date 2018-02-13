@@ -18378,7 +18378,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return {
       questions: [],
       current_filter: 'everyone',
-      paginate: 3,
+      paginate: 12,
       currently_fetched_records_count: 0,
       current_page: 0,
       loading_txt: "more",
