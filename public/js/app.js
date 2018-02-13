@@ -16910,6 +16910,7 @@ var app = new Vue({
 	data: {
 		bubble: 0,
 		captcha_loading: true
+
 	},
 
 	components: {
@@ -18108,6 +18109,22 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18120,21 +18137,30 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       paginate: 12,
       currently_fetched_records_count: 0,
       current_page: 0,
-      loading_txt: "more",
-      still_deciding_count: true
+      still_deciding_count: true,
+      still_deciding_paging: false
     };
   },
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
   mounted: function mounted() {
 
     $(".up50").removeClass("up50");
+    $(window).bind('scroll', this.handleScroll);
   },
 
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
   methods: {
+    handleScroll: function handleScroll() {
 
+      if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        //if scroll hits bottom
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+          this.get_paginated_results();
+        }
+      }
+    },
     reset: function reset() {
       this.questions = [];
       this.current_page = 0;
@@ -18148,6 +18174,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       //	console.log(this.currently_fetched_records_count)
       //pagination counters will be reset when we click on filters
       this.current_page++;
+      this.still_deciding_paging = true;
       if (this.current_filter == 'follow') {
         this.get_paginated_qff();
       } else {
@@ -18156,15 +18183,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     get_paginated_qff: function get_paginated_qff() {
-      this.loading_txt = "loading..";
       $.getJSON('/qff/' + this.paginate + '/' + this.current_page, function (response) {
+        this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
           var _questions;
 
           this.currently_fetched_records_count = response.length;
           (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
-          this.loading_txt = "more";
         }
         //if this is empty even after .push?
         if (this.questions.length < 1) this.still_deciding_count = false;
@@ -18177,15 +18203,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     /** will be called only from load more links as well**/
     get_paginated_featured: function get_paginated_featured() {
-      this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
+        this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
           var _questions2;
 
           this.currently_fetched_records_count = response.length;
           (_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
-          this.loading_txt = "more";
         }
         if (this.questions.length < 1) this.still_deciding_count = false;
       }.bind(this));
@@ -18240,6 +18265,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(3);
+var _data$props$mounted$m;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 //
@@ -18323,33 +18352,63 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_data$props$mounted$m = {
 
   data: function data() {
     return {
       questions: [],
       current_filter: 'everyone',
-      paginate: 12,
+      paginate: 3,
       currently_fetched_records_count: 0,
       current_page: 0,
       loading_txt: "more",
-      still_deciding_count: true
+      still_deciding_count: true,
+      still_deciding_paging: false
 
     };
   },
+
   props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
   mounted: function mounted() {
     //	this.uf = JSON.parse(this.user_followings)
     //this.filter_questions()
+
   },
 
 
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
   methods: {
+
+    handleScroll: function handleScroll() {
+
+      if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        //if scroll hits bottom
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+          this.get_paginated_results();
+        }
+      }
+    },
 
     redirect: function redirect(id) {
       location.href = 'question/' + id;
@@ -18367,6 +18426,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       //	console.log(this.currently_fetched_records_count)
       //pagination counters will be reset when we click on filters
       this.current_page++;
+      this.still_deciding_paging = true;
+
       this.get_paginated_featured();
     },
 
@@ -18386,6 +18447,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     get_paginated_featured: function get_paginated_featured() {
       this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
+        this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
           var _questions;
@@ -18406,25 +18468,25 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.get_paginated_featured();
     }
 
-  },
-  created: function created() {
-
-    var com = this;
-    //got some new questions inserted
-    if (socket) socket.on('new_question', function (response_id) {
-
-      //once we get the new qid inserted we use ajax to get the details
-      $.getJSON('/question_details/' + response_id, function (response) {
-        //this.questions = response
-        com.questions.push(response);
-        com.decide_questions();
-      }.bind(com));
-    });
-
-    this.featured_questions();
   }
+}, _defineProperty(_data$props$mounted$m, 'mounted', function mounted() {
+  $(window).bind('scroll', this.handleScroll);
+}), _defineProperty(_data$props$mounted$m, 'created', function created() {
 
-});
+  var com = this;
+  //got some new questions inserted
+  if (socket) socket.on('new_question', function (response_id) {
+
+    //once we get the new qid inserted we use ajax to get the details
+    $.getJSON('/question_details/' + response_id, function (response) {
+      //this.questions = response
+      com.questions.push(response);
+      com.decide_questions();
+    }.bind(com));
+  });
+
+  this.featured_questions();
+}), _data$props$mounted$m);
 
 /***/ }),
 /* 153 */
@@ -18656,6 +18718,26 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18668,14 +18750,15 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			paginate: 6,
 			currently_fetched_records_count: 0,
 			current_page: 0,
-			loading_txt: "more",
-			still_deciding_count: true
+			still_deciding_count: true,
+			still_deciding_paging: false
 
 		};
 	},
 	props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
 	mounted: function mounted() {
 		$(".up50").removeClass("up50");
+		$(window).bind('scroll', this.handleScroll);
 	},
 
 	/*
@@ -18714,10 +18797,21 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			$(".up50").removeClass("up50") && $(".up0").removeClass("up0");
 		},
 
+		handleScroll: function handleScroll() {
+
+			if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+				//if scroll hits bottom
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+					this.get_paginated_results();
+				}
+			}
+		},
+
 		get_paginated_results: function get_paginated_results() {
 			//	console.log(this.currently_fetched_records_count)
 			//pagination counters will be reset when we click on filters
 			this.current_page++;
+			this.still_deciding_paging = true;
 			if (this.current_filter == 'follow') {
 				this.get_paginated_qff();
 			} else {
@@ -18726,15 +18820,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		},
 
 		get_paginated_qff: function get_paginated_qff() {
-			this.loading_txt = "loading..";
 			$.getJSON('/rff/' + this.paginate + '/' + this.current_page, function (response) {
+				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
 				if (response[0]['id'] !== undefined) {
 					var _questions;
 
 					this.currently_fetched_records_count = response.length;
 					(_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
-					this.loading_txt = "more";
 				}
 				//if this is empty even after .push?
 				if (this.questions.length < 1) this.still_deciding_count = false;
@@ -18747,15 +18840,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		},
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function get_paginated_featured() {
-			this.loading_txt = "loading..";
 			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
+				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
 				if (response[0]['id'] !== undefined) {
 					var _questions2;
 
 					this.currently_fetched_records_count = response.length;
 					(_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
-					this.loading_txt = "more";
 				}
 				if (this.questions.length < 1) this.still_deciding_count = false;
 			}.bind(this));
@@ -54838,17 +54930,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])
-  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_c('li', {
-    staticClass: "btn btn-sm btn-default-outline",
-    on: {
-      "click": function($event) {
-        _vm.get_paginated_results()
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
-},staticRenderFns: []}
+  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "spinner p-rel"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -55630,7 +55743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_vm._l((_vm.questions), function(question) {
     return _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
+      staticClass: "media-list media-list-conversation c-w-md fade-r"
     }, [_c('li', {
       staticClass: "media"
     }, [_c('a', {
@@ -55663,7 +55776,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body-text  media-question"
     }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list  media-secondary media-list-conversation c-w-md"
+      staticClass: "media-list  media-secondary media-list-conversation c-w-md "
     }, [_c('li', {
       staticClass: "media media-current-user media-divider"
     }, [_c('div', {
@@ -55671,17 +55784,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "media-body-text media-response media-response-margin"
     }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
-  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_c('li', {
-    staticClass: "btn btn-sm btn-default-outline",
-    on: {
-      "click": function($event) {
-        _vm.get_paginated_results()
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
-},staticRenderFns: []}
+  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "spinner p-rel"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -55841,16 +55975,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])
-  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_c('li', {
-    on: {
-      "click": function($event) {
-        _vm.get_paginated_results()
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
-},staticRenderFns: []}
+  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "spinner p-rel"
+  }, [_c('div', {
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

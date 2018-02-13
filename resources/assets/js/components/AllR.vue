@@ -73,7 +73,7 @@
         <div class="container scroll-content mt-50">
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="media-list media-list-conversation c-w-md"  v-for="question in questions">
+                    <ul class="media-list media-list-conversation c-w-md fade-r"  v-for="question in questions">
                         <li class="media">
                             <a class="media-left" :href="question.slug">
                                 <img class="media-object img-circle" :src="question.avatar" id="user-profile-image-link">
@@ -89,7 +89,9 @@
                                             <div class="media-body-text  media-question" >
                                             {{question.question}}
 </div>
-                                            <ul class="media-list  media-secondary media-list-conversation c-w-md">
+
+
+                                            <ul class="media-list  media-secondary media-list-conversation c-w-md ">
                                                 <li class="media media-current-user media-divider">
                                                     <div class="media-body">
                                                         <div class="media-body-text media-response media-response-margin" >
@@ -98,6 +100,7 @@
                                                     </div>
                                                 </li>
                                             </ul>
+
                                         </div>
                                     </li>
                                 </ul>
@@ -107,7 +110,24 @@
               
                     </ul>
                     
-                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline" v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
+									      <div   class="spinner p-rel">
+            <div class="b1 se"></div>
+            <div class="b2 se"></div>
+            <div class="b3 se"></div>
+            <div class="b4 se"></div>
+            <div class="b5 se"></div>
+            <div class="b6 se"></div>
+            <div class="b7 se"></div>
+            <div class="b8 se"></div>
+            <div class="b9 se"></div>
+            <div class="b10 se"></div>
+            <div class="b11 se"></div>
+            <div class="b12 se"></div>
+        </div>
+						</li></ul>
+
+
                     
                 </div>
             </div>
@@ -137,15 +157,17 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 			paginate:6,
 			currently_fetched_records_count:0,
 			current_page:0,
-			loading_txt: "more",
 			still_deciding_count: true,
+			still_deciding_paging: false,
+
 	        
 	      };
 	    },
 	    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field','eligible_to_ask'],
 	    mounted() {
 			$(".up50").removeClass("up50")
-		
+			$(window).bind('scroll',this.handleScroll);
+
 		},
 		/*
 			destroyed:function(){
@@ -183,12 +205,24 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 				$(".up50").removeClass("up50") && $(".up0").removeClass("up0")
 
 			},
-			
-	    		
+
+
+
+		handleScroll: function () {
+	
+			if($(window).scrollTop() + $(window).height() == $(document).height()) {
+				//if scroll hits bottom
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+					this.get_paginated_results()
+				}
+			}
+		},
+					
 			get_paginated_results: function () {
 				//	console.log(this.currently_fetched_records_count)
 					//pagination counters will be reset when we click on filters
 					this.current_page ++;
+					this.still_deciding_paging = true
 					if (this.current_filter == 'follow') {
 						this.get_paginated_qff()
 					}else {
@@ -198,13 +232,12 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 				
 	    		
 				get_paginated_qff: function () {
-					 this.loading_txt = "loading.."	
 					 $.getJSON(`/rff/${this.paginate}/${this.current_page}`, function(response) {
-						 	this.currently_fetched_records_count = 0
+						 this.still_deciding_paging = false
+						 this.currently_fetched_records_count = 0
 					        if (response[0]['id'] !== undefined) {
 					        		this.currently_fetched_records_count = response.length
 					        		this.questions.push(...response)
-					        		this.loading_txt = "more"	
 					        		
 					        }
 						 	//if this is empty even after .push?
@@ -220,13 +253,12 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		    		},
 		    		/** will be called only from load more links as well**/
 		    		get_paginated_featured: function () {
-		    			this.loading_txt = "loading.."	
 		    			 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
+							  this.still_deciding_paging = false
 		    				  this.currently_fetched_records_count = 0
 		   		          if (response[0]['id'] !== undefined) {
 		   		        	 	this.currently_fetched_records_count = response.length
 		   		          	this.questions.push(...response)
-		   		         	this.loading_txt = "more"	
 		   		          }
 		    				  if (this.questions.length < 1)
 		    				 		this.still_deciding_count = false

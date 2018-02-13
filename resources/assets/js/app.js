@@ -33,6 +33,8 @@ const allqguest = Vue.component('allqguest', require('./components/AllQGuest.vue
 const allr = Vue.component('allr', require('./components/AllR.vue'));
 const allrguest = Vue.component('allrguest', require('./components/AllRGuest.vue'));
 
+
+
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('answers_guest', require('./components/AnswersGuest.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));
@@ -91,12 +93,14 @@ var defrcomp = allr
 
 		data: {
 			bubble: 0,
-			captcha_loading: true
+			captcha_loading: true,
+			
+			
 		},
 		
 		components: {
 				"invisible-recaptcha": InvisibleRecaptcha,
-				"longpress" : Longpress
+				"longpress" : Longpress,
 		},
 		
 		mounted() {

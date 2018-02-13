@@ -138,7 +138,7 @@
 @endpush
 
 <!-- Push a script dynamically from a view -->
-@push('scripts')
+@push('scripts')    
 
 <script src="{{ asset('js/settings.js') }}"></script>
 

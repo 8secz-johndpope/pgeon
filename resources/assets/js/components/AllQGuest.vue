@@ -3,6 +3,7 @@
 
 
 
+
 	<div class="container content"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			
@@ -59,7 +60,23 @@
                     </ul>
   
   
-  			 <ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline"  v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
+  			                
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
+									      <div   class="spinner p-rel">
+            <div class="b1 se"></div>
+            <div class="b2 se"></div>
+            <div class="b3 se"></div>
+            <div class="b4 se"></div>
+            <div class="b5 se"></div>
+            <div class="b6 se"></div>
+            <div class="b7 se"></div>
+            <div class="b8 se"></div>
+            <div class="b9 se"></div>
+            <div class="b10 se"></div>
+            <div class="b11 se"></div>
+            <div class="b12 se"></div>
+        </div>
+						</li></ul>
   				
                 </div>
             </div>
@@ -88,26 +105,43 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       return {
         questions: [],
         current_filter: 'everyone',
-        paginate:12,
+        paginate:3,
 		currently_fetched_records_count:0,
 		current_page:0,
 		loading_txt: "more",
-		still_deciding_count: true,
+    still_deciding_count: true,
+		still_deciding_paging: false,
+
+
 		
         
       }
     },
+   
+
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
     mounted() {
 	//	this.uf = JSON.parse(this.user_followings)
-		//this.filter_questions()
+    //this.filter_questions()
+    
     },
+
     
     mixins: [CommonMixin],
     
 
     methods: {
-    	
+      
+
+    	handleScroll: function () {
+	
+			if($(window).scrollTop() + $(window).height() == $(document).height()) {
+				//if scroll hits bottom
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+					this.get_paginated_results()
+				}
+			}
+    },
     		
     	
       redirect: function(id) {
@@ -127,7 +161,9 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		get_paginated_results: function () {
 		//	console.log(this.currently_fetched_records_count)
 			//pagination counters will be reset when we click on filters
-			this.current_page ++;
+      this.current_page ++;
+      this.still_deciding_paging = true
+
 			this.get_paginated_featured()
 		},
 		
@@ -147,6 +183,7 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 		get_paginated_featured: function () {
 			this.loading_txt = "loading.."	
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
+ 				 	this.still_deciding_paging = false
 				  this.currently_fetched_records_count = 0
 		          if (response[0]['id'] !== undefined) {
 		        	 	this.currently_fetched_records_count = response.length
@@ -171,8 +208,14 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 
 
     },
+    mounted:function () {
+			$(window).bind('scroll',this.handleScroll);
+
+    },
+    
     created: function() {
 
+      
       var com = this
       //got some new questions inserted
       if (socket)

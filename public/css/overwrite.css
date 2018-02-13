@@ -662,6 +662,8 @@ div a.icon:focus {
     margin: auto;
     cursor:pointer;
     margin-bottom:25px;
+    margin-top:25px;
+
 }
 
 .new_notif_bar {
@@ -824,4 +826,20 @@ figure figcaption {
 }
 .mt-50 {
   margin-top:50px;
+}
+
+.fade-r {
+  animation: fadein ease-in  1s;
+}
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+.p-rel {
+  position: relative;
 }
