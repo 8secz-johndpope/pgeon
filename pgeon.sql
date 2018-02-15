@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 19, 2018 at 02:33 AM
+-- Generation Time: Feb 15, 2018 at 04:14 PM
 -- Server version: 5.7.18-log
 -- PHP Version: 7.1.8
 
@@ -32,7 +32,7 @@ CREATE TABLE `answers` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `answer` text COLLATE utf8_unicode_ci NOT NULL,
+  `answer` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `manually_chosen_as_top` tinyint(1) NOT NULL DEFAULT '0'
@@ -277,6 +277,31 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `question_counters`
+--
+
+CREATE TABLE `question_counters` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `questions_posted` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_last_posted`
+--
+
+CREATE TABLE `question_last_posted` (
+  `user_id` int(11) NOT NULL,
+  `posted_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -365,7 +390,8 @@ CREATE TABLE `users` (
   `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `subscribed_to_newsletter` tinyint(1) DEFAULT NULL,
-  `featured` tinyint(1) DEFAULT '0'
+  `featured` tinyint(1) DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -502,6 +528,12 @@ ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `question_counters`
+--
+ALTER TABLE `question_counters`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -556,7 +588,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -566,7 +598,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `data_types`
 --
@@ -591,7 +623,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `pages`
 --
@@ -616,7 +648,12 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+--
+-- AUTO_INCREMENT for table `question_counters`
+--
+ALTER TABLE `question_counters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -641,12 +678,12 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `user_followings`
 --
 ALTER TABLE `user_followings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --

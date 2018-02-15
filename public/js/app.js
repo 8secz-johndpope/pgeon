@@ -19408,8 +19408,8 @@ var pressTimer;
     },
     maxHighlight: function maxHighlight() {
       var currentValue = this.submitted_text;
-      var realLength = 300;
-      var remainingLength = 300 - currentValue.length;
+      var realLength = 120;
+      var remainingLength = 120 - currentValue.length;
       if (0 > remainingLength) {
         // Split value if greater than 
         var allowedValuePart = currentValue.slice(0, realLength),
