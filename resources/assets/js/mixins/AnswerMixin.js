@@ -3,7 +3,8 @@ export var AnswerMixin = {
     data: {
         topAnswers: [],
         topResponders: [],
-        selected_user: null
+		selected_user: null,
+		makaka: "dfdf"
     },
 
     created: function() {

@@ -16847,12 +16847,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 
 
+
 Vue.component('follow', __webpack_require__(185));
 var allq = Vue.component('allq', __webpack_require__(174));
 var allqguest = Vue.component('allqguest', __webpack_require__(175));
 var allr = Vue.component('allr', __webpack_require__(177));
 var allrguest = Vue.component('allrguest', __webpack_require__(178));
 
+Vue.component('ask', __webpack_require__(225));
 Vue.component('answers', __webpack_require__(180));
 Vue.component('answers_guest', __webpack_require__(183));
 Vue.component('allqtimer', __webpack_require__(176));
@@ -19348,6 +19350,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -19359,6 +19369,7 @@ var pressTimer;
       submitted_text: '',
       already_answered: false,
       placeholder: "Enter your response here",
+      placeholder_content: "",
       my_votes: [],
       voted_now: 0,
       vote_count: 0,
@@ -19394,6 +19405,22 @@ var pressTimer;
 
     reload: function reload() {
       location.reload();
+    },
+    maxHighlight: function maxHighlight() {
+      var currentValue = this.submitted_text;
+      var realLength = 300;
+      var remainingLength = 300 - currentValue.length;
+      if (0 > remainingLength) {
+        // Split value if greater than 
+        var allowedValuePart = currentValue.slice(0, realLength),
+            refusedValuePart = currentValue.slice(realLength);
+        console.log("greate man");
+
+        // Fill the hidden div.
+        this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>';
+      } else {
+        this.placeholder_content = '';
+      }
     },
     clearError: function clearError() {
       this.submit_error = false;
@@ -20900,7 +20927,8 @@ var AnswerMixin = {
 	data: {
 		topAnswers: [],
 		topResponders: [],
-		selected_user: null
+		selected_user: null,
+		makaka: "dfdf"
 	},
 
 	created: function created() {
@@ -54489,6 +54517,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "media media-current-user"
   }, [_c('div', {
     staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "tweet-composer"
   }, [_c('textarea', {
     directives: [{
       name: "model",
@@ -54496,7 +54528,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.submitted_text),
       expression: "submitted_text"
     }],
-    staticClass: "footer-textarea form-control custom-control",
+    staticClass: "editor-textarea js-keeper-editor footer-textarea ",
     staticStyle: {
       "border-right": "none"
     },
@@ -54511,12 +54543,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.submitted_text)
     },
     on: {
-      "input": function($event) {
+      "input": [function($event) {
         if ($event.target.composing) { return; }
         _vm.submitted_text = $event.target.value
-      }
+      }, _vm.maxHighlight]
     }
-  }), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "js-keeper-placeholder-back",
+    domProps: {
+      "innerHTML": _vm._s(_vm.placeholder_content)
+    }
+  })])]), _vm._v(" "), _c('span', {
     staticClass: "input-group-addon footer-btn",
     on: {
       "click": function($event) {
@@ -71286,6 +71323,703 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["a"] = (index_esm);
 
+
+/***/ }),
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      question: "",
+      dd: "01",
+      hh: "00",
+      mm: "00",
+      lt5_disabled: false,
+      csrf: $('meta[name="csrf-token"]').attr('content'),
+      hasQMark: false,
+      valid: true
+    };
+  },
+
+  props: ['lq_created_at'],
+  computed: {
+    // get only
+
+  },
+  watch: {
+    question: function question(nval) {
+
+      if (nval.indexOf("?") >= 0) this.hasQMark = true;else this.hasQMark = false;
+    },
+
+    dd: function dd() {
+      if (this.dd == "00" && this.mm != "00" && parseInt(this.mm) <= 5 && this.hh == "00") {
+        this.mm = "05";
+        this.lt5_disabled = true;
+      } else if (this.dd == "00" && this.mm == "00" && this.hh == "00") {
+        this.hh = "01";
+        this.lt5_disabled = true;
+      } else {
+
+        this.lt5_disabled = false;
+      }
+    }, hh: function hh() {
+      if (this.dd == "00" && parseInt(this.mm) <= 5 && this.hh == "00") {
+        this.mm = "05";
+        this.lt5_disabled = true;
+      } else {
+        this.lt5_disabled = false;
+      }
+    }
+  },
+  methods: {
+
+    validate: function validate(flag) {
+      this.valid = flag;
+    }
+
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(224),
+  /* template */
+  __webpack_require__(226),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Library/WebServer/Documents/pgeon/resources/assets/js/components/Ask.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Ask.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-41ccd2b4", Component.options)
+  } else {
+    hotAPI.reload("data-v-41ccd2b4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "question-container"
+  }, [_c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "action": "/question",
+      "method": "POST"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "csslider infinity",
+    attrs: {
+      "id": "slider1"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "radio",
+      "name": "slides",
+      "checked": "checked",
+      "id": "slides_1"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "radio",
+      "name": "slides",
+      "id": "slides_2"
+    }
+  }), _vm._v(" "), _c('ul', [_c('li', [_c('div', {
+    staticClass: "va_slider_detail"
+  }, [_c('div', [_c('div', {
+    staticClass: "va_slider_heading"
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.question),
+      expression: "question"
+    }],
+    staticClass: "form-control question-input",
+    staticStyle: {
+      "border-radius": "0 10px 0 0",
+      "text-align": "left",
+      "font-family": "inherit",
+      "padding": "15px",
+      "font-size": "16px",
+      "height": "130px"
+    },
+    attrs: {
+      "rows": "3",
+      "placeholder": _vm.lq_created_at,
+      "name": "question"
+    },
+    domProps: {
+      "value": (_vm.question)
+    },
+    on: {
+      "focus": function($event) {
+        _vm.validate(true)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.question = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "nxtbtn"
+  }, [_c('div', {
+    staticClass: "pull-left",
+    staticStyle: {
+      "padding-top": "2px"
+    }
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.dd),
+      expression: "dd"
+    }],
+    staticClass: "custom-select time-select",
+    attrs: {
+      "name": "days",
+      "id": "day-select"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.dd = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "00"
+    }
+  }, [_vm._v("00 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "01"
+    }
+  }, [_vm._v("01 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "02"
+    }
+  }, [_vm._v("02 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "03"
+    }
+  }, [_vm._v("03 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "04"
+    }
+  }, [_vm._v("04 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "05"
+    }
+  }, [_vm._v("05 days")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "06"
+    }
+  }, [_vm._v("06 days")])]), _vm._v(" "), _c('span', {
+    staticClass: "fa fa-sort text-muted",
+    staticStyle: {
+      "vertical-align": "text-bottom",
+      "margin-left": "-3px"
+    }
+  }), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.hh),
+      expression: "hh"
+    }],
+    staticClass: "custom-select time-select",
+    attrs: {
+      "name": "hours",
+      "id": "hour-select"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.hh = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "00"
+    }
+  }, [_vm._v("00 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "01"
+    }
+  }, [_vm._v("01 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "02"
+    }
+  }, [_vm._v("02 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "03"
+    }
+  }, [_vm._v("03 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "04"
+    }
+  }, [_vm._v("04 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "05"
+    }
+  }, [_vm._v("05 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "06"
+    }
+  }, [_vm._v("06 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "07"
+    }
+  }, [_vm._v("07 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "08"
+    }
+  }, [_vm._v("08 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "09"
+    }
+  }, [_vm._v("09 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "11"
+    }
+  }, [_vm._v("11 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "12"
+    }
+  }, [_vm._v("12 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "13"
+    }
+  }, [_vm._v("13 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "14"
+    }
+  }, [_vm._v("14 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "15"
+    }
+  }, [_vm._v("15 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "16"
+    }
+  }, [_vm._v("16 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "17"
+    }
+  }, [_vm._v("17 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "18"
+    }
+  }, [_vm._v("18 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "19"
+    }
+  }, [_vm._v("19 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("20 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "21"
+    }
+  }, [_vm._v("21 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "22"
+    }
+  }, [_vm._v("22 hrs")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "23"
+    }
+  }, [_vm._v("23 hrs")])]), _vm._v(" "), _c('span', {
+    staticClass: "fa fa-sort text-muted",
+    staticStyle: {
+      "vertical-align": "text-bottom"
+    }
+  }), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.mm),
+      expression: "mm"
+    }],
+    staticClass: "custom-select time-select",
+    attrs: {
+      "name": "mins",
+      "id": "minute-select"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.mm = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "00",
+      "disabled": _vm.lt5_disabled
+    }
+  }, [_vm._v("00 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "01",
+      "disabled": _vm.lt5_disabled
+    }
+  }, [_vm._v("01 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "02",
+      "disabled": _vm.lt5_disabled
+    }
+  }, [_vm._v("02 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "03",
+      "disabled": _vm.lt5_disabled
+    }
+  }, [_vm._v("03 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "05"
+    }
+  }, [_vm._v("05 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "15"
+    }
+  }, [_vm._v("15 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("20 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "30"
+    }
+  }, [_vm._v("30 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "35"
+    }
+  }, [_vm._v("35 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "40"
+    }
+  }, [_vm._v("40 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "45"
+    }
+  }, [_vm._v("45 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50 min")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "55"
+    }
+  }, [_vm._v("55 min")])]), _vm._v(" "), _c('span', {
+    staticClass: "fa fa-sort text-muted",
+    staticStyle: {
+      "vertical-align": "text-bottom"
+    }
+  })]), _vm._v(" "), (_vm.hasQMark) ? _c('label', {
+    staticStyle: {
+      "font-size": "28px",
+      "margin-right": "5px",
+      "margin-top": "-2px"
+    },
+    attrs: {
+      "for": "slides_2",
+      "id": ""
+    }
+  }, [_vm._m(0)]) : _c('label', {
+    staticStyle: {
+      "font-size": "28px",
+      "margin-right": "5px",
+      "margin-top": "-2px"
+    },
+    attrs: {
+      "id": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.validate(false)
+      }
+    }
+  }, [_c('a', [_c('span', {
+    staticClass: "fal fa-arrow-circle-right"
+  })])])])])]), _vm._v(" "), _c('li', [_c('div', {
+    staticClass: "va_slider_detail_inner"
+  }, [_c('div', {
+    staticClass: "media-body-text",
+    staticStyle: {
+      "padding": "15px",
+      "font-size": "16px",
+      "height": "130px"
+    }
+  }, [_vm._v("\n                                       " + _vm._s(this.question) + " \n                                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "nxtbtn"
+  }, [_vm._m(1), _vm._v(" "), _c('input', {
+    staticClass: "btn btn-sm btn-primary pull-right",
+    staticStyle: {
+      "font-size": "15px",
+      "display": "inline-block",
+      "margin-top": "2px"
+    },
+    attrs: {
+      "type": "submit",
+      "value": "Submit"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "pull-left",
+    staticStyle: {
+      "font-size": "16px",
+      "margin-top": "6px"
+    }
+  }, [_c('span', {
+    attrs: {
+      "id": "sp_days"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.dd))]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "margin-left": "-3px"
+    }
+  }, [_vm._v("d")]), _vm._v(" "), _c('span', {
+    attrs: {
+      "id": "sp_hr"
+    }
+  }, [_vm._v(_vm._s(_vm.hh))]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "margin-left": "-3px"
+    }
+  }, [_vm._v("h")]), _vm._v(" "), _c('span', {
+    attrs: {
+      "id": "sp_mn"
+    }
+  }, [_vm._v(_vm._s(_vm.mm))]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "margin-left": "-3px"
+    }
+  }, [_vm._v("m")])])])])])])])])]), _vm._v(" "), (!_vm.valid) ? _c('div', {
+    staticClass: "error alert alert-warning animated shake",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._v("\n                        \n    Please include at-least one question mark.\n    ")]) : _vm._e()])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', [_c('span', {
+    staticClass: "fal fa-arrow-circle-right"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticStyle: {
+      "font-size": "28px",
+      "margin-right": "10px",
+      "margin-top": "-3px"
+    },
+    attrs: {
+      "for": "slides_1"
+    }
+  }, [_c('a', [_c('span', {
+    staticClass: "fal fa-arrow-circle-left"
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-41ccd2b4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

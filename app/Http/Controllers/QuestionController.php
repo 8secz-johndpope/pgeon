@@ -151,6 +151,7 @@ class QuestionController extends Controller
             QuestionLastPosted::where('user_id',Auth::user()->id)->delete();
             QuestionLastPosted::insert(Auth::user()->id);
 
+           
             $question = Question::insert(Auth::user()->id, (Request::get('question')), Request::get('days'), Request::get('hours'), Request::get('mins'));
             
             
@@ -339,8 +340,10 @@ class QuestionController extends Controller
             }
            
         }
+
+        
         return view('questions.ask',[
-            'pending' => $pending, 'published' => $published, 'live' => $live, 'lq_created_at' => $lq_created_at, 'total_posted' =>  $total_posted, 'qs_allowed' => env('QS_ALLOWED_PER_WEEK'),'total_count_exhausted' => $total_count_exhausted, 'role_id' => $user->role_id]);
+            'pending' => $pending, 'published' => $published, 'live' => $live, 'lq_created_at' => Helper::since($lq_created_at), 'total_posted' =>  $total_posted, 'qs_allowed' => env('QS_ALLOWED_PER_WEEK'),'total_count_exhausted' => $total_count_exhausted, 'role_id' => $user->role_id]);
          
         
     }

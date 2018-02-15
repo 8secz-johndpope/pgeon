@@ -24,6 +24,7 @@ Vue.use(require('vue-resource'));
 Vue.use(VueRouter)
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
+
 import InvisibleRecaptcha from 'vue-invisible-recaptcha';
 import Longpress from 'vue-longpress';
 
@@ -34,7 +35,7 @@ const allr = Vue.component('allr', require('./components/AllR.vue'));
 const allrguest = Vue.component('allrguest', require('./components/AllRGuest.vue'));
 
 
-
+Vue.component('ask', require('./components/Ask.vue'));
 Vue.component('answers', require('./components/Answers.vue'));
 Vue.component('answers_guest', require('./components/AnswersGuest.vue'));
 Vue.component('allqtimer', require('./components/AllQTimer.vue'));

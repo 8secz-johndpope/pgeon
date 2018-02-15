@@ -66,6 +66,8 @@ textarea#footer-textarea {
   font-smoothing:subpixel-antialiased;
   border-right: 0px;
   border: 1px solid #DCE1EB;
+
+  
 }
 .btn.footer-btn{
   background:#fff;
@@ -150,3 +152,4 @@ textarea#footer-textarea {
 .off-screen{
   transform: translateY(100%);
 }
+

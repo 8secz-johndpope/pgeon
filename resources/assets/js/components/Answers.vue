@@ -152,7 +152,15 @@
      
 
                                         <div class="input-group" >
-                                            <textarea  v-model="submitted_text"  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1" class="footer-textarea form-control custom-control"></textarea>
+
+                                          <div class="card">
+  <div class="tweet-composer">
+    <textarea  v-model="submitted_text" @input="maxHighlight"  class="editor-textarea js-keeper-editor footer-textarea "  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1"></textarea>
+        <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
+
+  </div>
+</div>
+
                                             <span v-on:click="submit_answer()" class="input-group-addon footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
                                         </div>
                                         
@@ -189,6 +197,7 @@ var pressTimer;
         submitted_text: '',
         already_answered: false,
         placeholder: "Enter your response here",
+        placeholder_content: "",
         my_votes: [],
         voted_now : 0,
         vote_count: 0,
@@ -230,7 +239,27 @@ var pressTimer;
     	reload() {
     		location.reload()
     	}
-    	,
+      ,
+      maxHighlight() {
+        var currentValue = this.submitted_text
+         var realLength = 300;
+         var remainingLength = 300 - currentValue.length;
+          if (0 > remainingLength) {
+                // Split value if greater than 
+                var allowedValuePart = currentValue.slice(0, realLength),
+                    refusedValuePart = currentValue.slice(realLength)
+                ;
+                console.log("greate man");
+                
+                
+                // Fill the hidden div.
+                this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
+              } else {
+                this.placeholder_content = ''
+              }
+      },
+          
+     
     	
     	clearError() {
     		this.submit_error = false	
