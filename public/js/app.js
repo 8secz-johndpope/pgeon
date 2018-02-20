@@ -20823,6 +20823,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.iam_following = response.iam_following;
                 this.iam_following_count = response.iam_following_count;
                 this.my_followers_count = response.my_followers_count;
+                this.sort();
                 // console.log(response.iam_following_count)
             }.bind(this));
         },
