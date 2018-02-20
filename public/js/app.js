@@ -20803,6 +20803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         setcurrenttab: function setcurrenttab(tab) {
             this.current_tab = tab;
+            this.sort();
         },
         sort: function sort() {
             if (!this.current_order || this.current_order == 'ASC') {

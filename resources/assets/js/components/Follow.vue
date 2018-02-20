@@ -157,6 +157,8 @@
         methods: {
             setcurrenttab(tab) {
                 this.current_tab = tab
+                this.sort()
+
                 
             },
             sort() {
