@@ -2,7 +2,9 @@
 
 .profile_upload img
 {
-  width: 55px;
+  width: 5rem;
+  height: 5rem;
+  font-size: 2rem;
   border-radius: 50%;
 }
 
@@ -21,6 +23,16 @@
     display: block;
     font-size: 14px;
     text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: no-repeat 50%;
+    background-size: cover;
+    border-radius: 50%;
 }
 
 .input-group

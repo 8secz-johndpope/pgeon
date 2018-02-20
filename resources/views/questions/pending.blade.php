@@ -7,8 +7,7 @@
                 <div class="navbar-header w-100">
 
                     <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
-                    <h4>Pending</h4>
-                    <span> {{count($pending)}}</span>
+                    <h4>Pending ({{count($pending)}})</h4>
                 </div>
 
             </div>
