@@ -20807,14 +20807,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         sort: function sort() {
             if (!this.current_order || this.current_order == 'ASC') {
-                this.current_order = 'DESC';
-                this[this.current_tab].sort(function (a, b) {
-                    return b.convo_count - a.convo_count;
-                });
-            } else if (this.current_order == 'DESC') {
-                this.current_order = 'ASC';
+                console.log('DESC');
+
                 this[this.current_tab].sort(function (a, b) {
                     return a.convo_count - b.convo_count;
+                });
+            } else if (this.current_order == 'DESC') {
+
+                this[this.current_tab].sort(function (a, b) {
+                    return b.convo_count - a.convo_count;
                 });
             }
         },
