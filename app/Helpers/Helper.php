@@ -35,7 +35,7 @@ class Helper
     {
         if($seconds > 0) {
             $time = Helper::calcElapsed($seconds);
-            return 'You last posted a question was '.$time;
+            return 'You last posted a question '.$time;
         }else {
             return 'go ahead and post your first question';
         }
