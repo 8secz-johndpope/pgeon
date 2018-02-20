@@ -62,6 +62,7 @@
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>
+                                      <strong>[{{ item.convo_count }}]</strong>
 
                                     </div>
                                 </div>
@@ -99,6 +100,8 @@
                                         </button>
                                           <strong>{{ item.url }}</strong>
                                  <small>{{ item.last_posted }}</small>
+                                 <strong>[{{ item.convo_count }}]</strong>
+
                                     </div>
                                 </div>
                             </li>

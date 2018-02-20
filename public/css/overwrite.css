@@ -881,4 +881,10 @@ figure figcaption {
 .js-keeper-placeholder-back em {
   background: #fcc !important;
 }
+.response-icon {
+  fill:#33cccc;
+}
 
+.response-icon-grey {
+  fill:#ababab;
+}

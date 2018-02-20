@@ -46,7 +46,12 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
+                                @if (count($live) > 0)
                                     <i class="text-muted fal fa-circle-notch fa-3x fa-spin"></i>
+                                @else
+                                    <i class="text-muted fal fa-ban fa-3x"></i>
+                                @endif
+
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div style="margin-top: 0;" class="h4">

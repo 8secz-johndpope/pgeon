@@ -161,7 +161,17 @@
   </div>
 </div>
 
-                                            <span v-on:click="submit_answer()" class="input-group-addon footer-btn"><span class="fa fa-paper-plane response-icon"></span></span>
+                                            <span v-if=is_valid v-on:click="submit_answer()" class="input-group-addon footer-btn ll">
+
+                                               <svg width="16" height="16" class="response-icon" >
+              <use  xlink:href='/img/sprites/solid.svg#paper-plane'></use>
+              </svg>
+
+                                            </span>
+                                             <span v-else class="input-group-addon footer-btn">                       <svg width="16" height="16" class="response-icon-grey" >
+              <use  xlink:href='/img/sprites/solid.svg#paper-plane'></use>
+              </svg>
+                                            </span>
                                         </div>
                                         
                                     </li>
@@ -202,6 +212,7 @@ var pressTimer;
         voted_now : 0,
         vote_count: 0,
         records_loaded: false,
+        is_valid:false,
         //animateion will work only for the new items coming in not while refreshing the page...
 		pushed_id:0,
 		submit_error: false,
@@ -249,13 +260,14 @@ var pressTimer;
                 var allowedValuePart = currentValue.slice(0, realLength),
                     refusedValuePart = currentValue.slice(realLength)
                 ;
-                console.log("greate man");
-                
+                this.is_valid = false;
                 
                 // Fill the hidden div.
                 this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
               } else {
                 this.placeholder_content = ''
+                this.is_valid = (currentValue.length>0)
+                  
               }
       },
           
@@ -351,7 +363,6 @@ var pressTimer;
 
       },
       submit_answer: function() {
-
 
         var formData = {
           'question_id': this.question_id,
