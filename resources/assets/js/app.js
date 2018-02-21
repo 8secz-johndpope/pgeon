@@ -154,9 +154,9 @@ var defrcomp = allr
 			captcha_validate() {
 				this.captcha_loading = true
 			},
-			callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+			callChildPendingAnswers($question_id, $uname, $question, $ex_date, $top_a) {
 				var child = app.$refs.answersexpiredowner
-				child.fetchRecords($question_id, $uname, $question, $ex_date)
+				child.fetchRecords($question_id, $uname, $question, $ex_date, $top_a)
 					
 			},
 			

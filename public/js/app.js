@@ -16961,9 +16961,9 @@ var app = new Vue({
 		captcha_validate: function captcha_validate() {
 			this.captcha_loading = true;
 		},
-		callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date) {
+		callChildPendingAnswers: function callChildPendingAnswers($question_id, $uname, $question, $ex_date, $top_a) {
 			var child = app.$refs.answersexpiredowner;
-			child.fetchRecords($question_id, $uname, $question, $ex_date);
+			child.fetchRecords($question_id, $uname, $question, $ex_date, $top_a);
 		},
 		bubbleChangedFromChild: function bubbleChangedFromChild(value) {
 			//  this.bubble=(value) // someValue
@@ -19857,6 +19857,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -19871,18 +19877,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       ex_date: ""
     };
   },
+  props: ['topanswer'],
 
   mounted: function mounted() {
     this.csrf = $('meta[name="csrf-token"]').attr('content');
+    console.log(this.topanswer);
   },
 
 
   methods: {
-    fetchRecords: function fetchRecords(question_id, uname, question, ex_date) {
+    fetchRecords: function fetchRecords(question_id, uname, question, ex_date, top_a) {
       this.question_id = question_id;
       this.uname = uname;
       this.question = question;
       this.ex_date = ex_date;
+      this.answer_id = top_a;
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
         this.answers = response;
 
@@ -55137,15 +55146,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       staticClass: "vote-item flex-center"
     }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.answer_id),
+        expression: "answer_id"
+      }],
       staticClass: "pending-radio",
       attrs: {
         "type": "radio",
         "id": answer.id,
         "name": "select"
       },
+      domProps: {
+        "value": answer.id,
+        "checked": _vm._q(_vm.answer_id, answer.id)
+      },
       on: {
         "click": function($event) {
           _vm.selectAnswer(answer.id)
+        },
+        "__c": function($event) {
+          _vm.answer_id = answer.id
         }
       }
     }), _vm._v(" "), _c('label', {
@@ -55153,7 +55175,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "for": answer.id
       }
-    }, [_c('p', [_vm._v("\n            \t\t" + _vm._s(answer.answer) + "\n            ")])])])
+    }, [_c('p', [_c('table', {
+      staticClass: "bkword"
+    }, [_c('tr', [_c('td', [_vm._v("                 \n            \t\t" + _vm._s(answer.answer) + "\n                ")])])])])])])
   }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

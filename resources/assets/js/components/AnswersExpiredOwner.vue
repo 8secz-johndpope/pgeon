@@ -42,7 +42,7 @@
             
           
             <div class="vote-item flex-center" v-for="answer in answers">
-              <input type="radio" class="pending-radio"  :id=answer.id name="select" v-on:click="selectAnswer(answer.id)" >
+              <input type="radio" class="pending-radio" v-model="answer_id" v-bind:value="answer.id" :id=answer.id name="select" v-on:click="selectAnswer(answer.id)" >
               <label :for=answer.id class="vote_count">
               <!-- 
               <a class="vote-count">
@@ -52,7 +52,13 @@
                     </a>
                     -->
                                      <p>
+                                                                                                                                       <table  class="bkword">
+<tr>
+<td>                 
             		{{answer.answer}}
+                </td>
+</tr>
+</table>
             </p>
                                 </label>
             </div>
@@ -82,10 +88,12 @@
         	ex_date: ""	
       };
     },
+    props: ['topanswer'],
     
     mounted() {
               this.csrf = $('meta[name="csrf-token"]').attr('content');
-
+              console.log(this.topanswer);
+              
 
     },
     
@@ -93,19 +101,19 @@
 
     	
      	
-    	fetchRecords(question_id, uname, question, ex_date) {
+    	fetchRecords(question_id, uname, question, ex_date, top_a) {
     		this.question_id = question_id
     		this.uname = uname
     		this.question = question
-    		this.ex_date = ex_date
+        this.ex_date = ex_date
+        this.answer_id = top_a
     		 $.getJSON('/question/' + this.question_id + '/json', function(response) {
     		        this.answers = response
     		        
     		        // var com = this
     		        $.getJSON('/get_votes_with_count/'+this.question_id, function(votes) {
     		       //   com.my_votes = votes
-    		            this.my_votes = votes
-    		          
+                    this.my_votes = votes
     		          
     		      }.bind(this));
     		        

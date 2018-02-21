@@ -42,12 +42,18 @@
                 <li class="media media-current-user media-divider">
                   <div class="media-body-text media-response">
                      @if ($val['answer'])
+                     <table class="bkword">
+											<tr>
+											<td>
                                           {{$val['answer']->answer}}
+                                          </td>
+</tr>
+</table>
                                        @endif
                   </div>
                   <div style="padding-top: 10px;">
                    @if ($val['answer'])
-                        <a data-toggle="modal" href="#viewAll" v-on:click="callChildPendingAnswers({{$val['question']->id}}, '{{Helper::slug($val['question']->user->id ,$val['question']->user->slug)}}', '{{addslashes($val['question']->question)}}', '{{date('m/d/Y', $val['question']->expiring_at)}}')" style="vertical-align: sub;">&nbsp;<i class="fal fa-comments"></i>&nbsp;View all</a>
+                        <a data-toggle="modal" href="#viewAll" v-on:click="callChildPendingAnswers({{$val['question']->id}}, '{{Helper::slug($val['question']->user->id ,$val['question']->user->slug)}}', '{{addslashes($val['question']->question)}}', '{{date('m/d/Y', $val['question']->expiring_at)}}', {{$val['answer']->id}})" style="vertical-align: sub;">&nbsp;<i class="fal fa-comments"></i>&nbsp;View all</a>
                                     @endif
                     <div class="pull-right">
                     	    <longpress duration="2" :on-confirm="deleteQ" :value={{$val['question']->id}} pressing-text="Deleing in {$rcounter} secs" class="btn btn-danger-outline" action-text="Deleting">Delete</longpress>
@@ -85,8 +91,10 @@
 
 <div class="modal fade" id="viewAll" tabindex="-1" role="dialog" aria-labelledby="viewAll" aria-hidden="true">
   <div class="modal-dialog">
-  <answers_expired_owner ref="answersexpiredowner"></answers_expired_owner>
+    
 
+    <answers_expired_owner ref="answersexpiredowner"></answers_expired_owner>
+ 
   </div>
 </div>
 
