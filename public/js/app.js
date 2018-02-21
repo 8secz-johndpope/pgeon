@@ -18375,6 +18375,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -55266,7 +55270,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.removeResponseFocus($event)
         }
       }
-    }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])
+    }, [_c('table', {
+      staticClass: "bkword"
+    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
   }, [_vm._m(0)]) : _vm._e()], 2)])])])
