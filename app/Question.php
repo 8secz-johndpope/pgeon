@@ -59,9 +59,7 @@ class Question extends Model {
 
          UNION ALL 
 
-         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q INNER JOIN user_followings uf
-         ON q.user_id = uf.user_id
-         INNER JOIN users u ON u.id = uf.user_id
+         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q I
          WHERE q.user_id = $user_id
          and q.expiring_at > '$now' 
          )   AS tmp  LIMIT $p OFFSET $offset";
