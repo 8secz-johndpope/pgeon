@@ -21,19 +21,31 @@ class UserFollowingController extends Controller
      */
     public function insert()
     {
-		//can't follow yourself
-		if(Request::get('user_id') == Auth::user()->id) {
-			abort(403);
-		}
-        $question = UserFollowing::insert(['user_id' =>  Request::get('user_id'), 'followed_by' => Auth::user()->id]);
-        
-        /** notify the star who is being followed **/
-        NotificationController::insertUserFollowed(Request::get('user_id'), Auth::user()->id);
+		
+
+		UserFollowingController::followtheuser(Request::get('user_id'));
         return response()->json(['status' => 'done']);
     }
 
 
+	public static function followtheuser($uid) {
+		//can't follow yourself
+		if($uid == Auth::user()->id) {
+			abort(403);
+		}
 
+		UserFollowing::insert(['user_id' =>  $uid, 'followed_by' => Auth::user()->id]);
+        
+        /** notify the star who is being followed **/
+        NotificationController::insertUserFollowed($uid, Auth::user()->id);
+	}
+
+
+	public static function follow($uid){
+
+		UserFollowingController::followtheuser($uid);
+		return true;
+	}
     /**
 	 * Remove the specified resource from storage.
 	 *

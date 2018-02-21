@@ -34,9 +34,25 @@ class QuestionController extends Controller
     public function show($question_id,$format=null)
     {
      
-        Session::forget('backUrl');
+  
         $question = Question::find($question_id);
-      
+        $qurl =  Session::get('backUrl');
+        //valid question detail url
+        //follow the user if didn't already
+        if(strstr($qurl,"question/")) {
+            $uid = $question->user_id;
+            $uf = UserFollowing::where('user_id', $uid)
+                        ->where('followed_by',Auth::user()->id)
+                        ->first();
+
+            //not followed yet..follow him            
+            if(!$uf) {
+                UserFollowingController::follow($uid);
+            }            
+                         
+        }
+
+        Session::forget('backUrl');
 /*
         if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
             $back = "/questions";
@@ -472,8 +488,25 @@ class QuestionController extends Controller
         //print_r($uf);
         
         $offset = $c*$p;
-        $fetched_questions = Question::where('accepted_answer', '>', 0)->whereIn('user_id', $uf)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
-        
+      //  DB::enableQueryLog();
+
+
+        $fetched_questions =   Question::where('accepted_answer', '>', 0)
+                                        ->where(function ($query) use ($uf) {
+                                            $query->whereIn('user_id', $uf)
+                                            ->orWhere('user_id', Auth::user()->id);
+                                         })
+                                        ->orderBy('created_at', 'desc')
+                                        ->offset($offset)
+                                        ->limit($p)
+                                        ->get();
+
+
+      //  $fetched_questions = Question::where('accepted_answer', '>', 0)->whereIn('user_id', $uf)->orWhere('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
+    //   $laQuery = DB::getQueryLog();
+
+     //   dd($laQuery);
+     //   exit;
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
             $answer = Answer::find($question->accepted_answer);
