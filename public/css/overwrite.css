@@ -429,10 +429,6 @@ input.pending-radio[type="radio"]:checked+label .icon {
   display: inline-block;
 }
 
-input.pending-radio[type="radio"]:checked+label {
-  background-color: #3fc3ad;
-  color: white;
-}
 
 input.pending-radio[type="radio"]:checked+label span:before,
 input.pending-radio[type="radio"]:checked+label span,
@@ -445,7 +441,7 @@ input.pending-radio[type="radio"]:checked+label #counter span {
 input.pending-radio:checked+label {
   box-shadow: 0 0 0 -1px #FFF inset;
   color: #FFF;
-  background-color: #66cc99;
+  background-color: #33cccc;
 }
 
 
