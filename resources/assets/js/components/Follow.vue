@@ -58,7 +58,7 @@
                                     </a>
                                     <div class="media-body">
                                         <button v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
-                                             <span class="fal fa-check"></span>
+                                             <span class="fal fa-check text-muted"></span>
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>

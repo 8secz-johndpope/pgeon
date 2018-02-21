@@ -56032,7 +56032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      staticClass: "fal fa-check"
+      staticClass: "fal fa-check text-muted"
     })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))]), _vm._v(" "), _c('strong', [_vm._v("[" + _vm._s(item.convo_count) + "]")])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
