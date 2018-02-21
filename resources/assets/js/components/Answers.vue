@@ -15,8 +15,12 @@
                              <div class="media-body">
                                  <div class="media-body-text live-media-question" style="border-bottom: transparent;">
                      
-                                    
-                                    {{question}}
+                                                                                       <table  class="bkword">
+<tr>
+<td> 
+                                    {{question}}</td>
+</tr>
+</table>
                                  </div>
                                  
                                    <div class="media-footer">

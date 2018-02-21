@@ -33,7 +33,11 @@
                             <li class="media">
                                 <div class="media-body">
                                     <div class="media-body-text live-media-question goto-qdetail" data-id={{$val->id}}>
+                                    <table class="bkword">
+											<tr>
+											<td>
                                    {{$val->question}}
+                                   </td></tr></table>
 </div>
 
 

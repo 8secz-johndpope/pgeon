@@ -618,7 +618,7 @@ svg .vote-none{
 }
 
 /** p flexone was removed and this was added to force line break on lengthy no space  texts **/
-.live-response table {
+.live-response table,.bkword {
 	    table-layout: fixed;
     width: 97%;
     word-wrap: break-word;

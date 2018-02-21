@@ -30,14 +30,14 @@ class UserFollowingController extends Controller
 
 	public static function followtheuser($uid) {
 		//can't follow yourself
-		if($uid == Auth::user()->id) {
-			abort(403);
+		if($uid != Auth::user()->id) {
+			UserFollowing::insert(['user_id' =>  $uid, 'followed_by' => Auth::user()->id]);
+        
+        	/** notify the star who is being followed **/
+        	NotificationController::insertUserFollowed($uid, Auth::user()->id);
 		}
 
-		UserFollowing::insert(['user_id' =>  $uid, 'followed_by' => Auth::user()->id]);
-        
-        /** notify the star who is being followed **/
-        NotificationController::insertUserFollowed($uid, Auth::user()->id);
+		
 	}
 
 

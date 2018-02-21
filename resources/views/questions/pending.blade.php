@@ -28,7 +28,12 @@
               <ul class="media-list media-list-conversation c-w-md">
                 <li class="media">
                   <div class="media-body">
-                    <div class="media-body-text media-question"> {{$val['question']->question}}
+                    <div class="media-body-text media-question">
+                    <table class="bkword">
+											<tr>
+											<td>
+                    {{$val['question']->question}}
+                    </td></tr></table>
                     </div>
                   </div>
                 </li>

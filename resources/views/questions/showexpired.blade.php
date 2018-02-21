@@ -81,7 +81,13 @@
                             <li class="media">
                                 <div class="media-body">
                                     <div class="media-body-text media-question">
+                                    <table  class="bkword">
+<tr>
+<td>
                                     {{$question->question}}
+                                    </td>
+</tr>
+</table>
 </div>
                                     
                                     @if(isset($answer))

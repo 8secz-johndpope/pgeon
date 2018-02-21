@@ -9,7 +9,7 @@
                       <div style="width: 42px;">
                           <a href="/"><i class="fal fa-home fa-lg text-muted"></i></a>
                       </div>
-                    <h4><<a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"> </a></h4>
+                    <h4><a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"> </a></h4>
                     <ul class="nav navbar-nav m-r-0">
                         <li>
                             <div>
@@ -44,7 +44,13 @@
                             <li class="media">
                                 <div class="media-body">
                                     <div class="media-body-text media-question">
+                                    <table  class="bkword">
+<tr>
+<td> 
                                     {{$question->question}}
+                                    </td>
+</tr>
+</table>
 </div>
 								@if(isset($answer))
                                     <ul class="media-list media-seconday media-list-conversation c-w-md">

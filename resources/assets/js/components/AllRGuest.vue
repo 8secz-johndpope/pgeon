@@ -80,7 +80,11 @@
                                     <li class="media">
                                         <div class="media-body">
                                             <div class="media-body-text  media-question" v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)"  style="cursor: pointer;">
+<table class="bkword">
+											<tr>
+											<td>
                                             {{question.question}}
+                                             </td></tr></table>
 </div>
                                             <ul class="media-list  media-secondary media-list-conversation c-w-md">
                                                 <li class="media media-current-user media-divider">

@@ -20,7 +20,12 @@
                   <li class="media">
                     <div class="media-body">
                       <div class="media-body-text live-media-question">
-                      	{{question}}
+                                                                                                                                   <table  class="bkword">
+<tr>
+<td>
+                      	{{question}}</td>
+</tr>
+</table>
                       </div>
                     </div>
                   </li>

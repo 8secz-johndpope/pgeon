@@ -18127,6 +18127,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -18740,6 +18744,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -18891,6 +18900,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(3);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
 //
 //
 //
@@ -19170,6 +19183,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -19831,6 +19848,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -19904,6 +19926,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -20173,6 +20199,10 @@ var pressTimer;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -54588,7 +54618,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-bottom": "transparent"
     }
-  }, [_vm._v("\n                     \n                                    \n                                    " + _vm._s(_vm.question) + "\n                                 ")]), _vm._v(" "), _c('div', {
+  }, [_c('table', {
+    staticClass: "bkword"
+  }, [_c('tr', [_c('td', [_vm._v(" \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
     staticClass: "media-footer"
   }, [_c('small', {
     staticClass: "text-muted"
@@ -54950,7 +54982,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.removeResponseFocus($event)
         }
       }
-    }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
+    }, [_c('table', {
+      staticClass: "bkword"
+    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                             ")])])])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list  media-secondary media-list-conversation c-w-md"
     }, [_c('li', {
       staticClass: "media media-current-user media-divider"
@@ -55085,7 +55119,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "media-body"
   }, [_c('div', {
     staticClass: "media-body-text live-media-question"
-  }, [_vm._v("\n                  \t" + _vm._s(_vm.question) + "\n                  ")])])])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_c('table', {
+    staticClass: "bkword"
+  }, [_c('tr', [_c('td', [_vm._v("\n                      \t" + _vm._s(_vm.question))])])])])])])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body p-a-0 js-modalBody"
   }, [_c('div', {
     staticClass: "modal-body-scroller"
@@ -55113,7 +55149,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "for": answer.id
       }
-    }, [_c('p', [_vm._v("\n        \t\t" + _vm._s(answer.answer) + "\n        ")])])])
+    }, [_c('p', [_vm._v("\n            \t\t" + _vm._s(answer.answer) + "\n            ")])])])
   }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -55991,7 +56027,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "fal fa-check"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))]), _vm._v(" "), _c('strong', [_vm._v("[" + _vm._s(item.convo_count) + "]")])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -56039,7 +56075,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-md btn-link pull-right"
     }, [_c('span', {
       staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))]), _vm._v(" "), _c('strong', [_vm._v("[" + _vm._s(item.convo_count) + "]")])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
@@ -56112,7 +56148,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-bottom": "transparent"
     }
-  }, [_vm._v("\n                     \n                                    \n                                    " + _vm._s(_vm.question) + "\n                                 ")]), _vm._v(" "), _c('div', {
+  }, [_c('table', {
+    staticClass: "bkword"
+  }, [_c('tr', [_c('td', [_vm._v("\n                                    \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
     staticClass: "media-footer"
   }, [_c('small', {
     staticClass: "text-muted"
@@ -56276,7 +56314,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-bottom": "transparent"
     }
-  }, [_vm._v("\n                     \n                                    \n                                    " + _vm._s(_vm.question) + "\n                                 ")]), _vm._v(" "), _c('div', {
+  }, [_c('table', {
+    staticClass: "bkword"
+  }, [_c('tr', [_c('td', [_vm._v("\n                                    \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
     staticClass: "media-footer"
   }, [_c('small', {
     staticClass: "text-muted"
@@ -56542,7 +56582,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "media-body"
     }, [_c('div', {
       staticClass: "media-body-text  media-question"
-    }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n")]), _vm._v(" "), _c('ul', {
+    }, [_c('table', {
+      staticClass: "bkword"
+    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n\t\t\t\t\t\t\t\t\t\t\t ")])])])]), _vm._v(" "), _c('ul', {
       staticClass: "media-list  media-secondary media-list-conversation c-w-md "
     }, [_c('li', {
       staticClass: "media media-current-user media-divider"
@@ -56741,7 +56783,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.removeResponseFocus($event)
         }
       }
-    }, [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])
+    }, [_c('table', {
+      staticClass: "bkword"
+    }, [_c('tr', [_c('td', [_vm._v("\n    \t                                        " + _vm._s(question.question) + "\n\t\t\t\t\t\t\t\t\t\t\t")])])])])])])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
   }, [_vm._m(0)]) : _vm._e()], 2)])])])

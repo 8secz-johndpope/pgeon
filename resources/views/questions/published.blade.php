@@ -58,7 +58,12 @@
                             <li class="media first">
                                 <div class="media-body closest-overlay">
                                     <div id="overlay"></div>
-                                    <div class="media-body-text media-question">{{$val['question']->question}}
+                                    <div class="media-body-text media-question">
+                                    <table class="bkword">
+											<tr>
+											<td>
+                                    {{$val['question']->question}}
+                                    </td></tr></table>
 </div>
                                     <!-- <div id="overlay"></div> -->
 
