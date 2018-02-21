@@ -60,6 +60,7 @@ class Question extends Model {
          UNION ALL 
 
          SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q 
+         INNER JOIN users u ON u.id = q.user_id
          WHERE q.user_id = $user_id
          and q.expiring_at > '$now' 
          )   AS tmp  LIMIT $p OFFSET $offset";
