@@ -41,7 +41,12 @@
         <div style="width: auto;">
             <div class="container" style="padding: 0px;">
               <div class="col-sm-4">
-													<div onclick="window.location.href='/live'">
+                @if (count($live) > 0)
+                <div onclick="window.location.href='/live'">
+                @else     
+                <div>
+                @endif
+
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
@@ -67,7 +72,11 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-									<div onclick="window.location.href='/pending'">
+                    @if (count($pending) > 0)
+                    <div onclick="window.location.href='/pending'">
+                    @else     
+                    <div>
+                    @endif
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
@@ -88,7 +97,11 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-									<div onclick="window.location.href='/published'">
+                @if (count($published) > 0)
+                    <div onclick="window.location.href='/published'">
+                    @else     
+                    <div>
+                    @endif
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
