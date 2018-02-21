@@ -6,12 +6,13 @@
 
 
 
-@if ($role_id !=  3 && $total_count_exhausted)
-@else
+
     <div>
 
-   
-       <ask lq_created_at="{{$lq_created_at}}"></ask>
+    @if ($role_id !=  3 && $total_count_exhausted)
+    @else
+        <ask lq_created_at="{{$lq_created_at}}"></ask>
+    @endif
 		@if ($role_id !=  3)
 				@if ($total_count_exhausted)
 				<div class="alert alert-warning">
@@ -30,7 +31,6 @@
     
     </div>
 
-@endif
 
 </div></div>
 
