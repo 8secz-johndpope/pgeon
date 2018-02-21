@@ -50,11 +50,24 @@ class Question extends Model {
         $offset = $c*$p;
         //TODO will be converted to stored proc in future
         //follower's live Qs ...current user is considered follower of himself...
-        $questions = DB::select( DB::raw("
-         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q LEFT JOIN user_followings uf
+        $sql = "
+        SELECT id, question, avatar, expiring_at, user_id, slug from (SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q INNER JOIN user_followings uf
          ON q.user_id = uf.user_id
-         LEFT JOIN users u ON u.id = uf.user_id
-         WHERE (uf.followed_by = $user_id OR q.user_id = $user_id) and q.expiring_at > '$now' LIMIT $p OFFSET $offset") );
+         INNER JOIN users u ON u.id = uf.user_id
+         WHERE uf.followed_by = $user_id
+         and q.expiring_at > '$now'
+
+         UNION ALL 
+
+         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q INNER JOIN user_followings uf
+         ON q.user_id = uf.user_id
+         INNER JOIN users u ON u.id = uf.user_id
+         WHERE q.user_id = $user_id
+         and q.expiring_at > '$now' 
+         )   AS tmp  LIMIT $p OFFSET $offset";
+
+        $questions = DB::select( DB::raw($sql));
+          
          
         
    
