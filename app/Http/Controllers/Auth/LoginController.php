@@ -51,6 +51,7 @@ class LoginController extends Controller
          *      finally backUrl session will be deleted on question detail page 
          */
         Session::put('backUrl', URL::previous());
+       
         
     }
 
@@ -61,6 +62,7 @@ class LoginController extends Controller
     */
    public function redirectToProvider($provider)
    {
+       
        return Socialite::driver($provider)->redirect();
    }
 
@@ -80,7 +82,7 @@ class LoginController extends Controller
        if($registered_new)
             return redirect('/step2');
        else 
-           return redirect($this->redirectTo);
+           return redirect($this->redirectTo());
         
        
 
