@@ -53,8 +53,10 @@
                         
 
                                 <div class="media">
+
                                     <a class="media-left"  :href="item.url">
-                                        <img class="media-object img-circle" :src="item.avatar"  />
+                                        <avatar :size="42"	 :src="item.avatar"  :username="item.url" ></avatar>
+
                                     </a>
                                     <div class="media-body">
                                         <button v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
@@ -62,7 +64,7 @@
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>
-                                       <strong>[{{ item.convo_count }}]</strong> 
+                                       <!-- <strong>[{{ item.convo_count }}]</strong>  -->
 
                                     </div>
                                 </div>
@@ -88,8 +90,7 @@
                             <li class="list-group-item" v-for="item in my_followers">
                                 <div class="media">
                                      <a class="media-left" :href="item.url">
-                             <img class="media-object img-circle" :src="item.avatar" alt="">
-
+                              <avatar :size="42"	 :src="item.avatar"  :username="item.url" ></avatar>
                              </a>
                                     <div class="media-body">
                                         <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-md btn-link pull-right">
@@ -100,7 +101,7 @@
                                         </button>
                                           <strong>{{ item.url }}</strong>
                                  <small>{{ item.last_posted }}</small>
-                                 <strong>[{{ item.convo_count }}]</strong>
+                                 <!-- <strong>[{{ item.convo_count }}]</strong> -->
 
                                     </div>
                                 </div>
@@ -132,6 +133,8 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
+
     export default {
 
     data: function(){
@@ -153,6 +156,9 @@
         created: function(){
             this.fetchData()
         },
+        components: {
+				Avatar
+		},
 
         methods: {
             setcurrenttab(tab) {

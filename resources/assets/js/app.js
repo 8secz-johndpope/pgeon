@@ -27,6 +27,7 @@ import {AnswerMixin} from './mixins/AnswerMixin.js';
 
 import InvisibleRecaptcha from 'vue-invisible-recaptcha';
 import Longpress from 'vue-longpress';
+import Avatar from 'vue-avatar'
 
 Vue.component('follow', require('./components/Follow.vue'));
 const allq = Vue.component('allq', require('./components/AllQ.vue'));
@@ -102,6 +103,7 @@ var defrcomp = allr
 		components: {
 				"invisible-recaptcha": InvisibleRecaptcha,
 				"longpress" : Longpress,
+				Avatar
 		},
 		
 		mounted() {

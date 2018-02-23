@@ -29,7 +29,9 @@
   <div class="user-data">
             <div class="user-meta">
                 <div class="avatar-wrapper">
-                    <img class="avatar avatar-96 photo" src="{{ Helper::avatar($user->avatar) }} " alt="" height="96" width="96">
+
+                    <avatar src="{{  Helper::avatar($user->avatar) }}" :size=96 username="{{Helper::slug($user->id,$user->slug)}}"></avatar>
+
                 </div>
                 <div class="vote-points avatar-wrapper">
                     <span class="number">{{Helper::formatWithSuffix($points)}}</span>{{ $points == 1 ? "point" : "points" }}

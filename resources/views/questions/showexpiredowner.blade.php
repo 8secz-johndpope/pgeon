@@ -7,7 +7,12 @@
                 <nav class="container nav-container header-nav">
                     <a href="/responses"  ><span class="fal fa-times" style="font-size: 20px;"></span></a>
                     <h4>
-                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"></a>
+                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                    
+                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
+
+                
+                </a>
                  
                 </nav>
             </nav>

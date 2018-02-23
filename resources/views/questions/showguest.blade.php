@@ -8,7 +8,13 @@
                       <a href="/"><i class="icon fal fa-home fa-lg text-muted"></i></a>
                   </div>
                     <h4>
-                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" href="#" src="{{ Helper::avatar($question->user->avatar) }}"></a>
+                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                    
+                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
+
+
+
+                </a>
                     </h4>
                     <div class="dropdown">
                         <a class="btn btn-link p-x-0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fal fa-ellipsis-v ellipsis"></span></a>

@@ -9,7 +9,11 @@
                       <div style="width: 42px;">
                           <a href="/"><i class="fal fa-home fa-lg text-muted"></i></a>
                       </div>
-                    <h4><a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"><img class="img-circle header-img" src="{{ Helper::avatar($question->user->avatar) }}"> </a></h4>
+                    <h4><a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                    
+                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
+                
+                </a></h4>
                     <ul class="nav navbar-nav m-r-0">
                         <li>
                             <div>

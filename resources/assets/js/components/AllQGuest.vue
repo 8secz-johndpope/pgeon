@@ -38,7 +38,7 @@
                     <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
                         <li class="media">
                             <a class="media-left" :href="question.slug">
-                                <img class="media-object img-circle" :src="question.avatar"  id="user-profile-image-link">
+                                   <avatar :size="42"  :src="question.avatar" :username="question.slug"></avatar>
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">
@@ -102,6 +102,7 @@
 
 <script>
 import {CommonMixin} from '../mixins/CommonMixin.js';
+import Avatar from 'vue-avatar'
 
   export default {
 
@@ -122,6 +123,9 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
       }
     },
    
+        components: {
+				Avatar
+		},
 
     props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field'],
     mounted() {

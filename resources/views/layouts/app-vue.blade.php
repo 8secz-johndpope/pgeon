@@ -91,6 +91,7 @@
                     @endif
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
+                 
                     <ul class="nav navbar-nav m-r-0">
                         <li>
                             <a href="{{ route('people') }}" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
@@ -101,9 +102,11 @@
                             </a>
                         </li>
                         <li>
+                            
                             <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                
-                                <img class="img-circle" src="{{  Helper::avatar(Auth::user()->avatar) }}">
+                            <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size=30 username="{{Helper::slug(Auth::user()->id,Auth::user()->slug)}}"></avatar>
+                             
+
                             </button>
                         </li>
                     </ul>

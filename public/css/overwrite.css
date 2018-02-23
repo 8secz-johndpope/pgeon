@@ -884,3 +884,16 @@ figure figcaption {
 .response-icon-grey {
   fill:#ababab;
 }
+
+.vue-avatar--wrapper {
+  display: inline-block;
+}
+.media-list-users .vue-avatar--wrapper {
+  margin-right: 5px;
+}
+.media-list-conversation .vue-avatar--wrapper {
+width: 42px;
+margin-right: 5px;
+background-color: #fff;
+margin-top: 10px;
+}

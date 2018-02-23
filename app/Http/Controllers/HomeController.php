@@ -76,6 +76,7 @@ class HomeController extends Controller {
           $url = "/user/".$value->user_id;
 
           $avatar =  Helper::avatar($value->user->avatar);
+          
           $lq_created_at = User::get_last_posted_timestamp($value->user->id);
           $convo_count_between = User::fetchConvoCountBetween($current_user, $value->user->id);
           $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $url , 'convo_count' => $convo_count_between);

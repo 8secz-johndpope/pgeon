@@ -10,10 +10,12 @@
                  <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a> 
                  @endif
                 <h4><a href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
-                        <img class="img-circle header-img" src="{{ Helper::avatar($tuser->avatar) }}">
+
+
+                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=32 username="{{  Helper::slug($tuser->id,$tuser->slug) }}"></avatar>
                     </a>
                     <a href="{{Helper::slug($fuser->id ,$fuser->slug)}}/">
-                            <img class="img-circle header-img" src="{{ Helper::avatar($fuser->avatar) }}">
+                    <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::slug($fuser->id,$fuser->slug) }}"></avatar>
                         </a>
                         
                

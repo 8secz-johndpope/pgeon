@@ -34,7 +34,7 @@
                             <li class="list-group-item">
                                 <div class="media">
                                     <a class="media-left" href="{{$value['obj']->url}}">
-                                        <img class="media-object img-circle" src="{{  Helper::avatar($value['obj']->avatar) }} " />
+                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  $value['obj']->url }}" ></avatar>
                                     </a>
                                     <div class="media-body">
 

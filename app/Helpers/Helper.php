@@ -7,7 +7,7 @@ class Helper
 {
   public static function avatar($avatar)
     {
-        return ($avatar) ? '/uploads/avatars/'.($avatar):  '/img/profile-placeholder.svg';
+        return ($avatar) ? '/uploads/avatars/'.($avatar):  '';
     }
     
     public static function calcElapsed($seconds) {
