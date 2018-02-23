@@ -8854,6 +8854,14 @@ a:focus {} .question-container {
         height: 76px;
         border-radius: 38px;
     }
+
+    .avatar-wrapper .vue-avatar--wrapper {
+        width: 76px !important;
+        height: 76px !important;
+        background-size: 76px 76px !important;
+        line-height: 74px !important;
+    }
+ 
 }
 @media only screen and (min-width: 660px) {
     .user-details .description {
@@ -8881,6 +8889,13 @@ a:focus {} .question-container {
         width: 96px;
         height: 96px;
         border-radius: 48px;
+    }
+  
+    .avatar-wrapper .vue-avatar--wrapper {
+        width: 96px !important;
+        height: 96px !important;
+        background-size: 96px 96px !important;
+        line-height: 94px !important;
     }
     .vote-points,
     .number-posts {
