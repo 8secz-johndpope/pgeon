@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Config;
 
 class RegisterController extends Controller
 {
@@ -74,10 +75,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $banners = Config::get('constants.default_banners');
+
         return User::create([
 /*            'slug' => $data['slug'],*/
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'banner' =>  $banners[array_rand($banners)]
         ]);
     }
     

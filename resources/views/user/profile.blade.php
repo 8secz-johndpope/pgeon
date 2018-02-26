@@ -31,10 +31,6 @@
                     <input type="file" id="file" class="inputfile" name="avatar">
                                       {{ csrf_field() }}
 
-                        <label for="file">
-                            <figure class="m-t-5">
-                                <img class="img-circle"  alt="">
-
 
 
 									<label class="cabinet center-block">
@@ -48,10 +44,11 @@
 
 
 
-                            </figure>
-                        </label>
-                        <input type="submit" value="Upload" name="submit" class="btn btn-default-outline" style="margin-left: 10px">
+                     
                     </div>
+                    <br />
+                    <input type="submit" value="Upload" name="submit" class="btn btn-default-outline" style="margin-left: 10px">
+         
                 </li>
 
 

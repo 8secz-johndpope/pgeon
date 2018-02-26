@@ -54843,7 +54843,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "tweet-composer"
+    staticClass: "ans-composer"
   }, [_c('textarea', {
     directives: [{
       name: "model",

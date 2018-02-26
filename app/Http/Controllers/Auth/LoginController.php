@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
-
+use Config;
 class LoginController extends Controller
 {
     /*
@@ -92,16 +92,20 @@ class LoginController extends Controller
 
    public function findOrCreateUser($user, $provider)
    {
+ 
        $authUser = User::where('provider_id', $user->id)->first();
        if ($authUser) {
            $registred_new = false;
        }else{
-       
+            
+           $banners = Config::get('constants.default_banners');
            $authUser = User::create([
            'name'     => $user->name,
            'email'    => $user->email,
            'provider' => $provider,
-           'provider_id' => $user->id
+           'provider_id' => $user->id,
+           'banner' =>  $banners[array_rand($banners)]
+
        ]);
         $registred_new = true;
        }

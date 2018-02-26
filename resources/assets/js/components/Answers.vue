@@ -158,7 +158,7 @@
                                         <div class="input-group" >
 
                                           <div class="card">
-  <div class="tweet-composer">
+  <div class="ans-composer">
     <textarea  v-model="submitted_text" @input="maxHighlight"  class="editor-textarea js-keeper-editor footer-textarea "  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1"></textarea>
         <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
 

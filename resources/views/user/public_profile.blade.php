@@ -27,7 +27,7 @@
         </div>
 
   <div class="user-data">
-            <div class="user-meta">
+            <div class="user-meta container user-banner">
                 <div class="avatar-wrapper">
 
                     <avatar src="{{  Helper::avatar($user->avatar) }}" :size=64 username="{{Helper::slug($user->id,$user->slug)}}"></avatar>
@@ -57,11 +57,18 @@
               <ul class="media-list media-list-conversation c-w-md">
                 <li class="media">
                   <div class="media-body">
-                    <div class="media-body-text media-question">{{$reply->question}}</div>
+                    <div class="media-body-text media-question">
+                    <table class="bkword">
+											<tr>
+											<td>
+                      {{$reply->question}}
+</td></tr></table>
+                    </div>
                     <ul class="media-list media-list-conversation c-w-md">
                       <li class="media media-current-user media-divider">
                         <div class="media-body">
                           <div class="media-body-text media-response media-response-margin" >
+                            
                             {{$reply->answer}}
                           </div>
                         </div>
@@ -115,7 +122,12 @@
 
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
+<style>
 
+  body {
+
+  }
+</style>
 
 @endpush
 

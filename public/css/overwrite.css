@@ -797,7 +797,6 @@ label.cabinet input.file{
   padding-bottom:25px;
 }
 figure figcaption {
-    position: absolute;
     bottom: 0;
     color: #333;
     width: 100%;
@@ -844,7 +843,7 @@ figure figcaption {
 
 
 
-.tweet-composer {
+.ans-composer {
   position: relative;
   z-index: 1;
 }
