@@ -5,7 +5,7 @@
 
 
         <div class="container-fluid container-fill-height">
-        
+
             <div class="container-content-middle">
              <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('login') }}">
                   {{ csrf_field() }}
@@ -15,10 +15,10 @@
                     <div class="continue_with">
                         <ul>
                             <li>
-                                <a href="{{ url('/auth/twitter') }}"><span class="icon icon-twitter" style="float: left;margin-left: 10px"></span>Continue with Twitter</a>
+                                <a href="{{ url('/auth/twitter') }}"><span class="fab fa-twitter fa-lg" style="float: left; margin-left: 10px"></span>Continue with Twitter</a>
                             </li>
                             <li>
-                                <a href="{{ url('/auth/facebook') }}"><span class="icon icon-facebook" style="float: left;margin-left: 10px"></span>Continue with Facebook</a>
+                                <a href="{{ url('/auth/facebook') }}"><span class="fab fa-facebook fa-lg" style="float: left; margin-left: 10px"></span>Continue with Facebook</a>
                             </li>
                         </ul>
                     </div>
@@ -49,7 +49,7 @@
                 </form>
             </div>
         </div>
-        
+
 
 
 

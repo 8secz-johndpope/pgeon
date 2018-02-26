@@ -450,7 +450,7 @@ ol
 /* fix main-nav icons spacing */
 
 .navbar-right ul.navbar-nav {
-  float: right;
+  /* float: right; */
   justify-content: space-between;
   width: 110px;
   position: absolute;

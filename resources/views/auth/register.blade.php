@@ -14,10 +14,10 @@
           <div class="continue_with">
                         <ul>
                             <li>
-                                <a href="{{ url('/auth/twitter') }}"><span class="icon icon-twitter" style="float: left;margin-left: 10px"></span>Continue with Twitter</a>
+                                <a href="{{ url('/auth/twitter') }}"><span class="fab fa-twitter fa-lg" style="float: left;margin-left: 10px"></span>Continue with Twitter</a>
                             </li>
                             <li>
-                                <a href="{{ url('/auth/facebook') }}"><span class="icon icon-facebook" style="float: left;margin-left: 10px"></span>Continue with Facebook</a>
+                                <a href="{{ url('/auth/facebook') }}"><span class="fab fa-facebook fa-lg" style="float: left;margin-left: 10px"></span>Continue with Facebook</a>
                             </li>
                         </ul>
                     </div>
@@ -39,15 +39,15 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-			                             
+
         </div>
         <div class="form-group">
           <input type="password" id="cpw" name="password_confirmation" required  class="form-control" placeholder="Confirm password">
-          
+
         </div>
         <div class="m-b captcha-container" style="margin-top: 10px;float: right">
           <a href="/" style="padding-right: 10px">Back</a>
-          
+
           <invisible-recaptcha sitekey="6Lff8j8UAAAAABzFzl1iB44SwsOgtJckdUbO8C9A" :validate="captcha_validate" :callback="captcha_callback" class="btn btn-primary" type="submit" id="do-something-btn" :disabled="captcha_loading" >
    Sign up
 </invisible-recaptcha>
@@ -55,10 +55,10 @@
       </form>
     </div>
   </div>
-  
-  
 
-     
+
+
+
 
 
 @endsection

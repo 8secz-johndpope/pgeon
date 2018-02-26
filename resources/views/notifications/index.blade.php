@@ -3,16 +3,16 @@
 
 
     <div class="container m-t-10">
-            <div class="row">
-                <div class="col-md-12">
-                            
-                 <notifications @bubbleCountChanged="bubbleChangedFromChild"></notifications>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                            <notifications @bubbleCountChanged="bubbleChangedFromChild"></notifications>
             </div>
         </div>
+    </div>
 
 
-        
+
 
 
 

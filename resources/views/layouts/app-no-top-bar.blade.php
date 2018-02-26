@@ -41,13 +41,13 @@
             <div class="container nav-container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
-                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
+                        <img src="{{URL::asset('img/pgeon-logo-landing.svg')}}" alt="Pgeon">
                     </a>
                 </div>
                 <div class="navbar-right" id="navbar-collapse-main">
                     <ul class="nav navbar-nav m-r-0" style="width: 125px;">
                         <li>
-                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
+                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px; margin-top: 2px;" class="btn-link">Sign up</a>
                         </li>
                         <li>
                             <div>
