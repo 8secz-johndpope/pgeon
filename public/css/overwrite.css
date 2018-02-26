@@ -90,13 +90,10 @@ margin-right: 30px;
   margin-top: 50px;
   position: relative;
 }
-.app-navbar{
-  /*background: transparent;*/
-}
-.nav_all{
+/* .nav_all{
   background: #fff;
   border-bottom: 1px solid #E6EAEB;
-}
+} */
 
 .second-nav{
   padding: 0px 5px 0px 0px;
@@ -797,6 +794,7 @@ label.cabinet input.file{
   padding-bottom:25px;
 }
 figure figcaption {
+    position: absolute;
     bottom: 0;
     color: #333;
     width: 100%;
@@ -843,7 +841,7 @@ figure figcaption {
 
 
 
-.ans-composer {
+.tweet-composer {
   position: relative;
   z-index: 1;
 }
