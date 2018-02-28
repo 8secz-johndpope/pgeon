@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use Image;
 use Route;
@@ -179,10 +180,12 @@ class UserController extends Controller
     	if(Input::hasFile('avatar')){ 
         $image = Input::file('avatar');
         if($user->avatar)
-            $filename  = $user->avatar;
-        else    
+            Storage::delete('/uploads/avatars/'.$user->avatar);
+
+            
             $filename  = time() . '.' . $image->getClientOriginalExtension();
         $path = public_path('/uploads/avatars/' . $filename);
+        
         Image::make($image->getRealPath())->resize(200, 200)->save($path);
             $user->avatar = $filename;
       //  echo  $filename;exit;   
