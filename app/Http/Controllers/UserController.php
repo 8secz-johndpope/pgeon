@@ -176,7 +176,6 @@ class UserController extends Controller
        }
        
         // Handle the user upload of avatar
-        //it is ajx now..so break the response
     	if(Input::hasFile('avatar')){ 
         $image = Input::file('avatar');
         if($user->avatar)
@@ -186,11 +185,10 @@ class UserController extends Controller
         $path = public_path('/uploads/avatars/' . $filename);
         Image::make($image->getRealPath())->resize(200, 200)->save($path);
             $user->avatar = $filename;
-        echo  $filename;exit;   
+      //  echo  $filename;exit;   
 
     	}
 
-   //it is ajx now..so break the response
         if(Input::hasFile('banner')){
             $image = Input::file('banner');
             $banners = Config::get('constants.default_banners');
@@ -201,9 +199,8 @@ class UserController extends Controller
             else    
                 $filename  = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('/uploads/banners/' . $filename);
-            Image::make($image->getRealPath())->resizeCanvas(1500, 192)->save($path);
+            Image::make($image->getRealPath())->resizeCanvas(2000, 200)->save($path);
                 $user->banner = $filename;
-            echo  $filename;exit;   
         }
 
 
