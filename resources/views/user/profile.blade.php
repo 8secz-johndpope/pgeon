@@ -34,8 +34,9 @@
                                     Uploading</button>
                                   
                                     <button class="btn ba-image">
-                                    Change banner</button>
+                                    Change banner </button>
                                   <input type="file" id="file-banner"  />
+                                  (recommended : 2000 x 200)
      
                       </div>
 

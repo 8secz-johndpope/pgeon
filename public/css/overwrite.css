@@ -780,12 +780,13 @@ div a.icon:focus {
   position: relative;
   overflow: hidden;
   display: inline-block;
+  color: #fff;
+
 }
 
 .pr-image,.pr-loading  {
   margin-left: 25px;
   margin-top: 9px;
-  color: #fff;
 
 }
 
