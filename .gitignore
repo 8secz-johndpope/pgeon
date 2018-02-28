@@ -2,7 +2,7 @@
 /node_modules
 /node_files/node_modules
 /public/storage
-/public/uploads/avatars/
+/public/uploads
 Homestead.yaml
 Homestead.json
 .DS_Store
