@@ -128,7 +128,7 @@
 
 <style>
   .user-data {
-        background-image: url("uploads/banners/{{$user->banner}}");
+        background-image: url("/uploads/banners/{{$user->banner}}");
         background-size:cover;
       }
 </style>

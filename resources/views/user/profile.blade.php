@@ -152,7 +152,7 @@
 
 <style>
   .banner {
-        background: url("uploads/banners/{{$user->banner}}") no-repeat center;
+        background: url("/uploads/banners/{{$user->banner}}") no-repeat center;
         height:80px;
 
       }
