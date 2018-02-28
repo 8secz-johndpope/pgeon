@@ -894,6 +894,8 @@ div a.icon:focus {
 
 .vue-avatar--wrapper {
   display: inline-block;
+  background-color:  rgb(151, 159, 167) !important;
+  color: #536570 !important;
 }
 .media-list-users .vue-avatar--wrapper {
   margin-right: 5px;

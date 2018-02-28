@@ -13,7 +13,7 @@
                      <ul class="media-list media-list-conversation c-w-md">
                          <li class="media">
                              <div class="media-body">
-                                 <div class="media-body-text live-media-question" style="border-bottom: transparent;">
+                                 <div class="media-body-text live-media-question" style="border-bottom: transparent; border: 1px solid #D1D4D5;">
                      
                                                                                        <table  class="bkword">
 <tr>
