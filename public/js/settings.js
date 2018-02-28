@@ -1,4 +1,34 @@
 $(function () {
+
+
+	var src=""
+
+	$("#file-avatar").html5Uploader({
+		name: "avatar",
+		postUrl: "/profile",
+		onClientLoad: function(e) {
+			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
+			src =  e.target.result
+		},onSuccess: function() {
+			$(".pr-loading").addClass("hidden")  && $(".pr-image").removeClass("hidden");
+			$(".vue-avatar--wrapper").css('background-image', 'url(' + src + ')')
+			$('#item-img-output').attr('src',src);
+			$(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+		}	
+	});
+
+	$("#file-banner").html5Uploader({
+		name: "banner",
+		postUrl: "/profile",
+		onClientLoad: function(e) {
+			$(".alert-success").remove() && $(".ba-loading").removeClass("hidden")  && $(".ba-image").addClass("hidden");
+			src =  e.target.result
+		},onSuccess: function(e,f,response) {
+			$(".ba-loading").addClass("hidden")  && $(".ba-image").removeClass("hidden");
+			$(".banner").css('background-image', 'url(' + src + ')')
+		//	$(".banner").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+		}	
+	});
 	$("#delete-acc").click(function () {
 		
 	
@@ -59,7 +89,7 @@ $(".switch").click(function () {
 
 // Start upload preview image
 				
-
+//del this
 function readURL(input) {
 	
 	if (input.files && input.files[0]) {
@@ -75,5 +105,5 @@ function readURL(input) {
 }
 					
 
-						$('.item-img').on('change', function () { readURL(this) });
+			//			$('.item-img').on('change', function () { readURL(this) });
 				// End upload preview image

@@ -10,6 +10,7 @@ class Helper
         return ($avatar) ? '/uploads/avatars/'.($avatar):  '';
     }
     
+   
     public static function calcElapsed($seconds) {
         
         $seconds = time() - $seconds;

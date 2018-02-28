@@ -5,7 +5,8 @@
             <nav class="container nav-container header-nav">
                 <a href="/" id="profile_back" class="hidden" style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
                  <a onclick="window.history.back()" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a>
-                <h4>{{Helper::slug($user->id ,$user->slug)}}</h4>
+                <h4>
+                {{Helper::slug($user->id ,$user->slug)}}</h4>
 
                 @if  (Auth::user())
                   @if ($user->id == Auth::user()->id )
@@ -36,6 +37,7 @@
                 <div class="vote-points avatar-wrapper">
                     <span class="number">{{Helper::formatWithSuffix($points)}}</span>{{ $points == 1 ? "point" : "points" }}
                 </div>
+           
             </div>
         </div>
 
@@ -120,13 +122,14 @@
 
 @endsection
 
+
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
+
 <style>
-
-  body {
-
-  }
+  .user-data {
+        background: url("uploads/banners/{{$user->banner}}") no-repeat center;
+      }
 </style>
 
 @endpush
