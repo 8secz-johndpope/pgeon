@@ -2,12 +2,12 @@
 @section('content')
 
 
- <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
-                <nav class="container nav-container header-nav">
-                    <a href="{{$back}}" class="btn btn-link p-x-0"><span class="fal fa-times back-arrow"></span></a>
+ <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+                <div class="container nav-container header-nav">
+                    <a href="{{$back}}" class="btn btn-link p-x-0"><span class="fal fa-long-arrow-left back-arrow"></span></a>
                     <h4>
-                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
-                     
+                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"></a>
+                     <a>
                      <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
                     
                     </a>
@@ -26,7 +26,7 @@
                             </li>
                         </ul>
                     </div>
-                </nav>
+                </div>
             </nav>
 
             <!-- begin share question modal -->
@@ -55,15 +55,11 @@
                   </div>
                   <div class="modal-body p-a">
                     <div class="flexbox-container">
-                      <div>
-                        <div>
-                          <div class="input-group">
-                            <input class="form-control" id="txt_current_url" value="{{url()->current()}}">
-                            <span class="input-group-btn"> <button id="copy_to_cb" class="btn btn-default" type="button" style="height: 36px;">
-                              <span class="fa fa-copy"></span>
-                            </button> </span>
-                          </div>
-                        </div>
+                      <div class="input-group">
+                        <input class="form-control" id="txt_current_url" value="{{url()->current()}}">
+                        <span class="input-group-btn"> <button id="copy_to_cb" class="btn btn-default" type="button" style="height: 36px;">
+                          <span class="fa fa-copy"></span>
+                        </button> </span>
                       </div>
                     </div>
                   </div>

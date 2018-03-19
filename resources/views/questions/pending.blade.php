@@ -2,11 +2,11 @@
 
 
 
-<nav class="navbar  navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar  navbar-inverse navbar-fixed-top app-navbar nav-shadow">
             <div class="container nav-container">
                 <div class="navbar-header w-100">
 
-                    <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
+                    <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-long-arrow-left fa-lg"></span></a>
                     <h4>Pending ({{count($pending)}})</h4>
                 </div>
 

@@ -7,7 +7,7 @@
 
 
 
-    <div>
+		<div>
 
     @if ($role_id !=  3 && $total_count_exhausted)
     @else
@@ -39,11 +39,11 @@
 
 
         <div style="width: auto;">
-            <div class="container" style="padding: 0px;">
+            <div class="text-muted container" style="padding: 0px;">
               <div class="col-sm-4">
                 @if (count($live) > 0)
-                <div onclick="window.location.href='/live'">
-                @else     
+                <div style="cursor: pointer;" onclick="window.location.href='/live'">
+                @else
                 <div>
                 @endif
 
@@ -52,9 +52,9 @@
                             <div class="row">
                                 <div class="col-xs-3">
                                 @if (count($live) > 0)
-                                    <i class="text-muted fal fa-circle-notch fa-3x fa-spin"></i>
+                                    <i class="text-primary fal fa-circle-notch fa-3x fa-spin"></i>
                                 @else
-                                    <i class="text-muted fal fa-ban fa-3x"></i>
+                                    <i class="fal fa-ban fa-3x"></i>
                                 @endif
 
                                 </div>
@@ -63,7 +63,7 @@
                                         {{count($live)}}
 </div>
                                     <div>
-                                        <div class="h5" style="margin: 0;">Live</div>
+                                        <div class="h5" style="margin: 0;">live</div>
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
                 </div>
                 <div class="col-sm-4">
                     @if (count($pending) > 0)
-                    <div onclick="window.location.href='/pending'">
-                    @else     
+                    <div style="cursor: pointer;" onclick="window.location.href='/pending'">
+                    @else
                     <div>
                     @endif
                     <div class="panel">
@@ -88,7 +88,7 @@
                                         {{count($pending)}}
 </div>
                                     <div>
-                                        <div class="h5" style="margin: 0;">Pending</div>
+                                        <div class="h5" style="margin: 0;">pending</div>
                                     </div>
                                 </div>
                             </div>
@@ -98,21 +98,21 @@
                 </div>
                 <div class="col-sm-4">
                 @if (count($published) > 0)
-                    <div onclick="window.location.href='/published'">
-                    @else     
+                    <div style="cursor: pointer;" onclick="window.location.href='/published'">
+                    @else
                     <div>
                     @endif
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="text-muted fal fa-check-circle fa-3x"></i>
+                                    <i class=" fal fa-check-circle fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div style="margin-top: 0;" class="h4">
 																			{{count($published)}}
 																		</div>
-                                    <div class="h5" style="margin: 0;">Published</div>
+                                    <div class="h5" style="margin: 0;">published</div>
                                 </div>
                             </div>
                         </div>

@@ -28,8 +28,8 @@
 
 .app-navbar
 {
-    font-weight: 600;
-    -webkit-font-smoothing: antialiased;
+    border-bottom: 1px solid #eaeded;
+    text-rendering: auto;
 }
 
 .app-navbar .form-control
@@ -100,7 +100,7 @@
 
 nav .navbar-header .nav.navbar-nav
 {
-    float: left;
+    /* float: left; */
 }
 
 nav .navbar-header .nav.navbar-nav li
@@ -205,8 +205,7 @@ full-width
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #fff;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid #eaeded;
 }
 
 .csslider > ul > li {
@@ -446,11 +445,12 @@ ol
   display: block;
   padding: 10px 15px;
 }
+.user-profile-dropdown .list-group-item a:hover {
 
+}
 /* fix main-nav icons spacing */
 
 .navbar-right ul.navbar-nav {
-  /* float: right; */
   justify-content: space-between;
   width: 110px;
   position: absolute;
@@ -465,7 +465,7 @@ div.navbar-right li {
 /* stripping spacing "conflicting" */
 .nav > li > a.app-notifications-icon {
   padding: 0;
-  line-height:22px;
+  line-height:26px;
 }
 .app-notifications-icon{
   font-size: 22px;
@@ -523,7 +523,7 @@ button#profile-button:hover , button#profile-button {
   transition: all .2s ease-in-out;
 }
 button.active#profile-button {
-  border: 1px solid #2eb8b8;
+  border: 1px solid #33cccc;
 }
 
 /* remove myquestions button hover effect , adding active state */
@@ -551,7 +551,7 @@ button.active#profile-button {
   border: none;
 }
 .dropdown-user-show-all a{
-  color: #24c4bc;
+  color: #33cccc;
 }
 
 /* spinny loader */
@@ -587,7 +587,7 @@ button.active#profile-button {
 .spinner .se {
   width: 7%;
   height: 25%;
-  background: #000;
+  background: #777888;
   position: absolute;
   left: 33.3%;
   top: 37%;

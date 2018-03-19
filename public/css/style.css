@@ -205,7 +205,7 @@ ul.list-group.social_list li.list-group-item a
     background: rgba(131, 177, 84, 0.075);
     transform: translate3d(100%, -50%, 0) scale(3);
   }
-  
+
 ul.list_notifications
 {
     list-style: outside none none;
@@ -475,7 +475,7 @@ ul.list_notifications
                     display: flex;
                 }
 .tab > a{
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 
                 #answers_expired_owner_container ul > li.hover-button-container{

@@ -7,16 +7,16 @@
                           <div>
                               <ul class="nav nav-bordered">
                                   <li>
-                                      <div class="media-left">
-                                          <a class="pull-left icon" href="/people" style="margin-top: 2px;"> <span class="fal fa-arrow-left"></span></a>
+                                      <div>
+                                          <a class="pull-left icon-button" href="/people" style="height: 36px; vertical-align: middle; line-height: 30px;     border-radius: 4px 0px 0px 4px;"> <span class="fal fa-arrow-left"></span></a>
                                       </div>
                                        <div class="media-body">
-                                          <form class="input-group" role="search" action="{{ route('search') }}">
-                                              <input type="text" name="q" class="form-control" placeholder="search by name..">
+                                          <form role="search" action="{{ route('search') }}">
+                                              <input style="margin-left: -2px;" type="text" name="q" class="form-control" placeholder="search by name..">
                                               <div class="input-group-btn">
-                                                  <button type="submit" class="btn btn-primary" style="height: 36px;">
-                                                      <span class="fa fa-search"></span>
-                                                  </button>
+                                                  <!-- <button type="submit" class="input-group-addon" style="height: 36px; border: 1px solid #E6EAEB; border-left: 0; border-radious: 4px;">
+                                                      <span class="fal fa-search"></span>
+                                                  </button> -->
                                               </div>
                                           </form>
                                        </div>
@@ -38,11 +38,11 @@
                                     </a>
                                     <div class="media-body">
 
-                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn-md btn-link pull-right p-a-0 {{( $value['obj']->af)?'hidden' : ''}}">
+                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn btn-md btn-link pull-right {{( $value['obj']->af)?'hidden' : ''}}">
                   <span class="fal fa-plus"></span>
                 </button>
 
-                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn-md btn-link pull-right p-a-0 {{($value['obj']->af)?'' : 'hidden'}}">
+                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn btn-md btn-link pull-right {{($value['obj']->af)?'' : 'hidden'}}">
                   <span class="text-muted fal fa-check"></span>
                 </button>
 

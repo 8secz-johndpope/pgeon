@@ -2,9 +2,9 @@
 @section('content')
 
 
- <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
-                <nav class="container nav-container header-nav">
-                    <a href="{{$back}}" class="btn btn-link p-x-0"><span class="fal fa-times back-arrow"></span></a>
+ <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+                <div class="container nav-container header-nav">
+                  <a href="{{$back}}" class="btn btn-link p-x-0"><span class="fal fa-long-arrow-left back-arrow"></span></a>
                     <h4>
                      <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
                      
@@ -27,7 +27,7 @@
                             </li>
                         </ul>
                     </div>
-                </nav>
+                </div>
             </nav>
 
             <!-- begin share question modal -->

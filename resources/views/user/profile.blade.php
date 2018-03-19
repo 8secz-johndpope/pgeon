@@ -34,7 +34,7 @@
                                     Uploading</button>
                                   
                                     <button class="btn ba-image">
-                                    Change banner </button>
+                                    Change banner..  </button>
                                   <input type="file" id="file-banner"  />
                                   (recommended : 2000 x 200)
      
@@ -53,10 +53,10 @@
                                             
                       </div>
                                     <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>
-                                    Uploading</button>
-                                  
-                                    <button class="btn pr-image">
-                                    Choose Image</button>
+                                    Updating</button>
+
+                                    <button class="btn btn-md btn-default-outline pr-image">
+                                    Choose image..</button>
                                   <input type="file" id="file-avatar"  />
 
      

@@ -4,14 +4,13 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-12">
-            <br /><br /><br />
-                <div class="alert alert-danger">
-
-                      The question you are looking for is either cancelled or deleted.
-                    </div>
-                </div>
-            </div>
+<div class="container content">
+  <div class="container text-center m-t-5p"><img src="/img/deleted.svg">
+    <h4 class="text-muted m-t-0">
+      Oops, this question was removed..
+    </h4>
+  </div>
+</div>
 
         </div>
     </div>

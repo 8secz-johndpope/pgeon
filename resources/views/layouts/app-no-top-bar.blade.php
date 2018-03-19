@@ -37,73 +37,68 @@
 
 
 <div>
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img src="{{URL::asset('img/pgeon-logo-landing.svg')}}" alt="Pgeon">
-                    </a>
-                </div>
-                <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0" style="width: 125px;">
-                        <li>
-                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px; margin-top: 2px;" class="btn-link">Sign up</a>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="/login" class="btn btn-sm btn-default" style="margin-top: 4px; font-weight: 600;">Log in</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-shadow">
+    <div class="container nav-container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
+        </a>
+      </div>
+      <div class="navbar-right" id="navbar-collapse-main">
+        <ul class="nav navbar-nav m-r-0" style="width: 125px;">
+          <li>
+            <a href="/register" type="button" style="color: #676D7A; font-size: 12px; margin-top: 2px;" class="btn-link">Sign up</a>
+          </li>
+          <li>
+            <div>
+              <a href="/login" class="btn btn-sm btn-default" style="margin-top: 4px; font-weight: 600;">Log in</a>
             </div>
-        </nav>
-
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </div>
 
 @else
 
 
-<div >
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
-                    </a>
-                    @if (Helper::eligible_to_ask())
-                    <ul class="nav navbar-nav">
-
-                        <li>
-                            <form class="navbar-form">
-                                <div>
-                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                    @endif
-                </div>
-                <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0">
-                        <li>
-                            <a href="{{ route('people') }}" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
-                        </li>
-                        <li>
-                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span>
-                             <span class="bubble_wrap hidden"><span class="fas fa-circle fa-xs "></span></span>
-                            </a>
-                        </li>
-                        <li>
-                            <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                                <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Helper::slug(Auth::user()->id,Auth::user()->slug)}}"></avatar>
-
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<div>
+  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+    <div class="container nav-container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="Pgeon">
+        </a>
+        @if (Helper::eligible_to_ask())
+        <ul class="nav navbar-nav">
+          <li>
+              <div>
+                <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My ?'s</span></a>
+              </div>
+          </li>
+        </ul>
+        @endif
+      </div>
+      <div class="navbar-right" id="navbar-collapse-main">
+        <ul class="nav navbar-nav m-r-0">
+          <li>
+            <a href="{{ route('people') }}" class="icon-button app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
+          </li>
+          <li>
+            <a href="/notifications" class="icon-button app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span>
+              <span class="bubble_wrap hidden"><span class="fas fa-circle fa-xs "></span></span>
+            </a>
+          </li>
+          <li>
+            <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
+              <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Helper::slug(Auth::user()->id,Auth::user()->slug)}}"></avatar>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
 

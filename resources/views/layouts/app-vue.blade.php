@@ -81,11 +81,9 @@
                     <ul class="nav navbar-nav">
 
                         <li>
-                            <form class="navbar-form">
                                 <div>
-                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My Questions</span></a>
+                                    <a href="/my-questions" class="my-questions btn btn-sm btn-primary-outline"><span>My ?'s</span></a>
                                 </div>
-                            </form>
                         </li>
                     </ul>
                     @endif
@@ -94,10 +92,10 @@
 
                     <ul class="nav navbar-nav m-r-0">
                         <li>
-                            <a href="{{ route('people') }}" class="app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
+                            <a href="{{ route('people') }}" class="icon-button app-notifications-icon"><span class="fal fa-users"></span><span class="fa fa-users"></span></a>
                         </li>
                         <li>
-                            <a href="/notifications" class="app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span>
+                            <a href="/notifications" class="icon-button app-notifications-icon"><span class="fal fa-bell"></span><span class="fa fa-bell"></span>
                              <span class="bubble_wrap hidden"><span class="fas fa-circle fa-xs "></span></span>
                             </a>
                         </li>

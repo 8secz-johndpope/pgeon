@@ -2,7 +2,7 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
+<nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-shadow">
             <div class="container nav-container">
                 <div class="navbar-header w-100">
 

@@ -4,7 +4,7 @@
 
  <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-question">
                 <nav class="container nav-container header-nav">
-                    <a  href="{{$back}}" ><span class="fal fa-arrow-left" style="font-size: 20px;"></span></a>
+                    <a  href="{{$back}}" ><span class="fal fa-long-arrow-left" style="font-size: 20px;"></span></a>
                     <h4>
                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
                     
