@@ -140,7 +140,6 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -163,8 +162,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
-        TCG\Voyager\VoyagerServiceProvider::class,
+
+    //    TCG\Voyager\VoyagerServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -240,6 +241,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => App\Helpers\Helper::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+
 
     ],
 

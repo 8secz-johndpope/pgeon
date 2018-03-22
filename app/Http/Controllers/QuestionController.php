@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Traits\QuestionTrait;
 use App\Mail\QuestionReported;
 use Illuminate\Support\Facades\Session;
+use Cartalyst\Stripe\Stripe;
+
 
 class QuestionController extends Controller
 {
@@ -188,7 +190,9 @@ class QuestionController extends Controller
     public function index($format=null)
     {
         
-  
+       
+
+
 //if we change soemthing here it should be changed in homecontroller index as well
                     
         $eligible_to_ask = false;

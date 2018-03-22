@@ -45,24 +45,28 @@
                       </form>
 
 
-
-                        <div id="stripe_box" class="collapse">
-
-                    @if ($followers_counts < env('FOLLOWERS_NEEDED'))
-                         <div class="alert alert-info alert-block m-t-10 text-center">
-                          Pgeon membership requires at least <b>{{env('FOLLOWERS_NEEDED')}}</b> followers.<br>
-                          To request manual approval please <a href="mailto:membership@pgeon.com">contact us</a>.
-                         </div>
-
-                    @else
-
-                          {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
-                         @if ($message = Session::get('success'))
+ @if ($message = Session::get('success'))
                          <div class="alert alert-success alert-block">
                            <button type="button" class="close" data-dismiss="alert">×</button>
                                  <strong>{{ $message }}</strong>
                          </div>
                          @endif
+                  
+                         @if(Session::has('error'))
+                         <div class="alert alert-danger alert-block">
+                           <button type="button" class="close" data-dismiss="alert">×</button>
+                                 <strong>{{ Session::get('error') }}</strong>
+                         </div>
+                            @endif
+
+                            
+                           
+                        <div id="stripe_box" class="collapse">
+
+                  
+
+                          {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
+                        
                          <div class="form-group" id="product-group">
                              {!! Form::label('plan', 'Select Plan:') !!}
                              {!! Form::select('plan', ['pgeon_monthly' => '$5.00 / Month', 'pgeon_yearly' => '$50.00 / Year'], 'Plan', [
@@ -119,7 +123,6 @@
                              </div>
                            </div>
                        {!! Form::close() !!}
-                     @endif
                  </div>
 
                 </div>

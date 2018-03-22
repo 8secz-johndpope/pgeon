@@ -14,9 +14,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        view()->composer(['layouts.app', 'errors::404'], function ($view) {
-            $view->with('test', 'ok');
-        });
     }
 
     /**

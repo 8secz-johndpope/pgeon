@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Voyager::setting('title') }}</title>
+    <title>Pgeon</title>
     @stack('styles')
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">

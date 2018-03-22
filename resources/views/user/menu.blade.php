@@ -8,8 +8,8 @@
           Security</a>
           @endif
                       
-                        <!-- <a href="{{$current_menu == 'membership'?'/#':'/membership'}}" class="list-group-item {{$current_menu == 'membership'?'active':''}}">
-          Membership</a> -->
+                         <a href="{{$current_menu == 'membership'?'/#':'/membership'}}" class="list-group-item {{$current_menu == 'membership'?'active':''}}">
+          Membership</a> 
                         <a href="/preferences" class="list-group-item {{$current_menu == 'preferences'?'active':''}}">
           Preferences</a>
                     </div>

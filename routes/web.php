@@ -13,6 +13,15 @@
 
   #Route::get('/', 'Auth\LoginController@showLoginForm');
 
+//   Route::post(
+//     'stripe/webhook',
+//     '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
+// );
+
+//Route::get('stripe/webhook', 'WebhookController@log');
+
+Route::stripeWebhooks('handle-webhook'); 
+
 
 Route::get('/', 'QuestionController@index');
 Route::get('/u_s', 'UserController@status');
@@ -20,6 +29,7 @@ Route::get('/u_s', 'UserController@status');
       Voyager::routes();
       Route::group(['middleware' => 'admin.user'], function()
       {
+            Route::resource('coupons', 'Voyager\VoyagerCouponController');
             Route::resource('questions', 'Voyager\VoyagerQuestionController');
             Route::resource('users', 'Voyager\VoyagerUserController');
             //just an override
@@ -108,7 +118,7 @@ Route::get('/u_s', 'UserController@status');
     Route::post('profile', 'UserController@update');
     Route::post('subscribe', 'UserController@subscribe');
     Route::get('security', 'UserController@security');
-    // Route::get('membership', 'UserController@membership');
+     Route::get('membership', 'UserController@membership');
     Route::get('notifications', 'UserController@notifications');
     Route::get('preferences', 'UserController@preferences');
 

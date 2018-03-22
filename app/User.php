@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Question;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
 

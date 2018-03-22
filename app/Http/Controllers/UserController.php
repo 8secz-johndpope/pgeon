@@ -149,16 +149,26 @@ class UserController extends Controller
          $user = Auth::user();
          $stripeToken = Request::input('stripeToken');
          $plan = Request::input('plan');
+         
          try {
-           $user->newSubscription('main', $plan)->create($stripeToken, [
-              'email' => $user->email,
-        ]);
+             
+           $user->newSubscription('main', $plan)
+                 ->withCoupon('PG_12_FREE')
+                 ->create($stripeToken, [ 'email' => $user->email,  ]);
+
+        
+        
 
             $user->role_id = 3;
             $user->save();
              return back()->with('success','Subscription is completed.');
-         } catch (Exception $e) {
-             return back()->with('success',$e->getMessage());
+         } catch (\Stripe\Error\Card  $e) {
+            $body = $e->getJsonBody();
+            $err  = $body['error']['message'];
+            Request::session()->flash('error','Error: ' . $err);
+            return back();
+
+            // return back()->with('success',$e->getMessage());
          }
 
     }

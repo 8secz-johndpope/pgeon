@@ -14,7 +14,7 @@
 
 	
 	
-    <title>{{ Voyager::setting('title') }}</title>
+    <title>Pgeon</title>
     @stack('styles')
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
