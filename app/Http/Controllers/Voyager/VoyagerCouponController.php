@@ -20,9 +20,9 @@ class VoyagerCouponController
     {
       
       $coupons = null;
-      $stripe = new Stripe(env('STRIPE_SECRET'), env('STRIPE_API_VERSION'));
+      //$stripe = new Stripe(env('STRIPE_SECRET'), env('STRIPE_API_VERSION'));
       
-      $coupons = $stripe->coupons()->all();
+      //$coupons = $stripe->coupons()->all();
 
     
       $local_coupons = LocalCoupon::all();
