@@ -16886,23 +16886,6 @@ if (typeof user !== "undefined") {
 	defrcomp = allrguest;
 }
 
-//vuex state for maintinaing window scroll position of response and questions
-//presently not working..will be used in future
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-	state: {
-		rposition: 0,
-		qposition: 0
-	},
-	mutations: {
-		rScrollPosition: function rScrollPosition(state, val) {
-			return state.rposition = val;
-		},
-		qScrollPosition: function qScrollPosition(state, val) {
-			return state.qposition = val;
-		}
-	}
-});
-
 var routes = [{ path: '/questions', component: defqcomp }, { path: '/', component: defqcomp }, { path: '/responses', component: defrcomp }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
@@ -16915,12 +16898,21 @@ var app = new Vue({
 	router: router,
 
 	el: '#app',
-	store: store,
 	mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_AnswerMixin_js__["a" /* AnswerMixin */]],
 
 	data: {
 		bubble: 0,
-		captcha_loading: true
+		captcha_loading: true,
+		coupon: {
+			code: "",
+			loading: false,
+			applied: false,
+			error: "",
+			type: false,
+			//only for local subscriptions
+			local_coupon_id: 0,
+			lc_confirmed: false
+		}
 
 	},
 
@@ -16957,6 +16949,48 @@ var app = new Vue({
 	},
 
 	methods: {
+		validateCoupon: function validateCoupon() {
+			var _this = this;
+
+			if (this.coupon.code.trim() != "") {
+				this.coupon.loading = true;
+				this.coupon.error = "";
+				this.$http.get('/coupon/apply/' + this.coupon.code).then(function (response) {
+					//location.href = "/pending"; 
+					_this.coupon.applied = true;
+					_this.coupon.loading = false;
+					_this.coupon.type = response.data.type;
+					//will be zero if it is a stripe call
+					_this.coupon.local_coupon_id = response.data.local_coupon_id;
+				}, function (response) {
+
+					_this.coupon.error = response.data.error;
+					_this.coupon.applied = false;
+					_this.coupon.loading = false;
+					_this.coupon.type = null;
+				});
+			}
+		},
+		removeAppliedCoupon: function removeAppliedCoupon() {
+			this.coupon.code = "";
+			this.coupon.applied = false;
+			this.coupon.type = null;
+		},
+		confirmLocalCouponSubscription: function confirmLocalCouponSubscription() {
+			var _this2 = this;
+
+			if (this.coupon.local_coupon_id > 0) {
+				this.coupon.loading = true;
+				this.$http.post('/coupon/subscribe/' + this.coupon.local_coupon_id).then(function (response) {
+					_this2.coupon.lc_confirmed = true;
+					_this2.coupon.loading = false;
+				}, function (response) {
+
+					_this2.coupon.error = response.data.error;
+					_this2.coupon.loading = false;
+				});
+			}
+		},
 		deleteQ: function deleteQ(id) {
 
 			this.$http.delete('/question/' + id).then(function (response) {
@@ -16980,11 +17014,11 @@ var app = new Vue({
 			//    alert(value)
 		},
 		getBubbleCount: function getBubbleCount() {
-			var _this = this;
+			var _this3 = this;
 
 			this.$http.get('/bubble').then(function (response) {
 				if (parseInt(response.data) > 0) {
-					_this.bubble = response.data;
+					_this3.bubble = response.data;
 					$(".bubble_wrap").removeClass('hidden');
 				}
 
@@ -18808,28 +18842,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 	components: {
 		Avatar: __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default.a
 	},
-	/*
- 	destroyed:function(){
- 	console.log($(window).scrollTop());
- 	
- 	this.$store.commit('rScrollPosition', $(window).scrollTop());
- },
- updated: function() {
- 	if($(".nav_all").hasClass("up50"))
- 		$(".scroll-content").removeClass("mt-50")
- 	
- 	//console.log(this.rposition) // -> 1
- },
- beforeUpdate: function() {
- 	console.log($(window).scrollTop());
- 	this.$store.commit('rScrollPosition', $(window).scrollTop());
- 	
- },
- computed: {
- 	rposition () {
- 		return this.$store.state.rposition
- 	}
- },*/
 
 	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 

@@ -13,14 +13,14 @@
 
      <div class="col-md-8 m-b-5" style="margin-top:10px">
       <form  action="/profile" method="POST">
-                    <ul class="list-group media-list media-list-stream">
-                        <li class="list-group-item media p-a">
-                            <div class="form-group">
+                    <ul class="list-group media-list media-list-stream" >
+                        <li class="list-group-item media p-a" >
+                            <div class="form-group" v-if="!coupon.applied">
                                 <ul class="list-group">
                                     <!-- <a href="#" style="line-height:2.3"><span class="icon icon-info-with-circle" style="line-height:2.3;float: left"></span> &nbsp;Learn more about pgeon membership</a> -->
                                     <li class="list-group-item ng-binding">
                                         <div class="pull-right">
-                                            <div class="ng-scope">
+                                            <div class="ng-scope" >
                                                 <span class="label">{{$plan}}</span>
                                                  @if ($plan == "Free")
                                                 <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">upgrade</a>
@@ -31,13 +31,35 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="form-group">
+
+                            <div class="form-group" v-if="coupon.error" v-cloak>
+                                <span class="alert alert-danger"> @{{coupon.error}} </span>
+                            </div>    
+
+
+                        <div class="form-group" v-if="coupon.lc_confirmed" v-cloak>
+                                <span class="alert alert-success"> Subscription is completed.</span>
+                                 
+                            </div>
+
+                             <div class="form-group" v-if="coupon.applied && !coupon.lc_confirmed" v-cloak>
+                                <span class="alert alert-success"> Coupon applied</span>
+                                 <button v-on:click="removeAppliedCoupon()" class="btn btn-default" type="button" style="height: 36px;" >Reset</button>
+
+                                  <button type="button" class="btn btn-default" style="height: 36px;" v-if = "coupon.type == 'local'" v-on:click="confirmLocalCouponSubscription()" :disabled="coupon.loading">Confirm your subscription</button>
+                            </div>
+
+                            @if ($plan == "Free")
+                            <div class="form-group" v-if="!coupon.applied && !coupon.lc_confirmed">
                               <label class="control-label">Redeem code</label>
                               <div class="input-group">
-                                <input class="form-control" placeholder="enter code..">
-                                    <span class="input-group-btn"> <button class="btn btn-default" type="button" style="height: 36px;">apply</button> </span>
+                                <input class="form-control" v-model="coupon.code" placeholder="enter code..">
+                                    <span class="input-group-btn"> <button v-on:click="validateCoupon()" class="btn btn-default" type="button" style="height: 36px;" :disabled="coupon.loading">apply</button> </span>
                                 </div>
                             </div>
+                            @endif    
+
+
                         </li>
                     </ul>
 
@@ -59,14 +81,17 @@
                          </div>
                             @endif
 
-                            
-                           
-                        <div id="stripe_box" class="collapse">
+                          
+                          
+                          
+
+                        <div id="stripe_box" class="collapse" v-bind:class="{ in: coupon.type == 'stripe' }">
 
                   
 
                           {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
                         
+                          <input v-if="coupon.applied" type="hidden" name="coupon" v-model="coupon.code" >
                          <div class="form-group" id="product-group">
                              {!! Form::label('plan', 'Select Plan:') !!}
                              {!! Form::select('plan', ['pgeon_monthly' => '$5.00 / Month', 'pgeon_yearly' => '$50.00 / Year'], 'Plan', [

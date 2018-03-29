@@ -8,7 +8,7 @@
                     <div class="panel-body">
 
 
-          {{ Form::model($question, array('route' => array('questions.update', $question->id), 'method' => 'PUT')) }}
+          {{ Form::open( array('route' => array('questions.update', $question->id), 'method' => 'PUT')) }}
 
               <div class="form-group">
                   {{ Form::label('question', 'Question') }}

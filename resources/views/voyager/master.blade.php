@@ -95,7 +95,7 @@ if ((substr(Auth::user()->avatar, 0, 7) == 'http://') || (substr(Auth::user()->a
 @include('voyager::partials.app-footer')
 <script>
     (function(){
-            var appContainer = document.querySelector('.app-container'),
+            var appContainer = document.querySelector('. app-container'),
                 sidebar = appContainer.querySelector('.side-menu'),
                 navbar = appContainer.querySelector('nav.navbar.navbar-top'),
                 loader = document.getElementById('voyager-loader'),

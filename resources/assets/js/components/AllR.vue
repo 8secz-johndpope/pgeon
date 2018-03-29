@@ -180,28 +180,7 @@ import Avatar from 'vue-avatar'
         components: {
 				Avatar
 		},
-		/*
-			destroyed:function(){
-			console.log($(window).scrollTop());
-			
-			this.$store.commit('rScrollPosition', $(window).scrollTop());
-		},
-		updated: function() {
-			if($(".nav_all").hasClass("up50"))
-				$(".scroll-content").removeClass("mt-50")
-			
-			//console.log(this.rposition) // -> 1
-		},
-		beforeUpdate: function() {
-			console.log($(window).scrollTop());
-			this.$store.commit('rScrollPosition', $(window).scrollTop());
-			
-		},
-		computed: {
-			rposition () {
-				return this.$store.state.rposition
-			}
-		},*/
+
 
 	    mixins: [CommonMixin],
 	    

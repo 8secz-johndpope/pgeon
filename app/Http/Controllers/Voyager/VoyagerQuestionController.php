@@ -33,6 +33,7 @@ class VoyagerQuestionController
 
       }
 
+  
       
 
       public function publish($id)

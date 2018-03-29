@@ -149,12 +149,18 @@ class UserController extends Controller
          $user = Auth::user();
          $stripeToken = Request::input('stripeToken');
          $plan = Request::input('plan');
-         
+         $coupon = trim(Request::input('coupon'));
+
          try {
-             
-           $user->newSubscription('main', $plan)
-                 ->withCoupon('PG_12_FREE')
-                 ->create($stripeToken, [ 'email' => $user->email,  ]);
+           if($coupon)  {
+                $user->newSubscription('main', $plan)
+                       ->withCoupon($coupon)
+                       ->create($stripeToken, [ 'email' => $user->email,  ]);
+           }else {
+                $user->newSubscription('main', $plan)
+                       ->create($stripeToken, [ 'email' => $user->email,  ]);
+           }
+          
 
         
         

@@ -61,18 +61,6 @@ var defrcomp = allr
 	}
 
 
-	//vuex state for maintinaing window scroll position of response and questions
-	//presently not working..will be used in future
-	const store = new Vuex.Store({
-		state: {
-			rposition: 0,
-			qposition: 0
-		},
-		mutations: {
-			rScrollPosition: (state, val) => state.rposition=val,
-			qScrollPosition: (state, val) => state.qposition=val,
-		}
-	  })
 
 	const routes = [
 		{ path: '/questions', component:defqcomp },
@@ -90,13 +78,21 @@ var defrcomp = allr
 		router,
 
 		el: '#app',
-		store,
 		mixins: [AnswerMixin],
 
 		data: {
 			bubble: 0,
 			captcha_loading: true,
-			
+			coupon: {
+				code : "",
+				loading: false,
+				applied:false,
+				error: "",
+				type: false,
+				//only for local subscriptions
+				local_coupon_id : 0,
+				lc_confirmed: false
+			}
 			
 		},
 		
@@ -111,6 +107,7 @@ var defrcomp = allr
 			//this.$refs.allR.lo()
 		
 		},
+
 	
 		created: function() {
 
@@ -140,6 +137,46 @@ var defrcomp = allr
 		},
 
 		methods: {
+			validateCoupon() {
+				if(this.coupon.code.trim() != "" ) {
+					this.coupon.loading = true;
+					this.coupon.error = "";
+					this.$http.get(`/coupon/apply/${this.coupon.code}`).then((response) => {
+					//location.href = "/pending"; 
+						this.coupon.applied = true;
+						this.coupon.loading = false;
+						this.coupon.type = 	response.data.type
+						//will be zero if it is a stripe call
+						this.coupon.local_coupon_id = response.data.local_coupon_id
+					}, (response) => {
+						
+						this.coupon.error = response.data.error
+						this.coupon.applied = false;
+						this.coupon.loading = false;
+						this.coupon.type = null;
+					});
+				}
+			},
+			removeAppliedCoupon() {
+						this.coupon.code = "";
+						this.coupon.applied = false;
+						this.coupon.type = null;
+			},
+			
+			confirmLocalCouponSubscription() {
+				if(this.coupon.local_coupon_id > 0) {
+					this.coupon.loading = true;
+					this.$http.post(`/coupon/subscribe/${this.coupon.local_coupon_id}`).then((response) => {
+							this.coupon.lc_confirmed = true
+							this.coupon.loading = false;
+						}, (response) => {
+							
+							this.coupon.error = response.data.error
+							this.coupon.loading = false;
+							
+						});
+				}
+			},
 			deleteQ(id) {
 
 				this.$http.delete(`/question/${id}`).then((response) => {

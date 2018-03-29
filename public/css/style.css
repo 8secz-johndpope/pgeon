@@ -608,3 +608,7 @@ ul.list_notifications
             		float:left;
             		margin-left:25px;
             }
+/** to avoid displaying vue element before rendering **/
+            [v-cloak] {
+                display: none;
+              }

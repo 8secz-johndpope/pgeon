@@ -29,7 +29,10 @@ Route::get('/u_s', 'UserController@status');
       Voyager::routes();
       Route::group(['middleware' => 'admin.user'], function()
       {
-            Route::resource('coupons', 'Voyager\VoyagerCouponController');
+            Route::get('coupons/', 'Voyager\VoyagerCouponController@index');
+            Route::get('coupons/create', 'Voyager\VoyagerCouponController@create');
+            Route::post('coupons/ins', 'Voyager\VoyagerCouponController@ins');
+            Route::get('coupons/delete/{id}', 'Voyager\VoyagerCouponController@destroy');
             Route::resource('questions', 'Voyager\VoyagerQuestionController');
             Route::resource('users', 'Voyager\VoyagerUserController');
             //just an override
@@ -52,6 +55,7 @@ Route::get('/u_s', 'UserController@status');
   //Route::get('user/{id}', 'UserController@index')->name('profile');
 
 
+
   Route::get('user/{id}', 'UserController@getProfile');
   Route::get('user/{id}/questions', 'UserController@questions');
   Route::get('user/{id}/answers', 'UserController@answers');
@@ -59,6 +63,7 @@ Route::get('/u_s', 'UserController@status');
 
   Route::get('user/{id}/topresponders', 'UserController@topResponders');  
 
+  
   // User Routes
   Route::get('qff/{p}/{c}', 'QuestionController@fromfollowers');
   Route::get('featuredq/{p}/{c}', 'QuestionController@featured');
@@ -77,6 +82,9 @@ Route::get('/u_s', 'UserController@status');
   Route::group(array('middleware' => 'auth'), function()
   {
      
+    Route::get('coupon/apply/{coupon}', 'AllCouponController@apply');
+    Route::post('coupon/subscribe/{coupon_id}', 'AllCouponController@subscribe'  );
+
 
     Route::get('cpwd','HomeController@showChangePasswordForm');
     Route::post('cpwd','HomeController@cpwd');
@@ -162,6 +170,9 @@ Route::get('/u_s', 'UserController@status');
 
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+  
+
+  
 
   Route::any('{vue_q}', [
     'uses' => 'QuestionController@index'
