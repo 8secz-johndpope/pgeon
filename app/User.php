@@ -295,13 +295,7 @@ public static function fetchRepliesCount($user_id , $replied_by) {
   public static function eligible_to_ask() {
 
     $eligible_to_ask = false;
-    if (Auth::user()->id && Auth::user()->role_id != 3) {
-         $followers_counts = UserFollowing::get_followers_count(Auth::user()->id);
-        if ($followers_counts >= env('FOLLOWERS_NEEDED')) {
-            $eligible_to_ask = true;
-        }
-
-    }else { //if role 3
+    if (Auth::user()->id && Auth::user()->role_id == 3) {
         $eligible_to_ask = true;  
     }
 
