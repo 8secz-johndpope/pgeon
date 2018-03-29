@@ -16,8 +16,10 @@ return [
      * https://stripe.com/docs/api#event_types.
      */
     'jobs' => [
-        'charge_captured' => \App\Jobs\StripeWebhooks\HandleChargeCaptured::class,
-        'charge_succeeded' => \App\Jobs\StripeWebhooks\ChargeSucceeded::class,
+       // 'charge_captured' => \App\Jobs\StripeWebhooks\HandleChargeCaptured::class,
+      //  'charge_succeeded' => \App\Jobs\StripeWebhooks\ChargeSucceeded::class,
+        'customer_subscription_created' => \App\Jobs\StripeWebhooks\CustomerSubscriptionCreated::class,
+        //customer.subscription.deleted
         // 'source_chargeable' => \App\Jobs\StripeWebhooks\HandleChargeableSource::class,
         // 'charge_failed' => \App\Jobs\StripeWebhooks\HandleFailedCharge::class,
     ],
