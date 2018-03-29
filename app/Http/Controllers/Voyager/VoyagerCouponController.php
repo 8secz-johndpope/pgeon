@@ -41,11 +41,13 @@ class VoyagerCouponController
     {
    
 
+
+      $cv = Input::get('coupon_validity');
       LocalCoupon::create([
         'coupon_code' => Input::get('coupon_code'),
         'description' => Input::get('description'),
         'max_redemptions' => Input::get('max_redemptions'),
-        'coupon_validity' => Input::get('coupon_validity')]);
+        'coupon_validity' => $cv]);
 
         return redirect('admin/coupons');
       

@@ -70,7 +70,7 @@
     <script src="{{ asset('js/question.index.js') }}"></script>
     <script>
   $( function() {
-    $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
   } );
   </script>
 @endpush
