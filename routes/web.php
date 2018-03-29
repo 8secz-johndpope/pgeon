@@ -46,16 +46,9 @@ Route::get('/u_s', 'UserController@status');
 
   Auth::routes();
 
-  //Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');;
-
 
 
   Route::get('bubble', 'UserController@notification_count');
-  //
-
-
-  // User Routes
-  //Route::get('user/{id}', 'UserController@index')->name('profile');
 
 
 

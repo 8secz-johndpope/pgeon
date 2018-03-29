@@ -9,8 +9,9 @@
 <div class="row">
     <div class="col-md-12">
         <h3>Local Coupons (lifetime)</h3>
-        <p>Life time coupons -  which has no expiration. </p><p>Users who redeemed this coupon can enjoy lifetime membership. </p><p>Deleting a coupon at any time will strip down the membership from the users used it.</p><p> This doesn't require a credit card while subscription.</p><p>
-             Individually, members can be relived off from coupon benefits and demoted to normal users on 'Users' screen.  </p>
+        <p>Users who redeemed this coupon can enjoy lifetime membership. </p>
+        <p> This does not require a credit card.</p><p>
+        </p>
              <a href="coupons/create"><b>Add new</b></a>
         <div class="panel panel-bordered">
             <div class="panel-body">
@@ -64,7 +65,12 @@
 <div class="row">
     <div class="col-md-12">
         <h3>Stripe Coupons (limited)</h3>
-        <h6>Limited time coupons -  which will be expired and subscriptions charges will be levied thereafter. These coupons requires credit cards during subscriptions. Coupons should be created in Stripe dashboard </h6>
+        <h6>Limited-time coupons -  which will be expired and subscriptions charges will be levied thereafter. These coupons require credit cards. </h6>
+
+Coupons should be created in Stripe dashboard 
+ <a href="https://dashboard.stripe.com/login" target="new">Login to stripe</a>
+bala223344@gmail.com / object123
+ <br />and navigate to    Pgeon -> Subscription -> Coupons
         <div class="panel panel-bordered">
             <div class="panel-body">
               <table class="table table-striped table-bordered">

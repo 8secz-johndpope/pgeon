@@ -24,9 +24,9 @@ class VoyagerCouponController
     {
       
       $coupons = null;
-      //$stripe = new Stripe(env('STRIPE_SECRET'), env('STRIPE_API_VERSION'));
+      $stripe = new Stripe(env('STRIPE_SECRET'), env('STRIPE_API_VERSION'));
       
-      //$coupons = $stripe->coupons()->all();
+      $coupons = $stripe->coupons()->all();
 
      // SELECT local_coupons.*, count(1) AS redeem_count FROM `local_coupons` INNER JOIN local_coupon_usages on local_coupons.id = local_coupon_usages.coupon_id
 //GROUP by coupon_id
