@@ -29,10 +29,13 @@ Route::get('/u_s', 'UserController@status');
       Voyager::routes();
       Route::group(['middleware' => 'admin.user'], function()
       {
+            
+            Route::get('coupon/{id}', 'Voyager\VoyagerCouponController@beneficiaries');
             Route::get('coupons/', 'Voyager\VoyagerCouponController@index');
             Route::get('coupons/create', 'Voyager\VoyagerCouponController@create');
             Route::post('coupons/ins', 'Voyager\VoyagerCouponController@ins');
             Route::get('coupons/delete/{id}', 'Voyager\VoyagerCouponController@destroy');
+            Route::get('coupon/stripdown/{user_id}', 'Voyager\VoyagerCouponController@stripDown');
             Route::resource('questions', 'Voyager\VoyagerQuestionController');
             Route::resource('users', 'Voyager\VoyagerUserController');
             //just an override

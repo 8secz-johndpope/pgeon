@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Session;
 use Cartalyst\Stripe\Stripe;
 
 use App\LocalCoupon;
+use App\LocalCouponUsage;
+
+use App\User;
+
 use Validator;
 use HTML;
 
@@ -24,9 +28,15 @@ class VoyagerCouponController
       
       //$coupons = $stripe->coupons()->all();
 
+     // SELECT local_coupons.*, count(1) AS redeem_count FROM `local_coupons` INNER JOIN local_coupon_usages on local_coupons.id = local_coupon_usages.coupon_id
+//GROUP by coupon_id
     
-      $local_coupons = LocalCoupon::all();
+   //   $local_coupons = LocalCoupon::all();
       
+   $local_coupons =  DB::select("SELECT local_coupons.*, count(1) AS redeem_count FROM `local_coupons` INNER JOIN local_coupon_usages on local_coupons.id = local_coupon_usages.coupon_id
+   GROUP by coupon_id");
+
+
        return view('voyager.coupons.index', ['coupons' => $coupons['data'], 'local_coupons' => $local_coupons, 'page_title' => 'Coupons', 'sort' =>'new']);
     }
 
@@ -35,6 +45,31 @@ class VoyagerCouponController
       return view('voyager.coupons.add');
 
     }
+
+    public function beneficiaries($id) {
+      $lcu = DB::table('local_coupon_usages')
+            ->join('users', 'users.id', '=', 'local_coupon_usages.user_id')
+            ->where('coupon_id',$id)
+            ->select('users.id', 'users.email', 'users.slug' , 'users.role_id')
+            ->get();
+
+     
+      return view('voyager.coupons.beneficiaries', ['users' => $lcu]);
+    }
+
+
+
+    public function stripDown($user_id) {
+      $user = User::find($user_id);
+
+
+      DB::table('subscriptions')->where('user_id', $user_id)->delete();
+
+      $user->role_id = 2;
+      $user->save();
+      return back()->with('success','Subscription is completed.');
+    }
+   
 
 
     public function ins()
@@ -89,9 +124,14 @@ class VoyagerCouponController
 
       public function destroy($id)
     	{
-    		// delete
+        
+        LocalCouponUsage::where('coupon_id',$id)->delete();
+        
+        // delete
     		$question = LocalCoupon::find($id);
         $question->delete();
+
+
     		// redirect
     		Session::flash('message', 'Successfully deleted the coupon!');
         return redirect('admin/coupons');

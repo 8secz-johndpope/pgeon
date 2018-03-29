@@ -24,7 +24,7 @@
                       <td>max allowed redemptions</td>
                       <td>Coupon validity</td>
                       <td>Created at</td>
-                      <td>Times redeemed</td>
+                      <td>Redeemed by</td>
                       <td></td>
                   </tr>
               </thead>
@@ -36,13 +36,12 @@
 
                     <tr>
                         <td> {{ $value->id }}</td>
-                        <td>{{ $value['coupon_code'] }}                        </td>
-                        <td>{{   $value['description']  }}</td>
-                        <td>  {{ $value['max_redemptions'] }}</td>
-                        <td>{{ $value['coupon_validity'] }}  </td>
-                        <td>                              {{ $value['created_at']}}</td>
-                        <td>                              {{ $value['created_at']}}</td>
-                        <td>    </td>
+                        <td>{{ $value->coupon_code }}                        </td>
+                        <td>{{   $value->description  }}</td>
+                        <td>  {{ $value->max_redemptions }}</td>
+                        <td>{{ $value->coupon_validity }}  </td>
+                        <td>                              {{ $value->created_at}}</td>
+                        <td><a href='/admin/coupon/{{$value->id}}'>     {{ $value->redeem_count}}</a></td>
                         <td><a class="del" id="{{ $value->id }}"><span class="icon voyager-trash"></span></a></td>
                     </tr>
                 @endforeach
@@ -124,7 +123,7 @@
 <script>
           $( function() {
     $( ".del" ).click(function () {
-       if (confirm('Users enjoying the benefits will be stripped off.Want to continue?')) {
+       if (confirm('Users enjoying the benefits will be still retain them. It will just delete the coupon.Want to continue?')) {
            location.href=`coupons/delete/${$(this).attr('id')}`
        }
     });
