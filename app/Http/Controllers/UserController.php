@@ -88,12 +88,13 @@ class UserController extends Controller
 
     public function membership () {
       $user = Auth::user();
-
+      $stripe_id = "";
       $sub = $user->subs()->latest()->first();
  
       //will determine if it is a stripe subscribed or locally subscribed.
       //last
-      $stripe_id = $sub->stripe_id;
+      if($sub)
+        $stripe_id = $sub->stripe_id;
 
        $followers_counts = UserFollowing::get_followers_count($user->id);
       $error = "";
