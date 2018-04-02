@@ -6,6 +6,7 @@ return [
      * Stripe will sign each webhook using a secret. You can find the used secret at the
      * webhook configuration settings: https://dashboard.stripe.com/account/webhooks.
      */
+    
     'signing_secret' => 'whsec_5kJORelMeoxihpTOmfevyyG8OVycxW1k',
 
     /*

@@ -89,6 +89,12 @@ class UserController extends Controller
     public function membership () {
       $user = Auth::user();
 
+      $sub = $user->subs()->latest()->first();
+ 
+      //will determine if it is a stripe subscribed or locally subscribed.
+      //last
+      $stripe_id = $sub->stripe_id;
+
        $followers_counts = UserFollowing::get_followers_count($user->id);
       $error = "";
       if($user->subscribedToPlan('pgeon_monthly','main')) {
@@ -102,7 +108,7 @@ class UserController extends Controller
         $user_type = "Standard";
       }
 
-      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type);
+      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type)->with('stripe_id', $stripe_id);
 
     }
 
@@ -144,6 +150,14 @@ class UserController extends Controller
         return response()->json($user);
     }
     
+    public function unsubscribe() {
+        $user = Auth::user();
+        $user->subscription('main')->cancelNow();
+
+        $user->role_id = 2;
+        $user->save();
+        return back()->with('success','Unsubscribed successfully.');
+    }
     public function subscribe()
     {
          $user = Auth::user();

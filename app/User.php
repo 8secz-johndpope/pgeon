@@ -63,6 +63,9 @@ class User extends \TCG\Voyager\Models\User
     }
 
 
+    public function subs() {
+        return $this->hasOne('App\Subscription');
+    }
 
     
   

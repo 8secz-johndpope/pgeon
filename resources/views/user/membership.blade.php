@@ -12,7 +12,7 @@
 
 
      <div class="col-md-8 m-b-5" style="margin-top:10px">
-      <form  action="/profile" method="POST">
+    
                     <ul class="list-group media-list media-list-stream" >
                         <li class="list-group-item media p-a" >
                             <div class="form-group" v-if="!coupon.applied">
@@ -24,11 +24,26 @@
                                                 <span class="label">{{$plan}}</span>
                                                  @if ($plan == "Free")
                                                 <a data-toggle="collapse" data-target="#stripe_box" class="btn btn-link btn-xs">upgrade</a>
+                                               
                                                  @endif
                                             </div>
                                         </div>
+                                        
+                                     
                                         {{$user_type}}
-                                    </li>
+                                        </li>
+                                        @if ($plan != "Free" && $stripe_id != "")
+<!-- works only with stripe...not for local subscription -->
+                                        <li class="list-group-item ng-binding">
+                                         <div >
+                                                <form  action="/unsubscribe" method="POST">
+                                                   <button type="submit" class="btn btn-danger" > Cancel Subscription</button>
+                                                    {{ csrf_field() }}
+                                                </form>
+                                                </div>
+                                                </li>
+                                        @endif
+                                   
                                 </ul>
                             </div>
 
@@ -63,8 +78,7 @@
                         </li>
                     </ul>
 
-                              {{ csrf_field() }}
-                      </form>
+                           
 
 
  @if ($message = Session::get('success'))
