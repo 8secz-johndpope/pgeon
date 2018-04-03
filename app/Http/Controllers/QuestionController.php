@@ -320,11 +320,11 @@ class QuestionController extends Controller
         $total_posted = 0;
         $total_count_exhausted = false;
         if ($user->role_id != 3 ) {
-         // abort(403, 'Access denied');
-            $total_posted = QuestionCounter::get_weekly_counter($user->id);
-            if ($total_posted >=  env('QS_ALLOWED_PER_WEEK')) {
-                $total_count_exhausted = true;
-            }    
+          abort(403, 'Access denied');
+            // $total_posted = QuestionCounter::get_weekly_counter($user->id);
+            // if ($total_posted >=  env('QS_ALLOWED_PER_WEEK')) {
+            //     $total_count_exhausted = true;
+            // }    
         }
         
         
