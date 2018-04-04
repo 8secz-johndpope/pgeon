@@ -126,12 +126,7 @@
 <!-- Push a style dynamically from a view -->
 @push('after-core-styles')
 
-<style>
-  .user-data {
-        background-image: url("/uploads/banners/{{$user->banner}}");
-        background-size:cover;
-      }
-</style>
+
 
 @endpush
 

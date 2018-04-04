@@ -19907,6 +19907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -19965,11 +19966,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     checkVoted: function checkVoted(answer_id) {
       for (var i = 0; i < this.my_votes.length; i++) {
         if (this.my_votes[i]["answer_id"] == answer_id) {
-          if (this.my_votes[i]["votecount"] > 0) return '+' + this.my_votes[i]["votecount"];
           return this.my_votes[i]["votecount"];
         }
       }
-      return "-";
+      return 0;
     }
   },
 
@@ -54809,11 +54809,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "xlink:href": "/img/sprites/solid.svg#caret-up"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "v_count",
-      class: {
-        'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1
-      }
-    }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
+      staticClass: "v_count"
+    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
       staticClass: "c-down",
       attrs: {
         "width": "12",
@@ -55230,7 +55227,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('p', [_c('table', {
       staticClass: "bkword"
-    }, [_c('tr', [_c('td', [_vm._v("                 \n            \t\t" + _vm._s(answer.answer) + "\n                ")])])])])])])
+    }, [_c('tr', [_c('td', [_vm._v("                 \n            \t\t" + _vm._s(answer.answer) + "\n                "), _c('span', {
+      staticClass: "pull-right"
+    }, [_vm._v(_vm._s(_vm.checkVoted(answer.id)))])])])])])])])
   }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

@@ -25,24 +25,7 @@
    <form  action="/profile" method="POST">
    {{ csrf_field() }}
             <ul class="list-group media-list media-list-stream">
-            <li class="list-group-item media p-a banner">
-                    <div class="upload-btn-wrapper ">
-                
-                          
-
-                                  <button class="btn ba-loading hidden"><span class="fa fa-spinner fa-spin"></span>
-                                    Uploading</button>
-                                  
-                                    <button class="btn ba-image">
-                                    Change banner..  </button>
-                                  <input type="file" id="file-banner"  />
-                                  (recommended : 2000 x 200)
-     
-                      </div>
-
-   
-                    <br />
-                </li>
+           
 
                 <li class="list-group-item media p-a profile_upload">
                     <label class="control-label">Profile picture</label>
@@ -150,13 +133,7 @@
 <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.6/js/all.js'>
 
 
-<style>
-  .banner {
-        background: url("/uploads/banners/{{$user->banner}}") no-repeat center;
-        height:80px;
 
-      }
-</style>
 @endpush
 
 <!-- Push a script dynamically from a view -->

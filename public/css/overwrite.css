@@ -532,11 +532,11 @@ input.pending-radio:checked+label {
 
 
 .c-up{
-  transform: translate(0px, 8px);
+  transform: translate(0px, 12px);
 
 }
 .c-down{
-  transform: translate(0px, -9px);
+  transform: translate(0px, 0px);
 }
 
 .vote-none{
@@ -560,7 +560,7 @@ input.pending-radio:checked+label {
 /*** EDITED by Prasanth ***/
 #vote svg {
 	/** taken from auto generated css of fa **/
-	fill:#E0E1E3;
+	fill:#b2b3b6;
 }
 
 svg .vote-up ,svg .vote-down, svg .vote-none{
@@ -721,7 +721,7 @@ div a.icon:focus {
 }
 
 .voting_container .v_count{
-		font-size: 14px;
+		font-size: 4px;
     font-weight: 400;
 
 }

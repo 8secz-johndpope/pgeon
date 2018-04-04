@@ -56,6 +56,7 @@
 <tr>
 <td>                 
             		{{answer.answer}}
+                <span class="pull-right">{{ checkVoted(answer.id)}}</span>
                 </td>
 </tr>
 </table>
@@ -144,13 +145,10 @@
       checkVoted(answer_id) {
          for (var i = 0; i < this.my_votes.length; i++) {
             if (this.my_votes[i]["answer_id"] == answer_id) {
-            		if(this.my_votes[i]["votecount"] > 0 )
-            		  	return '+'+this.my_votes[i]["votecount"];
             		return this.my_votes[i]["votecount"];
-              
             }
          }
-        return "-";
+        return 0;
       },
    
       
