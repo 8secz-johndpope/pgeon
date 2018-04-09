@@ -75,6 +75,8 @@ Route::get('/u_s', 'UserController@status');
   
   Route::get('get_vote_count_for_question/{id}', 'QuestionController@get_vote_count_for_question');
 
+  Route::get('pa/{base64_code}', 'EmailChangeController@processActivation');
+
   Route::group(array('middleware' => 'auth'), function()
   {
      
@@ -87,7 +89,9 @@ Route::get('/u_s', 'UserController@status');
     
       
     Route::post('reportQ', 'QuestionController@reportQ');
-     
+
+    Route::post('changeemail', 'EmailChangeController@changeEmail');
+
     Route::delete('user', 'UserController@delete');
     Route::delete('usersso', 'UserController@deletesso');
 

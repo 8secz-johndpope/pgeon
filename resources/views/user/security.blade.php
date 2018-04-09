@@ -34,6 +34,7 @@
 		<div class="modal" id="changeE">
 				<div class="modal-dialog modal-sm">
 						<div class="modal-content">
+						<form id="frmChangeEmail" method="post" >
 								<div class="modal-header">
 										<h4 class="modal-title pull-left">Change email</h4>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -41,16 +42,22 @@
 										</button>
 								</div>
 								<div class="modal-body">
-										<input type="email" placeholder="Enter your new email" class="form-control m-b-sm">
-										<input type="email" placeholder="Confirm new email" class="form-control m-b-sm">
-										<input type="password" class="form-control m-b-xs" placeholder="Password">
+										<input type="email" id="nw_email" placeholder="Enter your new email" class="form-control m-b-sm" required>
+										<input type="email" id="cf_email"  placeholder="Confirm new email" class="form-control m-b-sm" required>
+										<input type="password" id="c_pwd" class="form-control m-b-xs" placeholder="Current password">
+										<div class="alert alert-danger">
+									
+									</div>
 								</div>
+						
 								<div class="modal-actions">
-										<button type="button" class="btn-link modal-action confirm" data-dismiss="modal">
+										<button type="submit" class="btn-link modal-action confirm" >
 												<strong style="color: #3fc3ad;">Save</strong>
 										</button>
 										<button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Cancel</button>
 								</div>
+							
+						</form>								
 						</div>
 				</div>
 		</div>
@@ -62,3 +69,8 @@
 	</div>
 </div>
 @endsection
+
+@push('scripts')    
+<script src="{{ asset('js/settings.js') }}"></script>
+
+@endpush

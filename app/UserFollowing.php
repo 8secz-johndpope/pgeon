@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 
-use App\UserFollowing;
 
 class UserFollowing extends Model
 {

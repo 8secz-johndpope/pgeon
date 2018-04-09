@@ -35,4 +35,15 @@ return [
         'secret' => env('STRIPE_SECRET')
     ],
 
+    'twitter' => [
+        'client_id'     => env('TW_ID'),
+        'client_secret' => env('TW_SEC'),
+        'redirect'      => env('TW_URL'),
+    ],
+
+    'facebook' => [
+        'client_id'     => env('FACEBOOK_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect'      => env('FACEBOOK_URL'),
+    ],
 ];

@@ -26,7 +26,7 @@
                 <td style="font-family: 'Open Sans', sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                   <table border="0" cellpadding="0" cellspacing="0" class="alert alert-warning" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; min-width: 100%;" width="100%">
                     <tr>
-                      <td align="center" style="font-family: 'Open Sans', sans-serif; vertical-align: top; font-size: 16px; border-radius: 3px 3px 0 0; color: #ffffff; font-weight: 500; padding: 20px; text-align: center; background-color: #f39c12;" valign="top" bgcolor="#f39c12"> Someone has reported a live question</td>
+                      <td align="center" style="font-family: 'Open Sans', sans-serif; vertical-align: top; font-size: 16px; border-radius: 3px 3px 0 0; color: #ffffff; font-weight: 500; padding: 20px; text-align: center; background-color: #f39c12;" valign="top" bgcolor="#f39c12"> You have requested to change email</td>
                     </tr>
                   </table>
                 </td>
@@ -39,9 +39,9 @@
                   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                     <tr>
                       <td style="font-family: 'Open Sans', sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-                        <p style="font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Hello Pgeon staff member,</p>
-                        <p style="font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">This user: <a href="{{$user_slug}}">{{$user_slug}}</a></p>
-                        <p style="font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Reported this live question: <a href="{{$q_url}}">{{$q_url}}</a></p>
+                        <p style="font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Hello ,</p>
+                
+                        <p style="font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: normal; Margin: 0; Margin-bottom: 15px;">Please click the url to activate: <a href="{{$act_url}}">{{$act_url}}</a></p>
                       </td>
                     </tr>
                   </table>

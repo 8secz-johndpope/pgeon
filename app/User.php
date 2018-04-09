@@ -68,6 +68,9 @@ class User extends \TCG\Voyager\Models\User
     }
 
     
+    public function user_activation() {
+        return $this->hasOne('App\UserActivation');
+    }
   
     public static function convoDetails($user_id) {
         $sql = "

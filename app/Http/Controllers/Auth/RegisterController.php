@@ -75,13 +75,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $banners = Config::get('constants.default_banners');
 
         return User::create([
 /*            'slug' => $data['slug'],*/
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'banner' =>  $banners[array_rand($banners)]
+            'password' => bcrypt($data['password'])
+            
         ]);
     }
     

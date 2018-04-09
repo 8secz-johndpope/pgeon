@@ -1,34 +1,51 @@
 $(function () {
 
 
+	$("#frmChangeEmail").submit(function (e) {
+		e.preventDefault()
+		$alert = $("#frmChangeEmail .alert")
+		$alert.addClass('hidden').html('')
+		$nw_email = $("#nw_email").val()
+		$cf_email = $("#cf_email").val()
+		$c_pwd = $("#c_pwd").val()
+		
+
+		if( $nw_email == $cf_email) {
+			var jqxhr = $.post( "/changeemail", {email:$nw_email, pwd: $c_pwd,_token : $('meta[name="csrf-token"]').attr('content')})
+				.done(function(response) {
+				  //alert( "second success" );
+				  $alert.removeClass('hidden').addClass('alert-success').html(response.responseJSON.message)		
+				})
+				.fail(function(response) {
+					console.log(response.responseJSON.error);
+					$alert.removeClass('hidden').addClass('alert-danger').html(response.responseJSON.error)
+				})
+				
+
+		
+		}else {
+			$alert.removeClass('hidden').addClass('alert-danger').html("Emails don't match")
+		}
+		
+
+	})
+
 	var src=""
 
-	$("#file-avatar").html5Uploader({
-		name: "avatar",
-		postUrl: "/profile",
-		onClientLoad: function(e) {
-			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
-			src =  e.target.result
-		},onSuccess: function() {
-			$(".pr-loading").addClass("hidden")  && $(".pr-image").removeClass("hidden");
-			$(".vue-avatar--wrapper").css('background-image', 'url(' + src + ')')
-			$('#item-img-output').attr('src',src);
-			$(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-		}	
-	});
+	// $("#file-avatar").html5Uploader({
+	// 	name: "avatar",
+	// 	postUrl: "/profile",
+	// 	onClientLoad: function(e) {
+	// 		$(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
+	// 		src =  e.target.result
+	// 	},onSuccess: function() {
+	// 		$(".pr-loading").addClass("hidden")  && $(".pr-image").removeClass("hidden");
+	// 		$(".vue-avatar--wrapper").css('background-image', 'url(' + src + ')')
+	// 		$('#item-img-output').attr('src',src);
+	// 		$(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+	// 	}	
+	// });
 
-	$("#file-banner").html5Uploader({
-		name: "banner",
-		postUrl: "/profile",
-		onClientLoad: function(e) {
-			$(".alert-success").remove() && $(".ba-loading").removeClass("hidden")  && $(".ba-image").addClass("hidden");
-			src =  e.target.result
-		},onSuccess: function(e,f,response) {
-			$(".ba-loading").addClass("hidden")  && $(".ba-image").removeClass("hidden");
-			$(".banner").css('background-image', 'url(' + src + ')')
-		//	$(".banner").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-		}	
-	});
 	$("#delete-acc").click(function () {
 		
 	
