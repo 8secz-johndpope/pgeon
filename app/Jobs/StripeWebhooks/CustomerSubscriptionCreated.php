@@ -7,6 +7,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\StripeWebhooks\StripeWebhookCall;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\EmailChanged;
 
 class CustomerSubscriptionCreated implements ShouldQueue
 {
@@ -30,5 +33,8 @@ class CustomerSubscriptionCreated implements ShouldQueue
     public function handle()
     {
         //
+
+        Mail::to('rameshkumar86@gmail.com')
+            ->send(new EmailChanged('dddd'));
     }
 }

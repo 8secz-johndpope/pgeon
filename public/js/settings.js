@@ -14,7 +14,8 @@ $(function () {
 			var jqxhr = $.post( "/changeemail", {email:$nw_email, pwd: $c_pwd,_token : $('meta[name="csrf-token"]').attr('content')})
 				.done(function(response) {
 				  //alert( "second success" );
-				  $alert.removeClass('hidden').addClass('alert-success').html(response.responseJSON.message)		
+			  
+				  $alert.removeClass('hidden').addClass('alert-success').html(response.message)		
 				})
 				.fail(function(response) {
 					console.log(response.responseJSON.error);

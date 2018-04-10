@@ -56,8 +56,9 @@ class EmailChangeController extends Controller
 
       if($act_code = UserActivation::makeActivationCode(Auth::user()->id, $email)) {
           
-        Mail::to('prasanth@object90.com')
+        Mail::to($email)
             ->send(new EmailChanged($act_code));
+            return response()->json(['message' => 'Activation email has been sent. Please click the link on it.']);
          //Mail::to('prasanth@object90.com')
         //     ->send(new QuestionReported(10, 'user_slug'));
            

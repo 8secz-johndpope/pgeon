@@ -7,7 +7,7 @@
                           <div>
                               <ul class="nav nav-bordered">
                                   <li>
-                                      <div>
+                                        <div>
                                           <a class="pull-left icon-button" href="/people" style="height: 36px; vertical-align: middle; line-height: 30px;     border-radius: 4px 0px 0px 4px;"> <span class="fal fa-arrow-left"></span></a>
                                       </div>
                                        <div class="media-body">

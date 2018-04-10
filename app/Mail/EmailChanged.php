@@ -34,7 +34,7 @@ class EmailChanged extends Mailable
      */
     public function build()
     {
-        return $this->from('reported@heartboxx.com')
+        return $this->from('donotreply@heartboxx.com')
                     ->view('emails.user.emailchanged');
     }
 }
