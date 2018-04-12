@@ -6,6 +6,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\StripeWebhooks\StripeWebhookCall;
+use Illuminate\Foundation\Bus\Dispatchable;
 
 class HandleChargeCaptured implements ShouldQueue
 {

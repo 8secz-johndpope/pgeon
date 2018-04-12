@@ -7,17 +7,18 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\StripeWebhooks\StripeWebhookCall;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Mail;
 
-
-use App\Mail\SubscriptionCreated;
-
+use App\Mail\InvoicePaymentSucceeded;
 
 
-class CustomerSubscriptionCreated implements ShouldQueue
+//use Illuminate\Foundation\Bus\Dispatchable;
+
+// monthly charges made successfully
+
+class HandleInvoicePaymentSucceeded implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use  InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
@@ -25,6 +26,7 @@ class CustomerSubscriptionCreated implements ShouldQueue
      * @return void
      */
     public $webhookCall;
+
     public function __construct(StripeWebhookCall $webhookCall)
     {
         $this->webhookCall = $webhookCall;
@@ -37,9 +39,9 @@ class CustomerSubscriptionCreated implements ShouldQueue
      */
     public function handle()
     {
-        //
         
+        //
         Mail::to('rameshkumar86@gmail.com')
-            ->send(new SubscriptionCreated($this->webhookCall->payload));
+            ->send(new InvoicePaymentSucceeded($this->webhookCall->payload));
     }
 }

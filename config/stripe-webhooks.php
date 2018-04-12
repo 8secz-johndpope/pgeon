@@ -8,7 +8,6 @@ return [
      */
     
     'signing_secret' => 'whsec_5kJORelMeoxihpTOmfevyyG8OVycxW1k',
-
     /*
      * You can define the job that should be run when a certain webhook hits your application
      * here. The key is the name of the Stripe event type with the `.` replaced by a `_`.
@@ -18,8 +17,10 @@ return [
      */
     'jobs' => [
        // 'charge_captured' => \App\Jobs\StripeWebhooks\HandleChargeCaptured::class,
-      //  'charge_succeeded' => \App\Jobs\StripeWebhooks\ChargeSucceeded::class,
+        'charge_succeeded' => \App\Jobs\StripeWebhooks\ChargeSucceeded::class,
         'customer_subscription_created' => \App\Jobs\StripeWebhooks\CustomerSubscriptionCreated::class,
+        'invoice_payment_succeeded' => \App\Jobs\StripeWebhooks\HandleInvoicePaymentSucceeded::class,
+        
         //customer.subscription.deleted
         // 'source_chargeable' => \App\Jobs\StripeWebhooks\HandleChargeableSource::class,
         // 'charge_failed' => \App\Jobs\StripeWebhooks\HandleFailedCharge::class,
