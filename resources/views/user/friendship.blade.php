@@ -14,7 +14,7 @@
 
                 <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=32 username="{{  Helper::slug($tuser->id,$tuser->slug) }}"></avatar>
                     </a>
-                    <a href="{{Helper::slug($fuser->id ,$fuser->slug)}}/">
+                    <a href="/{{Helper::slug($fuser->id ,$fuser->slug)}}/">
                     <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::slug($fuser->id,$fuser->slug) }}"></avatar>
                         </a>
                         

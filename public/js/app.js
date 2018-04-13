@@ -17067,6 +17067,37 @@ jQuery(function ($) {
 	});
 });
 
+var stripeUpdateResponseHandler = function stripeUpdateResponseHandler(status, response) {
+	var $form = $('#update-form');
+
+	if (response.error) {
+		// Show the errors on the form
+		$form.find('.payment-errors').text(response.error.message);
+		$form.find('button').prop('disabled', false);
+	} else {
+		// token contains id, last4, and card type
+		var token = response.id;
+		// Insert the token into the form so it gets submitted to the server
+		$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		// and re-submit
+		$form.get(0).submit();
+	}
+};
+
+jQuery(function ($) {
+	$('#update-form').submit(function (e) {
+		var $form = $(this);
+
+		// Disable the submit button to prevent repeated clicks
+		$form.find('button').prop('disabled', true);
+
+		Stripe.card.createToken($form, stripeUpdateResponseHandler);
+
+		// Prevent the form from submitting with the default action
+		return false;
+	});
+});
+
 /***/ }),
 /* 132 */
 /***/ (function(module, exports) {
@@ -54662,7 +54693,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "media media-divider"
   }, [_c('div', {
     staticClass: "h5 m-b-5"
-  }, [_c('span', [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
+  }, [_c('span', [_c('a', {
+    attrs: {
+      "href": '/' + _vm.question_user_slug
+    }
+  }, [_vm._v(_vm._s(_vm.question_user_slug))])]), _vm._v(" "), _c('span', {
     staticClass: "text-muted time-align"
   }, [_c('allqtimer', {
     attrs: {
@@ -56210,7 +56245,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "media media-divider"
   }, [_c('div', {
     staticClass: "h5 m-b-5"
-  }, [_c('span', [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
+  }, [_c('span', [_c('a', {
+    attrs: {
+      "href": '/' + _vm.question_user_slug
+    }
+  }, [_vm._v(_vm._s(_vm.question_user_slug))])]), _vm._v(" "), _c('span', {
     staticClass: "text-muted time-align"
   }, [_c('allqtimer', {
     attrs: {

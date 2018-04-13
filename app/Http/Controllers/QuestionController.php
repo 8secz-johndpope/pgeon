@@ -38,6 +38,10 @@ class QuestionController extends Controller
      
   
         $question = Question::find($question_id);
+        //question deleted 
+        if(!$question) {
+            return Redirect::to('/');
+        }
         $qurl =  Session::get('backUrl');
         //valid question detail url
         //follow the user if didn't already
@@ -460,7 +464,7 @@ class QuestionController extends Controller
         $fetched_questions = Question::where('accepted_answer', '>', 0)
                                      ->join('users', 'users.id', '=', 'questions.user_id')
                                      ->where('users.featured', '=', 1)
-                                     ->orderBy('questions.created_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
+                                     ->orderBy('questions.expiring_at', 'desc')->offset($offset)->limit($p)->get(['questions.*']);
 
         $questions[] = array();
         foreach ($fetched_questions as $key => $question) {
@@ -500,7 +504,7 @@ class QuestionController extends Controller
                                             $query->whereIn('user_id', $uf)
                                             ->orWhere('user_id', Auth::user()->id);
                                          })
-                                        ->orderBy('created_at', 'desc')
+                                        ->orderBy('expiring_at', 'desc')
                                         ->offset($offset)
                                         ->limit($p)
                                         ->get();

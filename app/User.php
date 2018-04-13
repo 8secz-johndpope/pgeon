@@ -268,7 +268,7 @@ public static function fetchRepliesCount($user_id , $replied_by) {
   
  
   
-  public static function get_points($user_id) {
+  public static function get_points_as_non_negative($user_id) {
       
       
      /* $sql = " 
@@ -281,7 +281,7 @@ public static function fetchRepliesCount($user_id , $replied_by) {
     
       $result = DB::select( DB::raw($sql) );
       
-      return $result[0]->points;
+      return ($result[0]->points < 0)?0:$result[0]->points;
       
   }
   

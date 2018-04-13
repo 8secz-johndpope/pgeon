@@ -5,7 +5,7 @@
              <ul class="media-list  m-b-0">
                  <li class="media media-divider">
                      <div class="h5 m-b-5">
-                         <span>{{question_user_slug}}</span>
+                         <span><a :href="'/'+question_user_slug">{{question_user_slug}}</a></span>
                          <span class="text-muted time-align">
                 
                             <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>

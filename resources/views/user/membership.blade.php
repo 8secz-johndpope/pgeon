@@ -42,6 +42,16 @@
                                                 </form>
                                                 </div>
                                                 </li>
+
+
+                                                    <li class="list-group-item ng-binding">
+                                         <div >
+
+                                         <a data-toggle="collapse" data-target="#stripe_update_box" class="btn btn-link btn-xs">Update your card</a>
+                                                   
+                                                   
+                                                </div>
+                                                </li>
                                         @endif
                                    
                                 </ul>
@@ -164,6 +174,65 @@
                        {!! Form::close() !!}
                  </div>
 
+
+
+           <div id="stripe_update_box" class="collapse">
+
+                  
+
+{!! Form::open(['url' => '/updatecard', 'id' => 'update-form']) !!}
+
+
+<div class="form-group" id="cc-group">
+   {!! Form::label(null, 'Credit card number:') !!}
+   {!! Form::text(null, null, [
+       'class'                         => 'form-control',
+       'required'                      => 'required',
+       'data-stripe'                   => 'number',
+       'maxlength'                     => '16',
+       ]) !!}
+</div>
+<div class="form-group" id="ccv-group">
+   {!! Form::label(null, 'CVC (3 or 4 digit number):') !!}
+   {!! Form::text(null, null, [
+       'class'                         => 'form-control',
+       'required'                      => 'required',
+       'data-stripe'                   => 'cvc',
+       'maxlength'                     => '4',
+       ]) !!}
+</div>
+<div class="row">
+ <div class="col-md-6">
+   <div class="form-group" id="exp-m-group">
+       {!! Form::label(null, 'Ex. Month') !!}
+       {!! Form::selectMonth(null, null, [
+           'class'                 => 'form-control',
+           'required'              => 'required',
+           'data-stripe'           => 'exp-month'
+       ], '%m') !!}
+   </div>
+ </div>
+ <div class="col-md-6">
+   <div class="form-group" id="exp-y-group">
+       {!! Form::label(null, 'Ex. Year') !!}
+       {!! Form::selectYear(null, date('Y'), date('Y') + 10, null, [
+           'class'             => 'form-control',
+           'required'          => 'required',
+           'data-stripe'       => 'exp-year'
+           ]) !!}
+   </div>
+ </div>
+</div>
+ <div class="form-group">
+     {!! Form::submit('Update!', ['class' => 'btn btn-lg btn-block btn-primary btn-order', 'id' => 'UpdateBtn', 'style' => 'margin-bottom: 10px;']) !!}
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+       <span class="payment-errors" style="color: red;margin-top:10px;"></span>
+   </div>
+ </div>
+{!! Form::close() !!}
+</div>
                 </div>
 
 

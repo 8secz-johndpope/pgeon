@@ -53,7 +53,7 @@
             <li class="media">
             <div class="media-body">
               <div class="h5 m-b-5">
-                <a href="r/{{$reply->rslug}}"><span>{{$reply->rslug_formatted}}</span> </a>
+                <a href="/r/{{$reply->rslug}}"><span>{{$reply->rslug_formatted}}</span> </a>
                 <span class="text-muted time-align">{{$reply->ago}}</span>
               </div>
               <ul class="media-list media-list-conversation c-w-md">

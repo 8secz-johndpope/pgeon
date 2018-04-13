@@ -197,6 +197,30 @@ class UserController extends Controller
     }
 
 
+    public function updatecard()
+    {
+
+        
+         $user = Auth::user();
+         $user->asStripeCustomer();
+         $stripeToken = Request::input('stripeToken');
+
+         try {
+            $user->updateCard($stripeToken);
+            return back()->with('success','Card updated.');
+         } catch (\Stripe\Error\Card  $e) {
+            $body = $e->getJsonBody();
+            $err  = $body['error']['message'];
+            Request::session()->flash('error','Error: ' . $err);
+            return back();
+
+            // return back()->with('success',$e->getMessage());
+         }
+
+    }
+
+
+
     public function update(){
       $user = Auth::user();
 
@@ -342,7 +366,7 @@ class UserController extends Controller
                   }
               }
                           
-              return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points($user->id))->with('is_following', $is_following);
+              return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points_as_non_negative($user->id))->with('is_following', $is_following);
           }
     }
 

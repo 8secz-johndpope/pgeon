@@ -6,8 +6,8 @@
                 <div class="container nav-container header-nav">
                     <a href="{{$back}}" class="btn btn-link p-x-0"><span class="fal fa-long-arrow-left back-arrow"></span></a>
                     <h4>
-                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}"></a>
-                     <a>
+                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                     
                      <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
                     
                     </a>

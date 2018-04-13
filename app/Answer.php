@@ -117,7 +117,7 @@ class Answer extends Model
             INNER JOIN questions ON questions.id = answers.question_id
             INNER JOIN users ON questions.user_id = users.id
              WHERE questions.accepted_answer > 0 AND (answers.user_id = '$answered_by'
-             AND questions.user_id = '$question_by')";
+             AND questions.user_id = '$question_by')  order by expiring_at desc ";
         
         $users = DB::select( DB::raw($sql) );
         $result = array();

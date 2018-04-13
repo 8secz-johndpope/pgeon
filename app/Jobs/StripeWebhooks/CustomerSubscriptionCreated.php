@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionCreated;
 
 
+use App\User;
 
 class CustomerSubscriptionCreated implements ShouldQueue
 {
@@ -38,8 +39,10 @@ class CustomerSubscriptionCreated implements ShouldQueue
     public function handle()
     {
         //
+        $stripe_id = $this->webhookCall->payload['data']['object']["customer"];
+        $user = User::where('stripe_id',$stripe_id)->first();
         
-        Mail::to('rameshkumar86@gmail.com')
+        Mail::to($user->email)
             ->send(new SubscriptionCreated($this->webhookCall->payload));
     }
 }

@@ -124,6 +124,7 @@ Route::get('/u_s', 'UserController@status');
     
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('profile', 'UserController@update');
+    Route::post('updatecard', 'UserController@updatecard');
     Route::post('subscribe', 'UserController@subscribe');
     Route::post('unsubscribe', 'UserController@unsubscribe');
     Route::get('security', 'UserController@security');
