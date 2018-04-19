@@ -25,7 +25,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-         'email', 'password','provider', 'provider_id', 'banner'
+         'email', 'password','provider', 'provider_id', 'banner', 'name'
     ];
 
     /**
@@ -297,6 +297,12 @@ public static function fetchRepliesCount($user_id , $replied_by) {
       
   }
   
+  public static function generateSlug($user) {
+     $slug = substr($user->name,0,3).$user->id;
+     $user->slug = $slug;
+     $user->save();
+
+  }
   
   public static function eligible_to_ask() {
 

@@ -46,7 +46,8 @@ class HandleInvoicePaymentSucceeded implements ShouldQueue
         $stripe_id = $this->webhookCall->payload['data']['object']["customer"];
         $user = User::where('stripe_id',$stripe_id)->first();
         //
-        Mail::to($user->email)
+        //$user->email
+        Mail::to('rameshkumar86@gmail.com')
             ->send(new InvoicePaymentSucceeded($this->webhookCall->payload));
     }
 }

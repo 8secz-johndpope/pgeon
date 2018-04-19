@@ -79,7 +79,11 @@ Route::get('/u_s', 'UserController@status');
 
   Route::group(array('middleware' => 'auth'), function()
   {
-     
+
+    
+
+    Route::get('skip', 'UserController@skip');
+
     Route::get('coupon/apply/{coupon}', 'AllCouponController@apply');
     Route::post('coupon/subscribe/{coupon_id}', 'AllCouponController@subscribe'  );
 

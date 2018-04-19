@@ -7,10 +7,16 @@ class Helper
 {
   public static function avatar($avatar)
     {
-        return ($avatar) ? '/uploads/avatars/'.($avatar):  '';
+      //  echo file_exists(public_path('/uploads/avatars/'.$avatar));exit;
+        if($avatar) {
+            if (file_exists(public_path('/uploads/avatars/'.$avatar))) {
+                return '/uploads/avatars/'.($avatar);
+            }
+        }
+        return '';
     }
     
-   
+  
     public static function calcElapsed($seconds) {
         
         $seconds = time() - $seconds;

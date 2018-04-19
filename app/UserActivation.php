@@ -57,7 +57,7 @@ class UserActivation extends Model
             $user = User::find($ua->user_id);
             $user->email = $email;
             $user->save();
-            return true;
+            return $user;
         }
         return false;
     }

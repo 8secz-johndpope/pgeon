@@ -62,6 +62,7 @@ class RegisterController extends Controller
             'slug.max'=>'The field cannot exceed :max chars',
         );*/
         return Validator::make($data, [
+            'name' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -75,9 +76,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        
         return User::create([
-/*            'slug' => $data['slug'],*/
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
             
@@ -99,11 +100,15 @@ class RegisterController extends Controller
         
         // Removed to prevent auto login
         //Auth::guard($this->getGuard())->login($this->create($request->all()));
+
+
         $user = $this->create($request->all());
         
+        User::generateSlug($user);
+
         Auth::login($user);
         
-        $skip_url = (Session::get('backUrl'))?Session::get('backUrl'):'/questions';
+        $skip_url = (Session::get('backUrl'))?Session::get('backUrl'):'/skip';
        // return redirect($this->redirectPath());
         return redirect('/step2')->with('skip_url', $skip_url);
     

@@ -58,6 +58,11 @@ class UserController extends Controller
         return view('user.answers')->with('user',$user)->with('answers',$answers)->with('page_title', $user->name . 'Answers');
     }
 
+    public function skip() {
+        // do non-safe stuff on click of skip..user may never come to this point if they close the window.
+        return redirect('/questions');
+    }
+
     public function participation($id) {
         $user = User::findOrFail($id);
         $questions = User::get_participation($id);
@@ -82,7 +87,7 @@ class UserController extends Controller
     
     public function step2 () {
   
-        $skip_url = Session::get('backUrl')?Session::get('backUrl'):"/questions";
+        $skip_url = Session::get('backUrl')?Session::get('backUrl'):"/skip";
         return view('user.step2')->with('skip_url',$skip_url);
         
     }

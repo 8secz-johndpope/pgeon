@@ -33,19 +33,24 @@ $(function () {
 
 	var src=""
 
-	// $("#file-avatar").html5Uploader({
-	// 	name: "avatar",
-	// 	postUrl: "/profile",
-	// 	onClientLoad: function(e) {
-	// 		$(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
-	// 		src =  e.target.result
-	// 	},onSuccess: function() {
-	// 		$(".pr-loading").addClass("hidden")  && $(".pr-image").removeClass("hidden");
-	// 		$(".vue-avatar--wrapper").css('background-image', 'url(' + src + ')')
-	// 		$('#item-img-output').attr('src',src);
-	// 		$(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-	// 	}	
-	// });
+	$("#file-avatar").html5Uploader({
+		name: "avatar",
+		postUrl: "/profile",
+		onClientLoad: function(e) {
+			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
+			src =  e.target.result
+			$(".prof-avatar .vue-avatar--wrapper span").remove()
+			$(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+
+		},onSuccess: function() {
+			$(".pr-loading").addClass("hidden")  && $(".pr-image").removeClass("hidden");
+			$(".vue-avatar--wrapper span").remove()
+			$(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+		//	alert(src)
+			$('#item-img-output').attr('src',src);
+			$(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+		}	
+	});
 
 	$("#delete-acc").click(function () {
 		

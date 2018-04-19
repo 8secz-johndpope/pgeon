@@ -78,8 +78,8 @@ class EmailChangeController extends Controller
 
         list($email, $act_code) = explode("####",base64_decode($base64_code));
 
-        if(UserActivation::validateCodeAndChangeEmail($email, $act_code)) {
-            return view('confirmation')->with('message', 'Email updated successfully.')->with('class','success');
+        if($user = UserActivation::validateCodeAndChangeEmail($email, $act_code)) {
+            return view('user.security')->with('message', 'Email updated successfully.')->with('class','success')->with('user', $user);
 
        }else {
         return view('confirmation')->with('message', 'Not a valid code!')->with('class','error');

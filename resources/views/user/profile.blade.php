@@ -11,12 +11,6 @@
 
 
 
-
-
-
-
-
-
                         <div class="col-md-8 m-b-5" style="margin-top:10px">
 
 
@@ -31,8 +25,9 @@
                     <label class="control-label">Profile picture</label>
                     <br />
                     <div class="upload-btn-wrapper ">
-                    <div class="pull-left">
-                                            <img src="{{ Helper::avatar($user->avatar) }}" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+                    <div class="pull-left prof-avatar">
+                       
+                        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Auth::user()->name}}"></avatar>
                                             
                       </div>
                                     <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>

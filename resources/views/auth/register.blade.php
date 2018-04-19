@@ -6,6 +6,7 @@
 
   <div class="container-fluid container-fill-height">
     <div class="container-content-middle">
+    
         <form class="m-x-auto text-center app-login-form" role="form" method="POST" id="frm_register" action="{{ route('register') }}">
                         {{ csrf_field() }}
         <a href="/" class="app-brand m-b-md" style="width:55px">
@@ -24,8 +25,20 @@
         <hr>
         <p style="text-align: left;margin-left: 5px">Or sign up with email</p>
 
+        
+        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+          <input name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name">
+           @if ($errors->has('name'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+           @endif
+        </div>
+
+
+
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-          <input  id="email" name="email" value="{{ old('email') }}" required class="form-control" placeholder="Email">
+          <input  id="email" name="email" value="{{ old('email') }}" type="email" required class="form-control" placeholder="Email">
            @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -46,6 +59,7 @@
 
         </div>
         <div class="m-b captcha-container" style="margin-top: 10px;float: right">
+
           <a href="/" style="padding-right: 10px">Back</a>
 
           <invisible-recaptcha sitekey="6Lff8j8UAAAAABzFzl1iB44SwsOgtJckdUbO8C9A" :validate="captcha_validate" :callback="captcha_callback" class="btn btn-primary" type="submit" id="do-something-btn" :disabled="captcha_loading" >
@@ -53,6 +67,7 @@
 </invisible-recaptcha>
         </div>
       </form>
+
     </div>
   </div>
 

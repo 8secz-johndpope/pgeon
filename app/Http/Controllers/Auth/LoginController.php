@@ -104,9 +104,10 @@ class LoginController extends Controller
            'email'    => $user->email,
            'provider' => $provider,
            'provider_id' => $user->id,
-           'banner' =>  $banners[array_rand($banners)]
 
        ]);
+       User::generateSlug($authUser);
+
         $registred_new = true;
        }
        return array('user' => $authUser, "registred_new" => $registred_new);

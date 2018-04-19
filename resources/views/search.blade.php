@@ -33,21 +33,24 @@
 
                             <li class="list-group-item">
                                 <div class="media">
-                                    <a class="media-left" href="{{$value['obj']->url}}">
-                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  $value['obj']->url }}" ></avatar>
+
+                                    <a class="media-left" href="{{$value['obj']->slug}}">
+                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  $value['obj']->slug }}" ></avatar>
                                     </a>
                                     <div class="media-body">
+                @if ( $value['obj']->role_id == 3 )
 
-                                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn btn-md btn-link pull-right {{( $value['obj']->af)?'hidden' : ''}}">
+                 <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn btn-md btn-link pull-right {{( $value['obj']->af)?'hidden' : ''}}">
                   <span class="fal fa-plus"></span>
                 </button>
 
-                <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn btn-md btn-link pull-right {{($value['obj']->af)?'' : 'hidden'}}">
-                  <span class="text-muted fal fa-check"></span>
-                </button>
+                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn btn-md btn-link pull-right {{($value['obj']->af)?'' : 'hidden'}}">
+                    <span class="text-muted fal fa-check"></span>
+                    </button>
+                @endif
 
 
-                                        <strong>{{  $value['obj']->url }}</strong>
+                                        <strong>{{  $value['obj']->nameorslug }}</strong>
                                         <small>{{ $value['obj']->last_posted }}</small>
                                     </div>
                                 </div>

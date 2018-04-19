@@ -132,16 +132,15 @@ class HomeController extends Controller {
           if($value->id == $current_user)
             continue;
           //if he is a member and has a slug..search will give us role 3 anyway
-          if($value->slug )
-            $value->url = $value->slug;
-          else {
-            $value->url = "/user/".$value->id;
-          }
+          if($value->name )
+            $value->nameorslug = $value->name;
+          else   
+            $value->nameorslug = $value->slug;
           
 
           $value->last_posted =  Helper::user_posted_since(User::get_last_posted_timestamp($value->id));
           
-        
+           
        
 //           if($value->user_following) {
 //           foreach ($value->user_following as $uf) {

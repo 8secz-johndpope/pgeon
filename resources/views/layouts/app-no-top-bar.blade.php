@@ -33,9 +33,6 @@
 @if (Auth::guest())
 
 
-
-
-
 <div>
   <nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-shadow">
     <div class="container nav-container">
@@ -92,7 +89,7 @@
           </li>
           <li>
             <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-              <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Helper::slug(Auth::user()->id,Auth::user()->slug)}}"></avatar>
+              <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Auth::user()->name}}"></avatar>
             </button>
           </li>
         </ul>
