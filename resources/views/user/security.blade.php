@@ -12,7 +12,7 @@
 
 		<div class="col-md-8 m-b-5" style="margin-top: 10px">
 			<form action="/profile" method="POST">
-			@if ($message)
+			@if (!empty($message))
 			<div class="alert alert-{{$class}}">
                                             {{$message}}
                                         </div> 
