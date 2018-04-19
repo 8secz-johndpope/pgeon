@@ -80,7 +80,7 @@ class UserController extends Controller
     public function security () {
       $user = Auth::user();
       $error = "";
-      return view('user.security')->with('user',$user)->with('error',$error)->with('class','success');
+      return view('user.security')->with('user',$user)->with('error',$error);
 
     }
 

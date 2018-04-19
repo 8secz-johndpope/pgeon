@@ -12,9 +12,11 @@
 
 		<div class="col-md-8 m-b-5" style="margin-top: 10px">
 			<form action="/profile" method="POST">
+			@if ($message)
 			<div class="alert alert-{{$class}}">
                                             {{$message}}
                                         </div> 
+			@endif									
 				<ul class="list-group media-list media-list-stream">
 					<li class="list-group-item media p-a">
 						<div class="input-group">
