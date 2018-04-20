@@ -368,6 +368,8 @@ var pressTimer;
       },
       submit_answer: function() {
 
+         // console.log( this.submitted_text);
+      
         var formData = {
           'question_id': this.question_id,
           'answer': this.submitted_text,

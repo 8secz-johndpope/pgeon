@@ -4,6 +4,7 @@
 <div style="width: auto">
 	<div class="container p-t-md">
 
+    @include('flash::message')
 
 
 

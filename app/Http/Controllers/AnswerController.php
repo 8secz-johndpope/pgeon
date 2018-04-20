@@ -19,9 +19,9 @@ class AnswerController extends Controller
      */
     public function insert()
     {
-        
+     
         //return response()->json( array('error' => 'Your response contain profanity..please try again', 'class' => 'danger', 'title' => 'Sorry!'), 401 );
-        
+       // echo Request::get('answer');exit;
         Answer::insert(Request::get('answer'),Request::get('question_id'),Auth::user()->id);
         
        // return Redirect::to('question/'.Request::get('question_id').'/'.Request::get('question_url'));

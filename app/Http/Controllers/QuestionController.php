@@ -255,6 +255,13 @@ class QuestionController extends Controller
         
         ///**TODO notify users for votes garnered***/
         //NotificationController::insertVotesGarnered(->id, $question->user_id, Request::get('answered_by'));
+
+        $pending_q_count = Question::where('user_id', Auth::user()->id)->where('expiring_at', '<', time())->where('accepted_answer', '=', 0)->count();
+        flash('Question published')->success();
+        if($pending_q_count > 0) {
+            
+            return Redirect::to('/pending');
+        }
         return Redirect::to('my-questions');
     }
     

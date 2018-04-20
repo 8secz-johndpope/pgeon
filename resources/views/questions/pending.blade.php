@@ -6,7 +6,7 @@
             <div class="container nav-container">
                 <div class="navbar-header w-100">
 
-                    <a  class="navbar-back" onclick="window.history.back()"><span class="fal fa-long-arrow-left fa-lg"></span></a>
+                    <a  class="navbar-back" onclick="/my-questions"><span class="fal fa-long-arrow-left fa-lg"></span></a>
                     <h4>Pending ({{count($pending)}})</h4>
                 </div>
 
@@ -17,6 +17,9 @@
   </div>
 
     <div class="container p-t-md">
+
+      @include('flash::message')
+
 
       <div class="tabs">
         <div class="pending">
