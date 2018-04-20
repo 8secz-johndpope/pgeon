@@ -294,6 +294,7 @@ class UserController extends Controller
              $routes[]  = $val['slug'];
          }
 
+
          // You need to iterate over the RouteCollection you receive here
          // to be able to get the paths and add them to the routes list
          foreach (Route::getRoutes() as $route)
@@ -301,7 +302,10 @@ class UserController extends Controller
              $routes[] = $route->uri;
          }
 
-         $slug = Request::input('slug');
+
+       
+
+         $slug = strtolower(Request::input('slug'));
 
          if (in_array ($slug, $routes)) {
              flash("'$slug' taken! Try another one.");
