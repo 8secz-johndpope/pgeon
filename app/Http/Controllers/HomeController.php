@@ -138,7 +138,12 @@ class HomeController extends Controller {
             $value->nameorslug = $value->slug;
           
 
-          $value->last_posted =  Helper::user_posted_since(User::get_last_posted_timestamp($value->id));
+          if ($value->role_id == 2 ) {
+            $value->last_posted =  'Is not a Pgeon member';
+          }else {
+            $value->last_posted =  Helper::user_posted_since(User::get_last_posted_timestamp($value->id));
+          }  
+          
           
            
        
