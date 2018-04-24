@@ -69,31 +69,23 @@ class HomeController extends Controller {
       $iam_following = array();
       foreach( $iam_following1 as $value ) {
 
-      //  print_r($value);exit;
-        if($value->user->slug)
-          $url = $value->user->slug;
-        else
-          $url = "/user/".$value->user_id;
+     
 
           $avatar =  Helper::avatar($value->user->avatar);
           
           $lq_created_at = User::get_last_posted_timestamp($value->user->id);
           $convo_count_between = User::fetchConvoCountBetween($current_user, $value->user->id);
-          $iam_following[] = array('user_id' => $value->user_id, 'user' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $url , 'convo_count' => $convo_count_between);
+          $iam_following[] = array('user_id' => $value->user_id, 'name' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $value->user->slug , 'convo_count' => $convo_count_between);
 
       }
       $my_followers = array();
       foreach( $my_followers1 as $value ) {
           $follower = User::find($value->followed_by);
 
-          if($follower->slug)
-            $url = $follower->slug;
-          else
-            $url = "/user/".$follower->id;
             $avatar =  Helper::avatar($follower->avatar);
             $lq_created_at = User::get_last_posted_timestamp($follower->id);
             $replies_count = User::fetchRepliesCount($current_user, $follower->id);
-            $my_followers[] = array('user_id' => $follower->id, 'user' => $follower->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' => $avatar, 'url' => $url , 'convo_count' => $replies_count);
+            $my_followers[] = array('user_id' => $follower->id, 'name' => $follower->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' => $avatar, 'url' => $follower->slug , 'convo_count' => $replies_count);
       }
 
     return response()->json(['iam_following' => $iam_following,

@@ -51,7 +51,7 @@ class Question extends Model {
         //TODO will be converted to stored proc in future
         //follower's live Qs ...current user is considered follower of himself...
         $sql = "
-        SELECT id, question, avatar, expiring_at, user_id, slug from (SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q INNER JOIN user_followings uf
+        SELECT id, question, avatar, expiring_at, user_id, slug, name from (SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug, u.name FROM questions q INNER JOIN user_followings uf
          ON q.user_id = uf.user_id
          INNER JOIN users u ON u.id = uf.user_id
          WHERE uf.followed_by = $user_id
@@ -59,7 +59,7 @@ class Question extends Model {
 
          UNION ALL 
 
-         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q 
+         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug, u.name FROM questions q 
          INNER JOIN users u ON u.id = q.user_id
          WHERE q.user_id = $user_id
          and q.expiring_at > '$now' 
@@ -68,7 +68,7 @@ class Question extends Model {
         $questions = DB::select( DB::raw($sql));
           
          
-        
+
    
         // and q.expiring_at > '$now'
         
@@ -85,10 +85,9 @@ class Question extends Model {
         //TODO will be converted to stored proc in future
         //follower's live Qs
         $questions = DB::select( DB::raw("
-        SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug FROM questions q  
+        SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug, u.name FROM questions q  
                               INNER JOIN users u ON u.id = q.user_id 
                               WHERE u.featured=1 and q.expiring_at > '$now' LIMIT $p OFFSET $offset"));
-        
         
         
         // and q.expiring_at > '$now'

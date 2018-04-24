@@ -76,7 +76,8 @@
                     <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
                         <li class="media">
                             <a class="media-left" :href="question.slug">
-                                <avatar :size="42"  :src="question.avatar" :username="question.slug"></avatar>
+								
+                                <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
 
                             </a>
                             <div class="media-body">
@@ -157,7 +158,6 @@ import Avatar from 'vue-avatar'
 		still_deciding_paging: false,
       };
     },
-    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
     mounted() {
 		
 			$(".up50").removeClass("up50")
@@ -203,8 +203,10 @@ import Avatar from 'vue-avatar'
 				this.get_paginated_featured()
 			}
 		},
-    	
+		
+		
 		get_paginated_qff: function () {
+
 			 $.getJSON(`/qff/${this.paginate}/${this.current_page}`, function(response) {
 				 	this.still_deciding_paging = false
 				 	this.currently_fetched_records_count = 0
@@ -225,12 +227,18 @@ import Avatar from 'vue-avatar'
     		},
     		/** will be called only from load more links as well**/
     		get_paginated_featured: function () {
+
     			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
+	
+				
+						
 					 this.still_deciding_paging = false
     				  this.currently_fetched_records_count = 0
    		          if (response[0]['id'] !== undefined) {
    		        	 	this.currently_fetched_records_count = response.length
-   		          	this.questions.push(...response)
+						 this.questions.push(...response)
+						 
+						 
    		          }
     				  if (this.questions.length < 1)
   				 		this.still_deciding_count = false

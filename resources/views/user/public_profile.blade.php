@@ -31,7 +31,7 @@
             <div class="user-meta container user-banner">
                 <div class="avatar-wrapper">
 
-                    <avatar src="{{  Helper::avatar($user->avatar) }}" :size=64 username="{{Helper::slug($user->id,$user->slug)}}"></avatar>
+                    <avatar src="{{  Helper::avatar($user->avatar) }}" :size=64 username="{{Helper::name_or_slug($user)}}"></avatar>
 
                 </div>
                 <div class="vote-points avatar-wrapper">

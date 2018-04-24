@@ -102,7 +102,7 @@
                         <li>
 
                             <button id="profile-button" class="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover">
-                            <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size=30 username="{{Helper::slug(Auth::user()->id,Auth::user()->slug)}}"></avatar>
+                            <avatar src="{{  Helper::avatar(Auth::user()->avatar) }}" :size=30 username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
 
 
                             </button>

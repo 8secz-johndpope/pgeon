@@ -55,7 +55,7 @@
                                 <div class="media">
 
                                     <a class="media-left"  :href="item.url">
-                                        <avatar :size="42"	 :src="item.avatar"  :username="item.url" ></avatar>
+                                        <avatar :size="42"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
 
                                     </a>
                                     <div class="media-body">
@@ -90,7 +90,7 @@
                             <li class="list-group-item" v-for="item in my_followers">
                                 <div class="media">
                                      <a class="media-left" :href="item.url">
-                              <avatar :size="42"	 :src="item.avatar"  :username="item.url" ></avatar>
+                              <avatar :size="42"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
                              </a>
                                     <div class="media-body">
                                         <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-md btn-link pull-right">

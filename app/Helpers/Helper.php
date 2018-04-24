@@ -96,6 +96,9 @@ class Helper
             . $suffixes[$suffixIndex];
     }
 
+    public static function name_or_slug($user) {
+        return ($user->name)?$user->name:$user->slug;    
+    }
     public static function eligible_to_ask() {
         return User::eligible_to_ask();
 }

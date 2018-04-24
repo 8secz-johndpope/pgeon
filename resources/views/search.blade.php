@@ -35,7 +35,7 @@
                                 <div class="media">
 
                                     <a class="media-left" href="{{$value['obj']->slug}}">
-                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  $value['obj']->slug }}" ></avatar>
+                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  Helper::name_or_slug($value['obj']) }}" ></avatar>
                                     </a>
                                     <div class="media-body">
                 @if ( $value['obj']->role_id == 3 )

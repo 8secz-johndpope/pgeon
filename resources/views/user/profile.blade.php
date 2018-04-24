@@ -27,7 +27,7 @@
                     <div class="upload-btn-wrapper ">
                     <div class="pull-left prof-avatar">
                        
-                        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Auth::user()->name}}"></avatar>
+                        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
                                             
                       </div>
                                     <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>

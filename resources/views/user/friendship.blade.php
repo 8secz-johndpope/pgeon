@@ -12,10 +12,10 @@
                 <h4><a href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
 
 
-                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=32 username="{{  Helper::slug($tuser->id,$tuser->slug) }}"></avatar>
+                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
                     </a>
                     <a href="/{{Helper::slug($fuser->id ,$fuser->slug)}}/">
-                    <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::slug($fuser->id,$fuser->slug) }}"></avatar>
+                    <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($fuser) }}"></avatar>
                         </a>
                         
                

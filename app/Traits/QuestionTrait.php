@@ -18,6 +18,7 @@ trait QuestionTrait
         foreach($fetched_questions as $key => $question){
             $questions [$key]['id'] = $question->id;
             $questions [$key]['question'] = ($question->question);
+            $questions [$key]['name'] = ($question->name);
             $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
             $questions [$key]['slug'] = Helper::slug($question->user_id ,$question->slug);
             $questions [$key]['user_id'] = $question->user_id;
@@ -38,6 +39,7 @@ trait QuestionTrait
         foreach($fetched_questions as $key => $question){
             $questions [$key]['id'] = $question->id;
             $questions [$key]['question'] = ($question->question);
+            $questions [$key]['name'] = ($question->name);
             $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
             $questions [$key]['slug'] = Helper::slug($question->user_id ,$question->slug);
             $questions [$key]['user_id'] = $question->user_id;

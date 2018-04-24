@@ -38,7 +38,7 @@
                     <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
                         <li class="media">
                             <a class="media-left" :href="question.slug">
-                                   <avatar :size="42"  :src="question.avatar" :username="question.slug"></avatar>
+                                   <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
                             </a>
                             <div class="media-body">
                                 <div class="h5 m-b-5">

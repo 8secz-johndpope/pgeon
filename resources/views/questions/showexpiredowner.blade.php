@@ -9,7 +9,7 @@
                     <h4>
                     <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
                     
-                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::slug($question->user->id,$question->user->slug) }}"></avatar>
+                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
 
                 
                 </a>

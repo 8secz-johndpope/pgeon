@@ -18209,6 +18209,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -18226,7 +18227,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       still_deciding_paging: false
     };
   },
-  props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field', 'eligible_to_ask'],
   mounted: function mounted() {
 
     $(".up50").removeClass("up50");
@@ -18271,6 +18271,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     get_paginated_qff: function get_paginated_qff() {
+
       $.getJSON('/qff/' + this.paginate + '/' + this.current_page, function (response) {
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
@@ -18291,7 +18292,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     /** will be called only from load more links as well**/
     get_paginated_featured: function get_paginated_featured() {
+
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
+
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -55338,7 +55341,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "size": 42,
         "src": question.avatar,
-        "username": question.slug
+        "username": (question.name) ? question.name : question.slug
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "media-body"
@@ -56134,7 +56137,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "size": 42,
         "src": item.avatar,
-        "username": item.url
+        "username": (item.name) ? item.name : item.url
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "media-body"
@@ -56178,7 +56181,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "size": 42,
         "src": item.avatar,
-        "username": item.url
+        "username": (item.name) ? item.name : item.url
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "media-body"
@@ -56686,7 +56689,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "size": 42,
         "src": question.avatar,
-        "username": question.slug
+        "username": (question.name) ? question.name : question.slug
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "media-body"
@@ -56862,7 +56865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "size": 42,
         "src": question.avatar,
-        "username": question.slug
+        "username": (question.name) ? question.name : question.slug
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "media-body"
