@@ -1,24 +1,29 @@
 $(function () {
 
 
-	$("#frmChangeEmail").submit(function (e) {
+	$("#frmChangeEmail").on('submit', function (e) {
 		e.preventDefault()
 		$alert = $("#frmChangeEmail .alert")
 		$alert.addClass('hidden').html('')
 		$nw_email = $("#nw_email").val()
 		$cf_email = $("#cf_email").val()
 		$c_pwd = $("#c_pwd").val()
-		
 
 		if( $nw_email == $cf_email) {
+			$("#frmChangeEmail #submit strong").css('color', "#C9CCD4")
+			$("#frmChangeEmail #submit").prop('disabled',true)
+
 			var jqxhr = $.post( "/changeemail", {email:$nw_email, pwd: $c_pwd,_token : $('meta[name="csrf-token"]').attr('content')})
 				.done(function(response) {
 				  //alert( "second success" );
-			  
 				  $alert.removeClass('hidden').addClass('alert-success').html(response.message)		
+				//  setTimeout(function(){ $('#changeE').modal('hide'); }, 2000);
+				  
 				})
 				.fail(function(response) {
 					console.log(response.responseJSON.error);
+					$("#frmChangeEmail #submit strong").css('color', "#3fc3ad")
+					$("#frmChangeEmail #submit").removeProp('disabled')
 					$alert.removeClass('hidden').addClass('alert-danger').html(response.responseJSON.error)
 				})
 				

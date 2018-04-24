@@ -57,7 +57,7 @@
 								</div>
 						
 								<div class="modal-actions">
-										<button type="submit" class="btn-link modal-action confirm" >
+										<button id="submit" type="submit" class="btn-link modal-action confirm" >
 												<strong style="color: #3fc3ad;">Save</strong>
 										</button>
 										<button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Cancel</button>
