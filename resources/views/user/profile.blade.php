@@ -44,8 +44,22 @@
                     <br />
          
                 </li>
-       
 
+
+       
+       <li class="list-group-item media p-a">
+
+<label class="control-label">Display name</label>
+<div class="input-group">
+    <input type="text" class="form-control" name="name" value="{{ $user->name}}">
+    <br />
+
+
+</div>
+
+    
+
+</li>
 
                 <li class="list-group-item media p-a">
 
@@ -72,6 +86,10 @@
                         <a href="#" class="m-t-10 small pull-right text-muted" data-toggle="modal" data-target="#deleteA"><span class="fal fa-frown"></span> delete account</a>
                     </div>
                 </li>
+
+
+
+  
             </ul>
             </form>
         </div>
