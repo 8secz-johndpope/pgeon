@@ -25,6 +25,7 @@ class InvoicePaymentSucceeded extends Mailable
     public $billing_date;
     public $period_start;
     public $period_end;
+    public $logo_path;
     
     
 
