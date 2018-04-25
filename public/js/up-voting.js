@@ -2,7 +2,7 @@ var score = 0;
 
 
 
-autosize($("#footer-textarea"));
+//autosize($("#footer-textarea"));
 
 
 function displayLoader(){

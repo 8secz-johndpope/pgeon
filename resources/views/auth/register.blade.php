@@ -26,14 +26,14 @@
         <p style="text-align: left;margin-left: 5px">Or sign up with email</p>
 
         
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        <!-- <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
           <input name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name">
            @if ($errors->has('name'))
                     <span class="help-block">
                         <strong>{{ $errors->first('name') }}</strong>
                     </span>
            @endif
-        </div>
+        </div> -->
 
 
 

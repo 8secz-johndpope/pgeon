@@ -18,7 +18,7 @@
                     </div>
                     <hr>
                     <p style="text-align: left;margin-left: 5px">Now choose your display name</p>
-                    <input class="form-control" placeholder="Display name" name="slug" value="{{ old('slug') }}">
+                    <input class="form-control" placeholder="Display name" name="name" value="{{ old('name') }}">
                     <br />
                       @include('flash::message')
                     

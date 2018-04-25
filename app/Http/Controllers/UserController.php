@@ -183,10 +183,6 @@ class UserController extends Controller
                        ->create($stripeToken, [ 'email' => $user->email,  ]);
            }
           
-
-        
-        
-
             $user->role_id = 3;
             $user->save();
              return back()->with('success','Subscription is completed.');
@@ -318,17 +314,25 @@ class UserController extends Controller
       //}
       }
 
-     // if (Request::input('bio')) {
-    //    $user->bio = Request::input('bio');
-   //   }
+     
 
+        if (Request::input('name') != null ) {
+           
+            $user->name = Request::input('name');
+           
+
+        }
 
       if (Request::input('subscribed_to_newsletter') != null ) {
           $user->subscribed_to_newsletter = Request::input('subscribed_to_newsletter');
       }
 
       $user->save();
-    
+      //user hasn't generated a slug yet..and already generated slug would simply have an id in it
+      if ($user->id == $user->slug) {
+        User::generateSlug($user);
+      }
+      
       return redirect($success_view)->with('user',$user);
 
     }
