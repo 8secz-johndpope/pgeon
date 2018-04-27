@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                            <notifications @bubbleCountChanged="bubbleChangedFromChild"></notifications>
+                            <notifications current_user_id="{{Auth::user()->id}}" @bubbleCountChanged="bubbleChangedFromChild"></notifications>
             </div>
         </div>
     </div>

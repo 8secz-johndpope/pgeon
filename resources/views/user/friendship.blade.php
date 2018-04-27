@@ -7,7 +7,7 @@
                  @if (Auth::guest())
                  <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-home fa-lg"></span></a>
                  @else
-                 <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a> 
+                 <a onclick="window.history.back()"  id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a> 
                  @endif
                 <h4><a href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
 

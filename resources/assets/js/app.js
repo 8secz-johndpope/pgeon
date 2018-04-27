@@ -128,6 +128,14 @@ var defrcomp = allr
 					$(".bubble_wrap").removeClass('hidden')
 					//  $("title").html('Pgeon ('+bubble+') ')
 					}); 
+
+					
+		socket.on('bubblecleared', function () {
+			//this.bubble = bubble
+			$(".bubble_wrap").addClass('hidden')
+			//  $("title").html('Pgeon ('+bubble+') ')
+			}); 
+
 		}
 		
 					

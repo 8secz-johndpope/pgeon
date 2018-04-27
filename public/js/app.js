@@ -16945,6 +16945,12 @@ var app = new Vue({
 				$(".bubble_wrap").removeClass('hidden');
 				//  $("title").html('Pgeon ('+bubble+') ')
 			});
+
+			socket.on('bubblecleared', function () {
+				//this.bubble = bubble
+				$(".bubble_wrap").addClass('hidden');
+				//  $("title").html('Pgeon ('+bubble+') ')
+			});
 		}
 	},
 
@@ -21112,7 +21118,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21125,7 +21130,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       bubble: 0
     };
   },
-  // props: ['bubble'],
+  props: ['current_user_id'],
   mounted: function mounted() {
     //alert(window.bubbleCount)
 
@@ -21144,7 +21149,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var formData = {
           'id': notification.id
         };
-        console.log(formData);
         this.bubble -= 1;
         this.$http.post('/markasseen', formData).then(function (response) {
           //	this.$emit('bubbleCountChanged', this.bubble-1)    	  
@@ -21162,7 +21166,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.still_deciding_count = false;
         _this.notifications = [];
         _this.bubble = 0;
-        // this.fetchRecords()
+        if (socket) {
+          //this will just emit a cleared event from server to all the clients to clear themselves
+          socket.emit('clearbubble', _this.current_user_id);
+        }
       }, function (response) {
         alert('error clearing');
       });

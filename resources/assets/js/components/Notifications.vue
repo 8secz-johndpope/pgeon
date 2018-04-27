@@ -27,7 +27,6 @@
     		<li class="alert alert-info new_notif_bar" v-on:click="fetchRecords"  v-if="new_recs_in>0">You have new notifications</li>
     
     
-    
  
  	<li class="list-group-item media p-a noselect notif_item" v-on:click="redirect(notification)" style="cursor: pointer;" v-bind:class="{ 'text-muted':  notification.seen == 1}"  v-for="notification in notifications">
                             <div class="media-left">
@@ -62,7 +61,7 @@
       bubble: 0
       };
     },
-   // props: ['bubble'],
+    props: ['current_user_id'],
     mounted() {
 		//alert(window.bubbleCount)
 
@@ -80,7 +79,6 @@
     		  var formData = {
     	                'id': notification.id
     	              }
-    	    	  	console.log(formData)
     	    	  	this.bubble -= 1
     	        this.$http.post('/markasseen', formData).then((response) => {
     	        		//	this.$emit('bubbleCountChanged', this.bubble-1)    	  
@@ -94,11 +92,15 @@
 
 
       clear_all() {
+     
 	    	  this.$http.delete('/notification').then((response) => {
 	    		  	this.still_deciding_count = false
               this.notifications =  []
               this.bubble = 0; 
-	             // this.fetchRecords()
+	              if (socket) {
+                  //this will just emit a cleared event from server to all the clients to clear themselves
+                  socket.emit('clearbubble', this.current_user_id);
+                  }
 	            }, (response) => {
 	              alert('error clearing')
 	            });

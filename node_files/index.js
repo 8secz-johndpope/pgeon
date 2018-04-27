@@ -88,7 +88,15 @@ io.on('connection', function (socket) {
 
 	      });
 
-	  });
+    });
+    
+
+    socket.on('clearbubble', function (target_user) {
+      //console.log('wat bugbgfbng');
+      console.log('emitted'+target_user);
+      io.sockets.in('U_' + target_user).emit('bubblecleared');
+    });
+    
 });
 
 
