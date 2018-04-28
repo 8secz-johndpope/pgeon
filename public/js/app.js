@@ -20908,6 +20908,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20944,7 +20957,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         sort: function sort() {
             if (!this.current_order || this.current_order == 'ASC') {
-                console.log('DESC');
 
                 this[this.current_tab].sort(function (a, b) {
                     return a.convo_count - b.convo_count;
@@ -20987,7 +20999,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             //  $.post('follow',  )
-            $(event.target).children().remove();
+            //  $(event.target).children().remove()
             var formData = {
                 'user_id': id
             };
@@ -56155,9 +56167,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.unfollow(item.user_id)
         }
       }
-    }, [_c('span', {
-      staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    }, [_c('svg', {
+      attrs: {
+        "width": "14",
+        "height": "14"
+      }
+    }, [_c('use', {
+      staticClass: "check",
+      attrs: {
+        "xlink:href": "/img/sprites/light.svg#check"
+      }
+    })])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
     attrs: {
@@ -56199,13 +56219,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.follow(item.user_id, $event)
         }
       }
-    }, [_c('span', {
-      staticClass: "fal fa-plus"
-    })]) : _c('button', {
-      staticClass: "btn btn-md btn-link pull-right"
-    }, [_c('span', {
-      staticClass: "fal fa-check text-muted"
-    })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
+    }, [_c('svg', {
+      attrs: {
+        "width": "14",
+        "height": "14"
+      }
+    }, [_c('use', {
+      staticClass: "plus",
+      attrs: {
+        "xlink:href": "/img/sprites/light.svg#plus"
+      }
+    })])]) : _c('button', {
+      staticClass: "btn btn-md btn-link pull-right",
+      on: {
+        "click": function($event) {
+          _vm.unfollow(item.user_id)
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "width": "14",
+        "height": "14"
+      }
+    }, [_c('use', {
+      staticClass: "check",
+      attrs: {
+        "xlink:href": "/img/sprites/light.svg#check"
+      }
+    })])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
   }))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {

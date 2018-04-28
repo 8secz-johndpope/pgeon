@@ -60,7 +60,11 @@
                                     </a>
                                     <div class="media-body">
                                         <button v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
-                                             <span class="fal fa-check text-muted"></span>
+                                             
+                                              
+                                                 <svg width="14" height="14">
+              <use    xlink:href='/img/sprites/light.svg#check' class="check"></use>
+                                                 </svg>
                                         </button>
                                         <strong>{{ item.url }}</strong>
                                         <small>{{ item.last_posted }}</small>
@@ -93,11 +97,20 @@
                               <avatar :size="42"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
                              </a>
                                     <div class="media-body">
+                                     
+                            
                                         <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-md btn-link pull-right">
-                                            <span class="fal fa-plus"></span>
+     <svg width="14" height="14">
+              <use    xlink:href='/img/sprites/light.svg#plus' class="plus"></use>
+                                                 </svg>
+             
                                         </button>
-                                          <button  v-else class="btn btn-md btn-link pull-right">
-                                            <span class="fal fa-check text-muted"></span>
+                                          <button  v-else v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
+
+                                                <svg width="14" height="14">
+              <use    xlink:href='/img/sprites/light.svg#check' class="check"></use>
+                                                 </svg>
+
                                         </button>
                                           <strong>{{ item.url }}</strong>
                                  <small>{{ item.last_posted }}</small>
@@ -169,7 +182,6 @@ import Avatar from 'vue-avatar'
             },
             sort() {
                 if(!this.current_order ||  this.current_order == 'ASC') {
-                                        console.log('DESC');
 
                     this[this.current_tab].sort(function(a, b){
                         return a.convo_count - b.convo_count;
@@ -186,8 +198,8 @@ import Avatar from 'vue-avatar'
             },
         	fetchData() {
         		$.getJSON('/followers', function(response){
-                    this.my_followers = response.my_followers;
-                    this.iam_following = response.iam_following;
+                      this.my_followers = response.my_followers;
+                      this.iam_following = response.iam_following;
                       this.iam_following_count = response.iam_following_count
                       this.my_followers_count = response.my_followers_count
                       this.sort()
@@ -215,7 +227,7 @@ import Avatar from 'vue-avatar'
         	},  
             follow: function (id, event) {
               //  $.post('follow',  )
-              $(event.target).children().remove()
+            //  $(event.target).children().remove()
               var formData = {
                 'user_id': id
               }
@@ -231,6 +243,7 @@ import Avatar from 'vue-avatar'
 
 
             },
+           
 
             unfollow: function (id) {
               //  $.post('unfollow',  )
@@ -238,7 +251,7 @@ import Avatar from 'vue-avatar'
                 'user_id': id
               }
               this.$http.post('/unfollow', formData).then((response) => {
-
+                    
 	            	  this.fetchData()
               }, (response) => {
                 	

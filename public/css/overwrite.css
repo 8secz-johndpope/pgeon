@@ -1013,4 +1013,11 @@ margin-top: 10px;
   vertical-align: top;
 }
 
+
+.plus {
+  fill:#33cccc;
+}
+.check {
+  fill:#777777;
+}
 /* end icon hover and select effect */
