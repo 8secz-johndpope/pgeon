@@ -113,4 +113,8 @@ class RegisterController extends Controller
         return redirect('/step2')->with('skip_url', $skip_url);
     
     }
+
+    public function showsignup() {
+        return view('auth.showsignup');
+    }
 }

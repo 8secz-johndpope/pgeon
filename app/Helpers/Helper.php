@@ -102,5 +102,10 @@ class Helper
     public static function eligible_to_ask() {
         return User::eligible_to_ask();
 }
+
+    public static function read_svg($filename) {
+        echo \Illuminate\Support\Facades\File::get(public_path($filename));
+
+    }
 }
 

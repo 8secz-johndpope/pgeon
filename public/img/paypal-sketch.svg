@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="24px" viewBox="0 0 34 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Paypal</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M13.9301053,5.10463636 C14.1448421,3.78327273 13.9301053,2.87836364 13.216,2.04381818 C12.4303158,1.13972727 10.9296842,0.792 9.072,0.792 L3.64210526,0.792 C3.26503786,0.804968601 2.94340078,1.06119823 2.85642105,1.41790909 L0.570105263,15.3302727 C0.498526316,15.6084545 0.713263158,15.8866364 0.998736842,15.8866364 L4.35705263,15.8866364 L4.14231579,17.2775455 C4.07073684,17.4861818 4.28547368,17.7643636 4.57094737,17.7643636 L7.35747368,17.7643636 C7.71452632,17.7643636 8.00084211,17.5557273 8.00084211,17.208 L8.00084211,17.0689091 L8.50105263,13.7994545 L8.50105263,13.5908182 C8.57263158,13.2430909 8.85810526,13.0344545 9.14442105,13.0344545 L9.57305263,13.0344545 C12.288,13.0344545 14.4311579,11.9217273 15.0745263,8.86090909 C15.36,7.53954545 15.2176842,6.49554545 14.5027368,5.73054545 C14.5018947,5.45236364 14.2164211,5.24372727 13.9301053,5.10463636" id="path-1"></path>
+        <polygon id="path-3" points="0.768842105 0.444272727 16.4867368 0.444272727 16.4867368 17.8347273 0.768842105 17.8347273"></polygon>
+        <polygon id="path-5" points="0.594526316 0.441 808.794105 0.441 808.794105 891.391091 0.594526316 891.391091"></polygon>
+        <polygon id="path-7" points="0.768842105 0.444272727 16.4867368 0.444272727 16.4867368 17.8347273 0.768842105 17.8347273"></polygon>
+        <polygon id="path-9" points="0.768842105 0.444272727 16.4867368 0.444272727 16.4867368 17.8347273 0.768842105 17.8347273"></polygon>
+        <polygon id="path-11" points="0.636631579 0.778909091 23.8568421 0.778909091 23.8568421 25.9600909 0.636631579 25.9600909"></polygon>
+        <polygon id="path-13" points="0.768842105 0.444272727 16.4867368 0.444272727 16.4867368 17.8347273 0.768842105 17.8347273"></polygon>
+        <path d="M13.9301053,5.10463636 C14.1448421,3.78327273 13.9301053,2.87836364 13.216,2.04381818 C12.4303158,1.13972727 10.9296842,0.792 9.072,0.792 L3.64210526,0.792 C3.26503786,0.804968601 2.94340078,1.06119823 2.85642105,1.41790909 L0.570105263,15.3302727 C0.498526316,15.6084545 0.713263158,15.8866364 0.998736842,15.8866364 L4.35705263,15.8866364 L5.21431579,10.6690909 L5.21431579,10.8081818 C5.2801886,10.4390943 5.6145772,10.1727063 6,10.1822727 L7.57221053,10.1822727 C10.7157895,10.1822727 13.1452632,8.93045455 13.8593684,5.38281818 C13.9301053,5.31327273 13.9301053,5.24372727 13.9301053,5.10463636" id="path-15"></path>
+        <polygon id="path-17" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-19" points="0.594526316 0.441 808.794105 0.441 808.794105 891.391091 0.594526316 891.391091"></polygon>
+        <polygon id="path-21" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-23" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-25" points="0.636631579 0.778909091 22.4277895 0.778909091 22.4277895 24.0823636 0.636631579 24.0823636"></polygon>
+        <polygon id="path-27" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <path d="M6.21389474,5.10463636 C6.28547368,4.896 6.42863158,4.68736364 6.57094737,4.61781818 C6.64252632,4.54827273 6.78568421,4.54827273 6.85642105,4.54827273 L11.072,4.54827273 C11.5722105,4.54827273 12.0724211,4.54827273 12.5010526,4.61781818 C12.6442105,4.61781818 12.7157895,4.68736364 12.8581053,4.68736364 C13.0012632,4.68736364 13.0728421,4.75690909 13.2151579,4.75690909 C13.2867368,4.75690909 13.3583158,4.75690909 13.3583158,4.82645455 C13.5730526,4.896 13.7869474,4.96554545 13.9301053,5.03509091 C14.1448421,3.71372727 13.9301053,2.80881818 13.216,1.97427273 C12.4303158,1.07018182 10.9296842,0.722454545 9.072,0.722454545 L3.64210526,0.722454545 C3.26503786,0.735423147 2.94340078,0.991652771 2.85642105,1.34836364 L0.570105263,15.2607273 C0.498526316,15.5389091 0.713263158,15.8170909 0.998736842,15.8170909 L4.35705263,15.8170909 L5.21431579,10.5995455 L6.21389474,5.10463636 Z" id="path-29"></path>
+        <polygon id="path-31" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-33" points="0.594526316 0.441 808.794105 0.441 808.794105 891.391091 0.594526316 891.391091"></polygon>
+        <polygon id="path-35" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-37" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+        <polygon id="path-39" points="0.636631579 0.778909091 22.4277895 0.778909091 22.4277895 24.0823636 0.636631579 24.0823636"></polygon>
+        <polygon id="path-41" points="0.768842105 0.444272727 15.0576842 0.444272727 15.0576842 16.4438182 0.768842105 16.4438182"></polygon>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Membership" transform="translate(-34.000000, -261.000000)">
+            <g id="Cells/Table/Cell" transform="translate(0.000000, 207.000000)">
+                <g id="Security" transform="translate(35.000000, 55.000000)">
+                    <g id="Paypal">
+                        <path d="M0,1.33212091 L0,20.6668013 C0,21.3950006 0.560833122,22 1.24257049,22 L30.7574295,22 C31.4432309,22 32,21.4038006 32,20.6668013 L32,1.33212091 C32,0.603921648 31.4391669,2.22586172e-05 30.7574295,2.22586172e-05 L1.24257049,2.22586172e-05 C0.914554539,-0.00202511204 0.599251455,0.137241149 0.366164603,0.38712209 C0.13307775,0.637003031 0.00134332128,0.976983682 1.80478216e-15,1.33212091 Z" id="Da" stroke="#EBEBEB" stroke-width="0.75"></path>
+                        <g id="Group-3" transform="translate(8.000000, 2.000000)">
+                            <g id="Clipped">
+                                <mask id="mask-2" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                                <g id="vY"></g>
+                                <g mask="url(#mask-2)">
+                                    <g transform="translate(-0.842105, 0.000000)">
+                                        <mask id="mask-4" fill="white">
+                                            <use xlink:href="#path-3"></use>
+                                        </mask>
+                                        <g id="wa" stroke="none" fill="none"></g>
+                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-4)">
+                                            <g transform="translate(-53.052632, -185.727273)">
+                                                <mask id="mask-6" fill="white">
+                                                    <use xlink:href="#path-5"></use>
+                                                </mask>
+                                                <g id="wc" stroke="none" fill="none"></g>
+                                                <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-6)">
+                                                    <g transform="translate(53.052632, 185.727273)">
+                                                        <mask id="mask-8" fill="white">
+                                                            <use xlink:href="#path-7"></use>
+                                                        </mask>
+                                                        <g id="we" stroke="none" fill="none"></g>
+                                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-8)">
+                                                            <mask id="mask-10" fill="white">
+                                                                <use xlink:href="#path-9"></use>
+                                                            </mask>
+                                                            <g id="wg"></g>
+                                                            <g mask="url(#mask-10)">
+                                                                <g transform="translate(-3.368421, -4.090909)">
+                                                                    <mask id="mask-12" fill="white">
+                                                                        <use xlink:href="#path-11"></use>
+                                                                    </mask>
+                                                                    <g id="wi" stroke="none" fill="none"></g>
+                                                                    <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-12)">
+                                                                        <g transform="translate(3.368421, 4.090909)">
+                                                                            <mask id="mask-14" fill="white">
+                                                                                <use xlink:href="#path-13"></use>
+                                                                            </mask>
+                                                                            <g id="wk" stroke="none" fill="none"></g>
+                                                                            <polygon id="Shape" stroke="none" fill="#1399D5" fill-rule="nonzero" mask="url(#mask-14)" points="-6.304 -6.79009091 24.0606316 -6.79009091 24.0606316 25.3472727 -6.304 25.3472727"></polygon>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Clipped">
+                                <mask id="mask-16" fill="white">
+                                    <use xlink:href="#path-15"></use>
+                                </mask>
+                                <g id="wm"></g>
+                                <g mask="url(#mask-16)">
+                                    <g transform="translate(-0.842105, 0.000000)">
+                                        <mask id="mask-18" fill="white">
+                                            <use xlink:href="#path-17"></use>
+                                        </mask>
+                                        <g id="wo" stroke="none" fill="none"></g>
+                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-18)">
+                                            <g transform="translate(-53.052632, -185.727273)">
+                                                <mask id="mask-20" fill="white">
+                                                    <use xlink:href="#path-19"></use>
+                                                </mask>
+                                                <g id="wq" stroke="none" fill="none"></g>
+                                                <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-20)">
+                                                    <g transform="translate(53.052632, 185.727273)">
+                                                        <mask id="mask-22" fill="white">
+                                                            <use xlink:href="#path-21"></use>
+                                                        </mask>
+                                                        <g id="ws" stroke="none" fill="none"></g>
+                                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-22)">
+                                                            <mask id="mask-24" fill="white">
+                                                                <use xlink:href="#path-23"></use>
+                                                            </mask>
+                                                            <g id="wu"></g>
+                                                            <g mask="url(#mask-24)">
+                                                                <g transform="translate(-3.368421, -4.090909)">
+                                                                    <mask id="mask-26" fill="white">
+                                                                        <use xlink:href="#path-25"></use>
+                                                                    </mask>
+                                                                    <g id="ww" stroke="none" fill="none"></g>
+                                                                    <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-26)">
+                                                                        <g transform="translate(3.368421, 4.090909)">
+                                                                            <mask id="mask-28" fill="white">
+                                                                                <use xlink:href="#path-27"></use>
+                                                                            </mask>
+                                                                            <g id="wy" stroke="none" fill="none"></g>
+                                                                            <polygon id="Shape" stroke="none" fill="#232C65" fill-rule="nonzero" mask="url(#mask-28)" points="-6.304 -6.79009091 22.6315789 -6.79009091 22.6315789 23.4695455 -6.304 23.4695455"></polygon>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Clipped">
+                                <mask id="mask-30" fill="white">
+                                    <use xlink:href="#path-29"></use>
+                                </mask>
+                                <g id="wA"></g>
+                                <g mask="url(#mask-30)">
+                                    <g transform="translate(-0.842105, 0.000000)">
+                                        <mask id="mask-32" fill="white">
+                                            <use xlink:href="#path-31"></use>
+                                        </mask>
+                                        <g id="wC" stroke="none" fill="none"></g>
+                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-32)">
+                                            <g transform="translate(-53.052632, -185.727273)">
+                                                <mask id="mask-34" fill="white">
+                                                    <use xlink:href="#path-33"></use>
+                                                </mask>
+                                                <g id="wE" stroke="none" fill="none"></g>
+                                                <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-34)">
+                                                    <g transform="translate(53.052632, 185.727273)">
+                                                        <mask id="mask-36" fill="white">
+                                                            <use xlink:href="#path-35"></use>
+                                                        </mask>
+                                                        <g id="wG" stroke="none" fill="none"></g>
+                                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-36)">
+                                                            <mask id="mask-38" fill="white">
+                                                                <use xlink:href="#path-37"></use>
+                                                            </mask>
+                                                            <g id="wI"></g>
+                                                            <g mask="url(#mask-38)">
+                                                                <g transform="translate(-3.368421, -4.090909)">
+                                                                    <mask id="mask-40" fill="white">
+                                                                        <use xlink:href="#path-39"></use>
+                                                                    </mask>
+                                                                    <g id="wK" stroke="none" fill="none"></g>
+                                                                    <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" mask="url(#mask-40)">
+                                                                        <g transform="translate(3.368421, 4.090909)">
+                                                                            <mask id="mask-42" fill="white">
+                                                                                <use xlink:href="#path-41"></use>
+                                                                            </mask>
+                                                                            <g id="wM" stroke="none" fill="none"></g>
+                                                                            <polygon id="Shape" stroke="none" fill="#263B80" fill-rule="nonzero" mask="url(#mask-42)" points="-6.304 -6.79009091 22.6315789 -6.79009091 22.6315789 23.4695455 -6.304 23.4695455"></polygon>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -44,6 +44,8 @@ class UserController extends Controller
         return view('user.index')->with('questions',$questions)->with('user',$user)->with('answers',$answers)->with('page_title', $user->name . '');
     }
 
+    
+
     public function questions($id)
     {
         $user = User::findOrFail($id);

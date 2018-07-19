@@ -24,6 +24,7 @@ Route::stripeWebhooks('handle-webhook');
 
 
 Route::get('/', 'QuestionController@index');
+
 Route::get('/u_s', 'UserController@status');
   Route::group(['prefix' => 'admin'], function () {
       Voyager::routes();
@@ -173,6 +174,8 @@ Route::get('/u_s', 'UserController@status');
 
   Route::post('follow', array( 'uses'=>'UserFollowingController@insert' ) );
   Route::post('unfollow', array( 'uses'=>'UserFollowingController@destroy' ) );
+
+  Route::get('/signup', 'Auth\RegisterController@showsignup');
 
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

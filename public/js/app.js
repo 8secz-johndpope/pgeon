@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 214);
+/******/ 	return __webpack_require__(__webpack_require__.s = 240);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1914,7 +1914,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(173)("./" + name);
+            __webpack_require__(196)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4588,7 +4588,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(130)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
 
 /***/ }),
 /* 1 */
@@ -4654,7 +4654,7 @@ module.exports = function normalizeComponent (
 "use strict";
 
 
-var bind = __webpack_require__(10);
+var bind = __webpack_require__(14);
 
 /*global toString:true*/
 
@@ -4961,6 +4961,33 @@ module.exports = {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4982,14 +5009,14 @@ var CommonMixin = {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(2);
-var normalizeHeaderName = __webpack_require__(148);
+var normalizeHeaderName = __webpack_require__(151);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -5006,10 +5033,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(6);
+    adapter = __webpack_require__(10);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(6);
+    adapter = __webpack_require__(10);
   }
   return adapter;
 }
@@ -5080,22 +5107,1530 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(133)))
 
 /***/ }),
-/* 6 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isemail__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textFields__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_signup__ = __webpack_require__(176);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isPasswordValid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return handleEmailInput; });
+
+
+
+
+
+
+
+var isPasswordValid = function isPasswordValid(p) {
+  return p && p.length >= 6;
+};
+
+var handleEmailInput = function handleEmailInput(e) {
+  // if(e.target.value === "") return
+  var isValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(e.target.value);
+  var $tv = jQuery(e.target).parents(".pgn-textfield");
+  if (!isValid) {
+    $tv.find(".pgn-textfield-errorMessage").text("Invalid email address.");
+    $tv.addClass("pgn-textfield-error");
+  } else {
+    $tv.removeClass("pgn-textfield-error");
+  }
+};
+
+$(document).ready(function () {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__textFields__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__login_signup__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* default */])();
+});
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Buffer) {
+
+// Load modules
+
+const Punycode = __webpack_require__(197);
+const Util = __webpack_require__(200);
+
+// Declare internals
+
+const internals = {
+    hasOwn: Object.prototype.hasOwnProperty,
+    indexOf: Array.prototype.indexOf,
+    defaultThreshold: 16,
+    maxIPv6Groups: 8,
+
+    categories: {
+        valid: 1,
+        dnsWarn: 7,
+        rfc5321: 15,
+        cfws: 31,
+        deprecated: 63,
+        rfc5322: 127,
+        error: 255
+    },
+
+    diagnoses: {
+
+        // Address is valid
+
+        valid: 0,
+
+        // Address is valid for SMTP but has unusual elements
+
+        rfc5321TLD: 9,
+        rfc5321TLDNumeric: 10,
+        rfc5321QuotedString: 11,
+        rfc5321AddressLiteral: 12,
+
+        // Address is valid for message, but must be modified for envelope
+
+        cfwsComment: 17,
+        cfwsFWS: 18,
+
+        // Address contains non-ASCII when the allowUnicode option is false
+        // Has to be > internals.defaultThreshold so that it's rejected
+        // without an explicit errorLevel:
+        undesiredNonAscii: 25,
+
+        // Address contains deprecated elements, but may still be valid in some contexts
+
+        deprecatedLocalPart: 33,
+        deprecatedFWS: 34,
+        deprecatedQTEXT: 35,
+        deprecatedQP: 36,
+        deprecatedComment: 37,
+        deprecatedCTEXT: 38,
+        deprecatedIPv6: 39,
+        deprecatedCFWSNearAt: 49,
+
+        // Address is only valid according to broad definition in RFC 5322, but is otherwise invalid
+
+        rfc5322Domain: 65,
+        rfc5322TooLong: 66,
+        rfc5322LocalTooLong: 67,
+        rfc5322DomainTooLong: 68,
+        rfc5322LabelTooLong: 69,
+        rfc5322DomainLiteral: 70,
+        rfc5322DomainLiteralOBSDText: 71,
+        rfc5322IPv6GroupCount: 72,
+        rfc5322IPv62x2xColon: 73,
+        rfc5322IPv6BadCharacter: 74,
+        rfc5322IPv6MaxGroups: 75,
+        rfc5322IPv6ColonStart: 76,
+        rfc5322IPv6ColonEnd: 77,
+
+        // Address is invalid for any purpose
+
+        errExpectingDTEXT: 129,
+        errNoLocalPart: 130,
+        errNoDomain: 131,
+        errConsecutiveDots: 132,
+        errATEXTAfterCFWS: 133,
+        errATEXTAfterQS: 134,
+        errATEXTAfterDomainLiteral: 135,
+        errExpectingQPair: 136,
+        errExpectingATEXT: 137,
+        errExpectingQTEXT: 138,
+        errExpectingCTEXT: 139,
+        errBackslashEnd: 140,
+        errDotStart: 141,
+        errDotEnd: 142,
+        errDomainHyphenStart: 143,
+        errDomainHyphenEnd: 144,
+        errUnclosedQuotedString: 145,
+        errUnclosedComment: 146,
+        errUnclosedDomainLiteral: 147,
+        errFWSCRLFx2: 148,
+        errFWSCRLFEnd: 149,
+        errCRNoLF: 150,
+        errUnknownTLD: 160,
+        errDomainTooShort: 161
+    },
+
+    components: {
+        localpart: 0,
+        domain: 1,
+        literal: 2,
+        contextComment: 3,
+        contextFWS: 4,
+        contextQuotedString: 5,
+        contextQuotedPair: 6
+    }
+};
+
+
+internals.specials = function () {
+
+    const specials = '()<>[]:;@\\,."';        // US-ASCII visible characters not valid for atext (http://tools.ietf.org/html/rfc5322#section-3.2.3)
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    for (let i = 0; i < specials.length; ++i) {
+        lookup[specials.codePointAt(i)] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.c0Controls = function () {
+
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    // add C0 control characters
+
+    for (let i = 0; i < 33; ++i) {
+        lookup[i] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.c1Controls = function () {
+
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    // add C1 control characters
+
+    for (let i = 127; i < 160; ++i) {
+        lookup[i] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.regex = {
+    ipV4: /\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
+    ipV6: /^[a-fA-F\d]{0,4}$/
+};
+
+internals.normalizeSupportsNul = '\0'.normalize('NFC') === '\0';
+
+
+// $lab:coverage:off$
+internals.nulNormalize = function (email) {
+
+    return email.split('\0').map((part) => part.normalize('NFC')).join('\0');
+};
+// $lab:coverage:on$
+
+
+internals.normalize = function (email) {
+
+    // $lab:coverage:off$
+    if (!internals.normalizeSupportsNul && email.indexOf('\0') >= 0) {
+        return internals.nulNormalize(email);
+    }
+    // $lab:coverage:on$
+
+    return email.normalize('NFC');
+};
+
+
+internals.checkIpV6 = function (items) {
+
+    return items.every((value) => internals.regex.ipV6.test(value));
+};
+
+
+// Node 10 introduced isSet and isMap, which are useful for cross-context type
+// checking.
+// $lab:coverage:off$
+internals._isSet = (value) => value instanceof Set;
+internals._isMap = (value) => value instanceof Map;
+internals.isSet = Util.types && Util.types.isSet || internals._isSet;
+internals.isMap = Util.types && Util.types.isMap || internals._isMap;
+// $lab:coverage:on$
+
+
+/**
+ * Normalize the given lookup "table" to an iterator. Outputs items in arrays
+ * and sets, keys from maps (regardless of the corresponding value), and own
+ * enumerable keys from all other objects (intended to be plain objects).
+ *
+ * @param {*} table The table to convert.
+ * @returns {Iterable<*>} The converted table.
+ */
+internals.normalizeTable = function (table) {
+
+    if (internals.isSet(table) || Array.isArray(table)) {
+        return table;
+    }
+
+    if (internals.isMap(table)) {
+        return table.keys();
+    }
+
+    return Object.keys(table);
+};
+
+
+/**
+ * Convert the given domain atom to its canonical form using Nameprep and string
+ * lowercasing. Domain atoms that are all-ASCII will not undergo any changes via
+ * Nameprep, and domain atoms that have already been canonicalized will not be
+ * altered.
+ *
+ * @param {string} atom The atom to canonicalize.
+ * @returns {string} The canonicalized atom.
+ */
+internals.canonicalizeAtom = function (atom) {
+
+    return Punycode.toASCII(atom).toLowerCase();
+};
+
+
+/**
+ * Check whether any of the values in the given iterable, when passed through
+ * the iteratee function, are equal to the given value.
+ *
+ * @param {Iterable<*>} iterable The iterable to check.
+ * @param {function(*): *} iteratee The iteratee that receives each item from
+ *   the iterable.
+ * @param {*} value The reference value.
+ * @returns {boolean} Whether the given value matches any of the items in the
+ *   iterable per the iteratee.
+ */
+internals.includesMapped = function (iterable, iteratee, value) {
+
+    for (const item of iterable) {
+        if (value === iteratee(item)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+
+/**
+ * Check whether the given top-level domain atom is valid based on the
+ * configured blacklist/whitelist.
+ *
+ * @param {string} tldAtom The atom to check.
+ * @param {Object} options
+ *   {*} tldBlacklist The set of domains to consider invalid.
+ *   {*} tldWhitelist The set of domains to consider valid.
+ * @returns {boolean} Whether the given domain atom is valid per the blacklist/
+ *   whitelist.
+ */
+internals.validDomain = function (tldAtom, options) {
+
+    // Nameprep handles case-sensitive unicode stuff, but doesn't touch
+    // uppercase ASCII characters.
+    const canonicalTldAtom = internals.canonicalizeAtom(tldAtom);
+
+    if (options.tldBlacklist) {
+        return !internals.includesMapped(
+            internals.normalizeTable(options.tldBlacklist),
+            internals.canonicalizeAtom, canonicalTldAtom);
+    }
+
+    return internals.includesMapped(
+        internals.normalizeTable(options.tldWhitelist),
+        internals.canonicalizeAtom, canonicalTldAtom);
+};
+
+
+/**
+ * Check that an email address conforms to RFCs 5321, 5322, 6530 and others
+ *
+ * We distinguish clearly between a Mailbox as defined by RFC 5321 and an
+ * addr-spec as defined by RFC 5322. Depending on the context, either can be
+ * regarded as a valid email address. The RFC 5321 Mailbox specification is
+ * more restrictive (comments, white space and obsolete forms are not allowed).
+ *
+ * @param {string} email The email address to check. See README for specifics.
+ * @param {Object} options The (optional) options:
+ *   {*} errorLevel Determines the boundary between valid and invalid
+ *     addresses.
+ *   {*} tldBlacklist The set of domains to consider invalid.
+ *   {*} tldWhitelist The set of domains to consider valid.
+ *   {*} allowUnicode Whether to allow non-ASCII characters, defaults to true.
+ *   {*} minDomainAtoms The minimum number of domain atoms which must be present
+ *     for the address to be valid.
+ * @param {function(number|boolean)} callback The (optional) callback handler.
+ * @return {*}
+ */
+
+exports.validate = internals.validate = function (email, options, callback) {
+
+    options = options || {};
+    email = internals.normalize(email);
+
+    // The callback function is deprecated.
+    // $lab:coverage:off$
+    if (typeof options === 'function') {
+        callback = options;
+        options = {};
+    }
+
+    if (typeof callback !== 'function') {
+        callback = null;
+    }
+    // $lab:coverage:on$
+
+    let diagnose;
+    let threshold;
+
+    if (typeof options.errorLevel === 'number') {
+        diagnose = true;
+        threshold = options.errorLevel;
+    }
+    else {
+        diagnose = !!options.errorLevel;
+        threshold = internals.diagnoses.valid;
+    }
+
+    if (options.tldWhitelist) {
+        if (typeof options.tldWhitelist === 'string') {
+            options.tldWhitelist = [options.tldWhitelist];
+        }
+        else if (typeof options.tldWhitelist !== 'object') {
+            throw new TypeError('expected array or object tldWhitelist');
+        }
+    }
+
+    if (options.tldBlacklist) {
+        if (typeof options.tldBlacklist === 'string') {
+            options.tldBlacklist = [options.tldBlacklist];
+        }
+        else if (typeof options.tldBlacklist !== 'object') {
+            throw new TypeError('expected array or object tldBlacklist');
+        }
+    }
+
+    if (options.minDomainAtoms && (options.minDomainAtoms !== ((+options.minDomainAtoms) | 0) || options.minDomainAtoms < 0)) {
+        throw new TypeError('expected positive integer minDomainAtoms');
+    }
+
+    let maxResult = internals.diagnoses.valid;
+    const updateResult = (value) => {
+
+        if (value > maxResult) {
+            maxResult = value;
+        }
+    };
+
+    const allowUnicode = options.allowUnicode === undefined || !!options.allowUnicode;
+    if (!allowUnicode && /[^\x00-\x7f]/.test(email)) {
+        updateResult(internals.diagnoses.undesiredNonAscii);
+    }
+
+    const context = {
+        now: internals.components.localpart,
+        prev: internals.components.localpart,
+        stack: [internals.components.localpart]
+    };
+
+    let prevToken = '';
+
+    const parseData = {
+        local: '',
+        domain: ''
+    };
+    const atomData = {
+        locals: [''],
+        domains: ['']
+    };
+
+    let elementCount = 0;
+    let elementLength = 0;
+    let crlfCount = 0;
+    let charCode;
+
+    let hyphenFlag = false;
+    let assertEnd = false;
+
+    const emailLength = email.length;
+
+    let token;                                      // Token is used outside the loop, must declare similarly
+    for (let i = 0; i < emailLength; i += token.length) {
+        // Utilize codepoints to account for Unicode surrogate pairs
+        token = String.fromCodePoint(email.codePointAt(i));
+
+        switch (context.now) {
+            // Local-part
+            case internals.components.localpart:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   local-part      =   dot-atom / quoted-string / obs-local-part
+                //
+                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
+                //
+                //   dot-atom-text   =   1*atext *("." 1*atext)
+                //
+                //   quoted-string   =   [CFWS]
+                //                       DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+                //                       [CFWS]
+                //
+                //   obs-local-part  =   word *("." word)
+                //
+                //   word            =   atom / quoted-string
+                //
+                //   atom            =   [CFWS] 1*atext [CFWS]
+                switch (token) {
+                    // Comment
+                    case '(':
+                        if (elementLength === 0) {
+                            // Comments are OK at the beginning of an element
+                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsComment : internals.diagnoses.deprecatedComment);
+                        }
+                        else {
+                            updateResult(internals.diagnoses.cfwsComment);
+                            // Cannot start a comment in an element, should be end
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // Next dot-atom element
+                    case '.':
+                        if (elementLength === 0) {
+                            // Another dot, already?
+                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
+                        }
+                        else {
+                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
+                            if (assertEnd) {
+                                updateResult(internals.diagnoses.deprecatedLocalPart);
+                            }
+
+                            // CFWS & quoted strings are OK again now we're at the beginning of an element (although they are obsolete forms)
+                            assertEnd = false;
+                            elementLength = 0;
+                            ++elementCount;
+                            parseData.local += token;
+                            atomData.locals[elementCount] = '';
+                        }
+
+                        break;
+
+                        // Quoted string
+                    case '"':
+                        if (elementLength === 0) {
+                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
+                            updateResult(elementCount === 0 ? internals.diagnoses.rfc5321QuotedString : internals.diagnoses.deprecatedLocalPart);
+
+                            parseData.local += token;
+                            atomData.locals[elementCount] += token;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+
+                            // Quoted string must be the entire element
+                            assertEnd = true;
+                            context.stack.push(context.now);
+                            context.now = internals.components.contextQuotedString;
+                        }
+                        else {
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        if (elementLength === 0) {
+                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsFWS : internals.diagnoses.deprecatedFWS);
+                        }
+                        else {
+                            // We can't start FWS in the middle of an element, better be end
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                    case '@':
+                        // At this point we should have a valid local-part
+                        // $lab:coverage:off$
+                        if (context.stack.length !== 1) {
+                            throw new Error('unexpected item on context stack');
+                        }
+                        // $lab:coverage:on$
+
+                        if (parseData.local.length === 0) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errNoLocalPart);
+                        }
+                        else if (elementLength === 0) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errDotEnd);
+                        }
+                        // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.1 the maximum total length of a user name or other local-part is 64
+                        //    octets
+                        else if (Buffer.byteLength(parseData.local, 'utf8') > 64) {
+                            updateResult(internals.diagnoses.rfc5322LocalTooLong);
+                        }
+                        // http://tools.ietf.org/html/rfc5322#section-3.4.1 comments and folding white space SHOULD NOT be used around "@" in the
+                        //    addr-spec
+                        //
+                        // http://tools.ietf.org/html/rfc2119
+                        // 4. SHOULD NOT this phrase, or the phrase "NOT RECOMMENDED" mean that there may exist valid reasons in particular
+                        //    circumstances when the particular behavior is acceptable or even useful, but the full implications should be understood
+                        //    and the case carefully weighed before implementing any behavior described with this label.
+                        else if (context.prev === internals.components.contextComment || context.prev === internals.components.contextFWS) {
+                            updateResult(internals.diagnoses.deprecatedCFWSNearAt);
+                        }
+
+                        // Clear everything down for the domain parsing
+                        context.now = internals.components.domain;
+                        context.stack[0] = internals.components.domain;
+                        elementCount = 0;
+                        elementLength = 0;
+                        assertEnd = false; // CFWS can only appear at the end of the element
+                        break;
+
+                        // ATEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
+                        //            "!" / "#" /     ;  characters not including
+                        //            "$" / "%" /     ;  specials.  Used for atoms.
+                        //            "&" / "'" /
+                        //            "*" / "+" /
+                        //            "-" / "/" /
+                        //            "=" / "?" /
+                        //            "^" / "_" /
+                        //            "`" / "{" /
+                        //            "|" / "}" /
+                        //            "~"
+                        if (assertEnd) {
+                            // We have encountered atext where it is no longer valid
+                            switch (context.prev) {
+                                case internals.components.contextComment:
+                                case internals.components.contextFWS:
+                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
+                                    break;
+
+                                case internals.components.contextQuotedString:
+                                    updateResult(internals.diagnoses.errATEXTAfterQS);
+                                    break;
+
+                                    // $lab:coverage:off$
+                                default:
+                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
+                                    // $lab:coverage:on$
+                            }
+                        }
+                        else {
+                            context.prev = context.now;
+                            charCode = token.codePointAt(0);
+
+                            // Especially if charCode == 10
+                            if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
+
+                                // Fatal error
+                                updateResult(internals.diagnoses.errExpectingATEXT);
+                            }
+
+                            parseData.local += token;
+                            atomData.locals[elementCount] += token;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+                        }
+                }
+
+                break;
+
+            case internals.components.domain:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   domain          =   dot-atom / domain-literal / obs-domain
+                //
+                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
+                //
+                //   dot-atom-text   =   1*atext *("." 1*atext)
+                //
+                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
+                //
+                //   dtext           =   %d33-90 /          ; Printable US-ASCII
+                //                       %d94-126 /         ;  characters not including
+                //                       obs-dtext          ;  "[", "]", or "\"
+                //
+                //   obs-domain      =   atom *("." atom)
+                //
+                //   atom            =   [CFWS] 1*atext [CFWS]
+
+                // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                //   Mailbox        = Local-part "@" ( Domain / address-literal )
+                //
+                //   Domain         = sub-domain *("." sub-domain)
+                //
+                //   address-literal  = "[" ( IPv4-address-literal /
+                //                    IPv6-address-literal /
+                //                    General-address-literal ) "]"
+                //                    ; See Section 4.1.3
+
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //      Note: A liberal syntax for the domain portion of addr-spec is
+                //      given here.  However, the domain portion contains addressing
+                //      information specified by and used in other protocols (e.g.,
+                //      [RFC1034], [RFC1035], [RFC1123], [RFC5321]).  It is therefore
+                //      incumbent upon implementations to conform to the syntax of
+                //      addresses for the context in which they are used.
+                //
+                // is_email() author's note: it's not clear how to interpret this in
+                // he context of a general email address validator. The conclusion I
+                // have reached is this: "addressing information" must comply with
+                // RFC 5321 (and in turn RFC 1035), anything that is "semantically
+                // invisible" must comply only with RFC 5322.
+                switch (token) {
+                    // Comment
+                    case '(':
+                        if (elementLength === 0) {
+                            // Comments at the start of the domain are deprecated in the text, comments at the start of a subdomain are obs-domain
+                            // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedComment);
+                        }
+                        else {
+                            // We can't start a comment mid-element, better be at the end
+                            assertEnd = true;
+                            updateResult(internals.diagnoses.cfwsComment);
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // Next dot-atom element
+                    case '.':
+                        const punycodeLength = Punycode.encode(atomData.domains[elementCount]).length;
+                        if (elementLength === 0) {
+                            // Another dot, already? Fatal error.
+                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
+                        }
+                        else if (hyphenFlag) {
+                            // Previous subdomain ended in a hyphen. Fatal error.
+                            updateResult(internals.diagnoses.errDomainHyphenEnd);
+                        }
+                        else if (punycodeLength > 63) {
+                            // RFC 5890 specifies that domain labels that are encoded using the Punycode algorithm
+                            // must adhere to the <= 63 octet requirement.
+                            // This includes string prefixes from the Punycode algorithm.
+                            //
+                            // https://tools.ietf.org/html/rfc5890#section-2.3.2.1
+                            // labels          63 octets or less
+
+                            updateResult(internals.diagnoses.rfc5322LabelTooLong);
+                        }
+
+                        // CFWS is OK again now we're at the beginning of an element (although
+                        // it may be obsolete CFWS)
+                        assertEnd = false;
+                        elementLength = 0;
+                        ++elementCount;
+                        atomData.domains[elementCount] = '';
+                        parseData.domain += token;
+
+                        break;
+
+                        // Domain literal
+                    case '[':
+                        if (parseData.domain.length === 0) {
+                            // Domain literal must be the only component
+                            assertEnd = true;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+                            context.stack.push(context.now);
+                            context.now = internals.components.literal;
+                            parseData.domain += token;
+                            atomData.domains[elementCount] += token;
+                            parseData.literal = '';
+                        }
+                        else {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        if (elementLength === 0) {
+                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedFWS);
+                        }
+                        else {
+                            // We can't start FWS in the middle of an element, so this better be the end
+                            updateResult(internals.diagnoses.cfwsFWS);
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // This must be ATEXT
+                    default:
+                        // RFC 5322 allows any atext...
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
+                        //            "!" / "#" /     ;  characters not including
+                        //            "$" / "%" /     ;  specials.  Used for atoms.
+                        //            "&" / "'" /
+                        //            "*" / "+" /
+                        //            "-" / "/" /
+                        //            "=" / "?" /
+                        //            "^" / "_" /
+                        //            "`" / "{" /
+                        //            "|" / "}" /
+                        //            "~"
+
+                        // But RFC 5321 only allows letter-digit-hyphen to comply with DNS rules
+                        //   (RFCs 1034 & 1123)
+                        // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                        //   sub-domain     = Let-dig [Ldh-str]
+                        //
+                        //   Let-dig        = ALPHA / DIGIT
+                        //
+                        //   Ldh-str        = *( ALPHA / DIGIT / "-" ) Let-dig
+                        //
+                        if (assertEnd) {
+                            // We have encountered ATEXT where it is no longer valid
+                            switch (context.prev) {
+                                case internals.components.contextComment:
+                                case internals.components.contextFWS:
+                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
+                                    break;
+
+                                case internals.components.literal:
+                                    updateResult(internals.diagnoses.errATEXTAfterDomainLiteral);
+                                    break;
+
+                                    // $lab:coverage:off$
+                                default:
+                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
+                                    // $lab:coverage:on$
+                            }
+                        }
+
+                        charCode = token.codePointAt(0);
+                        // Assume this token isn't a hyphen unless we discover it is
+                        hyphenFlag = false;
+
+                        if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+                        else if (token === '-') {
+                            if (elementLength === 0) {
+                                // Hyphens cannot be at the beginning of a subdomain, fatal error
+                                updateResult(internals.diagnoses.errDomainHyphenStart);
+                            }
+
+                            hyphenFlag = true;
+                        }
+                        // Check if it's a neither a number nor a latin/unicode letter
+                        else if (charCode < 48 || (charCode > 122 && charCode < 192) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97)) {
+                            // This is not an RFC 5321 subdomain, but still OK by RFC 5322
+                            updateResult(internals.diagnoses.rfc5322Domain);
+                        }
+
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                break;
+
+                // Domain literal
+            case internals.components.literal:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
+                //
+                //   dtext           =   %d33-90 /          ; Printable US-ASCII
+                //                       %d94-126 /         ;  characters not including
+                //                       obs-dtext          ;  "[", "]", or "\"
+                //
+                //   obs-dtext       =   obs-NO-WS-CTL / quoted-pair
+                switch (token) {
+                    // End of domain literal
+                    case ']':
+                        if (maxResult < internals.categories.deprecated) {
+                            // Could be a valid RFC 5321 address literal, so let's check
+
+                            // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                            //   address-literal  = "[" ( IPv4-address-literal /
+                            //                    IPv6-address-literal /
+                            //                    General-address-literal ) "]"
+                            //                    ; See Section 4.1.3
+                            //
+                            // http://tools.ietf.org/html/rfc5321#section-4.1.3
+                            //   IPv4-address-literal  = Snum 3("."  Snum)
+                            //
+                            //   IPv6-address-literal  = "IPv6:" IPv6-addr
+                            //
+                            //   General-address-literal  = Standardized-tag ":" 1*dcontent
+                            //
+                            //   Standardized-tag  = Ldh-str
+                            //                     ; Standardized-tag MUST be specified in a
+                            //                     ; Standards-Track RFC and registered with IANA
+                            //
+                            //   dcontent      = %d33-90 / ; Printable US-ASCII
+                            //                 %d94-126 ; excl. "[", "\", "]"
+                            //
+                            //   Snum          = 1*3DIGIT
+                            //                 ; representing a decimal integer
+                            //                 ; value in the range 0 through 255
+                            //
+                            //   IPv6-addr     = IPv6-full / IPv6-comp / IPv6v4-full / IPv6v4-comp
+                            //
+                            //   IPv6-hex      = 1*4HEXDIG
+                            //
+                            //   IPv6-full     = IPv6-hex 7(":" IPv6-hex)
+                            //
+                            //   IPv6-comp     = [IPv6-hex *5(":" IPv6-hex)] "::"
+                            //                 [IPv6-hex *5(":" IPv6-hex)]
+                            //                 ; The "::" represents at least 2 16-bit groups of
+                            //                 ; zeros.  No more than 6 groups in addition to the
+                            //                 ; "::" may be present.
+                            //
+                            //   IPv6v4-full   = IPv6-hex 5(":" IPv6-hex) ":" IPv4-address-literal
+                            //
+                            //   IPv6v4-comp   = [IPv6-hex *3(":" IPv6-hex)] "::"
+                            //                 [IPv6-hex *3(":" IPv6-hex) ":"]
+                            //                 IPv4-address-literal
+                            //                 ; The "::" represents at least 2 16-bit groups of
+                            //                 ; zeros.  No more than 4 groups in addition to the
+                            //                 ; "::" and IPv4-address-literal may be present.
+
+                            let index = -1;
+                            let addressLiteral = parseData.literal;
+                            const matchesIP = internals.regex.ipV4.exec(addressLiteral);
+
+                            // Maybe extract IPv4 part from the end of the address-literal
+                            if (matchesIP) {
+                                index = matchesIP.index;
+                                if (index !== 0) {
+                                    // Convert IPv4 part to IPv6 format for futher testing
+                                    addressLiteral = addressLiteral.slice(0, index) + '0:0';
+                                }
+                            }
+
+                            if (index === 0) {
+                                // Nothing there except a valid IPv4 address, so...
+                                updateResult(internals.diagnoses.rfc5321AddressLiteral);
+                            }
+                            else if (addressLiteral.slice(0, 5).toLowerCase() !== 'ipv6:') {
+                                updateResult(internals.diagnoses.rfc5322DomainLiteral);
+                            }
+                            else {
+                                const match = addressLiteral.slice(5);
+                                let maxGroups = internals.maxIPv6Groups;
+                                const groups = match.split(':');
+                                index = match.indexOf('::');
+
+                                if (!~index) {
+                                    // Need exactly the right number of groups
+                                    if (groups.length !== maxGroups) {
+                                        updateResult(internals.diagnoses.rfc5322IPv6GroupCount);
+                                    }
+                                }
+                                else if (index !== match.lastIndexOf('::')) {
+                                    updateResult(internals.diagnoses.rfc5322IPv62x2xColon);
+                                }
+                                else {
+                                    if (index === 0 || index === match.length - 2) {
+                                        // RFC 4291 allows :: at the start or end of an address with 7 other groups in addition
+                                        ++maxGroups;
+                                    }
+
+                                    if (groups.length > maxGroups) {
+                                        updateResult(internals.diagnoses.rfc5322IPv6MaxGroups);
+                                    }
+                                    else if (groups.length === maxGroups) {
+                                        // Eliding a single "::"
+                                        updateResult(internals.diagnoses.deprecatedIPv6);
+                                    }
+                                }
+
+                                // IPv6 testing strategy
+                                if (match[0] === ':' && match[1] !== ':') {
+                                    updateResult(internals.diagnoses.rfc5322IPv6ColonStart);
+                                }
+                                else if (match[match.length - 1] === ':' && match[match.length - 2] !== ':') {
+                                    updateResult(internals.diagnoses.rfc5322IPv6ColonEnd);
+                                }
+                                else if (internals.checkIpV6(groups)) {
+                                    updateResult(internals.diagnoses.rfc5321AddressLiteral);
+                                }
+                                else {
+                                    updateResult(internals.diagnoses.rfc5322IPv6BadCharacter);
+                                }
+                            }
+                        }
+                        else {
+                            updateResult(internals.diagnoses.rfc5322DomainLiteral);
+                        }
+
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                    case '\\':
+                        updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        updateResult(internals.diagnoses.cfwsFWS);
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // DTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                        //   dtext         =   %d33-90 /  ; Printable US-ASCII
+                        //                     %d94-126 / ;  characters not including
+                        //                     obs-dtext  ;  "[", "]", or "\"
+                        //
+                        //   obs-dtext     =   obs-NO-WS-CTL / quoted-pair
+                        //
+                        //   obs-NO-WS-CTL =   %d1-8 /    ; US-ASCII control
+                        //                     %d11 /     ;  characters that do not
+                        //                     %d12 /     ;  include the carriage
+                        //                     %d14-31 /  ;  return, line feed, and
+                        //                     %d127      ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        // '\r', '\n', ' ', and '\t' have already been parsed above
+                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || token === '[') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingDTEXT);
+                            break;
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
+                        }
+
+                        parseData.literal += token;
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                break;
+
+                // Quoted string
+            case internals.components.contextQuotedString:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                //   quoted-string = [CFWS]
+                //                   DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+                //                   [CFWS]
+                //
+                //   qcontent      = qtext / quoted-pair
+                switch (token) {
+                    // Quoted pair
+                    case '\\':
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space. Spaces are allowed as regular characters inside a quoted string - it's only FWS if we include '\t' or '\r\n'
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case '\t':
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                        //   Runs of FWS, comment, or CFWS that occur between lexical tokens in
+                        //   a structured header field are semantically interpreted as a single
+                        //   space character.
+
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                        //   the CRLF in any FWS/CFWS that appears within the quoted-string [is]
+                        //   semantically "invisible" and therefore not part of the
+                        //   quoted-string
+
+                        parseData.local += ' ';
+                        atomData.locals[elementCount] += ' ';
+                        elementLength += Buffer.byteLength(token, 'utf8');
+
+                        updateResult(internals.diagnoses.cfwsFWS);
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // End of quoted string
+                    case '"':
+                        parseData.local += token;
+                        atomData.locals[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                        // QTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                        //   qtext          =   %d33 /             ; Printable US-ASCII
+                        //                      %d35-91 /          ;  characters not including
+                        //                      %d93-126 /         ;  "\" or the quote character
+                        //                      obs-qtext
+                        //
+                        //   obs-qtext      =   obs-NO-WS-CTL
+                        //
+                        //   obs-NO-WS-CTL  =   %d1-8 /            ; US-ASCII control
+                        //                      %d11 /             ;  characters that do not
+                        //                      %d12 /             ;  include the carriage
+                        //                      %d14-31 /          ;  return, line feed, and
+                        //                      %d127              ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || charCode === 10) {
+                            updateResult(internals.diagnoses.errExpectingQTEXT);
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.deprecatedQTEXT);
+                        }
+
+                        parseData.local += token;
+                        atomData.locals[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   If the string can be represented as a dot-atom (that is, it contains
+                //   no characters other than atext characters or "." surrounded by atext
+                //   characters), then the dot-atom form SHOULD be used and the quoted-
+                //   string form SHOULD NOT be used.
+
+                break;
+                // Quoted pair
+            case internals.components.contextQuotedPair:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.1
+                //   quoted-pair     =   ("\" (VCHAR / WSP)) / obs-qp
+                //
+                //   VCHAR           =  %d33-126   ; visible (printing) characters
+                //   WSP             =  SP / HTAB  ; white space
+                //
+                //   obs-qp          =   "\" (%d0 / obs-NO-WS-CTL / LF / CR)
+                //
+                //   obs-NO-WS-CTL   =   %d1-8 /   ; US-ASCII control
+                //                       %d11 /    ;  characters that do not
+                //                       %d12 /    ;  include the carriage
+                //                       %d14-31 / ;  return, line feed, and
+                //                       %d127     ;  white space characters
+                //
+                // i.e. obs-qp       =  "\" (%d0-8, %d10-31 / %d127)
+                charCode = token.codePointAt(0);
+
+                if (charCode !== 127 &&  internals.c1Controls(charCode)) {
+                    // Fatal error
+                    updateResult(internals.diagnoses.errExpectingQPair);
+                }
+                else if ((charCode < 31 && charCode !== 9) || charCode === 127) {
+                    // ' ' and '\t' are allowed
+                    updateResult(internals.diagnoses.deprecatedQP);
+                }
+
+                // At this point we know where this qpair occurred so we could check to see if the character actually needed to be quoted at all.
+                // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                //   the sending system SHOULD transmit the form that uses the minimum quoting possible.
+
+                context.prev = context.now;
+                // End of qpair
+                context.now = context.stack.pop();
+                const escapeToken = '\\' + token;
+
+                switch (context.now) {
+                    case internals.components.contextComment:
+                        break;
+
+                    case internals.components.contextQuotedString:
+                        parseData.local += escapeToken;
+                        atomData.locals[elementCount] += escapeToken;
+
+                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
+                        elementLength += 2;
+                        break;
+
+                    case internals.components.literal:
+                        parseData.domain += escapeToken;
+                        atomData.domains[elementCount] += escapeToken;
+
+                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
+                        elementLength += 2;
+                        break;
+
+                        // $lab:coverage:off$
+                    default:
+                        throw new Error('quoted pair logic invoked in an invalid context: ' + context.now);
+                        // $lab:coverage:on$
+                }
+                break;
+
+                // Comment
+            case internals.components.contextComment:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                //   comment  = "(" *([FWS] ccontent) [FWS] ")"
+                //
+                //   ccontent = ctext / quoted-pair / comment
+                switch (token) {
+                    // Nested comment
+                    case '(':
+                        // Nested comments are ok
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // End of comment
+                    case ')':
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                        // Quoted pair
+                    case '\\':
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        updateResult(internals.diagnoses.cfwsFWS);
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // CTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //   ctext         = %d33-39 /  ; Printable US-ASCII
+                        //                   %d42-91 /  ;  characters not including
+                        //                   %d93-126 / ;  "(", ")", or "\"
+                        //                   obs-ctext
+                        //
+                        //   obs-ctext     = obs-NO-WS-CTL
+                        //
+                        //   obs-NO-WS-CTL = %d1-8 /    ; US-ASCII control
+                        //                   %d11 /     ;  characters that do not
+                        //                   %d12 /     ;  include the carriage
+                        //                   %d14-31 /  ;  return, line feed, and
+                        //                   %d127      ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        if (charCode === 0 || charCode === 10 || (charCode !== 127 && internals.c1Controls(charCode))) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingCTEXT);
+                            break;
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.deprecatedCTEXT);
+                        }
+                }
+
+                break;
+
+                // Folding white space
+            case internals.components.contextFWS:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                //   FWS     =   ([*WSP CRLF] 1*WSP) /  obs-FWS
+                //                                   ; Folding white space
+
+                // But note the erratum:
+                // http://www.rfc-editor.org/errata_search.php?rfc=5322&eid=1908:
+                //   In the obsolete syntax, any amount of folding white space MAY be
+                //   inserted where the obs-FWS rule is allowed.  This creates the
+                //   possibility of having two consecutive "folds" in a line, and
+                //   therefore the possibility that a line which makes up a folded header
+                //   field could be composed entirely of white space.
+                //
+                //   obs-FWS =   1*([CRLF] WSP)
+
+                if (prevToken === '\r') {
+                    if (token === '\r') {
+                        // Fatal error
+                        updateResult(internals.diagnoses.errFWSCRLFx2);
+                        break;
+                    }
+
+                    if (++crlfCount > 1) {
+                        // Multiple folds => obsolete FWS
+                        updateResult(internals.diagnoses.deprecatedFWS);
+                    }
+                    else {
+                        crlfCount = 1;
+                    }
+                }
+
+                switch (token) {
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                        }
+
+                        break;
+
+                    case ' ':
+                    case '\t':
+                        break;
+
+                    default:
+                        if (prevToken === '\r') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errFWSCRLFEnd);
+                        }
+
+                        crlfCount = 0;
+
+                        // End of FWS
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+
+                        // Look at this token again in the parent context
+                        --i;
+                }
+
+                prevToken = token;
+                break;
+
+                // Unexpected context
+                // $lab:coverage:off$
+            default:
+                throw new Error('unknown context: ' + context.now);
+                // $lab:coverage:on$
+        } // Primary state machine
+
+        if (maxResult > internals.categories.rfc5322) {
+            // Fatal error, no point continuing
+            break;
+        }
+    } // Token loop
+
+    // Check for errors
+    if (maxResult < internals.categories.rfc5322) {
+        const punycodeLength = Punycode.encode(parseData.domain).length;
+        // Fatal errors
+        if (context.now === internals.components.contextQuotedString) {
+            updateResult(internals.diagnoses.errUnclosedQuotedString);
+        }
+        else if (context.now === internals.components.contextQuotedPair) {
+            updateResult(internals.diagnoses.errBackslashEnd);
+        }
+        else if (context.now === internals.components.contextComment) {
+            updateResult(internals.diagnoses.errUnclosedComment);
+        }
+        else if (context.now === internals.components.literal) {
+            updateResult(internals.diagnoses.errUnclosedDomainLiteral);
+        }
+        else if (token === '\r') {
+            updateResult(internals.diagnoses.errFWSCRLFEnd);
+        }
+        else if (parseData.domain.length === 0) {
+            updateResult(internals.diagnoses.errNoDomain);
+        }
+        else if (elementLength === 0) {
+            updateResult(internals.diagnoses.errDotEnd);
+        }
+        else if (hyphenFlag) {
+            updateResult(internals.diagnoses.errDomainHyphenEnd);
+        }
+
+        // Other errors
+        else if (punycodeLength > 255) {
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.2
+            //   The maximum total length of a domain name or number is 255 octets.
+            updateResult(internals.diagnoses.rfc5322DomainTooLong);
+        }
+        else if (Buffer.byteLength(parseData.local, 'utf8') + punycodeLength + /* '@' */ 1 > 254) {
+            // http://tools.ietf.org/html/rfc5321#section-4.1.2
+            //   Forward-path   = Path
+            //
+            //   Path           = "<" [ A-d-l ":" ] Mailbox ">"
+            //
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.3
+            //   The maximum total length of a reverse-path or forward-path is 256 octets (including the punctuation and element separators).
+            //
+            // Thus, even without (obsolete) routing information, the Mailbox can only be 254 characters long. This is confirmed by this verified
+            // erratum to RFC 3696:
+            //
+            // http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
+            //   However, there is a restriction in RFC 2821 on the length of an address in MAIL and RCPT commands of 254 characters.  Since
+            //   addresses that do not fit in those fields are not normally useful, the upper limit on address lengths should normally be considered
+            //   to be 254.
+            updateResult(internals.diagnoses.rfc5322TooLong);
+        }
+        else if (elementLength > 63) {
+            // http://tools.ietf.org/html/rfc1035#section-2.3.4
+            // labels   63 octets or less
+            updateResult(internals.diagnoses.rfc5322LabelTooLong);
+        }
+        else if (options.minDomainAtoms && atomData.domains.length < options.minDomainAtoms) {
+            updateResult(internals.diagnoses.errDomainTooShort);
+        }
+        else if (options.tldWhitelist || options.tldBlacklist) {
+            const tldAtom = atomData.domains[elementCount];
+
+            if (!internals.validDomain(tldAtom, options)) {
+                updateResult(internals.diagnoses.errUnknownTLD);
+            }
+        }
+    } // Check for errors
+
+    // Finish
+    if (maxResult < internals.categories.dnsWarn) {
+        // Per RFC 5321, domain atoms are limited to letter-digit-hyphen, so we only need to check code <= 57 to check for a digit
+        const code = atomData.domains[elementCount].codePointAt(0);
+
+        if (code <= 57) {
+            updateResult(internals.diagnoses.rfc5321TLDNumeric);
+        }
+    }
+
+    if (maxResult < threshold) {
+        maxResult = internals.diagnoses.valid;
+    }
+
+    const finishResult = diagnose ? maxResult : maxResult < internals.defaultThreshold;
+
+    // $lab:coverage:off$
+    if (callback) {
+        callback(finishResult);
+    }
+    // $lab:coverage:on$
+
+    return finishResult;
+};
+
+
+exports.diagnoses = internals.validate.diagnoses = (function () {
+
+    const diag = {};
+    const keys = Object.keys(internals.diagnoses);
+    for (let i = 0; i < keys.length; ++i) {
+        const key = keys[i];
+        diag[key] = internals.diagnoses[key];
+    }
+
+    return diag;
+})();
+
+
+exports.normalize = internals.normalize;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190).Buffer))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var settle = __webpack_require__(140);
-var buildURL = __webpack_require__(143);
-var parseHeaders = __webpack_require__(149);
-var isURLSameOrigin = __webpack_require__(147);
-var createError = __webpack_require__(9);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(142);
+var settle = __webpack_require__(143);
+var buildURL = __webpack_require__(146);
+var parseHeaders = __webpack_require__(152);
+var isURLSameOrigin = __webpack_require__(150);
+var createError = __webpack_require__(13);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(145);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -5191,7 +6726,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(145);
+      var cookies = __webpack_require__(148);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -5267,7 +6802,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5293,7 +6828,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5305,13 +6840,13 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(139);
+var enhanceError = __webpack_require__(142);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -5329,7 +6864,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5347,7 +6882,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5425,7 +6960,7 @@ return af;
 
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5489,7 +7024,7 @@ return arDz;
 
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5553,7 +7088,7 @@ return arKw;
 
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5684,7 +7219,7 @@ return arLy;
 
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5749,7 +7284,7 @@ return arMa;
 
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5859,7 +7394,7 @@ return arSa;
 
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5923,7 +7458,7 @@ return arTn;
 
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6070,7 +7605,7 @@ return ar;
 
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6180,7 +7715,7 @@ return az;
 
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6319,7 +7854,7 @@ return be;
 
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6414,7 +7949,7 @@ return bg;
 
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6478,7 +8013,7 @@ return bm;
 
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6602,7 +8137,7 @@ return bn;
 
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6726,7 +8261,7 @@ return bo;
 
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6839,7 +8374,7 @@ return br;
 
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6987,7 +8522,7 @@ return bs;
 
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7080,7 +8615,7 @@ return ca;
 
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7257,7 +8792,7 @@ return cs;
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7325,7 +8860,7 @@ return cv;
 
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7411,7 +8946,7 @@ return cy;
 
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7476,7 +9011,7 @@ return da;
 
 
 /***/ }),
-/* 32 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7560,7 +9095,7 @@ return deAt;
 
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7643,7 +9178,7 @@ return deCh;
 
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7726,7 +9261,7 @@ return de;
 
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7831,7 +9366,7 @@ return dv;
 
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7936,7 +9471,7 @@ return el;
 
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8008,7 +9543,7 @@ return enAu;
 
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8076,7 +9611,7 @@ return enCa;
 
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8148,7 +9683,7 @@ return enGb;
 
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8220,7 +9755,7 @@ return enIe;
 
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8292,7 +9827,7 @@ return enNz;
 
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8370,7 +9905,7 @@ return eo;
 
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8466,7 +10001,7 @@ return esDo;
 
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8554,7 +10089,7 @@ return esUs;
 
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8651,7 +10186,7 @@ return es;
 
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8736,7 +10271,7 @@ return et;
 
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8807,7 +10342,7 @@ return eu;
 
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8919,7 +10454,7 @@ return fa;
 
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9031,7 +10566,7 @@ return fi;
 
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9096,7 +10631,7 @@ return fo;
 
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9175,7 +10710,7 @@ return frCa;
 
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9258,7 +10793,7 @@ return frCh;
 
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9346,7 +10881,7 @@ return fr;
 
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9426,7 +10961,7 @@ return fy;
 
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9507,7 +11042,7 @@ return gd;
 
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9589,7 +11124,7 @@ return gl;
 
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9716,7 +11251,7 @@ return gomLatn;
 
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9845,7 +11380,7 @@ return gu;
 
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9949,7 +11484,7 @@ return he;
 
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10078,7 +11613,7 @@ return hi;
 
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10228,7 +11763,7 @@ return hr;
 
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10341,7 +11876,7 @@ return hu;
 
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10441,7 +11976,7 @@ return hyAm;
 
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10529,7 +12064,7 @@ return id;
 
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10661,7 +12196,7 @@ return is;
 
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10736,7 +12271,7 @@ return it;
 
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10821,7 +12356,7 @@ return ja;
 
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10909,7 +12444,7 @@ return jv;
 
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11003,7 +12538,7 @@ return ka;
 
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11095,7 +12630,7 @@ return kk;
 
 
 /***/ }),
-/* 71 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11158,7 +12693,7 @@ return km;
 
 
 /***/ }),
-/* 72 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11289,7 +12824,7 @@ return kn;
 
 
 /***/ }),
-/* 73 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11377,7 +12912,7 @@ return ko;
 
 
 /***/ }),
-/* 74 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11470,7 +13005,7 @@ return ky;
 
 
 /***/ }),
-/* 75 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11612,7 +13147,7 @@ return lb;
 
 
 /***/ }),
-/* 76 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11687,7 +13222,7 @@ return lo;
 
 
 /***/ }),
-/* 77 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11809,7 +13344,7 @@ return lt;
 
 
 /***/ }),
-/* 78 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11911,7 +13446,7 @@ return lv;
 
 
 /***/ }),
-/* 79 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12027,7 +13562,7 @@ return me;
 
 
 /***/ }),
-/* 80 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12096,7 +13631,7 @@ return mi;
 
 
 /***/ }),
-/* 81 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12191,7 +13726,7 @@ return mk;
 
 
 /***/ }),
-/* 82 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12277,7 +13812,7 @@ return ml;
 
 
 /***/ }),
-/* 83 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12441,7 +13976,7 @@ return mr;
 
 
 /***/ }),
-/* 84 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12529,7 +14064,7 @@ return msMy;
 
 
 /***/ }),
-/* 85 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12616,7 +14151,7 @@ return ms;
 
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12717,7 +14252,7 @@ return my;
 
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12785,7 +14320,7 @@ return nb;
 
 
 /***/ }),
-/* 88 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12913,7 +14448,7 @@ return ne;
 
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13006,7 +14541,7 @@ return nlBe;
 
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13099,7 +14634,7 @@ return nl;
 
 
 /***/ }),
-/* 91 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13164,7 +14699,7 @@ return nn;
 
 
 /***/ }),
-/* 92 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13293,7 +14828,7 @@ return paIn;
 
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13422,7 +14957,7 @@ return pl;
 
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13489,7 +15024,7 @@ return ptBr;
 
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13559,7 +15094,7 @@ return pt;
 
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13639,7 +15174,7 @@ return ro;
 
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13827,7 +15362,7 @@ return ru;
 
 
 /***/ }),
-/* 98 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13930,7 +15465,7 @@ return sd;
 
 
 /***/ }),
-/* 99 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13996,7 +15531,7 @@ return se;
 
 
 /***/ }),
-/* 100 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14072,7 +15607,7 @@ return si;
 
 
 /***/ }),
-/* 101 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14227,7 +15762,7 @@ return sk;
 
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14394,7 +15929,7 @@ return sl;
 
 
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14469,7 +16004,7 @@ return sq;
 
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14584,7 +16119,7 @@ return srCyrl;
 
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14699,7 +16234,7 @@ return sr;
 
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14793,7 +16328,7 @@ return ss;
 
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14867,7 +16402,7 @@ return sv;
 
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14931,7 +16466,7 @@ return sw;
 
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15066,7 +16601,7 @@ return ta;
 
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15160,7 +16695,7 @@ return te;
 
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15233,7 +16768,7 @@ return tet;
 
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15305,7 +16840,7 @@ return th;
 
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15372,7 +16907,7 @@ return tlPh;
 
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15497,7 +17032,7 @@ return tlh;
 
 
 /***/ }),
-/* 115 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15592,7 +17127,7 @@ return tr;
 
 
 /***/ }),
-/* 116 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15688,7 +17223,7 @@ return tzl;
 
 
 /***/ }),
-/* 117 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15751,7 +17286,7 @@ return tzmLatn;
 
 
 /***/ }),
-/* 118 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15814,7 +17349,7 @@ return tzm;
 
 
 /***/ }),
-/* 119 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15970,7 +17505,7 @@ return uk;
 
 
 /***/ }),
-/* 120 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16074,7 +17609,7 @@ return ur;
 
 
 /***/ }),
-/* 121 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16137,7 +17672,7 @@ return uzLatn;
 
 
 /***/ }),
-/* 122 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16200,7 +17735,7 @@ return uz;
 
 
 /***/ }),
-/* 123 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16284,7 +17819,7 @@ return vi;
 
 
 /***/ }),
-/* 124 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16357,7 +17892,7 @@ return xPseudo;
 
 
 /***/ }),
-/* 125 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16422,7 +17957,7 @@ return yo;
 
 
 /***/ }),
-/* 126 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16538,7 +18073,7 @@ return zhCn;
 
 
 /***/ }),
-/* 127 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16648,7 +18183,7 @@ return zhHk;
 
 
 /***/ }),
-/* 128 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16757,92 +18292,251 @@ return zhTw;
 
 
 /***/ }),
-/* 129 */
+/* 133 */
 /***/ (function(module, exports) {
 
-var g;
+// shim for using process in browser
+var process = module.exports = {};
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
 
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
 }
 
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
 
-module.exports = g;
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
 
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
 };
 
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
 
 /***/ }),
-/* 131 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_AnswerMixin_js__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_AnswerMixin_js__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_longpress__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_longpress__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_longpress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_longpress__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_avatar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_global_forms__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_custom__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_custom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__modules_custom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_landing__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_question_details__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_question_details___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__modules_question_details__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_published__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_published___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__modules_published__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_publishedResponses__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_publishedResponses___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__modules_publishedResponses__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_slideMenu__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_slideMenu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__modules_slideMenu__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_membership__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_membership___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__modules_membership__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_responseDetails__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_responseDetails___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__modules_responseDetails__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_my_account__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_my_account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__modules_my_account__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_search__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__modules_search__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_notifications__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_notifications___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__modules_notifications__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(167);
+__webpack_require__(170);
 
-window.Vue = __webpack_require__(211);
+window.Vue = __webpack_require__(237);
 
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 
-var VueTouch = __webpack_require__(210);
+var VueTouch = __webpack_require__(236);
 Vue.use(VueTouch, { name: 'v-touch' });
-Vue.use(__webpack_require__(208));
+Vue.use(__webpack_require__(234));
 /** router logic
  * homepage (/), questions, response will go to questioncontroller.index which simply has routerview to display contents
  * path const down here dictates which url fetches respective components and loaded into the routerview..
@@ -16857,23 +18551,23 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 
 
-Vue.component('follow', __webpack_require__(188));
-var allq = Vue.component('allq', __webpack_require__(176));
-var allqguest = Vue.component('allqguest', __webpack_require__(177));
-var allr = Vue.component('allr', __webpack_require__(179));
-var allrguest = Vue.component('allrguest', __webpack_require__(180));
+Vue.component('follow', __webpack_require__(214));
+var allq = Vue.component('allq', __webpack_require__(202));
+var allqguest = Vue.component('allqguest', __webpack_require__(203));
+var allr = Vue.component('allr', __webpack_require__(205));
+var allrguest = Vue.component('allrguest', __webpack_require__(206));
 
-Vue.component('ask', __webpack_require__(187));
-Vue.component('answers', __webpack_require__(182));
-Vue.component('answers_guest', __webpack_require__(185));
-Vue.component('allqtimer', __webpack_require__(178));
-Vue.component('localtimezone', __webpack_require__(189));
-Vue.component('answeringtimer', __webpack_require__(181));
-Vue.component('answers_expired', __webpack_require__(183));
-Vue.component('answers_live_owner', __webpack_require__(186));
+Vue.component('ask', __webpack_require__(213));
+Vue.component('answers', __webpack_require__(208));
+Vue.component('answers_guest', __webpack_require__(211));
+Vue.component('allqtimer', __webpack_require__(204));
+Vue.component('localtimezone', __webpack_require__(215));
+Vue.component('answeringtimer', __webpack_require__(207));
+Vue.component('answers_expired', __webpack_require__(209));
+Vue.component('answers_live_owner', __webpack_require__(212));
 
-Vue.component('answers_expired_owner', __webpack_require__(184));
-Vue.component('notifications', __webpack_require__(190));
+Vue.component('answers_expired_owner', __webpack_require__(210));
+Vue.component('notifications', __webpack_require__(216));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 var defqcomp = allq;
@@ -17104,29 +18798,45 @@ jQuery(function ($) {
 	});
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /***/ }),
-/* 132 */
+/* 135 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(134);
+module.exports = __webpack_require__(137);
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var bind = __webpack_require__(10);
-var Axios = __webpack_require__(136);
-var defaults = __webpack_require__(5);
+var bind = __webpack_require__(14);
+var Axios = __webpack_require__(139);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -17159,15 +18869,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(7);
-axios.CancelToken = __webpack_require__(135);
-axios.isCancel = __webpack_require__(8);
+axios.Cancel = __webpack_require__(11);
+axios.CancelToken = __webpack_require__(138);
+axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(150);
+axios.spread = __webpack_require__(153);
 
 module.exports = axios;
 
@@ -17176,13 +18886,13 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(7);
+var Cancel = __webpack_require__(11);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -17240,18 +18950,18 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 var utils = __webpack_require__(2);
-var InterceptorManager = __webpack_require__(137);
-var dispatchRequest = __webpack_require__(138);
-var isAbsoluteURL = __webpack_require__(146);
-var combineURLs = __webpack_require__(144);
+var InterceptorManager = __webpack_require__(140);
+var dispatchRequest = __webpack_require__(141);
+var isAbsoluteURL = __webpack_require__(149);
+var combineURLs = __webpack_require__(147);
 
 /**
  * Create a new instance of Axios
@@ -17332,7 +19042,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17391,16 +19101,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 138 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var transformData = __webpack_require__(141);
-var isCancel = __webpack_require__(8);
-var defaults = __webpack_require__(5);
+var transformData = __webpack_require__(144);
+var isCancel = __webpack_require__(12);
+var defaults = __webpack_require__(6);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -17477,7 +19187,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 139 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17503,13 +19213,13 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 140 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(13);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -17535,7 +19245,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 141 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17562,7 +19272,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 142 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17605,7 +19315,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 143 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17680,7 +19390,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 144 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17699,7 +19409,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 145 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17759,7 +19469,7 @@ module.exports = (
 
 
 /***/ }),
-/* 146 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17780,7 +19490,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 147 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17855,7 +19565,7 @@ module.exports = (
 
 
 /***/ }),
-/* 148 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17874,7 +19584,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 149 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17918,7 +19628,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 150 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17952,7 +19662,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 151 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18063,12 +19773,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 152 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -18356,12 +20066,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 153 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 var _data$components$prop;
@@ -18370,12 +20080,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -18597,7 +20301,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 }), _data$components$prop);
 
 /***/ }),
-/* 154 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18691,12 +20395,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 155 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -18980,12 +20684,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 156 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(5);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 //
@@ -19187,7 +20891,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 157 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19266,7 +20970,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 158 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19774,7 +21478,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 159 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19868,7 +21572,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 160 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20020,7 +21724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 161 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20293,7 +21997,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 162 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20575,7 +22279,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 163 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20767,7 +22471,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 164 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21030,7 +22734,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 165 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21074,7 +22778,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 166 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21219,11 +22923,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 167 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(172);
+window._ = __webpack_require__(195);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -21232,9 +22936,9 @@ window._ = __webpack_require__(172);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(171);
+  window.$ = window.jQuery = __webpack_require__(194);
 
-  __webpack_require__(169);
+  __webpack_require__(189);
 } catch (e) {}
 
 /**
@@ -21243,7 +22947,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(133);
+window.axios = __webpack_require__(136);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -21277,7 +22981,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 168 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21328,7 +23032,768 @@ var AnswerMixin = {
 };
 
 /***/ }),
-/* 169 */
+/* 172 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports) {
+
+// $(".switch-toggle").on("click", function(){
+//   $(this).toggleClass("switch-toggle--active")
+// })
+
+/***/ }),
+/* 174 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+
+  setTimeout(function () {
+    $("input.pgn__input").val("");
+    $("input.pgn__input").prop("disabled", false);
+  }, 50);
+
+  $("input.pgn__input").on("blur", function () {
+    var $tmpval = $(this).val();
+    if ($tmpval.trim().length == 0) {
+      $(this).parent(".pgn-textfield").addClass("empty");
+      $(this).parent(".pgn-textfield").removeClass("is_dirty");
+    } else {
+      $(this).parent(".pgn-textfield").addClass("is_dirty");
+      $(this).parent(".pgn-textfield").removeClass("empty");
+    }
+  });
+});
+
+/***/ }),
+/* 175 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util__);
+
+
+var openDropdown = function openDropdown() {
+  var $header = jQuery(".landing_header");
+  $header.addClass("dropdown--active");
+};
+
+var closeDropdown = function closeDropdown() {
+  var $header = jQuery(".landing_header");
+  $header.removeClass("dropdown--active");
+};
+
+var showPremiumModal = function showPremiumModal(e) {
+  e.preventDefault();
+  closeDropdown();
+  jQuery(".upgrade-modal").addClass("upgrade-modal--visible");
+};
+
+var hidePremiumModal = function hidePremiumModal() {
+  jQuery(".upgrade-modal").removeClass("upgrade-modal--visible");
+};
+
+jQuery(function () {
+  jQuery(".openQuestion__title").on("click", function (e) {
+    var $header = jQuery(".landing_header");
+    var open = $header.hasClass("dropdown--active");
+    open ? closeDropdown() : openDropdown();
+  });
+
+  jQuery("#overlay").on("click", closeDropdown);
+
+  jQuery(".myQuestion-premium-button").on("click", showPremiumModal);
+  jQuery(".upgrade-modal .modal-overlay").on("click", hidePremiumModal);
+});
+
+/***/ }),
+/* 176 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export handlePasswordInput */
+var handlePasswordInput = function handlePasswordInput(e) {
+  var value = e.target.value;
+  var $tv = jQuery(e.target).parents(".pgn-textfield");
+
+  value.length > 0 ? $tv.find("#show_password").removeClass("dn") : $tv.find("#show_password").addClass("dn");
+};
+
+var togglePasswordShow = function togglePasswordShow(e, $el) {
+  var type = $el.attr("type");
+  var $span = jQuery(e.target);
+  var text = $span.text();
+  var to = type === "password" ? "text" : "password";
+  $el.attr("type", to);
+  $span.text(text.toLowerCase() == "show" ? "Hide" : "Show");
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+  // jQuery("#password_showable input").on("input", handlePasswordInput)
+  jQuery("#show_password").on("click", function (e) {
+    return togglePasswordShow(e, $("#login_password"));
+  });
+  jQuery("#login_password").on("input", handlePasswordInput);
+});
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isemail__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_forms__ = __webpack_require__(7);
+
+
+
+var $fpForm = jQuery("#forgot_password_form");
+
+function forgotPasswordMessage(m) {
+  $fpForm.find(".pgn-textfield").addClass("pgn-textfield-error");
+  $fpForm.find(".pgn-textfield-errorMessage").text(m);
+}
+
+var handleForgotPasswordSubmit = function handleForgotPasswordSubmit(e) {
+  e.preventDefault();
+  var email = $("#forgot_password_email").val() || "";
+  // email is missing
+  if (email.trim().length === 0) {
+    forgotPasswordMessage("Email is missing.");
+    return;
+  }
+  if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(email)) {
+    forgotPasswordMessage("Email is not valid.");
+    return;
+  }
+
+  if (email.toLowerCase() == "russ@pgeon.com") {
+    window.location.href = "/login/forgotPassword/confirm";
+  } else {
+    forgotPasswordMessage("Email address not registered.");
+  }
+};
+
+var handleLoginSubmit = function handleLoginSubmit(e) {
+  var $passContainer = jQuery("#login_password").parent();
+  var pass = $passContainer.find("input").val() || "";
+  var email = $("#login_email").val() || "";
+  var isPassEmpty = pass.length > 0;
+  var isEmailValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(email);
+
+  if (!isPassEmpty) {
+    e.preventDefault();
+    $passContainer.addClass("pgn-textfield-error");
+    $passContainer.find(".pgn-textfield-errorMessage").text("Password missing.");
+  }
+
+  if (!isEmailValid) {
+    $("[data-error=email]").parent().addClass("pgn-textfield-error");
+    $("[data-error=email]").text("Invalid email address.");
+  }
+
+  if (!(email.toLowerCase() === "russ@pgeon.com" && pass === "secret123")) {
+    e.preventDefault();
+    $passContainer.addClass("pgn-textfield-error");
+    $passContainer.find(".pgn-textfield-errorMessage").text("Incorrect Password.");
+  }
+};
+
+var removeError = function removeError(e) {
+  $(e.target).parent().removeClass("pgn-textfield-error");
+};
+
+var handleValidatePassword = function handleValidatePassword(e) {
+  console.log("Here");
+  var $passContainer = jQuery("#login_password").parent();
+  var pass = $passContainer.find("input").val() || "";
+  console.log("pass", pass);
+  var isPassValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["b" /* isPasswordValid */])(pass);
+  console.log("ispassvalid", isPassValid);
+
+  if (!isPassValid) {
+    e.preventDefault();
+    $passContainer.addClass("pgn-textfield-error");
+    $passContainer.find(".pgn-textfield-errorMessage").text("Password Invalid.");
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+  //- TODO this needs serious refactoring.
+  jQuery("#login_email").on("focusout", function (e) {
+    return e.target.value !== "" && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["a" /* handleEmailInput */])(e);
+  });
+  jQuery("#login_password").on("focusout", function (e) {
+    return e.target.value !== "" && handleValidatePassword(e);
+  });
+  // jQuery("#forgotPassword_email").on("focusout", handleEmailInput)
+  jQuery("#login__form").on("submit", handleLoginSubmit);
+  jQuery("#forgot_password_form").on("submit", handleForgotPasswordSubmit);
+
+  jQuery("#forgot_password_email").on("focusout", handleForgotPasswordSubmit);
+  jQuery("#login_password, #login_email, #forgot_password_email").on("focus", removeError);
+  // todo: might not been needed.
+  // jQuery("#login_password, #login_email",).on("input", removeError)
+});
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports) {
+
+var cardContainer = $(".payment-card-container");
+var redeemCodeContainer = $(".redeem-code-container");
+var paymentContainer = $(".payment-container");
+
+$("[name=payment-method]").on("change", function (e) {
+  var $target = $(e.target);
+  $target.prop("checked") ? $target.parents(".payment-method-body").next().show() : $target.parents(".payment-method-body").next().hide();
+  // paymentContainer.css("display", "none")
+  // let id = e.target.id
+  // if (id == "payment-method-card") {
+  //   cardContainer.css("display", "block")
+  // } else if (id == "payment-method-gift") {
+  //   redeemCodeContainer.css("display", "block")
+  // }
+});
+
+//  handle add your card button click
+$(".payment-card-btn").on("click", function (e) {
+  var _this = this;
+
+  this.classList.add("btn-loading--active");
+  this.setAttribute("disabled", true);
+  setTimeout(function () {
+    showNotification("Card Details Added");
+    _this.removeAttribute("disabled");
+    _this.classList.remove("btn-loading--active");
+  }, 1000);
+});
+
+$(".redeem-code-btn").on("click", function (e) {
+  var _this2 = this;
+
+  this.classList.add("btn-loading--active");
+  this.setAttribute("disabled", true);
+  setTimeout(function () {
+    showNotification("Code has been redeemed idk??");
+    _this2.removeAttribute("disabled");
+    _this2.classList.remove("btn-loading--active");
+  }, 1000);
+});
+
+function showNotification(msg) {
+  var notifInner = "<span>" + msg + "</span>";
+  var notif = document.createElement("div");
+  notif.classList = "notification notification--success";
+  notif.innerHTML = notifInner;
+  document.body.appendChild(notif);
+  setTimeout(function () {
+    return notif.classList.add("notification--add");
+  }, 0);
+  setTimeout(function () {
+    notif.classList.remove("notification--add");
+    setTimeout(function () {
+      notif.parentElement.removeChild(notif);
+      // 300 is roughly the same as the transition duration.
+    }, 300);
+  }, 3000);
+}
+
+var showEditModal = function showEditModal() {
+  $(".edit-card-modal").addClass("edit-card-modal--show");
+  fillCardNumbers(cardNumber);
+};
+var hideEditModal = function hideEditModal() {
+  $(".edit-card-modal").removeClass("edit-card-modal--show");
+};
+
+// handle edit card modal.
+$(".payment-edit-visa").on("click", showEditModal);
+$(".edit-card-modal .modal-overlay").on("click", hideEditModal);
+$(".edit-card-cancel").on("click", hideEditModal);
+$(".edit-card-save").on("click", hideEditModal);
+
+// ●●●
+var cardNumber = "0404";
+var fillCardNumbers = function fillCardNumbers(numbers) {
+  // not sure how we'll be getting the numbers from the server.
+  document.querySelector(".edit-visa-card__numbers").textContent = "\u25CF\u25CF\u25CF\u25CF \u25CF\u25CF\u25CF\u25CF \u25CF\u25CF\u25CF\u25CF " + numbers;
+};
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports) {
+
+// delete modal
+var openDeleteAccountModal = function openDeleteAccountModal(e) {
+  e.preventDefault();
+  $(".delete-account-modal").addClass("delete-account-modal--visible");
+};
+var closeDeleteAccountModal = function closeDeleteAccountModal(e) {
+  $(".delete-account-modal").removeClass("delete-account-modal--visible");
+  console.log("closeDeleteAccountModal");
+};
+
+$(".delete-account").on("click", openDeleteAccountModal);
+$(".delete-account-modal-overlay").on("click", closeDeleteAccountModal);
+$(".confirm-deletion").on("click", closeDeleteAccountModal);
+$(".keep-account").on("click", closeDeleteAccountModal);
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports) {
+
+// document.querySelector(".clear-all").addEventListener("click", (e) => {
+//   const notifEl = document.querySelector(".notifications");
+//   if (e.currentTarget.textContent.trim() === "Clear All") {
+//     notifEl.classList.add("hidden");
+//     e.currentTarget.textContent = "Undo";
+//   } else {
+//     notifEl.classList.remove("hidden");
+//     e.currentTarget.textContent = "Clear All";
+//   }
+// });
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports) {
+
+var publishedEditing = function publishedEditing() {
+  $(".live-header").addClass("published-editing");
+  $(".live-main").addClass("published-main-editing");
+};
+
+var publishedNormal = function publishedNormal() {
+  $(".live-header").removeClass("published-editing");
+  $(".live-main").removeClass("published-main-editing");
+};
+
+$(".published-edit").on("click", publishedEditing);
+$(".published-cancel").on("click", publishedNormal);
+
+$(".published-select-all").on("click", function () {
+  var selected = $(".published-select-all").hasClass("published-select-all--selected");
+  if (selected) {
+    $(".published-select-all").removeClass("published-select-all--selected");
+    $(".q-bubble-container").removeClass("q-bubble-container--checked");
+  } else {
+    $(".published-select-all").addClass("published-select-all--selected");
+    $(".q-bubble-container").addClass("q-bubble-container--checked");
+  }
+  checkShowDelete();
+});
+
+// handling the deletion modal.
+$(".published-delete").on("click", function () {
+  $(".published-main").addClass("confirming-modal--active");
+});
+
+$(".confirmation-modal__overlay, .confirmation-modal__cancel, .confirmation-modal__danger ").on("click", function () {
+  $(".published-main").removeClass("confirming-modal--active");
+});
+
+// select clicked question.
+$(".q-bubble-container--clickable").on("click", function (e) {
+  console.log(e.target);
+  var $el = void 0;
+  if ($(e.target).hasClass("q-bubble-container")) {
+    $el = $(e.target);
+  } else {
+    $el = $(e.target).parents(".q-bubble-container");
+  }
+  if ($el.hasClass("q-bubble-container--checked")) {
+    $el.removeClass("q-bubble-container--checked");
+    $(".published-select-all").removeClass("published-select-all--selected");
+  } else {
+    $el.addClass("q-bubble-container--checked");
+  }
+  checkShowDelete();
+});
+
+var checkShowDelete = function checkShowDelete() {
+  if ($(".q-bubble-container--checked").length > 0) {
+    $(".published-delete").addClass("published-delete--show");
+  } else {
+    $(".published-delete").removeClass("published-delete--show");
+  }
+};
+
+// live-question modal
+$(".open-question__stop").on("click", function () {
+  $(".landing-main").addClass("confirming-modal--active");
+});
+
+$(".confirmation-modal__overlay, .confirmation-modal__cancel, .confirmation-modal__danger ").on("click", function () {
+  $(".landing-main").removeClass("confirming-modal--active");
+});
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports) {
+
+// publishedResponses
+
+
+// response details bubble meta display on click.
+$(".response-details-bubble").on("click", function (e) {
+  console.log("here");
+  $(e.currentTarget).find(".open-question__meta").toggle("hidden");
+});
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports) {
+
+$(".question-details__more").click(function (e) {
+  var open = $(".landing_header").hasClass("details__dropdown--active");
+  open ? closeDetailsDropdown() : openDetailsDropdown();
+});
+
+var closeDetailsDropdown = function closeDetailsDropdown() {
+  $(".landing_header").removeClass("details__dropdown--active");
+  closeSharedLinks();
+};
+
+var openDetailsDropdown = function openDetailsDropdown() {
+  $(".landing_header").addClass("details__dropdown--active");
+};
+var openSharedLinks = function openSharedLinks() {
+  $(".details-share").addClass("details-share--visible");
+  $(".details__dropdown").addClass("dn");
+};
+var closeSharedLinks = function closeSharedLinks() {
+  $(".details-share").removeClass("details-share--visible");
+  $(".details__dropdown").removeClass("dn");
+};
+
+var handleAnswerQuestionInput = function handleAnswerQuestionInput(e) {
+  e.target.value.length > 0 ? $(".answer-question__input").addClass("answer-question__input---typing") : $(".answer-question__input").removeClass("answer-question__input---typing");
+};
+$(".answer-question__input textarea").on("input", handleAnswerQuestionInput);
+$(".details__overlay").on("click", closeDetailsDropdown);
+$(".details__dropdown_item--share").on("click", openSharedLinks);
+$(".details-share__header").on("click", closeDetailsDropdown);
+
+// track textarea count
+
+var countElm = $(".post-question-count");
+var trackCount = function trackCount(e) {
+  var remaining = 150 - e.target.value.length;
+  countElm.text(remaining);
+  if (remaining < 0) {
+    countElm.addClass("redish1");
+  } else {
+    countElm.removeClass("redish1");
+  }
+};
+
+$(".post-question-textarea").on("input", trackCount);
+
+var $shareEl = $(".auto-share-toggle");
+
+document.querySelector(".auto-share-checkbox") && document.querySelector(".auto-share-checkbox").checked ? $shareEl.show() : $shareEl.hide();
+
+// autoshare
+$(".auto-share-checkbox").on("change", function (e) {
+  if (e.target.checked) {
+    $shareEl.show();
+  } else {
+    $shareEl.hide();
+  }
+});
+
+// share-social
+$(".share-social").on("click", function () {
+  console.log("here");
+});
+
+var clicking = false;
+var pressTimer = void 0;
+
+$(".open-question__response").on("mousedown", function (e) {
+  clicking = true;
+  pressTimer = setTimeout(function () {
+    if (clicking) {
+      console.log("long press");
+      var votes = e.currentTarget.querySelector(".response-votes");
+      votes.textContent = parseInt(votes.textContent) - 1;
+    }
+  }, 2000);
+});
+
+$(".open-question__response").on("mouseup", function (e) {
+  var voted = e.currentTarget.getAttribute("data-voted");
+  console.log("voted", voted);
+
+  if (!longclick) {
+    console.log("short press");
+    // handle short click
+    var votes = e.currentTarget.querySelector(".response-votes");
+    if (voted) {
+      votes.textContent = parseInt(votes.textContent) - 1;
+      e.currentTarget.removeAttribute("data-voted");
+    } else {
+      votes.textContent = parseInt(votes.textContent) + 1;
+      e.currentTarget.setAttribute("data-voted", true);
+    }
+  }
+
+  clicking = false;
+  clearTimeout(pressTimer);
+});
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports) {
+
+
+var activateOverlappingImagesModal = function activateOverlappingImagesModal() {
+  $(".double-avatar").addClass("double-avatar--active");
+};
+
+var deactivateOverlappingImagesModal = function deactivateOverlappingImagesModal() {
+  $(".double-avatar").removeClass("double-avatar--active");
+};
+
+$(".response-images").on("click", activateOverlappingImagesModal);
+$(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal);
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports) {
+
+$(".search-item").on("click", function (e) {
+  $(".search-input").val(e.target.innerText);
+});
+
+$(".search-header > button").on("click", function (e) {
+  $(".search-input").val("");
+});
+
+/***/ }),
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_forms__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isemail__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_isemail__);
+
+
+
+var handleSignupMailBlur = function handleSignupMailBlur(e) {
+  var email = e.target.value;
+  if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_isemail__["validate"])(email)) {
+    return;
+  }
+  jQuery.ajax({
+    type: "POST",
+    url: "/api/checkmail",
+    data: { email: email },
+    success: function success() {
+      // could add a green border
+      // $(e.target).parents(".pgn-textfield").addClass("pgn-textfield-success")
+    },
+    error: function error() {
+      var $tv = jQuery(e.target).parents(".pgn-textfield");
+      $tv.addClass("pgn-textfield-error");
+      $tv.find(".pgn-textfield-errorMessage").text("Email Already Exists");
+    },
+    dataType: "json"
+  });
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+  $("#signup_email input").on("input", __WEBPACK_IMPORTED_MODULE_0__global_forms__["a" /* handleEmailInput */]);
+  $("#signup_email").on("focusout", handleSignupMailBlur);
+  // $("#signup_password").on("input", validatePassword )
+});
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports) {
+
+$(".slide-menu__trigger").on("click", function () {
+  // const scrollBar = $("body")
+  //   .height() > $(window ).height()
+
+  $("body").css("overflow", "hidden");
+  // $(".slide-menu__outer")
+  //   .css("overflow", scrollBar ? "scroll" : "hidden")
+  $("body").addClass("slide-menu--active");
+});
+
+$(".slide-menu__close").on("click", function () {
+  $("body").css("overflow", "auto");
+  $("body").removeClass("slide-menu--active");
+
+  // $(".slide-menu__outer").css("overflow", "auto")
+});
+
+$(".delete-account").on("click", function (e) {
+  e.preventDefault();
+});
+
+var editSlug = function editSlug() {
+  $(".edit-icon").addClass("edit-icon--active");
+  $(".user-slug-input").attr("disabled", false).focus();
+};
+$(".user-slug-input").on("focus", function (e) {
+  var val = e.target.value;
+  e.target.value = "";
+  e.target.value = val;
+});
+
+var doneEditingSlug = function doneEditingSlug() {
+  $(".edit-icon").removeClass("edit-icon--active");
+  $(".user-slug-input").attr("disabled", true);
+};
+
+$(".edit-icon > .edit-icon-pencil").on("click", editSlug);
+$(".user-slug-input").on("blur", doneEditingSlug);
+$(".edit-icon > .edit-icon-times").on("click", doneEditingSlug);
+
+// select image modal
+var openSelectImageModal = function openSelectImageModal() {
+  $(".select-image").addClass("select-image--visible");
+};
+var closeSelectImageModal = function closeSelectImageModal() {
+  $(".select-image").removeClass("select-image--visible");
+};
+
+$(".profile-prefiew__change-avatar").on("click", openSelectImageModal);
+$(".select-image__overlay").on("click", closeSelectImageModal);
+$(".select-image__header svg").on("click", closeSelectImageModal);
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.byteLength = byteLength
+exports.toByteArray = toByteArray
+exports.fromByteArray = fromByteArray
+
+var lookup = []
+var revLookup = []
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+
+var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+for (var i = 0, len = code.length; i < len; ++i) {
+  lookup[i] = code[i]
+  revLookup[code.charCodeAt(i)] = i
+}
+
+revLookup['-'.charCodeAt(0)] = 62
+revLookup['_'.charCodeAt(0)] = 63
+
+function placeHoldersCount (b64) {
+  var len = b64.length
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+}
+
+function byteLength (b64) {
+  // base64 is 4/3 + up to two characters of the original data
+  return b64.length * 3 / 4 - placeHoldersCount(b64)
+}
+
+function toByteArray (b64) {
+  var i, j, l, tmp, placeHolders, arr
+  var len = b64.length
+  placeHolders = placeHoldersCount(b64)
+
+  arr = new Arr(len * 3 / 4 - placeHolders)
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len
+
+  var L = 0
+
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
+    arr[L++] = (tmp >> 16) & 0xFF
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[L++] = tmp & 0xFF
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  return arr
+}
+
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+}
+
+function encodeChunk (uint8, start, end) {
+  var tmp
+  var output = []
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+    output.push(tripletToBase64(tmp))
+  }
+  return output.join('')
+}
+
+function fromByteArray (uint8) {
+  var tmp
+  var len = uint8.length
+  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
+  var output = ''
+  var parts = []
+  var maxChunkLength = 16383 // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1]
+    output += lookup[tmp >> 2]
+    output += lookup[(tmp << 4) & 0x3F]
+    output += '=='
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
+    output += lookup[tmp >> 10]
+    output += lookup[(tmp >> 4) & 0x3F]
+    output += lookup[(tmp << 2) & 0x3F]
+    output += '='
+  }
+
+  parts.push(output)
+
+  return parts.join('')
+}
+
+
+/***/ }),
+/* 189 */
 /***/ (function(module, exports) {
 
 /*!
@@ -23711,7 +26176,1804 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 170 */
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+/* eslint-disable no-proto */
+
+
+
+var base64 = __webpack_require__(188)
+var ieee754 = __webpack_require__(192)
+var isArray = __webpack_require__(193)
+
+exports.Buffer = Buffer
+exports.SlowBuffer = SlowBuffer
+exports.INSPECT_MAX_BYTES = 50
+
+/**
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
+ *   === true    Use Uint8Array implementation (fastest)
+ *   === false   Use Object implementation (most compatible, even IE6)
+ *
+ * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+ * Opera 11.6+, iOS 4.2+.
+ *
+ * Due to various browser bugs, sometimes the Object implementation will be used even
+ * when the browser supports typed arrays.
+ *
+ * Note:
+ *
+ *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+ *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+ *
+ *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+ *
+ *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+ *     incorrect length in some situations.
+
+ * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+ * get the Object implementation, which is slower but behaves correctly.
+ */
+Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined
+  ? global.TYPED_ARRAY_SUPPORT
+  : typedArraySupport()
+
+/*
+ * Export kMaxLength after typed array support is determined.
+ */
+exports.kMaxLength = kMaxLength()
+
+function typedArraySupport () {
+  try {
+    var arr = new Uint8Array(1)
+    arr.__proto__ = {__proto__: Uint8Array.prototype, foo: function () { return 42 }}
+    return arr.foo() === 42 && // typed array instances can be augmented
+        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
+        arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
+  } catch (e) {
+    return false
+  }
+}
+
+function kMaxLength () {
+  return Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+}
+
+function createBuffer (that, length) {
+  if (kMaxLength() < length) {
+    throw new RangeError('Invalid typed array length')
+  }
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = new Uint8Array(length)
+    that.__proto__ = Buffer.prototype
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    if (that === null) {
+      that = new Buffer(length)
+    }
+    that.length = length
+  }
+
+  return that
+}
+
+/**
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
+ *
+ * The `Uint8Array` prototype remains unmodified.
+ */
+
+function Buffer (arg, encodingOrOffset, length) {
+  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
+    return new Buffer(arg, encodingOrOffset, length)
+  }
+
+  // Common case.
+  if (typeof arg === 'number') {
+    if (typeof encodingOrOffset === 'string') {
+      throw new Error(
+        'If encoding is specified then the first argument must be a string'
+      )
+    }
+    return allocUnsafe(this, arg)
+  }
+  return from(this, arg, encodingOrOffset, length)
+}
+
+Buffer.poolSize = 8192 // not used by this implementation
+
+// TODO: Legacy, not needed anymore. Remove in next major version.
+Buffer._augment = function (arr) {
+  arr.__proto__ = Buffer.prototype
+  return arr
+}
+
+function from (that, value, encodingOrOffset, length) {
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number')
+  }
+
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    return fromArrayBuffer(that, value, encodingOrOffset, length)
+  }
+
+  if (typeof value === 'string') {
+    return fromString(that, value, encodingOrOffset)
+  }
+
+  return fromObject(that, value)
+}
+
+/**
+ * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+ * if value is a number.
+ * Buffer.from(str[, encoding])
+ * Buffer.from(array)
+ * Buffer.from(buffer)
+ * Buffer.from(arrayBuffer[, byteOffset[, length]])
+ **/
+Buffer.from = function (value, encodingOrOffset, length) {
+  return from(null, value, encodingOrOffset, length)
+}
+
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype
+  Buffer.__proto__ = Uint8Array
+  if (typeof Symbol !== 'undefined' && Symbol.species &&
+      Buffer[Symbol.species] === Buffer) {
+    // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
+    Object.defineProperty(Buffer, Symbol.species, {
+      value: null,
+      configurable: true
+    })
+  }
+}
+
+function assertSize (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('"size" argument must be a number')
+  } else if (size < 0) {
+    throw new RangeError('"size" argument must not be negative')
+  }
+}
+
+function alloc (that, size, fill, encoding) {
+  assertSize(size)
+  if (size <= 0) {
+    return createBuffer(that, size)
+  }
+  if (fill !== undefined) {
+    // Only pay attention to encoding if it's a string. This
+    // prevents accidentally sending in a number that would
+    // be interpretted as a start offset.
+    return typeof encoding === 'string'
+      ? createBuffer(that, size).fill(fill, encoding)
+      : createBuffer(that, size).fill(fill)
+  }
+  return createBuffer(that, size)
+}
+
+/**
+ * Creates a new filled Buffer instance.
+ * alloc(size[, fill[, encoding]])
+ **/
+Buffer.alloc = function (size, fill, encoding) {
+  return alloc(null, size, fill, encoding)
+}
+
+function allocUnsafe (that, size) {
+  assertSize(size)
+  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < size; ++i) {
+      that[i] = 0
+    }
+  }
+  return that
+}
+
+/**
+ * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+ * */
+Buffer.allocUnsafe = function (size) {
+  return allocUnsafe(null, size)
+}
+/**
+ * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+ */
+Buffer.allocUnsafeSlow = function (size) {
+  return allocUnsafe(null, size)
+}
+
+function fromString (that, string, encoding) {
+  if (typeof encoding !== 'string' || encoding === '') {
+    encoding = 'utf8'
+  }
+
+  if (!Buffer.isEncoding(encoding)) {
+    throw new TypeError('"encoding" must be a valid string encoding')
+  }
+
+  var length = byteLength(string, encoding) | 0
+  that = createBuffer(that, length)
+
+  var actual = that.write(string, encoding)
+
+  if (actual !== length) {
+    // Writing a hex string, for example, that contains invalid characters will
+    // cause everything after the first invalid character to be ignored. (e.g.
+    // 'abxxcd' will be treated as 'ab')
+    that = that.slice(0, actual)
+  }
+
+  return that
+}
+
+function fromArrayLike (that, array) {
+  var length = array.length < 0 ? 0 : checked(array.length) | 0
+  that = createBuffer(that, length)
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255
+  }
+  return that
+}
+
+function fromArrayBuffer (that, array, byteOffset, length) {
+  array.byteLength // this throws if `array` is not a valid ArrayBuffer
+
+  if (byteOffset < 0 || array.byteLength < byteOffset) {
+    throw new RangeError('\'offset\' is out of bounds')
+  }
+
+  if (array.byteLength < byteOffset + (length || 0)) {
+    throw new RangeError('\'length\' is out of bounds')
+  }
+
+  if (byteOffset === undefined && length === undefined) {
+    array = new Uint8Array(array)
+  } else if (length === undefined) {
+    array = new Uint8Array(array, byteOffset)
+  } else {
+    array = new Uint8Array(array, byteOffset, length)
+  }
+
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = array
+    that.__proto__ = Buffer.prototype
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that = fromArrayLike(that, array)
+  }
+  return that
+}
+
+function fromObject (that, obj) {
+  if (Buffer.isBuffer(obj)) {
+    var len = checked(obj.length) | 0
+    that = createBuffer(that, len)
+
+    if (that.length === 0) {
+      return that
+    }
+
+    obj.copy(that, 0, 0, len)
+    return that
+  }
+
+  if (obj) {
+    if ((typeof ArrayBuffer !== 'undefined' &&
+        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
+      if (typeof obj.length !== 'number' || isnan(obj.length)) {
+        return createBuffer(that, 0)
+      }
+      return fromArrayLike(that, obj)
+    }
+
+    if (obj.type === 'Buffer' && isArray(obj.data)) {
+      return fromArrayLike(that, obj.data)
+    }
+  }
+
+  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
+}
+
+function checked (length) {
+  // Note: cannot use `length < kMaxLength()` here because that fails when
+  // length is NaN (which is otherwise coerced to zero.)
+  if (length >= kMaxLength()) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+  }
+  return length | 0
+}
+
+function SlowBuffer (length) {
+  if (+length != length) { // eslint-disable-line eqeqeq
+    length = 0
+  }
+  return Buffer.alloc(+length)
+}
+
+Buffer.isBuffer = function isBuffer (b) {
+  return !!(b != null && b._isBuffer)
+}
+
+Buffer.compare = function compare (a, b) {
+  if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
+    throw new TypeError('Arguments must be Buffers')
+  }
+
+  if (a === b) return 0
+
+  var x = a.length
+  var y = b.length
+
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i]
+      y = b[i]
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+}
+
+Buffer.isEncoding = function isEncoding (encoding) {
+  switch (String(encoding).toLowerCase()) {
+    case 'hex':
+    case 'utf8':
+    case 'utf-8':
+    case 'ascii':
+    case 'latin1':
+    case 'binary':
+    case 'base64':
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      return true
+    default:
+      return false
+  }
+}
+
+Buffer.concat = function concat (list, length) {
+  if (!isArray(list)) {
+    throw new TypeError('"list" argument must be an Array of Buffers')
+  }
+
+  if (list.length === 0) {
+    return Buffer.alloc(0)
+  }
+
+  var i
+  if (length === undefined) {
+    length = 0
+    for (i = 0; i < list.length; ++i) {
+      length += list[i].length
+    }
+  }
+
+  var buffer = Buffer.allocUnsafe(length)
+  var pos = 0
+  for (i = 0; i < list.length; ++i) {
+    var buf = list[i]
+    if (!Buffer.isBuffer(buf)) {
+      throw new TypeError('"list" argument must be an Array of Buffers')
+    }
+    buf.copy(buffer, pos)
+    pos += buf.length
+  }
+  return buffer
+}
+
+function byteLength (string, encoding) {
+  if (Buffer.isBuffer(string)) {
+    return string.length
+  }
+  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
+      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+    return string.byteLength
+  }
+  if (typeof string !== 'string') {
+    string = '' + string
+  }
+
+  var len = string.length
+  if (len === 0) return 0
+
+  // Use a for loop to avoid recursion
+  var loweredCase = false
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'latin1':
+      case 'binary':
+        return len
+      case 'utf8':
+      case 'utf-8':
+      case undefined:
+        return utf8ToBytes(string).length
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2
+      case 'hex':
+        return len >>> 1
+      case 'base64':
+        return base64ToBytes(string).length
+      default:
+        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+        encoding = ('' + encoding).toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+Buffer.byteLength = byteLength
+
+function slowToString (encoding, start, end) {
+  var loweredCase = false
+
+  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+  // property of a typed array.
+
+  // This behaves neither like String nor Uint8Array in that we set start/end
+  // to their upper/lower bounds if the value passed is out of range.
+  // undefined is handled specially as per ECMA-262 6th Edition,
+  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+  if (start === undefined || start < 0) {
+    start = 0
+  }
+  // Return early if start > this.length. Done here to prevent potential uint32
+  // coercion fail below.
+  if (start > this.length) {
+    return ''
+  }
+
+  if (end === undefined || end > this.length) {
+    end = this.length
+  }
+
+  if (end <= 0) {
+    return ''
+  }
+
+  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+  end >>>= 0
+  start >>>= 0
+
+  if (end <= start) {
+    return ''
+  }
+
+  if (!encoding) encoding = 'utf8'
+
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end)
+
+      case 'ascii':
+        return asciiSlice(this, start, end)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Slice(this, start, end)
+
+      case 'base64':
+        return base64Slice(this, start, end)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = (encoding + '').toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+
+// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+// Buffer instances.
+Buffer.prototype._isBuffer = true
+
+function swap (b, n, m) {
+  var i = b[n]
+  b[n] = b[m]
+  b[m] = i
+}
+
+Buffer.prototype.swap16 = function swap16 () {
+  var len = this.length
+  if (len % 2 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 16-bits')
+  }
+  for (var i = 0; i < len; i += 2) {
+    swap(this, i, i + 1)
+  }
+  return this
+}
+
+Buffer.prototype.swap32 = function swap32 () {
+  var len = this.length
+  if (len % 4 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 32-bits')
+  }
+  for (var i = 0; i < len; i += 4) {
+    swap(this, i, i + 3)
+    swap(this, i + 1, i + 2)
+  }
+  return this
+}
+
+Buffer.prototype.swap64 = function swap64 () {
+  var len = this.length
+  if (len % 8 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 64-bits')
+  }
+  for (var i = 0; i < len; i += 8) {
+    swap(this, i, i + 7)
+    swap(this, i + 1, i + 6)
+    swap(this, i + 2, i + 5)
+    swap(this, i + 3, i + 4)
+  }
+  return this
+}
+
+Buffer.prototype.toString = function toString () {
+  var length = this.length | 0
+  if (length === 0) return ''
+  if (arguments.length === 0) return utf8Slice(this, 0, length)
+  return slowToString.apply(this, arguments)
+}
+
+Buffer.prototype.equals = function equals (b) {
+  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return true
+  return Buffer.compare(this, b) === 0
+}
+
+Buffer.prototype.inspect = function inspect () {
+  var str = ''
+  var max = exports.INSPECT_MAX_BYTES
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
+    if (this.length > max) str += ' ... '
+  }
+  return '<Buffer ' + str + '>'
+}
+
+Buffer.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
+  if (!Buffer.isBuffer(target)) {
+    throw new TypeError('Argument must be a Buffer')
+  }
+
+  if (start === undefined) {
+    start = 0
+  }
+  if (end === undefined) {
+    end = target ? target.length : 0
+  }
+  if (thisStart === undefined) {
+    thisStart = 0
+  }
+  if (thisEnd === undefined) {
+    thisEnd = this.length
+  }
+
+  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+    throw new RangeError('out of range index')
+  }
+
+  if (thisStart >= thisEnd && start >= end) {
+    return 0
+  }
+  if (thisStart >= thisEnd) {
+    return -1
+  }
+  if (start >= end) {
+    return 1
+  }
+
+  start >>>= 0
+  end >>>= 0
+  thisStart >>>= 0
+  thisEnd >>>= 0
+
+  if (this === target) return 0
+
+  var x = thisEnd - thisStart
+  var y = end - start
+  var len = Math.min(x, y)
+
+  var thisCopy = this.slice(thisStart, thisEnd)
+  var targetCopy = target.slice(start, end)
+
+  for (var i = 0; i < len; ++i) {
+    if (thisCopy[i] !== targetCopy[i]) {
+      x = thisCopy[i]
+      y = targetCopy[i]
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+}
+
+// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+//
+// Arguments:
+// - buffer - a Buffer to search
+// - val - a string, Buffer, or number
+// - byteOffset - an index into `buffer`; will be clamped to an int32
+// - encoding - an optional encoding, relevant is val is a string
+// - dir - true for indexOf, false for lastIndexOf
+function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
+  // Empty buffer means no match
+  if (buffer.length === 0) return -1
+
+  // Normalize byteOffset
+  if (typeof byteOffset === 'string') {
+    encoding = byteOffset
+    byteOffset = 0
+  } else if (byteOffset > 0x7fffffff) {
+    byteOffset = 0x7fffffff
+  } else if (byteOffset < -0x80000000) {
+    byteOffset = -0x80000000
+  }
+  byteOffset = +byteOffset  // Coerce to Number.
+  if (isNaN(byteOffset)) {
+    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+    byteOffset = dir ? 0 : (buffer.length - 1)
+  }
+
+  // Normalize byteOffset: negative offsets start from the end of the buffer
+  if (byteOffset < 0) byteOffset = buffer.length + byteOffset
+  if (byteOffset >= buffer.length) {
+    if (dir) return -1
+    else byteOffset = buffer.length - 1
+  } else if (byteOffset < 0) {
+    if (dir) byteOffset = 0
+    else return -1
+  }
+
+  // Normalize val
+  if (typeof val === 'string') {
+    val = Buffer.from(val, encoding)
+  }
+
+  // Finally, search either indexOf (if dir is true) or lastIndexOf
+  if (Buffer.isBuffer(val)) {
+    // Special case: looking for empty string/buffer always fails
+    if (val.length === 0) {
+      return -1
+    }
+    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
+  } else if (typeof val === 'number') {
+    val = val & 0xFF // Search for a byte value [0-255]
+    if (Buffer.TYPED_ARRAY_SUPPORT &&
+        typeof Uint8Array.prototype.indexOf === 'function') {
+      if (dir) {
+        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
+      } else {
+        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
+      }
+    }
+    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
+  }
+
+  throw new TypeError('val must be string, number or Buffer')
+}
+
+function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
+  var indexSize = 1
+  var arrLength = arr.length
+  var valLength = val.length
+
+  if (encoding !== undefined) {
+    encoding = String(encoding).toLowerCase()
+    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
+        encoding === 'utf16le' || encoding === 'utf-16le') {
+      if (arr.length < 2 || val.length < 2) {
+        return -1
+      }
+      indexSize = 2
+      arrLength /= 2
+      valLength /= 2
+      byteOffset /= 2
+    }
+  }
+
+  function read (buf, i) {
+    if (indexSize === 1) {
+      return buf[i]
+    } else {
+      return buf.readUInt16BE(i * indexSize)
+    }
+  }
+
+  var i
+  if (dir) {
+    var foundIndex = -1
+    for (i = byteOffset; i < arrLength; i++) {
+      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+        if (foundIndex === -1) foundIndex = i
+        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
+      } else {
+        if (foundIndex !== -1) i -= i - foundIndex
+        foundIndex = -1
+      }
+    }
+  } else {
+    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength
+    for (i = byteOffset; i >= 0; i--) {
+      var found = true
+      for (var j = 0; j < valLength; j++) {
+        if (read(arr, i + j) !== read(val, j)) {
+          found = false
+          break
+        }
+      }
+      if (found) return i
+    }
+  }
+
+  return -1
+}
+
+Buffer.prototype.includes = function includes (val, byteOffset, encoding) {
+  return this.indexOf(val, byteOffset, encoding) !== -1
+}
+
+Buffer.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, true)
+}
+
+Buffer.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, false)
+}
+
+function hexWrite (buf, string, offset, length) {
+  offset = Number(offset) || 0
+  var remaining = buf.length - offset
+  if (!length) {
+    length = remaining
+  } else {
+    length = Number(length)
+    if (length > remaining) {
+      length = remaining
+    }
+  }
+
+  // must be an even number of digits
+  var strLen = string.length
+  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
+
+  if (length > strLen / 2) {
+    length = strLen / 2
+  }
+  for (var i = 0; i < length; ++i) {
+    var parsed = parseInt(string.substr(i * 2, 2), 16)
+    if (isNaN(parsed)) return i
+    buf[offset + i] = parsed
+  }
+  return i
+}
+
+function utf8Write (buf, string, offset, length) {
+  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+function asciiWrite (buf, string, offset, length) {
+  return blitBuffer(asciiToBytes(string), buf, offset, length)
+}
+
+function latin1Write (buf, string, offset, length) {
+  return asciiWrite(buf, string, offset, length)
+}
+
+function base64Write (buf, string, offset, length) {
+  return blitBuffer(base64ToBytes(string), buf, offset, length)
+}
+
+function ucs2Write (buf, string, offset, length) {
+  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+Buffer.prototype.write = function write (string, offset, length, encoding) {
+  // Buffer#write(string)
+  if (offset === undefined) {
+    encoding = 'utf8'
+    length = this.length
+    offset = 0
+  // Buffer#write(string, encoding)
+  } else if (length === undefined && typeof offset === 'string') {
+    encoding = offset
+    length = this.length
+    offset = 0
+  // Buffer#write(string, offset[, length][, encoding])
+  } else if (isFinite(offset)) {
+    offset = offset | 0
+    if (isFinite(length)) {
+      length = length | 0
+      if (encoding === undefined) encoding = 'utf8'
+    } else {
+      encoding = length
+      length = undefined
+    }
+  // legacy write(string, encoding, offset, length) - remove in v0.13
+  } else {
+    throw new Error(
+      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+    )
+  }
+
+  var remaining = this.length - offset
+  if (length === undefined || length > remaining) length = remaining
+
+  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+    throw new RangeError('Attempt to write outside buffer bounds')
+  }
+
+  if (!encoding) encoding = 'utf8'
+
+  var loweredCase = false
+  for (;;) {
+    switch (encoding) {
+      case 'hex':
+        return hexWrite(this, string, offset, length)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Write(this, string, offset, length)
+
+      case 'ascii':
+        return asciiWrite(this, string, offset, length)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Write(this, string, offset, length)
+
+      case 'base64':
+        // Warning: maxLength not taken into account in base64Write
+        return base64Write(this, string, offset, length)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return ucs2Write(this, string, offset, length)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = ('' + encoding).toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+
+Buffer.prototype.toJSON = function toJSON () {
+  return {
+    type: 'Buffer',
+    data: Array.prototype.slice.call(this._arr || this, 0)
+  }
+}
+
+function base64Slice (buf, start, end) {
+  if (start === 0 && end === buf.length) {
+    return base64.fromByteArray(buf)
+  } else {
+    return base64.fromByteArray(buf.slice(start, end))
+  }
+}
+
+function utf8Slice (buf, start, end) {
+  end = Math.min(buf.length, end)
+  var res = []
+
+  var i = start
+  while (i < end) {
+    var firstByte = buf[i]
+    var codePoint = null
+    var bytesPerSequence = (firstByte > 0xEF) ? 4
+      : (firstByte > 0xDF) ? 3
+      : (firstByte > 0xBF) ? 2
+      : 1
+
+    if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint
+
+      switch (bytesPerSequence) {
+        case 1:
+          if (firstByte < 0x80) {
+            codePoint = firstByte
+          }
+          break
+        case 2:
+          secondByte = buf[i + 1]
+          if ((secondByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
+            if (tempCodePoint > 0x7F) {
+              codePoint = tempCodePoint
+            }
+          }
+          break
+        case 3:
+          secondByte = buf[i + 1]
+          thirdByte = buf[i + 2]
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
+            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+              codePoint = tempCodePoint
+            }
+          }
+          break
+        case 4:
+          secondByte = buf[i + 1]
+          thirdByte = buf[i + 2]
+          fourthByte = buf[i + 3]
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
+            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+              codePoint = tempCodePoint
+            }
+          }
+      }
+    }
+
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD
+      bytesPerSequence = 1
+    } else if (codePoint > 0xFFFF) {
+      // encode to utf16 (surrogate pair dance)
+      codePoint -= 0x10000
+      res.push(codePoint >>> 10 & 0x3FF | 0xD800)
+      codePoint = 0xDC00 | codePoint & 0x3FF
+    }
+
+    res.push(codePoint)
+    i += bytesPerSequence
+  }
+
+  return decodeCodePointsArray(res)
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000
+
+function decodeCodePointsArray (codePoints) {
+  var len = codePoints.length
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = ''
+  var i = 0
+  while (i < len) {
+    res += String.fromCharCode.apply(
+      String,
+      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+    )
+  }
+  return res
+}
+
+function asciiSlice (buf, start, end) {
+  var ret = ''
+  end = Math.min(buf.length, end)
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i] & 0x7F)
+  }
+  return ret
+}
+
+function latin1Slice (buf, start, end) {
+  var ret = ''
+  end = Math.min(buf.length, end)
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i])
+  }
+  return ret
+}
+
+function hexSlice (buf, start, end) {
+  var len = buf.length
+
+  if (!start || start < 0) start = 0
+  if (!end || end < 0 || end > len) end = len
+
+  var out = ''
+  for (var i = start; i < end; ++i) {
+    out += toHex(buf[i])
+  }
+  return out
+}
+
+function utf16leSlice (buf, start, end) {
+  var bytes = buf.slice(start, end)
+  var res = ''
+  for (var i = 0; i < bytes.length; i += 2) {
+    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
+  }
+  return res
+}
+
+Buffer.prototype.slice = function slice (start, end) {
+  var len = this.length
+  start = ~~start
+  end = end === undefined ? len : ~~end
+
+  if (start < 0) {
+    start += len
+    if (start < 0) start = 0
+  } else if (start > len) {
+    start = len
+  }
+
+  if (end < 0) {
+    end += len
+    if (end < 0) end = 0
+  } else if (end > len) {
+    end = len
+  }
+
+  if (end < start) end = start
+
+  var newBuf
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = this.subarray(start, end)
+    newBuf.__proto__ = Buffer.prototype
+  } else {
+    var sliceLen = end - start
+    newBuf = new Buffer(sliceLen, undefined)
+    for (var i = 0; i < sliceLen; ++i) {
+      newBuf[i] = this[i + start]
+    }
+  }
+
+  return newBuf
+}
+
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset (offset, ext, length) {
+  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+}
+
+Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul
+  }
+
+  return val
+}
+
+Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) {
+    checkOffset(offset, byteLength, this.length)
+  }
+
+  var val = this[offset + --byteLength]
+  var mul = 1
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += this[offset + --byteLength] * mul
+  }
+
+  return val
+}
+
+Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length)
+  return this[offset]
+}
+
+Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  return this[offset] | (this[offset + 1] << 8)
+}
+
+Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  return (this[offset] << 8) | this[offset + 1]
+}
+
+Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return ((this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16)) +
+      (this[offset + 3] * 0x1000000)
+}
+
+Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset] * 0x1000000) +
+    ((this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    this[offset + 3])
+}
+
+Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul
+  }
+  mul *= 0x80
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+
+  return val
+}
+
+Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var i = byteLength
+  var mul = 1
+  var val = this[offset + --i]
+  while (i > 0 && (mul *= 0x100)) {
+    val += this[offset + --i] * mul
+  }
+  mul *= 0x80
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+
+  return val
+}
+
+Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length)
+  if (!(this[offset] & 0x80)) return (this[offset])
+  return ((0xff - this[offset] + 1) * -1)
+}
+
+Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  var val = this[offset] | (this[offset + 1] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+}
+
+Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  var val = this[offset + 1] | (this[offset] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+}
+
+Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset]) |
+    (this[offset + 1] << 8) |
+    (this[offset + 2] << 16) |
+    (this[offset + 3] << 24)
+}
+
+Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset] << 24) |
+    (this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    (this[offset + 3])
+}
+
+Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, true, 23, 4)
+}
+
+Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, false, 23, 4)
+}
+
+Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, true, 52, 8)
+}
+
+Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, false, 52, 8)
+}
+
+function checkInt (buf, value, offset, ext, max, min) {
+  if (!Buffer.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
+  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+}
+
+Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1
+    checkInt(this, value, offset, byteLength, maxBytes, 0)
+  }
+
+  var mul = 1
+  var i = 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1
+    checkInt(this, value, offset, byteLength, maxBytes, 0)
+  }
+
+  var i = byteLength - 1
+  var mul = 1
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+  this[offset] = (value & 0xff)
+  return offset + 1
+}
+
+function objectWriteUInt16 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+      (littleEndian ? i : 1 - i) * 8
+  }
+}
+
+Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff)
+    this[offset + 1] = (value >>> 8)
+  } else {
+    objectWriteUInt16(this, value, offset, true)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = (value & 0xff)
+  } else {
+    objectWriteUInt16(this, value, offset, false)
+  }
+  return offset + 2
+}
+
+function objectWriteUInt32 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
+  }
+}
+
+Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = (value >>> 24)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 1] = (value >>> 8)
+    this[offset] = (value & 0xff)
+  } else {
+    objectWriteUInt32(this, value, offset, true)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = (value & 0xff)
+  } else {
+    objectWriteUInt32(this, value, offset, false)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1)
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+  }
+
+  var i = 0
+  var mul = 1
+  var sub = 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+      sub = 1
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1)
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+  }
+
+  var i = byteLength - 1
+  var mul = 1
+  var sub = 0
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+      sub = 1
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+  if (value < 0) value = 0xff + value + 1
+  this[offset] = (value & 0xff)
+  return offset + 1
+}
+
+Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff)
+    this[offset + 1] = (value >>> 8)
+  } else {
+    objectWriteUInt16(this, value, offset, true)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = (value & 0xff)
+  } else {
+    objectWriteUInt16(this, value, offset, false)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff)
+    this[offset + 1] = (value >>> 8)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 3] = (value >>> 24)
+  } else {
+    objectWriteUInt32(this, value, offset, true)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (value < 0) value = 0xffffffff + value + 1
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = (value & 0xff)
+  } else {
+    objectWriteUInt32(this, value, offset, false)
+  }
+  return offset + 4
+}
+
+function checkIEEE754 (buf, value, offset, ext, max, min) {
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+  if (offset < 0) throw new RangeError('Index out of range')
+}
+
+function writeFloat (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
+  }
+  ieee754.write(buf, value, offset, littleEndian, 23, 4)
+  return offset + 4
+}
+
+Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, true, noAssert)
+}
+
+Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, false, noAssert)
+}
+
+function writeDouble (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
+  }
+  ieee754.write(buf, value, offset, littleEndian, 52, 8)
+  return offset + 8
+}
+
+Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, true, noAssert)
+}
+
+Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, false, noAssert)
+}
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function copy (target, targetStart, start, end) {
+  if (!start) start = 0
+  if (!end && end !== 0) end = this.length
+  if (targetStart >= target.length) targetStart = target.length
+  if (!targetStart) targetStart = 0
+  if (end > 0 && end < start) end = start
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0
+  if (target.length === 0 || this.length === 0) return 0
+
+  // Fatal error conditions
+  if (targetStart < 0) {
+    throw new RangeError('targetStart out of bounds')
+  }
+  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+  // Are we oob?
+  if (end > this.length) end = this.length
+  if (target.length - targetStart < end - start) {
+    end = target.length - targetStart + start
+  }
+
+  var len = end - start
+  var i
+
+  if (this === target && start < targetStart && targetStart < end) {
+    // descending copy from end
+    for (i = len - 1; i >= 0; --i) {
+      target[i + targetStart] = this[i + start]
+    }
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    // ascending copy from start
+    for (i = 0; i < len; ++i) {
+      target[i + targetStart] = this[i + start]
+    }
+  } else {
+    Uint8Array.prototype.set.call(
+      target,
+      this.subarray(start, start + len),
+      targetStart
+    )
+  }
+
+  return len
+}
+
+// Usage:
+//    buffer.fill(number[, offset[, end]])
+//    buffer.fill(buffer[, offset[, end]])
+//    buffer.fill(string[, offset[, end]][, encoding])
+Buffer.prototype.fill = function fill (val, start, end, encoding) {
+  // Handle string cases:
+  if (typeof val === 'string') {
+    if (typeof start === 'string') {
+      encoding = start
+      start = 0
+      end = this.length
+    } else if (typeof end === 'string') {
+      encoding = end
+      end = this.length
+    }
+    if (val.length === 1) {
+      var code = val.charCodeAt(0)
+      if (code < 256) {
+        val = code
+      }
+    }
+    if (encoding !== undefined && typeof encoding !== 'string') {
+      throw new TypeError('encoding must be a string')
+    }
+    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
+      throw new TypeError('Unknown encoding: ' + encoding)
+    }
+  } else if (typeof val === 'number') {
+    val = val & 255
+  }
+
+  // Invalid ranges are not set to a default, so can range check early.
+  if (start < 0 || this.length < start || this.length < end) {
+    throw new RangeError('Out of range index')
+  }
+
+  if (end <= start) {
+    return this
+  }
+
+  start = start >>> 0
+  end = end === undefined ? this.length : end >>> 0
+
+  if (!val) val = 0
+
+  var i
+  if (typeof val === 'number') {
+    for (i = start; i < end; ++i) {
+      this[i] = val
+    }
+  } else {
+    var bytes = Buffer.isBuffer(val)
+      ? val
+      : utf8ToBytes(new Buffer(val, encoding).toString())
+    var len = bytes.length
+    for (i = 0; i < end - start; ++i) {
+      this[i + start] = bytes[i % len]
+    }
+  }
+
+  return this
+}
+
+// HELPER FUNCTIONS
+// ================
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
+
+function base64clean (str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '='
+  }
+  return str
+}
+
+function stringtrim (str) {
+  if (str.trim) return str.trim()
+  return str.replace(/^\s+|\s+$/g, '')
+}
+
+function toHex (n) {
+  if (n < 16) return '0' + n.toString(16)
+  return n.toString(16)
+}
+
+function utf8ToBytes (string, units) {
+  units = units || Infinity
+  var codePoint
+  var length = string.length
+  var leadSurrogate = null
+  var bytes = []
+
+  for (var i = 0; i < length; ++i) {
+    codePoint = string.charCodeAt(i)
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (!leadSurrogate) {
+        // no lead yet
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        }
+
+        // valid lead
+        leadSurrogate = codePoint
+
+        continue
+      }
+
+      // 2 leads in a row
+      if (codePoint < 0xDC00) {
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+        leadSurrogate = codePoint
+        continue
+      }
+
+      // valid surrogate pair
+      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+    }
+
+    leadSurrogate = null
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break
+      bytes.push(codePoint)
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break
+      bytes.push(
+        codePoint >> 0x6 | 0xC0,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break
+      bytes.push(
+        codePoint >> 0xC | 0xE0,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x110000) {
+      if ((units -= 4) < 0) break
+      bytes.push(
+        codePoint >> 0x12 | 0xF0,
+        codePoint >> 0xC & 0x3F | 0x80,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else {
+      throw new Error('Invalid code point')
+    }
+  }
+
+  return bytes
+}
+
+function asciiToBytes (str) {
+  var byteArray = []
+  for (var i = 0; i < str.length; ++i) {
+    // Node's code seems to be doing this and not & 0x7F..
+    byteArray.push(str.charCodeAt(i) & 0xFF)
+  }
+  return byteArray
+}
+
+function utf16leToBytes (str, units) {
+  var c, hi, lo
+  var byteArray = []
+  for (var i = 0; i < str.length; ++i) {
+    if ((units -= 2) < 0) break
+
+    c = str.charCodeAt(i)
+    hi = c >> 8
+    lo = c % 256
+    byteArray.push(lo)
+    byteArray.push(hi)
+  }
+
+  return byteArray
+}
+
+function base64ToBytes (str) {
+  return base64.toByteArray(base64clean(str))
+}
+
+function blitBuffer (src, dst, offset, length) {
+  for (var i = 0; i < length; ++i) {
+    if ((i + offset >= dst.length) || (i >= src.length)) break
+    dst[i + offset] = src[i]
+  }
+  return i
+}
+
+function isnan (val) {
+  return val !== val // eslint-disable-line no-self-compare
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ }),
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -26361,7 +30623,108 @@ if (true) {
 
 
 /***/ }),
-/* 171 */
+/* 192 */
+/***/ (function(module, exports) {
+
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+  var e, m
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var nBits = -7
+  var i = isLE ? (nBytes - 1) : 0
+  var d = isLE ? -1 : 1
+  var s = buffer[offset + i]
+
+  i += d
+
+  e = s & ((1 << (-nBits)) - 1)
+  s >>= (-nBits)
+  nBits += eLen
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1)
+  e >>= (-nBits)
+  nBits += mLen
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen)
+    e = e - eBias
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
+
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+  var i = isLE ? 0 : (nBytes - 1)
+  var d = isLE ? 1 : -1
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+
+  value = Math.abs(value)
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0
+    e = eMax
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2)
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--
+      c *= 2
+    }
+    if (e + eBias >= 1) {
+      value += rt / c
+    } else {
+      value += rt * Math.pow(2, 1 - eBias)
+    }
+    if (value * c >= 2) {
+      e++
+      c /= 2
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0
+      e = eMax
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen)
+      e = e + eBias
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+      e = 0
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m
+  eLen += mLen
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128
+}
+
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -36621,7 +40984,7 @@ return jQuery;
 
 
 /***/ }),
-/* 172 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -53710,249 +58073,249 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(129), __webpack_require__(130)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(9)(module)))
 
 /***/ }),
-/* 173 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 11,
-	"./af.js": 11,
-	"./ar": 18,
-	"./ar-dz": 12,
-	"./ar-dz.js": 12,
-	"./ar-kw": 13,
-	"./ar-kw.js": 13,
-	"./ar-ly": 14,
-	"./ar-ly.js": 14,
-	"./ar-ma": 15,
-	"./ar-ma.js": 15,
-	"./ar-sa": 16,
-	"./ar-sa.js": 16,
-	"./ar-tn": 17,
-	"./ar-tn.js": 17,
-	"./ar.js": 18,
-	"./az": 19,
-	"./az.js": 19,
-	"./be": 20,
-	"./be.js": 20,
-	"./bg": 21,
-	"./bg.js": 21,
-	"./bm": 22,
-	"./bm.js": 22,
-	"./bn": 23,
-	"./bn.js": 23,
-	"./bo": 24,
-	"./bo.js": 24,
-	"./br": 25,
-	"./br.js": 25,
-	"./bs": 26,
-	"./bs.js": 26,
-	"./ca": 27,
-	"./ca.js": 27,
-	"./cs": 28,
-	"./cs.js": 28,
-	"./cv": 29,
-	"./cv.js": 29,
-	"./cy": 30,
-	"./cy.js": 30,
-	"./da": 31,
-	"./da.js": 31,
-	"./de": 34,
-	"./de-at": 32,
-	"./de-at.js": 32,
-	"./de-ch": 33,
-	"./de-ch.js": 33,
-	"./de.js": 34,
-	"./dv": 35,
-	"./dv.js": 35,
-	"./el": 36,
-	"./el.js": 36,
-	"./en-au": 37,
-	"./en-au.js": 37,
-	"./en-ca": 38,
-	"./en-ca.js": 38,
-	"./en-gb": 39,
-	"./en-gb.js": 39,
-	"./en-ie": 40,
-	"./en-ie.js": 40,
-	"./en-nz": 41,
-	"./en-nz.js": 41,
-	"./eo": 42,
-	"./eo.js": 42,
-	"./es": 45,
-	"./es-do": 43,
-	"./es-do.js": 43,
-	"./es-us": 44,
-	"./es-us.js": 44,
-	"./es.js": 45,
-	"./et": 46,
-	"./et.js": 46,
-	"./eu": 47,
-	"./eu.js": 47,
-	"./fa": 48,
-	"./fa.js": 48,
-	"./fi": 49,
-	"./fi.js": 49,
-	"./fo": 50,
-	"./fo.js": 50,
-	"./fr": 53,
-	"./fr-ca": 51,
-	"./fr-ca.js": 51,
-	"./fr-ch": 52,
-	"./fr-ch.js": 52,
-	"./fr.js": 53,
-	"./fy": 54,
-	"./fy.js": 54,
-	"./gd": 55,
-	"./gd.js": 55,
-	"./gl": 56,
-	"./gl.js": 56,
-	"./gom-latn": 57,
-	"./gom-latn.js": 57,
-	"./gu": 58,
-	"./gu.js": 58,
-	"./he": 59,
-	"./he.js": 59,
-	"./hi": 60,
-	"./hi.js": 60,
-	"./hr": 61,
-	"./hr.js": 61,
-	"./hu": 62,
-	"./hu.js": 62,
-	"./hy-am": 63,
-	"./hy-am.js": 63,
-	"./id": 64,
-	"./id.js": 64,
-	"./is": 65,
-	"./is.js": 65,
-	"./it": 66,
-	"./it.js": 66,
-	"./ja": 67,
-	"./ja.js": 67,
-	"./jv": 68,
-	"./jv.js": 68,
-	"./ka": 69,
-	"./ka.js": 69,
-	"./kk": 70,
-	"./kk.js": 70,
-	"./km": 71,
-	"./km.js": 71,
-	"./kn": 72,
-	"./kn.js": 72,
-	"./ko": 73,
-	"./ko.js": 73,
-	"./ky": 74,
-	"./ky.js": 74,
-	"./lb": 75,
-	"./lb.js": 75,
-	"./lo": 76,
-	"./lo.js": 76,
-	"./lt": 77,
-	"./lt.js": 77,
-	"./lv": 78,
-	"./lv.js": 78,
-	"./me": 79,
-	"./me.js": 79,
-	"./mi": 80,
-	"./mi.js": 80,
-	"./mk": 81,
-	"./mk.js": 81,
-	"./ml": 82,
-	"./ml.js": 82,
-	"./mr": 83,
-	"./mr.js": 83,
-	"./ms": 85,
-	"./ms-my": 84,
-	"./ms-my.js": 84,
-	"./ms.js": 85,
-	"./my": 86,
-	"./my.js": 86,
-	"./nb": 87,
-	"./nb.js": 87,
-	"./ne": 88,
-	"./ne.js": 88,
-	"./nl": 90,
-	"./nl-be": 89,
-	"./nl-be.js": 89,
-	"./nl.js": 90,
-	"./nn": 91,
-	"./nn.js": 91,
-	"./pa-in": 92,
-	"./pa-in.js": 92,
-	"./pl": 93,
-	"./pl.js": 93,
-	"./pt": 95,
-	"./pt-br": 94,
-	"./pt-br.js": 94,
-	"./pt.js": 95,
-	"./ro": 96,
-	"./ro.js": 96,
-	"./ru": 97,
-	"./ru.js": 97,
-	"./sd": 98,
-	"./sd.js": 98,
-	"./se": 99,
-	"./se.js": 99,
-	"./si": 100,
-	"./si.js": 100,
-	"./sk": 101,
-	"./sk.js": 101,
-	"./sl": 102,
-	"./sl.js": 102,
-	"./sq": 103,
-	"./sq.js": 103,
-	"./sr": 105,
-	"./sr-cyrl": 104,
-	"./sr-cyrl.js": 104,
-	"./sr.js": 105,
-	"./ss": 106,
-	"./ss.js": 106,
-	"./sv": 107,
-	"./sv.js": 107,
-	"./sw": 108,
-	"./sw.js": 108,
-	"./ta": 109,
-	"./ta.js": 109,
-	"./te": 110,
-	"./te.js": 110,
-	"./tet": 111,
-	"./tet.js": 111,
-	"./th": 112,
-	"./th.js": 112,
-	"./tl-ph": 113,
-	"./tl-ph.js": 113,
-	"./tlh": 114,
-	"./tlh.js": 114,
-	"./tr": 115,
-	"./tr.js": 115,
-	"./tzl": 116,
-	"./tzl.js": 116,
-	"./tzm": 118,
-	"./tzm-latn": 117,
-	"./tzm-latn.js": 117,
-	"./tzm.js": 118,
-	"./uk": 119,
-	"./uk.js": 119,
-	"./ur": 120,
-	"./ur.js": 120,
-	"./uz": 122,
-	"./uz-latn": 121,
-	"./uz-latn.js": 121,
-	"./uz.js": 122,
-	"./vi": 123,
-	"./vi.js": 123,
-	"./x-pseudo": 124,
-	"./x-pseudo.js": 124,
-	"./yo": 125,
-	"./yo.js": 125,
-	"./zh-cn": 126,
-	"./zh-cn.js": 126,
-	"./zh-hk": 127,
-	"./zh-hk.js": 127,
-	"./zh-tw": 128,
-	"./zh-tw.js": 128
+	"./af": 15,
+	"./af.js": 15,
+	"./ar": 22,
+	"./ar-dz": 16,
+	"./ar-dz.js": 16,
+	"./ar-kw": 17,
+	"./ar-kw.js": 17,
+	"./ar-ly": 18,
+	"./ar-ly.js": 18,
+	"./ar-ma": 19,
+	"./ar-ma.js": 19,
+	"./ar-sa": 20,
+	"./ar-sa.js": 20,
+	"./ar-tn": 21,
+	"./ar-tn.js": 21,
+	"./ar.js": 22,
+	"./az": 23,
+	"./az.js": 23,
+	"./be": 24,
+	"./be.js": 24,
+	"./bg": 25,
+	"./bg.js": 25,
+	"./bm": 26,
+	"./bm.js": 26,
+	"./bn": 27,
+	"./bn.js": 27,
+	"./bo": 28,
+	"./bo.js": 28,
+	"./br": 29,
+	"./br.js": 29,
+	"./bs": 30,
+	"./bs.js": 30,
+	"./ca": 31,
+	"./ca.js": 31,
+	"./cs": 32,
+	"./cs.js": 32,
+	"./cv": 33,
+	"./cv.js": 33,
+	"./cy": 34,
+	"./cy.js": 34,
+	"./da": 35,
+	"./da.js": 35,
+	"./de": 38,
+	"./de-at": 36,
+	"./de-at.js": 36,
+	"./de-ch": 37,
+	"./de-ch.js": 37,
+	"./de.js": 38,
+	"./dv": 39,
+	"./dv.js": 39,
+	"./el": 40,
+	"./el.js": 40,
+	"./en-au": 41,
+	"./en-au.js": 41,
+	"./en-ca": 42,
+	"./en-ca.js": 42,
+	"./en-gb": 43,
+	"./en-gb.js": 43,
+	"./en-ie": 44,
+	"./en-ie.js": 44,
+	"./en-nz": 45,
+	"./en-nz.js": 45,
+	"./eo": 46,
+	"./eo.js": 46,
+	"./es": 49,
+	"./es-do": 47,
+	"./es-do.js": 47,
+	"./es-us": 48,
+	"./es-us.js": 48,
+	"./es.js": 49,
+	"./et": 50,
+	"./et.js": 50,
+	"./eu": 51,
+	"./eu.js": 51,
+	"./fa": 52,
+	"./fa.js": 52,
+	"./fi": 53,
+	"./fi.js": 53,
+	"./fo": 54,
+	"./fo.js": 54,
+	"./fr": 57,
+	"./fr-ca": 55,
+	"./fr-ca.js": 55,
+	"./fr-ch": 56,
+	"./fr-ch.js": 56,
+	"./fr.js": 57,
+	"./fy": 58,
+	"./fy.js": 58,
+	"./gd": 59,
+	"./gd.js": 59,
+	"./gl": 60,
+	"./gl.js": 60,
+	"./gom-latn": 61,
+	"./gom-latn.js": 61,
+	"./gu": 62,
+	"./gu.js": 62,
+	"./he": 63,
+	"./he.js": 63,
+	"./hi": 64,
+	"./hi.js": 64,
+	"./hr": 65,
+	"./hr.js": 65,
+	"./hu": 66,
+	"./hu.js": 66,
+	"./hy-am": 67,
+	"./hy-am.js": 67,
+	"./id": 68,
+	"./id.js": 68,
+	"./is": 69,
+	"./is.js": 69,
+	"./it": 70,
+	"./it.js": 70,
+	"./ja": 71,
+	"./ja.js": 71,
+	"./jv": 72,
+	"./jv.js": 72,
+	"./ka": 73,
+	"./ka.js": 73,
+	"./kk": 74,
+	"./kk.js": 74,
+	"./km": 75,
+	"./km.js": 75,
+	"./kn": 76,
+	"./kn.js": 76,
+	"./ko": 77,
+	"./ko.js": 77,
+	"./ky": 78,
+	"./ky.js": 78,
+	"./lb": 79,
+	"./lb.js": 79,
+	"./lo": 80,
+	"./lo.js": 80,
+	"./lt": 81,
+	"./lt.js": 81,
+	"./lv": 82,
+	"./lv.js": 82,
+	"./me": 83,
+	"./me.js": 83,
+	"./mi": 84,
+	"./mi.js": 84,
+	"./mk": 85,
+	"./mk.js": 85,
+	"./ml": 86,
+	"./ml.js": 86,
+	"./mr": 87,
+	"./mr.js": 87,
+	"./ms": 89,
+	"./ms-my": 88,
+	"./ms-my.js": 88,
+	"./ms.js": 89,
+	"./my": 90,
+	"./my.js": 90,
+	"./nb": 91,
+	"./nb.js": 91,
+	"./ne": 92,
+	"./ne.js": 92,
+	"./nl": 94,
+	"./nl-be": 93,
+	"./nl-be.js": 93,
+	"./nl.js": 94,
+	"./nn": 95,
+	"./nn.js": 95,
+	"./pa-in": 96,
+	"./pa-in.js": 96,
+	"./pl": 97,
+	"./pl.js": 97,
+	"./pt": 99,
+	"./pt-br": 98,
+	"./pt-br.js": 98,
+	"./pt.js": 99,
+	"./ro": 100,
+	"./ro.js": 100,
+	"./ru": 101,
+	"./ru.js": 101,
+	"./sd": 102,
+	"./sd.js": 102,
+	"./se": 103,
+	"./se.js": 103,
+	"./si": 104,
+	"./si.js": 104,
+	"./sk": 105,
+	"./sk.js": 105,
+	"./sl": 106,
+	"./sl.js": 106,
+	"./sq": 107,
+	"./sq.js": 107,
+	"./sr": 109,
+	"./sr-cyrl": 108,
+	"./sr-cyrl.js": 108,
+	"./sr.js": 109,
+	"./ss": 110,
+	"./ss.js": 110,
+	"./sv": 111,
+	"./sv.js": 111,
+	"./sw": 112,
+	"./sw.js": 112,
+	"./ta": 113,
+	"./ta.js": 113,
+	"./te": 114,
+	"./te.js": 114,
+	"./tet": 115,
+	"./tet.js": 115,
+	"./th": 116,
+	"./th.js": 116,
+	"./tl-ph": 117,
+	"./tl-ph.js": 117,
+	"./tlh": 118,
+	"./tlh.js": 118,
+	"./tr": 119,
+	"./tr.js": 119,
+	"./tzl": 120,
+	"./tzl.js": 120,
+	"./tzm": 122,
+	"./tzm-latn": 121,
+	"./tzm-latn.js": 121,
+	"./tzm.js": 122,
+	"./uk": 123,
+	"./uk.js": 123,
+	"./ur": 124,
+	"./ur.js": 124,
+	"./uz": 126,
+	"./uz-latn": 125,
+	"./uz-latn.js": 125,
+	"./uz.js": 126,
+	"./vi": 127,
+	"./vi.js": 127,
+	"./x-pseudo": 128,
+	"./x-pseudo.js": 128,
+	"./yo": 129,
+	"./yo.js": 129,
+	"./zh-cn": 130,
+	"./zh-cn.js": 130,
+	"./zh-hk": 131,
+	"./zh-hk.js": 131,
+	"./zh-tw": 132,
+	"./zh-tw.js": 132
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -53968,207 +58331,1189 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 173;
+webpackContext.id = 196;
 
 /***/ }),
-/* 174 */
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
+;(function(root) {
+
+	/** Detect free variables */
+	var freeExports = typeof exports == 'object' && exports &&
+		!exports.nodeType && exports;
+	var freeModule = typeof module == 'object' && module &&
+		!module.nodeType && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (
+		freeGlobal.global === freeGlobal ||
+		freeGlobal.window === freeGlobal ||
+		freeGlobal.self === freeGlobal
+	) {
+		root = freeGlobal;
+	}
+
+	/**
+	 * The `punycode` object.
+	 * @name punycode
+	 * @type Object
+	 */
+	var punycode,
+
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
+
+	/** Bootstring parameters */
+	base = 36,
+	tMin = 1,
+	tMax = 26,
+	skew = 38,
+	damp = 700,
+	initialBias = 72,
+	initialN = 128, // 0x80
+	delimiter = '-', // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	regexNonASCII = /[^\x20-\x7E]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g, // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	floor = Math.floor,
+	stringFromCharCode = String.fromCharCode,
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+	 * A generic error utility function.
+	 * @private
+	 * @param {String} type The error type.
+	 * @returns {Error} Throws a `RangeError` with the applicable error message.
+	 */
+	function error(type) {
+		throw new RangeError(errors[type]);
+	}
+
+	/**
+	 * A generic `Array#map` utility function.
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} callback The function that gets called for every array
+	 * item.
+	 * @returns {Array} A new array of values returned by the callback function.
+	 */
+	function map(array, fn) {
+		var length = array.length;
+		var result = [];
+		while (length--) {
+			result[length] = fn(array[length]);
+		}
+		return result;
+	}
+
+	/**
+	 * A simple `Array#map`-like wrapper to work with domain name strings or email
+	 * addresses.
+	 * @private
+	 * @param {String} domain The domain name or email address.
+	 * @param {Function} callback The function that gets called for every
+	 * character.
+	 * @returns {Array} A new string of characters returned by the callback
+	 * function.
+	 */
+	function mapDomain(string, fn) {
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
+	}
+
+	/**
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
+	 * @see `punycode.ucs2.encode`
+	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+	 * @memberOf punycode.ucs2
+	 * @name decode
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
+	 */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Creates a string based on an array of numeric code points.
+	 * @see `punycode.ucs2.decode`
+	 * @memberOf punycode.ucs2
+	 * @name encode
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
+	 */
+	function ucs2encode(array) {
+		return map(array, function(value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+	 * Converts a basic code point into a digit/integer.
+	 * @see `digitToBasic()`
+	 * @private
+	 * @param {Number} codePoint The basic numeric code point value.
+	 * @returns {Number} The numeric value of a basic code point (for use in
+	 * representing integers) in the range `0` to `base - 1`, or `base` if
+	 * the code point does not represent a value.
+	 */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+	 * Converts a digit/integer into a basic code point.
+	 * @see `basicToDigit()`
+	 * @private
+	 * @param {Number} digit The numeric value of a basic code point.
+	 * @returns {Number} The basic code point whose value (when used for
+	 * representing integers) is `digit`, which needs to be in the range
+	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+	 * used; else, the lowercase form is used. The behavior is undefined
+	 * if `flag` is non-zero and `digit` has no uppercase form.
+	 */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+	 * Bias adaptation function as per section 3.4 of RFC 3492.
+	 * https://tools.ietf.org/html/rfc3492#section-3.4
+	 * @private
+	 */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (/* no initialization */; delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
+	 * @memberOf punycode
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
+	 */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+		    /** Cached calculation results */
+		    baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base; /* no condition */; k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
+	 * Punycode string of ASCII-only symbols.
+	 * @memberOf punycode
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
+	 */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+		    /** `inputLength` will hold the number of code points in `input`. */
+		    inputLength,
+		    /** Cached calculation results */
+		    handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base; /* no condition */; k += base) {
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(
+							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+						);
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+
+		}
+		return output.join('');
+	}
+
+	/**
+	 * Converts a Punycode string representing a domain name or an email address
+	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+	 * it doesn't matter if you call it on a string that has already been
+	 * converted to Unicode.
+	 * @memberOf punycode
+	 * @param {String} input The Punycoded domain name or email address to
+	 * convert to Unicode.
+	 * @returns {String} The Unicode representation of the given Punycode
+	 * string.
+	 */
+	function toUnicode(input) {
+		return mapDomain(input, function(string) {
+			return regexPunycode.test(string)
+				? decode(string.slice(4).toLowerCase())
+				: string;
+		});
+	}
+
+	/**
+	 * Converts a Unicode string representing a domain name or an email address to
+	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
+	 * i.e. it doesn't matter if you call it with a domain that's already in
+	 * ASCII.
+	 * @memberOf punycode
+	 * @param {String} input The domain name or email address to convert, as a
+	 * Unicode string.
+	 * @returns {String} The Punycode representation of the given domain name or
+	 * email address.
+	 */
+	function toASCII(input) {
+		return mapDomain(input, function(string) {
+			return regexNonASCII.test(string)
+				? 'xn--' + encode(string)
+				: string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+		 * A string representing the current Punycode.js version number.
+		 * @memberOf punycode
+		 * @type String
+		 */
+		'version': '1.4.1',
+		/**
+		 * An object of methods to convert from JavaScript's internal character
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+		 * @memberOf punycode
+		 * @type Object
+		 */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		true
+	) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+			return punycode;
+		}.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (freeExports && freeModule) {
+		if (module.exports == freeExports) {
+			// in Node.js, io.js, or RingoJS v0.8.0+
+			freeModule.exports = punycode;
+		} else {
+			// in Narwhal or RingoJS v0.7.0-
+			for (key in punycode) {
+				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+			}
+		}
+	} else {
+		// in Rhino or a web browser
+		root.punycode = punycode;
+	}
+
+}(this));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module), __webpack_require__(4)))
+
+/***/ }),
+/* 198 */
 /***/ (function(module, exports) {
 
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
 }
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 175 */
+/* 199 */
+/***/ (function(module, exports) {
+
+module.exports = function isBuffer(arg) {
+  return arg && typeof arg === 'object'
+    && typeof arg.copy === 'function'
+    && typeof arg.fill === 'function'
+    && typeof arg.readUInt8 === 'function';
+}
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function(set) {
+  if (isUndefined(debugEnviron))
+    debugEnviron = __webpack_require__.i({"NODE_ENV":"development"}).NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = __webpack_require__(199);
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = __webpack_require__(198);
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(133)))
+
+/***/ }),
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(151),
+  __webpack_require__(154),
   /* template */
-  __webpack_require__(204),
+  __webpack_require__(230),
   /* scopeId */
   null,
   /* cssModules */
@@ -54195,14 +59540,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 176 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(152),
+  __webpack_require__(155),
   /* template */
-  __webpack_require__(206),
+  __webpack_require__(232),
   /* scopeId */
   null,
   /* cssModules */
@@ -54229,14 +59574,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 177 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(153),
+  __webpack_require__(156),
   /* template */
-  __webpack_require__(194),
+  __webpack_require__(220),
   /* scopeId */
   null,
   /* cssModules */
@@ -54263,14 +59608,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 178 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(154),
+  __webpack_require__(157),
   /* template */
-  __webpack_require__(200),
+  __webpack_require__(226),
   /* scopeId */
   null,
   /* cssModules */
@@ -54297,14 +59642,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 179 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(155),
+  __webpack_require__(158),
   /* template */
-  __webpack_require__(205),
+  __webpack_require__(231),
   /* scopeId */
   null,
   /* cssModules */
@@ -54331,14 +59676,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 180 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(156),
+  __webpack_require__(159),
   /* template */
-  __webpack_require__(192),
+  __webpack_require__(218),
   /* scopeId */
   null,
   /* cssModules */
@@ -54365,14 +59710,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 181 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(157),
+  __webpack_require__(160),
   /* template */
-  __webpack_require__(197),
+  __webpack_require__(223),
   /* scopeId */
   null,
   /* cssModules */
@@ -54399,14 +59744,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 182 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(158),
+  __webpack_require__(161),
   /* template */
-  __webpack_require__(191),
+  __webpack_require__(217),
   /* scopeId */
   null,
   /* cssModules */
@@ -54433,14 +59778,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 183 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(159),
+  __webpack_require__(162),
   /* template */
-  __webpack_require__(195),
+  __webpack_require__(221),
   /* scopeId */
   null,
   /* cssModules */
@@ -54467,14 +59812,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 184 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(160),
+  __webpack_require__(163),
   /* template */
-  __webpack_require__(193),
+  __webpack_require__(219),
   /* scopeId */
   null,
   /* cssModules */
@@ -54501,14 +59846,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 185 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(161),
+  __webpack_require__(164),
   /* template */
-  __webpack_require__(201),
+  __webpack_require__(227),
   /* scopeId */
   null,
   /* cssModules */
@@ -54535,14 +59880,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 186 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(162),
+  __webpack_require__(165),
   /* template */
-  __webpack_require__(202),
+  __webpack_require__(228),
   /* scopeId */
   null,
   /* cssModules */
@@ -54569,14 +59914,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 187 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(163),
+  __webpack_require__(166),
   /* template */
-  __webpack_require__(198),
+  __webpack_require__(224),
   /* scopeId */
   null,
   /* cssModules */
@@ -54603,14 +59948,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 188 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(164),
+  __webpack_require__(167),
   /* template */
-  __webpack_require__(199),
+  __webpack_require__(225),
   /* scopeId */
   null,
   /* cssModules */
@@ -54637,14 +59982,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 189 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(165),
+  __webpack_require__(168),
   /* template */
-  __webpack_require__(203),
+  __webpack_require__(229),
   /* scopeId */
   null,
   /* cssModules */
@@ -54671,14 +60016,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 190 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(166),
+  __webpack_require__(169),
   /* template */
-  __webpack_require__(196),
+  __webpack_require__(222),
   /* scopeId */
   null,
   /* cssModules */
@@ -54705,7 +60050,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 191 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55001,7 +60346,7 @@ if (false) {
 }
 
 /***/ }),
-/* 192 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55187,7 +60532,7 @@ if (false) {
 }
 
 /***/ }),
-/* 193 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55300,12 +60645,12 @@ if (false) {
 }
 
 /***/ }),
-/* 194 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.questions.length < 1) ? _c('div', {
-    staticClass: "container content"
+  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
   }, [(_vm.still_deciding_count) ? _c('div', {
@@ -55340,22 +60685,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
-    return _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
-      attrs: {
-        "href": question.slug
-      }
+    return _c('div', {
+      staticClass: "open-question__container"
+    }, [_c('div', {
+      staticClass: "open-question__left"
     }, [_c('avatar', {
       attrs: {
         "size": 42,
@@ -55363,15 +60699,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "username": (question.name) ? question.name : question.slug
       }
     })], 1), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
+      staticClass: "open-question__right"
     }, [_c('div', {
-      staticClass: "h5 m-b-5"
-    }, [_c('span', [_c('a', {
+      staticClass: "open-question__meta"
+    }, [_c('a', {
+      staticClass: "open-question__author",
       attrs: {
         "href": question.slug
       }
-    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
-      staticClass: "text-muted time-align"
+    }, [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+      staticClass: "open-question__time"
     }, [_c('allqtimer', {
       attrs: {
         "initial": question.expiring_at,
@@ -55380,37 +60717,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "event": _vm.deleteQ
       }
-    })], 1)]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-media-question",
-      staticStyle: {
-        "cursor": "pointer"
-      },
+    })], 1)]), _vm._v(" "), _c('a', {
+      staticClass: "open-question__content mt5p m0",
       on: {
         "click": function($event) {
           _vm.redirect(question.id)
-        },
-        "mousedown": function($event) {
-          _vm.addResponseFocus($event)
-        },
-        "mouseup": function($event) {
-          _vm.removeResponseFocus($event)
-        },
-        "mouseleave": function($event) {
-          _vm.removeResponseFocus($event)
         }
       }
-    }, [_c('table', {
-      staticClass: "bkword"
-    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                            ")])])])])])])])])])])
+    }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+  }, [_vm._m(0)]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
@@ -55449,7 +60766,7 @@ if (false) {
 }
 
 /***/ }),
-/* 195 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55492,7 +60809,7 @@ if (false) {
 }
 
 /***/ }),
-/* 196 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55580,7 +60897,7 @@ if (false) {
 }
 
 /***/ }),
-/* 197 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55595,7 +60912,7 @@ if (false) {
 }
 
 /***/ }),
-/* 198 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56061,7 +61378,7 @@ if (false) {
 }
 
 /***/ }),
-/* 199 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56271,7 +61588,7 @@ if (false) {
 }
 
 /***/ }),
-/* 200 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56286,7 +61603,7 @@ if (false) {
 }
 
 /***/ }),
-/* 201 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56427,7 +61744,7 @@ if (false) {
 }
 
 /***/ }),
-/* 202 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56593,7 +61910,7 @@ if (false) {
 }
 
 /***/ }),
-/* 203 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56608,7 +61925,7 @@ if (false) {
 }
 
 /***/ }),
-/* 204 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56633,7 +61950,7 @@ if (false) {
 }
 
 /***/ }),
-/* 205 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56809,7 +62126,7 @@ if (false) {
 }
 
 /***/ }),
-/* 206 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57002,7 +62319,7 @@ if (false) {
 }
 
 /***/ }),
-/* 207 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -57129,7 +62446,7 @@ function(module,exports){"use strict";Object.defineProperty(exports,"__esModule"
 function(module,exports){module.exports={render:function(){var _vm=this,_h=_vm.$createElement,_c=_vm._self._c||_h;return _c("div",{staticClass:"longpress-button",class:_vm.status,on:{touchend:function($event){_vm.cancel()},touchstart:function($event){$event.preventDefault(),_vm.triggerCount()},mouseup:function($event){_vm.cancel()},mousedown:function($event){$event.preventDefault(),_vm.triggerCount()}}},[_c("div",["default"===_vm.status?_vm._t("default"):_vm._e(),_vm._v(" "),"counting"===_vm.status?_c("span",[_vm._v(_vm._s(_vm.countingPressingText||"Keep pressing"))]):_vm._e(),_vm._v(" "),"executing"===_vm.status?_c("span",[_vm._v(_vm._s(_vm.actionText||"Please wait..."))]):_vm._e()],2),_vm._v(" "),_c("span",{staticClass:"progress-bar",style:"animation-duration:"+_vm.duration+"s"})])},staticRenderFns:[]}}])});
 
 /***/ }),
-/* 208 */
+/* 234 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58231,7 +63548,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(213);
+    var client = __webpack_require__(239);
 
     return new PromiseObj(function (resolve) {
 
@@ -58707,7 +64024,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 209 */
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61337,11 +66654,11 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 210 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global, factory) {
-   true ? factory(__webpack_require__(170)) :
+   true ? factory(__webpack_require__(191)) :
   typeof define === 'function' && define.amd ? define(['hammerjs'], factory) :
   (factory(global.Hammer));
 }(this, (function (Hammer) { 'use strict';
@@ -61608,7 +66925,7 @@ if (true) {
 
 
 /***/ }),
-/* 211 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71304,10 +76621,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(129)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 212 */
+/* 238 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72252,17 +77569,17 @@ var index_esm = {
 
 
 /***/ }),
-/* 213 */
+/* 239 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 214 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(131);
-module.exports = __webpack_require__(132);
+__webpack_require__(134);
+module.exports = __webpack_require__(135);
 
 
 /***/ })

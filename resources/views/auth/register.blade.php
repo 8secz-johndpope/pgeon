@@ -1,6 +1,20 @@
-@extends('layouts.app-no-logo')
+@extends('layouts.app-no-top-bar')
 
 @section('content')
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
 
 
 
