@@ -56,6 +56,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+      
+
        /* $messsages = array(
             'slug.required'=>'You cant leave Email field empty',
             'slug.alpha_num'=>'Cannot contain special characters',
@@ -64,7 +67,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             // 'name' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -77,6 +80,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         
+        
         return User::create([
             // 'name' => $data['name'],
             'email' => $data['email'],
@@ -88,6 +92,8 @@ class RegisterController extends Controller
     
     public function register(Request $request)
     {
+        
+        
         $validator =  $this->validator($request->all())->validate();
 
         // $validator = $this->validator($request->all());

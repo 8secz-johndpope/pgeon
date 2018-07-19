@@ -5120,8 +5120,8 @@ module.exports = defaults;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_signup__ = __webpack_require__(176);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isPasswordValid; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return handleEmailInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isPasswordValid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return handleEmailInput; });
 
 
 
@@ -23214,7 +23214,7 @@ var handleValidatePassword = function handleValidatePassword(e) {
   var $passContainer = jQuery("#login_password").parent();
   var pass = $passContainer.find("input").val() || "";
   console.log("pass", pass);
-  var isPassValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["b" /* isPasswordValid */])(pass);
+  var isPassValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["a" /* isPasswordValid */])(pass);
   console.log("ispassvalid", isPassValid);
 
   if (!isPassValid) {
@@ -23227,7 +23227,7 @@ var handleValidatePassword = function handleValidatePassword(e) {
 /* harmony default export */ __webpack_exports__["a"] = (function () {
   //- TODO this needs serious refactoring.
   jQuery("#login_email").on("focusout", function (e) {
-    return e.target.value !== "" && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["a" /* handleEmailInput */])(e);
+    return e.target.value !== "" && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["b" /* handleEmailInput */])(e);
   });
   jQuery("#login_password").on("focusout", function (e) {
     return e.target.value !== "" && handleValidatePassword(e);
@@ -23581,38 +23581,33 @@ $(".search-header > button").on("click", function (e) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_forms__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isemail__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_isemail__);
+// import { handleEmailInput } from "./global/forms"
+// import { validate } from "isemail"
 
-
-
-var handleSignupMailBlur = function handleSignupMailBlur(e) {
-  var email = e.target.value;
-  if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_isemail__["validate"])(email)) {
-    return;
-  }
-  jQuery.ajax({
-    type: "POST",
-    url: "/api/checkmail",
-    data: { email: email },
-    success: function success() {
-      // could add a green border
-      // $(e.target).parents(".pgn-textfield").addClass("pgn-textfield-success")
-    },
-    error: function error() {
-      var $tv = jQuery(e.target).parents(".pgn-textfield");
-      $tv.addClass("pgn-textfield-error");
-      $tv.find(".pgn-textfield-errorMessage").text("Email Already Exists");
-    },
-    dataType: "json"
-  });
-};
+// const handleSignupMailBlur = e => {
+//   const email = e.target.value
+//   if(!validate(email)){ return }
+//   jQuery.ajax({
+//     type: "POST",
+//     url: "/api/checkmail",
+//     data: { email },
+//     success: () => {
+//       // could add a green border
+//       // $(e.target).parents(".pgn-textfield").addClass("pgn-textfield-success")
+//     },
+//     error: () => {
+//       const $tv = jQuery(e.target).parents(".pgn-textfield")
+//       $tv.addClass("pgn-textfield-error")
+//       $tv.find(".pgn-textfield-errorMessage").text("Email Already Exists")
+//     },
+//     dataType: "json"
+//   });
+// }
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-  $("#signup_email input").on("input", __WEBPACK_IMPORTED_MODULE_0__global_forms__["a" /* handleEmailInput */]);
-  $("#signup_email").on("focusout", handleSignupMailBlur);
-  // $("#signup_password").on("input", validatePassword )
+  // $("#signup_email input").on("input", handleEmailInput )
+  // $("#signup_email").on("focusout", handleSignupMailBlur )
+  // // $("#signup_password").on("input", validatePassword )
 });
 
 /***/ }),

@@ -176,6 +176,10 @@ Route::get('/u_s', 'UserController@status');
   Route::post('unfollow', array( 'uses'=>'UserFollowingController@destroy' ) );
 
   Route::get('/signup', 'Auth\RegisterController@showsignup');
+  Route::get('/terms', 'StaticController@terms');
+  Route::get('/privacy', 'StaticController@privacy');
+
+  Route::get('/signup', 'Auth\RegisterController@showsignup');
 
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

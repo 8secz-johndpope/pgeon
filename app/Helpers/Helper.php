@@ -107,5 +107,47 @@ class Helper
         echo \Illuminate\Support\Facades\File::get(public_path($filename));
 
     }
+
+    public static function back() {
+        $need_back = true;
+        //request()->headers->get('referer');
+        if (strstr(url()->full(), "signup")) {
+            $need_back = false;
+        }
+
+
+        if($need_back) {
+            $path = url()->previous();
+            $back_img = \Illuminate\Support\Facades\File::get(public_path('img/svg/long-arrow-left.svg'));
+            //$path = URL::previous();
+            //$path = \Illuminate\Routing\UrlGenerator::previous();
+            echo '
+            <span class="back-arrow dib">
+            <a href="'.$path.'" class="dib">'.$back_img.'
+            </a>
+        </span>';
+        }
+
+    }
+
+    public static function close() {
+
+        $need_close = false;
+        if (strstr(url()->full(), "signup")) {
+            $need_close = true;
+        }
+
+        if($need_close) {
+            $close_img = \Illuminate\Support\Facades\File::get(public_path('img/svg/times.svg'));
+            echo '
+                <span class="close-button fc">
+                <a href="/" class="fc">'.$close_img.'            
+                </a>
+            </span>';
+        }
+
+    }
+
+
 }
 

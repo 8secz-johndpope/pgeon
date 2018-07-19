@@ -41,18 +41,20 @@
 <header class="flex items-center top__header pl-10 pr-20 relative">
 
 
+    {{Helper::back()}}
+
     <span class="logo flex justify-center items-center">
       <a class="dib" href="/">
        {{Helper::read_svg("img/main-logo.svg")}}
       </a>
     </span>
 
-    <span class="close-button fc">
-      <a href="/" class="fc">
-      {{Helper::read_svg("img/svg/times.svg")}}
-        
-      </a>
-    </span>
+
+
+    {{Helper::close()}}
+
+
+   
 
 </header>
 
