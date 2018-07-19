@@ -107,12 +107,13 @@
 
      <div class="fc premium-dropdown-item">
        <span class="premium-lock fc mr10p">
-       <img src="{{URL::asset('img/svg/lock-alt.svg')}}">
+       {{Helper::read_svg("img/svg/lock-alt.svg")}}   
 
          <span class="ml5p">premium</span>
        </span>
        <span class="premium-info fc">
-       <img src="{{URL::asset('img/svg/info-circle.svg')}}">
+       {{Helper::read_svg("img/svg/info-circle.svg")}}   
+
 
        </span>
      </div>
@@ -131,6 +132,12 @@
 
 
   </div>
+
+
+   
+
+
+    @include('layouts/partials/profile-menu') 
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
