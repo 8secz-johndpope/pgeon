@@ -20,7 +20,6 @@
             <div class="b12 se"></div>
         </div>
 				 <div v-else>
-				 <img src="/img/chat-bubble.svg" />
 				 <h4 class="text-muted m-t-0">No live questions to display. <br>Please check back soon!</h4>
 				</div>
 		</div>

@@ -9,13 +9,42 @@
 
 
 
+<div class="second-nav-container  navbar-inverse navbar-fixed-top">
+	<ul class="container nav nav-bordered second-nav">
+		<div class="iconav-slider">
+			<ul class="nav nav-pills iconav-nav">
+				<li class="tab active">
+                    <router-link class="small" to="/questions">Questions</router-link>
+				</li>
+				<li class="tab">
+                     <router-link class="small" to="/responses">Responses</router-link>
+				</li>
+				<li v-if="current_filter == 'follow'" class="f-right small"  v-on:click="featured_questions()"  >
+
+				<span class="f-right-text" >Following</span>
+					&nbsp; <span class="fa fa-sort"></span>
+
+					</li>
+
+			<li v-if="current_filter == 'everyone'" class="f-right small" v-on:click="followed_questions()" >
+
+				<span class="f-right-text"  >Featured</span>
+				
+					&nbsp; <span class="fa fa-sort"></span>
+
+					</li>
+			
+			</ul>
+		</div>
+	</ul>
+</div>
 
 
- <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
-
+	<div class="container scroll-content mt-50"  v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 			
-			      <div  v-if="still_deciding_count" class="spinner">
+			
+				        <div  v-if="still_deciding_count" class="spinner">
             <div class="b1 se"></div>
             <div class="b2 se"></div>
             <div class="b3 se"></div>
@@ -30,42 +59,54 @@
             <div class="b12 se"></div>
         </div>
 				 <div v-else>
+				 <img src="/img/chat-bubble.svg" />
 				 <h4 class="text-muted m-t-0">No live questions to display. <br>Please check back soon!</h4>
 				</div>
+			
 		</div>
-	</main>
+	</div>
 
 
 
 
+        <div class="container scroll-content mt-50">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <ul class="media-list media-list-conversation c-w-md" v-for="question in questions">
+                        <li class="media">
+                            <a class="media-left" :href="question.slug">
+								
+                                <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
+
+                            </a>
+                            <div class="media-body">
+                                <div class="h5 m-b-5">
+                                    <span><a :href="question.slug">{{question.slug}}</a></span>
+                                    <span class="text-muted time-align"><allqtimer :initial="question.expiring_at"
+								:question_id="question.id" @event="deleteQ"></allqtimer></span>
+                                </div>
+                                <ul class="media-list media-list-conversation c-w-md">
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="media-body-text live-media-question"  v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)" style="cursor: pointer;">
+											<table class="bkword">
+											<tr>
+											<td>
+    	                                        {{question.question}}
+											</td></tr></table>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    
 
 
 
-
- <main class="landing-main mw6 m-auto pl15 pr15">
-      <div class="open-question__container" v-for="question in questions">
-        <div class="open-question__left">
-          <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
-        </div>
-        <div class="open-question__right">
-          <div class="open-question__meta">
-            <a :href="question.slug" class="open-question__author">{{question.slug}}</a>
-            <span class="open-question__time">
-
-              <allqtimer :initial="question.expiring_at"
-								:question_id="question.id" @event="deleteQ"></allqtimer>
-
-            </span>
-          </div>
-          <a v-on:click="redirect(question.id)"  class="open-question__content mt5p m0">
-            <p> {{question.question}}</p>
-          </a>
-        </div>
-      </div>
-
-   
-          
-  			                
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
@@ -82,15 +123,9 @@
             <div class="b12 se"></div>
         </div>
 						</li></ul>
-
-
-
-<div class="FAB-button__container mw6 m-auto">
-          <a href="/ask" class="FAB-button">
-			  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"></path></svg>
-          </a>
+                </div>
+            </div>
         </div>
-  </main>
 
 
 

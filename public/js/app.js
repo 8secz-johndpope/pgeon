@@ -5120,8 +5120,8 @@ module.exports = defaults;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_signup__ = __webpack_require__(176);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isPasswordValid; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return handleEmailInput; });
+/* unused harmony export isPasswordValid */
+/* unused harmony export handleEmailInput */
 
 
 
@@ -19891,41 +19891,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -20080,7 +20045,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
 //
 //
 //
@@ -23147,99 +23111,96 @@ var togglePasswordShow = function togglePasswordShow(e, $el) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isemail__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_forms__ = __webpack_require__(7);
+// import {validate} from "isemail"
 
+// import {handleEmailInput, isPasswordValid} from "./global/forms"
+// const $fpForm = jQuery("#forgot_password_form")
 
+// function forgotPasswordMessage(m) {
+//   $fpForm.find(".pgn-textfield").addClass("pgn-textfield-error")
+//   $fpForm.find(".pgn-textfield-errorMessage").text(m)
+// }
 
-var $fpForm = jQuery("#forgot_password_form");
+// const handleForgotPasswordSubmit = (e) => {
+//   e.preventDefault()
+//   let email = $("#forgot_password_email").val() || ""
+//   // email is missing
+//   if (email.trim().length === 0) {
+//     forgotPasswordMessage("Email is missing.")
+//     return
+//   }
+//   if (!validate(email)) {
+//     forgotPasswordMessage("Email is not valid.")
+//     return
+//   }
 
-function forgotPasswordMessage(m) {
-  $fpForm.find(".pgn-textfield").addClass("pgn-textfield-error");
-  $fpForm.find(".pgn-textfield-errorMessage").text(m);
-}
+//   if (email.toLowerCase() == "russ@pgeon.com") {
+//     window.location.href = "/login/forgotPassword/confirm"
+//   } else {
+//     forgotPasswordMessage("Email address not registered.")
+//   }
+// }
 
-var handleForgotPasswordSubmit = function handleForgotPasswordSubmit(e) {
-  e.preventDefault();
-  var email = $("#forgot_password_email").val() || "";
-  // email is missing
-  if (email.trim().length === 0) {
-    forgotPasswordMessage("Email is missing.");
-    return;
-  }
-  if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(email)) {
-    forgotPasswordMessage("Email is not valid.");
-    return;
-  }
+// const handleLoginSubmit = (e) => {
+//   const $passContainer = jQuery("#login_password").parent()
+//   let pass = $passContainer.find("input").val() || ""
+//   let email = $("#login_email").val() || ""
+//   const isPassEmpty = pass.length > 0
+//   const isEmailValid = validate(email)
 
-  if (email.toLowerCase() == "russ@pgeon.com") {
-    window.location.href = "/login/forgotPassword/confirm";
-  } else {
-    forgotPasswordMessage("Email address not registered.");
-  }
-};
+//   if (!isPassEmpty) {
+//     e.preventDefault()
+//     $passContainer.addClass("pgn-textfield-error")
+//     $passContainer.find(".pgn-textfield-errorMessage").text("Password missing.")
+//   }
 
-var handleLoginSubmit = function handleLoginSubmit(e) {
-  var $passContainer = jQuery("#login_password").parent();
-  var pass = $passContainer.find("input").val() || "";
-  var email = $("#login_email").val() || "";
-  var isPassEmpty = pass.length > 0;
-  var isEmailValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(email);
+//   if (!isEmailValid) {
+//     $("[data-error=email]")
+//       .parent()
+//       .addClass("pgn-textfield-error")
+//     $("[data-error=email]").text(`Invalid email address.`)
+//   }
 
-  if (!isPassEmpty) {
-    e.preventDefault();
-    $passContainer.addClass("pgn-textfield-error");
-    $passContainer.find(".pgn-textfield-errorMessage").text("Password missing.");
-  }
+//   if (!(email.toLowerCase() === "russ@pgeon.com" && pass === "secret123")) {
+//     e.preventDefault()
+//     $passContainer.addClass("pgn-textfield-error")
+//     $passContainer.find(".pgn-textfield-errorMessage").text("Incorrect Password.")
+//   }
+// }
 
-  if (!isEmailValid) {
-    $("[data-error=email]").parent().addClass("pgn-textfield-error");
-    $("[data-error=email]").text("Invalid email address.");
-  }
+// const removeError = (e) => {
+//   $(e.target)
+//     .parent()
+//     .removeClass("pgn-textfield-error")
+// }
 
-  if (!(email.toLowerCase() === "russ@pgeon.com" && pass === "secret123")) {
-    e.preventDefault();
-    $passContainer.addClass("pgn-textfield-error");
-    $passContainer.find(".pgn-textfield-errorMessage").text("Incorrect Password.");
-  }
-};
+// const handleValidatePassword = (e) => {
+//   console.log("Here")
+//   const $passContainer = jQuery("#login_password").parent()
+//   let pass = $passContainer.find("input").val() || ""
+//   console.log("pass", pass)
+//   const isPassValid = isPasswordValid(pass)
+//   console.log("ispassvalid", isPassValid)
 
-var removeError = function removeError(e) {
-  $(e.target).parent().removeClass("pgn-textfield-error");
-};
-
-var handleValidatePassword = function handleValidatePassword(e) {
-  console.log("Here");
-  var $passContainer = jQuery("#login_password").parent();
-  var pass = $passContainer.find("input").val() || "";
-  console.log("pass", pass);
-  var isPassValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["a" /* isPasswordValid */])(pass);
-  console.log("ispassvalid", isPassValid);
-
-  if (!isPassValid) {
-    e.preventDefault();
-    $passContainer.addClass("pgn-textfield-error");
-    $passContainer.find(".pgn-textfield-errorMessage").text("Password Invalid.");
-  }
-};
+//   if (!isPassValid) {
+//     e.preventDefault()
+//     $passContainer.addClass("pgn-textfield-error")
+//     $passContainer.find(".pgn-textfield-errorMessage").text("Password Invalid.")
+//   }
+// }
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-  //- TODO this needs serious refactoring.
-  jQuery("#login_email").on("focusout", function (e) {
-    return e.target.value !== "" && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__global_forms__["b" /* handleEmailInput */])(e);
-  });
-  jQuery("#login_password").on("focusout", function (e) {
-    return e.target.value !== "" && handleValidatePassword(e);
-  });
-  // jQuery("#forgotPassword_email").on("focusout", handleEmailInput)
-  jQuery("#login__form").on("submit", handleLoginSubmit);
-  jQuery("#forgot_password_form").on("submit", handleForgotPasswordSubmit);
+  // //- TODO this needs serious refactoring.
+  // jQuery("#login_email").on("focusout", (e) => e.target.value !== "" && handleEmailInput(e))
+  // jQuery("#login_password").on("focusout", (e) => e.target.value !== "" && handleValidatePassword(e))
+  // // jQuery("#forgotPassword_email").on("focusout", handleEmailInput)
+  // jQuery("#login__form").on("submit", handleLoginSubmit)
+  // jQuery("#forgot_password_form").on("submit", handleForgotPasswordSubmit)
 
-  jQuery("#forgot_password_email").on("focusout", handleForgotPasswordSubmit);
-  jQuery("#login_password, #login_email, #forgot_password_email").on("focus", removeError);
-  // todo: might not been needed.
-  // jQuery("#login_password, #login_email",).on("input", removeError)
+  // jQuery("#forgot_password_email").on("focusout", handleForgotPasswordSubmit)
+  // jQuery("#login_password, #login_email, #forgot_password_email").on("focus", removeError)
+  // // todo: might not been needed.
+  // // jQuery("#login_password, #login_email",).on("input", removeError)
 });
 
 /***/ }),
@@ -60677,11 +60638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
+  })]) : _c('div', [_c('h4', {
     staticClass: "text-muted m-t-0"
   }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
@@ -62128,52 +62085,8 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "second-nav-container  navbar-inverse navbar-fixed-top"
-  }, [_c('ul', {
-    staticClass: "container nav nav-bordered second-nav"
-  }, [_c('div', {
-    staticClass: "iconav-slider"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills iconav-nav"
-  }, [_c('li', {
-    staticClass: "tab active"
-  }, [_c('router-link', {
-    staticClass: "small",
-    attrs: {
-      "to": "/questions"
-    }
-  }, [_vm._v("Questions")])], 1), _vm._v(" "), _c('li', {
-    staticClass: "tab"
-  }, [_c('router-link', {
-    staticClass: "small",
-    attrs: {
-      "to": "/responses"
-    }
-  }, [_vm._v("Responses")])], 1), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
-    staticClass: "f-right small",
-    on: {
-      "click": function($event) {
-        _vm.featured_questions()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Following")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
-    staticClass: "f-right small",
-    on: {
-      "click": function($event) {
-        _vm.followed_questions()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _vm._e()])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
-    staticClass: "container scroll-content mt-50"
+  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
   }, [(_vm.still_deciding_count) ? _c('div', {
@@ -62202,28 +62115,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
+  })]) : _c('div', [_c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "container scroll-content mt-50"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
+  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
-    return _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
-      attrs: {
-        "href": question.slug
-      }
+    return _c('div', {
+      staticClass: "open-question__container"
+    }, [_c('div', {
+      staticClass: "open-question__left"
     }, [_c('avatar', {
       attrs: {
         "size": 42,
@@ -62231,15 +62131,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "username": (question.name) ? question.name : question.slug
       }
     })], 1), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
+      staticClass: "open-question__right"
     }, [_c('div', {
-      staticClass: "h5 m-b-5"
-    }, [_c('span', [_c('a', {
+      staticClass: "open-question__meta"
+    }, [_c('a', {
+      staticClass: "open-question__author",
       attrs: {
         "href": question.slug
       }
-    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
-      staticClass: "text-muted time-align"
+    }, [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+      staticClass: "open-question__time"
     }, [_c('allqtimer', {
       attrs: {
         "initial": question.expiring_at,
@@ -62248,37 +62149,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "event": _vm.deleteQ
       }
-    })], 1)]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-media-question",
-      staticStyle: {
-        "cursor": "pointer"
-      },
+    })], 1)]), _vm._v(" "), _c('a', {
+      staticClass: "open-question__content mt5p m0",
       on: {
         "click": function($event) {
           _vm.redirect(question.id)
-        },
-        "mousedown": function($event) {
-          _vm.addResponseFocus($event)
-        },
-        "mouseup": function($event) {
-          _vm.removeResponseFocus($event)
-        },
-        "mouseleave": function($event) {
-          _vm.removeResponseFocus($event)
         }
       }
-    }, [_c('table', {
-      staticClass: "bkword"
-    }, [_c('tr', [_c('td', [_vm._v("\n    \t                                        " + _vm._s(question.question) + "\n\t\t\t\t\t\t\t\t\t\t\t")])])])])])])])])])])
+    }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "FAB-button__container mw6 m-auto"
+  }, [_c('a', {
+    staticClass: "FAB-button",
+    attrs: {
+      "href": "/ask"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 448 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"
+    }
+  })])])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
