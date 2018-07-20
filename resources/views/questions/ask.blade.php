@@ -40,44 +40,50 @@
 <main class="mw6 m-auto">
 
   <div class="question-stats">
-    <a href="/question/live" class="question-stats__item">
+  @if (count($live) > 0)
+    <a href="/live" class="question-stats__item">
+    @else
+    <a  class="question-stats__item">
+    @endif
       <div>
       {{Helper::read_svg("img/svg/ban.svg")}}
         <span>Open</span>
       </div>
-      @if (count($live) > 0)
-      <span style="cursor: pointer;" onclick="window.location.href='/live'">
-      @else
-                <span>
-                @endif
+     
+      <span>
+    
                 {{count($live)}} </span>
     </a>
 
-    <a href="/question/pending" class="question-stats__item">
+  @if (count($pending) > 0)
+    <a href="/pending" class="question-stats__item">
+    @else
+    <a  class="question-stats__item">
+    @endif
       <div>
       {{Helper::read_svg("img/svg/clock.svg")}}
 
         <span>Pending</span>
       </div>
-      @if (count($pending) > 0)
-                    <span style="cursor: pointer;" onclick="window.location.href='/pending'">
-                    @else
+   
                     <span>
-                    @endif
                     
                     {{count($pending)}} </span>
     </a>
-    <a href="/question/published" class="question-stats__item">
+
+
+    @if (count($published) > 0)
+    <a href="/published" class="question-stats__item">
+    @else
+    <a  class="question-stats__item">
+    @endif
       <div>
       {{Helper::read_svg("img/svg/check-circle.svg")}}
 
         <span>Published</span>
       </div>
-      @if (count($published) > 0)
-                    <span style="cursor: pointer;" onclick="window.location.href='/published'">
-                    @else
+               
                     <span> 
-                    @endif
                     {{count($published)}} </span>
     </a>
   </div>

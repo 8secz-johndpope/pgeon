@@ -24,7 +24,7 @@ const handleAnswerQuestionInput = (e) => {
   e.target.value.length > 0
     ? $(".answer-question__input").addClass("answer-question__input---typing")
     : $(".answer-question__input").removeClass("answer-question__input---typing");
-
+    
 };
 
 
@@ -39,6 +39,7 @@ $(".details-share__header").on("click", closeDetailsDropdown);
 
 const countElm = $(".post-question-count");
 const trackCount = (e) => {
+
   const remaining = 150 - e.target.value.length;
   countElm.text(remaining);
   if (remaining < 0) {
@@ -48,7 +49,10 @@ const trackCount = (e) => {
   }
 };
 
-$(".post-question-textarea").on("input", trackCount);
+$(function () {
+  $(".post-question-textarea").on("input", trackCount);
+
+})
 
 const $shareEl = $(".auto-share-toggle");
 

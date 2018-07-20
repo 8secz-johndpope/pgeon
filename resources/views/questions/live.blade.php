@@ -2,16 +2,27 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-shadow">
-            <div class="container nav-container">
-                <div class="navbar-header w-100">
+<header class="live-header">
+  <div class="mw6 m-auto flex items-center pl15p justify-between top__header pl-15 pr15 ">
 
-                    <a class="navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
-                    <h4>Live ({{count($questions)}})</h4>
-                </div>
+    <span class="back-arrow dib">
+      <a onclick="window.history.back()" class="dib">
+      {{Helper::read_svg("img/svg/times.svg")}}   
+      </a>
+    </span>
 
-            </div>
-        </nav>
+      <span class="header-title live-title">
+      <h4>Live ({{count($questions)}})</h4>
+      </span>
+
+     
+   
+
+  </div>
+</header>
+
+
+
 
 
   <div style="width: auto;">

@@ -19887,10 +19887,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -23453,6 +23449,7 @@ $(".details-share__header").on("click", closeDetailsDropdown);
 
 var countElm = $(".post-question-count");
 var trackCount = function trackCount(e) {
+
   var remaining = 150 - e.target.value.length;
   countElm.text(remaining);
   if (remaining < 0) {
@@ -23462,7 +23459,9 @@ var trackCount = function trackCount(e) {
   }
 };
 
-$(".post-question-textarea").on("input", trackCount);
+$(function () {
+  $(".post-question-textarea").on("input", trackCount);
+});
 
 var $shareEl = $(".auto-share-toggle");
 
