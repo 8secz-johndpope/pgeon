@@ -24,11 +24,16 @@ const handleAnswerQuestionInput = (e) => {
   e.target.value.length > 0
     ? $(".answer-question__input").addClass("answer-question__input---typing")
     : $(".answer-question__input").removeClass("answer-question__input---typing");
+
 };
+
+
 $(".answer-question__input textarea").on("input", handleAnswerQuestionInput);
 $(".details__overlay").on("click", closeDetailsDropdown);
 $(".details__dropdown_item--share").on("click", openSharedLinks);
 $(".details-share__header").on("click", closeDetailsDropdown);
+
+
 
 // track textarea count
 
@@ -99,3 +104,5 @@ $(".open-question__response").on("mouseup", (e) => {
   clicking = false;
   clearTimeout(pressTimer)
 });
+
+

@@ -1,4 +1,4 @@
-@extends('layouts.app-no-top-bar') @section('content')
+@extends('layouts.app-no-logo') @section('content')
 
 
 <div style="width: auto">
@@ -37,98 +37,56 @@
 
 
 
+<main class="mw6 m-auto">
 
-
-        <div style="width: auto;">
-            <div class="text-muted container" style="padding: 0px;">
-              <div class="col-sm-4">
-                @if (count($live) > 0)
-                <div style="cursor: pointer;" onclick="window.location.href='/live'">
-                @else
-                <div>
+  <div class="question-stats">
+    <a href="/question/live" class="question-stats__item">
+      <div>
+      {{Helper::read_svg("img/svg/ban.svg")}}
+        <span>Open</span>
+      </div>
+      @if (count($live) > 0)
+      <span style="cursor: pointer;" onclick="window.location.href='/live'">
+      @else
+                <span>
                 @endif
+                {{count($live)}} </span>
+    </a>
 
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                @if (count($live) > 0)
-                                    <i class="text-primary fal fa-circle-notch fa-3x fa-spin"></i>
-                                @else
-                                    <i class="fal fa-ban fa-3x"></i>
-                                @endif
+    <a href="/question/pending" class="question-stats__item">
+      <div>
+      {{Helper::read_svg("img/svg/clock.svg")}}
 
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div style="margin-top: 0;" class="h4">
-                                        {{count($live)}}
-</div>
-                                    <div>
-                                        <div class="h5" style="margin: 0;">live</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-											</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    @if (count($pending) > 0)
-                    <div style="cursor: pointer;" onclick="window.location.href='/pending'">
+        <span>Pending</span>
+      </div>
+      @if (count($pending) > 0)
+                    <span style="cursor: pointer;" onclick="window.location.href='/pending'">
                     @else
-                    <div>
+                    <span>
                     @endif
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="text-muted fal fa-clock fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div style="margin-top: 0;" class="h4">
-                                        {{count($pending)}}
-</div>
-                                    <div>
-                                        <div class="h5" style="margin: 0;">pending</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-											</div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                @if (count($published) > 0)
-                    <div style="cursor: pointer;" onclick="window.location.href='/published'">
+                    
+                    {{count($pending)}} </span>
+    </a>
+    <a href="/question/published" class="question-stats__item">
+      <div>
+      {{Helper::read_svg("img/svg/check-circle.svg")}}
+
+        <span>Published</span>
+      </div>
+      @if (count($published) > 0)
+                    <span style="cursor: pointer;" onclick="window.location.href='/published'">
                     @else
-                    <div>
+                    <span> 
                     @endif
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class=" fal fa-check-circle fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div style="margin-top: 0;" class="h4">
-																			{{count($published)}}
-																		</div>
-                                    <div class="h5" style="margin: 0;">published</div>
-                                </div>
-                            </div>
-                        </div>
-											</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    {{count($published)}} </span>
+    </a>
+  </div>
+
+</main>
 
 
 
-
-                <!-- end of tabs -->
-            </div>
-        </div>
+    
 
 
 
