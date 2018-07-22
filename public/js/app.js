@@ -21091,52 +21091,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -21780,43 +21734,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -21962,52 +21879,6 @@ var pressTimer;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -60020,20 +59891,16 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "container"
-  }, [_c('ul', {
-    staticClass: "media-list  m-b-0"
-  }, [_c('li', {
-    staticClass: "media media-divider"
+  return _c('div', [_c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15 smtp mt15p"
   }, [_c('div', {
-    staticClass: "h5 m-b-5"
-  }, [_c('span', [_c('a', {
-    attrs: {
-      "href": '/' + _vm.question_user_slug
-    }
-  }, [_vm._v(_vm._s(_vm.question_user_slug))])]), _vm._v(" "), _c('span', {
-    staticClass: "text-muted time-align"
+    staticClass: "open-question__right"
+  }, [_c('div', {
+    staticClass: "open-question__meta"
+  }, [_c('span', {
+    staticClass: "open-question__author"
+  }, [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
+    staticClass: "open-question__time"
   }, [_c('allqtimer', {
     attrs: {
       "initial": parseInt(_vm.initial),
@@ -60042,101 +59909,83 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "event": _vm.reload
     }
-  })], 1)]), _vm._v(" "), _c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text live-media-question",
-    staticStyle: {
-      "border-bottom": "transparent",
-      "border": "1px solid #D1D4D5"
-    }
-  }, [_c('table', {
-    staticClass: "bkword"
-  }, [_c('tr', [_c('td', [_vm._v(" \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "media-footer"
-  }, [_c('small', {
-    staticClass: "text-muted"
-  }, [_c('div', {
-    staticClass: "divide tc relative m-t-5"
-  }, [_c('div', {
-    staticClass: "stats dib bg-F8F9F9 ph3 pull-right"
-  }, [_c('span', {
-    staticClass: "number",
+  })], 1)]), _vm._v(" "), _c('a', {
+    staticClass: "open-question__content mt5p m0",
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Views"
+      "href": '/' + _vm.question_user_slug
     }
-  }, [_vm._v(" " + _vm._s(_vm.hits) + " "), _c('i', {
-    staticClass: "fal fa-eye"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
+  }, [_c('p', [_vm._v(_vm._s(_vm.question))])])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seperator mt15p mb15p"
+  }, [_c('div', {
+    staticClass: "open-question__seperator__inner mr15p"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seen mr15p"
+  }, [_c('svg', {
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Responses"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 576 512"
     }
-  }, [_vm._v(_vm._s(_vm.answers.length) + " "), _c('i', {
-    staticClass: "fal fa-comments"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
+  }, [_c('path', {
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Votes"
+      "d": "M569.354 231.631C512.969 135.948 407.808 72 288 72 168.14 72 63.004 135.994 6.646 231.63a47.999 47.999 0 0 0 0 48.739C63.032 376.053 168.192 440 288 440c119.86 0 224.996-63.994 281.354-159.631a48.002 48.002 0 0 0 0-48.738zM416 228c0 68.483-57.308 124-128 124s-128-55.517-128-124 57.308-124 128-124 128 55.517 128 124zm125.784 36.123C489.837 352.277 393.865 408 288 408c-106.291 0-202.061-56.105-253.784-143.876a16.006 16.006 0 0 1 0-16.247c29.072-49.333 73.341-90.435 127.66-115.887C140.845 158.191 128 191.568 128 228c0 85.818 71.221 156 160 156 88.77 0 160-70.178 160-156 0-36.411-12.833-69.794-33.875-96.01 53.76 25.189 98.274 66.021 127.66 115.887a16.006 16.006 0 0 1-.001 16.246zM224 224c0-10.897 2.727-21.156 7.53-30.137v.02c0 14.554 11.799 26.353 26.353 26.353 14.554 0 26.353-11.799 26.353-26.353s-11.799-26.353-26.353-26.353h-.02c8.981-4.803 19.24-7.53 30.137-7.53 35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64z"
     }
-  }, [_vm._v(_vm._s(_vm.vote_count) + " "), _c('i', {
-    staticClass: "fal fa-check-square"
-  })])])])])])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "container"
+  })]), _vm._v(" "), _c('span', [_vm._v("  " + _vm._s(_vm.hits) + "  ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__comments mr15p"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 512 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M256 64c123.5 0 224 79 224 176S379.5 416 256 416c-28.3 0-56.3-4.3-83.2-12.8l-15.2-4.8-13 9.2c-23 16.3-58.5 35.3-102.6 39.6 12-15.1 29.8-40.4 40.8-69.6l7.1-18.7-13.7-14.6C47.3 313.7 32 277.6 32 240c0-97 100.5-176 224-176m0-32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26 3.8 8.8 12.4 14.5 22 14.5 61.5 0 110-25.7 139.1-46.3 29 9.1 60.2 14.3 93 14.3 141.4 0 256-93.1 256-208S397.4 32 256 32z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.answers.length) + " ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__votes"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 448 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 32c8.823 0 16 7.178 16 16v352c0 8.822-7.177 16-16 16H48c-8.822 0-16-7.178-16-16V80c0-8.822 7.178-16 16-16h352m-34.301 98.293l-8.451-8.52c-4.667-4.705-12.265-4.736-16.97-.068l-163.441 162.13-68.976-69.533c-4.667-4.705-12.265-4.736-16.97-.068l-8.52 8.451c-4.705 4.667-4.736 12.265-.068 16.97l85.878 86.572c4.667 4.705 12.265 4.736 16.97.068l180.48-179.032c4.704-4.667 4.735-12.265.068-16.97z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.vote_count) + " ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__responses"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
-      staticClass: "media-list media-list-conversation c-w-md jsvote animated",
+      staticClass: "open-question__response",
       class: {
         'fadeIn': answer.id == _vm.pushed_id
       }
-    }, [_c('div', {
-      staticClass: "media media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-response flex-center"
-    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('a', {
-      staticStyle: {
-        "color": "rgba(177, 179, 182, 0.6)"
-      },
+    }, [_c('p', [_vm._v(_vm._s(answer.answer))]), _vm._v(" "), _c('span', {
       on: {
         "click": function($event) {
           _vm.delete_answer(answer.id)
         }
       }
-    }, [_c('span', {
-      staticClass: "fal fa-trash"
-    })])])])])]) : _vm._e()])
-  })), _vm._v(" "), _c('div', {
-    attrs: {
-      "id": "answers_container"
-    }
-  }, [(_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
-  }, [_vm._m(0)]) : _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
-  }, [_c('div', {
-    staticClass: "container"
-  }, _vm._l((_vm.answers), function(answer, index) {
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 512 512"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"
+      }
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "response-votes"
+    }, [_vm._v("0")])]) : _vm._e()])
+  })), _vm._v(" "), (_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
+    staticClass: "open-question__no-responses"
+  }) : _c('div', _vm._l((_vm.answers), function(answer, index) {
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
       class: [{
         'fadeIn': answer.id == _vm.pushed_id
-      }, 'media-list media-list-conversation c-w-md jsvote animated'],
+      }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'],
       attrs: {
         "press-options": {
           time: '500'
@@ -60150,14 +59999,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.mdown(answer.id, $event, index)
         }
       }
-    }, [_c('div', {
-      staticClass: "media media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-response flex-center"
-    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('div', {
-      staticClass: "voting_container",
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "nobel-svg",
       class: {
         'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1, 'vote-none': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
       },
@@ -60166,37 +60009,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('svg', {
       staticClass: "c-up",
-      attrs: {
-        "width": "12",
-        "height": "12"
-      }
-    }, [_c('use', {
-      staticClass: "caret-up",
       class: {
         'vote-up': _vm.checkVoted(answer.id) == 1
       },
       attrs: {
-        "xlink:href": "/img/sprites/solid.svg#caret-up"
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
       }
-    })]), _vm._v(" "), _c('div', {
+    }, [_c('path', {
+      attrs: {
+        "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
+      }
+    })]), _vm._v(" "), _c('span', {
       staticClass: "v_count"
     }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
-      staticClass: "c-down",
-      attrs: {
-        "width": "12",
-        "height": "12"
-      }
-    }, [_c('use', {
-      staticClass: "caret-down",
       class: {
         'vote-down': _vm.checkVoted(answer.id) == -1
       },
       attrs: {
-        "xlink:href": "/img/sprites/solid.svg#caret-down"
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
       }
-    })])])])])])]) : _vm._e()], 1)
-  }))]), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
-    staticClass: "fixed-bottom-footer"
+    }, [_c('path', {
+      attrs: {
+        "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
+      }
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "response-votes"
+    }, [_vm._v("0")])]) : _vm._e()], 1)
+  })), _vm._v(" "), (!_vm.already_answered) ? _c('div', {
+    staticClass: "answer-question__input mw6 orange-caret"
   }, [(_vm.submit_error) ? _c('div', {
     staticClass: "alert container",
     class: 'alert-' + _vm.submit_error.class
@@ -60210,43 +60052,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.clearError()
       }
     }
-  }, [_vm._v("×")]), _vm._v(" "), _c('b', [_vm._v(_vm._s(this.submit_error.title))]), _vm._v(_vm._s(this.submit_error.error) + "\n")]) : _c('div', {
-    staticClass: "navbar-fixed-bottom footer-toggle"
-  }, [_c('div', {
-    staticClass: "container m-t-15"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-divider"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media media-current-user"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "ans-composer"
-  }, [_c('textarea', {
+  }, [_vm._v("×")]), _vm._v(" "), _c('b', [_vm._v(_vm._s(this.submit_error.title))]), _vm._v(_vm._s(this.submit_error.error) + "\n")]) : _c('textarea', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.submitted_text),
       expression: "submitted_text"
     }],
-    staticClass: "editor-textarea js-keeper-editor footer-textarea ",
-    staticStyle: {
-      "border-right": "none"
-    },
     attrs: {
       "placeholder": 'Responding as ' + _vm.current_user_slug + '..',
-      "autofocus": "",
-      "id": "footer-textarea",
-      "overflow": "hidden",
-      "rows": "1"
+      "autofocus": ""
     },
     domProps: {
       "value": (_vm.submitted_text)
@@ -60262,47 +60077,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.placeholder_content)
     }
-  })])]), _vm._v(" "), (_vm.is_valid) ? _c('span', {
-    staticClass: "input-group-addon footer-btn ll",
+  }), _vm._v(" "), (_vm.is_valid) ? _c('button', {
+    staticClass: "btn pointer answer-question__send-btn",
     on: {
       "click": function($event) {
         _vm.submit_answer()
       }
     }
   }, [_c('svg', {
-    staticClass: "response-icon",
     attrs: {
-      "width": "16",
-      "height": "16"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 320 512"
     }
-  }, [_c('use', {
+  }, [_c('path', {
     attrs: {
-      "xlink:href": "/img/sprites/solid.svg#paper-plane"
+      "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
     }
-  })])]) : _c('span', {
-    staticClass: "input-group-addon footer-btn"
-  }, [_c('svg', {
-    staticClass: "response-icon-grey",
+  })]), _vm._v(" "), _c('svg', {
     attrs: {
-      "width": "16",
-      "height": "16"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 320 512"
     }
-  }, [_c('use', {
+  }, [_c('path', {
     attrs: {
-      "xlink:href": "/img/sprites/solid.svg#paper-plane"
+      "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
     }
-  })])])])])])])])])])])]) : _vm._e()])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-10p"
-  }, [_c('img', {
+  })])]) : _c('button', [_c('svg', {
     attrs: {
-      "src": "/img/tumbleweed.svg"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 320 512"
     }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n   No responses yet.. ")])])
-}]}
+  }, [_c('path', {
+    attrs: {
+      "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
+    }
+  })])])]) : _vm._e()])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -61538,20 +61348,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "container"
-  }, [_c('ul', {
-    staticClass: "media-list  m-b-0"
-  }, [_c('li', {
-    staticClass: "media media-divider"
+  return _c('div', [_c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15 smtp mt15p"
   }, [_c('div', {
-    staticClass: "h5 m-b-5"
-  }, [_c('span', [_c('a', {
-    attrs: {
-      "href": '/' + _vm.question_user_slug
-    }
-  }, [_vm._v(_vm._s(_vm.question_user_slug))])]), _vm._v(" "), _c('span', {
-    staticClass: "text-muted time-align"
+    staticClass: "open-question__right"
+  }, [_c('div', {
+    staticClass: "open-question__meta"
+  }, [_c('span', {
+    staticClass: "open-question__author"
+  }, [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
+    staticClass: "open-question__time"
   }, [_c('allqtimer', {
     attrs: {
       "initial": parseInt(_vm.initial),
@@ -61560,112 +61366,93 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "event": _vm.reload
     }
-  })], 1)]), _vm._v(" "), _c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text live-media-question",
-    staticStyle: {
-      "border-bottom": "transparent"
-    }
-  }, [_c('table', {
-    staticClass: "bkword"
-  }, [_c('tr', [_c('td', [_vm._v("\n                                    \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "media-footer"
-  }, [_c('small', {
-    staticClass: "text-muted"
-  }, [_c('div', {
-    staticClass: "divide tc relative m-t-5"
-  }, [_c('div', {
-    staticClass: "stats dib bg-F8F9F9 ph3 pull-right"
-  }, [_c('span', {
-    staticClass: "number",
+  })], 1)]), _vm._v(" "), _c('a', {
+    staticClass: "open-question__content mt5p m0",
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Views"
+      "href": '/' + _vm.question_user_slug
     }
-  }, [_vm._v(" " + _vm._s(_vm.hits) + " "), _c('i', {
-    staticClass: "fal fa-eye"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
-    attrs: {
-      "data-toggle": "tooltip",
-      "title": "Responses"
-    }
-  }, [_vm._v(_vm._s(_vm.answers.length) + " "), _c('i', {
-    staticClass: "fal fa-comments"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
-    attrs: {
-      "data-toggle": "tooltip",
-      "title": "Votes"
-    }
-  }, [_vm._v(_vm._s(_vm.vote_count) + " "), _c('i', {
-    staticClass: "fal fa-check-square"
-  })])])])])])])])])])])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "id": "answers_container"
-    }
-  }, [(_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
-  }, [_vm._m(0)]) : _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.question))])])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seperator mt15p mb15p"
   }, [_c('div', {
-    staticClass: "container"
-  }, _vm._l((_vm.answers), function(answer, index) {
+    staticClass: "open-question__seperator__inner mr15p"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seen mr15p"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 576 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M569.354 231.631C512.969 135.948 407.808 72 288 72 168.14 72 63.004 135.994 6.646 231.63a47.999 47.999 0 0 0 0 48.739C63.032 376.053 168.192 440 288 440c119.86 0 224.996-63.994 281.354-159.631a48.002 48.002 0 0 0 0-48.738zM416 228c0 68.483-57.308 124-128 124s-128-55.517-128-124 57.308-124 128-124 128 55.517 128 124zm125.784 36.123C489.837 352.277 393.865 408 288 408c-106.291 0-202.061-56.105-253.784-143.876a16.006 16.006 0 0 1 0-16.247c29.072-49.333 73.341-90.435 127.66-115.887C140.845 158.191 128 191.568 128 228c0 85.818 71.221 156 160 156 88.77 0 160-70.178 160-156 0-36.411-12.833-69.794-33.875-96.01 53.76 25.189 98.274 66.021 127.66 115.887a16.006 16.006 0 0 1-.001 16.246zM224 224c0-10.897 2.727-21.156 7.53-30.137v.02c0 14.554 11.799 26.353 26.353 26.353 14.554 0 26.353-11.799 26.353-26.353s-11.799-26.353-26.353-26.353h-.02c8.981-4.803 19.24-7.53 30.137-7.53 35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v("  " + _vm._s(_vm.hits) + "  ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__comments mr15p"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 512 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M256 64c123.5 0 224 79 224 176S379.5 416 256 416c-28.3 0-56.3-4.3-83.2-12.8l-15.2-4.8-13 9.2c-23 16.3-58.5 35.3-102.6 39.6 12-15.1 29.8-40.4 40.8-69.6l7.1-18.7-13.7-14.6C47.3 313.7 32 277.6 32 240c0-97 100.5-176 224-176m0-32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26 3.8 8.8 12.4 14.5 22 14.5 61.5 0 110-25.7 139.1-46.3 29 9.1 60.2 14.3 93 14.3 141.4 0 256-93.1 256-208S397.4 32 256 32z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.answers.length) + " ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__votes"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 448 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 32c8.823 0 16 7.178 16 16v352c0 8.822-7.177 16-16 16H48c-8.822 0-16-7.178-16-16V80c0-8.822 7.178-16 16-16h352m-34.301 98.293l-8.451-8.52c-4.667-4.705-12.265-4.736-16.97-.068l-163.441 162.13-68.976-69.533c-4.667-4.705-12.265-4.736-16.97-.068l-8.52 8.451c-4.705 4.667-4.736 12.265-.068 16.97l85.878 86.572c4.667 4.705 12.265 4.736 16.97.068l180.48-179.032c4.704-4.667 4.735-12.265.068-16.97z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.vote_count) + " ")])])]), _vm._v(" "), (_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
+    staticClass: "open-question__no-responses"
+  }) : _c('div', _vm._l((_vm.answers), function(answer, index) {
     return _c('div', {
       key: answer
     }, [_c('v-touch', {
       class: [{
         'fadeIn': answer.id == _vm.pushed_id
-      }, 'media-list media-list-conversation c-w-md jsvote animated']
-    }, [_c('div', {
-      staticClass: "media media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-response flex-center"
-    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('div', {
-      staticClass: "voting_container vote-none",
+      }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'],
+      attrs: {
+        "press-options": {
+          time: '500'
+        }
+      }
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "nobel-svg",
       attrs: {
         "id": "vote"
       }
     }, [_c('svg', {
       staticClass: "c-up",
       attrs: {
-        "width": "12",
-        "height": "12"
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "v_count"
-    }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
-      staticClass: "c-down",
+    }, [_c('path', {
       attrs: {
-        "width": "12",
-        "height": "12"
+        "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
       }
-    })])])])])])], 1)
-  }))])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-10p"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/tumbleweed.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n   No responses yet.. ")])])
-}]}
+    })]), _vm._v(" "), _c('span', {
+      staticClass: "v_count"
+    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
+      }
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "response-votes"
+    }, [_vm._v("0")])])], 1)
+  }))])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -61679,159 +61466,123 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "container"
-  }, [_c('ul', {
-    staticClass: "media-list  m-b-0"
-  }, [_c('li', {
-    staticClass: "media media-divider"
+  return _c('div', [_c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15 smtp mt15p"
   }, [_c('div', {
-    staticClass: "h5 m-b-5"
-  }, [_c('span', [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('span', {
-    staticClass: "text-muted time-align"
+    staticClass: "open-question__right"
+  }, [_c('div', {
+    staticClass: "open-question__meta"
   }, [_c('span', {
-    staticClass: "dropdown"
-  }, [_c('a', {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      "href": "#",
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-caret-down"
-  }), _vm._v(" "), _c('answeringtimer', {
-    attrs: {
-      "initial": parseInt(_vm.initial)
-    }
-  })], 1), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu pull-right",
-    attrs: {
-      "role": "menu"
-    }
-  }, [_c('li', [_c('a', {
+    staticClass: "open-question__author"
+  }, [_vm._v(_vm._s(_vm.question_user_slug))]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "open-question__stop",
     on: {
       "click": function($event) {
         _vm.endnow()
       }
     }
-  }, [_vm._v("End now "), _c('span', {
-    staticClass: "fal fa-stop dropdown-icon"
-  })])]), _vm._v(" "), _c('li', [_c('a', {
-    on: {
-      "click": function($event) {
-        _vm.cancelnow()
-      }
-    }
-  }, [_vm._v("Cancel "), _c('span', {
-    staticClass: "fal fa-eject dropdown-icon"
-  })])])])])])]), _vm._v(" "), _c('ul', {
-    staticClass: "media-list media-list-conversation c-w-md"
-  }, [_c('li', {
-    staticClass: "media"
-  }, [_c('div', {
-    staticClass: "media-body"
-  }, [_c('div', {
-    staticClass: "media-body-text live-media-question",
-    staticStyle: {
-      "border-bottom": "transparent"
-    }
-  }, [_c('table', {
-    staticClass: "bkword"
-  }, [_c('tr', [_c('td', [_vm._v("\n                                    \n                                    " + _vm._s(_vm.question))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "media-footer"
-  }, [_c('small', {
-    staticClass: "text-muted"
-  }, [_c('div', {
-    staticClass: "divide tc relative m-t-5"
-  }, [_c('div', {
-    staticClass: "stats dib bg-F8F9F9 ph3 pull-right"
-  }, [_c('span', {
-    staticClass: "number",
+  }, [_c('svg', {
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Views"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 512 512"
     }
-  }, [_vm._v(" " + _vm._s(_vm.hits) + " "), _c('i', {
-    staticClass: "fal fa-eye"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
+  }, [_c('path', {
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Responses"
+      "d": "M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm296-80v160c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h160c8.8 0 16 7.2 16 16z"
     }
-  }, [_vm._v(_vm._s(_vm.answers.length) + " "), _c('i', {
-    staticClass: "fal fa-comments"
-  }), _vm._v(" ")]), _vm._v(" "), _c('span', {
-    staticClass: "number",
+  })])]), _vm._v(" "), _c('span', {
+    staticClass: "open-question__time"
+  }, [_c('answeringtimer', {
     attrs: {
-      "data-toggle": "tooltip",
-      "title": "Votes"
+      "initial": parseInt(_vm.initial)
     }
-  }, [_vm._v(_vm._s(_vm.vote_count) + " "), _c('i', {
-    staticClass: "fal fa-check-square"
-  })])])])])])])])])])])]), _vm._v(" "), _c('div', {
+  })], 1)])]), _vm._v(" "), _c('a', {
+    staticClass: "open-question__content mt5p m0",
     attrs: {
-      "id": "answers_container"
+      "href": '/' + _vm.question_user_slug
     }
-  }, [(_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
-  }, [_vm._m(0)]) : _c('div', {
-    staticStyle: {
-      "width": "auto",
-      "box-shadow": "inset 0px 0px .05 black"
-    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.question))])])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seperator mt15p mb15p"
   }, [_c('div', {
-    staticClass: "container"
-  }, _vm._l((_vm.answers), function(answer, index) {
+    staticClass: "open-question__seperator__inner mr15p"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "open-question__seen mr15p"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 576 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M569.354 231.631C512.969 135.948 407.808 72 288 72 168.14 72 63.004 135.994 6.646 231.63a47.999 47.999 0 0 0 0 48.739C63.032 376.053 168.192 440 288 440c119.86 0 224.996-63.994 281.354-159.631a48.002 48.002 0 0 0 0-48.738zM416 228c0 68.483-57.308 124-128 124s-128-55.517-128-124 57.308-124 128-124 128 55.517 128 124zm125.784 36.123C489.837 352.277 393.865 408 288 408c-106.291 0-202.061-56.105-253.784-143.876a16.006 16.006 0 0 1 0-16.247c29.072-49.333 73.341-90.435 127.66-115.887C140.845 158.191 128 191.568 128 228c0 85.818 71.221 156 160 156 88.77 0 160-70.178 160-156 0-36.411-12.833-69.794-33.875-96.01 53.76 25.189 98.274 66.021 127.66 115.887a16.006 16.006 0 0 1-.001 16.246zM224 224c0-10.897 2.727-21.156 7.53-30.137v.02c0 14.554 11.799 26.353 26.353 26.353 14.554 0 26.353-11.799 26.353-26.353s-11.799-26.353-26.353-26.353h-.02c8.981-4.803 19.24-7.53 30.137-7.53 35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v("  " + _vm._s(_vm.hits) + "  ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__comments mr15p"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 512 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M256 64c123.5 0 224 79 224 176S379.5 416 256 416c-28.3 0-56.3-4.3-83.2-12.8l-15.2-4.8-13 9.2c-23 16.3-58.5 35.3-102.6 39.6 12-15.1 29.8-40.4 40.8-69.6l7.1-18.7-13.7-14.6C47.3 313.7 32 277.6 32 240c0-97 100.5-176 224-176m0-32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26 3.8 8.8 12.4 14.5 22 14.5 61.5 0 110-25.7 139.1-46.3 29 9.1 60.2 14.3 93 14.3 141.4 0 256-93.1 256-208S397.4 32 256 32z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.answers.length) + " ")])]), _vm._v(" "), _c('div', {
+    staticClass: "open-question__votes"
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 448 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 32c8.823 0 16 7.178 16 16v352c0 8.822-7.177 16-16 16H48c-8.822 0-16-7.178-16-16V80c0-8.822 7.178-16 16-16h352m-34.301 98.293l-8.451-8.52c-4.667-4.705-12.265-4.736-16.97-.068l-163.441 162.13-68.976-69.533c-4.667-4.705-12.265-4.736-16.97-.068l-8.52 8.451c-4.705 4.667-4.736 12.265-.068 16.97l85.878 86.572c4.667 4.705 12.265 4.736 16.97.068l180.48-179.032c4.704-4.667 4.735-12.265.068-16.97z"
+    }
+  })]), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(_vm.vote_count) + " ")])])]), _vm._v(" "), (_vm.records_loaded && _vm.answers.length < 1) ? _c('div', {
+    staticClass: "open-question__no-responses"
+  }) : _c('div', _vm._l((_vm.answers), function(answer, index) {
     return _c('div', {
       key: answer
     }, [_c('v-touch', {
       class: [{
         'fadeIn': answer.id == _vm.pushed_id
-      }, 'media-list media-list-conversation c-w-md jsvote animated']
-    }, [_c('div', {
-      staticClass: "media media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text live-response flex-center"
-    }, [_c('table', [_c('tr', [_c('td', [_vm._v(_vm._s(answer.answer))])])]), _vm._v(" "), _c('div', {
-      staticClass: "voting_container vote-none",
+      }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'],
+      attrs: {
+        "press-options": {
+          time: '500'
+        }
+      }
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "nobel-svg",
       attrs: {
         "id": "vote"
       }
     }, [_c('svg', {
       staticClass: "c-up",
       attrs: {
-        "width": "12",
-        "height": "12"
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "v_count"
-    }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
-      staticClass: "c-down",
+    }, [_c('path', {
       attrs: {
-        "width": "12",
-        "height": "12"
+        "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
       }
-    })])])])])])], 1)
-  }))])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container text-center m-t-10p"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/tumbleweed.svg"
-    }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("\n   No responses yet.. ")])])
-}]}
+    })]), _vm._v(" "), _c('span', {
+      staticClass: "v_count"
+    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 320 512"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
+      }
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "response-votes"
+    }, [_vm._v("0")])])], 1)
+  }))])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

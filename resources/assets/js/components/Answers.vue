@@ -1,198 +1,152 @@
 <template>
+
+
+
 <div>
 
-         <div class="container">
-             <ul class="media-list  m-b-0">
-                 <li class="media media-divider">
-                     <div class="h5 m-b-5">
-                         <span><a :href="'/'+question_user_slug">{{question_user_slug}}</a></span>
-                         <span class="text-muted time-align">
-                         <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer>
-                         </span>
-                     </div>
-                     <ul class="media-list media-list-conversation c-w-md">
-                         <li class="media">
-                             <div class="media-body">
-                                 <div class="media-body-text live-media-question" style="border-bottom: transparent; border: 1px solid #D1D4D5;">
-                     
-                                                                                       <table  class="bkword">
-<tr>
-<td> 
-                                    {{question}}</td>
-</tr>
-</table>
-                                 </div>
-                                 
-                                   <div class="media-footer">
-                                <small class="text-muted">
-                                <div class="divide tc relative m-t-5">
-                                        <div  class="stats dib bg-F8F9F9 ph3 pull-right">
-                                            <span data-toggle="tooltip" title="Views" class="number"> {{hits}} <i class="fal fa-eye"></i>&nbsp;</span>
-                                            <span data-toggle="tooltip" title="Responses" class="number">{{answers.length}} <i class="fal fa-comments"></i>&nbsp;</span>
-                                            <span data-toggle="tooltip" title="Votes" class="number">{{vote_count}} <i class="fal fa-check-square"></i></span>
-                                        </div>
-                                    </div></small>
-                            </div>
-                             </div>
-                             
-                             
-                         </li>
-                     </ul>
-                 </li>
-             </ul>
-         </div>
-         
-         
-         
-          <div class="container">
-              <div  v-for="answer in answers">
-             
-                                          <div class="media-list media-list-conversation c-w-md jsvote animated" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
-                <div class="media media-divider">
-                    <div class="media-body">
-                    
-                       <div class="media-body-text live-response flex-center">
-                             
-       
-                                                    <table>
-<tr>
-<td>{{answer.answer}}</td>
-</tr>
-</table>
-   <a  style="color: rgba(177, 179, 182, 0.6);"  v-on:click="delete_answer(answer.id)">
-                                    
-                                                 <span  class="fal fa-trash"></span>
-                                </a>
-                                
-          
-                            </div>
-                            
-                            </div>
-                            </div></div>
-                            
+ <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
+    <div class="open-question__right">
+      <div class="open-question__meta">
+        <span class="open-question__author">{{question_user_slug}}</span>
+        <span class="open-question__time"> <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer></span>
+      </div>
+      <a :href="'/'+question_user_slug" class="open-question__content mt5p m0">
+        <p>{{question}}</p>
+      </a>
+    </div>
 
-                
-                
-                </div>
-                 </div>
-     
-
-    <div id="answers_container">
     
-      		<div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-if="records_loaded && answers.length<1">
-            <div class="container text-center m-t-10p">
-                <img src="/img/tumbleweed.svg" />
-                          
-                <h4 class="text-muted m-t-0" >
-   No responses yet.. </h4>
-  
-            </div>
-        </div>
+
+    <div class="open-question__seperator mt15p mb15p">
+      <div class="open-question__seperator__inner mr15p"></div>
+      <div class="open-question__seen mr15p">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M569.354 231.631C512.969 135.948 407.808 72 288 72 168.14 72 63.004 135.994 6.646 231.63a47.999 47.999 0 0 0 0 48.739C63.032 376.053 168.192 440 288 440c119.86 0 224.996-63.994 281.354-159.631a48.002 48.002 0 0 0 0-48.738zM416 228c0 68.483-57.308 124-128 124s-128-55.517-128-124 57.308-124 128-124 128 55.517 128 124zm125.784 36.123C489.837 352.277 393.865 408 288 408c-106.291 0-202.061-56.105-253.784-143.876a16.006 16.006 0 0 1 0-16.247c29.072-49.333 73.341-90.435 127.66-115.887C140.845 158.191 128 191.568 128 228c0 85.818 71.221 156 160 156 88.77 0 160-70.178 160-156 0-36.411-12.833-69.794-33.875-96.01 53.76 25.189 98.274 66.021 127.66 115.887a16.006 16.006 0 0 1-.001 16.246zM224 224c0-10.897 2.727-21.156 7.53-30.137v.02c0 14.554 11.799 26.353 26.353 26.353 14.554 0 26.353-11.799 26.353-26.353s-11.799-26.353-26.353-26.353h-.02c8.981-4.803 19.24-7.53 30.137-7.53 35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64z"></path></svg>
+          <span>  {{hits}}  </span>
+      </div>
+      <div class="open-question__comments mr15p">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 64c123.5 0 224 79 224 176S379.5 416 256 416c-28.3 0-56.3-4.3-83.2-12.8l-15.2-4.8-13 9.2c-23 16.3-58.5 35.3-102.6 39.6 12-15.1 29.8-40.4 40.8-69.6l7.1-18.7-13.7-14.6C47.3 313.7 32 277.6 32 240c0-97 100.5-176 224-176m0-32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26 3.8 8.8 12.4 14.5 22 14.5 61.5 0 110-25.7 139.1-46.3 29 9.1 60.2 14.3 93 14.3 141.4 0 256-93.1 256-208S397.4 32 256 32z"></path></svg>
+          <span> {{answers.length}} </span>
+      </div>
+      <div class="open-question__votes">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 32c8.823 0 16 7.178 16 16v352c0 8.822-7.177 16-16 16H48c-8.822 0-16-7.178-16-16V80c0-8.822 7.178-16 16-16h352m-34.301 98.293l-8.451-8.52c-4.667-4.705-12.265-4.736-16.97-.068l-163.441 162.13-68.976-69.533c-4.667-4.705-12.265-4.736-16.97-.068l-8.52 8.451c-4.705 4.667-4.736 12.265-.068 16.97l85.878 86.572c4.667 4.705 12.265 4.736 16.97.068l180.48-179.032c4.704-4.667 4.735-12.265.068-16.97z"></path></svg>
+          <span> {{vote_count}} </span>
+      </div>
+    </div>
+
+    <div class="open-question__responses">
       
-           <div style="width: auto;box-shadow: inset 0px 0px .05 black;" v-else>
-            <div class="container">
-            
-            <div  v-for="(answer, index) in answers"  v-bind:key="answer">
+
+
+
+    <div v-for="answer in answers">
+       
+                                    <div class="open-question__response" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
+          <p>{{answer.answer}}</p>
+                       
+ 
+
+                          
+    
+               <span v-on:click="delete_answer(answer.id)"> 
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"></path></svg>
+
+          </span>
+          <span class="response-votes">0</span>
+
+          
+          
+          </div>
+          
+    </div>
+    </div>
+
+
+  <div class="open-question__no-responses" v-if="records_loaded && answers.length<1">
+        <!-- <p class="m0">No Responses yet</p> -->
+      </div>
+
+
+<div  v-else>
+
+   <div v-for="(answer, index) in answers"  v-bind:key="answer">
+       <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'] "  v-if="!ownerOfAnswer(answer.user_id)">
+
+          <p>{{answer.answer}} </p>
          
-                                           
-                            <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated'] "  v-if="!ownerOfAnswer(answer.user_id)">
-                <div class="media media-divider">
-                    <div class="media-body">
-                            
-                            
-                            
-                            
-                                  <div  class="media-body-text live-response flex-center">
-                                  
-                             
-   
+          <span class="nobel-svg" id="vote"   v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
 
-                                                     <table>
-<tr>
-<td>{{answer.answer}}</td>
-</tr>
-</table>
 
-               <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
-              <svg width="12" height="12" class="c-up" >
-              <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
-              </svg>
-  <div class="v_count"  > &nbsp;</div>
-   <svg width="12" height="12" class="c-down" >
-              <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
-              </svg>
-              
-              </div>    
 
-                        </div>
-                            
-               
-                    </div>
-                </div>
-            </v-touch>
-            
-           </div>
-           
-           
-                         </div>
+
+<svg class="c-up" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+
+    
+<span class="v_count"  > &nbsp;</span>
+
+<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  viewBox="0 0 320 512"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
+
+
+
+      
+         
+          </span>
+          <span class="response-votes">0</span>
+           </v-touch>
         </div>
-        
-        
-
-
-
-        <div v-if="!already_answered" class="fixed-bottom-footer">
-                                           <div class="alert container" :class="'alert-'+submit_error.class" v-if="submit_error">
-                                        <a href="#" class="close" v-on:click="clearError()">&times;</a>
-   <b>{{this.submit_error.title}}</b>{{this.submit_error.error}}
-</div>
-            <div class="navbar-fixed-bottom footer-toggle" v-else>
-                <div class="container m-t-15">
-                    <ul class="media-list media-list-conversation c-w-md">
-                        <li class="media media-divider">
-                            <div class="media-body">
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media media-current-user">
-     
-
-                                        <div class="input-group" >
-
-                                          <div class="card">
-  <div class="ans-composer">
-    <textarea  v-model="submitted_text" @input="maxHighlight"  class="editor-textarea js-keeper-editor footer-textarea "  style="border-right: none;" :placeholder="'Responding as '+current_user_slug + '..'" autofocus id="footer-textarea" overflow="hidden" rows="1"></textarea>
-        <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
 
   </div>
-</div>
+     
 
-                                            <span v-if=is_valid v-on:click="submit_answer()" class="input-group-addon footer-btn ll">
 
-                                               <svg width="16" height="16" class="response-icon" >
-              <use  xlink:href='/img/sprites/solid.svg#paper-plane'></use>
-              </svg>
+       
 
-                                            </span>
-                                             <span v-else class="input-group-addon footer-btn">                       <svg width="16" height="16" class="response-icon-grey" >
-              <use  xlink:href='/img/sprites/solid.svg#paper-plane'></use>
-              </svg>
-                                            </span>
-                                        </div>
-                                        
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+   
+
         
 
-            
-            
+        
+
+          <div v-if="!already_answered" class="answer-question__input mw6 orange-caret">
+                                     <div class="alert container" :class="'alert-'+submit_error.class" v-if="submit_error">
+                                  <a href="#" class="close" v-on:click="clearError()">&times;</a>
+<b>{{this.submit_error.title}}</b>{{this.submit_error.error}}
+</div>
+ <textarea v-model="submitted_text" @input="maxHighlight"  :placeholder="'Responding as '+current_user_slug + '..'" autofocus v-else></textarea>
+   <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
 
 
-    </div>
+
+
+
+
+
+ <button class="btn pointer answer-question__send-btn" v-if=is_valid v-on:click="submit_answer()">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+              <!-- on typing -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
+          </button>
+          <button v-else>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+          </button>
+
+                                      
+                                 
+  
+
+
+          </div>
+
+  </main>
+
+
+
+
+
+
+
+
+   
 
 </div>
 

@@ -1,70 +1,49 @@
-@extends('layouts.app-profile-no-top-bar')
+@extends('layouts.app-no-header-no-top-bar')
 @section('content')
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar">
-  <div class="container nav-container header-nav">
-                      <a href="/" class="btn btn-link p-x-0"><i class="icon fal fa-home back-arrow"></i></a>
-                    <h4>
-                    <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+
+  <header class="landing_header relative">
+    <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
+      <a href="/" class="question-details__close pointer fc">
+        {{Helper::read_svg("img/svg/times.svg")}}
+      </a>
+      <div class="question-details__profile fc">
+        <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                     
+                     <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=36 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
                     
-                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
+                    </a>
+      </div>
+      <div class="question-details__more pointer">
+        <!-- changes names -->
+        <div class="ellipses fc">
+        {{Helper::read_svg("img/svg/ellipsis-v.svg")}}
 
-
-
-                </a>
-                    </h4>
-                    <div class="dropdown">
-                        <a class="btn btn-link p-x-0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="fal fa-ellipsis-v ellipsis"></span></a>
-                        <ul class="dropdown-menu header-dropdown" role="menu">
-                          <!-- <li>
-                              <a href="/login"> <span class="fal fa-plus dropdown-icon"></span>Follow</a>
-                          </li> -->
-                            <li>
-                                <a data-toggle="modal" href="#shareQuestion"> <span class="fal fa-share-alt dropdown-icon"></span>Share</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-        </nav>
-
-        <!-- begin share question modal -->
-        <div class="modal fade" id="shareQuestion" tabindex="-1" role="dialog" aria-labelledby="shareQuestion" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Share question</h4>
-              </div>
-              <div class="modal-body">
-                <div class="p-x flexbox-container">
-                  <a href=""><network network="facebook">
-                    <i class="fab fa-facebook fa-lg"></i>
-                  </network></a>
-                  <a href=""><network network="twitter">
-                    <i class="fab fa-twitter fa-lg"></i>
-                  </network></a>
-                  <a href=""><network network="linkedin">
-                    <i class="fab fa-linkedin fa-lg"></i>
-                  </network></a>
-                  <a href=""><network network="reddit">
-                    <i class="fab fa-reddit fa-lg"></i>
-                  </network></a>
-                </div>
-              </div>
-              <div class="modal-body p-a">
-                <div class="flexbox-container">
-                  <div class="input-group">
-                    <input class="form-control" id="txt_current_url" value="{{url()->current()}}">
-                    <span class="input-group-btn"> <button id="copy_to_cb" class="btn btn-default" type="button" style="height: 36px;">
-                      <span class="fa fa-copy"></span>
-                    </button> </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+        <div class="times fc">
+        {{Helper::read_svg("img/svg/times.svg")}}
+        </div>
+      </div>
+    </div>
+    <div class="details__dropdown__container mw6 m-auto">
+      <ul class="details__dropdown">
+        <li class="details__dropdown_item details__dropdown_item--share pointer pl15p mt15p mb15p">
+        {{Helper::read_svg("img/svg/share-alt.svg")}}
+            <span>Share</span>
+        </li>
+        <li class="details__dropdown_item pointer pl15p mb15p">
+        {{Helper::read_svg("img/svg/flag.svg")}}
+            <span id="report_question" data-qid="{{$question->id}}">Report</span>
+        </li>
+        <li class="details__dropdown_item pointer pl15p mb15p">
+        {{Helper::read_svg("img/svg/book.svg")}}
+            <span >Tutorial</span>
+        </li>
+      </ul>
+    </div>
+    <div class="details__overlay standard-overlay"></div>
+  </header>
 
 
 
@@ -75,14 +54,7 @@
         <!-- Guests are not able to view posted answers -->
 
 
-        <div class="fixed-bottom-footer">
-          <div class="navbar-fixed-bottom">
-            <a href="/login">
-            <div style="background-color: #33cccc; width: auto; height: 55px; color: #fff; font-size: 16px;" class="p-a text-center">
-Sign up | Log in
-            </div></a>
-            </div>
-            </div>
+     
          <?php /* <answers_guest question_id="{{$question->id}}" question_owner_id="{{$question->user_id}}" ></answers_guest> */ ?>
 
 

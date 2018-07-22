@@ -25,8 +25,15 @@
 
 
 
-  <div style="width: auto;">
-  </div>
+<main class="pl-15 mw6 m-auto live-main pl15p pr15p">
+@foreach ($questions as $key => $val)
+    <div class="q-bubble">
+        <span>   {{$val->question}}</span>
+    </div>
+@endforeach
+</main>
+
+
 
     <div class="container">
 
