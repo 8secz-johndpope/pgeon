@@ -40,7 +40,7 @@ button {
   &.btn-loading--active {
     &:hover {
       background-color: #fff;
-      color: #33CCCC;
+      color: #3cc;
     }
     [data-hide="loading"] {
       display: none;
@@ -53,7 +53,7 @@ button {
 
 // .btn-loading::after {
 // 	white-space: pre;
-//   content: "\A🕛";
+//   content: "\Aüïõ";
 //   height: 100%;
 //   display: none;
 // }

@@ -16,8 +16,6 @@
   outline: none;
   padding: 20px 15px;
   height: 150px;
-  width: 100%;
-
 }
 
 .post-question-action {
@@ -37,7 +35,7 @@
   button {
     height: 34px;
     width: 125px;
-    background-color: #33cccc;
+    background-color: #3cc;
     color: #fff;
     font-size: 14px;
     border: none;
@@ -170,7 +168,7 @@
         border: 1px solid #ff3333;
       }
       &:nth-child(2) {
-        background-color: #33cccc;
+        background-color: #3cc;
         color: #fff;
       }
     }
@@ -190,7 +188,7 @@
 }
 
 .published-edit {
-  color: #33cccc;
+  color: #3cc;
   border: none;
   outline: none;
   background-color: transparent;
@@ -291,7 +289,7 @@
       display: block;
       padding-right: 8px;
       svg {
-        background-color: #33cccc;
+        background-color: #3cc;
         fill: #fff;
         padding: 3px;
         width: 16px; //
@@ -430,7 +428,7 @@
 
 .social-share-cb:checked + label {
   img {
-    border-color: #33CCCC;
+    border-color: #3cc;
   }
   .svg-container--twitter {
     background-color: #1da1f2;

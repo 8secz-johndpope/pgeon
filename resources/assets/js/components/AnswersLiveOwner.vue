@@ -19,7 +19,7 @@
       </div>
 
       </div>
-      <a :href="'/'+question_user_slug" class="open-question__content mt5p m0">
+      <a :href="'/'+question_user_slug" class="open-question__content selected mt5p m0">
         <p>{{question}}</p>
       </a>
     </div>

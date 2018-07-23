@@ -1,5 +1,5 @@
 .landing_header {
-  box-shadow: 0 0.5px rgba(0, 0, 0, 0.15);
+  //box-shadow: 0 0.5px rgba(0, 0, 0, 0.15);
   background-color: #fff;
   position: fixed;
   top: 0;
@@ -137,7 +137,7 @@
 
 .open-question__content {
   background-color: #e8ebec;
-  // box-shadow: 0 2px 0.05px #00000014;
+  //box-shadow: 0 2px 0.05px #00000014;
   padding: 10px;
   border-radius: 0 10px 10px;
   display: block;
@@ -189,11 +189,11 @@
   svg {
     width: 14px;
     height: 14px;
-    fill: #33cccc;
+    fill: #3cc;
   }
 }
 
-// whenever the dropdown is active
+// when the dropdown is active
 .dropdown--active {
   #overlay {
     display: block;

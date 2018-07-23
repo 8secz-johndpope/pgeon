@@ -29,7 +29,7 @@
 }
 
 .subscription-info__upgrade {
-  color: #33cccc;
+  color: #3cc;
   font-size: 14px;
 }
 
@@ -144,7 +144,7 @@
   }
 
   input:checked + span {
-    background-color: #33cccc;
+    background-color: #3cc;
     &::after {
       display: inline-block;
     }
@@ -159,12 +159,12 @@
   width: 100%;
   text-align: center;
   height: 56px;
-  border: 2px solid #33cccc;
-  color: #33cccc;
+  border: 2px solid #3cc;
+  color: #3cc;
   margin-bottom: 20px;
   transition: all 0.3s ease;
   &:hover {
-    background-color: #33cccc;
+    background-color: #3cc;
     color: white;
   }
 }
@@ -204,8 +204,8 @@
   color: #9b9b9b;
 }
 .edit-card-save {
-  border: 1px solid #33cccc;
-  background-color: #33cccc;
+  border: 1px solid #3cc;
+  background-color: #3cc;
   color: #fff;
 }
 
@@ -214,7 +214,7 @@
 }
 
 #track-set-primary:checked + .edit-card-set-primary {
-  color: #33cccc;
+  color: #3cc;
 }
 
 .edit-card-set-primary {

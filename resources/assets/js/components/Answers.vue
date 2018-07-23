@@ -10,7 +10,7 @@
         <span class="open-question__author">{{question_user_slug}}</span>
         <span class="open-question__time"> <allqtimer :initial="parseInt(initial)" :question_id="parseInt(question_id)" @event="reload"></allqtimer></span>
       </div>
-      <a :href="'/'+question_user_slug" class="open-question__content mt5p m0">
+      <a :href="'/'+question_user_slug" class="open-question__content selected mt5p m0">
         <p>{{question}}</p>
       </a>
     </div>

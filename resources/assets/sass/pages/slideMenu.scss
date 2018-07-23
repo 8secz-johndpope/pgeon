@@ -120,7 +120,7 @@
     svg {
       width: 16px;
       height: 14px;
-      fill: #33CCCC;
+      fill: #3cc;
     }
   }
 }
@@ -202,7 +202,7 @@
 
 .connect-notification {
   padding: 20px 10px;
-  background-color: rgba($color: #33CCCC, $alpha: 0.10);
+  background-color: rgba($color: #3cc, $alpha: 0.10);
   p {
     margin: 0;
     margin-bottom: 20px;
@@ -262,8 +262,8 @@
   }
   .send-btn {
     margin-right: 15px;
-    background-color: #33CCCC;
-    border: 1px solid #33CCCC;
+    background-color: #3cc;
+    border: 1px solid #3cc;
     border-radius: 4px;
     color: white;
   }
@@ -279,7 +279,7 @@
 }
 .terms-of-service__update-notification {
   padding: 10px;
-  background-color: transparentize($color: #33CCCC, $amount: .90);
+  background-color: transparentize($color: #3cc, $amount: .90);
   h4{ margin: 0; }
   span{ display: inline-block; margin-top: 10px; }
 }

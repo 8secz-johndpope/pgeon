@@ -116,16 +116,17 @@
      </span>
 
      <div class="fc premium-dropdown-item">
-       <span class="premium-lock fc mr10p">
+       <span class="premium-lock fc">
        {{Helper::read_svg("img/svg/lock-alt.svg")}}   
 
-         <span class="ml5p">premium</span>
+         <span class="ml5p">Premium</span>
        </span>
-       <span class="premium-info fc">
+
+       <!-- <span class="premium-info fc">
        {{Helper::read_svg("img/svg/info-circle.svg")}}   
 
 
-       </span>
+       </span> -->
      </div>
    </a>
    @endif
