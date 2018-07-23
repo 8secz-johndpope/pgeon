@@ -1,4 +1,4 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-people-header')
 @section('content')
 
 

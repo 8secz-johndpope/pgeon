@@ -22398,71 +22398,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -61126,202 +61061,87 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "container",
-    attrs: {
-      "id": "exTab1"
-    }
-  }, [_c('ul', {
-    staticClass: "nav nav-bordered"
-  }, [_c('li', {
-    staticClass: "active"
+    staticClass: "people-tabs mw6 m-auto pr15"
+  }, [_c('div', {
+    staticClass: "people-tab"
   }, [_c('a', {
-    attrs: {
-      "href": "#1a",
-      "data-toggle": "tab"
-    },
     on: {
       "click": function($event) {
         _vm.setcurrenttab('iam_following')
       }
     }
-  }, [_c('span', [_vm._v(_vm._s(_vm.iam_following_count))]), _vm._v(" Following ")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#2a",
-      "data-toggle": "tab"
-    },
+  }, [_vm._v(_vm._s(_vm.iam_following_count) + " Following")])]), _vm._v(" "), _c('div', {
+    staticClass: "people-tab"
+  }, [_c('a', {
     on: {
       "click": function($event) {
         _vm.setcurrenttab('my_followers')
       }
     }
-  }, [_c('span', [_vm._v(" " + _vm._s(_vm.my_followers_count))]), _vm._v(" Followers")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), (_vm.showsorting) ? _c('li', {
-    staticStyle: {
-      "float": "right",
-      "margin-top": "5px"
-    },
-    on: {
-      "click": function($event) {
-        _vm.sort()
-      }
+  }, [_vm._v(_vm._s(_vm.my_followers_count) + " Followers")])]), _vm._v(" "), _c('div', {
+    staticClass: "people-search"
+  }, [_c('a', {
+    attrs: {
+      "href": "/search"
     }
   }, [_c('svg', {
     attrs: {
-      "width": "18",
-      "height": "18"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 512 512"
     }
-  }, [(_vm.current_order === false) ? _c('use', {
-    staticClass: "f-sort",
+  }, [_c('path', {
     attrs: {
-      "xlink:href": "/img/sprites/light.svg#sort"
+      "d": "M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"
     }
-  }) : (_vm.current_order == 'ASC') ? _c('use', {
-    staticClass: "f-sort",
-    attrs: {
-      "xlink:href": "/img/sprites/solid.svg#sort-up"
-    }
-  }) : _c('use', {
-    staticClass: "f-sort",
-    attrs: {
-      "xlink:href": "/img/sprites/solid.svg#sort-down"
-    }
-  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content clearfix"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "1a"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12",
-    staticStyle: {
-      "margin-top": "5px"
-    }
-  }, [_c('ul', {
-    staticClass: "media-list media-list-users list-group"
-  }, _vm._l((_vm.iam_following), function(item) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_c('div', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
+  })])])])]), _vm._v(" "), _c('main', {
+    staticClass: "mw6 m-auto people-main"
+  }, [(this.current_tab == 'iam_following') ? _c('div', _vm._l((_vm.iam_following), function(item) {
+    return _c('div', {
+      staticClass: "people-item"
+    }, [_c('div', [_c('avatar', {
       attrs: {
-        "href": item.url
-      }
-    }, [_c('avatar', {
-      attrs: {
-        "size": 42,
+        "size": 36,
         "src": item.avatar,
         "username": (item.name) ? item.name : item.url
       }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('button', {
-      staticClass: "btn btn-md btn-link pull-right",
+    }), _vm._v(" "), _c('div', {
+      staticClass: "people-item__info"
+    }, [_c('h4', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.last_posted))])])], 1), _vm._v(" "), _c('button', {
+      staticClass: "follow-button",
       on: {
         "click": function($event) {
           _vm.unfollow(item.user_id)
         }
       }
-    }, [_c('svg', {
+    }, [_c('span', [_vm._v("Follow")]), _vm._v(" "), _c('span', [_vm._v("Following")])])])
+  })) : _c('div', _vm._l((_vm.my_followers), function(item) {
+    return _c('div', {
+      staticClass: "people-item"
+    }, [_c('div', [_c('avatar', {
       attrs: {
-        "width": "14",
-        "height": "14"
-      }
-    }, [_c('use', {
-      staticClass: "check",
-      attrs: {
-        "xlink:href": "/img/sprites/light.svg#check"
-      }
-    })])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
-  }))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "2a"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12",
-    staticStyle: {
-      "margin-top": "5px"
-    }
-  }, [_c('ul', {
-    staticClass: "media-list media-list-users list-group"
-  }, _vm._l((_vm.my_followers), function(item) {
-    return _c('li', {
-      staticClass: "list-group-item"
-    }, [_c('div', {
-      staticClass: "media"
-    }, [_c('a', {
-      staticClass: "media-left",
-      attrs: {
-        "href": item.url
-      }
-    }, [_c('avatar', {
-      attrs: {
-        "size": 42,
+        "size": 36,
         "src": item.avatar,
         "username": (item.name) ? item.name : item.url
       }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [(!_vm.isExistsinFollowing(item.user_id)) ? _c('button', {
-      staticClass: "btn btn-md btn-link pull-right",
+    }), _vm._v(" "), _c('div', {
+      staticClass: "people-item__info"
+    }, [_c('h4', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.last_posted))])])], 1), _vm._v(" "), (!_vm.isExistsinFollowing(item.user_id)) ? _c('button', {
+      staticClass: "follow-button",
       on: {
         "click": function($event) {
           _vm.follow(item.user_id, $event)
         }
       }
-    }, [_c('svg', {
-      attrs: {
-        "width": "14",
-        "height": "14"
-      }
-    }, [_c('use', {
-      staticClass: "plus",
-      attrs: {
-        "xlink:href": "/img/sprites/light.svg#plus"
-      }
-    })])]) : _c('button', {
-      staticClass: "btn btn-md btn-link pull-right",
+    }, [_c('span', [_vm._v("Follow")]), _vm._v(" "), _c('span', [_vm._v("Following")])]) : _c('button', {
+      staticClass: "follow-button",
       on: {
         "click": function($event) {
           _vm.unfollow(item.user_id)
         }
       }
-    }, [_c('svg', {
-      attrs: {
-        "width": "14",
-        "height": "14"
-      }
-    }, [_c('use', {
-      staticClass: "check",
-      attrs: {
-        "xlink:href": "/img/sprites/light.svg#check"
-      }
-    })])]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.last_posted))])])])])
-  }))])])])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/search"
-    }
-  }, [_c('span', {
-    staticClass: "fal fa-search",
-    staticStyle: {}
-  })])])
-}]}
+    }, [_c('span', [_vm._v("Follow")]), _vm._v(" "), _c('span', [_vm._v("Following")])])])
+  }))])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

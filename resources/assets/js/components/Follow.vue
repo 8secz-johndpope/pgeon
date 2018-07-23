@@ -2,140 +2,75 @@
 <div>
 
 
+<div class="people-tabs mw6 m-auto pr15">
+      <div  class="people-tab">
+        <a v-on:click="setcurrenttab('iam_following')">{{iam_following_count}} Following</a>
+      </div>
+      <div class="people-tab">
+        <a v-on:click="setcurrenttab('my_followers')">{{my_followers_count}} Followers</a>
+      </div>
+      <div class="people-search">
+        <a href="/search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"></path></svg>
 
-<div id="exTab1" class="container">
-
-   <ul class="nav nav-bordered">
-                    <li class="active">
-                        <a  href="#1a" v-on:click="setcurrenttab('iam_following')" data-toggle="tab"><span>{{iam_following_count}}</span> Following </a>
-                    </li>
-                    <li>
-                        <a href="#2a" v-on:click="setcurrenttab('my_followers')"  data-toggle="tab">
-    <span> {{my_followers_count}}</span> Followers</a>
-                    </li>
-
-                     <li style="float: right">
-                      
-                        <a href="/search">
-                        
- 
-                        <span class="fal fa-search" style=" "></span></a>
-                    </li>
-                    <li v-if="showsorting" style="float: right;margin-top:5px;" v-on:click="sort()">
-                           <svg width="18" height="18">
-              <use   v-if="current_order===false" class="f-sort" xlink:href='/img/sprites/light.svg#sort'></use>
-               <use   v-else-if="current_order=='ASC'"  class="f-sort" xlink:href='/img/sprites/solid.svg#sort-up'></use>
-                <use  v-else class="f-sort" xlink:href='/img/sprites/solid.svg#sort-down'></use>
-              </svg>
-                    </li>
-                   
-
-                   
-                </ul>
+        </a>
+      </div>
+    </div>
 
 
 
 
 
-     <div class="tab-content clearfix">
-       <div class="tab-pane active" id="1a">
-       
-       
-        <div class="row">
-                <div class="row">
-                    <div class="col-md-12" style="margin-top: 5px">
-                        <ul class="media-list media-list-users list-group">
-                        
-                        
-                        
-                              <li class="list-group-item" v-for="item in iam_following">
+<main class="mw6 m-auto people-main">
+<div v-if="this.current_tab == 'iam_following'">
+    <div class="people-item" v-for="item in iam_following" >
+      <div>
+            <avatar :size="36"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
+        <div class="people-item__info">
+          <h4>{{ item.url }}</h4>
+          <span>{{ item.last_posted }}</span>
+        </div>
+      </div>
+      <button v-on:click="unfollow(item.user_id)" class="follow-button">
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+        <span>Following</span>
+      </button>
+    </div>
 
-                        
+</div>
+<div v-else>
+ <div class="people-item" v-for="item in my_followers" >
+      <div>
+        
+            <avatar :size="36"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
+        <div class="people-item__info">
+          <h4>{{ item.url }}</h4>
+          <span>{{ item.last_posted }}</span>
+        </div>
+      </div>
+      <button v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)"  class="follow-button">
+     
 
-                                <div class="media">
+                                       
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+        <span>Following</span>
+      </button>
+       <button  v-else v-on:click="unfollow(item.user_id)"  class="follow-button">
+           <span>Follow</span>
+        <!-- following is the `active` state -->
+        <span>Following</span>
+      </button>
 
-                                    <a class="media-left"  :href="item.url">
-                                        <avatar :size="42"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
+    </div>
+</div>
 
-                                    </a>
-                                    <div class="media-body">
-                                        <button v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
-                                             
-                                              
-                                                 <svg width="14" height="14">
-              <use    xlink:href='/img/sprites/light.svg#check' class="check"></use>
-                                                 </svg>
-                                        </button>
-                                        <strong>{{ item.url }}</strong>
-                                        <small>{{ item.last_posted }}</small>
-                                       <!-- <strong>[{{ item.convo_count }}]</strong>  -->
-
-                                    </div>
-                                </div>
-                            </li>
-                           
-                        
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            
-       
+</main>
 
 
-       </div>
-       <div class="tab-pane" id="2a">
-       <div class="row">
-       
-            <div class="row">
-                    <div class="col-md-12" style="margin-top: 5px">
-                        <ul class="media-list media-list-users list-group">
-                            <li class="list-group-item" v-for="item in my_followers">
-                                <div class="media">
-                                     <a class="media-left" :href="item.url">
-                              <avatar :size="42"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
-                             </a>
-                                    <div class="media-body">
-                                     
-                            
-                                        <button  v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)" class="btn btn-md btn-link pull-right">
-     <svg width="14" height="14">
-              <use    xlink:href='/img/sprites/light.svg#plus' class="plus"></use>
-                                                 </svg>
-             
-                                        </button>
-                                          <button  v-else v-on:click="unfollow(item.user_id)"  class="btn btn-md btn-link pull-right">
 
-                                                <svg width="14" height="14">
-              <use    xlink:href='/img/sprites/light.svg#check' class="check"></use>
-                                                 </svg>
 
-                                        </button>
-                                          <strong>{{ item.url }}</strong>
-                                 <small>{{ item.last_posted }}</small>
-                                 <!-- <strong>[{{ item.convo_count }}]</strong> -->
-
-                                    </div>
-                                </div>
-                            </li>
-                    
-                      
-                        </ul>
-                    </div>
-            </div>
-            
-            
-       
-       
-       
-               
-            </div>
-
-       </div>
-
-     </div>
-  </div>
 
 
   </div>

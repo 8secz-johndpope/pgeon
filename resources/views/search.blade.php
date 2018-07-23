@@ -1,68 +1,61 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-people-header')
 @section('content')
 
-<div class="container p-t-md">
-            <div class="row">
-                    <div class="col-md-12">
-                          <div>
-                              <ul class="nav nav-bordered">
-                                  <li>
-                                      <div>
-                                          <a class="pull-left icon-button" href="/people" style="height: 36px; vertical-align: middle; line-height: 30px;     border-radius: 4px 0px 0px 4px;"> <span class="fal fa-arrow-left"></span></a>
-                                      </div>
-                                       <div class="media-body">
-                                          <form role="search" action="{{ route('search') }}">
-                                              <input style="margin-left: -2px;" type="text" name="q" class="form-control" placeholder="search by name..">
-                                              <div class="input-group-btn">
-                                                  <!-- <button type="submit" class="input-group-addon" style="height: 36px; border: 1px solid #E6EAEB; border-left: 0; border-radious: 4px;">
-                                                      <span class="fal fa-search"></span>
-                                                  </button> -->
-                                              </div>
-                                          </form>
-                                       </div>
-                                  </li>
-                              </ul>
-                          </div>
-                          <p class="text-muted text-center">{{$msg}}</p>
 
-                        <ul class="media-list media-list-users list-group">
-                          @if ( isset($users))
-			                 @foreach( $users as $value )
+  <div class="search-view  mw6 m-auto pr15 pl15">
 
 
+<span class="search-icon" href="/people/search">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"></path></svg>
 
-                            <li class="list-group-item">
-                                <div class="media">
+</span>
+<form role="search" action="{{ route('search') }}">
+    <input autofocus placeholder="Search by name" type="text" class="search-input caret-primary" name="q">
+    </form>
+<a class="search-close" href="/people/">
 
-                                    <a class="media-left" href="{{$value['obj']->slug}}">
-                                          <avatar :size="42" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  Helper::name_or_slug($value['obj']) }}" ></avatar>
-                                    </a>
-                                    <div class="media-body">
-                @if ( $value['obj']->role_id == 3 )
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"></path></svg>
+</a>
 
-                 <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="follow btn btn-md btn-link pull-right {{( $value['obj']->af)?'hidden' : ''}}">
-                  <span class="fal fa-plus"></span>
-                </button>
-
-                    <button href="#" rel={{ $value['obj']->id  }} role="button" aria-expanded="false" class="unfollow btn btn-md btn-link pull-right {{($value['obj']->af)?'' : 'hidden'}}">
-                    <span class="text-muted fal fa-check"></span>
-                    </button>
-                @endif
+</div>
 
 
-                                        <strong>{{  $value['obj']->nameorslug }}</strong>
-                                        <small>{{ $value['obj']->last_posted }}</small>
-                                    </div>
-                                </div>
-                            </li>
+<main class="mw6 m-auto people-main pl15p pr15p pt30p">
+  <div class="search-header">
+    <h2 class="m0">Recently Searched</h2>
+    <button>Clear Search</button>
+  </div>
+    <h4 class="search-item">jj</h4>
 
-                       @endforeach
-		                  @endif
+</main>
 
-                        </ul>
-                    </div>
-            </div>
-        </div>
+<main class="mw6 m-auto people-main pl15p pr15p pt10p">
+@if ( isset($users))
+   @foreach( $users as $value )
+  <div class="people-item">
+    <div>
+        <avatar :size="36" src="{{  Helper::avatar($value['obj']->avatar) }}" username="{{  Helper::name_or_slug($value['obj']) }}" ></avatar>
+      <div class="people-item__info">
+        <h4>{{  $value['obj']->nameorslug }}</h4>
+        <span>{{ $value['obj']->last_posted }}</span>
+      </div>
+    </div>
+    @if ( $value['obj']->role_id == 3 )
+        <button rel={{ $value['obj']->id  }}  class="follow-button follow {{( $value['obj']->af)?'hidden' : ''}}"">
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+        </button>
+
+        <button rel={{ $value['obj']->id  }}  class="follow-button unfollow {{($value['obj']->af)?'' : 'hidden'}}">
+        <span>Following</span>
+        </button>
+    @endif
+  </div>
+  @endforeach
+@endif
+</main>
+
+
 
 
 
