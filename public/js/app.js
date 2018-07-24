@@ -20464,9 +20464,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
 
 
 
@@ -20599,6 +20596,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 //
@@ -20695,6 +20694,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 
 		data: function data() {
@@ -20712,6 +20712,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		props: ['user_id'],
 		mounted: function mounted() {},
 
+		components: {
+				Avatar: __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default.a
+		},
 		mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__["a" /* CommonMixin */]],
 
 		methods: {
@@ -22840,6 +22843,7 @@ var hidePremiumModal = function hidePremiumModal() {
 
 jQuery(function () {
   jQuery(".openQuestion__title").on("click", function (e) {
+
     var $header = jQuery(".landing_header");
     var open = $header.hasClass("dropdown--active");
     open ? closeDropdown() : openDropdown();

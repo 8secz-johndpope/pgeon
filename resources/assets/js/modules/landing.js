@@ -28,6 +28,7 @@ const hidePremiumModal = () => {
 
 jQuery( function()  {
   jQuery(".openQuestion__title").on("click", e => {
+    
     const $header = jQuery(".landing_header")
     const open = $header.hasClass("dropdown--active")
     open ? closeDropdown() : openDropdown()

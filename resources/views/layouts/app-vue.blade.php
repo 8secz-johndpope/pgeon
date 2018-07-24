@@ -43,11 +43,15 @@
    </span>
    <a class="openQuestion__title">
      <span>
-       Open Questions
+       @if (strstr(Request::url(), "responses"))
+       Published Responses
+       @else
+        Open Questions
+       @endif
      </span>
      <span class="dropdown__icon ml5p fc">
-     <img src="{{URL::asset('img/svg/chevron-down.svg')}}">
-
+     
+      {{Helper::read_svg("img/svg/chevron-down.svg")}}
      </span>
    </a>
  </div>
@@ -84,19 +88,22 @@
 
 
 <div class="mobile-dropdown m-auto mw6">
- <a class="pointer" href="/">
+  
+ <a class="pointer {{strstr(Request::url(), "responses")? '': 'active'}}" href="/">
    <span>
      Open Questions
    </span>
-        {{Helper::read_svg("img/svg/check.svg")}}
+   {{strstr(Request::url(), "responses")? '': Helper::read_svg("img/svg/check.svg")}}
+     
    
   
  </a>
- <a class="pointer" href="/responses" >
+ <a class="pointer {{strstr(Request::url(), "responses")? 'active': ''}}" href="/responses" >
    <span>
      Published Responses
    </span>
    
+   {{strstr(Request::url(), "responses")? Helper::read_svg("img/svg/check.svg"):'' }}
  </a>
 
    @if (Auth::check())

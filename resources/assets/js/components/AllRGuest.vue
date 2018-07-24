@@ -91,6 +91,7 @@
 
 <script>
 import {CommonMixin} from '../mixins/CommonMixin.js';
+import Avatar from 'vue-avatar'
 
   export default {
 
@@ -108,7 +109,10 @@ import {CommonMixin} from '../mixins/CommonMixin.js';
 	    },
 	    props: ['user_id'],
 	    mounted() {
-	    },
+			},
+			  components: {
+				Avatar
+		},
 	    mixins: [CommonMixin],
 	    
 	    methods: {
