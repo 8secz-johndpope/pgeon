@@ -20692,38 +20692,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -60059,8 +60027,8 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
-    staticClass: "container "
+  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
   }, [(_vm.still_deciding_count) ? _c('div', {
@@ -60095,142 +60063,72 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "container content"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
+  }, [_vm._v("Nothing to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
-    return _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
+    return _c('div', {
+      staticClass: "open-question__container"
+    }, [_c('div', {
+      staticClass: "open-question__left"
     }, [_c('a', {
-      staticClass: "media-left",
       attrs: {
         "href": question.slug
       }
-    }, [_c('img', {
-      staticClass: "media-object img-circle",
+    }, [_c('avatar', {
       attrs: {
+        "size": 36,
         "src": question.avatar,
-        "id": "user-profile-image-link"
+        "username": (question.name) ? question.name : question.slug
       }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "h5 m-b-5"
-    }, [_c('span', [_c('a', {
+    })], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "open-question__right"
+    }, [_c('span', {
+      staticClass: "open-question__meta"
+    }, [_c('a', {
+      staticClass: "open-question__author",
       attrs: {
-        "href": question.slug
+        "href": 'r/' + question.rslug
       }
-    }, [_vm._v(_vm._s(question.slug))])]), _vm._v(" "), _c('span', {
-      staticClass: "fa fa-long-arrow-left text-muted"
-    }), _vm._v(" "), _c('span', [_c('a', {
-      attrs: {
-        "href": question.answered_by
-      }
-    }, [_vm._v(_vm._s(question.answered_by))])]), _vm._v(" "), _c('span', {
-      staticClass: "text-muted time-align"
-    }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
+    }, [_vm._v(_vm._s(question.rslug_formatted))]), _vm._v(" "), _c('span', {
+      staticClass: "open-question__time"
+    }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('div', {
+      staticClass: "q-bubble-container q-bubble-container--clickable mt5p"
     }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text  media-question",
-      staticStyle: {
-        "cursor": "pointer"
-      },
-      on: {
-        "click": function($event) {
-          _vm.redirect(question.id)
-        },
-        "mousedown": function($event) {
-          _vm.addResponseFocus($event)
-        },
-        "mouseup": function($event) {
-          _vm.removeResponseFocus($event)
-        },
-        "mouseleave": function($event) {
-          _vm.removeResponseFocus($event)
-        }
-      }
-    }, [_c('table', {
-      staticClass: "bkword"
-    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n                                             ")])])])]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list  media-secondary media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media media-current-user media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-response-margin",
-      staticStyle: {
-        "cursor": "pointer"
-      }
-    }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
-  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate) ? _c('ul', {
+      staticClass: "q-bubble qa-item "
+    }, [_c('div', [_c('span', [_vm._v(" " + _vm._s(question.question))])]), _vm._v(" "), _c('div', {
+      staticClass: "qa-item__seperator"
+    }), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(question.answer))])])])])])
+  }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_c('li', {
-    staticClass: "btn btn-sm btn-default-outline",
-    on: {
-      "click": function($event) {
-        _vm.get_paginated_results()
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.loading_txt))])]) : _vm._e()], 2)])])])
+  }, [_vm._m(0)]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "nav_all"
-  }, [_c('nav', {
-    staticClass: "navbar navbar-inverse app-navbar"
+  return _c('li', [_c('div', {
+    staticClass: "spinner p-rel"
   }, [_c('div', {
-    staticClass: "container nav-container"
-  }, [_c('div', {
-    staticClass: "navbar-header"
-  }, [_c('a', {
-    staticClass: "navbar-brand",
-    attrs: {
-      "href": "/"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/pgeon-logo-mobile.svg",
-      "alt": "Pgeon"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "navbar-right",
-    attrs: {
-      "id": "navbar-collapse-main"
-    }
-  }, [_c('ul', {
-    staticClass: "nav navbar-nav m-r-0",
-    staticStyle: {
-      "width": "125px"
-    }
-  }, [_c('li', [_c('a', {
-    staticClass: "btn-link",
-    staticStyle: {
-      "color": "#676D7A",
-      "font-size": "12px"
-    },
-    attrs: {
-      "href": "/register",
-      "type": "button"
-    }
-  }, [_vm._v("Sign up")])]), _vm._v(" "), _c('li', [_c('div', [_c('a', {
-    staticClass: "btn btn-sm btn-primary-outline",
-    staticStyle: {
-      "margin-top": "4px",
-      "font-weight": "600"
-    },
-    attrs: {
-      "href": "/login"
-    }
-  }, [_vm._v("Log In")])])])])])])])])
+    staticClass: "b1 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b2 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b3 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b4 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b5 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b6 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b7 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b8 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b9 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b10 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b11 se"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "b12 se"
+  })])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

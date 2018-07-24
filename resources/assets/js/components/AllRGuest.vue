@@ -1,44 +1,14 @@
 <template>
 <div>
 
-            <div class="nav_all">
-
-
-
-
-<nav class="navbar navbar-inverse app-navbar">
-            <div class="container nav-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img src="/img/pgeon-logo-mobile.svg" alt="Pgeon">
-                    </a>
-                </div>
-                <div class="navbar-right" id="navbar-collapse-main">
-                    <ul class="nav navbar-nav m-r-0" style="width: 125px;">
-                        <li>
-                            <a href="/register" type="button" style="color: #676D7A; font-size: 12px;" class="btn-link">Sign up</a>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="/login" class="btn btn-sm btn-primary-outline" style="margin-top: 4px; font-weight: 600;">Log In</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-            
-  
-
-</div>
+       
             
           
           
-	<div class="container "  v-if="questions.length<1">
+
+ <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
-			      <div  v-if="still_deciding_count" class="spinner">
+				      <div  v-if="still_deciding_count" class="spinner">
             <div class="b1 se"></div>
             <div class="b2 se"></div>
             <div class="b3 se"></div>
@@ -54,70 +24,68 @@
         </div>
 				 <div v-else>
 				 <img src="/img/chat-bubble.svg" />
-				 <h4 class="text-muted m-t-0">No live questions to display. <br>Please check back soon!</h4>
+				 <h4 class="text-muted m-t-0">Nothing to display. <br>Please check back soon!</h4>
 				</div>
 		</div>
-	</div>
+	</main>
           
           
             
-          <div class="container content">
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="media-list media-list-conversation c-w-md"  v-for="question in questions">
-                        <li class="media">
-                            <a class="media-left" :href="question.slug">
-                                <img class="media-object img-circle" :src="question.avatar" id="user-profile-image-link">
-                            </a>
-                            <div class="media-body">
-                                <div class="h5 m-b-5">
-                                    <span><a :href="question.slug">{{question.slug}}</a></span>
-                                    <span class="fa fa-long-arrow-left text-muted"></span>
-                                    <span><a :href="question.answered_by">{{question.answered_by}}</a></span>
-                                    <span class="text-muted time-align">{{question.ago}}</span>
-                                </div>
-                                <ul class="media-list media-list-conversation c-w-md">
-                                    <li class="media">
-                                        <div class="media-body">
-                                            <div class="media-body-text  media-question" v-on:click="redirect(question.id)"  @mousedown="addResponseFocus($event)" @mouseup="removeResponseFocus($event)" @mouseleave="removeResponseFocus($event)"  style="cursor: pointer;">
-<table class="bkword">
-											<tr>
-											<td>
-                                            {{question.question}}
-                                             </td></tr></table>
-</div>
-                                            <ul class="media-list  media-secondary media-list-conversation c-w-md">
-                                                <li class="media media-current-user media-divider">
-                                                    <div class="media-body">
-                                                        <div class="media-body-text media-response media-response-margin" style="cursor: pointer;">
-                                                        {{question.answer}}
-</div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                       
-              
-                    </ul>
-                    	<ul class="load_more" v-if="currently_fetched_records_count>=paginate"><li class="btn btn-sm btn-default-outline"  v-on:click="get_paginated_results()">{{loading_txt}}</li></ul>
-                    
-                </div>
-            </div>
+ 
+ <main class="landing-main mw6 m-auto pl15 pr15">
+
+
+	   <div class="open-question__container"  v-for="question in questions">
+        <div class="open-question__left">
+          <a :href="question.slug">
+			 <avatar :size="36"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
+          </a>
         </div>
-       
-  
+        <div class="open-question__right">
+          <span class="open-question__meta">
+            <a class="open-question__author" :href="'r/'+question.rslug">{{question.rslug_formatted}}</a>
+            <span class="open-question__time">{{question.ago}}</span>
+          </span>
+        <div class="q-bubble-container q-bubble-container--clickable mt5p">
+        <div class="q-bubble qa-item ">
+          <div>
+            <span> {{question.question}}</span>
+          </div>
+          <div class="qa-item__seperator"></div>
+          <span> {{question.answer}}</span>
+          </div>
+          </div>
+        </div>
+      </div>
+
+     
+                           
+                    
+                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
+									      <div   class="spinner p-rel">
+            <div class="b1 se"></div>
+            <div class="b2 se"></div>
+            <div class="b3 se"></div>
+            <div class="b4 se"></div>
+            <div class="b5 se"></div>
+            <div class="b6 se"></div>
+            <div class="b7 se"></div>
+            <div class="b8 se"></div>
+            <div class="b9 se"></div>
+            <div class="b10 se"></div>
+            <div class="b11 se"></div>
+            <div class="b12 se"></div>
+        </div>
+						</li></ul>
+     
+
+
+              
+ </main>
             
             
   
        </div>
-     
-
-
-
 
 </template>
 
