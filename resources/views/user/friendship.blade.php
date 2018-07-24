@@ -1,67 +1,76 @@
 @extends('layouts.app-profile-no-top-bar')
 @section('content')
 
-        
-           <nav class="navbar navbar-inverse navbar-fixed-top">
-            <nav class="container nav-container header-nav">
-                 @if (Auth::guest())
-                 <a href="/" id="g_back"  style="cursor:pointer;" ><span class="fal fa-home fa-lg"></span></a>
+
+
+<header class="landing_header relative">
+  <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
+     
+
+      @if (Auth::guest())
+                 
+                <a href="/" id="g_back"  class="question-details__close pointer"  > {{Helper::read_svg("img/svg/long-arrow-left.svg")}}</a>
+
+
                  @else
-                 <a onclick="window.history.back()"  id="g_back"  style="cursor:pointer;" ><span class="fal fa-arrow-left fa-lg"></span></a> 
+
+                 <a onclick="window.history.back()"  id="g_back"   class="question-details__close pointer" > 
+                   {{Helper::read_svg("img/svg/long-arrow-left.svg")}}
+
+                 </a> 
                  @endif
-                <h4><a href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
 
 
-                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
-                    </a>
-                    <a href="/{{Helper::slug($fuser->id ,$fuser->slug)}}/">
-                    <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($fuser) }}"></avatar>
-                        </a>
-                        
-               
-                        
-                        </h4>
-          
-            </nav>
-        </nav>
+    <div class="question-details__profile response-images pointer">
+      
+      
+                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
+
+                <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($fuser) }}"></avatar>
+    </div>
+
+    <div class="question-details__more pointer">
+    </div>
+  </div>
+  <style>
+    body{
+      overflow-y: scroll;
+    }
+  </style>
+</header>
+
+        
+         
 
 
-   <div class="m-b-0" style="width: auto;">
-      		<div class="container">
-      			<ul class="media-list media-list-stream c-w-md" style="margin: 0px auto; max-width: 750px; padding: 15px;">
-      			
-      		  @foreach ($replies as $key => $reply)
-    
-            <li class="media">
-            <div class="media-body">
-              <div class="h5 m-b-5">
-                <a><span>{{$rslug_formatted}}</span> </a>
-                <span class="text-muted time-align">{{$reply->ago}}</span>
-              </div>
-              <ul class="media-list media-list-conversation c-w-md">
-                <li class="media">
-                  <div class="media-body">
-                    <div class="media-body-text media-question">{{$reply->question}}</div>
-                    <ul class="media-list media-list-conversation c-w-md">
-                      <li class="media media-current-user media-divider">
-                        <div class="media-body">
-                          <div class="media-body-text media-response media-response-margin" >
-                            {{$reply->answer}}
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
+
+
+  <main class="landing-main mw6 m-auto pl15 pr15">
+  @foreach ($replies as $key => $reply)
+
+      <div class="open-question__container">
+        <div class="open-question__right response-details-bubble">
+          <div class="open-question__meta hidden">
+            <span class="open-question__author">{{$rslug_formatted}}</span>
+            <span class="open-question__time">{{$reply->ago}}</span>
+          </div>
+        <div class="q-bubble-container q-bubble-container--clickable mt5p">
+
+        <div class="q-bubble qa-item ">
+            <div>
+              <span>{{$reply->question}}</span>
             </div>
-            </li>
+            <div class="qa-item__seperator"></div>
+            <span>{{$reply->answer}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endforeach
-      				
-      				
-      			</ul>
-      		</div>
-      	</div>
+  </main>
+
+
 
 
 

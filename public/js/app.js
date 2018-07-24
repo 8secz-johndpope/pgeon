@@ -20467,57 +20467,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -22556,6 +22505,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -60520,19 +60518,53 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "h3 m-b-5"
-  }, [_vm._v("Notifications\n                              "), (_vm.notifications.length > 0) ? _c('button', {
-    staticClass: "btn-sm btn-link p-x-0 text-uppercase",
+  return _c('div', [_c('header', {
+    staticClass: "bg-white relative fixed-header "
+  }, [_c('div', {
+    staticClass: "mw6 m-auto notification-header pr15 pl15 flex items-center justify-between"
+  }, [_c('a', {
+    staticClass: "left-arrow fc",
+    attrs: {
+      "onclick": "window.history.back()"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "448px",
+      "height": "256px",
+      "viewBox": "0 0 448 256",
+      "version": "1.1",
+      "xmlns": "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink"
+    }
+  }, [_c('title', [_vm._v("long-arrow-left")]), _vm._v(" "), _c('desc', [_vm._v("Created with Sketch.")]), _vm._v(" "), _c('defs'), _vm._v(" "), _c('g', {
+    attrs: {
+      "id": "Page-1",
+      "stroke": "none",
+      "stroke-width": "1",
+      "fill": "none",
+      "fill-rule": "evenodd"
+    }
+  }, [_c('g', {
+    attrs: {
+      "id": "long-arrow-left",
+      "fill": "#4A4A4A",
+      "fill-rule": "nonzero"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M136.97,252.485 L144.041,245.415 C148.727,240.729 148.727,233.131 144.041,228.444 L60.113,145 L436,145 C442.627,145 448,139.627 448,133 L448,123 C448,116.373 442.627,111 436,111 L60.113,111 L144.041,27.556 C148.727,22.87 148.727,15.272 144.041,10.585 L136.97,3.515 C132.284,-1.171 124.686,-1.171 120,3.515 L3.515,119.515 C-1.171,124.201 -1.171,131.799 3.515,136.486 L120,252.486 C124.686,257.172 132.284,257.172 136.97,252.485 Z",
+      "id": "Shape"
+    }
+  })])])])]), _vm._v(" "), _c('h4', {
+    staticClass: "header-title m0"
+  }, [_vm._v("Notifications")]), _vm._v(" "), (_vm.notifications.length > 0) ? _c('button', {
+    staticClass: "btn clear-all",
     on: {
       "click": _vm.clear_all
     }
-  }, [_vm._v("Clear all")]) : _vm._e(), _vm._v(" "), _c('span', {
-    staticClass: "bubble badge pull-right m-x-sm",
-    staticStyle: {
-      "margin-top": "5px"
-    }
-  }, [_vm._v(_vm._s(_vm.bubble))])]), _vm._v(" "), (_vm.still_deciding_count) ? _c('div', {
+  }, [_vm._v("\n      Clear All\n      " + _vm._s(_vm.bubble) + "\n    ")]) : _vm._e()])]), _vm._v(" "), _c('main', {
+    staticClass: "notification-main mw6 m-auto"
+  }, [(_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"
   }, [_c('div', {
     staticClass: "b1 se"
@@ -60560,39 +60592,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b12 se"
   })]) : _c('div', {
     staticClass: "m-b-5"
-  }, [_c('ul', {
-    staticClass: "list-group media-list media-list-stream"
-  }, [(_vm.new_recs_in > 0) ? _c('li', {
+  }, [(_vm.new_recs_in > 0) ? _c('div', {
     staticClass: "alert alert-info new_notif_bar",
     on: {
       "click": _vm.fetchRecords
     }
-  }, [_vm._v("You have new notifications")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
-    return _c('li', {
-      staticClass: "list-group-item media p-a noselect notif_item",
+  }, [_vm._v("\n  You have new notifications\n  ")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.notifications), function(notification) {
+    return _c('div', {
+      staticClass: "notifications-item pr15 pl15",
       class: {
         'text-muted': notification.seen == 1
-      },
-      staticStyle: {
-        "cursor": "pointer"
       },
       on: {
         "click": function($event) {
           _vm.redirect(notification)
         }
       }
-    }, [_c('div', {
-      staticClass: "media-left"
     }, [_c('span', {
       staticClass: "fa text-muted",
       class: notification.class
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-heading"
-    }, [_c('span', [_vm._v(_vm._s(notification.message))]), _vm._v(" "), _c('small', {
-      staticClass: "pull-right text-muted"
-    }, [_vm._v(_vm._s(notification.ago))])])])])
+    }), _vm._v(" "), _c('div', {
+      staticClass: "notifications-body"
+    }, [_c('h5', {
+      staticClass: "notification-title m0"
+    }, [_vm._v("\n          " + _vm._s(notification.message) + "\n        ")]), _vm._v(" "), _c('span', {
+      staticClass: "notification-time"
+    }, [_vm._v("\n            " + _vm._s(notification.ago) + "\n        ")])])])
   })], 2)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -61458,52 +61483,8 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', [_c('div', {
-    staticClass: "second-nav-container navbar-inverse navbar-fixed-top"
-  }, [_c('ul', {
-    staticClass: "container nav nav-bordered second-nav"
-  }, [_c('div', {
-    staticClass: "iconav-slider"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills iconav-nav"
-  }, [_c('li', {
-    staticClass: "tab"
-  }, [_c('router-link', {
-    staticClass: "small",
-    attrs: {
-      "to": "/questions"
-    }
-  }, [_vm._v("Questions")])], 1), _vm._v(" "), _c('li', {
-    staticClass: "tab active"
-  }, [_c('router-link', {
-    staticClass: "small",
-    attrs: {
-      "to": "/responses"
-    }
-  }, [_vm._v("Responses")])], 1), _vm._v(" "), (_vm.current_filter == 'follow') ? _c('li', {
-    staticClass: "f-right small",
-    on: {
-      "click": function($event) {
-        _vm.featured_questions()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Following")]), _vm._v("\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _vm._e(), _vm._v(" "), (_vm.current_filter == 'everyone') ? _c('li', {
-    staticClass: "f-right small",
-    on: {
-      "click": function($event) {
-        _vm.followed_questions()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "f-right-text"
-  }, [_vm._v("Featured")]), _vm._v("\n\t\t\t\t\n\t\t\t\t\t  "), _c('span', {
-    staticClass: "fa fa-sort"
-  })]) : _vm._e()])])])])]), _vm._v(" "), (_vm.questions.length < 1) ? _c('div', {
-    staticClass: "container scroll-content mt-50"
+  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
   }, [(_vm.still_deciding_count) ? _c('div', {
@@ -61538,60 +61519,60 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('h4', {
     staticClass: "text-muted m-t-0"
-  }, [_vm._v("Nothing to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "container scroll-content mt-50"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
+  }, [_vm._v("Nothing to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+    staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
-    return _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
+    return _c('div', {
+      staticClass: "open-question__container"
+    }, [_c('div', {
+      staticClass: "open-question__left"
     }, [_c('a', {
-      staticClass: "media-left",
       attrs: {
         "href": question.slug
       }
     }, [_c('avatar', {
       attrs: {
-        "size": 42,
+        "size": 36,
         "src": question.avatar,
         "username": (question.name) ? question.name : question.slug
       }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "h5 m-b-5"
-    }, [_c('span', [_c('a', {
+    })], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "open-question__right"
+    }, [_c('span', {
+      staticClass: "open-question__meta"
+    }, [_c('a', {
+      staticClass: "open-question__author",
       attrs: {
         "href": 'r/' + question.rslug
       }
-    }, [_vm._v(_vm._s(question.rslug_formatted))])]), _vm._v(" "), _c('span', {
-      staticClass: "text-muted time-align"
-    }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list media-list-conversation c-w-md"
-    }, [_c('li', {
-      staticClass: "media"
+    }, [_vm._v(_vm._s(question.rslug_formatted))]), _vm._v(" "), _c('span', {
+      staticClass: "open-question__time"
+    }, [_vm._v(_vm._s(question.ago))])]), _vm._v(" "), _c('div', {
+      staticClass: "q-bubble-container q-bubble-container--clickable mt5p"
     }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text  media-question"
-    }, [_c('table', {
-      staticClass: "bkword"
-    }, [_c('tr', [_c('td', [_vm._v("\n                                            " + _vm._s(question.question) + "\n\t\t\t\t\t\t\t\t\t\t\t ")])])])]), _vm._v(" "), _c('ul', {
-      staticClass: "media-list  media-secondary media-list-conversation c-w-md "
-    }, [_c('li', {
-      staticClass: "media media-current-user media-divider"
-    }, [_c('div', {
-      staticClass: "media-body"
-    }, [_c('div', {
-      staticClass: "media-body-text media-response media-response-margin"
-    }, [_vm._v("\n                                                        " + _vm._s(question.answer) + "\n")])])])])])])])])])])
+      staticClass: "q-bubble qa-item "
+    }, [_c('div', [_c('span', [_vm._v(" " + _vm._s(question.question))])]), _vm._v(" "), _c('div', {
+      staticClass: "qa-item__seperator"
+    }), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(question.answer))])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(0)]) : _vm._e()], 2)])])])
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "FAB-button__container mw6 m-auto"
+  }, [_c('a', {
+    staticClass: "FAB-button",
+    attrs: {
+      "href": "/my-questions"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 448 512"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"
+    }
+  })])])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"

@@ -41,7 +41,7 @@
       </div>
     </div>
     @if ( $value['obj']->role_id == 3 )
-        <button rel={{ $value['obj']->id  }}  class="follow-button follow {{( $value['obj']->af)?'hidden' : ''}}"">
+        <button rel={{ $value['obj']->id  }}  class="follow-button follow {{ ($value['obj']->af)?'hidden' : ''}}">
         <span>Follow</span>
         <!-- following is the `active` state -->
         </button>
