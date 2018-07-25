@@ -22395,7 +22395,7 @@ $(".response-details-bubble").on("click", function (e) {
 //     countElm.removeClass("redish1");
 //   }
 // };
-alert('ss');
+//alert('ss')
 $(function () {
 
   // $(".post-question-textarea").on("input", trackCount);
