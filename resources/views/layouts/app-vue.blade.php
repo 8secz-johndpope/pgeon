@@ -105,13 +105,15 @@
    
    {{strstr(Request::url(), "responses")? Helper::read_svg("img/svg/check.svg"):'' }}
  </a>
-{{Auth::User()->role_id}}
+ 
+
    @if (Auth::check())
    <a href="/" class="myQuestion-premium-button" >
      <span>
        My Questions
      </span>
 
+  @if (Auth::user()->role_id != 3 )
      <div class="fc premium-dropdown-item">
        <span class="premium-lock fc">
        {{Helper::read_svg("img/svg/lock-alt.svg")}}   
@@ -119,12 +121,14 @@
          <span class="ml5p">Premium</span>
        </span>
 
+
        <!-- <span class="premium-info fc">
        {{Helper::read_svg("img/svg/info-circle.svg")}}   
 
 
        </span> -->
      </div>
+  @endif   
    </a>
    @endif
 
@@ -137,6 +141,30 @@
  @yield('content')
         <router-view></router-view>
 
+
+<div class="upgrade-modal">
+  <div class="modal-overlay standard-overlay"></div>
+  <div class="center-modal mw6 m-auto">
+    <div class="upgrade-modal__top">
+      <div class="super-power__container">
+        <img class="super-power" src="/img/super-power.png" >
+      </div>
+      <p >Unleash the Power, Go Pro!</p>
+    </div>
+    <div class="upgrade-modal__body">
+      <h4 class="upgrade-modal__body-header">With Pro, you can</h4>
+      <ul  class="upgrade-modal__perks">
+        <li>Use our dynamic polling system to interact with fans/followers.</li>
+        <li>Use our dynamic polling system to interact with fans/followers.</li>
+        <li>Get notified and stay updated.</li>
+        <li>Gather advice from like-minded people.</li>
+      </ul>
+      <a href="/membership" class="upgrade-modal__button">
+        Upgrade to Premium for $3.99/mo
+      </a>
+    </div>
+  </div>
+</div>
 
 
   </div>

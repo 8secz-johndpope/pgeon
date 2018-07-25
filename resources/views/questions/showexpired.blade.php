@@ -3,6 +3,10 @@
 
 
 
+
+
+
+
   <header class="landing_header relative">
     <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
       <a href="{{$back}}" class="question-details__close pointer fc">
@@ -50,45 +54,38 @@
  <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
     <div class="open-question__right">
       <div class="open-question__meta">
-        <span class="open-question__author">
+        <span >
         @if(isset($answer))
-                               <a href="/r/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}">
+                               <a class="open-question__author" href="/r/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}">
                                 {{Helper::shared_formatted_string($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}
                                </a>
                            
                             @else 
-                            <a href="/{{Helper::slug($question->user->id ,$question->user->slug)}}">{{Helper::slug($question->user->id ,$question->user->slug)}}</a>
+                            <a class="open-question__author" href="/{{Helper::slug($question->user->id ,$question->user->slug)}}">{{Helper::slug($question->user->id ,$question->user->slug)}}</a>
 
                             @endif
         </span>
         <span class="open-question__time"> {{($question->accepted_answer>0)?"Published":"Ended"}}:  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
       </div>
-      <a :href="'/'+question_user_slug" class="open-question__content mt5p m0">
-        <p> {{$question->question}}</p>
-      </a>
-    </div>
-
-  <div class="open-question__seperator mt15p mb15p">
-      <div class="open-question__seperator__inner mr15p"></div>
-</div>
-
-    <div class="open-question__response">
-      
 
 
-
-     @if(isset($answer))
+             <div class="q-bubble qa-item ">
+          <div>
+            <span> {{$question->question}}</span>
+          </div>
+          <div class="qa-item__seperator"></div>
+          <span>      @if(isset($answer))
           <p>{{$answer->answer}}</p>
                        
-          @endif
-
-                          
-    
-
-
-          
-          
+          @endif</span>
           </div>
+
+     
+    </div>
+
+
+
+  
           
     </div>
     </div>

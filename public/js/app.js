@@ -1914,7 +1914,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(196)("./" + name);
+            __webpack_require__(197)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4588,7 +4588,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 1 */
@@ -4654,7 +4654,7 @@ module.exports = function normalizeComponent (
 "use strict";
 
 
-var bind = __webpack_require__(14);
+var bind = __webpack_require__(12);
 
 /*global toString:true*/
 
@@ -5016,7 +5016,7 @@ var CommonMixin = {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(2);
-var normalizeHeaderName = __webpack_require__(151);
+var normalizeHeaderName = __webpack_require__(150);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -5033,10 +5033,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(8);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(8);
   }
   return adapter;
 }
@@ -5107,1490 +5107,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(133)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(131)))
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isemail__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textFields__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_signup__ = __webpack_require__(176);
-/* unused harmony export isPasswordValid */
-/* unused harmony export handleEmailInput */
-
-
-
-
-
-
-
-var isPasswordValid = function isPasswordValid(p) {
-  return p && p.length >= 6;
-};
-
-var handleEmailInput = function handleEmailInput(e) {
-  // if(e.target.value === "") return
-  var isValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(e.target.value);
-  var $tv = jQuery(e.target).parents(".pgn-textfield");
-  if (!isValid) {
-    $tv.find(".pgn-textfield-errorMessage").text("Invalid email address.");
-    $tv.addClass("pgn-textfield-error");
-  } else {
-    $tv.removeClass("pgn-textfield-error");
-  }
-};
-
-$(document).ready(function () {
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__textFields__["a" /* default */])();
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__login_signup__["a" /* default */])();
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* default */])();
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* default */])();
-});
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {
-
-// Load modules
-
-const Punycode = __webpack_require__(197);
-const Util = __webpack_require__(200);
-
-// Declare internals
-
-const internals = {
-    hasOwn: Object.prototype.hasOwnProperty,
-    indexOf: Array.prototype.indexOf,
-    defaultThreshold: 16,
-    maxIPv6Groups: 8,
-
-    categories: {
-        valid: 1,
-        dnsWarn: 7,
-        rfc5321: 15,
-        cfws: 31,
-        deprecated: 63,
-        rfc5322: 127,
-        error: 255
-    },
-
-    diagnoses: {
-
-        // Address is valid
-
-        valid: 0,
-
-        // Address is valid for SMTP but has unusual elements
-
-        rfc5321TLD: 9,
-        rfc5321TLDNumeric: 10,
-        rfc5321QuotedString: 11,
-        rfc5321AddressLiteral: 12,
-
-        // Address is valid for message, but must be modified for envelope
-
-        cfwsComment: 17,
-        cfwsFWS: 18,
-
-        // Address contains non-ASCII when the allowUnicode option is false
-        // Has to be > internals.defaultThreshold so that it's rejected
-        // without an explicit errorLevel:
-        undesiredNonAscii: 25,
-
-        // Address contains deprecated elements, but may still be valid in some contexts
-
-        deprecatedLocalPart: 33,
-        deprecatedFWS: 34,
-        deprecatedQTEXT: 35,
-        deprecatedQP: 36,
-        deprecatedComment: 37,
-        deprecatedCTEXT: 38,
-        deprecatedIPv6: 39,
-        deprecatedCFWSNearAt: 49,
-
-        // Address is only valid according to broad definition in RFC 5322, but is otherwise invalid
-
-        rfc5322Domain: 65,
-        rfc5322TooLong: 66,
-        rfc5322LocalTooLong: 67,
-        rfc5322DomainTooLong: 68,
-        rfc5322LabelTooLong: 69,
-        rfc5322DomainLiteral: 70,
-        rfc5322DomainLiteralOBSDText: 71,
-        rfc5322IPv6GroupCount: 72,
-        rfc5322IPv62x2xColon: 73,
-        rfc5322IPv6BadCharacter: 74,
-        rfc5322IPv6MaxGroups: 75,
-        rfc5322IPv6ColonStart: 76,
-        rfc5322IPv6ColonEnd: 77,
-
-        // Address is invalid for any purpose
-
-        errExpectingDTEXT: 129,
-        errNoLocalPart: 130,
-        errNoDomain: 131,
-        errConsecutiveDots: 132,
-        errATEXTAfterCFWS: 133,
-        errATEXTAfterQS: 134,
-        errATEXTAfterDomainLiteral: 135,
-        errExpectingQPair: 136,
-        errExpectingATEXT: 137,
-        errExpectingQTEXT: 138,
-        errExpectingCTEXT: 139,
-        errBackslashEnd: 140,
-        errDotStart: 141,
-        errDotEnd: 142,
-        errDomainHyphenStart: 143,
-        errDomainHyphenEnd: 144,
-        errUnclosedQuotedString: 145,
-        errUnclosedComment: 146,
-        errUnclosedDomainLiteral: 147,
-        errFWSCRLFx2: 148,
-        errFWSCRLFEnd: 149,
-        errCRNoLF: 150,
-        errUnknownTLD: 160,
-        errDomainTooShort: 161
-    },
-
-    components: {
-        localpart: 0,
-        domain: 1,
-        literal: 2,
-        contextComment: 3,
-        contextFWS: 4,
-        contextQuotedString: 5,
-        contextQuotedPair: 6
-    }
-};
-
-
-internals.specials = function () {
-
-    const specials = '()<>[]:;@\\,."';        // US-ASCII visible characters not valid for atext (http://tools.ietf.org/html/rfc5322#section-3.2.3)
-    const lookup = new Array(0x100);
-    lookup.fill(false);
-
-    for (let i = 0; i < specials.length; ++i) {
-        lookup[specials.codePointAt(i)] = true;
-    }
-
-    return function (code) {
-
-        return lookup[code];
-    };
-}();
-
-internals.c0Controls = function () {
-
-    const lookup = new Array(0x100);
-    lookup.fill(false);
-
-    // add C0 control characters
-
-    for (let i = 0; i < 33; ++i) {
-        lookup[i] = true;
-    }
-
-    return function (code) {
-
-        return lookup[code];
-    };
-}();
-
-internals.c1Controls = function () {
-
-    const lookup = new Array(0x100);
-    lookup.fill(false);
-
-    // add C1 control characters
-
-    for (let i = 127; i < 160; ++i) {
-        lookup[i] = true;
-    }
-
-    return function (code) {
-
-        return lookup[code];
-    };
-}();
-
-internals.regex = {
-    ipV4: /\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
-    ipV6: /^[a-fA-F\d]{0,4}$/
-};
-
-internals.normalizeSupportsNul = '\0'.normalize('NFC') === '\0';
-
-
-// $lab:coverage:off$
-internals.nulNormalize = function (email) {
-
-    return email.split('\0').map((part) => part.normalize('NFC')).join('\0');
-};
-// $lab:coverage:on$
-
-
-internals.normalize = function (email) {
-
-    // $lab:coverage:off$
-    if (!internals.normalizeSupportsNul && email.indexOf('\0') >= 0) {
-        return internals.nulNormalize(email);
-    }
-    // $lab:coverage:on$
-
-    return email.normalize('NFC');
-};
-
-
-internals.checkIpV6 = function (items) {
-
-    return items.every((value) => internals.regex.ipV6.test(value));
-};
-
-
-// Node 10 introduced isSet and isMap, which are useful for cross-context type
-// checking.
-// $lab:coverage:off$
-internals._isSet = (value) => value instanceof Set;
-internals._isMap = (value) => value instanceof Map;
-internals.isSet = Util.types && Util.types.isSet || internals._isSet;
-internals.isMap = Util.types && Util.types.isMap || internals._isMap;
-// $lab:coverage:on$
-
-
-/**
- * Normalize the given lookup "table" to an iterator. Outputs items in arrays
- * and sets, keys from maps (regardless of the corresponding value), and own
- * enumerable keys from all other objects (intended to be plain objects).
- *
- * @param {*} table The table to convert.
- * @returns {Iterable<*>} The converted table.
- */
-internals.normalizeTable = function (table) {
-
-    if (internals.isSet(table) || Array.isArray(table)) {
-        return table;
-    }
-
-    if (internals.isMap(table)) {
-        return table.keys();
-    }
-
-    return Object.keys(table);
-};
-
-
-/**
- * Convert the given domain atom to its canonical form using Nameprep and string
- * lowercasing. Domain atoms that are all-ASCII will not undergo any changes via
- * Nameprep, and domain atoms that have already been canonicalized will not be
- * altered.
- *
- * @param {string} atom The atom to canonicalize.
- * @returns {string} The canonicalized atom.
- */
-internals.canonicalizeAtom = function (atom) {
-
-    return Punycode.toASCII(atom).toLowerCase();
-};
-
-
-/**
- * Check whether any of the values in the given iterable, when passed through
- * the iteratee function, are equal to the given value.
- *
- * @param {Iterable<*>} iterable The iterable to check.
- * @param {function(*): *} iteratee The iteratee that receives each item from
- *   the iterable.
- * @param {*} value The reference value.
- * @returns {boolean} Whether the given value matches any of the items in the
- *   iterable per the iteratee.
- */
-internals.includesMapped = function (iterable, iteratee, value) {
-
-    for (const item of iterable) {
-        if (value === iteratee(item)) {
-            return true;
-        }
-    }
-    return false;
-};
-
-
-/**
- * Check whether the given top-level domain atom is valid based on the
- * configured blacklist/whitelist.
- *
- * @param {string} tldAtom The atom to check.
- * @param {Object} options
- *   {*} tldBlacklist The set of domains to consider invalid.
- *   {*} tldWhitelist The set of domains to consider valid.
- * @returns {boolean} Whether the given domain atom is valid per the blacklist/
- *   whitelist.
- */
-internals.validDomain = function (tldAtom, options) {
-
-    // Nameprep handles case-sensitive unicode stuff, but doesn't touch
-    // uppercase ASCII characters.
-    const canonicalTldAtom = internals.canonicalizeAtom(tldAtom);
-
-    if (options.tldBlacklist) {
-        return !internals.includesMapped(
-            internals.normalizeTable(options.tldBlacklist),
-            internals.canonicalizeAtom, canonicalTldAtom);
-    }
-
-    return internals.includesMapped(
-        internals.normalizeTable(options.tldWhitelist),
-        internals.canonicalizeAtom, canonicalTldAtom);
-};
-
-
-/**
- * Check that an email address conforms to RFCs 5321, 5322, 6530 and others
- *
- * We distinguish clearly between a Mailbox as defined by RFC 5321 and an
- * addr-spec as defined by RFC 5322. Depending on the context, either can be
- * regarded as a valid email address. The RFC 5321 Mailbox specification is
- * more restrictive (comments, white space and obsolete forms are not allowed).
- *
- * @param {string} email The email address to check. See README for specifics.
- * @param {Object} options The (optional) options:
- *   {*} errorLevel Determines the boundary between valid and invalid
- *     addresses.
- *   {*} tldBlacklist The set of domains to consider invalid.
- *   {*} tldWhitelist The set of domains to consider valid.
- *   {*} allowUnicode Whether to allow non-ASCII characters, defaults to true.
- *   {*} minDomainAtoms The minimum number of domain atoms which must be present
- *     for the address to be valid.
- * @param {function(number|boolean)} callback The (optional) callback handler.
- * @return {*}
- */
-
-exports.validate = internals.validate = function (email, options, callback) {
-
-    options = options || {};
-    email = internals.normalize(email);
-
-    // The callback function is deprecated.
-    // $lab:coverage:off$
-    if (typeof options === 'function') {
-        callback = options;
-        options = {};
-    }
-
-    if (typeof callback !== 'function') {
-        callback = null;
-    }
-    // $lab:coverage:on$
-
-    let diagnose;
-    let threshold;
-
-    if (typeof options.errorLevel === 'number') {
-        diagnose = true;
-        threshold = options.errorLevel;
-    }
-    else {
-        diagnose = !!options.errorLevel;
-        threshold = internals.diagnoses.valid;
-    }
-
-    if (options.tldWhitelist) {
-        if (typeof options.tldWhitelist === 'string') {
-            options.tldWhitelist = [options.tldWhitelist];
-        }
-        else if (typeof options.tldWhitelist !== 'object') {
-            throw new TypeError('expected array or object tldWhitelist');
-        }
-    }
-
-    if (options.tldBlacklist) {
-        if (typeof options.tldBlacklist === 'string') {
-            options.tldBlacklist = [options.tldBlacklist];
-        }
-        else if (typeof options.tldBlacklist !== 'object') {
-            throw new TypeError('expected array or object tldBlacklist');
-        }
-    }
-
-    if (options.minDomainAtoms && (options.minDomainAtoms !== ((+options.minDomainAtoms) | 0) || options.minDomainAtoms < 0)) {
-        throw new TypeError('expected positive integer minDomainAtoms');
-    }
-
-    let maxResult = internals.diagnoses.valid;
-    const updateResult = (value) => {
-
-        if (value > maxResult) {
-            maxResult = value;
-        }
-    };
-
-    const allowUnicode = options.allowUnicode === undefined || !!options.allowUnicode;
-    if (!allowUnicode && /[^\x00-\x7f]/.test(email)) {
-        updateResult(internals.diagnoses.undesiredNonAscii);
-    }
-
-    const context = {
-        now: internals.components.localpart,
-        prev: internals.components.localpart,
-        stack: [internals.components.localpart]
-    };
-
-    let prevToken = '';
-
-    const parseData = {
-        local: '',
-        domain: ''
-    };
-    const atomData = {
-        locals: [''],
-        domains: ['']
-    };
-
-    let elementCount = 0;
-    let elementLength = 0;
-    let crlfCount = 0;
-    let charCode;
-
-    let hyphenFlag = false;
-    let assertEnd = false;
-
-    const emailLength = email.length;
-
-    let token;                                      // Token is used outside the loop, must declare similarly
-    for (let i = 0; i < emailLength; i += token.length) {
-        // Utilize codepoints to account for Unicode surrogate pairs
-        token = String.fromCodePoint(email.codePointAt(i));
-
-        switch (context.now) {
-            // Local-part
-            case internals.components.localpart:
-                // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                //   local-part      =   dot-atom / quoted-string / obs-local-part
-                //
-                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
-                //
-                //   dot-atom-text   =   1*atext *("." 1*atext)
-                //
-                //   quoted-string   =   [CFWS]
-                //                       DQUOTE *([FWS] qcontent) [FWS] DQUOTE
-                //                       [CFWS]
-                //
-                //   obs-local-part  =   word *("." word)
-                //
-                //   word            =   atom / quoted-string
-                //
-                //   atom            =   [CFWS] 1*atext [CFWS]
-                switch (token) {
-                    // Comment
-                    case '(':
-                        if (elementLength === 0) {
-                            // Comments are OK at the beginning of an element
-                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsComment : internals.diagnoses.deprecatedComment);
-                        }
-                        else {
-                            updateResult(internals.diagnoses.cfwsComment);
-                            // Cannot start a comment in an element, should be end
-                            assertEnd = true;
-                        }
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextComment;
-                        break;
-
-                        // Next dot-atom element
-                    case '.':
-                        if (elementLength === 0) {
-                            // Another dot, already?
-                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
-                        }
-                        else {
-                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
-                            if (assertEnd) {
-                                updateResult(internals.diagnoses.deprecatedLocalPart);
-                            }
-
-                            // CFWS & quoted strings are OK again now we're at the beginning of an element (although they are obsolete forms)
-                            assertEnd = false;
-                            elementLength = 0;
-                            ++elementCount;
-                            parseData.local += token;
-                            atomData.locals[elementCount] = '';
-                        }
-
-                        break;
-
-                        // Quoted string
-                    case '"':
-                        if (elementLength === 0) {
-                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
-                            updateResult(elementCount === 0 ? internals.diagnoses.rfc5321QuotedString : internals.diagnoses.deprecatedLocalPart);
-
-                            parseData.local += token;
-                            atomData.locals[elementCount] += token;
-                            elementLength += Buffer.byteLength(token, 'utf8');
-
-                            // Quoted string must be the entire element
-                            assertEnd = true;
-                            context.stack.push(context.now);
-                            context.now = internals.components.contextQuotedString;
-                        }
-                        else {
-                            updateResult(internals.diagnoses.errExpectingATEXT);
-                        }
-
-                        break;
-
-                        // Folding white space
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errCRNoLF);
-                            break;
-                        }
-
-                        // Fallthrough
-
-                    case ' ':
-                    case '\t':
-                        if (elementLength === 0) {
-                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsFWS : internals.diagnoses.deprecatedFWS);
-                        }
-                        else {
-                            // We can't start FWS in the middle of an element, better be end
-                            assertEnd = true;
-                        }
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextFWS;
-                        prevToken = token;
-                        break;
-
-                    case '@':
-                        // At this point we should have a valid local-part
-                        // $lab:coverage:off$
-                        if (context.stack.length !== 1) {
-                            throw new Error('unexpected item on context stack');
-                        }
-                        // $lab:coverage:on$
-
-                        if (parseData.local.length === 0) {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errNoLocalPart);
-                        }
-                        else if (elementLength === 0) {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errDotEnd);
-                        }
-                        // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.1 the maximum total length of a user name or other local-part is 64
-                        //    octets
-                        else if (Buffer.byteLength(parseData.local, 'utf8') > 64) {
-                            updateResult(internals.diagnoses.rfc5322LocalTooLong);
-                        }
-                        // http://tools.ietf.org/html/rfc5322#section-3.4.1 comments and folding white space SHOULD NOT be used around "@" in the
-                        //    addr-spec
-                        //
-                        // http://tools.ietf.org/html/rfc2119
-                        // 4. SHOULD NOT this phrase, or the phrase "NOT RECOMMENDED" mean that there may exist valid reasons in particular
-                        //    circumstances when the particular behavior is acceptable or even useful, but the full implications should be understood
-                        //    and the case carefully weighed before implementing any behavior described with this label.
-                        else if (context.prev === internals.components.contextComment || context.prev === internals.components.contextFWS) {
-                            updateResult(internals.diagnoses.deprecatedCFWSNearAt);
-                        }
-
-                        // Clear everything down for the domain parsing
-                        context.now = internals.components.domain;
-                        context.stack[0] = internals.components.domain;
-                        elementCount = 0;
-                        elementLength = 0;
-                        assertEnd = false; // CFWS can only appear at the end of the element
-                        break;
-
-                        // ATEXT
-                    default:
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
-                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
-                        //            "!" / "#" /     ;  characters not including
-                        //            "$" / "%" /     ;  specials.  Used for atoms.
-                        //            "&" / "'" /
-                        //            "*" / "+" /
-                        //            "-" / "/" /
-                        //            "=" / "?" /
-                        //            "^" / "_" /
-                        //            "`" / "{" /
-                        //            "|" / "}" /
-                        //            "~"
-                        if (assertEnd) {
-                            // We have encountered atext where it is no longer valid
-                            switch (context.prev) {
-                                case internals.components.contextComment:
-                                case internals.components.contextFWS:
-                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
-                                    break;
-
-                                case internals.components.contextQuotedString:
-                                    updateResult(internals.diagnoses.errATEXTAfterQS);
-                                    break;
-
-                                    // $lab:coverage:off$
-                                default:
-                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
-                                    // $lab:coverage:on$
-                            }
-                        }
-                        else {
-                            context.prev = context.now;
-                            charCode = token.codePointAt(0);
-
-                            // Especially if charCode == 10
-                            if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
-
-                                // Fatal error
-                                updateResult(internals.diagnoses.errExpectingATEXT);
-                            }
-
-                            parseData.local += token;
-                            atomData.locals[elementCount] += token;
-                            elementLength += Buffer.byteLength(token, 'utf8');
-                        }
-                }
-
-                break;
-
-            case internals.components.domain:
-                // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                //   domain          =   dot-atom / domain-literal / obs-domain
-                //
-                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
-                //
-                //   dot-atom-text   =   1*atext *("." 1*atext)
-                //
-                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
-                //
-                //   dtext           =   %d33-90 /          ; Printable US-ASCII
-                //                       %d94-126 /         ;  characters not including
-                //                       obs-dtext          ;  "[", "]", or "\"
-                //
-                //   obs-domain      =   atom *("." atom)
-                //
-                //   atom            =   [CFWS] 1*atext [CFWS]
-
-                // http://tools.ietf.org/html/rfc5321#section-4.1.2
-                //   Mailbox        = Local-part "@" ( Domain / address-literal )
-                //
-                //   Domain         = sub-domain *("." sub-domain)
-                //
-                //   address-literal  = "[" ( IPv4-address-literal /
-                //                    IPv6-address-literal /
-                //                    General-address-literal ) "]"
-                //                    ; See Section 4.1.3
-
-                // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                //      Note: A liberal syntax for the domain portion of addr-spec is
-                //      given here.  However, the domain portion contains addressing
-                //      information specified by and used in other protocols (e.g.,
-                //      [RFC1034], [RFC1035], [RFC1123], [RFC5321]).  It is therefore
-                //      incumbent upon implementations to conform to the syntax of
-                //      addresses for the context in which they are used.
-                //
-                // is_email() author's note: it's not clear how to interpret this in
-                // he context of a general email address validator. The conclusion I
-                // have reached is this: "addressing information" must comply with
-                // RFC 5321 (and in turn RFC 1035), anything that is "semantically
-                // invisible" must comply only with RFC 5322.
-                switch (token) {
-                    // Comment
-                    case '(':
-                        if (elementLength === 0) {
-                            // Comments at the start of the domain are deprecated in the text, comments at the start of a subdomain are obs-domain
-                            // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedComment);
-                        }
-                        else {
-                            // We can't start a comment mid-element, better be at the end
-                            assertEnd = true;
-                            updateResult(internals.diagnoses.cfwsComment);
-                        }
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextComment;
-                        break;
-
-                        // Next dot-atom element
-                    case '.':
-                        const punycodeLength = Punycode.encode(atomData.domains[elementCount]).length;
-                        if (elementLength === 0) {
-                            // Another dot, already? Fatal error.
-                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
-                        }
-                        else if (hyphenFlag) {
-                            // Previous subdomain ended in a hyphen. Fatal error.
-                            updateResult(internals.diagnoses.errDomainHyphenEnd);
-                        }
-                        else if (punycodeLength > 63) {
-                            // RFC 5890 specifies that domain labels that are encoded using the Punycode algorithm
-                            // must adhere to the <= 63 octet requirement.
-                            // This includes string prefixes from the Punycode algorithm.
-                            //
-                            // https://tools.ietf.org/html/rfc5890#section-2.3.2.1
-                            // labels          63 octets or less
-
-                            updateResult(internals.diagnoses.rfc5322LabelTooLong);
-                        }
-
-                        // CFWS is OK again now we're at the beginning of an element (although
-                        // it may be obsolete CFWS)
-                        assertEnd = false;
-                        elementLength = 0;
-                        ++elementCount;
-                        atomData.domains[elementCount] = '';
-                        parseData.domain += token;
-
-                        break;
-
-                        // Domain literal
-                    case '[':
-                        if (parseData.domain.length === 0) {
-                            // Domain literal must be the only component
-                            assertEnd = true;
-                            elementLength += Buffer.byteLength(token, 'utf8');
-                            context.stack.push(context.now);
-                            context.now = internals.components.literal;
-                            parseData.domain += token;
-                            atomData.domains[elementCount] += token;
-                            parseData.literal = '';
-                        }
-                        else {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errExpectingATEXT);
-                        }
-
-                        break;
-
-                        // Folding white space
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errCRNoLF);
-                            break;
-                        }
-
-                        // Fallthrough
-
-                    case ' ':
-                    case '\t':
-                        if (elementLength === 0) {
-                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedFWS);
-                        }
-                        else {
-                            // We can't start FWS in the middle of an element, so this better be the end
-                            updateResult(internals.diagnoses.cfwsFWS);
-                            assertEnd = true;
-                        }
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextFWS;
-                        prevToken = token;
-                        break;
-
-                        // This must be ATEXT
-                    default:
-                        // RFC 5322 allows any atext...
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
-                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
-                        //            "!" / "#" /     ;  characters not including
-                        //            "$" / "%" /     ;  specials.  Used for atoms.
-                        //            "&" / "'" /
-                        //            "*" / "+" /
-                        //            "-" / "/" /
-                        //            "=" / "?" /
-                        //            "^" / "_" /
-                        //            "`" / "{" /
-                        //            "|" / "}" /
-                        //            "~"
-
-                        // But RFC 5321 only allows letter-digit-hyphen to comply with DNS rules
-                        //   (RFCs 1034 & 1123)
-                        // http://tools.ietf.org/html/rfc5321#section-4.1.2
-                        //   sub-domain     = Let-dig [Ldh-str]
-                        //
-                        //   Let-dig        = ALPHA / DIGIT
-                        //
-                        //   Ldh-str        = *( ALPHA / DIGIT / "-" ) Let-dig
-                        //
-                        if (assertEnd) {
-                            // We have encountered ATEXT where it is no longer valid
-                            switch (context.prev) {
-                                case internals.components.contextComment:
-                                case internals.components.contextFWS:
-                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
-                                    break;
-
-                                case internals.components.literal:
-                                    updateResult(internals.diagnoses.errATEXTAfterDomainLiteral);
-                                    break;
-
-                                    // $lab:coverage:off$
-                                default:
-                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
-                                    // $lab:coverage:on$
-                            }
-                        }
-
-                        charCode = token.codePointAt(0);
-                        // Assume this token isn't a hyphen unless we discover it is
-                        hyphenFlag = false;
-
-                        if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errExpectingATEXT);
-                        }
-                        else if (token === '-') {
-                            if (elementLength === 0) {
-                                // Hyphens cannot be at the beginning of a subdomain, fatal error
-                                updateResult(internals.diagnoses.errDomainHyphenStart);
-                            }
-
-                            hyphenFlag = true;
-                        }
-                        // Check if it's a neither a number nor a latin/unicode letter
-                        else if (charCode < 48 || (charCode > 122 && charCode < 192) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97)) {
-                            // This is not an RFC 5321 subdomain, but still OK by RFC 5322
-                            updateResult(internals.diagnoses.rfc5322Domain);
-                        }
-
-                        parseData.domain += token;
-                        atomData.domains[elementCount] += token;
-                        elementLength += Buffer.byteLength(token, 'utf8');
-                }
-
-                break;
-
-                // Domain literal
-            case internals.components.literal:
-                // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
-                //
-                //   dtext           =   %d33-90 /          ; Printable US-ASCII
-                //                       %d94-126 /         ;  characters not including
-                //                       obs-dtext          ;  "[", "]", or "\"
-                //
-                //   obs-dtext       =   obs-NO-WS-CTL / quoted-pair
-                switch (token) {
-                    // End of domain literal
-                    case ']':
-                        if (maxResult < internals.categories.deprecated) {
-                            // Could be a valid RFC 5321 address literal, so let's check
-
-                            // http://tools.ietf.org/html/rfc5321#section-4.1.2
-                            //   address-literal  = "[" ( IPv4-address-literal /
-                            //                    IPv6-address-literal /
-                            //                    General-address-literal ) "]"
-                            //                    ; See Section 4.1.3
-                            //
-                            // http://tools.ietf.org/html/rfc5321#section-4.1.3
-                            //   IPv4-address-literal  = Snum 3("."  Snum)
-                            //
-                            //   IPv6-address-literal  = "IPv6:" IPv6-addr
-                            //
-                            //   General-address-literal  = Standardized-tag ":" 1*dcontent
-                            //
-                            //   Standardized-tag  = Ldh-str
-                            //                     ; Standardized-tag MUST be specified in a
-                            //                     ; Standards-Track RFC and registered with IANA
-                            //
-                            //   dcontent      = %d33-90 / ; Printable US-ASCII
-                            //                 %d94-126 ; excl. "[", "\", "]"
-                            //
-                            //   Snum          = 1*3DIGIT
-                            //                 ; representing a decimal integer
-                            //                 ; value in the range 0 through 255
-                            //
-                            //   IPv6-addr     = IPv6-full / IPv6-comp / IPv6v4-full / IPv6v4-comp
-                            //
-                            //   IPv6-hex      = 1*4HEXDIG
-                            //
-                            //   IPv6-full     = IPv6-hex 7(":" IPv6-hex)
-                            //
-                            //   IPv6-comp     = [IPv6-hex *5(":" IPv6-hex)] "::"
-                            //                 [IPv6-hex *5(":" IPv6-hex)]
-                            //                 ; The "::" represents at least 2 16-bit groups of
-                            //                 ; zeros.  No more than 6 groups in addition to the
-                            //                 ; "::" may be present.
-                            //
-                            //   IPv6v4-full   = IPv6-hex 5(":" IPv6-hex) ":" IPv4-address-literal
-                            //
-                            //   IPv6v4-comp   = [IPv6-hex *3(":" IPv6-hex)] "::"
-                            //                 [IPv6-hex *3(":" IPv6-hex) ":"]
-                            //                 IPv4-address-literal
-                            //                 ; The "::" represents at least 2 16-bit groups of
-                            //                 ; zeros.  No more than 4 groups in addition to the
-                            //                 ; "::" and IPv4-address-literal may be present.
-
-                            let index = -1;
-                            let addressLiteral = parseData.literal;
-                            const matchesIP = internals.regex.ipV4.exec(addressLiteral);
-
-                            // Maybe extract IPv4 part from the end of the address-literal
-                            if (matchesIP) {
-                                index = matchesIP.index;
-                                if (index !== 0) {
-                                    // Convert IPv4 part to IPv6 format for futher testing
-                                    addressLiteral = addressLiteral.slice(0, index) + '0:0';
-                                }
-                            }
-
-                            if (index === 0) {
-                                // Nothing there except a valid IPv4 address, so...
-                                updateResult(internals.diagnoses.rfc5321AddressLiteral);
-                            }
-                            else if (addressLiteral.slice(0, 5).toLowerCase() !== 'ipv6:') {
-                                updateResult(internals.diagnoses.rfc5322DomainLiteral);
-                            }
-                            else {
-                                const match = addressLiteral.slice(5);
-                                let maxGroups = internals.maxIPv6Groups;
-                                const groups = match.split(':');
-                                index = match.indexOf('::');
-
-                                if (!~index) {
-                                    // Need exactly the right number of groups
-                                    if (groups.length !== maxGroups) {
-                                        updateResult(internals.diagnoses.rfc5322IPv6GroupCount);
-                                    }
-                                }
-                                else if (index !== match.lastIndexOf('::')) {
-                                    updateResult(internals.diagnoses.rfc5322IPv62x2xColon);
-                                }
-                                else {
-                                    if (index === 0 || index === match.length - 2) {
-                                        // RFC 4291 allows :: at the start or end of an address with 7 other groups in addition
-                                        ++maxGroups;
-                                    }
-
-                                    if (groups.length > maxGroups) {
-                                        updateResult(internals.diagnoses.rfc5322IPv6MaxGroups);
-                                    }
-                                    else if (groups.length === maxGroups) {
-                                        // Eliding a single "::"
-                                        updateResult(internals.diagnoses.deprecatedIPv6);
-                                    }
-                                }
-
-                                // IPv6 testing strategy
-                                if (match[0] === ':' && match[1] !== ':') {
-                                    updateResult(internals.diagnoses.rfc5322IPv6ColonStart);
-                                }
-                                else if (match[match.length - 1] === ':' && match[match.length - 2] !== ':') {
-                                    updateResult(internals.diagnoses.rfc5322IPv6ColonEnd);
-                                }
-                                else if (internals.checkIpV6(groups)) {
-                                    updateResult(internals.diagnoses.rfc5321AddressLiteral);
-                                }
-                                else {
-                                    updateResult(internals.diagnoses.rfc5322IPv6BadCharacter);
-                                }
-                            }
-                        }
-                        else {
-                            updateResult(internals.diagnoses.rfc5322DomainLiteral);
-                        }
-
-                        parseData.domain += token;
-                        atomData.domains[elementCount] += token;
-                        elementLength += Buffer.byteLength(token, 'utf8');
-                        context.prev = context.now;
-                        context.now = context.stack.pop();
-                        break;
-
-                    case '\\':
-                        updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextQuotedPair;
-                        break;
-
-                        // Folding white space
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            updateResult(internals.diagnoses.errCRNoLF);
-                            break;
-                        }
-
-                        // Fallthrough
-
-                    case ' ':
-                    case '\t':
-                        updateResult(internals.diagnoses.cfwsFWS);
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextFWS;
-                        prevToken = token;
-                        break;
-
-                        // DTEXT
-                    default:
-                        // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                        //   dtext         =   %d33-90 /  ; Printable US-ASCII
-                        //                     %d94-126 / ;  characters not including
-                        //                     obs-dtext  ;  "[", "]", or "\"
-                        //
-                        //   obs-dtext     =   obs-NO-WS-CTL / quoted-pair
-                        //
-                        //   obs-NO-WS-CTL =   %d1-8 /    ; US-ASCII control
-                        //                     %d11 /     ;  characters that do not
-                        //                     %d12 /     ;  include the carriage
-                        //                     %d14-31 /  ;  return, line feed, and
-                        //                     %d127      ;  white space characters
-                        charCode = token.codePointAt(0);
-
-                        // '\r', '\n', ' ', and '\t' have already been parsed above
-                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || token === '[') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errExpectingDTEXT);
-                            break;
-                        }
-                        else if (internals.c0Controls(charCode) || charCode === 127) {
-                            updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
-                        }
-
-                        parseData.literal += token;
-                        parseData.domain += token;
-                        atomData.domains[elementCount] += token;
-                        elementLength += Buffer.byteLength(token, 'utf8');
-                }
-
-                break;
-
-                // Quoted string
-            case internals.components.contextQuotedString:
-                // http://tools.ietf.org/html/rfc5322#section-3.2.4
-                //   quoted-string = [CFWS]
-                //                   DQUOTE *([FWS] qcontent) [FWS] DQUOTE
-                //                   [CFWS]
-                //
-                //   qcontent      = qtext / quoted-pair
-                switch (token) {
-                    // Quoted pair
-                    case '\\':
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextQuotedPair;
-                        break;
-
-                        // Folding white space. Spaces are allowed as regular characters inside a quoted string - it's only FWS if we include '\t' or '\r\n'
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errCRNoLF);
-                            break;
-                        }
-
-                        // Fallthrough
-
-                    case '\t':
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.2
-                        //   Runs of FWS, comment, or CFWS that occur between lexical tokens in
-                        //   a structured header field are semantically interpreted as a single
-                        //   space character.
-
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
-                        //   the CRLF in any FWS/CFWS that appears within the quoted-string [is]
-                        //   semantically "invisible" and therefore not part of the
-                        //   quoted-string
-
-                        parseData.local += ' ';
-                        atomData.locals[elementCount] += ' ';
-                        elementLength += Buffer.byteLength(token, 'utf8');
-
-                        updateResult(internals.diagnoses.cfwsFWS);
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextFWS;
-                        prevToken = token;
-                        break;
-
-                        // End of quoted string
-                    case '"':
-                        parseData.local += token;
-                        atomData.locals[elementCount] += token;
-                        elementLength += Buffer.byteLength(token, 'utf8');
-                        context.prev = context.now;
-                        context.now = context.stack.pop();
-                        break;
-
-                        // QTEXT
-                    default:
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
-                        //   qtext          =   %d33 /             ; Printable US-ASCII
-                        //                      %d35-91 /          ;  characters not including
-                        //                      %d93-126 /         ;  "\" or the quote character
-                        //                      obs-qtext
-                        //
-                        //   obs-qtext      =   obs-NO-WS-CTL
-                        //
-                        //   obs-NO-WS-CTL  =   %d1-8 /            ; US-ASCII control
-                        //                      %d11 /             ;  characters that do not
-                        //                      %d12 /             ;  include the carriage
-                        //                      %d14-31 /          ;  return, line feed, and
-                        //                      %d127              ;  white space characters
-                        charCode = token.codePointAt(0);
-
-                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || charCode === 10) {
-                            updateResult(internals.diagnoses.errExpectingQTEXT);
-                        }
-                        else if (internals.c0Controls(charCode) || charCode === 127) {
-                            updateResult(internals.diagnoses.deprecatedQTEXT);
-                        }
-
-                        parseData.local += token;
-                        atomData.locals[elementCount] += token;
-                        elementLength += Buffer.byteLength(token, 'utf8');
-                }
-
-                // http://tools.ietf.org/html/rfc5322#section-3.4.1
-                //   If the string can be represented as a dot-atom (that is, it contains
-                //   no characters other than atext characters or "." surrounded by atext
-                //   characters), then the dot-atom form SHOULD be used and the quoted-
-                //   string form SHOULD NOT be used.
-
-                break;
-                // Quoted pair
-            case internals.components.contextQuotedPair:
-                // http://tools.ietf.org/html/rfc5322#section-3.2.1
-                //   quoted-pair     =   ("\" (VCHAR / WSP)) / obs-qp
-                //
-                //   VCHAR           =  %d33-126   ; visible (printing) characters
-                //   WSP             =  SP / HTAB  ; white space
-                //
-                //   obs-qp          =   "\" (%d0 / obs-NO-WS-CTL / LF / CR)
-                //
-                //   obs-NO-WS-CTL   =   %d1-8 /   ; US-ASCII control
-                //                       %d11 /    ;  characters that do not
-                //                       %d12 /    ;  include the carriage
-                //                       %d14-31 / ;  return, line feed, and
-                //                       %d127     ;  white space characters
-                //
-                // i.e. obs-qp       =  "\" (%d0-8, %d10-31 / %d127)
-                charCode = token.codePointAt(0);
-
-                if (charCode !== 127 &&  internals.c1Controls(charCode)) {
-                    // Fatal error
-                    updateResult(internals.diagnoses.errExpectingQPair);
-                }
-                else if ((charCode < 31 && charCode !== 9) || charCode === 127) {
-                    // ' ' and '\t' are allowed
-                    updateResult(internals.diagnoses.deprecatedQP);
-                }
-
-                // At this point we know where this qpair occurred so we could check to see if the character actually needed to be quoted at all.
-                // http://tools.ietf.org/html/rfc5321#section-4.1.2
-                //   the sending system SHOULD transmit the form that uses the minimum quoting possible.
-
-                context.prev = context.now;
-                // End of qpair
-                context.now = context.stack.pop();
-                const escapeToken = '\\' + token;
-
-                switch (context.now) {
-                    case internals.components.contextComment:
-                        break;
-
-                    case internals.components.contextQuotedString:
-                        parseData.local += escapeToken;
-                        atomData.locals[elementCount] += escapeToken;
-
-                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
-                        elementLength += 2;
-                        break;
-
-                    case internals.components.literal:
-                        parseData.domain += escapeToken;
-                        atomData.domains[elementCount] += escapeToken;
-
-                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
-                        elementLength += 2;
-                        break;
-
-                        // $lab:coverage:off$
-                    default:
-                        throw new Error('quoted pair logic invoked in an invalid context: ' + context.now);
-                        // $lab:coverage:on$
-                }
-                break;
-
-                // Comment
-            case internals.components.contextComment:
-                // http://tools.ietf.org/html/rfc5322#section-3.2.2
-                //   comment  = "(" *([FWS] ccontent) [FWS] ")"
-                //
-                //   ccontent = ctext / quoted-pair / comment
-                switch (token) {
-                    // Nested comment
-                    case '(':
-                        // Nested comments are ok
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextComment;
-                        break;
-
-                        // End of comment
-                    case ')':
-                        context.prev = context.now;
-                        context.now = context.stack.pop();
-                        break;
-
-                        // Quoted pair
-                    case '\\':
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextQuotedPair;
-                        break;
-
-                        // Folding white space
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errCRNoLF);
-                            break;
-                        }
-
-                        // Fallthrough
-
-                    case ' ':
-                    case '\t':
-                        updateResult(internals.diagnoses.cfwsFWS);
-
-                        context.stack.push(context.now);
-                        context.now = internals.components.contextFWS;
-                        prevToken = token;
-                        break;
-
-                        // CTEXT
-                    default:
-                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
-                        //   ctext         = %d33-39 /  ; Printable US-ASCII
-                        //                   %d42-91 /  ;  characters not including
-                        //                   %d93-126 / ;  "(", ")", or "\"
-                        //                   obs-ctext
-                        //
-                        //   obs-ctext     = obs-NO-WS-CTL
-                        //
-                        //   obs-NO-WS-CTL = %d1-8 /    ; US-ASCII control
-                        //                   %d11 /     ;  characters that do not
-                        //                   %d12 /     ;  include the carriage
-                        //                   %d14-31 /  ;  return, line feed, and
-                        //                   %d127      ;  white space characters
-                        charCode = token.codePointAt(0);
-
-                        if (charCode === 0 || charCode === 10 || (charCode !== 127 && internals.c1Controls(charCode))) {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errExpectingCTEXT);
-                            break;
-                        }
-                        else if (internals.c0Controls(charCode) || charCode === 127) {
-                            updateResult(internals.diagnoses.deprecatedCTEXT);
-                        }
-                }
-
-                break;
-
-                // Folding white space
-            case internals.components.contextFWS:
-                // http://tools.ietf.org/html/rfc5322#section-3.2.2
-                //   FWS     =   ([*WSP CRLF] 1*WSP) /  obs-FWS
-                //                                   ; Folding white space
-
-                // But note the erratum:
-                // http://www.rfc-editor.org/errata_search.php?rfc=5322&eid=1908:
-                //   In the obsolete syntax, any amount of folding white space MAY be
-                //   inserted where the obs-FWS rule is allowed.  This creates the
-                //   possibility of having two consecutive "folds" in a line, and
-                //   therefore the possibility that a line which makes up a folded header
-                //   field could be composed entirely of white space.
-                //
-                //   obs-FWS =   1*([CRLF] WSP)
-
-                if (prevToken === '\r') {
-                    if (token === '\r') {
-                        // Fatal error
-                        updateResult(internals.diagnoses.errFWSCRLFx2);
-                        break;
-                    }
-
-                    if (++crlfCount > 1) {
-                        // Multiple folds => obsolete FWS
-                        updateResult(internals.diagnoses.deprecatedFWS);
-                    }
-                    else {
-                        crlfCount = 1;
-                    }
-                }
-
-                switch (token) {
-                    case '\r':
-                        if (emailLength === ++i || email[i] !== '\n') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errCRNoLF);
-                        }
-
-                        break;
-
-                    case ' ':
-                    case '\t':
-                        break;
-
-                    default:
-                        if (prevToken === '\r') {
-                            // Fatal error
-                            updateResult(internals.diagnoses.errFWSCRLFEnd);
-                        }
-
-                        crlfCount = 0;
-
-                        // End of FWS
-                        context.prev = context.now;
-                        context.now = context.stack.pop();
-
-                        // Look at this token again in the parent context
-                        --i;
-                }
-
-                prevToken = token;
-                break;
-
-                // Unexpected context
-                // $lab:coverage:off$
-            default:
-                throw new Error('unknown context: ' + context.now);
-                // $lab:coverage:on$
-        } // Primary state machine
-
-        if (maxResult > internals.categories.rfc5322) {
-            // Fatal error, no point continuing
-            break;
-        }
-    } // Token loop
-
-    // Check for errors
-    if (maxResult < internals.categories.rfc5322) {
-        const punycodeLength = Punycode.encode(parseData.domain).length;
-        // Fatal errors
-        if (context.now === internals.components.contextQuotedString) {
-            updateResult(internals.diagnoses.errUnclosedQuotedString);
-        }
-        else if (context.now === internals.components.contextQuotedPair) {
-            updateResult(internals.diagnoses.errBackslashEnd);
-        }
-        else if (context.now === internals.components.contextComment) {
-            updateResult(internals.diagnoses.errUnclosedComment);
-        }
-        else if (context.now === internals.components.literal) {
-            updateResult(internals.diagnoses.errUnclosedDomainLiteral);
-        }
-        else if (token === '\r') {
-            updateResult(internals.diagnoses.errFWSCRLFEnd);
-        }
-        else if (parseData.domain.length === 0) {
-            updateResult(internals.diagnoses.errNoDomain);
-        }
-        else if (elementLength === 0) {
-            updateResult(internals.diagnoses.errDotEnd);
-        }
-        else if (hyphenFlag) {
-            updateResult(internals.diagnoses.errDomainHyphenEnd);
-        }
-
-        // Other errors
-        else if (punycodeLength > 255) {
-            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.2
-            //   The maximum total length of a domain name or number is 255 octets.
-            updateResult(internals.diagnoses.rfc5322DomainTooLong);
-        }
-        else if (Buffer.byteLength(parseData.local, 'utf8') + punycodeLength + /* '@' */ 1 > 254) {
-            // http://tools.ietf.org/html/rfc5321#section-4.1.2
-            //   Forward-path   = Path
-            //
-            //   Path           = "<" [ A-d-l ":" ] Mailbox ">"
-            //
-            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.3
-            //   The maximum total length of a reverse-path or forward-path is 256 octets (including the punctuation and element separators).
-            //
-            // Thus, even without (obsolete) routing information, the Mailbox can only be 254 characters long. This is confirmed by this verified
-            // erratum to RFC 3696:
-            //
-            // http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
-            //   However, there is a restriction in RFC 2821 on the length of an address in MAIL and RCPT commands of 254 characters.  Since
-            //   addresses that do not fit in those fields are not normally useful, the upper limit on address lengths should normally be considered
-            //   to be 254.
-            updateResult(internals.diagnoses.rfc5322TooLong);
-        }
-        else if (elementLength > 63) {
-            // http://tools.ietf.org/html/rfc1035#section-2.3.4
-            // labels   63 octets or less
-            updateResult(internals.diagnoses.rfc5322LabelTooLong);
-        }
-        else if (options.minDomainAtoms && atomData.domains.length < options.minDomainAtoms) {
-            updateResult(internals.diagnoses.errDomainTooShort);
-        }
-        else if (options.tldWhitelist || options.tldBlacklist) {
-            const tldAtom = atomData.domains[elementCount];
-
-            if (!internals.validDomain(tldAtom, options)) {
-                updateResult(internals.diagnoses.errUnknownTLD);
-            }
-        }
-    } // Check for errors
-
-    // Finish
-    if (maxResult < internals.categories.dnsWarn) {
-        // Per RFC 5321, domain atoms are limited to letter-digit-hyphen, so we only need to check code <= 57 to check for a digit
-        const code = atomData.domains[elementCount].codePointAt(0);
-
-        if (code <= 57) {
-            updateResult(internals.diagnoses.rfc5321TLDNumeric);
-        }
-    }
-
-    if (maxResult < threshold) {
-        maxResult = internals.diagnoses.valid;
-    }
-
-    const finishResult = diagnose ? maxResult : maxResult < internals.defaultThreshold;
-
-    // $lab:coverage:off$
-    if (callback) {
-        callback(finishResult);
-    }
-    // $lab:coverage:on$
-
-    return finishResult;
-};
-
-
-exports.diagnoses = internals.validate.diagnoses = (function () {
-
-    const diag = {};
-    const keys = Object.keys(internals.diagnoses);
-    for (let i = 0; i < keys.length; ++i) {
-        const key = keys[i];
-        diag[key] = internals.diagnoses[key];
-    }
-
-    return diag;
-})();
-
-
-exports.normalize = internals.normalize;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190).Buffer))
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -6618,19 +5138,19 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var settle = __webpack_require__(143);
-var buildURL = __webpack_require__(146);
-var parseHeaders = __webpack_require__(152);
-var isURLSameOrigin = __webpack_require__(150);
-var createError = __webpack_require__(13);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(145);
+var settle = __webpack_require__(142);
+var buildURL = __webpack_require__(145);
+var parseHeaders = __webpack_require__(151);
+var isURLSameOrigin = __webpack_require__(149);
+var createError = __webpack_require__(11);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(144);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -6726,7 +5246,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(148);
+      var cookies = __webpack_require__(147);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -6802,7 +5322,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6828,7 +5348,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6840,13 +5360,13 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(142);
+var enhanceError = __webpack_require__(141);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -6864,7 +5384,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6882,7 +5402,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6960,7 +5480,7 @@ return af;
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7024,7 +5544,7 @@ return arDz;
 
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7088,7 +5608,7 @@ return arKw;
 
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7219,7 +5739,7 @@ return arLy;
 
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7284,7 +5804,7 @@ return arMa;
 
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7394,7 +5914,7 @@ return arSa;
 
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7458,7 +5978,7 @@ return arTn;
 
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7605,7 +6125,7 @@ return ar;
 
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7715,7 +6235,7 @@ return az;
 
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7854,7 +6374,7 @@ return be;
 
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7949,7 +6469,7 @@ return bg;
 
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8013,7 +6533,7 @@ return bm;
 
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8137,7 +6657,7 @@ return bn;
 
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8261,7 +6781,7 @@ return bo;
 
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8374,7 +6894,7 @@ return br;
 
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8522,7 +7042,7 @@ return bs;
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8615,7 +7135,7 @@ return ca;
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8792,7 +7312,7 @@ return cs;
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8860,7 +7380,7 @@ return cv;
 
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8946,7 +7466,7 @@ return cy;
 
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9011,7 +7531,7 @@ return da;
 
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9095,7 +7615,7 @@ return deAt;
 
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9178,7 +7698,7 @@ return deCh;
 
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9261,7 +7781,7 @@ return de;
 
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9366,7 +7886,7 @@ return dv;
 
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9471,7 +7991,7 @@ return el;
 
 
 /***/ }),
-/* 41 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9543,7 +8063,7 @@ return enAu;
 
 
 /***/ }),
-/* 42 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9611,7 +8131,7 @@ return enCa;
 
 
 /***/ }),
-/* 43 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9683,7 +8203,7 @@ return enGb;
 
 
 /***/ }),
-/* 44 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9755,7 +8275,7 @@ return enIe;
 
 
 /***/ }),
-/* 45 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9827,7 +8347,7 @@ return enNz;
 
 
 /***/ }),
-/* 46 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9905,7 +8425,7 @@ return eo;
 
 
 /***/ }),
-/* 47 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10001,7 +8521,7 @@ return esDo;
 
 
 /***/ }),
-/* 48 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10089,7 +8609,7 @@ return esUs;
 
 
 /***/ }),
-/* 49 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10186,7 +8706,7 @@ return es;
 
 
 /***/ }),
-/* 50 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10271,7 +8791,7 @@ return et;
 
 
 /***/ }),
-/* 51 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10342,7 +8862,7 @@ return eu;
 
 
 /***/ }),
-/* 52 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10454,7 +8974,7 @@ return fa;
 
 
 /***/ }),
-/* 53 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10566,7 +9086,7 @@ return fi;
 
 
 /***/ }),
-/* 54 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10631,7 +9151,7 @@ return fo;
 
 
 /***/ }),
-/* 55 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10710,7 +9230,7 @@ return frCa;
 
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10793,7 +9313,7 @@ return frCh;
 
 
 /***/ }),
-/* 57 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10881,7 +9401,7 @@ return fr;
 
 
 /***/ }),
-/* 58 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10961,7 +9481,7 @@ return fy;
 
 
 /***/ }),
-/* 59 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11042,7 +9562,7 @@ return gd;
 
 
 /***/ }),
-/* 60 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11124,7 +9644,7 @@ return gl;
 
 
 /***/ }),
-/* 61 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11251,7 +9771,7 @@ return gomLatn;
 
 
 /***/ }),
-/* 62 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11380,7 +9900,7 @@ return gu;
 
 
 /***/ }),
-/* 63 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11484,7 +10004,7 @@ return he;
 
 
 /***/ }),
-/* 64 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11613,7 +10133,7 @@ return hi;
 
 
 /***/ }),
-/* 65 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11763,7 +10283,7 @@ return hr;
 
 
 /***/ }),
-/* 66 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11876,7 +10396,7 @@ return hu;
 
 
 /***/ }),
-/* 67 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11976,7 +10496,7 @@ return hyAm;
 
 
 /***/ }),
-/* 68 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12064,7 +10584,7 @@ return id;
 
 
 /***/ }),
-/* 69 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12196,7 +10716,7 @@ return is;
 
 
 /***/ }),
-/* 70 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12271,7 +10791,7 @@ return it;
 
 
 /***/ }),
-/* 71 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12356,7 +10876,7 @@ return ja;
 
 
 /***/ }),
-/* 72 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12444,7 +10964,7 @@ return jv;
 
 
 /***/ }),
-/* 73 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12538,7 +11058,7 @@ return ka;
 
 
 /***/ }),
-/* 74 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12630,7 +11150,7 @@ return kk;
 
 
 /***/ }),
-/* 75 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12693,7 +11213,7 @@ return km;
 
 
 /***/ }),
-/* 76 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12824,7 +11344,7 @@ return kn;
 
 
 /***/ }),
-/* 77 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12912,7 +11432,7 @@ return ko;
 
 
 /***/ }),
-/* 78 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13005,7 +11525,7 @@ return ky;
 
 
 /***/ }),
-/* 79 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13147,7 +11667,7 @@ return lb;
 
 
 /***/ }),
-/* 80 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13222,7 +11742,7 @@ return lo;
 
 
 /***/ }),
-/* 81 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13344,7 +11864,7 @@ return lt;
 
 
 /***/ }),
-/* 82 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13446,7 +11966,7 @@ return lv;
 
 
 /***/ }),
-/* 83 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13562,7 +12082,7 @@ return me;
 
 
 /***/ }),
-/* 84 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13631,7 +12151,7 @@ return mi;
 
 
 /***/ }),
-/* 85 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13726,7 +12246,7 @@ return mk;
 
 
 /***/ }),
-/* 86 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13812,7 +12332,7 @@ return ml;
 
 
 /***/ }),
-/* 87 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13976,7 +12496,7 @@ return mr;
 
 
 /***/ }),
-/* 88 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14064,7 +12584,7 @@ return msMy;
 
 
 /***/ }),
-/* 89 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14151,7 +12671,7 @@ return ms;
 
 
 /***/ }),
-/* 90 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14252,7 +12772,7 @@ return my;
 
 
 /***/ }),
-/* 91 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14320,7 +12840,7 @@ return nb;
 
 
 /***/ }),
-/* 92 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14448,7 +12968,7 @@ return ne;
 
 
 /***/ }),
-/* 93 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14541,7 +13061,7 @@ return nlBe;
 
 
 /***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14634,7 +13154,7 @@ return nl;
 
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14699,7 +13219,7 @@ return nn;
 
 
 /***/ }),
-/* 96 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14828,7 +13348,7 @@ return paIn;
 
 
 /***/ }),
-/* 97 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14957,7 +13477,7 @@ return pl;
 
 
 /***/ }),
-/* 98 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15024,7 +13544,7 @@ return ptBr;
 
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15094,7 +13614,7 @@ return pt;
 
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15174,7 +13694,7 @@ return ro;
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15362,7 +13882,7 @@ return ru;
 
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15465,7 +13985,7 @@ return sd;
 
 
 /***/ }),
-/* 103 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15531,7 +14051,7 @@ return se;
 
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15607,7 +14127,7 @@ return si;
 
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15762,7 +14282,7 @@ return sk;
 
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15929,7 +14449,7 @@ return sl;
 
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16004,7 +14524,7 @@ return sq;
 
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16119,7 +14639,7 @@ return srCyrl;
 
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16234,7 +14754,7 @@ return sr;
 
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16328,7 +14848,7 @@ return ss;
 
 
 /***/ }),
-/* 111 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16402,7 +14922,7 @@ return sv;
 
 
 /***/ }),
-/* 112 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16466,7 +14986,7 @@ return sw;
 
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16601,7 +15121,7 @@ return ta;
 
 
 /***/ }),
-/* 114 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16695,7 +15215,7 @@ return te;
 
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16768,7 +15288,7 @@ return tet;
 
 
 /***/ }),
-/* 116 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16840,7 +15360,7 @@ return th;
 
 
 /***/ }),
-/* 117 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16907,7 +15427,7 @@ return tlPh;
 
 
 /***/ }),
-/* 118 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17032,7 +15552,7 @@ return tlh;
 
 
 /***/ }),
-/* 119 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17127,7 +15647,7 @@ return tr;
 
 
 /***/ }),
-/* 120 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17223,7 +15743,7 @@ return tzl;
 
 
 /***/ }),
-/* 121 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17286,7 +15806,7 @@ return tzmLatn;
 
 
 /***/ }),
-/* 122 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17349,7 +15869,7 @@ return tzm;
 
 
 /***/ }),
-/* 123 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17505,7 +16025,7 @@ return uk;
 
 
 /***/ }),
-/* 124 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17609,7 +16129,7 @@ return ur;
 
 
 /***/ }),
-/* 125 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17672,7 +16192,7 @@ return uzLatn;
 
 
 /***/ }),
-/* 126 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17735,7 +16255,7 @@ return uz;
 
 
 /***/ }),
-/* 127 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17819,7 +16339,7 @@ return vi;
 
 
 /***/ }),
-/* 128 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17892,7 +16412,7 @@ return xPseudo;
 
 
 /***/ }),
-/* 129 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17957,7 +16477,7 @@ return yo;
 
 
 /***/ }),
-/* 130 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18073,7 +16593,7 @@ return zhCn;
 
 
 /***/ }),
-/* 131 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18183,7 +16703,7 @@ return zhHk;
 
 
 /***/ }),
-/* 132 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -18292,7 +16812,7 @@ return zhTw;
 
 
 /***/ }),
-/* 133 */
+/* 131 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -18482,24 +17002,617 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 134 */
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function(set) {
+  if (isUndefined(debugEnviron))
+    debugEnviron = __webpack_require__.i({"NODE_ENV":"development"}).NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = __webpack_require__(200);
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = __webpack_require__(199);
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(131)))
+
+/***/ }),
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(238);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_AnswerMixin_js__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_AnswerMixin_js__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_invisible_recaptcha__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_longpress__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_longpress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_longpress__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_avatar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_global_forms__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_global_forms__ = __webpack_require__(172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__modules_global_switch_toggle__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_custom__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_custom__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_custom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__modules_custom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_landing__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_question_details__ = __webpack_require__(183);
@@ -18526,7 +17639,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(170);
+__webpack_require__(169);
 
 window.Vue = __webpack_require__(237);
 
@@ -18815,27 +17928,27 @@ jQuery(function ($) {
 
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(137);
+module.exports = __webpack_require__(136);
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var bind = __webpack_require__(14);
-var Axios = __webpack_require__(139);
+var bind = __webpack_require__(12);
+var Axios = __webpack_require__(138);
 var defaults = __webpack_require__(6);
 
 /**
@@ -18869,15 +17982,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(11);
-axios.CancelToken = __webpack_require__(138);
-axios.isCancel = __webpack_require__(12);
+axios.Cancel = __webpack_require__(9);
+axios.CancelToken = __webpack_require__(137);
+axios.isCancel = __webpack_require__(10);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(153);
+axios.spread = __webpack_require__(152);
 
 module.exports = axios;
 
@@ -18886,13 +17999,13 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(11);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -18950,7 +18063,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18958,10 +18071,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(6);
 var utils = __webpack_require__(2);
-var InterceptorManager = __webpack_require__(140);
-var dispatchRequest = __webpack_require__(141);
-var isAbsoluteURL = __webpack_require__(149);
-var combineURLs = __webpack_require__(147);
+var InterceptorManager = __webpack_require__(139);
+var dispatchRequest = __webpack_require__(140);
+var isAbsoluteURL = __webpack_require__(148);
+var combineURLs = __webpack_require__(146);
 
 /**
  * Create a new instance of Axios
@@ -19042,7 +18155,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19101,15 +18214,15 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var transformData = __webpack_require__(144);
-var isCancel = __webpack_require__(12);
+var transformData = __webpack_require__(143);
+var isCancel = __webpack_require__(10);
 var defaults = __webpack_require__(6);
 
 /**
@@ -19187,7 +18300,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19213,13 +18326,13 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(13);
+var createError = __webpack_require__(11);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -19245,7 +18358,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19272,7 +18385,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19315,7 +18428,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19390,7 +18503,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19409,7 +18522,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19469,7 +18582,7 @@ module.exports = (
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19490,7 +18603,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19565,7 +18678,7 @@ module.exports = (
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19584,7 +18697,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19628,7 +18741,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19662,7 +18775,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19773,7 +18886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20027,7 +19140,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20261,7 +19374,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 }), _data$components$prop);
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20355,7 +19468,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20590,7 +19703,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20771,7 +19884,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20850,7 +19963,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21312,7 +20425,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21406,7 +20519,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21558,7 +20671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21794,7 +20907,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22030,7 +21143,7 @@ var pressTimer;
 });
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22229,7 +21342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22427,7 +21540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22471,7 +21584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22665,11 +21778,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(195);
+window._ = __webpack_require__(196);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22678,7 +21791,7 @@ window._ = __webpack_require__(195);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(194);
+  window.$ = window.jQuery = __webpack_require__(195);
 
   __webpack_require__(189);
 } catch (e) {}
@@ -22689,7 +21802,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(136);
+window.axios = __webpack_require__(135);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -22723,7 +21836,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22774,10 +21887,53 @@ var AnswerMixin = {
 };
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+/* 172 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isemail___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isemail__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textFields__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_signup__ = __webpack_require__(176);
+/* unused harmony export isPasswordValid */
+/* unused harmony export handleEmailInput */
+
+
+
+
+
+
+
+var isPasswordValid = function isPasswordValid(p) {
+  return p && p.length >= 6;
+};
+
+var handleEmailInput = function handleEmailInput(e) {
+  // if(e.target.value === "") return
+  var isValid = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_isemail__["validate"])(e.target.value);
+  var $tv = jQuery(e.target).parents(".pgn-textfield");
+  if (!isValid) {
+    $tv.find(".pgn-textfield-errorMessage").text("Invalid email address.");
+    $tv.addClass("pgn-textfield-error");
+  } else {
+    $tv.removeClass("pgn-textfield-error");
+  }
+};
+
+$(document).ready(function () {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__textFields__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__login_signup__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* default */])();
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__signup__["a" /* default */])();
+});
 
 /***/ }),
 /* 173 */
@@ -22817,7 +21973,7 @@ var AnswerMixin = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util__);
 
 
@@ -23190,107 +22346,117 @@ $(".response-details-bubble").on("click", function (e) {
 /* 183 */
 /***/ (function(module, exports) {
 
-$(".question-details__more").click(function (e) {
-  var open = $(".landing_header").hasClass("details__dropdown--active");
-  open ? closeDetailsDropdown() : openDetailsDropdown();
-});
+// $(".question-details__more").click((e) => {
+//   const open = $(".landing_header").hasClass("details__dropdown--active");
+//   open ? closeDetailsDropdown() : openDetailsDropdown();
+// });
 
-var closeDetailsDropdown = function closeDetailsDropdown() {
-  $(".landing_header").removeClass("details__dropdown--active");
-  closeSharedLinks();
-};
+// const closeDetailsDropdown = () => {
+//   $(".landing_header").removeClass("details__dropdown--active");
+//   closeSharedLinks();
+// };
 
-var openDetailsDropdown = function openDetailsDropdown() {
-  $(".landing_header").addClass("details__dropdown--active");
-};
-var openSharedLinks = function openSharedLinks() {
-  $(".details-share").addClass("details-share--visible");
-  $(".details__dropdown").addClass("dn");
-};
-var closeSharedLinks = function closeSharedLinks() {
-  $(".details-share").removeClass("details-share--visible");
-  $(".details__dropdown").removeClass("dn");
-};
+// const openDetailsDropdown = () => {
+//   $(".landing_header").addClass("details__dropdown--active");
+// };
+// const openSharedLinks = () => {
+//   $(".details-share").addClass("details-share--visible");
+//   $(".details__dropdown").addClass("dn");
+// };
+// const closeSharedLinks = () => {
+//   $(".details-share").removeClass("details-share--visible");
+//   $(".details__dropdown").removeClass("dn");
+// };
 
-var handleAnswerQuestionInput = function handleAnswerQuestionInput(e) {
-  e.target.value.length > 0 ? $(".answer-question__input").addClass("answer-question__input---typing") : $(".answer-question__input").removeClass("answer-question__input---typing");
-};
+// const handleAnswerQuestionInput = (e) => {
+//   e.target.value.length > 0
+//     ? $(".answer-question__input").addClass("answer-question__input---typing")
+//     : $(".answer-question__input").removeClass("answer-question__input---typing");
 
-$(".answer-question__input textarea").on("input", handleAnswerQuestionInput);
-$(".details__overlay").on("click", closeDetailsDropdown);
-$(".details__dropdown_item--share").on("click", openSharedLinks);
-$(".details-share__header").on("click", closeDetailsDropdown);
+// };
+
+
+// $(".answer-question__input textarea").on("input", handleAnswerQuestionInput);
+// $(".details__overlay").on("click", closeDetailsDropdown);
+// $(".details__dropdown_item--share").on("click", openSharedLinks);
+// $(".details-share__header").on("click", closeDetailsDropdown);
+
 
 // track textarea count
 
-var countElm = $(".post-question-count");
-var trackCount = function trackCount(e) {
+// const countElm = $(".post-question-count");
+// const trackCount = (e) => {
 
-  var remaining = 150 - e.target.value.length;
-  countElm.text(remaining);
-  if (remaining < 0) {
-    countElm.addClass("redish1");
-  } else {
-    countElm.removeClass("redish1");
-  }
-};
-
+//   const remaining = 150 - e.target.value.length;
+//   countElm.text(remaining);
+//   if (remaining < 0) {
+//     countElm.addClass("redish1");
+//   } else {
+//     countElm.removeClass("redish1");
+//   }
+// };
+alert('ss');
 $(function () {
-  $(".post-question-textarea").on("input", trackCount);
+
+  // $(".post-question-textarea").on("input", trackCount);
+
+
+  // autoshare
+  // $(".auto-share-checkbox").on("change", (e) => {
+  //   if (e.target.checked) {
+  //     $shareEl.show();
+  //   } else {
+  //     $shareEl.hide();
+  //   }
+  // });
+
+  // // share-social
+  // $(".share-social").on("click", () => {
+  //   console.log("here");
+  // });
+
+  // let clicking = false;
+  // let pressTimer 
+
+  // $(".open-question__response").on("mousedown", (e) => {
+  //   clicking = true;
+  //   pressTimer = setTimeout(() => {
+  //     if (clicking) {
+  //       console.log("long press");
+  //       let votes = e.currentTarget.querySelector(".response-votes");
+  //       votes.textContent = parseInt(votes.textContent) - 1;
+  //     }
+  //   }, 2000);
+  // });
+
+  // $(".open-question__response").on("mouseup", (e) => {
+  //   let voted = e.currentTarget.getAttribute("data-voted");
+  //   console.log("voted", voted);
+
+  //   if (!longclick) {
+  //     console.log("short press");
+  //     // handle short click
+  //     let votes = e.currentTarget.querySelector(".response-votes");
+  //     if (voted) {
+  //       votes.textContent = parseInt(votes.textContent) - 1;
+  //       e.currentTarget.removeAttribute("data-voted");
+  //     } else {
+  //       votes.textContent = parseInt(votes.textContent) + 1;
+  //       e.currentTarget.setAttribute("data-voted", true);
+  //     }
+  //   }
+
+  //   clicking = false;
+  //   clearTimeout(pressTimer)
+  // });
+
 });
 
-var $shareEl = $(".auto-share-toggle");
+// const $shareEl = $(".auto-share-toggle");
 
-document.querySelector(".auto-share-checkbox") && document.querySelector(".auto-share-checkbox").checked ? $shareEl.show() : $shareEl.hide();
-
-// autoshare
-$(".auto-share-checkbox").on("change", function (e) {
-  if (e.target.checked) {
-    $shareEl.show();
-  } else {
-    $shareEl.hide();
-  }
-});
-
-// share-social
-$(".share-social").on("click", function () {
-  console.log("here");
-});
-
-var clicking = false;
-var pressTimer = void 0;
-
-$(".open-question__response").on("mousedown", function (e) {
-  clicking = true;
-  pressTimer = setTimeout(function () {
-    if (clicking) {
-      console.log("long press");
-      var votes = e.currentTarget.querySelector(".response-votes");
-      votes.textContent = parseInt(votes.textContent) - 1;
-    }
-  }, 2000);
-});
-
-$(".open-question__response").on("mouseup", function (e) {
-  var voted = e.currentTarget.getAttribute("data-voted");
-  console.log("voted", voted);
-
-  if (!longclick) {
-    console.log("short press");
-    // handle short click
-    var votes = e.currentTarget.querySelector(".response-votes");
-    if (voted) {
-      votes.textContent = parseInt(votes.textContent) - 1;
-      e.currentTarget.removeAttribute("data-voted");
-    } else {
-      votes.textContent = parseInt(votes.textContent) + 1;
-      e.currentTarget.setAttribute("data-voted", true);
-    }
-  }
-
-  clicking = false;
-  clearTimeout(pressTimer);
-});
+// document.querySelector(".auto-share-checkbox") && document.querySelector(".auto-share-checkbox").checked
+//   ? $shareEl.show()
+//   : $shareEl.hide();
 
 /***/ }),
 /* 184 */
@@ -30467,6 +29633,1443 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 /* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Buffer) {
+
+// Load modules
+
+const Punycode = __webpack_require__(198);
+const Util = __webpack_require__(132);
+
+// Declare internals
+
+const internals = {
+    hasOwn: Object.prototype.hasOwnProperty,
+    indexOf: Array.prototype.indexOf,
+    defaultThreshold: 16,
+    maxIPv6Groups: 8,
+
+    categories: {
+        valid: 1,
+        dnsWarn: 7,
+        rfc5321: 15,
+        cfws: 31,
+        deprecated: 63,
+        rfc5322: 127,
+        error: 255
+    },
+
+    diagnoses: {
+
+        // Address is valid
+
+        valid: 0,
+
+        // Address is valid for SMTP but has unusual elements
+
+        rfc5321TLD: 9,
+        rfc5321TLDNumeric: 10,
+        rfc5321QuotedString: 11,
+        rfc5321AddressLiteral: 12,
+
+        // Address is valid for message, but must be modified for envelope
+
+        cfwsComment: 17,
+        cfwsFWS: 18,
+
+        // Address contains non-ASCII when the allowUnicode option is false
+        // Has to be > internals.defaultThreshold so that it's rejected
+        // without an explicit errorLevel:
+        undesiredNonAscii: 25,
+
+        // Address contains deprecated elements, but may still be valid in some contexts
+
+        deprecatedLocalPart: 33,
+        deprecatedFWS: 34,
+        deprecatedQTEXT: 35,
+        deprecatedQP: 36,
+        deprecatedComment: 37,
+        deprecatedCTEXT: 38,
+        deprecatedIPv6: 39,
+        deprecatedCFWSNearAt: 49,
+
+        // Address is only valid according to broad definition in RFC 5322, but is otherwise invalid
+
+        rfc5322Domain: 65,
+        rfc5322TooLong: 66,
+        rfc5322LocalTooLong: 67,
+        rfc5322DomainTooLong: 68,
+        rfc5322LabelTooLong: 69,
+        rfc5322DomainLiteral: 70,
+        rfc5322DomainLiteralOBSDText: 71,
+        rfc5322IPv6GroupCount: 72,
+        rfc5322IPv62x2xColon: 73,
+        rfc5322IPv6BadCharacter: 74,
+        rfc5322IPv6MaxGroups: 75,
+        rfc5322IPv6ColonStart: 76,
+        rfc5322IPv6ColonEnd: 77,
+
+        // Address is invalid for any purpose
+
+        errExpectingDTEXT: 129,
+        errNoLocalPart: 130,
+        errNoDomain: 131,
+        errConsecutiveDots: 132,
+        errATEXTAfterCFWS: 133,
+        errATEXTAfterQS: 134,
+        errATEXTAfterDomainLiteral: 135,
+        errExpectingQPair: 136,
+        errExpectingATEXT: 137,
+        errExpectingQTEXT: 138,
+        errExpectingCTEXT: 139,
+        errBackslashEnd: 140,
+        errDotStart: 141,
+        errDotEnd: 142,
+        errDomainHyphenStart: 143,
+        errDomainHyphenEnd: 144,
+        errUnclosedQuotedString: 145,
+        errUnclosedComment: 146,
+        errUnclosedDomainLiteral: 147,
+        errFWSCRLFx2: 148,
+        errFWSCRLFEnd: 149,
+        errCRNoLF: 150,
+        errUnknownTLD: 160,
+        errDomainTooShort: 161
+    },
+
+    components: {
+        localpart: 0,
+        domain: 1,
+        literal: 2,
+        contextComment: 3,
+        contextFWS: 4,
+        contextQuotedString: 5,
+        contextQuotedPair: 6
+    }
+};
+
+
+internals.specials = function () {
+
+    const specials = '()<>[]:;@\\,."';        // US-ASCII visible characters not valid for atext (http://tools.ietf.org/html/rfc5322#section-3.2.3)
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    for (let i = 0; i < specials.length; ++i) {
+        lookup[specials.codePointAt(i)] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.c0Controls = function () {
+
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    // add C0 control characters
+
+    for (let i = 0; i < 33; ++i) {
+        lookup[i] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.c1Controls = function () {
+
+    const lookup = new Array(0x100);
+    lookup.fill(false);
+
+    // add C1 control characters
+
+    for (let i = 127; i < 160; ++i) {
+        lookup[i] = true;
+    }
+
+    return function (code) {
+
+        return lookup[code];
+    };
+}();
+
+internals.regex = {
+    ipV4: /\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
+    ipV6: /^[a-fA-F\d]{0,4}$/
+};
+
+internals.normalizeSupportsNul = '\0'.normalize('NFC') === '\0';
+
+
+// $lab:coverage:off$
+internals.nulNormalize = function (email) {
+
+    return email.split('\0').map((part) => part.normalize('NFC')).join('\0');
+};
+// $lab:coverage:on$
+
+
+internals.normalize = function (email) {
+
+    // $lab:coverage:off$
+    if (!internals.normalizeSupportsNul && email.indexOf('\0') >= 0) {
+        return internals.nulNormalize(email);
+    }
+    // $lab:coverage:on$
+
+    return email.normalize('NFC');
+};
+
+
+internals.checkIpV6 = function (items) {
+
+    return items.every((value) => internals.regex.ipV6.test(value));
+};
+
+
+// Node 10 introduced isSet and isMap, which are useful for cross-context type
+// checking.
+// $lab:coverage:off$
+internals._isSet = (value) => value instanceof Set;
+internals._isMap = (value) => value instanceof Map;
+internals.isSet = Util.types && Util.types.isSet || internals._isSet;
+internals.isMap = Util.types && Util.types.isMap || internals._isMap;
+// $lab:coverage:on$
+
+
+/**
+ * Normalize the given lookup "table" to an iterator. Outputs items in arrays
+ * and sets, keys from maps (regardless of the corresponding value), and own
+ * enumerable keys from all other objects (intended to be plain objects).
+ *
+ * @param {*} table The table to convert.
+ * @returns {Iterable<*>} The converted table.
+ */
+internals.normalizeTable = function (table) {
+
+    if (internals.isSet(table) || Array.isArray(table)) {
+        return table;
+    }
+
+    if (internals.isMap(table)) {
+        return table.keys();
+    }
+
+    return Object.keys(table);
+};
+
+
+/**
+ * Convert the given domain atom to its canonical form using Nameprep and string
+ * lowercasing. Domain atoms that are all-ASCII will not undergo any changes via
+ * Nameprep, and domain atoms that have already been canonicalized will not be
+ * altered.
+ *
+ * @param {string} atom The atom to canonicalize.
+ * @returns {string} The canonicalized atom.
+ */
+internals.canonicalizeAtom = function (atom) {
+
+    return Punycode.toASCII(atom).toLowerCase();
+};
+
+
+/**
+ * Check whether any of the values in the given iterable, when passed through
+ * the iteratee function, are equal to the given value.
+ *
+ * @param {Iterable<*>} iterable The iterable to check.
+ * @param {function(*): *} iteratee The iteratee that receives each item from
+ *   the iterable.
+ * @param {*} value The reference value.
+ * @returns {boolean} Whether the given value matches any of the items in the
+ *   iterable per the iteratee.
+ */
+internals.includesMapped = function (iterable, iteratee, value) {
+
+    for (const item of iterable) {
+        if (value === iteratee(item)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+
+/**
+ * Check whether the given top-level domain atom is valid based on the
+ * configured blacklist/whitelist.
+ *
+ * @param {string} tldAtom The atom to check.
+ * @param {Object} options
+ *   {*} tldBlacklist The set of domains to consider invalid.
+ *   {*} tldWhitelist The set of domains to consider valid.
+ * @returns {boolean} Whether the given domain atom is valid per the blacklist/
+ *   whitelist.
+ */
+internals.validDomain = function (tldAtom, options) {
+
+    // Nameprep handles case-sensitive unicode stuff, but doesn't touch
+    // uppercase ASCII characters.
+    const canonicalTldAtom = internals.canonicalizeAtom(tldAtom);
+
+    if (options.tldBlacklist) {
+        return !internals.includesMapped(
+            internals.normalizeTable(options.tldBlacklist),
+            internals.canonicalizeAtom, canonicalTldAtom);
+    }
+
+    return internals.includesMapped(
+        internals.normalizeTable(options.tldWhitelist),
+        internals.canonicalizeAtom, canonicalTldAtom);
+};
+
+
+/**
+ * Check that an email address conforms to RFCs 5321, 5322, 6530 and others
+ *
+ * We distinguish clearly between a Mailbox as defined by RFC 5321 and an
+ * addr-spec as defined by RFC 5322. Depending on the context, either can be
+ * regarded as a valid email address. The RFC 5321 Mailbox specification is
+ * more restrictive (comments, white space and obsolete forms are not allowed).
+ *
+ * @param {string} email The email address to check. See README for specifics.
+ * @param {Object} options The (optional) options:
+ *   {*} errorLevel Determines the boundary between valid and invalid
+ *     addresses.
+ *   {*} tldBlacklist The set of domains to consider invalid.
+ *   {*} tldWhitelist The set of domains to consider valid.
+ *   {*} allowUnicode Whether to allow non-ASCII characters, defaults to true.
+ *   {*} minDomainAtoms The minimum number of domain atoms which must be present
+ *     for the address to be valid.
+ * @param {function(number|boolean)} callback The (optional) callback handler.
+ * @return {*}
+ */
+
+exports.validate = internals.validate = function (email, options, callback) {
+
+    options = options || {};
+    email = internals.normalize(email);
+
+    // The callback function is deprecated.
+    // $lab:coverage:off$
+    if (typeof options === 'function') {
+        callback = options;
+        options = {};
+    }
+
+    if (typeof callback !== 'function') {
+        callback = null;
+    }
+    // $lab:coverage:on$
+
+    let diagnose;
+    let threshold;
+
+    if (typeof options.errorLevel === 'number') {
+        diagnose = true;
+        threshold = options.errorLevel;
+    }
+    else {
+        diagnose = !!options.errorLevel;
+        threshold = internals.diagnoses.valid;
+    }
+
+    if (options.tldWhitelist) {
+        if (typeof options.tldWhitelist === 'string') {
+            options.tldWhitelist = [options.tldWhitelist];
+        }
+        else if (typeof options.tldWhitelist !== 'object') {
+            throw new TypeError('expected array or object tldWhitelist');
+        }
+    }
+
+    if (options.tldBlacklist) {
+        if (typeof options.tldBlacklist === 'string') {
+            options.tldBlacklist = [options.tldBlacklist];
+        }
+        else if (typeof options.tldBlacklist !== 'object') {
+            throw new TypeError('expected array or object tldBlacklist');
+        }
+    }
+
+    if (options.minDomainAtoms && (options.minDomainAtoms !== ((+options.minDomainAtoms) | 0) || options.minDomainAtoms < 0)) {
+        throw new TypeError('expected positive integer minDomainAtoms');
+    }
+
+    let maxResult = internals.diagnoses.valid;
+    const updateResult = (value) => {
+
+        if (value > maxResult) {
+            maxResult = value;
+        }
+    };
+
+    const allowUnicode = options.allowUnicode === undefined || !!options.allowUnicode;
+    if (!allowUnicode && /[^\x00-\x7f]/.test(email)) {
+        updateResult(internals.diagnoses.undesiredNonAscii);
+    }
+
+    const context = {
+        now: internals.components.localpart,
+        prev: internals.components.localpart,
+        stack: [internals.components.localpart]
+    };
+
+    let prevToken = '';
+
+    const parseData = {
+        local: '',
+        domain: ''
+    };
+    const atomData = {
+        locals: [''],
+        domains: ['']
+    };
+
+    let elementCount = 0;
+    let elementLength = 0;
+    let crlfCount = 0;
+    let charCode;
+
+    let hyphenFlag = false;
+    let assertEnd = false;
+
+    const emailLength = email.length;
+
+    let token;                                      // Token is used outside the loop, must declare similarly
+    for (let i = 0; i < emailLength; i += token.length) {
+        // Utilize codepoints to account for Unicode surrogate pairs
+        token = String.fromCodePoint(email.codePointAt(i));
+
+        switch (context.now) {
+            // Local-part
+            case internals.components.localpart:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   local-part      =   dot-atom / quoted-string / obs-local-part
+                //
+                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
+                //
+                //   dot-atom-text   =   1*atext *("." 1*atext)
+                //
+                //   quoted-string   =   [CFWS]
+                //                       DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+                //                       [CFWS]
+                //
+                //   obs-local-part  =   word *("." word)
+                //
+                //   word            =   atom / quoted-string
+                //
+                //   atom            =   [CFWS] 1*atext [CFWS]
+                switch (token) {
+                    // Comment
+                    case '(':
+                        if (elementLength === 0) {
+                            // Comments are OK at the beginning of an element
+                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsComment : internals.diagnoses.deprecatedComment);
+                        }
+                        else {
+                            updateResult(internals.diagnoses.cfwsComment);
+                            // Cannot start a comment in an element, should be end
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // Next dot-atom element
+                    case '.':
+                        if (elementLength === 0) {
+                            // Another dot, already?
+                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
+                        }
+                        else {
+                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
+                            if (assertEnd) {
+                                updateResult(internals.diagnoses.deprecatedLocalPart);
+                            }
+
+                            // CFWS & quoted strings are OK again now we're at the beginning of an element (although they are obsolete forms)
+                            assertEnd = false;
+                            elementLength = 0;
+                            ++elementCount;
+                            parseData.local += token;
+                            atomData.locals[elementCount] = '';
+                        }
+
+                        break;
+
+                        // Quoted string
+                    case '"':
+                        if (elementLength === 0) {
+                            // The entire local-part can be a quoted string for RFC 5321; if one atom is quoted it's an RFC 5322 obsolete form
+                            updateResult(elementCount === 0 ? internals.diagnoses.rfc5321QuotedString : internals.diagnoses.deprecatedLocalPart);
+
+                            parseData.local += token;
+                            atomData.locals[elementCount] += token;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+
+                            // Quoted string must be the entire element
+                            assertEnd = true;
+                            context.stack.push(context.now);
+                            context.now = internals.components.contextQuotedString;
+                        }
+                        else {
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        if (elementLength === 0) {
+                            updateResult(elementCount === 0 ? internals.diagnoses.cfwsFWS : internals.diagnoses.deprecatedFWS);
+                        }
+                        else {
+                            // We can't start FWS in the middle of an element, better be end
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                    case '@':
+                        // At this point we should have a valid local-part
+                        // $lab:coverage:off$
+                        if (context.stack.length !== 1) {
+                            throw new Error('unexpected item on context stack');
+                        }
+                        // $lab:coverage:on$
+
+                        if (parseData.local.length === 0) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errNoLocalPart);
+                        }
+                        else if (elementLength === 0) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errDotEnd);
+                        }
+                        // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.1 the maximum total length of a user name or other local-part is 64
+                        //    octets
+                        else if (Buffer.byteLength(parseData.local, 'utf8') > 64) {
+                            updateResult(internals.diagnoses.rfc5322LocalTooLong);
+                        }
+                        // http://tools.ietf.org/html/rfc5322#section-3.4.1 comments and folding white space SHOULD NOT be used around "@" in the
+                        //    addr-spec
+                        //
+                        // http://tools.ietf.org/html/rfc2119
+                        // 4. SHOULD NOT this phrase, or the phrase "NOT RECOMMENDED" mean that there may exist valid reasons in particular
+                        //    circumstances when the particular behavior is acceptable or even useful, but the full implications should be understood
+                        //    and the case carefully weighed before implementing any behavior described with this label.
+                        else if (context.prev === internals.components.contextComment || context.prev === internals.components.contextFWS) {
+                            updateResult(internals.diagnoses.deprecatedCFWSNearAt);
+                        }
+
+                        // Clear everything down for the domain parsing
+                        context.now = internals.components.domain;
+                        context.stack[0] = internals.components.domain;
+                        elementCount = 0;
+                        elementLength = 0;
+                        assertEnd = false; // CFWS can only appear at the end of the element
+                        break;
+
+                        // ATEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
+                        //            "!" / "#" /     ;  characters not including
+                        //            "$" / "%" /     ;  specials.  Used for atoms.
+                        //            "&" / "'" /
+                        //            "*" / "+" /
+                        //            "-" / "/" /
+                        //            "=" / "?" /
+                        //            "^" / "_" /
+                        //            "`" / "{" /
+                        //            "|" / "}" /
+                        //            "~"
+                        if (assertEnd) {
+                            // We have encountered atext where it is no longer valid
+                            switch (context.prev) {
+                                case internals.components.contextComment:
+                                case internals.components.contextFWS:
+                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
+                                    break;
+
+                                case internals.components.contextQuotedString:
+                                    updateResult(internals.diagnoses.errATEXTAfterQS);
+                                    break;
+
+                                    // $lab:coverage:off$
+                                default:
+                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
+                                    // $lab:coverage:on$
+                            }
+                        }
+                        else {
+                            context.prev = context.now;
+                            charCode = token.codePointAt(0);
+
+                            // Especially if charCode == 10
+                            if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
+
+                                // Fatal error
+                                updateResult(internals.diagnoses.errExpectingATEXT);
+                            }
+
+                            parseData.local += token;
+                            atomData.locals[elementCount] += token;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+                        }
+                }
+
+                break;
+
+            case internals.components.domain:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   domain          =   dot-atom / domain-literal / obs-domain
+                //
+                //   dot-atom        =   [CFWS] dot-atom-text [CFWS]
+                //
+                //   dot-atom-text   =   1*atext *("." 1*atext)
+                //
+                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
+                //
+                //   dtext           =   %d33-90 /          ; Printable US-ASCII
+                //                       %d94-126 /         ;  characters not including
+                //                       obs-dtext          ;  "[", "]", or "\"
+                //
+                //   obs-domain      =   atom *("." atom)
+                //
+                //   atom            =   [CFWS] 1*atext [CFWS]
+
+                // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                //   Mailbox        = Local-part "@" ( Domain / address-literal )
+                //
+                //   Domain         = sub-domain *("." sub-domain)
+                //
+                //   address-literal  = "[" ( IPv4-address-literal /
+                //                    IPv6-address-literal /
+                //                    General-address-literal ) "]"
+                //                    ; See Section 4.1.3
+
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //      Note: A liberal syntax for the domain portion of addr-spec is
+                //      given here.  However, the domain portion contains addressing
+                //      information specified by and used in other protocols (e.g.,
+                //      [RFC1034], [RFC1035], [RFC1123], [RFC5321]).  It is therefore
+                //      incumbent upon implementations to conform to the syntax of
+                //      addresses for the context in which they are used.
+                //
+                // is_email() author's note: it's not clear how to interpret this in
+                // he context of a general email address validator. The conclusion I
+                // have reached is this: "addressing information" must comply with
+                // RFC 5321 (and in turn RFC 1035), anything that is "semantically
+                // invisible" must comply only with RFC 5322.
+                switch (token) {
+                    // Comment
+                    case '(':
+                        if (elementLength === 0) {
+                            // Comments at the start of the domain are deprecated in the text, comments at the start of a subdomain are obs-domain
+                            // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedComment);
+                        }
+                        else {
+                            // We can't start a comment mid-element, better be at the end
+                            assertEnd = true;
+                            updateResult(internals.diagnoses.cfwsComment);
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // Next dot-atom element
+                    case '.':
+                        const punycodeLength = Punycode.encode(atomData.domains[elementCount]).length;
+                        if (elementLength === 0) {
+                            // Another dot, already? Fatal error.
+                            updateResult(elementCount === 0 ? internals.diagnoses.errDotStart : internals.diagnoses.errConsecutiveDots);
+                        }
+                        else if (hyphenFlag) {
+                            // Previous subdomain ended in a hyphen. Fatal error.
+                            updateResult(internals.diagnoses.errDomainHyphenEnd);
+                        }
+                        else if (punycodeLength > 63) {
+                            // RFC 5890 specifies that domain labels that are encoded using the Punycode algorithm
+                            // must adhere to the <= 63 octet requirement.
+                            // This includes string prefixes from the Punycode algorithm.
+                            //
+                            // https://tools.ietf.org/html/rfc5890#section-2.3.2.1
+                            // labels          63 octets or less
+
+                            updateResult(internals.diagnoses.rfc5322LabelTooLong);
+                        }
+
+                        // CFWS is OK again now we're at the beginning of an element (although
+                        // it may be obsolete CFWS)
+                        assertEnd = false;
+                        elementLength = 0;
+                        ++elementCount;
+                        atomData.domains[elementCount] = '';
+                        parseData.domain += token;
+
+                        break;
+
+                        // Domain literal
+                    case '[':
+                        if (parseData.domain.length === 0) {
+                            // Domain literal must be the only component
+                            assertEnd = true;
+                            elementLength += Buffer.byteLength(token, 'utf8');
+                            context.stack.push(context.now);
+                            context.now = internals.components.literal;
+                            parseData.domain += token;
+                            atomData.domains[elementCount] += token;
+                            parseData.literal = '';
+                        }
+                        else {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        if (elementLength === 0) {
+                            updateResult(elementCount === 0 ? internals.diagnoses.deprecatedCFWSNearAt : internals.diagnoses.deprecatedFWS);
+                        }
+                        else {
+                            // We can't start FWS in the middle of an element, so this better be the end
+                            updateResult(internals.diagnoses.cfwsFWS);
+                            assertEnd = true;
+                        }
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // This must be ATEXT
+                    default:
+                        // RFC 5322 allows any atext...
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //    atext = ALPHA / DIGIT / ; Printable US-ASCII
+                        //            "!" / "#" /     ;  characters not including
+                        //            "$" / "%" /     ;  specials.  Used for atoms.
+                        //            "&" / "'" /
+                        //            "*" / "+" /
+                        //            "-" / "/" /
+                        //            "=" / "?" /
+                        //            "^" / "_" /
+                        //            "`" / "{" /
+                        //            "|" / "}" /
+                        //            "~"
+
+                        // But RFC 5321 only allows letter-digit-hyphen to comply with DNS rules
+                        //   (RFCs 1034 & 1123)
+                        // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                        //   sub-domain     = Let-dig [Ldh-str]
+                        //
+                        //   Let-dig        = ALPHA / DIGIT
+                        //
+                        //   Ldh-str        = *( ALPHA / DIGIT / "-" ) Let-dig
+                        //
+                        if (assertEnd) {
+                            // We have encountered ATEXT where it is no longer valid
+                            switch (context.prev) {
+                                case internals.components.contextComment:
+                                case internals.components.contextFWS:
+                                    updateResult(internals.diagnoses.errATEXTAfterCFWS);
+                                    break;
+
+                                case internals.components.literal:
+                                    updateResult(internals.diagnoses.errATEXTAfterDomainLiteral);
+                                    break;
+
+                                    // $lab:coverage:off$
+                                default:
+                                    throw new Error('more atext found where none is allowed, but unrecognized prev context: ' + context.prev);
+                                    // $lab:coverage:on$
+                            }
+                        }
+
+                        charCode = token.codePointAt(0);
+                        // Assume this token isn't a hyphen unless we discover it is
+                        hyphenFlag = false;
+
+                        if (internals.specials(charCode) || internals.c0Controls(charCode) || internals.c1Controls(charCode)) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingATEXT);
+                        }
+                        else if (token === '-') {
+                            if (elementLength === 0) {
+                                // Hyphens cannot be at the beginning of a subdomain, fatal error
+                                updateResult(internals.diagnoses.errDomainHyphenStart);
+                            }
+
+                            hyphenFlag = true;
+                        }
+                        // Check if it's a neither a number nor a latin/unicode letter
+                        else if (charCode < 48 || (charCode > 122 && charCode < 192) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97)) {
+                            // This is not an RFC 5321 subdomain, but still OK by RFC 5322
+                            updateResult(internals.diagnoses.rfc5322Domain);
+                        }
+
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                break;
+
+                // Domain literal
+            case internals.components.literal:
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   domain-literal  =   [CFWS] "[" *([FWS] dtext) [FWS] "]" [CFWS]
+                //
+                //   dtext           =   %d33-90 /          ; Printable US-ASCII
+                //                       %d94-126 /         ;  characters not including
+                //                       obs-dtext          ;  "[", "]", or "\"
+                //
+                //   obs-dtext       =   obs-NO-WS-CTL / quoted-pair
+                switch (token) {
+                    // End of domain literal
+                    case ']':
+                        if (maxResult < internals.categories.deprecated) {
+                            // Could be a valid RFC 5321 address literal, so let's check
+
+                            // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                            //   address-literal  = "[" ( IPv4-address-literal /
+                            //                    IPv6-address-literal /
+                            //                    General-address-literal ) "]"
+                            //                    ; See Section 4.1.3
+                            //
+                            // http://tools.ietf.org/html/rfc5321#section-4.1.3
+                            //   IPv4-address-literal  = Snum 3("."  Snum)
+                            //
+                            //   IPv6-address-literal  = "IPv6:" IPv6-addr
+                            //
+                            //   General-address-literal  = Standardized-tag ":" 1*dcontent
+                            //
+                            //   Standardized-tag  = Ldh-str
+                            //                     ; Standardized-tag MUST be specified in a
+                            //                     ; Standards-Track RFC and registered with IANA
+                            //
+                            //   dcontent      = %d33-90 / ; Printable US-ASCII
+                            //                 %d94-126 ; excl. "[", "\", "]"
+                            //
+                            //   Snum          = 1*3DIGIT
+                            //                 ; representing a decimal integer
+                            //                 ; value in the range 0 through 255
+                            //
+                            //   IPv6-addr     = IPv6-full / IPv6-comp / IPv6v4-full / IPv6v4-comp
+                            //
+                            //   IPv6-hex      = 1*4HEXDIG
+                            //
+                            //   IPv6-full     = IPv6-hex 7(":" IPv6-hex)
+                            //
+                            //   IPv6-comp     = [IPv6-hex *5(":" IPv6-hex)] "::"
+                            //                 [IPv6-hex *5(":" IPv6-hex)]
+                            //                 ; The "::" represents at least 2 16-bit groups of
+                            //                 ; zeros.  No more than 6 groups in addition to the
+                            //                 ; "::" may be present.
+                            //
+                            //   IPv6v4-full   = IPv6-hex 5(":" IPv6-hex) ":" IPv4-address-literal
+                            //
+                            //   IPv6v4-comp   = [IPv6-hex *3(":" IPv6-hex)] "::"
+                            //                 [IPv6-hex *3(":" IPv6-hex) ":"]
+                            //                 IPv4-address-literal
+                            //                 ; The "::" represents at least 2 16-bit groups of
+                            //                 ; zeros.  No more than 4 groups in addition to the
+                            //                 ; "::" and IPv4-address-literal may be present.
+
+                            let index = -1;
+                            let addressLiteral = parseData.literal;
+                            const matchesIP = internals.regex.ipV4.exec(addressLiteral);
+
+                            // Maybe extract IPv4 part from the end of the address-literal
+                            if (matchesIP) {
+                                index = matchesIP.index;
+                                if (index !== 0) {
+                                    // Convert IPv4 part to IPv6 format for futher testing
+                                    addressLiteral = addressLiteral.slice(0, index) + '0:0';
+                                }
+                            }
+
+                            if (index === 0) {
+                                // Nothing there except a valid IPv4 address, so...
+                                updateResult(internals.diagnoses.rfc5321AddressLiteral);
+                            }
+                            else if (addressLiteral.slice(0, 5).toLowerCase() !== 'ipv6:') {
+                                updateResult(internals.diagnoses.rfc5322DomainLiteral);
+                            }
+                            else {
+                                const match = addressLiteral.slice(5);
+                                let maxGroups = internals.maxIPv6Groups;
+                                const groups = match.split(':');
+                                index = match.indexOf('::');
+
+                                if (!~index) {
+                                    // Need exactly the right number of groups
+                                    if (groups.length !== maxGroups) {
+                                        updateResult(internals.diagnoses.rfc5322IPv6GroupCount);
+                                    }
+                                }
+                                else if (index !== match.lastIndexOf('::')) {
+                                    updateResult(internals.diagnoses.rfc5322IPv62x2xColon);
+                                }
+                                else {
+                                    if (index === 0 || index === match.length - 2) {
+                                        // RFC 4291 allows :: at the start or end of an address with 7 other groups in addition
+                                        ++maxGroups;
+                                    }
+
+                                    if (groups.length > maxGroups) {
+                                        updateResult(internals.diagnoses.rfc5322IPv6MaxGroups);
+                                    }
+                                    else if (groups.length === maxGroups) {
+                                        // Eliding a single "::"
+                                        updateResult(internals.diagnoses.deprecatedIPv6);
+                                    }
+                                }
+
+                                // IPv6 testing strategy
+                                if (match[0] === ':' && match[1] !== ':') {
+                                    updateResult(internals.diagnoses.rfc5322IPv6ColonStart);
+                                }
+                                else if (match[match.length - 1] === ':' && match[match.length - 2] !== ':') {
+                                    updateResult(internals.diagnoses.rfc5322IPv6ColonEnd);
+                                }
+                                else if (internals.checkIpV6(groups)) {
+                                    updateResult(internals.diagnoses.rfc5321AddressLiteral);
+                                }
+                                else {
+                                    updateResult(internals.diagnoses.rfc5322IPv6BadCharacter);
+                                }
+                            }
+                        }
+                        else {
+                            updateResult(internals.diagnoses.rfc5322DomainLiteral);
+                        }
+
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                    case '\\':
+                        updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        updateResult(internals.diagnoses.cfwsFWS);
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // DTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                        //   dtext         =   %d33-90 /  ; Printable US-ASCII
+                        //                     %d94-126 / ;  characters not including
+                        //                     obs-dtext  ;  "[", "]", or "\"
+                        //
+                        //   obs-dtext     =   obs-NO-WS-CTL / quoted-pair
+                        //
+                        //   obs-NO-WS-CTL =   %d1-8 /    ; US-ASCII control
+                        //                     %d11 /     ;  characters that do not
+                        //                     %d12 /     ;  include the carriage
+                        //                     %d14-31 /  ;  return, line feed, and
+                        //                     %d127      ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        // '\r', '\n', ' ', and '\t' have already been parsed above
+                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || token === '[') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingDTEXT);
+                            break;
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.rfc5322DomainLiteralOBSDText);
+                        }
+
+                        parseData.literal += token;
+                        parseData.domain += token;
+                        atomData.domains[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                break;
+
+                // Quoted string
+            case internals.components.contextQuotedString:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                //   quoted-string = [CFWS]
+                //                   DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+                //                   [CFWS]
+                //
+                //   qcontent      = qtext / quoted-pair
+                switch (token) {
+                    // Quoted pair
+                    case '\\':
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space. Spaces are allowed as regular characters inside a quoted string - it's only FWS if we include '\t' or '\r\n'
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case '\t':
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                        //   Runs of FWS, comment, or CFWS that occur between lexical tokens in
+                        //   a structured header field are semantically interpreted as a single
+                        //   space character.
+
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                        //   the CRLF in any FWS/CFWS that appears within the quoted-string [is]
+                        //   semantically "invisible" and therefore not part of the
+                        //   quoted-string
+
+                        parseData.local += ' ';
+                        atomData.locals[elementCount] += ' ';
+                        elementLength += Buffer.byteLength(token, 'utf8');
+
+                        updateResult(internals.diagnoses.cfwsFWS);
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // End of quoted string
+                    case '"':
+                        parseData.local += token;
+                        atomData.locals[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                        // QTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.4
+                        //   qtext          =   %d33 /             ; Printable US-ASCII
+                        //                      %d35-91 /          ;  characters not including
+                        //                      %d93-126 /         ;  "\" or the quote character
+                        //                      obs-qtext
+                        //
+                        //   obs-qtext      =   obs-NO-WS-CTL
+                        //
+                        //   obs-NO-WS-CTL  =   %d1-8 /            ; US-ASCII control
+                        //                      %d11 /             ;  characters that do not
+                        //                      %d12 /             ;  include the carriage
+                        //                      %d14-31 /          ;  return, line feed, and
+                        //                      %d127              ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        if ((charCode !== 127 && internals.c1Controls(charCode)) || charCode === 0 || charCode === 10) {
+                            updateResult(internals.diagnoses.errExpectingQTEXT);
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.deprecatedQTEXT);
+                        }
+
+                        parseData.local += token;
+                        atomData.locals[elementCount] += token;
+                        elementLength += Buffer.byteLength(token, 'utf8');
+                }
+
+                // http://tools.ietf.org/html/rfc5322#section-3.4.1
+                //   If the string can be represented as a dot-atom (that is, it contains
+                //   no characters other than atext characters or "." surrounded by atext
+                //   characters), then the dot-atom form SHOULD be used and the quoted-
+                //   string form SHOULD NOT be used.
+
+                break;
+                // Quoted pair
+            case internals.components.contextQuotedPair:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.1
+                //   quoted-pair     =   ("\" (VCHAR / WSP)) / obs-qp
+                //
+                //   VCHAR           =  %d33-126   ; visible (printing) characters
+                //   WSP             =  SP / HTAB  ; white space
+                //
+                //   obs-qp          =   "\" (%d0 / obs-NO-WS-CTL / LF / CR)
+                //
+                //   obs-NO-WS-CTL   =   %d1-8 /   ; US-ASCII control
+                //                       %d11 /    ;  characters that do not
+                //                       %d12 /    ;  include the carriage
+                //                       %d14-31 / ;  return, line feed, and
+                //                       %d127     ;  white space characters
+                //
+                // i.e. obs-qp       =  "\" (%d0-8, %d10-31 / %d127)
+                charCode = token.codePointAt(0);
+
+                if (charCode !== 127 &&  internals.c1Controls(charCode)) {
+                    // Fatal error
+                    updateResult(internals.diagnoses.errExpectingQPair);
+                }
+                else if ((charCode < 31 && charCode !== 9) || charCode === 127) {
+                    // ' ' and '\t' are allowed
+                    updateResult(internals.diagnoses.deprecatedQP);
+                }
+
+                // At this point we know where this qpair occurred so we could check to see if the character actually needed to be quoted at all.
+                // http://tools.ietf.org/html/rfc5321#section-4.1.2
+                //   the sending system SHOULD transmit the form that uses the minimum quoting possible.
+
+                context.prev = context.now;
+                // End of qpair
+                context.now = context.stack.pop();
+                const escapeToken = '\\' + token;
+
+                switch (context.now) {
+                    case internals.components.contextComment:
+                        break;
+
+                    case internals.components.contextQuotedString:
+                        parseData.local += escapeToken;
+                        atomData.locals[elementCount] += escapeToken;
+
+                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
+                        elementLength += 2;
+                        break;
+
+                    case internals.components.literal:
+                        parseData.domain += escapeToken;
+                        atomData.domains[elementCount] += escapeToken;
+
+                        // The maximum sizes specified by RFC 5321 are octet counts, so we must include the backslash
+                        elementLength += 2;
+                        break;
+
+                        // $lab:coverage:off$
+                    default:
+                        throw new Error('quoted pair logic invoked in an invalid context: ' + context.now);
+                        // $lab:coverage:on$
+                }
+                break;
+
+                // Comment
+            case internals.components.contextComment:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                //   comment  = "(" *([FWS] ccontent) [FWS] ")"
+                //
+                //   ccontent = ctext / quoted-pair / comment
+                switch (token) {
+                    // Nested comment
+                    case '(':
+                        // Nested comments are ok
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextComment;
+                        break;
+
+                        // End of comment
+                    case ')':
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+                        break;
+
+                        // Quoted pair
+                    case '\\':
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextQuotedPair;
+                        break;
+
+                        // Folding white space
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                            break;
+                        }
+
+                        // Fallthrough
+
+                    case ' ':
+                    case '\t':
+                        updateResult(internals.diagnoses.cfwsFWS);
+
+                        context.stack.push(context.now);
+                        context.now = internals.components.contextFWS;
+                        prevToken = token;
+                        break;
+
+                        // CTEXT
+                    default:
+                        // http://tools.ietf.org/html/rfc5322#section-3.2.3
+                        //   ctext         = %d33-39 /  ; Printable US-ASCII
+                        //                   %d42-91 /  ;  characters not including
+                        //                   %d93-126 / ;  "(", ")", or "\"
+                        //                   obs-ctext
+                        //
+                        //   obs-ctext     = obs-NO-WS-CTL
+                        //
+                        //   obs-NO-WS-CTL = %d1-8 /    ; US-ASCII control
+                        //                   %d11 /     ;  characters that do not
+                        //                   %d12 /     ;  include the carriage
+                        //                   %d14-31 /  ;  return, line feed, and
+                        //                   %d127      ;  white space characters
+                        charCode = token.codePointAt(0);
+
+                        if (charCode === 0 || charCode === 10 || (charCode !== 127 && internals.c1Controls(charCode))) {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errExpectingCTEXT);
+                            break;
+                        }
+                        else if (internals.c0Controls(charCode) || charCode === 127) {
+                            updateResult(internals.diagnoses.deprecatedCTEXT);
+                        }
+                }
+
+                break;
+
+                // Folding white space
+            case internals.components.contextFWS:
+                // http://tools.ietf.org/html/rfc5322#section-3.2.2
+                //   FWS     =   ([*WSP CRLF] 1*WSP) /  obs-FWS
+                //                                   ; Folding white space
+
+                // But note the erratum:
+                // http://www.rfc-editor.org/errata_search.php?rfc=5322&eid=1908:
+                //   In the obsolete syntax, any amount of folding white space MAY be
+                //   inserted where the obs-FWS rule is allowed.  This creates the
+                //   possibility of having two consecutive "folds" in a line, and
+                //   therefore the possibility that a line which makes up a folded header
+                //   field could be composed entirely of white space.
+                //
+                //   obs-FWS =   1*([CRLF] WSP)
+
+                if (prevToken === '\r') {
+                    if (token === '\r') {
+                        // Fatal error
+                        updateResult(internals.diagnoses.errFWSCRLFx2);
+                        break;
+                    }
+
+                    if (++crlfCount > 1) {
+                        // Multiple folds => obsolete FWS
+                        updateResult(internals.diagnoses.deprecatedFWS);
+                    }
+                    else {
+                        crlfCount = 1;
+                    }
+                }
+
+                switch (token) {
+                    case '\r':
+                        if (emailLength === ++i || email[i] !== '\n') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errCRNoLF);
+                        }
+
+                        break;
+
+                    case ' ':
+                    case '\t':
+                        break;
+
+                    default:
+                        if (prevToken === '\r') {
+                            // Fatal error
+                            updateResult(internals.diagnoses.errFWSCRLFEnd);
+                        }
+
+                        crlfCount = 0;
+
+                        // End of FWS
+                        context.prev = context.now;
+                        context.now = context.stack.pop();
+
+                        // Look at this token again in the parent context
+                        --i;
+                }
+
+                prevToken = token;
+                break;
+
+                // Unexpected context
+                // $lab:coverage:off$
+            default:
+                throw new Error('unknown context: ' + context.now);
+                // $lab:coverage:on$
+        } // Primary state machine
+
+        if (maxResult > internals.categories.rfc5322) {
+            // Fatal error, no point continuing
+            break;
+        }
+    } // Token loop
+
+    // Check for errors
+    if (maxResult < internals.categories.rfc5322) {
+        const punycodeLength = Punycode.encode(parseData.domain).length;
+        // Fatal errors
+        if (context.now === internals.components.contextQuotedString) {
+            updateResult(internals.diagnoses.errUnclosedQuotedString);
+        }
+        else if (context.now === internals.components.contextQuotedPair) {
+            updateResult(internals.diagnoses.errBackslashEnd);
+        }
+        else if (context.now === internals.components.contextComment) {
+            updateResult(internals.diagnoses.errUnclosedComment);
+        }
+        else if (context.now === internals.components.literal) {
+            updateResult(internals.diagnoses.errUnclosedDomainLiteral);
+        }
+        else if (token === '\r') {
+            updateResult(internals.diagnoses.errFWSCRLFEnd);
+        }
+        else if (parseData.domain.length === 0) {
+            updateResult(internals.diagnoses.errNoDomain);
+        }
+        else if (elementLength === 0) {
+            updateResult(internals.diagnoses.errDotEnd);
+        }
+        else if (hyphenFlag) {
+            updateResult(internals.diagnoses.errDomainHyphenEnd);
+        }
+
+        // Other errors
+        else if (punycodeLength > 255) {
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.2
+            //   The maximum total length of a domain name or number is 255 octets.
+            updateResult(internals.diagnoses.rfc5322DomainTooLong);
+        }
+        else if (Buffer.byteLength(parseData.local, 'utf8') + punycodeLength + /* '@' */ 1 > 254) {
+            // http://tools.ietf.org/html/rfc5321#section-4.1.2
+            //   Forward-path   = Path
+            //
+            //   Path           = "<" [ A-d-l ":" ] Mailbox ">"
+            //
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.3
+            //   The maximum total length of a reverse-path or forward-path is 256 octets (including the punctuation and element separators).
+            //
+            // Thus, even without (obsolete) routing information, the Mailbox can only be 254 characters long. This is confirmed by this verified
+            // erratum to RFC 3696:
+            //
+            // http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
+            //   However, there is a restriction in RFC 2821 on the length of an address in MAIL and RCPT commands of 254 characters.  Since
+            //   addresses that do not fit in those fields are not normally useful, the upper limit on address lengths should normally be considered
+            //   to be 254.
+            updateResult(internals.diagnoses.rfc5322TooLong);
+        }
+        else if (elementLength > 63) {
+            // http://tools.ietf.org/html/rfc1035#section-2.3.4
+            // labels   63 octets or less
+            updateResult(internals.diagnoses.rfc5322LabelTooLong);
+        }
+        else if (options.minDomainAtoms && atomData.domains.length < options.minDomainAtoms) {
+            updateResult(internals.diagnoses.errDomainTooShort);
+        }
+        else if (options.tldWhitelist || options.tldBlacklist) {
+            const tldAtom = atomData.domains[elementCount];
+
+            if (!internals.validDomain(tldAtom, options)) {
+                updateResult(internals.diagnoses.errUnknownTLD);
+            }
+        }
+    } // Check for errors
+
+    // Finish
+    if (maxResult < internals.categories.dnsWarn) {
+        // Per RFC 5321, domain atoms are limited to letter-digit-hyphen, so we only need to check code <= 57 to check for a digit
+        const code = atomData.domains[elementCount].codePointAt(0);
+
+        if (code <= 57) {
+            updateResult(internals.diagnoses.rfc5321TLDNumeric);
+        }
+    }
+
+    if (maxResult < threshold) {
+        maxResult = internals.diagnoses.valid;
+    }
+
+    const finishResult = diagnose ? maxResult : maxResult < internals.defaultThreshold;
+
+    // $lab:coverage:off$
+    if (callback) {
+        callback(finishResult);
+    }
+    // $lab:coverage:on$
+
+    return finishResult;
+};
+
+
+exports.diagnoses = internals.validate.diagnoses = (function () {
+
+    const diag = {};
+    const keys = Object.keys(internals.diagnoses);
+    for (let i = 0; i < keys.length; ++i) {
+        const key = keys[i];
+        diag[key] = internals.diagnoses[key];
+    }
+
+    return diag;
+})();
+
+
+exports.normalize = internals.normalize;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190).Buffer))
+
+/***/ }),
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -40726,7 +41329,7 @@ return jQuery;
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -57815,249 +58418,249 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(9)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(7)(module)))
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 15,
-	"./af.js": 15,
-	"./ar": 22,
-	"./ar-dz": 16,
-	"./ar-dz.js": 16,
-	"./ar-kw": 17,
-	"./ar-kw.js": 17,
-	"./ar-ly": 18,
-	"./ar-ly.js": 18,
-	"./ar-ma": 19,
-	"./ar-ma.js": 19,
-	"./ar-sa": 20,
-	"./ar-sa.js": 20,
-	"./ar-tn": 21,
-	"./ar-tn.js": 21,
-	"./ar.js": 22,
-	"./az": 23,
-	"./az.js": 23,
-	"./be": 24,
-	"./be.js": 24,
-	"./bg": 25,
-	"./bg.js": 25,
-	"./bm": 26,
-	"./bm.js": 26,
-	"./bn": 27,
-	"./bn.js": 27,
-	"./bo": 28,
-	"./bo.js": 28,
-	"./br": 29,
-	"./br.js": 29,
-	"./bs": 30,
-	"./bs.js": 30,
-	"./ca": 31,
-	"./ca.js": 31,
-	"./cs": 32,
-	"./cs.js": 32,
-	"./cv": 33,
-	"./cv.js": 33,
-	"./cy": 34,
-	"./cy.js": 34,
-	"./da": 35,
-	"./da.js": 35,
-	"./de": 38,
-	"./de-at": 36,
-	"./de-at.js": 36,
-	"./de-ch": 37,
-	"./de-ch.js": 37,
-	"./de.js": 38,
-	"./dv": 39,
-	"./dv.js": 39,
-	"./el": 40,
-	"./el.js": 40,
-	"./en-au": 41,
-	"./en-au.js": 41,
-	"./en-ca": 42,
-	"./en-ca.js": 42,
-	"./en-gb": 43,
-	"./en-gb.js": 43,
-	"./en-ie": 44,
-	"./en-ie.js": 44,
-	"./en-nz": 45,
-	"./en-nz.js": 45,
-	"./eo": 46,
-	"./eo.js": 46,
-	"./es": 49,
-	"./es-do": 47,
-	"./es-do.js": 47,
-	"./es-us": 48,
-	"./es-us.js": 48,
-	"./es.js": 49,
-	"./et": 50,
-	"./et.js": 50,
-	"./eu": 51,
-	"./eu.js": 51,
-	"./fa": 52,
-	"./fa.js": 52,
-	"./fi": 53,
-	"./fi.js": 53,
-	"./fo": 54,
-	"./fo.js": 54,
-	"./fr": 57,
-	"./fr-ca": 55,
-	"./fr-ca.js": 55,
-	"./fr-ch": 56,
-	"./fr-ch.js": 56,
-	"./fr.js": 57,
-	"./fy": 58,
-	"./fy.js": 58,
-	"./gd": 59,
-	"./gd.js": 59,
-	"./gl": 60,
-	"./gl.js": 60,
-	"./gom-latn": 61,
-	"./gom-latn.js": 61,
-	"./gu": 62,
-	"./gu.js": 62,
-	"./he": 63,
-	"./he.js": 63,
-	"./hi": 64,
-	"./hi.js": 64,
-	"./hr": 65,
-	"./hr.js": 65,
-	"./hu": 66,
-	"./hu.js": 66,
-	"./hy-am": 67,
-	"./hy-am.js": 67,
-	"./id": 68,
-	"./id.js": 68,
-	"./is": 69,
-	"./is.js": 69,
-	"./it": 70,
-	"./it.js": 70,
-	"./ja": 71,
-	"./ja.js": 71,
-	"./jv": 72,
-	"./jv.js": 72,
-	"./ka": 73,
-	"./ka.js": 73,
-	"./kk": 74,
-	"./kk.js": 74,
-	"./km": 75,
-	"./km.js": 75,
-	"./kn": 76,
-	"./kn.js": 76,
-	"./ko": 77,
-	"./ko.js": 77,
-	"./ky": 78,
-	"./ky.js": 78,
-	"./lb": 79,
-	"./lb.js": 79,
-	"./lo": 80,
-	"./lo.js": 80,
-	"./lt": 81,
-	"./lt.js": 81,
-	"./lv": 82,
-	"./lv.js": 82,
-	"./me": 83,
-	"./me.js": 83,
-	"./mi": 84,
-	"./mi.js": 84,
-	"./mk": 85,
-	"./mk.js": 85,
-	"./ml": 86,
-	"./ml.js": 86,
-	"./mr": 87,
-	"./mr.js": 87,
-	"./ms": 89,
-	"./ms-my": 88,
-	"./ms-my.js": 88,
-	"./ms.js": 89,
-	"./my": 90,
-	"./my.js": 90,
-	"./nb": 91,
-	"./nb.js": 91,
-	"./ne": 92,
-	"./ne.js": 92,
-	"./nl": 94,
-	"./nl-be": 93,
-	"./nl-be.js": 93,
-	"./nl.js": 94,
-	"./nn": 95,
-	"./nn.js": 95,
-	"./pa-in": 96,
-	"./pa-in.js": 96,
-	"./pl": 97,
-	"./pl.js": 97,
-	"./pt": 99,
-	"./pt-br": 98,
-	"./pt-br.js": 98,
-	"./pt.js": 99,
-	"./ro": 100,
-	"./ro.js": 100,
-	"./ru": 101,
-	"./ru.js": 101,
-	"./sd": 102,
-	"./sd.js": 102,
-	"./se": 103,
-	"./se.js": 103,
-	"./si": 104,
-	"./si.js": 104,
-	"./sk": 105,
-	"./sk.js": 105,
-	"./sl": 106,
-	"./sl.js": 106,
-	"./sq": 107,
-	"./sq.js": 107,
-	"./sr": 109,
-	"./sr-cyrl": 108,
-	"./sr-cyrl.js": 108,
-	"./sr.js": 109,
-	"./ss": 110,
-	"./ss.js": 110,
-	"./sv": 111,
-	"./sv.js": 111,
-	"./sw": 112,
-	"./sw.js": 112,
-	"./ta": 113,
-	"./ta.js": 113,
-	"./te": 114,
-	"./te.js": 114,
-	"./tet": 115,
-	"./tet.js": 115,
-	"./th": 116,
-	"./th.js": 116,
-	"./tl-ph": 117,
-	"./tl-ph.js": 117,
-	"./tlh": 118,
-	"./tlh.js": 118,
-	"./tr": 119,
-	"./tr.js": 119,
-	"./tzl": 120,
-	"./tzl.js": 120,
-	"./tzm": 122,
-	"./tzm-latn": 121,
-	"./tzm-latn.js": 121,
-	"./tzm.js": 122,
-	"./uk": 123,
-	"./uk.js": 123,
-	"./ur": 124,
-	"./ur.js": 124,
-	"./uz": 126,
-	"./uz-latn": 125,
-	"./uz-latn.js": 125,
-	"./uz.js": 126,
-	"./vi": 127,
-	"./vi.js": 127,
-	"./x-pseudo": 128,
-	"./x-pseudo.js": 128,
-	"./yo": 129,
-	"./yo.js": 129,
-	"./zh-cn": 130,
-	"./zh-cn.js": 130,
-	"./zh-hk": 131,
-	"./zh-hk.js": 131,
-	"./zh-tw": 132,
-	"./zh-tw.js": 132
+	"./af": 13,
+	"./af.js": 13,
+	"./ar": 20,
+	"./ar-dz": 14,
+	"./ar-dz.js": 14,
+	"./ar-kw": 15,
+	"./ar-kw.js": 15,
+	"./ar-ly": 16,
+	"./ar-ly.js": 16,
+	"./ar-ma": 17,
+	"./ar-ma.js": 17,
+	"./ar-sa": 18,
+	"./ar-sa.js": 18,
+	"./ar-tn": 19,
+	"./ar-tn.js": 19,
+	"./ar.js": 20,
+	"./az": 21,
+	"./az.js": 21,
+	"./be": 22,
+	"./be.js": 22,
+	"./bg": 23,
+	"./bg.js": 23,
+	"./bm": 24,
+	"./bm.js": 24,
+	"./bn": 25,
+	"./bn.js": 25,
+	"./bo": 26,
+	"./bo.js": 26,
+	"./br": 27,
+	"./br.js": 27,
+	"./bs": 28,
+	"./bs.js": 28,
+	"./ca": 29,
+	"./ca.js": 29,
+	"./cs": 30,
+	"./cs.js": 30,
+	"./cv": 31,
+	"./cv.js": 31,
+	"./cy": 32,
+	"./cy.js": 32,
+	"./da": 33,
+	"./da.js": 33,
+	"./de": 36,
+	"./de-at": 34,
+	"./de-at.js": 34,
+	"./de-ch": 35,
+	"./de-ch.js": 35,
+	"./de.js": 36,
+	"./dv": 37,
+	"./dv.js": 37,
+	"./el": 38,
+	"./el.js": 38,
+	"./en-au": 39,
+	"./en-au.js": 39,
+	"./en-ca": 40,
+	"./en-ca.js": 40,
+	"./en-gb": 41,
+	"./en-gb.js": 41,
+	"./en-ie": 42,
+	"./en-ie.js": 42,
+	"./en-nz": 43,
+	"./en-nz.js": 43,
+	"./eo": 44,
+	"./eo.js": 44,
+	"./es": 47,
+	"./es-do": 45,
+	"./es-do.js": 45,
+	"./es-us": 46,
+	"./es-us.js": 46,
+	"./es.js": 47,
+	"./et": 48,
+	"./et.js": 48,
+	"./eu": 49,
+	"./eu.js": 49,
+	"./fa": 50,
+	"./fa.js": 50,
+	"./fi": 51,
+	"./fi.js": 51,
+	"./fo": 52,
+	"./fo.js": 52,
+	"./fr": 55,
+	"./fr-ca": 53,
+	"./fr-ca.js": 53,
+	"./fr-ch": 54,
+	"./fr-ch.js": 54,
+	"./fr.js": 55,
+	"./fy": 56,
+	"./fy.js": 56,
+	"./gd": 57,
+	"./gd.js": 57,
+	"./gl": 58,
+	"./gl.js": 58,
+	"./gom-latn": 59,
+	"./gom-latn.js": 59,
+	"./gu": 60,
+	"./gu.js": 60,
+	"./he": 61,
+	"./he.js": 61,
+	"./hi": 62,
+	"./hi.js": 62,
+	"./hr": 63,
+	"./hr.js": 63,
+	"./hu": 64,
+	"./hu.js": 64,
+	"./hy-am": 65,
+	"./hy-am.js": 65,
+	"./id": 66,
+	"./id.js": 66,
+	"./is": 67,
+	"./is.js": 67,
+	"./it": 68,
+	"./it.js": 68,
+	"./ja": 69,
+	"./ja.js": 69,
+	"./jv": 70,
+	"./jv.js": 70,
+	"./ka": 71,
+	"./ka.js": 71,
+	"./kk": 72,
+	"./kk.js": 72,
+	"./km": 73,
+	"./km.js": 73,
+	"./kn": 74,
+	"./kn.js": 74,
+	"./ko": 75,
+	"./ko.js": 75,
+	"./ky": 76,
+	"./ky.js": 76,
+	"./lb": 77,
+	"./lb.js": 77,
+	"./lo": 78,
+	"./lo.js": 78,
+	"./lt": 79,
+	"./lt.js": 79,
+	"./lv": 80,
+	"./lv.js": 80,
+	"./me": 81,
+	"./me.js": 81,
+	"./mi": 82,
+	"./mi.js": 82,
+	"./mk": 83,
+	"./mk.js": 83,
+	"./ml": 84,
+	"./ml.js": 84,
+	"./mr": 85,
+	"./mr.js": 85,
+	"./ms": 87,
+	"./ms-my": 86,
+	"./ms-my.js": 86,
+	"./ms.js": 87,
+	"./my": 88,
+	"./my.js": 88,
+	"./nb": 89,
+	"./nb.js": 89,
+	"./ne": 90,
+	"./ne.js": 90,
+	"./nl": 92,
+	"./nl-be": 91,
+	"./nl-be.js": 91,
+	"./nl.js": 92,
+	"./nn": 93,
+	"./nn.js": 93,
+	"./pa-in": 94,
+	"./pa-in.js": 94,
+	"./pl": 95,
+	"./pl.js": 95,
+	"./pt": 97,
+	"./pt-br": 96,
+	"./pt-br.js": 96,
+	"./pt.js": 97,
+	"./ro": 98,
+	"./ro.js": 98,
+	"./ru": 99,
+	"./ru.js": 99,
+	"./sd": 100,
+	"./sd.js": 100,
+	"./se": 101,
+	"./se.js": 101,
+	"./si": 102,
+	"./si.js": 102,
+	"./sk": 103,
+	"./sk.js": 103,
+	"./sl": 104,
+	"./sl.js": 104,
+	"./sq": 105,
+	"./sq.js": 105,
+	"./sr": 107,
+	"./sr-cyrl": 106,
+	"./sr-cyrl.js": 106,
+	"./sr.js": 107,
+	"./ss": 108,
+	"./ss.js": 108,
+	"./sv": 109,
+	"./sv.js": 109,
+	"./sw": 110,
+	"./sw.js": 110,
+	"./ta": 111,
+	"./ta.js": 111,
+	"./te": 112,
+	"./te.js": 112,
+	"./tet": 113,
+	"./tet.js": 113,
+	"./th": 114,
+	"./th.js": 114,
+	"./tl-ph": 115,
+	"./tl-ph.js": 115,
+	"./tlh": 116,
+	"./tlh.js": 116,
+	"./tr": 117,
+	"./tr.js": 117,
+	"./tzl": 118,
+	"./tzl.js": 118,
+	"./tzm": 120,
+	"./tzm-latn": 119,
+	"./tzm-latn.js": 119,
+	"./tzm.js": 120,
+	"./uk": 121,
+	"./uk.js": 121,
+	"./ur": 122,
+	"./ur.js": 122,
+	"./uz": 124,
+	"./uz-latn": 123,
+	"./uz-latn.js": 123,
+	"./uz.js": 124,
+	"./vi": 125,
+	"./vi.js": 125,
+	"./x-pseudo": 126,
+	"./x-pseudo.js": 126,
+	"./yo": 127,
+	"./yo.js": 127,
+	"./zh-cn": 128,
+	"./zh-cn.js": 128,
+	"./zh-hk": 129,
+	"./zh-hk.js": 129,
+	"./zh-tw": 130,
+	"./zh-tw.js": 130
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -58073,10 +58676,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 196;
+webpackContext.id = 197;
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -58612,10 +59215,10 @@ webpackContext.id = 196;
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module), __webpack_require__(4)))
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -58644,7 +59247,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -58655,605 +59258,12 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-var formatRegExp = /%[sdj%]/g;
-exports.format = function(f) {
-  if (!isString(f)) {
-    var objects = [];
-    for (var i = 0; i < arguments.length; i++) {
-      objects.push(inspect(arguments[i]));
-    }
-    return objects.join(' ');
-  }
-
-  var i = 1;
-  var args = arguments;
-  var len = args.length;
-  var str = String(f).replace(formatRegExp, function(x) {
-    if (x === '%%') return '%';
-    if (i >= len) return x;
-    switch (x) {
-      case '%s': return String(args[i++]);
-      case '%d': return Number(args[i++]);
-      case '%j':
-        try {
-          return JSON.stringify(args[i++]);
-        } catch (_) {
-          return '[Circular]';
-        }
-      default:
-        return x;
-    }
-  });
-  for (var x = args[i]; i < len; x = args[++i]) {
-    if (isNull(x) || !isObject(x)) {
-      str += ' ' + x;
-    } else {
-      str += ' ' + inspect(x);
-    }
-  }
-  return str;
-};
-
-
-// Mark that a method should not be used.
-// Returns a modified function which warns once by default.
-// If --no-deprecation is set, then it is a no-op.
-exports.deprecate = function(fn, msg) {
-  // Allow for deprecating things in the process of starting up.
-  if (isUndefined(global.process)) {
-    return function() {
-      return exports.deprecate(fn, msg).apply(this, arguments);
-    };
-  }
-
-  if (process.noDeprecation === true) {
-    return fn;
-  }
-
-  var warned = false;
-  function deprecated() {
-    if (!warned) {
-      if (process.throwDeprecation) {
-        throw new Error(msg);
-      } else if (process.traceDeprecation) {
-        console.trace(msg);
-      } else {
-        console.error(msg);
-      }
-      warned = true;
-    }
-    return fn.apply(this, arguments);
-  }
-
-  return deprecated;
-};
-
-
-var debugs = {};
-var debugEnviron;
-exports.debuglog = function(set) {
-  if (isUndefined(debugEnviron))
-    debugEnviron = __webpack_require__.i({"NODE_ENV":"development"}).NODE_DEBUG || '';
-  set = set.toUpperCase();
-  if (!debugs[set]) {
-    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
-      var pid = process.pid;
-      debugs[set] = function() {
-        var msg = exports.format.apply(exports, arguments);
-        console.error('%s %d: %s', set, pid, msg);
-      };
-    } else {
-      debugs[set] = function() {};
-    }
-  }
-  return debugs[set];
-};
-
-
-/**
- * Echos the value of a value. Trys to print the value out
- * in the best way possible given the different types.
- *
- * @param {Object} obj The object to print out.
- * @param {Object} opts Optional options object that alters the output.
- */
-/* legacy: obj, showHidden, depth, colors*/
-function inspect(obj, opts) {
-  // default options
-  var ctx = {
-    seen: [],
-    stylize: stylizeNoColor
-  };
-  // legacy...
-  if (arguments.length >= 3) ctx.depth = arguments[2];
-  if (arguments.length >= 4) ctx.colors = arguments[3];
-  if (isBoolean(opts)) {
-    // legacy...
-    ctx.showHidden = opts;
-  } else if (opts) {
-    // got an "options" object
-    exports._extend(ctx, opts);
-  }
-  // set default options
-  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-  if (isUndefined(ctx.depth)) ctx.depth = 2;
-  if (isUndefined(ctx.colors)) ctx.colors = false;
-  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-  if (ctx.colors) ctx.stylize = stylizeWithColor;
-  return formatValue(ctx, obj, ctx.depth);
-}
-exports.inspect = inspect;
-
-
-// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-inspect.colors = {
-  'bold' : [1, 22],
-  'italic' : [3, 23],
-  'underline' : [4, 24],
-  'inverse' : [7, 27],
-  'white' : [37, 39],
-  'grey' : [90, 39],
-  'black' : [30, 39],
-  'blue' : [34, 39],
-  'cyan' : [36, 39],
-  'green' : [32, 39],
-  'magenta' : [35, 39],
-  'red' : [31, 39],
-  'yellow' : [33, 39]
-};
-
-// Don't use 'blue' not visible on cmd.exe
-inspect.styles = {
-  'special': 'cyan',
-  'number': 'yellow',
-  'boolean': 'yellow',
-  'undefined': 'grey',
-  'null': 'bold',
-  'string': 'green',
-  'date': 'magenta',
-  // "name": intentionally not styling
-  'regexp': 'red'
-};
-
-
-function stylizeWithColor(str, styleType) {
-  var style = inspect.styles[styleType];
-
-  if (style) {
-    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
-           '\u001b[' + inspect.colors[style][1] + 'm';
-  } else {
-    return str;
-  }
-}
-
-
-function stylizeNoColor(str, styleType) {
-  return str;
-}
-
-
-function arrayToHash(array) {
-  var hash = {};
-
-  array.forEach(function(val, idx) {
-    hash[val] = true;
-  });
-
-  return hash;
-}
-
-
-function formatValue(ctx, value, recurseTimes) {
-  // Provide a hook for user-specified inspect functions.
-  // Check that value is an object with an inspect function on it
-  if (ctx.customInspect &&
-      value &&
-      isFunction(value.inspect) &&
-      // Filter out the util module, it's inspect function is special
-      value.inspect !== exports.inspect &&
-      // Also filter out any prototype objects using the circular check.
-      !(value.constructor && value.constructor.prototype === value)) {
-    var ret = value.inspect(recurseTimes, ctx);
-    if (!isString(ret)) {
-      ret = formatValue(ctx, ret, recurseTimes);
-    }
-    return ret;
-  }
-
-  // Primitive types cannot have properties
-  var primitive = formatPrimitive(ctx, value);
-  if (primitive) {
-    return primitive;
-  }
-
-  // Look up the keys of the object.
-  var keys = Object.keys(value);
-  var visibleKeys = arrayToHash(keys);
-
-  if (ctx.showHidden) {
-    keys = Object.getOwnPropertyNames(value);
-  }
-
-  // IE doesn't make error fields non-enumerable
-  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-  if (isError(value)
-      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-    return formatError(value);
-  }
-
-  // Some type of object without properties can be shortcutted.
-  if (keys.length === 0) {
-    if (isFunction(value)) {
-      var name = value.name ? ': ' + value.name : '';
-      return ctx.stylize('[Function' + name + ']', 'special');
-    }
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    }
-    if (isDate(value)) {
-      return ctx.stylize(Date.prototype.toString.call(value), 'date');
-    }
-    if (isError(value)) {
-      return formatError(value);
-    }
-  }
-
-  var base = '', array = false, braces = ['{', '}'];
-
-  // Make Array say that they are Array
-  if (isArray(value)) {
-    array = true;
-    braces = ['[', ']'];
-  }
-
-  // Make functions say that they are functions
-  if (isFunction(value)) {
-    var n = value.name ? ': ' + value.name : '';
-    base = ' [Function' + n + ']';
-  }
-
-  // Make RegExps say that they are RegExps
-  if (isRegExp(value)) {
-    base = ' ' + RegExp.prototype.toString.call(value);
-  }
-
-  // Make dates with properties first say the date
-  if (isDate(value)) {
-    base = ' ' + Date.prototype.toUTCString.call(value);
-  }
-
-  // Make error with message first say the error
-  if (isError(value)) {
-    base = ' ' + formatError(value);
-  }
-
-  if (keys.length === 0 && (!array || value.length == 0)) {
-    return braces[0] + base + braces[1];
-  }
-
-  if (recurseTimes < 0) {
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    } else {
-      return ctx.stylize('[Object]', 'special');
-    }
-  }
-
-  ctx.seen.push(value);
-
-  var output;
-  if (array) {
-    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-  } else {
-    output = keys.map(function(key) {
-      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-    });
-  }
-
-  ctx.seen.pop();
-
-  return reduceToSingleString(output, base, braces);
-}
-
-
-function formatPrimitive(ctx, value) {
-  if (isUndefined(value))
-    return ctx.stylize('undefined', 'undefined');
-  if (isString(value)) {
-    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
-                                             .replace(/'/g, "\\'")
-                                             .replace(/\\"/g, '"') + '\'';
-    return ctx.stylize(simple, 'string');
-  }
-  if (isNumber(value))
-    return ctx.stylize('' + value, 'number');
-  if (isBoolean(value))
-    return ctx.stylize('' + value, 'boolean');
-  // For some reason typeof null is "object", so special case here.
-  if (isNull(value))
-    return ctx.stylize('null', 'null');
-}
-
-
-function formatError(value) {
-  return '[' + Error.prototype.toString.call(value) + ']';
-}
-
-
-function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-  var output = [];
-  for (var i = 0, l = value.length; i < l; ++i) {
-    if (hasOwnProperty(value, String(i))) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          String(i), true));
-    } else {
-      output.push('');
-    }
-  }
-  keys.forEach(function(key) {
-    if (!key.match(/^\d+$/)) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          key, true));
-    }
-  });
-  return output;
-}
-
-
-function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-  var name, str, desc;
-  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-  if (desc.get) {
-    if (desc.set) {
-      str = ctx.stylize('[Getter/Setter]', 'special');
-    } else {
-      str = ctx.stylize('[Getter]', 'special');
-    }
-  } else {
-    if (desc.set) {
-      str = ctx.stylize('[Setter]', 'special');
-    }
-  }
-  if (!hasOwnProperty(visibleKeys, key)) {
-    name = '[' + key + ']';
-  }
-  if (!str) {
-    if (ctx.seen.indexOf(desc.value) < 0) {
-      if (isNull(recurseTimes)) {
-        str = formatValue(ctx, desc.value, null);
-      } else {
-        str = formatValue(ctx, desc.value, recurseTimes - 1);
-      }
-      if (str.indexOf('\n') > -1) {
-        if (array) {
-          str = str.split('\n').map(function(line) {
-            return '  ' + line;
-          }).join('\n').substr(2);
-        } else {
-          str = '\n' + str.split('\n').map(function(line) {
-            return '   ' + line;
-          }).join('\n');
-        }
-      }
-    } else {
-      str = ctx.stylize('[Circular]', 'special');
-    }
-  }
-  if (isUndefined(name)) {
-    if (array && key.match(/^\d+$/)) {
-      return str;
-    }
-    name = JSON.stringify('' + key);
-    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-      name = name.substr(1, name.length - 2);
-      name = ctx.stylize(name, 'name');
-    } else {
-      name = name.replace(/'/g, "\\'")
-                 .replace(/\\"/g, '"')
-                 .replace(/(^"|"$)/g, "'");
-      name = ctx.stylize(name, 'string');
-    }
-  }
-
-  return name + ': ' + str;
-}
-
-
-function reduceToSingleString(output, base, braces) {
-  var numLinesEst = 0;
-  var length = output.reduce(function(prev, cur) {
-    numLinesEst++;
-    if (cur.indexOf('\n') >= 0) numLinesEst++;
-    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-  }, 0);
-
-  if (length > 60) {
-    return braces[0] +
-           (base === '' ? '' : base + '\n ') +
-           ' ' +
-           output.join(',\n  ') +
-           ' ' +
-           braces[1];
-  }
-
-  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
-}
-
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-function isArray(ar) {
-  return Array.isArray(ar);
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return isObject(re) && objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return isObject(d) && objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return isObject(e) &&
-      (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = __webpack_require__(199);
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-
-function pad(n) {
-  return n < 10 ? '0' + n.toString(10) : n.toString(10);
-}
-
-
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-              'Oct', 'Nov', 'Dec'];
-
-// 26 Feb 16:19:34
-function timestamp() {
-  var d = new Date();
-  var time = [pad(d.getHours()),
-              pad(d.getMinutes()),
-              pad(d.getSeconds())].join(':');
-  return [d.getDate(), months[d.getMonth()], time].join(' ');
-}
-
-
-// log is just a thin wrapper to console.log that prepends a timestamp
-exports.log = function() {
-  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
-};
-
-
-/**
- * Inherit the prototype methods from one constructor into another.
- *
- * The Function.prototype.inherits from lang.js rewritten as a standalone
- * function (not on Function.prototype). NOTE: If this file is to be loaded
- * during bootstrapping this function needs to be rewritten using some native
- * functions as prototype setup using normal JavaScript does not work as
- * expected during bootstrapping (see mirror.js in r114903).
- *
- * @param {function} ctor Constructor function which needs to inherit the
- *     prototype.
- * @param {function} superCtor Constructor function to inherit prototype from.
- */
-exports.inherits = __webpack_require__(198);
-
-exports._extend = function(origin, add) {
-  // Don't do anything if add isn't an object
-  if (!add || !isObject(add)) return origin;
-
-  var keys = Object.keys(add);
-  var i = keys.length;
-  while (i--) {
-    origin[keys[i]] = add[keys[i]];
-  }
-  return origin;
-};
-
-function hasOwnProperty(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(133)))
-
-/***/ }),
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(154),
+  __webpack_require__(153),
   /* template */
   __webpack_require__(230),
   /* scopeId */
@@ -59287,7 +59297,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(155),
+  __webpack_require__(154),
   /* template */
   __webpack_require__(232),
   /* scopeId */
@@ -59321,7 +59331,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(156),
+  __webpack_require__(155),
   /* template */
   __webpack_require__(220),
   /* scopeId */
@@ -59355,7 +59365,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(157),
+  __webpack_require__(156),
   /* template */
   __webpack_require__(226),
   /* scopeId */
@@ -59389,7 +59399,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(158),
+  __webpack_require__(157),
   /* template */
   __webpack_require__(231),
   /* scopeId */
@@ -59423,7 +59433,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(159),
+  __webpack_require__(158),
   /* template */
   __webpack_require__(218),
   /* scopeId */
@@ -59457,7 +59467,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(160),
+  __webpack_require__(159),
   /* template */
   __webpack_require__(223),
   /* scopeId */
@@ -59491,7 +59501,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(161),
+  __webpack_require__(160),
   /* template */
   __webpack_require__(217),
   /* scopeId */
@@ -59525,7 +59535,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(162),
+  __webpack_require__(161),
   /* template */
   __webpack_require__(221),
   /* scopeId */
@@ -59559,7 +59569,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(163),
+  __webpack_require__(162),
   /* template */
   __webpack_require__(219),
   /* scopeId */
@@ -59593,7 +59603,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(164),
+  __webpack_require__(163),
   /* template */
   __webpack_require__(227),
   /* scopeId */
@@ -59627,7 +59637,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(165),
+  __webpack_require__(164),
   /* template */
   __webpack_require__(228),
   /* scopeId */
@@ -59661,7 +59671,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(166),
+  __webpack_require__(165),
   /* template */
   __webpack_require__(224),
   /* scopeId */
@@ -59695,7 +59705,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(167),
+  __webpack_require__(166),
   /* template */
   __webpack_require__(225),
   /* scopeId */
@@ -59729,7 +59739,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(168),
+  __webpack_require__(167),
   /* template */
   __webpack_require__(229),
   /* scopeId */
@@ -59763,7 +59773,7 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(169),
+  __webpack_require__(168),
   /* template */
   __webpack_require__(222),
   /* scopeId */
@@ -76905,8 +76915,8 @@ var index_esm = {
 /* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(134);
-module.exports = __webpack_require__(135);
+__webpack_require__(133);
+module.exports = __webpack_require__(134);
 
 
 /***/ })

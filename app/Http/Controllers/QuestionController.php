@@ -120,7 +120,6 @@ class QuestionController extends Controller
                       return view('questions.showexpiredowner', ['question' => $question,  'answer' => $answer]); 
                   }else {
                       
-                      
                       return view('questions.showexpired', ['question' => $question,  'answer' => $answer, 'back' => $back]);   
                   }
                    

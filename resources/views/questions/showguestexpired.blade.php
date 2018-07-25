@@ -1,97 +1,116 @@
-@extends('layouts.app-profile-no-top-bar')
+@extends('layouts.app-no-header-no-top-bar')
 @section('content')
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="nav-contain">
-                <nav class="container nav-container header-nav">
-                      <div style="width: 42px;">
-                          <a href="/"><i class="fal fa-home fa-lg text-muted"></i></a>
-                      </div>
-                    <h4><a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+
+
+
+
+  <header class="landing_header relative">
+    <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
+      <a href="/" class="question-details__close pointer fc">
+        {{Helper::read_svg("img/svg/times.svg")}}
+      </a>
+      <div class="question-details__profile fc">
+        <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
+                     
+                     <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=36 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
                     
-                    <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=32 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
-                
-                </a></h4>
-                    <ul class="nav navbar-nav m-r-0">
-                        <li>
-                            <div>
-                                <a href="/login" class="btn btn-sm btn-default">Log In</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </nav>
+                    </a>
+      </div>
+      <div class="question-details__more pointer">
+        <!-- changes names -->
+        <div class="ellipses fc">
+        {{Helper::read_svg("img/svg/ellipsis-v.svg")}}
 
-
-
-
-
-
-
-
-      <div style="width: auto;">
-            <div class="container">
-                <ul class="media-list media-list-conversation c-w-md">
-                    <div class="media-body">
-                        <div class="h5 m-b-5">
-                            <span class="tmw"><a href="#">{{Helper::slug($question->user->id ,$question->user->slug)}}</a></span>
-                             @if(isset($answer))
-                            <span class="fa fa-long-arrow-left text-muted"></span>
-                            <span class="tmw"><a href="#">{{Helper::slug($answer->user->id ,$answer->user->slug)}}</a></span>
-                            @endif
-                            <span class="text-muted time-align">{{($question->accepted_answer>0)?"Published":"Ended"}}: <localtimezone ts="{{$question->expiring_at}}"> </localtimezone> </span>
-                        </div>
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media-body-text media-question">
-                                    <table  class="bkword">
-<tr>
-<td> 
-                                    {{$question->question}}
-                                    </td>
-</tr>
-</table>
-</div>
-								@if(isset($answer))
-                                    <ul class="media-list media-seconday media-list-conversation c-w-md">
-                                        <li class="media media-current-user media-divider">
-                                            <div class="media-body">
-                                                <div class="media-body-text media-response media-response-margin" style="cursor: pointer;">
-                                                    {{$answer->answer}}
-</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                     @else
-                                            <ul class="media-list  media-secondary media-list-conversation c-w-md">
-                                <li class="media media-current-user media-divider">
-                                    <div class="media-body" style="text-align: center">
-                                        <div class="media-body-text media-response">
-                                            <div class="statcard p-a-md" style="display: inline-block">
-                                                <div class="loader-2">
-                                                    <div class="dot"></div>
-                                                    <div class="dot"></div>
-                                                    <div class="dot"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-
-                             @endif
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </ul>
-            </div>
         </div>
+        <div class="times fc">
+        {{Helper::read_svg("img/svg/times.svg")}}
+        </div>
+      </div>
+    </div>
+    <div class="details__dropdown__container mw6 m-auto">
+      <ul class="details__dropdown">
+        <li class="details__dropdown_item details__dropdown_item--share pointer pl15p mt15p mb15p">
+        {{Helper::read_svg("img/svg/share-alt.svg")}}
+            <span>Share</span>
+        </li>
+        <li class="details__dropdown_item pointer pl15p mb15p">
+        {{Helper::read_svg("img/svg/flag.svg")}}
+            <span id="report_question" data-qid="{{$question->id}}">Report</span>
+        </li>
+        <li class="details__dropdown_item pointer pl15p mb15p">
+        {{Helper::read_svg("img/svg/book.svg")}}
+            <span >Tutorial</span>
+        </li>
+      </ul>
+    </div>
+    <div class="details__overlay standard-overlay"></div>
+  </header>
+
+
+
+ <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
+    <div class="open-question__right">
+      <div class="open-question__meta">
+        <span >
+        @if(isset($answer))
+                               <a href="/r/{{Helper::shared_slug($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}" class="open-question__author">
+                                {{Helper::shared_formatted_string($question->user->id,$question->user->slug,$answer->user->id,$answer->user->slug)}}
+                               </a>
+                           
+                            @else 
+                            <a href="/{{Helper::slug($question->user->id ,$question->user->slug)}}" class="open-question__author">{{Helper::slug($question->user->id ,$question->user->slug)}}</a>
+
+                            @endif
+        </span>
+        <span class="open-question__time"> {{($question->accepted_answer>0)?"Published":"Ended"}}:  <localtimezone ts="{{$question->expiring_at}}"> </localtimezone></span>
+      </div>
+
+
+             <div class="q-bubble qa-item ">
+          <div>
+            <span> {{$question->question}}</span>
+          </div>
+          <div class="qa-item__seperator"></div>
+          <span>      @if(isset($answer))
+          <p>{{$answer->answer}}</p>
+                       
+          @endif</span>
+          </div>
+
+     
+    </div>
+
+
+
+  
+          
+    </div>
+    </div>
+
+
+
+
+
+
+
+       
+
+        
+
+         
+
+  </main>
+
+
+
+
+
+      
+
+
 
 
 
@@ -99,10 +118,7 @@
 
 @endsection
 
-<!-- Push a style dynamically from a view -->
-@push('after-core-styles')
-<link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
- @endpush
+
 
 <!-- Push a script dynamically from a view -->
 @push('scripts')
