@@ -105,7 +105,7 @@
    
    {{strstr(Request::url(), "responses")? Helper::read_svg("img/svg/check.svg"):'' }}
  </a>
-
+{{Auth::User()->role_id}}
    @if (Auth::check())
    <a href="/" class="myQuestion-premium-button" >
      <span>
