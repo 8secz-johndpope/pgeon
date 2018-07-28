@@ -4,9 +4,6 @@
 
 
 
-
-
-
  <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
 
 		<div class="container text-center m-t-5p">
@@ -34,10 +31,6 @@
 
 
 
-
-
-
-
  <main class="landing-main mw6 m-auto pl15 pr15">
       <div class="open-question__container" v-for="question in questions">
         <div class="open-question__left">
@@ -59,8 +52,7 @@
         </div>
       </div>
 
-   
-          
+       
   			                
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
@@ -80,7 +72,6 @@
 						</li></ul>
 
 
-
 <div class="FAB-button__container mw6 m-auto">
           <a href="/my-questions" class="FAB-button">
 			  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"></path></svg>
@@ -90,14 +81,7 @@
 
 
 
-
-
-
-
-
 </div>
-
-
 
 
 </template>
@@ -111,7 +95,7 @@ import Avatar from 'vue-avatar'
     data: function() {
       return {
         questions: [],
-        current_filter: 'follow',
+        current_filter: 'everyone',
 		paginate:12,
 		currently_fetched_records_count:0,
 		current_page:0,
@@ -124,7 +108,7 @@ import Avatar from 'vue-avatar'
 			$(".up50").removeClass("up50")
 			$(window).bind('scroll',this.handleScroll);
 
-	},
+  },
         components: {
 				Avatar
 		},
@@ -154,6 +138,9 @@ import Avatar from 'vue-avatar'
 		},
 		
 		get_paginated_results: function () {
+      console.log('====================================');
+      console.log(this.current_filter);
+      console.log('====================================');
 		//	console.log(this.currently_fetched_records_count)
 			//pagination counters will be reset when we click on filters
 			this.current_page ++;
@@ -237,6 +224,7 @@ import Avatar from 'vue-avatar'
     },
     created: function() {
 
+
       var com = this
       //got some new questions inserted
       if (socket)
@@ -252,7 +240,7 @@ import Avatar from 'vue-avatar'
 
         });
 
-      this.followed_questions()
+      this.featured_questions()
 
     
     },

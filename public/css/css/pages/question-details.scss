@@ -205,22 +205,8 @@
 
 .open-question__response {
   position: relative;
-  .response-votes{
-    color: #4a4a4a;
-    display: flex;
-    opacity: 0;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.5s, top 0.5s;
-  }
-  &:hover {
-    .response-votes{
-      opacity: 1;
-      top: -10%;
-    }
-  }
+  
+  
 }
 
 
@@ -365,4 +351,44 @@
     box-shadow: 2px 0 4px #00000024;
     margin-bottom: 10px;
   }
+}
+
+
+
+/*** EDITED by Prasanth ***/
+#vote svg {
+	/** taken from auto generated css of fa **/
+	fill:#b2b3b6;
+}
+
+svg .vote-up ,svg .vote-down, svg .vote-none{
+  fill:#33cccced;
+	shape-rendering: geometricprecision;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+	}
+.vote-up {
+	color:#33cccced;
+}
+.vote-down{
+  color: #cc3333ed;
+  }
+  .vote-none{
+  color:#C4C6CA;
+}
+
+
+svg .vote-up  {
+  fill: #33cccced;
+
+}
+svg .vote-down{
+  fill: #cc3333;
+  }
+
+svg .vote-none{
+  fill: #8E8E93;
+
 }

@@ -1,10 +1,68 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-back-title',['title' => 'My Account', $back= '/'])
 @section('content')
-<div class="container p-t-md">
-    <div class="row">
 
-     @component('user.menu',['current_menu' => 'profile'])
-		@endcomponent
+
+
+
+ <main class="my-account">
+    <ul class="ul-ls ">
+     
+        <li>
+          <a href="/change-name" class="mw6 m-auto pl15 pr15"          
+           >
+            <span>Change Name</span>
+
+            {{Helper::read_svg("img/svg/chevron-right.svg") }}
+          </a>
+          <span  class="m-auto mw6 db">
+            <div class="border-trimmed"></div>
+          </span>
+        </li>
+
+          <li>
+          <a href="/change-email" class="mw6 m-auto pl15 pr15"          
+           >
+            <span>Change Email</span>
+
+            {{Helper::read_svg("img/svg/chevron-right.svg") }}
+          </a>
+          <span  class="m-auto mw6 db">
+            <div class="border-trimmed"></div>
+          </span>
+        </li>
+        <li>
+          <a href="/change-password" class="mw6 m-auto pl15 pr15"          
+           >
+            <span>Change Password</span>
+
+            {{Helper::read_svg("img/svg/chevron-right.svg") }}
+          </a>
+          <span  class="m-auto mw6 db">
+            <div class="border-trimmed"></div>
+          </span>
+        </li>
+        <li>
+          <a href="/change-accounts" class="mw6 m-auto pl15 pr15 no-bb">
+            <span>Connected Accounts</span>
+
+            {{Helper::read_svg("img/svg/chevron-right.svg") }}
+          </a>
+          <span  class="m-auto mw6 db">
+            <div class="border-trimmed"></div>
+          </span>
+        </li>
+
+
+        <li class="ul-ls--last">
+          <a href="/" class="delete-account mw6 m-auto pl15 pr15">
+            <span class="redish1">Delete Account</span>
+          </a>
+          <span  class="m-auto mw6 db">
+            <div class="border-trimmed"></div>
+          </span>
+        </li>
+    </ul>
+  </main>
 
 
 

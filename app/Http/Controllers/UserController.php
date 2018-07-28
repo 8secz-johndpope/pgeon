@@ -79,6 +79,17 @@ class UserController extends Controller
 
     }
 
+
+    public function changename() {
+        $user = Auth::user();
+        return view('user.change-name')->with('user',$user);
+    }
+
+    public function changeemail() {
+        $user = Auth::user();
+        return view('user.change-email')->with('user',$user);
+    }
+
     public function security () {
       $user = Auth::user();
       $error = "";
@@ -232,7 +243,7 @@ class UserController extends Controller
            $success_view = Session::get('backUrl') ? Session::get('backUrl') : "/questions";
            
        }else {
-           $success_view = '/profile';
+           $success_view = '/my-account';
            $view = "user.profile";
        }
        

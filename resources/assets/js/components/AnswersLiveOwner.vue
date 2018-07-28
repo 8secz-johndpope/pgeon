@@ -79,7 +79,6 @@
       
          
           </span>
-          <span class="response-votes">0</span>
            </v-touch>
         </div>
 

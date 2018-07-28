@@ -12,7 +12,10 @@
  <input type="hidden" name="_token" :value="csrf">
 
             
-                                            <textarea @focus="validate(true)"  class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question"></textarea>
+                                            <textarea   class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question" @input="maxHighlight"></textarea>
+
+                                              <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
+
                                                                                     <div class="post-question-share">
                                             <div class="post-question-share__meta flex justify-between">
                                                 <div class="flex align-center">
@@ -116,7 +119,7 @@
                                         </div>
                                      
                                     </div>
-                                    <button>Post Question</button>
+                                    <button v-if=is_valid>Post Question</button>
     </div>
                               
              
@@ -125,10 +128,10 @@
            
  </form>
   </div>
-            <div v-if="!valid" class="error alert alert-warning animated shake" role="alert">
+            <!-- <div class="error alert alert-warning animated shake" role="alert">
                         
     Please include at-least one question mark.
-    </div>  
+    </div>   -->
  </main>
 
 </div>
@@ -148,7 +151,8 @@
       lt5_disabled:false,
       csrf: $('meta[name="csrf-token"]').attr('content'),
       hasQMark:false,
-      valid:true
+      is_valid:false,
+      placeholder_content: "",
     }
   },
    props: ['lq_created_at'],
@@ -187,11 +191,29 @@
     }
   },
   methods: {
+         maxHighlight() {
+        var currentValue = this.question
+         var realLength = 15;
+         var remainingLength = 15 - currentValue.length;
+          if (0 > remainingLength) {
+                // Split value if greater than 
+                var allowedValuePart = currentValue.slice(0, realLength),
+                    refusedValuePart = currentValue.slice(realLength)
+                ;
+                this.is_valid = false;
+                
+               
+                // Fill the hidden div.
+                this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
+              } else {
+                this.placeholder_content = ''
+                this.is_valid = (currentValue.length>0)
+                  
+              }
+      },
+      
    
-   
-     validate: function (flag) {
-      this.valid = flag
-    }
+    
    
   },
   mounted() {

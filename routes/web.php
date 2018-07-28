@@ -127,7 +127,11 @@ Route::get('/u_s', 'UserController@status');
     
     Route::get('step2', 'UserController@step2');
     
-    Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/my-account', 'UserController@profile')->name('profile');
+    Route::get('/change-name', 'UserController@changename');
+    Route::get('/change-email', 'UserController@changeemail');
+
+
     Route::post('profile', 'UserController@update');
     Route::post('updatecard', 'UserController@updatecard');
     Route::post('subscribe', 'UserController@subscribe');

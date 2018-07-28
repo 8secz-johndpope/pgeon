@@ -108,7 +108,7 @@ class Helper
 
     }
 
-    public static function back() {
+    public static function back($path=null) {
         $need_back = true;
         //request()->headers->get('referer');
         if (strstr(url()->full(), "signup")) {
@@ -117,7 +117,10 @@ class Helper
 
 
         if($need_back) {
-            $path = url()->previous();
+            if(!$path) {
+                $path = url()->previous();
+              
+            }
             $back_img = \Illuminate\Support\Facades\File::get(public_path('img/svg/long-arrow-left.svg'));
             //$path = URL::previous();
             //$path = \Illuminate\Routing\UrlGenerator::previous();

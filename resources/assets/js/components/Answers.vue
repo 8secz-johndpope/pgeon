@@ -52,7 +52,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"></path></svg>
 
           </span>
-          <span class="response-votes">0</span>
 
           
           
@@ -74,24 +73,21 @@
 
           <p>{{answer.answer}} </p>
          
-          <span class="nobel-svg" id="vote"   v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
 
 
-
-
-<svg class="c-up" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
-
-    
-<span class="v_count"  > &nbsp;</span>
-
-<svg xmlns="http://www.w3.org/2000/svg" v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  viewBox="0 0 320 512"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
-
+  <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
+              <svg width="12" height="12" class="c-up" >
+              <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
+              </svg>
+  <div class="v_count"  > &nbsp;</div>
+   <svg width="12" height="12" class="c-down" >
+              <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
+              </svg>
+              
+              </div>  
 
 
       
-         
-          </span>
-          <span class="response-votes">0</span>
            </v-touch>
         </div>
 
