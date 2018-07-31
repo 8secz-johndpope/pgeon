@@ -78,6 +78,13 @@ Route::get('/u_s', 'UserController@status');
 
   Route::get('pa/{base64_code}', 'EmailChangeController@processActivation');
 
+
+  //help 
+  Route::get('/help-about', 'HelpController@index');
+  Route::get('/terms-of-service', 'HelpController@terms');
+  Route::get('/privacy-policy', 'HelpController@privacy');
+
+  
   Route::group(array('middleware' => 'auth'), function()
   {
 
@@ -180,8 +187,7 @@ Route::get('/u_s', 'UserController@status');
   Route::post('unfollow', array( 'uses'=>'UserFollowingController@destroy' ) );
 
   Route::get('/signup', 'Auth\RegisterController@showsignup');
-  Route::get('/terms', 'StaticController@terms');
-  Route::get('/privacy', 'StaticController@privacy');
+
 
   Route::get('/signup', 'Auth\RegisterController@showsignup');
 

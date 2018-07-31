@@ -1,36 +1,48 @@
-@extends('layouts.app-no-logo')
+@extends('layouts.app-no-top-bar', ['back' => true])
 
 @section('content')
 
-   <div class="container-fluid container-fill-height">
-            <div class="container-content-middle">
-                <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('password.email') }}">
+
+        <div class="display-name-section mt50p">
+            <div class="pl-20 pr-20">
+                <div class="dn-top mb20p">
+                    <h2>Forgot Password?</h2>
+                </div>
+
+                <div class="dn-form for-pw">
+
+                    <form role="form" class="m-x-auto text-center app-login-form" method="POST" action="{{ route('password.email') }}">
                   {{ csrf_field() }}
-                    <a href="/" class="app-brand" style="width:55px">
-                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="brand">
-                    </a>
-                    <p style="text-align: left;margin-left: 5px">Forgot password</p>
-                    
-                     @if (session('status'))
+
+   
+   @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <input placeholder="Email" class="form-control" type="email" id="email" name="email"  value="{{ old('email') }}" required>
-                          @if ($errors->has('email'))
+
+                      <div class="pgn-textfield mb15p">
+                        <input class="pgn__input" type="email" id="email-address" name="email"  value="{{ old('email') }}">
+                        <label class="pgn__label" for="email-address">Email</label>
+                      </div>
+
+       @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
-                    </div>
-                    <div class="m-b" style="margin-top: 10px;float: right">
-                        <a href="/login" style="padding-right: 10px">Back</a>
-                        <input type="submit" class="btn btn-primary"  value="Send" >
-                    </div>
-                </form>
+
+                      <p class="ac" id="status-message"></p>
+
+                      <input class="pg-btn btn-submit pointer m0" type="submit" name="submit" value="Send Instruction">
+                    </form>
+                </div>
+
             </div>
         </div>
+
+
+  
         
         
 @endsection

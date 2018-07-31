@@ -50,7 +50,7 @@
           </form>
         </div>
         <div class="agreement">
-          <p class="m0">By creating an account and signing up to Pgeon, I accept the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></p>
+          <p class="m0">By creating an account and signing up to Pgeon, I accept the <a href="/terms-of-service">Terms of Service</a> and <a href="/privacy-policy">Privacy Policy</a></p>
         </div>
       </div>
     </div>
