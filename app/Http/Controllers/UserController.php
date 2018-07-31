@@ -236,6 +236,7 @@ class UserController extends Controller
 
 
     public function update(){
+
       $user = Auth::user();
 
        if (Request::input('step2') == 1) {
@@ -249,6 +250,7 @@ class UserController extends Controller
        
         // Handle the user upload of avatar
     	if(Input::hasFile('avatar')){ 
+          
         $image = Input::file('avatar');
         if($user->avatar)
             Storage::delete('/uploads/avatars/'.$user->avatar);
@@ -292,8 +294,11 @@ class UserController extends Controller
 
 
          if ($validator->fails()) {
-             flash('Invalid display name. Should not contain special chars and should not exceed 25 letters.');
-             return view($view)->with('user',$user)->with('skip_url', $success_view);
+            // flash('Invalid display name. Should not contain special chars and should not exceed 25 letters.');
+            abort(401, 'Invalid display name. Should not contain special chars and should not exceed 25 letters.');
+            // echo json_encode(array('error', ));
+            //exit;
+            // return view($view)->with('user',$user)->with('skip_url', $success_view);
          }
 
          $routes = [];
@@ -317,8 +322,9 @@ class UserController extends Controller
          $slug = strtolower(Request::input('slug'));
 
          if (in_array ($slug, $routes)) {
-             flash("'$slug' taken! Try another one.");
-             return view($view)->with('user',$user)->with('skip_url',  $success_view);;
+            abort(401,  "'$slug' taken! Try another one.");
+             //flash("'$slug' taken! Try another one.");
+             //return view($view)->with('user',$user)->with('skip_url',  $success_view);;
          }
 
 

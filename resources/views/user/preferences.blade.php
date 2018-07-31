@@ -1,45 +1,98 @@
-@extends('layouts.app-no-top-bar', ['back' => true])
+@extends('layouts.app-back-title',['title' => 'Preferences', $back= '/'])
+
 @section('content')
-<div class="container p-t-md">
-    <div class="row">
-    
-    
 
-        @component('user.menu',['current_menu' => 'preferences'])
-		@endcomponent
-                
-    
-    
-   
-    <div class="col-md-8 m-b-5" style="margin-top:10px">
-        <ul class="list-group media-list media-list-stream">
-         
 
-        <li class="list-group-item media p-a">
-                                <div class="control-label m-b">Receive emails for:</div>
-                                <div class="p-x-0 col-xs-2">
-                                    <input id="chk_nws" type="checkbox" hidden {{$subscribed_to_newsletter == 1 ? 'checked':''}} />
-                                    <label for="chk_nws" class="switch"></label>
-                                </div>
-                                <div style="width: 80%;">
-                                    <p class="small">Pgeon newsletter</p>
-                                </div>
-                        </li>
+<main class="preferences-main">
 
-                        
+<section class="preferences-section mb20p ">
+  <h2 class="preferences-section__header pl15 mw6">Notifications</h2>
 
-  
-        </ul>
-      </div>
-    
-    
-    
-    
+  <div class="preferences-section__item">
+    <div class="mw6 m-auto">
+
+      <span>When someone I follow posts a question</span>
+
+      <input type="checkbox" class="switch-toggle-input dn" id="when-follwed-post">
+      <label class="switch-toggle" for="when-follwed-post">
+        <span class="switch-toggle__inner"></span>
+      </label>
+
     </div>
-</div>
+    <span  class="m-auto mw6 db">
+      <div class="border-trimmed"></div>
+    </span>
+  </div>
+
+  <div class="preferences-section__item">
+    <div class="mw6 m-auto">
+      <span>When my submitted response is selected</span>
+
+      <input type="checkbox" class="switch-toggle-input dn" id="when-submitted-selected">
+      <label class="switch-toggle" for="when-submitted-selected">
+        <span class="switch-toggle__inner"></span>
+      </label>
+
+    </div>
+    <span  class="m-auto mw6 db">
+      <div class="border-trimmed"></div>
+    </span>
+  </div>
+
+  <div class="preferences-section__item">
+    <div class="mw6 m-auto">
+      <span>When my response receives points</span>
+
+
+      <input type="checkbox" class="switch-toggle-input dn" id="when-respoonse-recieve-points">
+      <label class="switch-toggle" for="when-respoonse-recieve-points">
+        <span class="switch-toggle__inner"></span>
+      </label>
+
+    </div>
+    <span  class="m-auto mw6 db">
+      <div class="border-trimmed"></div>
+    </span>
+  </div>
+</section>
+
+<section class="preferences-section mb20p ">
+  <h2 class="preferences-section__header pl15 mw6">Emails</h2>
+  <div class="preferences-section__item">
+    <div class="mw6 m-auto">
+      <span>For Pgeon News and Updates</span>
+
+      <input type="checkbox" class="switch-toggle-input dn" id="news-updates" {{$subscribed_to_newsletter == 1 ? 'checked':''}}>
+      <label class="switch-toggle" for="news-updates">
+        <span class="switch-toggle__inner"></span>
+      </label>
+
+    </div>
+    <span  class="m-auto mw6 db">
+      <div class="border-trimmed"></div>
+    </span>
+  </div>
+
+  <div class="preferences-section__item">
+    <div class="mw6 m-auto">
+      <span>For all monthly/annual billing receipts </span>
+
+
+      <input type="checkbox" class="switch-toggle-input dn" id="monthy-annual-billing">
+      <label class="switch-toggle" for="monthy-annual-billing">
+        <span class="switch-toggle__inner"></span>
+      </label>
+
+    </div>
+    <span  class="m-auto mw6 db">
+      <div class="border-trimmed"></div>
+    </span>
+  </div>
+</section>
+</main>
+
+
+
 
 
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/settings.js') }}"></script>
-@endpush

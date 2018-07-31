@@ -100,7 +100,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_responseDetails__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_responseDetails___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__modules_responseDetails__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_my_account__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_my_account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__modules_my_account__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_search__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__modules_search__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_notifications__ = __webpack_require__(187);
@@ -407,267 +406,196 @@ jQuery(function ($) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util__);
 
-(function ($) {
-
-    $.fn.html5Uploader = function (options) {
-
-        var crlf = '\r\n';
-        var boundary = "iloveigloo";
-        var dashes = "--";
-
-        var settings = {
-            "name": "uploadedFile",
-            "postUrl": "Upload.aspx",
-            "token": $('meta[name="csrf-token"]').attr('content'),
-            "onClientAbort": null,
-            "onClientError": null,
-            "onClientLoad": null,
-            "onClientLoadEnd": null,
-            "onClientLoadStart": null,
-            "onClientProgress": null,
-            "onServerAbort": null,
-            "onServerError": null,
-            "onServerLoad": null,
-            "onServerLoadStart": null,
-            "onServerProgress": null,
-            "onServerReadyStateChange": null,
-            "onSuccess": null
-        };
-
-        if (options) {
-            $.extend(settings, options);
-        }
-
-        return this.each(function (options) {
-            var $this = $(this);
-            if ($this.is("[type='file']")) {
-                $this.bind("change", function () {
-                    var files = this.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileHandler(files[i]);
-                    }
-                });
-            } else {
-                $this.bind("dragenter dragover", function () {
-                    $(this).addClass("hover");
-                    return false;
-                }).bind("dragleave", function () {
-                    $(this).removeClass("hover");
-                    return false;
-                }).bind("drop", function (e) {
-                    $(this).removeClass("hover");
-                    var files = e.originalEvent.dataTransfer.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileHandler(files[i]);
-                    }
-                    return false;
-                });
-            }
-        });
-
-        function fileHandler(file) {
-            var fileReader = new FileReader();
-            fileReader.onabort = function (e) {
-                if (settings.onClientAbort) {
-                    settings.onClientAbort(e, file);
-                }
-            };
-            fileReader.onerror = function (e) {
-                if (settings.onClientError) {
-                    settings.onClientError(e, file);
-                }
-            };
-            fileReader.onload = function (e) {
-                if (settings.onClientLoad) {
-                    settings.onClientLoad(e, file);
-                }
-            };
-            fileReader.onloadend = function (e) {
-                if (settings.onClientLoadEnd) {
-                    settings.onClientLoadEnd(e, file);
-                }
-            };
-            fileReader.onloadstart = function (e) {
-                if (settings.onClientLoadStart) {
-                    settings.onClientLoadStart(e, file);
-                }
-            };
-            fileReader.onprogress = function (e) {
-                if (settings.onClientProgress) {
-                    settings.onClientProgress(e, file);
-                }
-            };
-            fileReader.readAsDataURL(file);
-
-            var xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.upload.onabort = function (e) {
-                if (settings.onServerAbort) {
-                    settings.onServerAbort(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onerror = function (e) {
-                if (settings.onServerError) {
-                    settings.onServerError(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onload = function (e) {
-                if (settings.onServerLoad) {
-                    settings.onServerLoad(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onloadstart = function (e) {
-                if (settings.onServerLoadStart) {
-                    settings.onServerLoadStart(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onprogress = function (e) {
-                if (settings.onServerProgress) {
-                    settings.onServerProgress(e, file);
-                }
-            };
-            xmlHttpRequest.onreadystatechange = function (e) {
-                if (settings.onServerReadyStateChange) {
-                    settings.onServerReadyStateChange(e, file, xmlHttpRequest.readyState);
-                }
-                if (settings.onSuccess && xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                    settings.onSuccess(e, file, xmlHttpRequest.responseText);
-                }
-            };
-            xmlHttpRequest.open("POST", settings.postUrl, true);
-
-            if (file.getAsBinary) {
-                // Firefox
-
-                var data = dashes + boundary + crlf + "Content-Disposition: form-data;" + "name=\"" + settings.name + "\";" + "filename=\"" + unescape(encodeURIComponent(file.name)) + "\"" + crlf + "Content-Type: application/octet-stream" + crlf + crlf + file.getAsBinary() + crlf + dashes + boundary + dashes;
-
-                xmlHttpRequest.setRequestHeader("Content-Type", "multipart/form-data;boundary=" + boundary);
-                xmlHttpRequest.sendAsBinary(data);
-            } else if (window.FormData) {
-                // Chrome
-
-                var formData = new FormData();
-                formData.append(settings.name, file);
-                formData.append("_token", settings.token);
-                xmlHttpRequest.send(formData);
-            }
-        }
-    };
-})(jQuery);
 
 var openDeleteAccountModal = function openDeleteAccountModal(e) {
-    e.preventDefault();
-    $(".delete-account-modal").addClass("delete-account-modal--visible");
+	e.preventDefault();
+	$(".delete-account-modal").addClass("delete-account-modal--visible");
 };
 var closeDeleteAccountModal = function closeDeleteAccountModal(e) {
-    $(".delete-account-modal").removeClass("delete-account-modal--visible");
-    console.log("closeDeleteAccountModal");
+	$(".delete-account-modal").removeClass("delete-account-modal--visible");
+	console.log("closeDeleteAccountModal");
 };
 
 $(function () {
 
-    $("#save-account").click(function () {
-        $("#frm-account").submit();
-    });
+	$("#save-account").click(function () {
+		$("#frm-account").submit();
+	});
 
-    $("#save-email").click(function () {
+	$("#save-email").click(function () {
 
-        $alert = $("#frmChangeEmail .alert");
-        $alert.addClass('hidden').html('');
-        $nw_email = $("#nw_email").val();
-        $old_email = $("#old_email").val();
-        //$c_pwd = $("#c_pwd").val()
+		$alert = $("#frmChangeEmail .alert");
+		$alert.addClass('hidden').html('');
+		$nw_email = $("#nw_email").val();
+		$old_email = $("#old_email").val();
+		//$c_pwd = $("#c_pwd").val()
 
 
-        if ($nw_email != $old_email) {
-            $("#frmChangeEmail #submit strong").css('color', "#C9CCD4");
-            $("#frmChangeEmail #submit").prop('disabled', true);
+		if ($nw_email != $old_email) {
+			$("#frmChangeEmail #submit strong").css('color', "#C9CCD4");
+			$("#frmChangeEmail #submit").prop('disabled', true);
 
-            var jqxhr = $.post("/changeemail", { email: $nw_email, _token: $('meta[name="csrf-token"]').attr('content') }).done(function (response) {
-                //alert( "second success" );
-                $alert.removeClass('hidden').addClass('alert-success').html(response.message);
-                //  setTimeout(function(){ $('#changeE').modal('hide'); }, 2000);
-            }).fail(function (response) {
-                console.log(response.responseJSON.error);
-                $("#frmChangeEmail #submit strong").css('color', "#3fc3ad");
-                $("#frmChangeEmail #submit").removeProp('disabled');
-                $alert.removeClass('hidden').addClass('alert-danger').html(response.responseJSON.error);
-            });
-        } else {
-            $alert.removeClass('hidden').addClass('alert-danger').html("Emails don't match");
-        }
-    });
+			var jqxhr = $.post("/changeemail", { email: $nw_email, _token: $('meta[name="csrf-token"]').attr('content') }).done(function (response) {
+				//alert( "second success" );
+				$alert.removeClass('hidden').addClass('alert-success').html(response.message);
+				//  setTimeout(function(){ $('#changeE').modal('hide'); }, 2000);
+			}).fail(function (response) {
+				console.log(response.responseJSON.error);
+				$("#frmChangeEmail #submit strong").css('color', "#3fc3ad");
+				$("#frmChangeEmail #submit").removeProp('disabled');
+				$alert.removeClass('hidden').addClass('alert-danger').html(response.responseJSON.error);
+			});
+		} else {
+			$alert.removeClass('hidden').addClass('alert-danger').html("Emails don't match");
+		}
+	});
 
-    $(".delete-account").on("click", openDeleteAccountModal);
-    $(".delete-account-modal-overlay").on("click", closeDeleteAccountModal);
-    $(".keep-account").on("click", closeDeleteAccountModal);
+	$(".delete-account").on("click", openDeleteAccountModal);
+	$(".delete-account-modal-overlay").on("click", closeDeleteAccountModal);
+	$(".keep-account").on("click", closeDeleteAccountModal);
 
-    $("#delete-acc").click(function () {
+	$("#delete-acc").click(function () {
 
-        $(".password-error").addClass('hide');
-        if ($("#acc-passwd").val().length > 1) {
-            $.ajax({
-                url: "/user",
-                type: 'DELETE',
-                data: { id: $(this).data("id"), password: $("#acc-passwd").val(), _token: $('meta[name="csrf-token"]').attr('content') },
-                success: function success(data) {
-                    //play with data
-                    if (data.status == 0) {
-                        $(".password-error").removeClass('dn');
-                    } else if (data.status == 1) {
-                        $(".password-error").html('Account deleted. Redirecting..').removeClass('dn');
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                }, error: function error() {
-                    alert('something wrong!');
-                }
-            });
-        }
-    });
+		$(".password-error").addClass('hide');
+		if ($("#acc-passwd").val().length > 1) {
+			$.ajax({
+				url: "/user",
+				type: 'DELETE',
+				data: { id: $(this).data("id"), password: $("#acc-passwd").val(), _token: $('meta[name="csrf-token"]').attr('content') },
+				success: function success(data) {
+					//play with data
+					if (data.status == 0) {
+						$(".password-error").removeClass('dn');
+					} else if (data.status == 1) {
+						$(".password-error").html('Account deleted. Redirecting..').removeClass('dn');
+						setTimeout(function () {
+							window.location.reload();
+						}, 2000);
+					}
+				}, error: function error() {
+					alert('something wrong!');
+				}
+			});
+		}
+	});
 
-    $("#delete-sso").click(function () {
+	$("#delete-sso").click(function () {
 
-        $.ajax({
-            url: "/usersso",
-            type: 'DELETE',
-            data: { id: $(this).data("id"), _token: $('meta[name="csrf-token"]').attr('content') },
-            success: function success(data) {
-                if (data.status == 1) {
-                    $(".password-error").html('Account deleted. Redirecting..').removeClass('hide');
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 2000);
-                }
-            }, error: function error() {
-                alert('something wrong!');
-            }
-        });
-    });
+		$.ajax({
+			url: "/usersso",
+			type: 'DELETE',
+			data: { id: $(this).data("id"), _token: $('meta[name="csrf-token"]').attr('content') },
+			success: function success(data) {
+				if (data.status == 1) {
+					$(".password-error").html('Account deleted. Redirecting..').removeClass('hide');
+					setTimeout(function () {
+						window.location.reload();
+					}, 2000);
+				}
+			}, error: function error() {
+				alert('something wrong!');
+			}
+		});
+	});
 
-    var src = "";
+	var src = "";
 
-    $("#file-avatar").html5Uploader({
-        name: "avatar",
-        postUrl: "/profile",
-        onClientLoad: function onClientLoad(e) {
-            $(".alert-success").remove() && $(".pr-loading").removeClass("hidden") && $(".pr-image").addClass("hidden");
-            src = e.target.result;
-            $(".prof-avatar .vue-avatar--wrapper span").remove();
-            $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent');
-        }, onSuccess: function onSuccess() {
-            $(".pr-loading").addClass("hidden");
-            // && $(".pr-image").removeClass("hidden");
-            $(".vue-avatar--wrapper span").remove();
-            $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent');
-            //	alert(src)
-            $('#item-img-output').attr('src', src);
-            $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>');
-        }
-    });
+	//   $("#file-avatar").change(function () {
+
+
+	// 	var file = $(this).prop('files')[0]
+	// 	var fileReader = new FileReader();
+
+
+	// 	 fileReader.onload = function (e) {
+	// 		 alert
+	// 	 	console.log('====================================');
+	// 		 console.log(file);
+	// 		 console.log('====================================');
+
+	// 	 };
+
+	//   }) 
+
+
+	$('#file-avatar').change(function () {
+
+		var file = $(this).prop('files')[0]; // The file
+		var fr = new FileReader(); // FileReader instance
+		fr.onload = function (e) {
+			// Do stuff on onload, use fr.result for contents of file
+			//$( '#file-content' ).append( $( '<div/>' ).html( fr.result ) )
+			//alert('dd')
+
+			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden");
+			src = e.target.result;
+			$(".prof-avatar .vue-avatar--wrapper span").remove();
+			$(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 80px 80px no-repeat scroll content-box border-box transparent');
+		};
+		//fr.readAsText( file );
+		fr.readAsDataURL(file);
+
+		//   fileReader.readAsDataURL(file);
+
+		var xmlHttpRequest = new XMLHttpRequest();
+		xmlHttpRequest.open("POST", "/profile", true);
+
+		xmlHttpRequest.onreadystatechange = function (e) {};
+
+		if (file.getAsBinary) {
+			// Firefox
+
+			var fname = 'avatar';
+			var data = dashes + boundary + crlf + "Content-Disposition: form-data;" + "name=\"" + fname + "\";" + "filename=\"" + unescape(encodeURIComponent(file.name)) + "\"" + crlf + "Content-Type: application/octet-stream" + crlf + crlf + file.getAsBinary() + crlf + dashes + boundary + dashes;
+
+			xmlHttpRequest.setRequestHeader("Content-Type", "multipart/form-data;boundary=" + boundary);
+			xmlHttpRequest.sendAsBinary(data);
+		} else if (window.FormData) {
+			// Chrome
+			var formData = new FormData();
+
+			formData.append(fname, file);
+			formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+			xmlHttpRequest.send(formData);
+		}
+	});
+
+	$(".switch-toggle-input").click(function () {
+
+		var subscribed = 0;
+		subscribed = $("#news-updates").prop("checked") ? 1 : 0;
+		$.post("/profile", { subscribed_to_newsletter: subscribed, _token: $('meta[name="csrf-token"]').attr('content') }, function (data) {
+			//alert('ss')
+			//button.remove()
+		});
+	});
+
+	//   $("#file-avatar").html5Uploader({
+	// 	  name: "avatar",
+	// 	  postUrl: "/profile",
+	// 	  onClientLoad: function(e) {
+	// 		  $(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
+	// 		  src =  e.target.result
+	// 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
+	// 		  $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+
+	// 	  },onSuccess: function() {
+	// 		  $(".pr-loading").addClass("hidden") ;
+	// 		  // && $(".pr-image").removeClass("hidden");
+	// 		  $(".vue-avatar--wrapper span").remove()
+	// 		  $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+	// 	  //	alert(src)
+	// 		  $('#item-img-output').attr('src',src);
+	// 		  $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+	// 	  }	
+	//   });
+
 });
 
 /***/ }),
@@ -32792,16 +32720,19 @@ var cardContainer = $(".payment-card-container");
 var redeemCodeContainer = $(".redeem-code-container");
 var paymentContainer = $(".payment-container");
 
-$("[name=payment-method]").on("change", function (e) {
-  var $target = $(e.target);
-  $target.prop("checked") ? $target.parents(".payment-method-body").next().show() : $target.parents(".payment-method-body").next().hide();
-  // paymentContainer.css("display", "none")
-  // let id = e.target.id
-  // if (id == "payment-method-card") {
-  //   cardContainer.css("display", "block")
-  // } else if (id == "payment-method-gift") {
-  //   redeemCodeContainer.css("display", "block")
-  // }
+$(function () {
+
+  $("[name=payment-method]").on("change", function (e) {
+    var $target = $(e.target);
+    $target.prop("checked") ? $target.parents(".payment-method-body").next().show() : $target.parents(".payment-method-body").next().hide();
+    // paymentContainer.css("display", "none")
+    // let id = e.target.id
+    // if (id == "payment-method-card") {
+    //   cardContainer.css("display", "block")
+    // } else if (id == "payment-method-gift") {
+    //   redeemCodeContainer.css("display", "block")
+    // }
+  });
 });
 
 //  handle add your card button click
@@ -33052,13 +32983,18 @@ $(".user-slug-input").on("focus", function (e) {
 });
 
 var doneEditingSlug = function doneEditingSlug() {
-  $(".edit-icon").removeClass("edit-icon--active");
-  $(".user-slug-input").attr("disabled", true);
-};
 
-$(".edit-icon > .edit-icon-pencil").on("click", editSlug);
-$(".user-slug-input").on("blur", doneEditingSlug);
-$(".edit-icon > .edit-icon-times").on("click", doneEditingSlug);
+  //alert('done edit')
+  $.post("/profile", { _token: $('meta[name="csrf-token"]').attr('content'), slug: $(".user-slug-input").val() }, function () {
+    //$parent.removeAttr("id")
+
+  }).done(function () {
+    $(".edit-icon").removeClass("edit-icon--active");
+    $(".user-slug-input").attr("disabled", true);
+  }).fail(function (response) {
+    $("p.response").html(response.responseJSON.message);
+  });
+};
 
 // select image modal
 var openSelectImageModal = function openSelectImageModal() {
@@ -33073,6 +33009,10 @@ $(".select-image__overlay").on("click", closeSelectImageModal);
 $(".select-image__header svg").on("click", closeSelectImageModal);
 
 $(function () {
+
+  $(".edit-icon > .edit-icon-pencil").on("click", editSlug);
+  $(".user-slug-input").on("blur", doneEditingSlug);
+  $(".edit-icon > .edit-icon-times").on("click", doneEditingSlug);
 
   $(".slide-menu__trigger").on("click", function () {
     // const scrollBar = $("body")

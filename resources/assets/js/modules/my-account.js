@@ -1,162 +1,6 @@
+import { log } from "util";
 
-(function ($) {
 
-    $.fn.html5Uploader = function (options) {
-
-        var crlf = '\r\n';
-        var boundary = "iloveigloo";
-        var dashes = "--";
-
-        var settings = {
-            "name": "uploadedFile",
-            "postUrl": "Upload.aspx",
-            "token": $('meta[name="csrf-token"]').attr('content'),
-            "onClientAbort": null,
-            "onClientError": null,
-            "onClientLoad": null,
-            "onClientLoadEnd": null,
-            "onClientLoadStart": null,
-            "onClientProgress": null,
-            "onServerAbort": null,
-            "onServerError": null,
-            "onServerLoad": null,
-            "onServerLoadStart": null,
-            "onServerProgress": null,
-            "onServerReadyStateChange": null,
-            "onSuccess": null
-        };
-
-        if (options) {
-            $.extend(settings, options);
-        }
-
-        return this.each(function (options) {
-            var $this = $(this);
-            if ($this.is("[type='file']")) {
-                $this
-                .bind("change", function () {
-                    var files = this.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileHandler(files[i]);
-                    }
-                });
-            } else {
-                $this
-                .bind("dragenter dragover", function () {
-                    $(this).addClass("hover");
-                    return false;
-                })
-                .bind("dragleave", function () {
-                    $(this).removeClass("hover");
-                    return false;
-                })
-                .bind("drop", function (e) {
-                    $(this).removeClass("hover");
-                    var files = e.originalEvent.dataTransfer.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileHandler(files[i]);
-                    }
-                    return false;
-                });
-            }
-        });
-
-        function fileHandler(file) {
-            var fileReader = new FileReader();
-            fileReader.onabort = function (e) {
-                if (settings.onClientAbort) {
-                    settings.onClientAbort(e, file);
-                }
-            };
-            fileReader.onerror = function (e) {
-                if (settings.onClientError) {
-                    settings.onClientError(e, file);
-                }
-            };
-            fileReader.onload = function (e) {
-                if (settings.onClientLoad) {
-                    settings.onClientLoad(e, file);
-                }
-            };
-            fileReader.onloadend = function (e) {
-                if (settings.onClientLoadEnd) {
-                    settings.onClientLoadEnd(e, file);
-                }
-            };
-            fileReader.onloadstart = function (e) {
-                if (settings.onClientLoadStart) {
-                    settings.onClientLoadStart(e, file);
-                }
-            };
-            fileReader.onprogress = function (e) {
-                if (settings.onClientProgress) {
-                    settings.onClientProgress(e, file);
-                }
-            };
-            fileReader.readAsDataURL(file);
-
-            var xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.upload.onabort = function (e) {
-                if (settings.onServerAbort) {
-                    settings.onServerAbort(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onerror = function (e) {
-                if (settings.onServerError) {
-                    settings.onServerError(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onload = function (e) {
-                if (settings.onServerLoad) {
-                    settings.onServerLoad(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onloadstart = function (e) {
-                if (settings.onServerLoadStart) {
-                    settings.onServerLoadStart(e, file);
-                }
-            };
-            xmlHttpRequest.upload.onprogress = function (e) {
-                if (settings.onServerProgress) {
-                    settings.onServerProgress(e, file);
-                }
-            };
-            xmlHttpRequest.onreadystatechange = function (e) {
-                if (settings.onServerReadyStateChange) {
-                    settings.onServerReadyStateChange(e, file, xmlHttpRequest.readyState);
-                }
-                if (settings.onSuccess && xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                    settings.onSuccess(e, file, xmlHttpRequest.responseText);
-                }
-            };
-            xmlHttpRequest.open("POST", settings.postUrl, true);
-
-            if (file.getAsBinary) { // Firefox
-
-                var data = dashes + boundary + crlf +
-                    "Content-Disposition: form-data;" +
-                    "name=\"" + settings.name + "\";" +
-                    "filename=\"" + unescape(encodeURIComponent(file.name)) + "\"" + crlf +
-                    "Content-Type: application/octet-stream" + crlf + crlf +
-                    file.getAsBinary() + crlf +
-                    dashes + boundary + dashes;
-
-                xmlHttpRequest.setRequestHeader("Content-Type", "multipart/form-data;boundary=" + boundary);
-                xmlHttpRequest.sendAsBinary(data);
-
-            } else if (window.FormData) { // Chrome
-
-                var formData = new FormData();
-                formData.append(settings.name, file);
-                formData.append("_token", settings.token);
-                xmlHttpRequest.send(formData);
-
-            }
-        }
-
-    };
-
-})(jQuery);
 
 
 const openDeleteAccountModal = e => {
@@ -272,25 +116,114 @@ $(function () {
 
   var src=""
 
-  $("#file-avatar").html5Uploader({
-	  name: "avatar",
-	  postUrl: "/profile",
-	  onClientLoad: function(e) {
-		  $(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
-		  src =  e.target.result
-		  $(".prof-avatar .vue-avatar--wrapper span").remove()
-		  $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
 
-	  },onSuccess: function() {
-		  $(".pr-loading").addClass("hidden") ;
-		  // && $(".pr-image").removeClass("hidden");
-		  $(".vue-avatar--wrapper span").remove()
-		  $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
-	  //	alert(src)
-		  $('#item-img-output').attr('src',src);
-		  $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-	  }	
-  });
+
+//   $("#file-avatar").change(function () {
+
+
+// 	var file = $(this).prop('files')[0]
+// 	var fileReader = new FileReader();
+ 
+	
+// 	 fileReader.onload = function (e) {
+// 		 alert
+// 	 	console.log('====================================');
+// 		 console.log(file);
+// 		 console.log('====================================');
+
+// 	 };
+   
+//   }) 
+
+
+
+  $( '#file-avatar' ).change( function () {
+	
+	
+		var file = $(this).prop('files')[0]; // The file
+		var fr = new FileReader(); // FileReader instance
+		fr.onload = function (e) {
+			// Do stuff on onload, use fr.result for contents of file
+			//$( '#file-content' ).append( $( '<div/>' ).html( fr.result ) )
+			//alert('dd')
+
+			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden");
+					   src =  e.target.result
+			 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
+					   $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 80px 80px no-repeat scroll content-box border-box transparent')
+					   
+
+		};
+		//fr.readAsText( file );
+		fr.readAsDataURL( file );
+
+		//   fileReader.readAsDataURL(file);
+
+   var xmlHttpRequest = new XMLHttpRequest();
+   xmlHttpRequest.open("POST", "/profile", true);
+
+   xmlHttpRequest.onreadystatechange = function (e) {
+};
+
+   if (file.getAsBinary) { // Firefox
+
+	var fname = 'avatar'
+		  var data = dashes + boundary + crlf +
+			  "Content-Disposition: form-data;" +
+			  "name=\"" + fname + "\";" +
+			  "filename=\"" + unescape(encodeURIComponent(file.name)) + "\"" + crlf +
+			  "Content-Type: application/octet-stream" + crlf + crlf +
+			  file.getAsBinary() + crlf +
+			  dashes + boundary + dashes;
+	
+		  xmlHttpRequest.setRequestHeader("Content-Type", "multipart/form-data;boundary=" + boundary);
+		  xmlHttpRequest.sendAsBinary(data);
+	
+	  } else if (window.FormData) { // Chrome
+		  var formData = new FormData();
+
+		  formData.append(fname, file);
+		  formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+		  xmlHttpRequest.send(formData);
+		  	
+	  }
+} );
+
+ 
+ 
+  
+$(".switch-toggle-input").click(function () {
+	
+	var subscribed = 0;
+	subscribed = ($("#news-updates").prop("checked"))?1:0; 
+	$.post( "/profile", {subscribed_to_newsletter: subscribed, _token : $('meta[name="csrf-token"]').attr('content')}, function( data ) {
+		//alert('ss')
+		//button.remove()
+	});
+	
+})
+
+
+
+//   $("#file-avatar").html5Uploader({
+// 	  name: "avatar",
+// 	  postUrl: "/profile",
+// 	  onClientLoad: function(e) {
+// 		  $(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
+// 		  src =  e.target.result
+// 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
+// 		  $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+
+// 	  },onSuccess: function() {
+// 		  $(".pr-loading").addClass("hidden") ;
+// 		  // && $(".pr-image").removeClass("hidden");
+// 		  $(".vue-avatar--wrapper span").remove()
+// 		  $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
+// 	  //	alert(src)
+// 		  $('#item-img-output').attr('src',src);
+// 		  $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
+// 	  }	
+//   });
 
 
 })

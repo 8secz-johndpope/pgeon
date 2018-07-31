@@ -9,13 +9,26 @@ $(".user-slug-input").on("focus", e => {
 })
 
 const doneEditingSlug = () => {
-  $(".edit-icon").removeClass("edit-icon--active")
-  $(".user-slug-input").attr("disabled", true)
+
+
+  //alert('done edit')
+  $.post("/profile", { _token : $('meta[name="csrf-token"]').attr('content'), slug: $(".user-slug-input").val()}, function () {
+      //$parent.removeAttr("id")
+     
+  })
+    .done(function() {
+      $(".edit-icon").removeClass("edit-icon--active")
+      $(".user-slug-input").attr("disabled", true)
+    })
+    .fail(function(response) {
+       $("p.response").html(response.responseJSON.message)
+    })
+    
+
+
 }
 
-$(".edit-icon > .edit-icon-pencil").on("click", editSlug )
-$(".user-slug-input").on("blur", doneEditingSlug )
-$(".edit-icon > .edit-icon-times").on("click", doneEditingSlug)
+
 
 
 
@@ -35,6 +48,10 @@ $(".select-image__header svg").on("click", closeSelectImageModal)
 
 
 $(function () {
+
+  $(".edit-icon > .edit-icon-pencil").on("click", editSlug )
+$(".user-slug-input").on("blur", doneEditingSlug )
+$(".edit-icon > .edit-icon-times").on("click", doneEditingSlug)
 
   $(".slide-menu__trigger").on("click", () => {
     // const scrollBar = $("body")

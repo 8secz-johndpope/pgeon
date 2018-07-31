@@ -2,25 +2,30 @@ const cardContainer = $(".payment-card-container")
 const redeemCodeContainer = $(".redeem-code-container")
 const paymentContainer = $(".payment-container")
 
-$("[name=payment-method]").on("change", (e) => {
-  let $target = $(e.target)
-  $target.prop("checked")
-    ? $target
-        .parents(".payment-method-body")
-        .next()
-        .show()
-    : $target
-        .parents(".payment-method-body")
-        .next()
-        .hide()
-  // paymentContainer.css("display", "none")
-  // let id = e.target.id
-  // if (id == "payment-method-card") {
-  //   cardContainer.css("display", "block")
-  // } else if (id == "payment-method-gift") {
-  //   redeemCodeContainer.css("display", "block")
-  // }
+$(function () {
+
+  $("[name=payment-method]").on("change", (e) => {
+    let $target = $(e.target)
+    $target.prop("checked")
+      ? $target
+          .parents(".payment-method-body")
+          .next()
+          .show()
+      : $target
+          .parents(".payment-method-body")
+          .next()
+          .hide()
+    // paymentContainer.css("display", "none")
+    // let id = e.target.id
+    // if (id == "payment-method-card") {
+    //   cardContainer.css("display", "block")
+    // } else if (id == "payment-method-gift") {
+    //   redeemCodeContainer.css("display", "block")
+    // }
+  })
+  
 })
+
 
 //  handle add your card button click
 $(".payment-card-btn").on("click", function(e) {

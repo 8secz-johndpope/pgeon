@@ -18,6 +18,7 @@
             <div class="profile-preview__avatar">
             <a href="{{Auth::user()->slug}}">
                 <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="80" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
+
             </a>
             <div class="profile_upload">
 
@@ -31,12 +32,13 @@
             </div>
             <h1>{{Auth::user()->name}}</h1>
             <div class="profile-url">
-            <a href="{{Auth::user()->slug}}">
+           
                 <p class="m0 flex">
                 <span class="flex1">www.pgeon.com/</span>
                 <input class="user-slug-input" value="{{Auth::user()->slug}}" disabled>
                 </p>
-            </a>
+               
+         
             <span class="edit-icon">
                 <div class="edit-icon-pencil">
                 {{Helper::read_svg("img/svg/pencil.svg")}}  
@@ -46,7 +48,9 @@
                 {{Helper::read_svg("img/svg/times.svg")}}  
                 </div>
             </span>
+            
             </div>
+            <p class="response"></p>
         </div>
         </div>
     <div class="pt24p">
@@ -65,7 +69,7 @@
 
 
         <li>
-            <a href="my-account" class="mw6 m-auto pl15 pr15">
+            <a href="/preferences" class="mw6 m-auto pl15 pr15">
                 <span>Preferences</span>
                 {{Helper::read_svg("img/svg/chevron-right.svg")}}  
                 
@@ -76,7 +80,7 @@
             </li>
 
     <li>
-            <a href="my-account" class="mw6 m-auto pl15 pr15">
+            <a href="/membership" class="mw6 m-auto pl15 pr15">
                 <span>Membership</span>
                 {{Helper::read_svg("img/svg/chevron-right.svg")}}  
                 

@@ -210,4 +210,8 @@
 
 @endpush
 
+<!-- Push a script dynamically from a view -->
+@push('scripts')    
+  <script src="{{ asset('js/jquery.html5uploader.min.js') }}"></script>
 
+@endpush
