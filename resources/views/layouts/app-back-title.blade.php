@@ -35,7 +35,7 @@
    </script>
 @endif
 <div  id="app">
-<div class="people-header">
+<div class="">
 
    <header class="landing_header relative">
 <div class="mw6 m-auto notification-header top__header pr15 pl15 flex justify-between items-center">
@@ -45,7 +45,7 @@
 
   <h4 class="title header-title m0"> {{$title}} </h4>  
   @if (@$save)
-    <span class="pointer slide-menu-save ">Save</span>
+    <span id="{{$save_id}}" class="pointer slide-menu-save ">Save</span>
   @else
     <span></span>
   @endif
@@ -62,6 +62,8 @@
  
  @yield('content')
 
+ @include('layouts/partials/profile-menu') 
+
 
   </div>
 
@@ -69,7 +71,6 @@
    
 
 
-    @include('layouts/partials/profile-menu') 
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>

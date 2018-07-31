@@ -1,73 +1,37 @@
-@extends('layouts.app-no-logo')
+@extends('layouts.app-no-top-bar', ['back' => false])
 @section('content')
 
 
-       <div class="container-fluid container-fill-height">
-            <div class="container-content-middle">
-                 <form enctype="multipart/form-data" action="/profile" method="POST" class="m-x-auto text-center app-login-form">
+     <div class="display-name-section mt50p">
+     <form enctype="multipart/form-data" action="/profile" method="POST" class="m-x-auto text-center app-login-form">
                    {{ csrf_field() }}
-                    <a href="/" class="app-brand m-b-md" style="width:55px">
-                        <img src="{{URL::asset('img/pgeon-logo-mobile.svg')}}" alt="brand">
-                    </a>
-                    <div class="continue_with">
-                        <ul>
-                            <li>
-                                <h3>🎈 &nbsp;Success!&nbsp; 🎉</h3>
-                            </li>
-                        </ul>
-                    </div>
-                    <hr>
-                    <p style="text-align: left;margin-left: 5px">Now choose your display name</p>
-                    <input class="form-control" placeholder="Display name" name="name" value="{{ old('name') }}">
-                    <br />
-                      @include('flash::message')
-                    
-                    <div class="m-b" style="margin-top: 10px;float: right">
-                        <a href="{{$skip_url}}" class="text-muted" style="padding-right: 10px">Skip this step</a>
-                        <input type="hidden" name="step2" value="1" />
-                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+            <div class="pl-20 pr-20 tc">
+                <div class="dn-top mb30p">
+                    <h1 class="m0 mb10p">🎉 🎊</h1>
+                    <p class="m0">Yay! Glad to have you with us. <br>What should we call you?</p>
+                </div>
+
+                <div class="dn-form">
+                      <div class="pgn-textfield mb15p">
+                        <input class="pgn__input azure-caret" type="text" id="sample3"  name="name"  value="{{ old('name') }}">
+                        <label class="pgn__label" for="sample3">Display Name</label>
+                      </div>
+                      <input class="pg-btn pointer btn-submit mb20p" type="submit" name="submit" value="Finish">
+                      <input type="hidden" name="step2" value="1" />
+
+                   
+                </div>
+
+                <div class="skip-step">
+                    <a href="{{$skip_url}}">Skip this step</a>
+                </div>
             </div>
+            </form>
         </div>
 
-<div class="container p-t-md">
-	<div class="row">
-
-
-
-		  
-            <ul class="list-group media-list media-list-stream">
-                <li class="list-group-item media p-a">
-                    <label class="control-label">Profile picture</label>
-                    <div class="file-box profile_upload">
-
-                    <input type="file" id="file" class="inputfile" name="avatar">
-                                    
-
-                    </div>
-                </li>
-       
-                
-                <li class="list-group-item media p-a">
-              
-                  
-                    
-                  
-                  
-            </ul>
-            </form>
-            
-            
-
-
-	
 
 
 
 
 
-
-	</div>
-</div>
 @endsection

@@ -41,8 +41,9 @@
 <header class="flex items-center top__header pl-10 pr-20 relative">
 
 
-    {{Helper::back()}}
-
+    @if ($back)
+        {{Helper::back()}}
+    @endif
     <span class="logo flex justify-center items-center">
       <a class="dib" href="/">
        {{Helper::read_svg("img/main-logo.svg")}}

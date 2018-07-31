@@ -1,69 +1,21 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-back-title',['title' => 'Change Password', 'save' => true, $back= 'my-account', $save_id='save-account'])
 @section('content')
-<div class="container p-t-md">
-	<div class="row">
 
 
-
-		@component('user.menu',['current_menu' => 'security'])
-		@endcomponent
-
-
-		<div class="col-md-8" style="margin-top: 10px">
-		
-		
-                        
-			  <form class="form-horizontal" method="POST" action="/cpwd">
-                        {{ csrf_field() }}
- 
-                        <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
-                            <label for="new-password" class="col-md-4 control-label">Current Password</label>
- 
-                            <div class="col-md-6">
-                                <input id="current-password" type="password" class="form-control" name="current-password" required>
- 
-                                @if ($errors->has('current-password'))
+<main class="landing-main mw6 m-auto">
+@if ($errors->has('current-password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('current-password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                        </div>
- 
-                        <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
-                            <label for="new-password" class="col-md-4 control-label">New Password</label>
- 
-                            <div class="col-md-6">
-                                <input id="new-password" type="password" class="form-control" name="new-password" required>
- 
-                                @if ($errors->has('new-password'))
+
+                                 @if ($errors->has('new-password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('new-password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                        </div>
-                        
- 
-                        <div class="form-group">
-                            <label for="new-password-confirm" class="col-md-4 control-label">Confirm New Password</label>
- 
-                            <div class="col-md-6">
-                                <input id="new-password-confirm" type="password" class="form-control" name="new-password_confirmation" required>
-                            </div>
-                        </div>
- 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Change Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <div>
-                    <br />
-                         @if (session('error'))
+
+                                @if (session('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}
                         </div>
@@ -73,16 +25,41 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        </div>
-		</div>
 
-
-
-
-
-
-	</div>
+<form class="form-horizontal"  id="frm-account" method="POST" action="/cpwd">
+                        {{ csrf_field() }}
+ 
+<div class="setting-input">
+  <label for="" class="setting-input__label">Old Password</label>
+  <input type="text" class="setting-input__input" name="current-password" required>
+  <span  class="m-auto mw6 db">
+    <div class="border-trimmed"></div>
+  </span>
 </div>
+
+<div class="setting-input">
+  <label for="" class="setting-input__label">New Password</label>
+  <input type="text" class="setting-input__input" name="new-password" required>
+  <span  class="m-auto mw6 db">
+    <div class="border-trimmed"></div>
+  </span>
+</div>
+
+<div class="setting-input">
+  <label for="" class="setting-input__label">Confirm Password</label>
+  <input type="text" class="setting-input__input" name="new-password_confirmation" required>
+  <span  class="m-auto mw6 db">
+    <div class="border-trimmed"></div>
+  </span>
+</div>
+
+</form>
+</main>
+
+
+
+
+
 @endsection
 
 

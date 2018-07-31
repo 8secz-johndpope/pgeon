@@ -109,17 +109,9 @@ class Helper
     }
 
     public static function back($path=null) {
-        $need_back = true;
-        //request()->headers->get('referer');
-        if (strstr(url()->full(), "signup")) {
-            $need_back = false;
-        }
 
-
-        if($need_back) {
             if(!$path) {
                 $path = url()->previous();
-              
             }
             $back_img = \Illuminate\Support\Facades\File::get(public_path('img/svg/long-arrow-left.svg'));
             //$path = URL::previous();
@@ -129,7 +121,6 @@ class Helper
             <a href="'.$path.'" class="dib">'.$back_img.'
             </a>
         </span>';
-        }
 
     }
 

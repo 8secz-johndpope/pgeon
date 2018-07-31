@@ -140,6 +140,7 @@
  @yield('content')
 
 
+    @include('layouts/partials/profile-menu') 
 
   </div>
 
@@ -147,7 +148,6 @@
    
 
 
-    @include('layouts/partials/profile-menu') 
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>

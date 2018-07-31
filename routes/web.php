@@ -89,7 +89,7 @@ Route::get('/u_s', 'UserController@status');
     Route::post('coupon/subscribe/{coupon_id}', 'AllCouponController@subscribe'  );
 
 
-    Route::get('cpwd','HomeController@showChangePasswordForm');
+    Route::get('change-password','HomeController@showChangePasswordForm');
     Route::post('cpwd','HomeController@cpwd');
     
       

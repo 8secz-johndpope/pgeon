@@ -1,10 +1,16 @@
-@extends('layouts.app-back-title',['title' => 'My Account', $back= '/'])
+@extends('layouts.app-back-title',['title' => 'My Account', $back= '/', $save_id='save-account'])
 @section('content')
 
 
 
 
  <main class="my-account">
+ @if (!empty($message))
+			<div class="alert alert-{{$class}}">
+                                            {{$message}}
+                                        </div> 
+      @endif	
+      
     <ul class="ul-ls ">
      
         <li>
@@ -19,17 +25,19 @@
           </span>
         </li>
 
-          <li>
-          <a href="/change-email" class="mw6 m-auto pl15 pr15"          
-           >
-            <span>Change Email</span>
+        @if (!Auth::user()->provider)
+            <li>
+            <a href="/change-email" class="mw6 m-auto pl15 pr15"          
+            >
+                <span>Change Email</span>
 
-            {{Helper::read_svg("img/svg/chevron-right.svg") }}
-          </a>
-          <span  class="m-auto mw6 db">
-            <div class="border-trimmed"></div>
-          </span>
-        </li>
+                {{Helper::read_svg("img/svg/chevron-right.svg") }}
+            </a>
+            <span  class="m-auto mw6 db">
+                <div class="border-trimmed"></div>
+            </span>
+            </li>
+      
         <li>
           <a href="/change-password" class="mw6 m-auto pl15 pr15"          
            >
@@ -41,6 +49,7 @@
             <div class="border-trimmed"></div>
           </span>
         </li>
+        @endif   
         <li>
           <a href="/change-accounts" class="mw6 m-auto pl15 pr15 no-bb">
             <span>Connected Accounts</span>
@@ -54,6 +63,10 @@
 
 
         <li class="ul-ls--last">
+
+
+
+
           <a href="/" class="delete-account mw6 m-auto pl15 pr15">
             <span class="redish1">Delete Account</span>
           </a>
@@ -85,7 +98,7 @@
                     <div class="upload-btn-wrapper ">
                     <div class="pull-left prof-avatar">
                        
-                        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="30" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
+                      
                                             
                       </div>
                                     <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>
@@ -105,19 +118,6 @@
 
 
        
-       <li class="list-group-item media p-a">
-
-<label class="control-label">Display name</label>
-<div class="input-group">
-    <input type="text" class="form-control" name="name" value="{{ $user->name}}">
-    <br />
-
-
-</div>
-
-    
-
-</li>
 
                 <li class="list-group-item media p-a">
 
@@ -141,11 +141,9 @@
                               <li class="list-group-item media p-a" style="background-color: #fefefe;">
                     <div class="input-group" style="margin-bottom: 0;">
                         <input type="submit" value="Save changes" name="submit" class="btn btn-md btn-default-outline" style="float: none">
-                        <a href="#" class="m-t-10 small pull-right text-muted" data-toggle="modal" data-target="#deleteA"><span class="fal fa-frown"></span> delete account</a>
+                       
                     </div>
                 </li>
-
-
 
   
             </ul>
@@ -155,42 +153,49 @@
 
 
 
-        <div class="modal" id="deleteA" >
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title pull-left">Delete account</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                        <div class="modal-body">
-                            <p class="m-a-0">{{ $user->slug}}, are you sure you want to delete your Pgeon account?</p>
-                            <p>This will delete all published content, top response rankings, and any/all points acquired. This action cannot be undone.</p>
-                            <div class="alert alert-warning hide password-error">
+<div class="delete-account-modal">
+  <div class="delete-account-modal-overlay standard-overlay"></div>
+  <div class="center-modal mw6 m-auto">
+    <div class="delete-account-modal__modal">
+      <h2 class="modal-header">
+        Delete Account
+      </h2>
+      <p class="modal-content">
+        <strong>{{ $user->slug}},</strong> are you sure you want to delete your Pgeon account? This will delete all published content, top response rankings, and any/all points acquired. This Action cannot be undone
+      </p>
+      <div class="dn password-error">
                             Password did not match
                             </div>
-                            @if (!Auth::user()->provider)
-                            <input type="password" id="acc-passwd" class="form-control p-a" placeholder="Provide account password">
-                            @endif
-                        </div>
-                    <div class="modal-actions">
-                    @if (!Auth::user()->provider)
-                        <button type="button" id="delete-acc" data-id={{ $user->id}} class="btn-link modal-action confirm" >
-                            <strong class="text-danger">Confirm deletion</strong>
-                        </button>
-                    @else 
-                        <button type="button" id="delete-sso" data-id={{ $user->id}} class="btn-link modal-action confirm" >
-                            <strong class="text-danger">Confirm deletion</strong>
-                        </button>
-                    @endif    
-                        <button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Keep account</button>
-                    </div>
-                </div>
-            </div>
+
+      @if (!Auth::user()->provider)
+        <div class="pgn-textfield mb15p password_showable">
+            <input class="pgn__input azure-caret" type="password" name="password" id="acc-passwd" >
+            <label class="pgn__label" for="login_password" >Password</label>
+            <span class="input__rightbtn dn" id="show_password">
+            Show
+            </span>
         </div>
+      @endif
 
+      <div class="delete-account-btns">
 
+         @if (!Auth::user()->provider)
+                        <button type="button" id="delete-acc" data-id={{ $user->id}} class="base-btn confirm-deletion">
+                           Confirm deletion
+                        </button>
+        @else 
+                        <button type="button" id="delete-sso" data-id={{ $user->id}} class="base-btn confirm-deletion">
+                            Confirm deletion
+                        </button>
+        @endif 
+        <button class="base-btn keep-account">Keep Account</button>
+       
+      </div>
+
+    </div>
+  </div>
+</div>
+ 
         
 
         <div class="col-md-3">
@@ -203,13 +208,6 @@
 @push('styles')
 <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.6/js/all.js'>
 
-
-
 @endpush
 
-<!-- Push a script dynamically from a view -->
-@push('scripts')    
-<script src="{{ asset('js/jquery.html5uploader.min.js') }}"></script>
-<script src="{{ asset('js/settings.js') }}"></script>
 
-@endpush

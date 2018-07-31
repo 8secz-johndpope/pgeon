@@ -368,9 +368,16 @@
 }
 
 
-/** press changes **/
+/** edited by press **/
 .post-question-textarea {
   width: 100%;
 }
 
+#file-avatar {
+  font-size: 23px;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  opacity: 0;
+}
 

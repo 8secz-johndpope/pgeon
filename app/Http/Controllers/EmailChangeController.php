@@ -40,14 +40,13 @@ class EmailChangeController extends Controller
     if ($validator->fails()) {
         return response()->json(['error' => 'Invalid email'], 401);
     }
-    $password = Request::input('pwd');
+    //$password = Request::input('pwd');
 
-    //var_dump($password);
 
-    if (!Hash::check($password, Auth::user()->password))
-    {
-        return response()->json(['error' => 'Invalid password'], 401);
-    }
+    // if (!Hash::check($password, Auth::user()->password))
+    // {
+    //     return response()->json(['error' => 'Invalid password'], 401);
+    // }
 
      if(User::where('email', $email)->first()){
          return response()->json(['error' => 'This email already exists. Use a different one'], 401);
@@ -79,7 +78,7 @@ class EmailChangeController extends Controller
         list($email, $act_code) = explode("####",base64_decode($base64_code));
 
         if($user = UserActivation::validateCodeAndChangeEmail($email, $act_code)) {
-            return view('user.security')->with('message', 'Email updated successfully.')->with('class','success')->with('user', $user);
+            return view('user.profile')->with('message', 'Email updated successfully.')->with('class','success')->with('user', $user);
 
        }else {
         return view('confirmation')->with('message', 'Not a valid code!')->with('class','error');

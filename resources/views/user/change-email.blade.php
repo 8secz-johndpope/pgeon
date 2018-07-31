@@ -1,29 +1,26 @@
-@extends('layouts.app-back-title',['title' => 'My Account', 'save' => true, $back= null])
+@extends('layouts.app-back-title',['title' => 'My Account', 'save' => true, $back= null, $save_id='save-email'])
 @section('content')
 
 
-
-
 <main class="landing-main mw6 m-auto">
-<form  action="/profile" id="frm-change-name" method="POST">
-   {{ csrf_field() }}
+<form   id="frmChangeEmail" method="POST">
         <div class="setting-input">
         <label for="" class="setting-input__label">Change Your Email Address</label>
-        <input name="email" type="text" class="setting-input__input" value="{{ $user->email}}">
+        <input id="nw_email"  type="text" class="setting-input__input" value="{{ $user->email}}">
+        <input  id="old_email" type="hidden" class="setting-input__input" value="{{ $user->email}}">
         <span  class="m-auto mw6 db">
             <div class="border-trimmed"></div>
         </span>
         </div>
 
-        <div class="setting-input">
+<div class="alert alert-danger">
+									
+									</div>
+        <div class="setting-input"></div>
      
 </form>
 
 </main>
-
-
-
-
 
 
 

@@ -7,7 +7,7 @@
             {{Helper::read_svg("img/svg/times.svg")}}  
             </span>
         </header>
-        @if (Auth::user()->role_id)
+        @if (Auth::user()->role_id == 3)
             <div class="ml15p mt15p menu-pro-parent">
                 <span class="menu-pro-indicator fc">
                 <span>PRO</span>
@@ -16,19 +16,25 @@
          @endif   
         <div class="profile-preview mt15p">
             <div class="profile-preview__avatar">
-            <a href="user/my-profile">
-                <img src="http://via.placeholder.com/80x80" >
+            <a href="{{Auth::user()->slug}}">
+                <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="80" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
             </a>
+            <div class="profile_upload">
+
+</div>
+            <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>
+                                    Updating</button>
             <span class="profile-prefiew__change-avatar fc pointer">
             {{Helper::read_svg("img/svg/camera.svg")}}  
+            <input type="file" id="file-avatar"  />
             </span>
             </div>
-            <h1>Myra Barnett</h1>
+            <h1>{{Auth::user()->name}}</h1>
             <div class="profile-url">
-            <a href="user/my-profile">
+            <a href="{{Auth::user()->slug}}">
                 <p class="m0 flex">
                 <span class="flex1">www.pgeon.com/</span>
-                <input class="user-slug-input" value="{{Helper::name_or_slug(Auth::user())}}" disabled>
+                <input class="user-slug-input" value="{{Auth::user()->slug}}" disabled>
                 </p>
             </a>
             <span class="edit-icon">
@@ -145,3 +151,8 @@
 
     </div>
 @endif
+
+@push('scripts')    
+<script src="{{ asset('js/jquery.html5uploader.min.js') }}"></script>
+
+@endpush

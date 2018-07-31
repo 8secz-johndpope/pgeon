@@ -1,4 +1,4 @@
-@extends('layouts.app-no-top-bar')
+@extends('layouts.app-no-top-bar', ['back' => true])
 @section('content')
 
 <div class="container p-t-md">
