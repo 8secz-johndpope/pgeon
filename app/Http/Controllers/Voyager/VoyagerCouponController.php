@@ -33,7 +33,7 @@ class VoyagerCouponController
     
    //   $local_coupons = LocalCoupon::all();
       
-   $local_coupons =  DB::select("SELECT local_coupons.*, count(1) AS redeem_count FROM `local_coupons` INNER JOIN local_coupon_usages on local_coupons.id = local_coupon_usages.coupon_id
+   $local_coupons =  DB::select("SELECT local_coupons.*, count(1) AS redeem_count FROM `local_coupons` LEFT JOIN local_coupon_usages on local_coupons.id = local_coupon_usages.coupon_id
    GROUP by coupon_id");
 
 

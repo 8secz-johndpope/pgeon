@@ -252,6 +252,9 @@
       fill: #4a4a4a;
     }
   }
+  &.chosen {
+   background-color: #33cccc;  
+  }
 }
 
 // social share view
@@ -385,4 +388,32 @@ p.response{
   font-size: 13px;
   top:-7px;
   position: relative;
+}
+
+[v-cloak] {
+  display: none;
+}
+.et-wrapper.my-class { 
+  padding: 20px 10px;        
+  margin-top: 64px;
+  background-color: #EAF3FD;
+ color:#000;
+ border-radius: 0px;
+ font-size: 16px;
+}
+
+.ml20p {
+  margin-left: 20px;
+}
+
+.bgw {
+  background: #fff;
+}
+
+.people-item .vue-avatar--wrapper {
+  margin-right:10px;
+}
+
+.w100p {
+  width: 100%;
 }

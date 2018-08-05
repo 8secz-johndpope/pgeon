@@ -38,8 +38,8 @@
    <header class="landing_header relative">
 <div class="mw6 m-auto landing_header__inner flex items-center top__header relative  pr15 pl15">
 
-
- {{Helper::back()}}
+{{ @$back }}
+ {{Helper::back(@$back)}}
 
     @if (Auth::check())
 
@@ -77,8 +77,6 @@
 
 
  @yield('content')
-        <router-view></router-view>
-
 
     @include('layouts/partials/profile-menu') 
 

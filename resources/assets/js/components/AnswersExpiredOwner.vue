@@ -1,76 +1,71 @@
 <template>
 
-    <div class="modal-content">
-    
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <button type="button" class="btn btn-sm btn-primary pull-right app-new-msg js-newMsg"  v-on:click="saveChosenAnswer()" >Save</button>
-        <h4 class="modal-title">All Responses</h4>
-      </div>
-      <div class="modal-header">
-        <div>
-          <ul class="media-list media-list-conversation c-w-md">
-            <li class="media media-divider">
-              <div class="media-body">
-                <div class="media-header">
-                  <small class="text-muted"><a href="#" id="user-profile-text-link">{{uname}}</a></small>
-                  <small class="text-muted pull-right"> Ended: {{ex_date}}</small>
-                </div>
-                <ul class="media-list media-list-conversation c-w-md">
-                  <li class="media">
-                    <div class="media-body">
-                      <div class="media-body-text live-media-question">
-                                                                                                                                   <table  class="bkword">
-<tr>
-<td>
-                      	{{question}}</td>
-</tr>
-</table>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="modal-body p-a-0 js-modalBody">
-        <div class="modal-body-scroller">
-        <div style="margin: 15px;">
-       
-            
-          
-            <div class="vote-item flex-center" v-for="answer in answers">
-              <input type="radio" class="pending-radio" v-model="answer_id" v-bind:value="answer.id" :id=answer.id name="select" v-on:click="selectAnswer(answer.id)" >
-              <label :for=answer.id class="vote_count">
-              <!-- 
-              <a class="vote-count">
-                        <button id="vote" class="btn-borderless btn-container">
-                            <h1 id="counter"> <span> {{checkVoted(answer.id)}}</span></h1>
-                        </button>
-                    </a>
-                    -->
-                                     <p>
-                                                                                                                                       <table  class="bkword">
-<tr>
-<td>                 
-            		{{answer.answer}}
-                <span class="pull-right">{{ checkVoted(answer.id)}}</span>
-                </td>
-</tr>
-</table>
-            </p>
-                                </label>
-            </div>
- 
-          </div>
-        
-          
-        </div>
+<div>
 
+  <header class="landing_header relative">
+    <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
+      <a href="/pending" class="question-details__close pointer">
+
+        <svg width="448px" height="256px" viewBox="0 0 448 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>long-arrow-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="long-arrow-left" fill="#4A4A4A" fill-rule="nonzero">
+            <path d="M136.97,252.485 L144.041,245.415 C148.727,240.729 148.727,233.131 144.041,228.444 L60.113,145 L436,145 C442.627,145 448,139.627 448,133 L448,123 C448,116.373 442.627,111 436,111 L60.113,111 L144.041,27.556 C148.727,22.87 148.727,15.272 144.041,10.585 L136.97,3.515 C132.284,-1.171 124.686,-1.171 120,3.515 L3.515,119.515 C-1.171,124.201 -1.171,131.799 3.515,136.486 L120,252.486 C124.686,257.172 132.284,257.172 136.97,252.485 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>
+
+      </a>
+      <div class="question-details__profile">
+        <p class="m0">All Responses</p>
+      </div>
+      <div class="pointer save_button">
+        <span v-on:click="saveChosenAnswer()">Save</span>
       </div>
     </div>
+    <div class="details__dropdown__container mw6 m-auto">
+    
+    </div>
+    <div class="details__overlay standard-overlay"></div>
+  </header>
+
+
+
+
+
+
+ <main class="landing-main mw6 m-auto pl15 pr15">
+    
+    <div class="open-question__right">
+      <div class="open-question__meta">
+        <span class="open-question__author">{{uname}}</span>
+        <span class="open-question__time">Ended {{ex_date}}</span>
+      </div>
+      <a href="/question/234/details" class="open-question__content mt5p m0">
+        <p>	{{question}}</p>
+      </a>
+    </div>
+
+    <div class="open-question__seperator mt15p mb15p">
+      <div class="open-question__seperator__inner open-question__seperator__inner--fullwidth"></div>
+    </div>
+
+    <div class="open-question__responses">
+
+
+      <div class="open-question__response pointer" v-for="answer in answers" v-bind:class="{'chosen': answer.id == answer_id}" :id="answer.id" v-on:click="selectAnswer(answer.id)" >
+        <p>{{answer.answer}}</p>
+        <div class="mr10p"> {{ checkVoted(answer.id)}} </div>
+      </div>
+
+  
+    </div>
+  </main>
+</div>
+   
 
 
 </template>
@@ -83,17 +78,16 @@
         answers: [],
         my_votes: [],
         csrf: "",
-        question_id: 0,
         uname: "",
         question: "",
-        	ex_date: ""	
+          ex_date: "",	
+          answer_id: 0
       };
     },
-    props: ['topanswer'],
+    props: ['topanswer', 'question_id', 'top_a'],
     
     mounted() {
               this.csrf = $('meta[name="csrf-token"]').attr('content');
-              console.log(this.topanswer);
               
 
     },
@@ -102,15 +96,19 @@
 
     	
      	
-    	fetchRecords(question_id, uname, question, ex_date, top_a) {
-    		this.question_id = question_id
-    		this.uname = uname
-    		this.question = question
-        this.ex_date = ex_date
-        this.answer_id = top_a
+    	fetchRecords() {
+        
+
+         this.answer_id = this.top_a
     		 $.getJSON('/question/' + this.question_id + '/json', function(response) {
-    		        this.answers = response
-    		        
+                this.question = response.q.question
+                this.uname = response.uname
+                this.ex_date = response.ex_date
+                this.answers = response.answers
+
+                
+    		    //    console.log(response);
+                
     		        // var com = this
     		        $.getJSON('/get_votes_with_count/'+this.question_id, function(votes) {
     		       //   com.my_votes = votes
@@ -122,7 +120,7 @@
     	},
     	
       selectAnswer(answer_id) {
-    	  
+     
     	  	this.answer_id = answer_id
     	  	
       },
@@ -134,7 +132,7 @@
     	          'answer_id': this.answer_id,
     	        }
     	        this.$http.post('/set_chosen_answer', formData).then((response) => {
-    	        		location.reload()
+    	        		location.href=`/pending/${this.question_id}/${this.answer_id}`
     	        }, (response) => {
     	          alert('error submitting')
     	        });
@@ -157,7 +155,7 @@
     ,
     created: function() {
 
-       
+      this.fetchRecords()
       
     },
 

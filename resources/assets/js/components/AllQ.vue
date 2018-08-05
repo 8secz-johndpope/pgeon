@@ -34,7 +34,9 @@
  <main class="landing-main mw6 m-auto pl15 pr15">
       <div class="open-question__container" v-for="question in questions">
         <div class="open-question__left">
+           <a :href="question.slug">
           <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
+           </a>
         </div>
         <div class="open-question__right">
           <div class="open-question__meta">
@@ -72,11 +74,12 @@
 						</li></ul>
 
 
-<div class="FAB-button__container mw6 m-auto">
+<div class="FAB-button__container mw6 m-auto" v-if="role_id==3">
           <a href="/my-questions" class="FAB-button">
 			  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"></path></svg>
           </a>
         </div>
+
   </main>
 
 
@@ -103,6 +106,7 @@ import Avatar from 'vue-avatar'
 		still_deciding_paging: false,
       };
     },
+    props: ['role_id'],
     mounted() {
 		
 			$(".up50").removeClass("up50")

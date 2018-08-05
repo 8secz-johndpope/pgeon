@@ -1,12 +1,12 @@
 <template>
 <div>
 
-
-<div class="people-tabs mw6 m-auto pr15">
-      <div  class="people-tab">
+<div class="bgw"> 
+<div class="people-tabs mw6 m-auto pr15 ">
+      <div  class="people-tab " v-bind:class="{'people-tab--active': current_tab == 'iam_following'}">
         <a v-on:click="setcurrenttab('iam_following')">{{iam_following_count}} Following</a>
       </div>
-      <div class="people-tab">
+      <div class="people-tab" v-bind:class="{'people-tab--active': current_tab == 'my_followers'}">
         <a v-on:click="setcurrenttab('my_followers')">{{my_followers_count}} Followers</a>
       </div>
       <div class="people-search">
@@ -16,7 +16,7 @@
         </a>
       </div>
     </div>
-
+</div>
 
 
 
@@ -25,14 +25,13 @@
 <div v-if="this.current_tab == 'iam_following'">
     <div class="people-item" v-for="item in iam_following" >
       <div>
-            <avatar :size="36"	 :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
+            <avatar :size="36"  :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
         <div class="people-item__info">
           <h4>{{ item.url }}</h4>
           <span>{{ item.last_posted }}</span>
         </div>
       </div>
-      <button v-on:click="unfollow(item.user_id)" class="follow-button">
-        <span>Follow</span>
+      <button v-on:click="unfollow(item.user_id)" class="follow-button follow-button--active">
         <!-- following is the `active` state -->
         <span>Following</span>
       </button>
@@ -55,10 +54,8 @@
                                        
         <span>Follow</span>
         <!-- following is the `active` state -->
-        <span>Following</span>
       </button>
-       <button  v-else v-on:click="unfollow(item.user_id)"  class="follow-button">
-           <span>Follow</span>
+       <button  v-else v-on:click="unfollow(item.user_id)"  class="follow-button follow-button--active">
         <!-- following is the `active` state -->
         <span>Following</span>
       </button>

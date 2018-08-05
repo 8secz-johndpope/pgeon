@@ -108,28 +108,33 @@
  
 
    @if (Auth::check())
-   <a href="/" class="myQuestion-premium-button" >
-     <span>
-       My Questions
-     </span>
+    @if (Auth::user()->role_id != 3 )
+    <a href="/" class="myQuestion-premium-button" >
+      <span>
+        My Questions
+      </span>
 
-  @if (Auth::user()->role_id != 3 )
-     <div class="fc premium-dropdown-item">
-       <span class="premium-lock fc">
-       {{Helper::read_svg("img/svg/lock-alt.svg")}}   
+  
+      <div class="fc premium-dropdown-item">
+        <span class="premium-lock fc">
+        {{Helper::read_svg("img/svg/lock-alt.svg")}}   
 
-         <span class="ml5p">Premium</span>
-       </span>
-
-
-       <!-- <span class="premium-info fc">
-       {{Helper::read_svg("img/svg/info-circle.svg")}}   
+          <span class="ml5p">Premium</span>
+        </span>
 
 
-       </span> -->
-     </div>
-  @endif   
-   </a>
+        
+      </div>
+    
+    </a>
+    @else
+    <a href="/my-questions">
+      <span>
+        My Questions
+      </span>
+
+    </a>
+   @endif   
    @endif
 
 </div>
@@ -139,7 +144,6 @@
 
 
  @yield('content')
-        <router-view></router-view>
 
 
 <div class="upgrade-modal">

@@ -112,6 +112,7 @@ Route::get('/u_s', 'UserController@status');
     Route::post('markasseen', 'NotificationController@markAsSeen');
     Route::get('live', 'QuestionController@live');
     Route::get('pending', 'QuestionController@pending');
+    Route::get('pending/{id}/{top_a}', 'QuestionController@pendingViewAll');
     Route::get('published', 'QuestionController@published');
     Route::get('notifications/{format?}', 'NotificationController@index');
     // Question Routes

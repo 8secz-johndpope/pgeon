@@ -1,4 +1,4 @@
-@extends('layouts.app-no-logo') @section('content')
+@extends('layouts.app-no-logo', ['back' => '/']) @section('content')
 
 
 <div style="width: auto">

@@ -12,7 +12,7 @@
     </span>
 
       <span class="header-title live-title">
-      <h4>Live ({{count($questions)}})</h4>
+      Live ({{count($questions)}})
       </span>
 
      
@@ -27,90 +27,21 @@
 
 <main class="pl-15 mw6 m-auto live-main pl15p pr15p">
 @foreach ($questions as $key => $val)
-    <div class="q-bubble">
+    <div class="q-bubble goto-qdetail" data-id={{$val->id}}>
         <span>   {{$val->question}}</span>
     </div>
+    <div> &nbsp; </div>
 @endforeach
 </main>
 
 
 
-    <div class="container">
-
-      <div class="tabs">
-        <div class="pending">
-
-         @foreach ($questions as $key => $val)
-
-        <div style="width: auto;">
-            <div class="container p-t-md">
-                <div>
-                    <div class="media-body">
-                     
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media-body-text live-media-question goto-qdetail" data-id={{$val->id}}>
-                                    <table class="bkword">
-											<tr>
-											<td>
-                                   {{$val->question}}
-                                   </td></tr></table>
-</div>
 
 
 
 
 
 
-
-
-                                    <!-- <ul class="media-list media-list-conversation c-w-md">
-                                        <li class="media media-current-user media-divider">
-                                            <div class="media-body" style="text-align: center">
-                                                <div class="media-body-text media-response">
-                                                    <div class="statcard p-a-md" style="display: inline-block">
-                                                        <h3 class="statcard-number">{{$val->answers->count()}}</h3>
-                                                        <span class="statcard-desc">responses</span>
-                                                    </div>
-                                                    <div class="statcard p-a-md" style="display: inline-block">
-                                                        <h3 class="statcard-number">{{$val->votes->count() }}</h3>
-                                                        <span class="statcard-desc">votes</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul> -->
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-           @endforeach
-
-        </div>
-
-      </div>
-  </div>
-
-
-
-
-
-
-
-<div class="modal fade" id="viewAll" tabindex="-1" role="dialog" aria-labelledby="viewAll" aria-hidden="true">
-  <div class="modal-dialog">
-  <answers_expired_owner ref="answersexpiredowner"></answers_expired_owner>
-
-  </div>
-</div>
 
 
 

@@ -157,7 +157,6 @@
 @endif
 
         @yield('content')
-        <router-view></router-view>
 
 </div>
 

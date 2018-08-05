@@ -1,13 +1,11 @@
-@extends('layouts.app-people-header')
+@extends('layouts.app-people-header', ['back' => '/'])
 @section('content')
 
 
-<div class="container p-t-md">
 
   <follow></follow>
 
 
 
-</div>
 
 @endsection

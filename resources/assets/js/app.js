@@ -7,10 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import Vuex from 'vuex'
-import VueRouter from 'vue-router'
+//import Vuex from 'vuex'
+//import VueRouter from 'vue-router'
 
-Vue.use(Vuex)
+//Vue.use(Vuex)
 
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
@@ -21,7 +21,7 @@ Vue.use(require('vue-resource'));
  * just straightforward approach as in vue-router doc
  * 
  */
-Vue.use(VueRouter)
+//Vue.use(VueRouter)
 
 import {AnswerMixin} from './mixins/AnswerMixin.js';
 
@@ -49,32 +49,34 @@ Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner
 Vue.component('notifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
-var defqcomp = allq
-var defrcomp = allr
-	if(typeof user !== "undefined") {
-		defqcomp = allq
-		defrcomp = allr
-	}
-	else{
-		defqcomp = allqguest
-		defrcomp = allrguest
-	}
 
 
-	const routes = [
-		{ path: '/questions', component:defqcomp },
-		{ path: '/', component:defqcomp },
-		{ path: '/responses', component: defrcomp }
-	]
+// var defqcomp = allq
+// var defrcomp = allr
+// 	if(typeof user !== "undefined") {
+// 		defqcomp = allq
+// 		defrcomp = allr
+// 	}
+// 	else{
+// 		defqcomp = allqguest
+// 		defrcomp = allrguest
+// 	}
 
-	const router = new VueRouter({
-		mode: 'history',
 
-		routes // short for `routes: routes`
-	})
+// 	const routes = [
+// 		{ path: '/questions', component:defqcomp },
+// 		{ path: '/', component:defqcomp },
+// 		{ path: '/responses', component: defrcomp }
+// 	]
+
+// 	const router = new VueRouter({
+// 		mode: 'history',
+
+// 		routes // short for `routes: routes`
+// 	})
 
 	const app = new Vue({
-		router,
+	//	router,
 
 		el: '#app',
 		mixins: [AnswerMixin],
@@ -90,7 +92,8 @@ var defrcomp = allr
 				type: false,
 				//only for local subscriptions
 				local_coupon_id : 0,
-				lc_confirmed: false
+				lc_confirmed: false,
+				option_selected: false
 			}
 			
 		},
@@ -107,6 +110,7 @@ var defrcomp = allr
 		
 		},
 
+		
 	
 		created: function() {
 
@@ -144,6 +148,10 @@ var defrcomp = allr
 		},
 
 		methods: {
+			selectOption(option) {
+				this.coupon.option_selected = option
+				
+			},
 			validateCoupon() {
 				if(this.coupon.code.trim() != "" ) {
 					this.coupon.loading = true;
@@ -169,6 +177,7 @@ var defrcomp = allr
 						this.coupon.applied = false;
 						this.coupon.type = null;
 			},
+
 			
 			confirmLocalCouponSubscription() {
 				if(this.coupon.local_coupon_id > 0) {
@@ -200,11 +209,7 @@ var defrcomp = allr
 			captcha_validate() {
 				this.captcha_loading = true
 			},
-			callChildPendingAnswers($question_id, $uname, $question, $ex_date, $top_a) {
-				var child = app.$refs.answersexpiredowner
-				child.fetchRecords($question_id, $uname, $question, $ex_date, $top_a)
-					
-			},
+		
 			
 			bubbleChangedFromChild (value) {
 				//  this.bubble=(value) // someValue

@@ -2,87 +2,116 @@
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top app-navbar nav-shadow">
-            <div class="container nav-container">
-                <div class="navbar-header w-100">
+<header class="live-header">
+  <div class="mw6 m-auto flex items-center pl15p justify-between top__header pl-15 pr15 ">
 
-                    <a class="icon-button navbar-back" onclick="window.history.back()"><span class="fal fa-times fa-lg"></span></a>
-                    <h4>Published ({{count($published)}})</h4>
-                    <button type="button" class="btn btn-sm btn-default-outline edit">Edit</button>
-                    <button type="button" class="btn btn-sm btn-default-outline cancel_edit hidden">Cancel</button>
+    <span class="back-arrow dib">
+      <a onclick="window.history.back()" class="dib">
+      {{Helper::read_svg("img/svg/times.svg")}}   
+      </a>
+    </span>
 
-                    <button type="button" data-toggle="modal" data-target="#deleteQ" id="delete" class="btn btn-xs btn-danger-outline deleteNum">##</button>
-                </div>
+      <span class="header-title live-title">
+            Published ({{count($published)}})
+      </span>
 
-            </div>
-        </nav>
+        <button class="pointer published-edit edit">Edit</button>
 
-<div class="modal" id="deleteQ">
-   <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title pull-left">Are you sure?</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-            <div class="modal-body">
-               <p style="margin-bottom:0">Any distributed points provided by these questions will be removed from the affiliated accounts. Deleted questions and responses can no longer be retrieved or publicly viewable.</p>
-            </div>
-              <div class="modal-actions">
-                 <button id="done" type="button" class="btn-link modal-action confirm" data-dismiss="modal">
-                    <span class="text-danger">Confirm</span>
-                 </button>
-                 <button type="button" class="btn-link modal-action cancel" data-dismiss="modal" style="color:#C9CCD4">Cancel</button>
-              </div>
-       </div>
+      <div class="published-select-all pointer">
+        <span class="span-checkbox"></span>
+        <button class="pointer">
+          Select All
+        </button>
+      </div>
+
+      <div class="published-delete pointer">
+      {{Helper::read_svg("img/svg/trash.svg")}}   
+        <button> Delete </button>
+      </div>
+
+      <button class="published-cancel pointer cancel_edit">
+        Cancel
+      </button>
+
+  </div>
+</header>
+
+
+
+
+
+
+
+
+<main class="pl-15 mw6 m-auto live-main published-main pl15p pr15p">
+
+
+
+
+
+<!-- <div class="confirmation-modal">
+  <div class="confirmation-modal__overlay standard-overlay"></div>
+  <div class="confirmation-modal__modal">
+    <h2>Confirm Deletion</h2>
+    <p>Any distributed points provided by these questions will be removed from the affiliated accounts. These can no longer be retrieved or Publicly viewable.</p>
+    <div class="flex">
+      <div class="flex1"></div>
+      <button class="confirmation-modal__cancel">Cancel</button>
+      <button class="confirmation-modal__danger">Delete</button>
     </div>
-</div>
-<div style="width: auto;">
-</div>
-        <div class="container p-t-md">
+  </div>
+</div> -->
 
-         <ul class="media-list media-list-stream c-w-md answer-bubbles-container">
-                @foreach ($published as $key => $val)
-                <li class="media answer-bubble">
-                    <div class="media-left">
-                        <div class="checkbox-inline custom-control custom-checkbox hidden">
-                            <label>
-                                <input type="checkbox" value="{{$val['question']->id}}"  class="toggleOverlay">
-                                <span class="custom-control-indicator"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="media-body">
-                        <ul class="media-list media-list-conversation c-w-md">
-                            <li class="media first">
-                                <div class="media-body closest-overlay">
-                                    <div id="overlay"></div>
-                                    <div class="media-body-text media-question">
-                                    <table class="bkword">
-											<tr>
-											<td>
-                                    {{$val['question']->question}}
-                                    </td></tr></table>
-</div>
-                                    <!-- <div id="overlay"></div> -->
 
-                                    <div class="media-body-text media-response" style="margin-top: 0;">
-                                    		  @if(!is_null($val['answer']))
-                                        		{{$val['answer']->answer}}
+
+
+
+
+ @foreach ($published as $key => $val)
+
+  <div class="q-bubble-container q-bubble-container--clickable  mb15p " data-id="{{$val['question']->id}}">
+    <span class="edit-square">
+    {{Helper::read_svg("img/svg/square.svg")}}   
+
+    </span>
+    <span class="edit-square-checked">
+    {{Helper::read_svg("img/svg/check.svg")}}   
+
+    </span>
+
+    <div class="q-bubble qa-item ">
+      <div>
+        <span>  {{$val['question']->question}}</span>
+      </div>
+      <div class="qa-item__seperator"></div>
+      @if(!is_null($val['answer']))
+      <span>	{{$val['answer']->answer}}</span>
                                         	  @endif
-</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
+    </div>
+
+  </div>
+
+ @endforeach
 
 
-        </div>
 
+  <div class="confirmation-modal">
+    <div class="confirmation-modal__overlay standard-overlay"></div>
+    <div class="confirmation-modal__modal">
+      <h2>Confirm Deletion</h2>
+      <p>Any distributed points provided by these questions will be removed from the affiliated accounts. These can no longer be retrieved or Publicly viewable.</p>
+      <div class="flex">
+        <div class="flex1"></div>
+        <button class="confirmation-modal__cancel">Cancel</button>
+        <button class="confirmation-modal__danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</main>
 
 
 

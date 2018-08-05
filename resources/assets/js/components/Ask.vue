@@ -14,7 +14,7 @@
             
                                             <textarea   class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question" @input="maxHighlight"></textarea>
 
-                                              <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div>
+                                              <!-- <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div> -->
 
                                                                                     <div class="post-question-share">
                                             <div class="post-question-share__meta flex justify-between">
@@ -24,7 +24,7 @@
                                                     <label for="i1">Auto Share</label>
                                                 </div>
                                                 </div>
-                                                <div class="post-question-count">150</div>
+                                                <div class="post-question-count" v-bind:class="[ remainingLength < 0 ? 'redish1' : '']" >{{remainingLength}}</div>
                                             </div>
                                             </div>
 
@@ -153,6 +153,7 @@
       hasQMark:false,
       is_valid:false,
       placeholder_content: "",
+      remainingLength: 150,
     }
   },
    props: ['lq_created_at'],
@@ -193,18 +194,21 @@
   methods: {
          maxHighlight() {
         var currentValue = this.question
-         var realLength = 15;
-         var remainingLength = 15 - currentValue.length;
-          if (0 > remainingLength) {
+         var realLength = 150;
+         this.remainingLength = 150 - currentValue.length;
+       //  console.log(remainingLength);
+          if (0 > this.remainingLength) {
                 // Split value if greater than 
                 var allowedValuePart = currentValue.slice(0, realLength),
                     refusedValuePart = currentValue.slice(realLength)
                 ;
                 this.is_valid = false;
                 
+                
+                
                
                 // Fill the hidden div.
-                this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
+                //this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
               } else {
                 this.placeholder_content = ''
                 this.is_valid = (currentValue.length>0)

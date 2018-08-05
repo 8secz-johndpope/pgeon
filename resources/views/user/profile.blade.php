@@ -81,10 +81,6 @@
 
 
 
-
-
-
-
 <div class="delete-account-modal">
   <div class="delete-account-modal-overlay standard-overlay"></div>
   <div class="center-modal mw6 m-auto">

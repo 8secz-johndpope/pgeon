@@ -156,20 +156,26 @@
   > div {
     display: flex;
     align-self: stretch;
-    button {
-      width: 76px;
+    .btn {
+      min-width: 76px;
       border: none;
       outline: none;
       cursor: pointer;
       border-radius: 4px;
-      &:nth-child(1) {
+      &.del {
         background-color: transparent;
         color: #ff3333;
         border: 1px solid #ff3333;
+        div {
+          text-align: center;
+          position: relative;
+          top: 5px;
+        }
       }
-      &:nth-child(2) {
+      &.pub {
         background-color: #3cc;
         color: #fff;
+        height: 100%;
       }
     }
   }

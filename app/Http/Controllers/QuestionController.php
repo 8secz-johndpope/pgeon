@@ -75,7 +75,7 @@ class QuestionController extends Controller
 
         if ($format == "json") {
             $answers = Answer::get_sorted($question_id);
-              return response()->json($answers);
+              return response()->json(array('q' => $question, 'answers' => $answers, 'uname' => $question->user->name, 'ex_date' => date('m/d/Y', $question->expiring_at )));
         }
       //  $answer_ids = Answer::get_answer_ids($question_id);
         else {
@@ -99,8 +99,7 @@ class QuestionController extends Controller
                 
             }else {
                 
-
-                
+               
                 
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
@@ -412,6 +411,13 @@ class QuestionController extends Controller
         return view('questions.pending',['questions' => $questions, 'pending' => $pending]);
     }
     
+
+
+    public function pendingViewAll($id, $top_a) {
+
+        return view('questions.pendingall',['id' => $id, 'top_a' => $top_a]);
+    }
+
     public function published() {
         
         $user = Auth::user();
@@ -586,7 +592,9 @@ class QuestionController extends Controller
 	        ->cc('prasanth@object90.com')
 	        ->send(new QuestionReported($qid, $user_slug));
 	}
-	
+    
+    
+    
 	/*public static function accept_answer($question_id, $answer_id) {
 	    
 	    $question = Question::find($question_id);
