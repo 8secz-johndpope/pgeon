@@ -69,22 +69,23 @@
 <div  v-else>
 
    <div v-for="(answer, index) in answers"  v-bind:key="answer">
-       <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="[{ 'fadeIn':  answer.id == pushed_id }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'] "  v-if="!ownerOfAnswer(answer.user_id)">
+       <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="['open-question__response  jsvote'] "  v-if="!ownerOfAnswer(answer.user_id)">
 
           <p>{{answer.answer}} </p>
          
 
 
-  <div id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
+  <span id="vote"  class="voting_container" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1, 'vote-down': checkVoted(answer.id) == -1, 'vote-none':  (checkVoted(answer.id) === false || checkVoted(answer.id) === 0)}">
               <svg width="12" height="12" class="c-up" >
               <use  v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1 }"  class="caret-up" xlink:href='/img/sprites/solid.svg#caret-up'></use>
               </svg>
-  <div class="v_count"  > &nbsp;</div>
+  <!-- <div class="v_count"  > &nbsp;</div> -->
+  <span></span>
    <svg width="12" height="12" class="c-down" >
               <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
               </svg>
               
-              </div>  
+              </span>  
 
 
       
@@ -118,12 +119,11 @@
 
 
  <button class="btn pointer answer-question__send-btn" v-if=is_valid v-on:click="submit_answer()">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
-              <!-- on typing -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+          
           </button>
-          <button v-else>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+          <button class="btn pointer answer-question__send-btn" v-else>
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 4.3L16 262.7C-7 276-4.7 309.9 19.8 320L160 378v102c0 30.2 37.8 43.3 56.7 20.3l60.7-73.8 126.4 52.2c19.1 7.9 40.7-4.2 43.8-24.7l64-417.1C515.7 10.2 487-9 464 4.3zM192 480v-88.8l54.5 22.5L192 480zm224-30.9l-206.2-85.2 199.5-235.8c4.8-5.6-2.9-13.2-8.5-8.4L145.5 337.3 32 290.5 480 32l-64 417.1z"></path></svg>
           </button>
 
                                       
@@ -232,8 +232,10 @@ var pressTimer;
     	},
       	 mup(answer_id, e, i) {
       		  
-    		console.log (this.lock_voting)
-    				if (this.lock_voting) return
+            if (this.lock_voting) return
+            
+           
+            
     				//convert null to 0
     				this.answers[i].vote_count =  this.answers[i].vote_count || 0
     				this.lock_voting = true
@@ -374,7 +376,9 @@ var pressTimer;
       ,
       fetchRecords() {
 	    	  $.getJSON('/question/' + this.question_id + '/json', function(response) {
-	    	        this.answers = response
+                
+                
+	    	        this.answers = response.answers
 	    	        
 	    	        // var com = this
 	    	        $.getJSON('/get_votes/'+this.question_id, function(votes) {

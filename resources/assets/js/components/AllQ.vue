@@ -142,9 +142,7 @@ import Avatar from 'vue-avatar'
 		},
 		
 		get_paginated_results: function () {
-      console.log('====================================');
-      console.log(this.current_filter);
-      console.log('====================================');
+     
 		//	console.log(this.currently_fetched_records_count)
 			//pagination counters will be reset when we click on filters
 			this.current_page ++;

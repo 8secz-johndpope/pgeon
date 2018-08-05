@@ -85,7 +85,7 @@
    
 
       $.getJSON('/question/' + this.question_id + '/json', function(response) {
-        this.answers = response
+        this.answers = response.answers
         
         // var com = this
         $.getJSON('/get_votes_with_count/'+this.question_id, function(votes) {

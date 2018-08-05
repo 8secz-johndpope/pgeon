@@ -417,3 +417,43 @@ p.response{
 .w100p {
   width: 100%;
 }
+
+
+#vote svg {
+	/** taken from auto generated css of fa **/
+  fill:#b2b3b6;
+  width: 16px;
+  height: 16px;
+}
+
+svg .vote-up ,svg .vote-down, svg .vote-none{
+  fill:#33cccc;
+	shape-rendering: geometricprecision;
+  transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+	}
+.vote-up {
+	color:#33cccc;
+}
+.vote-down{
+  color: #cc3333;
+  }
+  .vote-none{
+  color:#C4C6CA;
+}
+
+
+svg .vote-up  {
+  fill: #33cccc;
+
+}
+svg .vote-down{
+  fill: #cc3333;
+  }
+
+svg .vote-none{
+  fill: #8E8E93;
+
+}

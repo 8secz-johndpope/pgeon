@@ -62,23 +62,10 @@
 
           <p>{{answer.answer}} </p>
          
-          <span class="nobel-svg" id="vote"  >
 
 
 
 
-<svg class="c-up"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
-
-    
-<span class="v_count"  > &nbsp;</span>
-
-<svg xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 320 512"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
-
-
-
-      
-         
-          </span>
            </v-touch>
         </div>
 
@@ -157,7 +144,7 @@ var pressTimer;
       ,
       fetchRecords() {
 	    	  $.getJSON('/question/' + this.question_id + '/json', function(response) {
-	    	        this.answers = response
+	    	        this.answers = response.answers
 	    	        
 	    	        // var com = this
 	    	        $.getJSON('/get_votes/'+this.question_id, function(votes) {

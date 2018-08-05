@@ -38,7 +38,6 @@
    <header class="landing_header relative">
 <div class="mw6 m-auto landing_header__inner flex items-center top__header relative  pr15 pl15">
 
-{{ @$back }}
  {{Helper::back(@$back)}}
 
     @if (Auth::check())

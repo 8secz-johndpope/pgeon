@@ -106,6 +106,9 @@ class Question extends Model {
     }
 
 
+    public static function question_asked_count($user_id) {
+        return Question::where('user_id', '=', $user_id)->count();
+    }
 
 
     public static function question_validity_status($expiring_at){

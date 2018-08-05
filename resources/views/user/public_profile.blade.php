@@ -13,11 +13,11 @@
     <div class="right w-100 justify-center">
       <div class="flex justify-center tc">
         <div class="w-33">
-          <span class="fw6">50k</span>
+          <span class="fw6">{{Helper::formatWithSuffix($answers_count)}}</span>
           <div class="points">Responses</div>
         </div>
         <div class="w-33">
-          <span class="fw6">500k</span>
+          <span class="fw6">{{Helper::formatWithSuffix($q_count)}}</span>
           <div class="points">Questions</div>
         </div>
         <div class="w-33">

@@ -21,7 +21,7 @@
     <h4 class="header-title m0">Notifications</h4>
     <button class="btn clear-all" v-if="notifications.length>0" v-on:click="clear_all"  >
       Clear All
-      {{bubble}}
+      <!-- {{bubble}} -->
     </button>
 
     </div>
@@ -56,12 +56,12 @@
 
          <div class="m-b-5" v-else>
 
-<div class="alert alert-info new_notif_bar" v-on:click="fetchRecords"  v-if="new_recs_in>0" >
+<div class="notifications-item pr15 pl15" v-on:click="fetchRecords"  v-if="new_recs_in>0" >
   You have new notifications
   </div>
 
 
- <div class="notifications-item pr15 pl15"  v-on:click="redirect(notification)"  v-bind:class="{ 'text-muted':  notification.seen == 1}"  v-for="notification in notifications">
+ <div class="notifications-item pr15 pl15"  v-on:click="redirect(notification)"  v-bind:class="{ 'notifications-item--unseen':  notification.seen != 1}"  v-for="notification in notifications">
       
       <span class="fa text-muted" :class="notification.class"></span>
       <div class="notifications-body">

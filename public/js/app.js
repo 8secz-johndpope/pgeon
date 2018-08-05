@@ -19041,9 +19041,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     get_paginated_results: function get_paginated_results() {
-      console.log('====================================');
-      console.log(this.current_filter);
-      console.log('====================================');
+
       //	console.log(this.currently_fetched_records_count)
       //pagination counters will be reset when we click on filters
       this.current_page++;
@@ -20188,8 +20186,8 @@ var pressTimer;
     },
     mup: function mup(answer_id, e, i) {
 
-      console.log(this.lock_voting);
       if (this.lock_voting) return;
+
       //convert null to 0
       this.answers[i].vote_count = this.answers[i].vote_count || 0;
       this.lock_voting = true;
@@ -20320,7 +20318,8 @@ var pressTimer;
     },
     fetchRecords: function fetchRecords() {
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
-        this.answers = response;
+
+        this.answers = response.answers;
 
         // var com = this
         $.getJSON('/get_votes/' + this.question_id, function (votes) {
@@ -20497,7 +20496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
 
     $.getJSON('/question/' + this.question_id + '/json', function (response) {
-      this.answers = response;
+      this.answers = response.answers;
 
       // var com = this
       $.getJSON('/get_votes_with_count/' + this.question_id, function (votes) {
@@ -20743,22 +20742,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -20814,7 +20797,7 @@ var pressTimer;
     },
     fetchRecords: function fetchRecords() {
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
-        this.answers = response;
+        this.answers = response.answers;
 
         // var com = this
         $.getJSON('/get_votes/' + this.question_id, function (votes) {
@@ -20986,19 +20969,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var longpress;
 var pressTimer;
@@ -21049,7 +21019,7 @@ var pressTimer;
     },
     fetchRecords: function fetchRecords() {
       $.getJSON('/question/' + this.question_id + '/json', function (response) {
-        this.answers = response;
+        this.answers = response.answers;
 
         // var com = this
         $.getJSON('/get_votes/' + this.question_id, function (votes) {
@@ -60140,9 +60110,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
-      class: [{
-        'fadeIn': answer.id == _vm.pushed_id
-      }, 'media-list media-list-conversation c-w-md jsvote animated open-question__response'],
+      class: ['open-question__response  jsvote'],
       attrs: {
         "press-options": {
           time: '500'
@@ -60156,7 +60124,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.mdown(answer.id, $event, index)
         }
       }
-    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('div', {
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
       staticClass: "voting_container",
       class: {
         'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1, 'vote-none': (_vm.checkVoted(answer.id) === false || _vm.checkVoted(answer.id) === 0)
@@ -60178,9 +60146,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "xlink:href": "/img/sprites/solid.svg#caret-up"
       }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "v_count"
-    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
+    })]), _vm._v(" "), _c('span'), _vm._v(" "), _c('svg', {
       staticClass: "c-down",
       attrs: {
         "width": "12",
@@ -60245,29 +60211,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('svg', {
     attrs: {
       "xmlns": "http://www.w3.org/2000/svg",
-      "viewBox": "0 0 320 512"
+      "viewBox": "0 0 512 512"
     }
   }, [_c('path', {
     attrs: {
-      "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
+      "d": "M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"
     }
-  })]), _vm._v(" "), _c('svg', {
+  })])]) : _c('button', {
+    staticClass: "btn pointer answer-question__send-btn"
+  }, [_c('svg', {
     attrs: {
       "xmlns": "http://www.w3.org/2000/svg",
-      "viewBox": "0 0 320 512"
+      "viewBox": "0 0 512 512"
     }
   }, [_c('path', {
     attrs: {
-      "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
-    }
-  })])]) : _c('button', [_c('svg', {
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "viewBox": "0 0 320 512"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
+      "d": "M464 4.3L16 262.7C-7 276-4.7 309.9 19.8 320L160 378v102c0 30.2 37.8 43.3 56.7 20.3l60.7-73.8 126.4 52.2c19.1 7.9 40.7-4.2 43.8-24.7l64-417.1C515.7 10.2 487-9 464 4.3zM192 480v-88.8l54.5 22.5L192 480zm224-30.9l-206.2-85.2 199.5-235.8c4.8-5.6-2.9-13.2-8.5-8.4L145.5 337.3 32 290.5 480 32l-64 417.1z"
     }
   })])])]) : _vm._e()])])
 },staticRenderFns: []}
@@ -60718,7 +60677,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.clear_all
     }
-  }, [_vm._v("\n      Clear All\n      " + _vm._s(_vm.bubble) + "\n    ")]) : _vm._e()])]), _vm._v(" "), _c('main', {
+  }, [_vm._v("\n      Clear All\n      ")]) : _vm._e()])]), _vm._v(" "), _c('main', {
     staticClass: "notification-main mw6 m-auto"
   }, [(_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"
@@ -60749,7 +60708,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]) : _c('div', {
     staticClass: "m-b-5"
   }, [(_vm.new_recs_in > 0) ? _c('div', {
-    staticClass: "alert alert-info new_notif_bar",
+    staticClass: "notifications-item pr15 pl15",
     on: {
       "click": _vm.fetchRecords
     }
@@ -60757,7 +60716,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       staticClass: "notifications-item pr15 pl15",
       class: {
-        'text-muted': notification.seen == 1
+        'notifications-item--unseen': notification.seen != 1
       },
       on: {
         "click": function($event) {
@@ -61426,33 +61385,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           time: '500'
         }
       }
-    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
-      staticClass: "nobel-svg",
-      attrs: {
-        "id": "vote"
-      }
-    }, [_c('svg', {
-      staticClass: "c-up",
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "viewBox": "0 0 320 512"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
-      }
-    })]), _vm._v(" "), _c('span', {
-      staticClass: "v_count"
-    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "viewBox": "0 0 320 512"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
-      }
-    })])])])], 1)
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")])])], 1)
   }))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -61554,33 +61487,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           time: '500'
         }
       }
-    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")]), _vm._v(" "), _c('span', {
-      staticClass: "nobel-svg",
-      attrs: {
-        "id": "vote"
-      }
-    }, [_c('svg', {
-      staticClass: "c-up",
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "viewBox": "0 0 320 512"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
-      }
-    })]), _vm._v(" "), _c('span', {
-      staticClass: "v_count"
-    }, [_vm._v("  ")]), _vm._v(" "), _c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "viewBox": "0 0 320 512"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
-      }
-    })])])])], 1)
+    }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")])])], 1)
   }))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

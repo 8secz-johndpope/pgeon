@@ -375,6 +375,8 @@ class UserController extends Controller
       if(!$user)
             return view('user.usernotfound');
           else {
+               $q_count = Question::question_asked_count($user->id);
+              $answers =   User::get_accepted_answers_of_user($user->id);
               $users = User::convoDetails($user->id);
               
               //$replies = User::replies($user->id);
@@ -398,7 +400,7 @@ class UserController extends Controller
                   }
               }
                           
-              return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points_as_non_negative($user->id))->with('is_following', $is_following);
+              return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points_as_non_negative($user->id))->with('is_following', $is_following)->with('answers_count', count($answers))->with('q_count', $q_count);
           }
     }
 
