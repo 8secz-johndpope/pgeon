@@ -19,7 +19,9 @@
         "laravelcollective/html": "5.5.3",
         "spatie/laravel-stripe-webhooks": "^1.0",
         "tcg/voyager": "^1.0",
-        "cartalyst/stripe-laravel": "7.0.*"
+        "cartalyst/stripe-laravel": "7.0.*",
+        "laralabs/toaster": "~3.0.0"
+
 
     },
     "require-dev": {

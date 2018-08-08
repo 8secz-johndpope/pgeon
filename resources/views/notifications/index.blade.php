@@ -5,7 +5,7 @@
 
 
 
-                            <notifications current_user_id="{{Auth::user()->id}}" @bubbleCountChanged="bubbleChangedFromChild"></notifications>
+                            <pnotifications current_user_id="{{Auth::user()->id}}" @bubbleCountChanged="bubbleChangedFromChild"></pnotifications>
            
 
 

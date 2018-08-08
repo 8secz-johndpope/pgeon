@@ -12,6 +12,14 @@ window.Vue = require('vue');
 
 //Vue.use(Vuex)
 
+import Notifications from 'vue-notification';
+//import velocity from 'velocity-animate';
+                    
+Vue.use(Notifications);
+Vue.component('toaster-group', require('laralabs-vue-toaster/src/ToasterGroupComponent.vue'));
+Vue.component('toaster-logic', require('laralabs-vue-toaster/src/ToasterLogicComponent.vue'));
+
+
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(require('vue-resource'));
@@ -46,7 +54,7 @@ Vue.component('answers_expired', require('./components/AnswersExpired.vue'));
 Vue.component('answers_live_owner', require('./components/AnswersLiveOwner.vue'));
 
 Vue.component('answers_expired_owner', require('./components/AnswersExpiredOwner.vue'));
-Vue.component('notifications', require('./components/Notifications.vue'));
+Vue.component('pnotifications', require('./components/Notifications.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
@@ -84,14 +92,18 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		mounted() {
 			this.getBubbleCount()
 			//this.$refs.allR.lo()
+	
+			  
+			  
 		
 		},
 
 		
 	
 		created: function() {
-
+			//console.log(this.$notify);
 			
+		
 		
 		/** bubble FLOW
 		 * 
@@ -139,29 +151,41 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 						this.coupon.local_coupon_id = response.data.local_coupon_id
 					}, (response) => {
 						
-						this.coupon.error = response.data.error
+						this.$notify({
+							text: response.data.error,
+							duration: 3000,
+							type: 'error',
+			
+						  });
+					//	this.coupon.error = response.data.error
 						this.coupon.applied = false;
 						this.coupon.loading = false;
 						this.coupon.type = null;
 					});
 				}
 			},
-			removeAppliedCoupon() {
-						this.coupon.code = "";
-						this.coupon.applied = false;
-						this.coupon.type = null;
-			},
+			
 
 			
 			confirmLocalCouponSubscription() {
 				if(this.coupon.local_coupon_id > 0) {
 					this.coupon.loading = true;
 					this.$http.post(`/coupon/subscribe/${this.coupon.local_coupon_id}`).then((response) => {
-							this.coupon.lc_confirmed = true
+							this.$notify({
+								text: "Subscription is completed.",
+								duration: 3000,
+								type: 'success',
+				
+							  });
 							this.coupon.loading = false;
 						}, (response) => {
 							
-							this.coupon.error = response.data.error
+							this.$notify({
+								text: response.data.error,
+								duration: 3000,
+								type: 'error',
+				
+							  });	
 							this.coupon.loading = false;
 							
 						});
