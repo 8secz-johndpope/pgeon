@@ -205,10 +205,10 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 					});
 		},  
 
-alert() {
-alert('ss')
-}
-,
+		hidedummy() {
+			$(".avatar-dummy-h").addClass('dn')	
+		}
+		,
 		reload() {
 			location.reload()
 		}

@@ -41,7 +41,7 @@
 
   <div class="question-stats">
   @if (count($live) > 0)
-    <a href="/live" class="question-stats__item">
+    <a href="/live" class="question-stats__item spin">
     @else
     <a  class="question-stats__item">
     @endif

@@ -246,3 +246,17 @@
   font-size:14px;
   cursor: pointer;
 }
+
+.vue-avatar--wrapper {
+  display: inline-block;
+  background-color: #9e9e9e !important;
+  color: #fff !important;
+} 
+
+.avatar-dummy-h {
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  background-color: #9e9e9e;
+  border-radius: 50%;
+}

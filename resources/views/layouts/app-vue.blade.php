@@ -76,7 +76,10 @@
    
      <span  class="profile__image pointer slide-menu__trigger fc">
 
-       <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}" @avatar-initials="alert"></avatar>
+       <div class="avatar-dummy-h"> </div> 
+       
+       
+       <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}" @avatar-initials="hidedummy"></avatar>
      </span>
    </span>
    @else
@@ -142,11 +145,8 @@
 <div id="overlay standard-overlay"></div>
 </header>
 
-
-
  @yield('content')
-
-
+ 
 <div class="upgrade-modal">
   <div class="modal-overlay standard-overlay"></div>
   <div class="center-modal mw6 m-auto">

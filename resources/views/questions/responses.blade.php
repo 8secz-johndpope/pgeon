@@ -1,7 +1,7 @@
 @extends('layouts.app-vue')
 @section('content')
 
-@if (Auth::user()))
+@if (Auth::user())
     <allr role_id="{{Auth::user()->role_id}}"></allr>
 @else
     <allrguest></allrguest>    

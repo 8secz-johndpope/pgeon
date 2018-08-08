@@ -17817,19 +17817,9 @@ var app = new Vue({
 				// error callback
 			});
 		},
-		alert: function (_alert) {
-			function alert() {
-				return _alert.apply(this, arguments);
-			}
-
-			alert.toString = function () {
-				return _alert.toString();
-			};
-
-			return alert;
-		}(function () {
-			alert('ss');
-		}),
+		hidedummy: function hidedummy() {
+			$(".avatar-dummy-h").addClass('dn');
+		},
 		reload: function reload() {
 			location.reload();
 		}
