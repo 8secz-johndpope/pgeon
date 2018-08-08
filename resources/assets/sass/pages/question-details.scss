@@ -253,7 +253,7 @@
     }
   }
   &.chosen {
-   background-color: #33cccc;  
+   background-color: #33cccc;
   }
 }
 
@@ -393,8 +393,8 @@ p.response{
 [v-cloak] {
   display: none;
 }
-.et-wrapper.my-class { 
-  padding: 20px 10px;        
+.et-wrapper.my-class {
+  padding: 20px 10px;
   margin-top: 64px;
   background-color: #EAF3FD;
  color:#000;
@@ -407,6 +407,7 @@ p.response{
 }
 
 .bgw {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.13);
   background: #fff;
 }
 

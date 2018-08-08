@@ -50,7 +50,7 @@
        @endif
      </span>
      <span class="dropdown__icon ml5p fc">
-     
+
       {{Helper::read_svg("img/svg/chevron-down.svg")}}
      </span>
    </a>
@@ -58,12 +58,12 @@
 
     @if (Auth::check())
 
-    
+
    <span class="header-right__icons">
      <a href="/people" class="db header-followers pointer mr20p fc">
      {{Helper::read_svg("img/svg/followers.svg")}}
 
-     
+
 
      </a>
      <a href="/notifications" class="header-bell header-bell--with-notif pointer mr20p fc">
@@ -73,7 +73,7 @@
 
        </span>
      </a>
-   
+
      <span  class="profile__image pointer slide-menu__trigger fc">
 
        <div class="avatar-dummy-h"> </div> 
@@ -92,24 +92,24 @@
 
 
 <div class="mobile-dropdown m-auto mw6">
-  
+
  <a class="pointer {{strstr(Request::url(), "responses")? '': 'active'}}" href="/">
    <span>
      Open Questions
    </span>
    {{strstr(Request::url(), "responses")? '': Helper::read_svg("img/svg/check.svg")}}
-     
-   
-  
+
+
+
  </a>
  <a class="pointer {{strstr(Request::url(), "responses")? 'active': ''}}" href="/responses" >
    <span>
      Published Responses
    </span>
-   
+
    {{strstr(Request::url(), "responses")? Helper::read_svg("img/svg/check.svg"):'' }}
  </a>
- 
+
 
    @if (Auth::check())
     @if (Auth::user()->role_id != 3 )
@@ -118,18 +118,18 @@
         My Questions
       </span>
 
-  
+
       <div class="fc premium-dropdown-item">
         <span class="premium-lock fc">
-        {{Helper::read_svg("img/svg/lock-alt.svg")}}   
+        {{Helper::read_svg("img/svg/lock-alt.svg")}}
 
           <span class="ml5p">Premium</span>
         </span>
 
 
-        
+
       </div>
-    
+
     </a>
     @else
     <a href="/my-questions">
@@ -138,7 +138,7 @@
       </span>
 
     </a>
-   @endif   
+   @endif
    @endif
 
 </div>
@@ -154,13 +154,13 @@
       <div class="super-power__container">
         <img class="super-power" src="/img/super-power.png" >
       </div>
-      <p >Unleash the Power, Go Pro!</p>
+      <p>Unleash the Power, Go Pro!</p>
     </div>
     <div class="upgrade-modal__body">
       <h4 class="upgrade-modal__body-header">With Pro, you can</h4>
       <ul  class="upgrade-modal__perks">
         <li>Use our dynamic polling system to interact with fans/followers.</li>
-        <li>Use our dynamic polling system to interact with fans/followers.</li>
+        <li>Retain full control over what’s published.</li>
         <li>Get notified and stay updated.</li>
         <li>Gather advice from like-minded people.</li>
       </ul>
@@ -171,12 +171,12 @@
   </div>
 </div>
 
-    @include('layouts/partials/profile-menu') 
+    @include('layouts/partials/profile-menu')
 
   </div>
 
 
-   
+
 
 
 
@@ -197,6 +197,6 @@
     @stack('scripts')
 
     <script src="{{ asset('js/app.js') }}"></script>
-  
+
   </body>
 </html>

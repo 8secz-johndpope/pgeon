@@ -220,10 +220,7 @@
       }
     }
   }
-
-  .dropdown__icon > svg {
-    transform: rotate(180deg);
-  }
+  
   .openQuestion__title {
     opacity: 0.7;
   }
@@ -231,7 +228,6 @@
 
 .landing-main {
   padding-top: 64px;
-  //
   // min-height: 100vh;
 }
 
@@ -260,7 +256,7 @@
 }
 
 .header-bell:active {
-  opacity: 0.7;
+  // opacity: 0.7;
 }
 
 .header-followers {
@@ -272,7 +268,7 @@
 }
 
 .header-followers:active {
-  opacity: 0.7;
+  // opacity: 0.7;
 }
 
 $bsc: rgba(0, 0, 0, 0.16);
