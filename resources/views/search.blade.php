@@ -1,7 +1,7 @@
 @extends('layouts.app-people-header', ['back' => '/people'])
 @section('content')
 
-<div class="bgw"> 
+<div class="bgw">
 
 
   <div class="search-view  mw6 m-auto pr15 pl15">
@@ -58,10 +58,7 @@ df
   </div>
   @endforeach
   @else
-    <span class="search-unfound-result">
-    👽 <br>
-    uh oh! Looks like you searched for a mystery human!
-  </span>    
+  <!-- this space would be for people recently searched and empty if there isn't any   -->
 @endif
 </main>
 
@@ -72,5 +69,3 @@ df
 
 
 @endsection
-
-

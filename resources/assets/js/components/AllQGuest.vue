@@ -4,7 +4,7 @@
  <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
 
 		<div class="container text-center m-t-5p">
-			
+
 			      <div  v-if="still_deciding_count" class="spinner">
             <div class="b1 se"></div>
             <div class="b2 se"></div>
@@ -20,7 +20,12 @@
             <div class="b12 se"></div>
         </div>
 				 <div v-else>
-				 <h4 class="text-muted m-t-0">No live questions to display. <br>Please check back soon!</h4>
+         <div class="empty-notifications">
+    <p class="m0">
+      <span>💬</span>
+      <span>There are currently no<br> questions to display</span>
+    </p>
+  </div>
 				</div>
 		</div>
 	</main>
@@ -50,9 +55,9 @@
         </div>
       </div>
 
-   
-          
-  			                
+
+
+
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
@@ -113,11 +118,11 @@ import Avatar from 'vue-avatar'
 		still_deciding_paging: false,
 
 
-		
-        
+
+
       }
     },
-   
+
         components: {
 				Avatar
 		},
@@ -126,18 +131,18 @@ import Avatar from 'vue-avatar'
     mounted() {
 	//	this.uf = JSON.parse(this.user_followings)
     //this.filter_questions()
-    
+
     },
 
-    
+
     mixins: [CommonMixin],
-    
+
 
     methods: {
-      
+
 
     	handleScroll: function () {
-	
+
 			if($(window).scrollTop() + $(window).height() == $(document).height()) {
 				//if scroll hits bottom
 				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -145,8 +150,8 @@ import Avatar from 'vue-avatar'
 				}
 			}
     },
-    		
-    	
+
+
       redirect: function(id) {
         location.href = 'question/' + id
       },
@@ -160,7 +165,7 @@ import Avatar from 'vue-avatar'
 			//questions.length will be zero but not finalized yet until push to array
 			this.still_deciding_count = true
 		},
-		
+
 		get_paginated_results: function () {
 		//	console.log(this.currently_fetched_records_count)
 			//pagination counters will be reset when we click on filters
@@ -169,7 +174,7 @@ import Avatar from 'vue-avatar'
 
 			this.get_paginated_featured()
 		},
-		
+
       //will be called from timer comp
       deleteQ: function(id) {
 
@@ -181,33 +186,33 @@ import Avatar from 'vue-avatar'
           i++;
         }
       },
-      
+
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function () {
-			this.loading_txt = "loading.."	
+			this.loading_txt = "loading.."
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
  				 	this.still_deciding_paging = false
 				  this.currently_fetched_records_count = 0
 		          if (response[0]['id'] !== undefined) {
 		        	 	this.currently_fetched_records_count = response.length
 		          	this.questions.push(...response)
-		          	this.loading_txt = "more"	
+		          	this.loading_txt = "more"
 		          }
 				 	//if this is empty even after .push?
 				 	if (this.questions.length < 1)
 				 		this.still_deciding_count = false
 		        }.bind(this));
 		},
-		
+
 		/** will be called only from onclick..so to reset everything**/
 		featured_questions: function() {
 			this.reset()
 			this.current_filter = 'everyone'
 			this.get_paginated_featured()
-		
-		
+
+
 		},
-	
+
 
 
     },
@@ -215,10 +220,10 @@ import Avatar from 'vue-avatar'
 			$(window).bind('scroll',this.handleScroll);
 
     },
-    
+
     created: function() {
 
-      
+
       var com = this
       //got some new questions inserted
       if (socket)
@@ -236,11 +241,11 @@ import Avatar from 'vue-avatar'
 
 
       this.featured_questions()
-      
-     
+
+
     },
 
-   
+
 
   }
 

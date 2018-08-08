@@ -18991,6 +18991,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -19147,6 +19152,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20114,7 +20124,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 var longpress;
 var pressTimer;
@@ -20159,7 +20168,7 @@ var pressTimer;
   },
   methods: {
 
-    //callback 
+    //callback
 
     reload: function reload() {
       location.reload();
@@ -20169,7 +20178,7 @@ var pressTimer;
       var realLength = 120;
       var remainingLength = 120 - currentValue.length;
       if (0 > remainingLength) {
-        // Split value if greater than 
+        // Split value if greater than
         var allowedValuePart = currentValue.slice(0, realLength),
             refusedValuePart = currentValue.slice(realLength);
         this.is_valid = false;
@@ -60499,9 +60508,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+  })]) : _c('div', [_c('div', {
+    staticClass: "empty-notifications"
+  }, [_c('p', {
+    staticClass: "m0"
+  }, [_c('span', [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" questions to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
     return _c('div', {
@@ -61705,9 +61716,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("No live questions to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+  })]) : _c('div', [_c('div', {
+    staticClass: "empty-notifications"
+  }, [_c('p', {
+    staticClass: "m0"
+  }, [_c('span', [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" questions to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
     return _c('div', {

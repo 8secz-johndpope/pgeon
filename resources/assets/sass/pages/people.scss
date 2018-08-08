@@ -30,7 +30,10 @@
   letter-spacing: -0.09px;
   border-bottom: 2px solid transparent;
   border-top: 2px solid transparent;
-  a { color: rgba(74,74,74,0.7); }
+  cursor: pointer;
+  a { color: rgba(74,74,74,0.7);
+    letter-spacing: -0.09px;
+   }
   &.people-tab--active {
     border-bottom: 2px solid #3cc;
     a { color: #000; }
@@ -102,4 +105,3 @@
   color: rgba(74,74,74,0.8);
   font-weight: 400;
 }
-
