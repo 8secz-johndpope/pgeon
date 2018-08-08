@@ -34,7 +34,7 @@
 
 <main class="mw6 m-auto people-main pl15p pr15p pt10p">
 @if ( isset($users) && sizeof($users)>0 )
-df
+
    @foreach( $users as $value )
   <div class="people-item">
     <div>
@@ -57,8 +57,12 @@ df
     @endif
   </div>
   @endforeach
-  @else
-  <!-- this space would be for people recently searched and empty if there isn't any   -->
+  @endif
+  @if ( isset($q) && sizeof($users)<1 )
+    <span class="search-unfound-result">
+    👽 <br>
+    uh oh! Looks like you searched for a mystery human!
+  </span>
 @endif
 </main>
 

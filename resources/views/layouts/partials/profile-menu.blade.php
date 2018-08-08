@@ -23,7 +23,7 @@
             <div class="profile_upload">
 
 </div>
-            <button class="btn pr-loading hidden"><span class="fa fa-spinner fa-spin"></span>
+            <button class="btn pr-loading dn"><span class="fa fa-spinner fa-spin"></span>
                                     Updating</button>
             <span class="profile-prefiew__change-avatar fc pointer">
             {{Helper::read_svg("img/svg/camera.svg")}}  
@@ -156,7 +156,4 @@
     </div>
 @endif
 
-@push('scripts')    
-<script src="{{ asset('js/jquery.html5uploader.min.js') }}"></script>
 
-@endpush

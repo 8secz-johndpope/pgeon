@@ -132,14 +132,6 @@
 </div>
 @endsection
 
-<!-- Push a style dynamically from a view -->
-@push('styles')
-<link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.6/js/all.js'>
 
-@endpush
 
-<!-- Push a script dynamically from a view -->
-@push('scripts')    
-  <script src="{{ asset('js/jquery.html5uploader.min.js') }}"></script>
 
-@endpush

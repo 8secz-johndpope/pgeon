@@ -51,29 +51,7 @@ Vue.component('notifications', require('./components/Notifications.vue'));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
 
-// var defqcomp = allq
-// var defrcomp = allr
-// 	if(typeof user !== "undefined") {
-// 		defqcomp = allq
-// 		defrcomp = allr
-// 	}
-// 	else{
-// 		defqcomp = allqguest
-// 		defrcomp = allrguest
-// 	}
 
-
-// 	const routes = [
-// 		{ path: '/questions', component:defqcomp },
-// 		{ path: '/', component:defqcomp },
-// 		{ path: '/responses', component: defrcomp }
-// 	]
-
-// 	const router = new VueRouter({
-// 		mode: 'history',
-
-// 		routes // short for `routes: routes`
-// 	})
 
 	const app = new Vue({
 	//	router,
@@ -93,7 +71,6 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 				//only for local subscriptions
 				local_coupon_id : 0,
 				lc_confirmed: false,
-				option_selected: false
 			}
 			
 		},
@@ -148,10 +125,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		},
 
 		methods: {
-			selectOption(option) {
-				this.coupon.option_selected = option
-				
-			},
+		
 			validateCoupon() {
 				if(this.coupon.code.trim() != "" ) {
 					this.coupon.loading = true;
@@ -231,8 +205,10 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 					});
 		},  
 
-
-
+alert() {
+alert('ss')
+}
+,
 		reload() {
 			location.reload()
 		}
@@ -242,78 +218,13 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		}
 });
 
-var STRIPE_SECRET = "pk_test_vXMC20UiQF6daFo1sK5j0Fbm"
-Stripe.setPublishableKey(STRIPE_SECRET);
-var stripeResponseHandler = function (status, response) {
-  var $form = $('#payment-form');
-
-  if (response.error) {
-    // Show the errors on the form
-    $form.find('.payment-errors').text(response.error.message);
-    $form.find('button').prop('disabled', false);
-  } else {
-    // token contains id, last4, and card type
-    var token = response.id;
-    // Insert the token into the form so it gets submitted to the server
-    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-    // and re-submit
-    $form.get(0).submit();
-  }
-};
-
-jQuery(function ($) {
-  $('#payment-form').submit(function (e) {
-    var $form = $(this);
-
-    // Disable the submit button to prevent repeated clicks
-    $form.find('button').prop('disabled', true);
-
-    Stripe.card.createToken($form, stripeResponseHandler);
-
-    // Prevent the form from submitting with the default action
-    return false;
-  });
-
-
-});
 
 
 
 
-var stripeUpdateResponseHandler = function (status, response) {
-	var $form = $('#update-form');
-  
-	if (response.error) {
-	  // Show the errors on the form
-	  $form.find('.payment-errors').text(response.error.message);
-	  $form.find('button').prop('disabled', false);
-	} else { 
-	  // token contains id, last4, and card type
-	  var token = response.id;
-	  // Insert the token into the form so it gets submitted to the server
-	  $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-	  // and re-submit
-	  $form.get(0).submit();
-	}
-  };
-  
-  jQuery(function ($) {
-	$('#update-form').submit(function (e) {
-	  var $form = $(this);
-  
-	  // Disable the submit button to prevent repeated clicks
-	  $form.find('button').prop('disabled', true);
-  
-	  Stripe.card.createToken($form, stripeUpdateResponseHandler);
-  
-	  // Prevent the form from submitting with the default action
-	  return false;
-	});
-  
-  
-  });
 
- 
+
+
 
 
 import "./modules/global/forms"

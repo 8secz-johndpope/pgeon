@@ -51,11 +51,11 @@
 								  ></answers_guest>
 
 
-        <!-- Guests are not able to view posted answers -->
-
-
+           <a href="/signup" class="base-btn guest-login mw6 m-auto">
+      login / signup
+    </a>
      
-         <?php /* <answers_guest question_id="{{$question->id}}" question_owner_id="{{$question->user_id}}" ></answers_guest> */ ?>
+    
 
 
 

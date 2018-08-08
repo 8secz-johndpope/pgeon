@@ -1,6 +1,6 @@
-
 export default () => {
 
+ 
   setTimeout(() => {
     $("input.pgn__input").val("")
     $("input.pgn__input").prop("disabled", false)
@@ -26,3 +26,4 @@ export default () => {
   })
 
 }
+
