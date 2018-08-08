@@ -158,6 +158,6 @@ class HomeController extends Controller {
         
         
 
-        return view('search',['users' => $users, 'msg' => $msg]);
+        return view('search',['users' => $users, 'msg' => $msg, 'q' => $q]);
     }
 }

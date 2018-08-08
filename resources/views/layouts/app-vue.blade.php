@@ -74,8 +74,9 @@
        </span>
      </a>
    
-     <span href="/user/profile-with-feeds" class="profile__image pointer slide-menu__trigger fc">
-       <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
+     <span  class="profile__image pointer slide-menu__trigger fc">
+
+       <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}" @avatar-initials="alert"></avatar>
      </span>
    </span>
    @else

@@ -143,31 +143,27 @@ $(function () {
 		var file = $(this).prop('files')[0]; // The file
 		var fr = new FileReader(); // FileReader instance
 		fr.onload = function (e) {
-			// Do stuff on onload, use fr.result for contents of file
-			//$( '#file-content' ).append( $( '<div/>' ).html( fr.result ) )
-			//alert('dd')
-
-			$(".alert-success").remove() && $(".pr-loading").removeClass("hidden");
+		
+			//can be enabled once a loader is added.
+			//$(".alert-success").remove() && $(".pr-loading").removeClass("hidden");
 					   src =  e.target.result
-			 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
-					   $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 80px 80px no-repeat scroll content-box border-box transparent')
+			 		  $(".profile-preview__avatar .vue-avatar--wrapper span").remove()
+					   $(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 80px 80px no-repeat scroll content-box border-box transparent')
 					   
 
 		};
-		//fr.readAsText( file );
 		fr.readAsDataURL( file );
 
-		//   fileReader.readAsDataURL(file);
 
    var xmlHttpRequest = new XMLHttpRequest();
    xmlHttpRequest.open("POST", "/profile", true);
 
    xmlHttpRequest.onreadystatechange = function (e) {
 };
+var fname = 'avatar'
 
    if (file.getAsBinary) { // Firefox
 
-	var fname = 'avatar'
 		  var data = dashes + boundary + crlf +
 			  "Content-Disposition: form-data;" +
 			  "name=\"" + fname + "\";" +

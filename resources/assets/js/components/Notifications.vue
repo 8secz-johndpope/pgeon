@@ -92,6 +92,15 @@
 
   </div>
 </main>
+
+<main class="notification-main mw6 m-auto"  v-if="notifications.length<1" >
+  <div class="empty-notifications">
+    <p class="m0">
+      <span>🎉</span>
+      <span>You’re all caught up!</span>
+    </p>
+  </div>
+</main>
  
 
 </div>

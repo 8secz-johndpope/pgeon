@@ -71,7 +71,6 @@
    
 
 
-
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
             var socket = io("{{ env('NODE_CONNECT') }}");
@@ -83,10 +82,17 @@
              socket.emit('connect_me', 'U_{{Auth::user()->id}}');
 
         </script>
-		@endif
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    @stack('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
+    @endif
+    <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+
+
+    
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
   
   </body>
 </html>
