@@ -17,11 +17,6 @@
 
 	<!-- Fonts files -->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
-	<!-- Font awesome -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
-	<!-- Tachyons css -->
-    <!-- <link rel="stylesheet" href="/css/tachyons.css"> -->
-    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -76,9 +71,9 @@
 
      <span  class="profile__image pointer slide-menu__trigger fc">
 
-       <div class="avatar-dummy-h"> </div> 
-       
-       
+       <div class="avatar-dummy-h"> </div>
+
+
        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}" @avatar-initials="hidedummy"></avatar>
      </span>
    </span>
@@ -146,15 +141,15 @@
 </header>
 
  @yield('content')
- 
+
 <div class="upgrade-modal">
   <div class="modal-overlay standard-overlay"></div>
-  <div class="center-modal mw6 m-auto">
+  <div class="center-modal m-auto">
     <div class="upgrade-modal__top">
       <div class="super-power__container">
         <img class="super-power" src="/img/super-power.png" >
       </div>
-      <p>Unleash the Power, Go Pro!</p>
+      <p>Unleash the Power, <span>Go Pro!</span>
     </div>
     <div class="upgrade-modal__body">
       <h4 class="upgrade-modal__body-header">With Pro, you can</h4>
@@ -165,7 +160,7 @@
         <li>Gather advice from like-minded people.</li>
       </ul>
       <a href="/membership" class="upgrade-modal__button">
-        Upgrade to Premium for $3.99/mo
+        Upgrade to Premium for $5/mo
       </a>
     </div>
   </div>

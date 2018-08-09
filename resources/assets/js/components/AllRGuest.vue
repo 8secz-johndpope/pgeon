@@ -1,10 +1,10 @@
 <template>
 <div>
 
-       
-            
-          
-          
+
+
+
+
 
  <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
@@ -23,15 +23,18 @@
             <div class="b12 se"></div>
         </div>
 				 <div v-else>
-				 <img src="/img/chat-bubble.svg" />
-				 <h4 class="text-muted m-t-0">Nothing to display. <br>Please check back soon!</h4>
+				   <div class="empty-notifications">
+             <p class="m0"><span style="-moz-transform: scale(-1, 1); -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); -ms-transform: scale(-1, 1); transform: scale(-1, 1);">💬</span>
+               <span>There are currently no<br> responses to display</span>
+             </p>
+           </div>
 				</div>
 		</div>
 	</main>
-          
-          
-            
- 
+
+
+
+
  <main class="landing-main mw6 m-auto pl15 pr15">
 
 
@@ -58,9 +61,9 @@
         </div>
       </div>
 
-     
-                           
-                    
+
+
+
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
@@ -77,14 +80,14 @@
             <div class="b12 se"></div>
         </div>
 						</li></ul>
-     
 
 
-              
+
+
  </main>
-            
-            
-  
+
+
+
        </div>
 
 </template>
@@ -104,7 +107,7 @@ import Avatar from 'vue-avatar'
 	  		current_page:0,
 	  		loading_txt: "more",
 			still_deciding_count: true,
-	        
+
 	      };
 	    },
 	    props: ['user_id'],
@@ -114,9 +117,9 @@ import Avatar from 'vue-avatar'
 				Avatar
 		},
 	    mixins: [CommonMixin],
-	    
+
 	    methods: {
-	    	
+
 	    	reset: function () {
 				this.questions = []
 				this.current_page = 0
@@ -124,51 +127,51 @@ import Avatar from 'vue-avatar'
 				//questions.length will be zero but not finalized yet until push to array
 				this.still_deciding_count = true
 			},
-			
+
 			get_paginated_results: function () {
 			//	console.log(this.currently_fetched_records_count)
 				//pagination counters will be reset when we click on filters
 				this.current_page ++;
 				this.get_paginated_featured()
 			},
-			
+
 	      redirect: function(id) {
 	        location.href = 'question/' + id
 	      },
 
 
-	
+
 
 	  	/** will be called only from load more links as well**/
 			get_paginated_featured: function () {
-				this.loading_txt = "loading.."	
+				this.loading_txt = "loading.."
 				 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
 					  this.currently_fetched_records_count = 0
 			          if (response[0]['id'] !== undefined) {
 			        	 	this.currently_fetched_records_count = response.length
 			          	this.questions.push(...response)
-			          	this.loading_txt = "more"	
+			          	this.loading_txt = "more"
 			          }
 					 	//if this is empty even after .push?
 					 	if (this.questions.length < 1)
 					 		this.still_deciding_count = false
 			        }.bind(this));
 			},
-			
+
 			/** will be called only from onclick..so to reset everything**/
 			featured_questions: function() {
 				this.reset()
 				this.current_filter = 'everyone'
 				this.get_paginated_featured()
-			
-			
+
+
 			},
 
 
 	    },
 	    created: function() {
 
-     
+
 
 
 

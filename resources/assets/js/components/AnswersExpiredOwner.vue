@@ -6,16 +6,13 @@
     <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
       <a href="/pending" class="question-details__close pointer">
 
-        <svg width="448px" height="256px" viewBox="0 0 448 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
-    <title>long-arrow-left</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="long-arrow-left" fill="#4A4A4A" fill-rule="nonzero">
-            <path d="M136.97,252.485 L144.041,245.415 C148.727,240.729 148.727,233.131 144.041,228.444 L60.113,145 L436,145 C442.627,145 448,139.627 448,133 L448,123 C448,116.373 442.627,111 436,111 L60.113,111 L144.041,27.556 C148.727,22.87 148.727,15.272 144.041,10.585 L136.97,3.515 C132.284,-1.171 124.686,-1.171 120,3.515 L3.515,119.515 C-1.171,124.201 -1.171,131.799 3.515,136.486 L120,252.486 C124.686,257.172 132.284,257.172 136.97,252.485 Z" id="Shape"></path>
-        </g>
-    </g>
+      <?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 448 256" xmlns="http://www.w3.org/2000/svg">
+<g fill="none" fill-rule="evenodd">
+<g fill="#4A4A4A" fill-rule="nonzero">
+<path d="m136.97 252.48l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971l-83.928-83.444h375.89c6.627 0 12-5.373 12-12v-10c0-6.627-5.373-12-12-12h-375.89l83.928-83.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-116.48 116c-4.686 4.686-4.686 12.284 0 16.971l116.48 116c4.686 4.686 12.284 4.686 16.97-1e-3z"/>
+</g>
+</g>
 </svg>
 
       </a>
@@ -27,7 +24,7 @@
       </div>
     </div>
     <div class="details__dropdown__container mw6 m-auto">
-    
+
     </div>
     <div class="details__overlay standard-overlay"></div>
   </header>
@@ -38,7 +35,7 @@
 
 
  <main class="landing-main mw6 m-auto pl15 pr15">
-    
+
     <div class="open-question__right">
       <div class="open-question__meta">
         <span class="open-question__author">{{uname}}</span>
@@ -61,11 +58,11 @@
         <div class="mr10p"> {{ checkVoted(answer.id)}} </div>
       </div>
 
-  
+
     </div>
   </main>
 </div>
-   
+
 
 
 </template>
@@ -80,24 +77,24 @@
         csrf: "",
         uname: "",
         question: "",
-          ex_date: "",	
+          ex_date: "",
           answer_id: 0
       };
     },
     props: ['topanswer', 'question_id', 'top_a'],
-    
+
     mounted() {
               this.csrf = $('meta[name="csrf-token"]').attr('content');
-              
+
 
     },
-    
+
     methods: {
 
-    	
-     	
+
+
     	fetchRecords() {
-        
+
 
          this.answer_id = this.top_a
     		 $.getJSON('/question/' + this.question_id + '/json', function(response) {
@@ -106,27 +103,27 @@
                 this.ex_date = response.ex_date
                 this.answers = response.answers
 
-                
+
     		    //    console.log(response);
-                
+
     		        // var com = this
     		        $.getJSON('/get_votes_with_count/'+this.question_id, function(votes) {
     		       //   com.my_votes = votes
                     this.my_votes = votes
-    		          
+
     		      }.bind(this));
-    		        
-    		      }.bind(this));	
+
+    		      }.bind(this));
     	},
-    	
+
       selectAnswer(answer_id) {
-     
+
     	  	this.answer_id = answer_id
-    	  	
+
       },
-   
+
       saveChosenAnswer() {
-    	  
+
     	  var formData = {
     	          'question_id': this.question_id,
     	          'answer_id': this.answer_id,
@@ -136,10 +133,10 @@
     	        }, (response) => {
     	          alert('error submitting')
     	        });
-    	  
+
       },
- 
-      
+
+
       checkVoted(answer_id) {
          for (var i = 0; i < this.my_votes.length; i++) {
             if (this.my_votes[i]["answer_id"] == answer_id) {
@@ -148,15 +145,15 @@
          }
         return 0;
       },
-   
-      
+
+
     }
 
     ,
     created: function() {
 
       this.fetchRecords()
-      
+
     },
 
 

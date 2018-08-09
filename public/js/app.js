@@ -19493,6 +19493,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
 
 
 
@@ -19612,7 +19615,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 		//     if (response[0]['id'] !== undefined)
 		//       this.all_questions = response
-		//       this.decide_questions()			
+		//       this.decide_questions()
 		//   }.bind(this));
 	}
 
@@ -19629,6 +19632,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
 //
 //
 //
@@ -20505,9 +20511,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -21224,7 +21227,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.remainingLength = 150 - currentValue.length;
       //  console.log(remainingLength);
       if (0 > this.remainingLength) {
-        // Split value if greater than 
+        // Split value if greater than
         var allowedValuePart = currentValue.slice(0, realLength),
             refusedValuePart = currentValue.slice(realLength);
         this.is_valid = false;
@@ -21583,17 +21586,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21627,7 +21619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         this.bubble -= 1;
         this.$http.post('/markasseen', formData).then(function (response) {
-          //	this.$emit('bubbleCountChanged', this.bubble-1)    	  
+          //	this.$emit('bubbleCountChanged', this.bubble-1)
           location.href = notification.link_to;
         }, function (response) {
           alert('error navigating');
@@ -56017,13 +56009,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
+  })]) : _c('div', [_c('div', {
+    staticClass: "empty-notifications"
+  }, [_c('p', {
+    staticClass: "m0"
+  }, [_c('span', {
+    staticStyle: {
+      "-moz-transform": "scale(-1, 1)",
+      "-webkit-transform": "scale(-1, 1)",
+      "-o-transform": "scale(-1, 1)",
+      "-ms-transform": "scale(-1, 1)",
+      "transform": "scale(-1, 1)"
     }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("Nothing to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+  }, [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" responses to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
     return _c('div', {
@@ -56112,33 +56110,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/pending"
     }
-  }, [_c('svg', {
+  }, [_vm._v("\n\n      <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"), _c('svg', {
     attrs: {
-      "width": "448px",
-      "height": "256px",
-      "viewBox": "0 0 448 256",
       "version": "1.1",
-      "xmlns": "http://www.w3.org/2000/svg",
-      "xmlns:xlink": "http://www.w3.org/1999/xlink"
+      "viewBox": "0 0 448 256",
+      "xmlns": "http://www.w3.org/2000/svg"
     }
-  }, [_c('title', [_vm._v("long-arrow-left")]), _vm._v(" "), _c('desc', [_vm._v("Created with Sketch.")]), _vm._v(" "), _c('defs'), _vm._v(" "), _c('g', {
+  }, [_c('g', {
     attrs: {
-      "id": "Page-1",
-      "stroke": "none",
-      "stroke-width": "1",
       "fill": "none",
       "fill-rule": "evenodd"
     }
   }, [_c('g', {
     attrs: {
-      "id": "long-arrow-left",
       "fill": "#4A4A4A",
       "fill-rule": "nonzero"
     }
   }, [_c('path', {
     attrs: {
-      "d": "M136.97,252.485 L144.041,245.415 C148.727,240.729 148.727,233.131 144.041,228.444 L60.113,145 L436,145 C442.627,145 448,139.627 448,133 L448,123 C448,116.373 442.627,111 436,111 L60.113,111 L144.041,27.556 C148.727,22.87 148.727,15.272 144.041,10.585 L136.97,3.515 C132.284,-1.171 124.686,-1.171 120,3.515 L3.515,119.515 C-1.171,124.201 -1.171,131.799 3.515,136.486 L120,252.486 C124.686,257.172 132.284,257.172 136.97,252.485 Z",
-      "id": "Shape"
+      "d": "m136.97 252.48l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971l-83.928-83.444h375.89c6.627 0 12-5.373 12-12v-10c0-6.627-5.373-12-12-12h-375.89l83.928-83.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-116.48 116c-4.686 4.686-4.686 12.284 0 16.971l116.48 116c4.686 4.686 12.284 4.686 16.97-1e-3z"
     }
   })])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "pointer save_button"
@@ -56390,31 +56380,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('svg', {
     attrs: {
-      "width": "448px",
-      "height": "256px",
-      "viewBox": "0 0 448 256",
       "version": "1.1",
-      "xmlns": "http://www.w3.org/2000/svg",
-      "xmlns:xlink": "http://www.w3.org/1999/xlink"
+      "viewBox": "0 0 448 256",
+      "xmlns": "http://www.w3.org/2000/svg"
     }
-  }, [_c('title', [_vm._v("long-arrow-left")]), _vm._v(" "), _c('desc', [_vm._v("Created with Sketch.")]), _vm._v(" "), _c('defs'), _vm._v(" "), _c('g', {
+  }, [_c('g', {
     attrs: {
-      "id": "Page-1",
-      "stroke": "none",
-      "stroke-width": "1",
       "fill": "none",
       "fill-rule": "evenodd"
     }
   }, [_c('g', {
     attrs: {
-      "id": "long-arrow-left",
       "fill": "#4A4A4A",
       "fill-rule": "nonzero"
     }
   }, [_c('path', {
     attrs: {
-      "d": "M136.97,252.485 L144.041,245.415 C148.727,240.729 148.727,233.131 144.041,228.444 L60.113,145 L436,145 C442.627,145 448,139.627 448,133 L448,123 C448,116.373 442.627,111 436,111 L60.113,111 L144.041,27.556 C148.727,22.87 148.727,15.272 144.041,10.585 L136.97,3.515 C132.284,-1.171 124.686,-1.171 120,3.515 L3.515,119.515 C-1.171,124.201 -1.171,131.799 3.515,136.486 L120,252.486 C124.686,257.172 132.284,257.172 136.97,252.485 Z",
-      "id": "Shape"
+      "d": "m136.97 252.48l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971l-83.928-83.444h375.89c6.627 0 12-5.373 12-12v-10c0-6.627-5.373-12-12-12h-375.89l83.928-83.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-116.48 116c-4.686 4.686-4.686 12.284 0 16.971l116.48 116c4.686 4.686 12.284 4.686 16.97-1e-3z"
     }
   })])])])]), _vm._v(" "), _c('h4', {
     staticClass: "header-title m0"
@@ -56560,7 +56542,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, _vm.maxHighlight]
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "post-question-share"
+    staticClass: "post-question-share",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('div', {
     staticClass: "post-question-share__meta flex justify-between"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
@@ -57327,13 +57312,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "b11 se"
   }), _vm._v(" "), _c('div', {
     staticClass: "b12 se"
-  })]) : _c('div', [_c('img', {
-    attrs: {
-      "src": "/img/chat-bubble.svg"
+  })]) : _c('div', [_c('div', {
+    staticClass: "empty-notifications"
+  }, [_c('p', {
+    staticClass: "m0"
+  }, [_c('span', {
+    staticStyle: {
+      "-moz-transform": "scale(-1, 1)",
+      "-webkit-transform": "scale(-1, 1)",
+      "-o-transform": "scale(-1, 1)",
+      "-ms-transform": "scale(-1, 1)",
+      "transform": "scale(-1, 1)"
     }
-  }), _vm._v(" "), _c('h4', {
-    staticClass: "text-muted m-t-0"
-  }, [_vm._v("Nothing to display. "), _c('br'), _vm._v("Please check back soon!")])])])]) : _vm._e(), _vm._v(" "), _c('main', {
+  }, [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" responses to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_vm._l((_vm.questions), function(question) {
     return _c('div', {

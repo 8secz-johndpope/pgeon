@@ -4,7 +4,7 @@
 <div class="bgw">
 
 
-  <div class="search-view  mw6 m-auto pr15 pl15">
+  <div class="search-view mw6 m-auto pr15 pl15">
 
 
 <span class="search-icon" href="/people/search">
@@ -59,10 +59,11 @@
   @endforeach
   @endif
   @if ( isset($q) && sizeof($users)<1 )
-    <span class="search-unfound-result">
-    👽 <br>
-    uh oh! Looks like you searched for a mystery human!
-  </span>
+    <div class="empty-notifications">
+      <p class="m0"><span>👽</span>
+      <span>uh oh! Looks like you searched<br>for a mystery human!</span>
+      </p>
+      </div>
 @endif
 </main>
 

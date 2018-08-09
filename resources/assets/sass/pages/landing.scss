@@ -144,7 +144,7 @@
   color: #000;
 
   &:active {
-    box-shadow: 0 2px 0.05px #e8ebec;
+    // box-shadow: 0 2px 0.05px #e8ebec;
   }
 
   &:hover {
@@ -190,6 +190,7 @@
     width: 14px;
     height: 14px;
     fill: #3cc;
+    shape-rendering: auto;
   }
 }
 
@@ -220,7 +221,7 @@
       }
     }
   }
-  
+
   .openQuestion__title {
     opacity: 0.7;
   }

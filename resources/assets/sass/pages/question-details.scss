@@ -373,7 +373,13 @@
 
 /** edited by press **/
 .post-question-textarea {
-  width: 100%;
+    -ms-flex: 1;
+    flex: 1;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 20px 15px;
+    height: 150px;
 }
 
 #file-avatar {

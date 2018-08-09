@@ -2,17 +2,23 @@
 .center-modal {
   z-index: 2;
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 30%;
+  transform: translateY(-30%);
   left: 15px;
   right: 15px;
+  max-width: 345px;
 }
 
 .upgrade-modal__top {
   overflow: hidden;
   position: relative;
   background-color: #f28964;
-  padding: 15px;
+  padding: 15px 15px 20px 15px;
+  border-radius: 4px 4px 0 0;
+  font-weight: 600;
+  span{
+    font-weight: bolder;
+  }
   img {
   }
   p {
@@ -25,7 +31,9 @@
 
 .upgrade-modal__body {
   background-color: #fff;
-  padding: 30px 15px 15px 20px;
+  padding: 30px 15px 20px 15px;
+  border-radius: 0 0 4px 4px;
+  margin-top: -1px;
 }
 .modal-overlay {
   position: fixed;
@@ -45,7 +53,6 @@
   }
   display: none;
   .center-modal {
-    // min-height: 200px;
     border-radius: 4px;
     background-color: #fff;
     padding: 20px 15px;
@@ -62,6 +69,7 @@
   margin: 0 0 0 17px;
   li {
     color: #4A4A4A;
+    font-weight: 600;
     font-size: 14px;
     margin-bottom: 10px;
     &:last-child {
@@ -74,17 +82,32 @@
   margin: 0 0 20px 0;
   color: #4a4a4a;
   font-size: 14px;
+  font-weight: normal;
 }
 
 .upgrade-modal__button {
   background-color: #3cc;
   border: none;
-  outline: none;
+  outline: 0;
   padding: 17px 25px;
   color: white;
   display: block;
   margin: 30px auto 0;
   text-align: center;
+  font-weight: 600;
+  -webkit-appearance: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.upgrade-modal__button:active {
+  background-color: #2db7b7;
 }
 
 .upgrade-modal { display: none; }
@@ -95,9 +118,23 @@
   margin: auto;
 }
 
+@media screen and (max-width: 374px) {
+  .super-power__container {
+    display: none;
+  }
+  .upgrade-modal__top{
+    background-image: url("/img/super-power_mobile.png");
+    background-position: center;
+  }
+  .upgrade-modal__top p {
+      margin: 20px;
+    }
+  }
+
 img.super-power {
   display: block;
   margin: 0 auto;
+  padding-top: 20px;
 }
 
 

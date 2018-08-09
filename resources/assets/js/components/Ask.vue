@@ -11,12 +11,12 @@
                         <form class="form-horizontal" action="/question" method="POST">
  <input type="hidden" name="_token" :value="csrf">
 
-            
+
                                             <textarea   class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question" @input="maxHighlight"></textarea>
 
                                               <!-- <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div> -->
 
-                                                                                    <div class="post-question-share">
+                                                                                    <div class="post-question-share" style="display: none;">
                                             <div class="post-question-share__meta flex justify-between">
                                                 <div class="flex align-center">
                                                 <div class="md-checkbox fc">
@@ -67,7 +67,7 @@
                                                 <option value="05">05 days</option>
                                                 <option value="06">06 days</option>
                                             </select>
-                               
+
             </span> /
             <span class="pointer">
                                             <select name="hours" id="hour-select" v-model="hh"   class="no-r">
@@ -117,19 +117,19 @@
                                      </span>
           </span>
                                         </div>
-                                     
+
                                     </div>
                                     <button v-if=is_valid>Post Question</button>
     </div>
-                              
-             
-                       
 
-           
+
+
+
+
  </form>
   </div>
             <!-- <div class="error alert alert-warning animated shake" role="alert">
-                        
+
     Please include at-least one question mark.
     </div>   -->
  </main>
@@ -140,8 +140,8 @@
 
 <script>
   export default {
-      
-  
+
+
   data() {
     return {
       question: "",
@@ -159,11 +159,11 @@
    props: ['lq_created_at'],
    computed: {
     // get only
-   
+
    },
   watch: {
     question: function (nval) {
-      
+
       if(nval.indexOf("?") >= 0)
         this.hasQMark =  true
        else
@@ -175,7 +175,7 @@
          this.mm = "05"
          this.lt5_disabled = true
 
-       }else if ((this.dd == "00")  && (this.mm == "00")  && (this.hh == "00")) { 
+       }else if ((this.dd == "00")  && (this.mm == "00")  && (this.hh == "00")) {
           this.hh = "01"
           this.lt5_disabled = true
        } else {
@@ -183,7 +183,7 @@
          this.lt5_disabled = false
        }
     }, hh: function () {
-       if ((this.dd == "00")  && (parseInt(this.mm) <= 5)  && (this.hh == "00")) { 
+       if ((this.dd == "00")  && (parseInt(this.mm) <= 5)  && (this.hh == "00")) {
           this.mm = "05"
           this.lt5_disabled = true
        }else {
@@ -198,27 +198,27 @@
          this.remainingLength = 150 - currentValue.length;
        //  console.log(remainingLength);
           if (0 > this.remainingLength) {
-                // Split value if greater than 
+                // Split value if greater than
                 var allowedValuePart = currentValue.slice(0, realLength),
                     refusedValuePart = currentValue.slice(realLength)
                 ;
                 this.is_valid = false;
-                
-                
-                
-               
+
+
+
+
                 // Fill the hidden div.
                 //this.placeholder_content = allowedValuePart + '<em>' + refusedValuePart + '</em>'
               } else {
                 this.placeholder_content = ''
                 this.is_valid = (currentValue.length>0)
-                  
+
               }
       },
-      
-   
-    
-   
+
+
+
+
   },
   mounted() {
   }

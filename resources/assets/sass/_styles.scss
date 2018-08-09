@@ -4,7 +4,9 @@ body {
 }
 body {
   margin: 0 auto;
-  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: 'liga', 'kern';
 }
 
 *:not(input):not(textarea) {
@@ -104,16 +106,18 @@ svg {
 .ah-login {
   color: #54595f;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: normal;
   a {
-    font-weight: 400;
+    font-weight: 600;
     color: #3cc;
+  }
+  a:active {
+    color: #2db7b7;
   }
 }
 
 .signup-group .pg-btn {
   font-size: 16px;
-  font-weight: normal;
 }
 
 .close-button {
@@ -131,6 +135,7 @@ svg {
   margin-top: 5px;
   color: #3cc;
   line-height: 1.13;
+  font-weight: 600;
 }
 
 .forgot_password > a:active {
@@ -261,6 +266,7 @@ textarea {
   font-size: 16px;
   -webkit-appearance: none;
   line-height: 16px;
+  font-weight: normal;
 }
 
 .landing_header,

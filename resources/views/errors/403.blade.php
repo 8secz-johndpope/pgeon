@@ -1,18 +1,8 @@
 @extends('layouts.app-no-logo')
 
 @section('content')
-<main class="pl-15 mw6 m-auto live-main published-main pl15p pr15p">
-
-    <div class="content">
-              <div class="container text-center text-muted" style="max-width: 450px;"></br></br>
-                <a href="/" class="app-brand m-b" style="width: 55px;"><img src="http://45.55.82.255/img/main-logo.svg" alt="Pgeon" width="50"></a>
-                <h2 style="font-weight: 600;">PERMISSION DENIED</h2>
-                <p>You don't have the required privileges to access this page.
-                  <span>Return to the <a class="text-primary" href="/">homepage</a> or <a class="text-primary" href="mailto:contact@pgeon.com">contact us</a> about the issue.
-                </span></p>
-              </div>
-            </div>
-
-  </main>
+<div class="upgrade-modal upgrade-modal--visible"><div class="modal-overlay standard-overlay"></div> <div class="center-modal m-auto"><div class="upgrade-modal__top"><div class="super-power__container"><img src="/img/super-power.png" class="super-power"></div> <p>Unleash the Power, <span>Go Pro!</span></p></div> <div class="upgrade-modal__body"><h4 class="upgrade-modal__body-header">With Pro, you can</h4> <ul class="upgrade-modal__perks"><li>Use our dynamic polling system to interact with fans/followers.</li> <li>Retain full control over what’s published.</li> <li>Get notified and stay updated.</li> <li>Gather advice from like-minded people.</li></ul> <a href="/membership" class="upgrade-modal__button">
+        Upgrade to Premium for $5/mo
+      </a></div></div></div>
 
 @endsection

@@ -19,8 +19,11 @@
             <div class="b12 se"></div>
         </div>
 				 <div v-else>
-				 <img src="/img/chat-bubble.svg" />
-				 <h4 class="text-muted m-t-0">Nothing to display. <br>Please check back soon!</h4>
+         <div class="empty-notifications">
+           <p class="m0"><span style="-moz-transform: scale(-1, 1); -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); -ms-transform: scale(-1, 1); transform: scale(-1, 1);">💬</span>
+             <span>There are currently no<br> responses to display</span>
+           </p>
+         </div>
 				</div>
 		</div>
 	</main>
@@ -54,9 +57,9 @@
         </div>
       </div>
 
-     
-                           
-                    
+
+
+
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
@@ -83,14 +86,14 @@
         </div>
 
 
-                    
-              
+
+
  </main>
-            
-            
-  
+
+
+
        </div>
-     
+
 
 
 
@@ -113,7 +116,7 @@ import Avatar from 'vue-avatar'
 			still_deciding_count: true,
 			still_deciding_paging: false,
 
-	        
+
 	      };
 	    },
 	    props: ['user_id', 'role_id', 'avatar', 'slug', 'csrf_field','eligible_to_ask'],
@@ -129,9 +132,9 @@ import Avatar from 'vue-avatar'
 
 
 	    mixins: [CommonMixin],
-	    
+
 	    methods: {
-	    	
+
 	    	reset: function () {
 				this.questions = []
 				this.current_page = 0
@@ -145,7 +148,7 @@ import Avatar from 'vue-avatar'
 
 
 		handleScroll: function () {
-	
+
 			if($(window).scrollTop() + $(window).height() == $(document).height()) {
 				//if scroll hits bottom
 				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -153,7 +156,7 @@ import Avatar from 'vue-avatar'
 				}
 			}
 		},
-					
+
 			get_paginated_results: function () {
 				//	console.log(this.currently_fetched_records_count)
 					//pagination counters will be reset when we click on filters
@@ -165,8 +168,8 @@ import Avatar from 'vue-avatar'
 						this.get_paginated_featured()
 					}
 				},
-				
-	    		
+
+
 				get_paginated_qff: function () {
 					 $.getJSON(`/rff/${this.paginate}/${this.current_page}`, function(response) {
 						 this.still_deciding_paging = false
@@ -174,7 +177,7 @@ import Avatar from 'vue-avatar'
 					        if (response[0]['id'] !== undefined) {
 					        		this.currently_fetched_records_count = response.length
 					        		this.questions.push(...response)
-					        		
+
 					        }
 						 	//if this is empty even after .push?
 						 	if (this.questions.length < 1)
@@ -184,7 +187,7 @@ import Avatar from 'vue-avatar'
 		    		followed_questions: function() {
 		    			this.reset()
 		    			this.current_filter = 'follow'
-		    			this.get_paginated_qff()	 
+		    			this.get_paginated_qff()
 
 		    		},
 		    		/** will be called only from load more links as well**/
@@ -200,45 +203,45 @@ import Avatar from 'vue-avatar'
 		    				 		this.still_deciding_count = false
 		   		        }.bind(this));
 		    		},
-		    		
+
 		    		/** will be called only from onclick..so to reset everything**/
 		    		featured_questions: function() {
 		    			this.reset()
 		    			this.current_filter = 'everyone'
 		    			this.get_paginated_featured()
-					
-		    		
+
+
 		    		},
-		    		
-	    		
-	    	
+
+
+
 	      redirect: function(id) {
 	        location.href = 'question/' + id
 	      },
 
 
-	
+
 
 
 
 	    },
 	    created: function() {
 
-     
 
 
-	    	
-	  this.followed_questions()  	
+
+
+	  this.followed_questions()
 
 
     //   $.getJSON('/responses/json', function(response) {
 
-    	  	
+
     //     if (response[0]['id'] !== undefined)
     //       this.all_questions = response
-    //       this.decide_questions()			
+    //       this.decide_questions()
 	//   }.bind(this));
-	  
+
     },
 
 

@@ -29,9 +29,9 @@
           </span>
 
             @if ($errors->has('password'))
-                                           
+
                 <p class="pgn-textfield-errorMessage" data-error="password" >{{ $errors->first('password') }} </p>
-            @endif 
+            @endif
         </div>
 
 
