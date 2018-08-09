@@ -175,6 +175,8 @@
 
     @include('layouts/partials/profile-menu')
 
+  <notifications  />
+
   </div>
 
 

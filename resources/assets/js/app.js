@@ -86,7 +86,8 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		components: {
 				"invisible-recaptcha": InvisibleRecaptcha,
 				"longpress" : Longpress,
-				Avatar
+				Avatar,
+
 		},
 		
 		mounted() {
@@ -235,6 +236,15 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		,
 		reload() {
 			location.reload()
+		},
+		exterror(msg, type) {
+			
+			this.$notify({
+				text: msg,
+				duration: 3000,
+				type: type,
+
+			  });
 		}
 		
 
@@ -244,7 +254,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 
 
 
-
+window.vm = app
 
 
 

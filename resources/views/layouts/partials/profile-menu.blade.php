@@ -50,7 +50,6 @@
             </span>
             
             </div>
-            <p class="response"></p>
         </div>
         </div>
     <div class="pt24p">

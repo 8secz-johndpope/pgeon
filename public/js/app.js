@@ -27327,6 +27327,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_responseDetails__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_responseDetails___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__modules_responseDetails__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_my_account__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_my_account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__modules_my_account__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_search__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__modules_search__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_notifications__ = __webpack_require__(181);
@@ -27415,6 +27416,7 @@ var app = new Vue({
 		"invisible-recaptcha": __WEBPACK_IMPORTED_MODULE_2_vue_invisible_recaptcha___default.a,
 		"longpress": __WEBPACK_IMPORTED_MODULE_3_vue_longpress___default.a,
 		Avatar: __WEBPACK_IMPORTED_MODULE_4_vue_avatar___default.a
+
 	},
 
 	mounted: function mounted() {
@@ -27544,9 +27546,20 @@ var app = new Vue({
 		},
 		reload: function reload() {
 			location.reload();
+		},
+		exterror: function exterror(msg, type) {
+
+			this.$notify({
+				text: msg,
+				duration: 3000,
+				type: type
+
+			});
 		}
 	}
 });
+
+window.vm = app;
 
 
 
@@ -31805,11 +31818,8 @@ jQuery(function ($) {
 
 /***/ }),
 /* 180 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util__);
 
 
 var openDeleteAccountModal = function openDeleteAccountModal(e) {
@@ -31870,15 +31880,16 @@ $(function () {
 				success: function success(data) {
 					//play with data
 					if (data.status == 0) {
-						$(".password-error").removeClass('dn');
+						vm.exterror('Password did not match', 'error');
 					} else if (data.status == 1) {
-						$(".password-error").html('Account deleted. Redirecting..').removeClass('dn');
+						vm.exterror('Account deleted. Redirecting..', 'error');
 						setTimeout(function () {
 							window.location.reload();
 						}, 2000);
 					}
 				}, error: function error() {
-					alert('something wrong!');
+					vm.exterror('something wrong!', 'error');
+					//alert('something wrong!')
 				}
 			});
 		}
@@ -31892,36 +31903,18 @@ $(function () {
 			data: { id: $(this).data("id"), _token: $('meta[name="csrf-token"]').attr('content') },
 			success: function success(data) {
 				if (data.status == 1) {
-					$(".password-error").html('Account deleted. Redirecting..').removeClass('hide');
+					vm.exterror('Account deleted. Redirecting..', 'error');
 					setTimeout(function () {
 						window.location.reload();
 					}, 2000);
 				}
 			}, error: function error() {
-				alert('something wrong!');
+				vm.exterror('something wrong!', 'error');
 			}
 		});
 	});
 
 	var src = "";
-
-	//   $("#file-avatar").change(function () {
-
-
-	// 	var file = $(this).prop('files')[0]
-	// 	var fileReader = new FileReader();
-
-
-	// 	 fileReader.onload = function (e) {
-	// 		 alert
-	// 	 	console.log('====================================');
-	// 		 console.log(file);
-	// 		 console.log('====================================');
-
-	// 	 };
-
-	//   }) 
-
 
 	$('#file-avatar').change(function () {
 
@@ -31969,27 +31962,6 @@ $(function () {
 			//button.remove()
 		});
 	});
-
-	//   $("#file-avatar").html5Uploader({
-	// 	  name: "avatar",
-	// 	  postUrl: "/profile",
-	// 	  onClientLoad: function(e) {
-	// 		  $(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
-	// 		  src =  e.target.result
-	// 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
-	// 		  $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
-
-	// 	  },onSuccess: function() {
-	// 		  $(".pr-loading").addClass("hidden") ;
-	// 		  // && $(".pr-image").removeClass("hidden");
-	// 		  $(".vue-avatar--wrapper span").remove()
-	// 		  $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
-	// 	  //	alert(src)
-	// 		  $('#item-img-output').attr('src',src);
-	// 		  $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-	// 	  }	
-	//   });
-
 });
 
 /***/ }),
@@ -32216,7 +32188,7 @@ var doneEditingSlug = function doneEditingSlug() {
     $(".edit-icon").removeClass("edit-icon--active");
     $(".user-slug-input").attr("disabled", true);
   }).fail(function (response) {
-    $("p.response").html(response.responseJSON.message);
+    vm.exterror(response.responseJSON.message, 'error');
   });
 };
 

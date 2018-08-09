@@ -91,9 +91,7 @@
       <p class="modal-content">
         <strong>{{ $user->slug}},</strong> are you sure you want to delete your Pgeon account? This will delete all published content, top response rankings, and any/all points acquired. This Action cannot be undone
       </p>
-      <div class="dn password-error">
-                            Password did not match
-                            </div>
+   
 
       @if (!Auth::user()->provider)
         <div class="pgn-textfield mb15p password_showable">
@@ -109,11 +107,11 @@
 
          @if (!Auth::user()->provider)
                         <button type="button" id="delete-acc" data-id={{ $user->id}} class="base-btn confirm-deletion">
-                           Confirm deletion
+                           Confirm deletion 
                         </button>
         @else 
                         <button type="button" id="delete-sso" data-id={{ $user->id}} class="base-btn confirm-deletion">
-                            Confirm deletion
+                            Confirm deletion 
                         </button>
         @endif 
         <button class="base-btn keep-account">Keep Account</button>
@@ -124,12 +122,8 @@
   </div>
 </div>
  
-        
+       
 
-        <div class="col-md-3">
-</div>
-    </div>
-</div>
 @endsection
 
 
