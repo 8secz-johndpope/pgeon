@@ -1,7 +1,5 @@
 
 
-
-
 jQuery(function ($) {
 
 

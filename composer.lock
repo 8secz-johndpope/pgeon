@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "feb75bff56c435069be1d33e2672d467",
+    "content-hash": "bb4d778cafc03f1418a834941da3553a",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -1753,6 +1753,65 @@
             ],
             "description": "Easy flash notifications",
             "time": "2017-06-22T19:01:19+00:00"
+        },
+        {
+            "name": "laralabs/toaster",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laralabs/toaster.git",
+                "reference": "628c69ef0d814642cbc9e3f540698ce405fbe531"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laralabs/toaster/zipball/628c69ef0d814642cbc9e3f540698ce405fbe531",
+                "reference": "628c69ef0d814642cbc9e3f540698ce405fbe531",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.4",
+                "illuminate/database": "^5.4",
+                "illuminate/session": "^5.4",
+                "illuminate/support": "^5.4",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^3.4",
+                "phpunit/phpunit": ">6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laralabs\\Toaster\\ToasterServiceProvider"
+                    ],
+                    "aliases": {
+                        "Toaster": "Laralabs\\Toaster\\Facades\\Toaster"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laralabs\\Toaster\\": "src/",
+                    "Laralabs\\Toaster\\Tests\\": "tests/"
+                },
+                "files": [
+                    "src/Helpers/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Clinton",
+                    "email": "matt@laralabs.uk"
+                }
+            ],
+            "description": "Easily generate and bind message JSON data to the view for use in frontend toast components",
+            "time": "2018-05-27T20:50:07+00:00"
         },
         {
             "name": "larapack/doctrine-support",

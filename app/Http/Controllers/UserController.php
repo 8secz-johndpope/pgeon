@@ -107,6 +107,7 @@ class UserController extends Controller
     
 
     public function membership () {
+
       $user = Auth::user();
       $stripe_id = "";
       $sub = $user->subs()->latest()->first();
@@ -129,7 +130,9 @@ class UserController extends Controller
         $user_type = "Standard";
       }
 
-      return view('user.membership')->with('user',$user)->with('error',$error)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type)->with('stripe_id', $stripe_id);
+      if($error)
+      toaster()->add($error)->error();
+      return view('user.membership')->with('user',$user)->with('plan', $plan)->with('followers_counts', $followers_counts)->with('user_type', $user_type)->with('stripe_id', $stripe_id);
 
     }
 
@@ -177,7 +180,8 @@ class UserController extends Controller
 
         $user->role_id = 2;
         $user->save();
-        return back()->with('success','Unsubscribed successfully.');
+        toaster()->add('Unsubscribed successfully.')->success();
+        return back();
     }
     public function subscribe()
     {
@@ -198,11 +202,13 @@ class UserController extends Controller
           
             $user->role_id = 3;
             $user->save();
-             return back()->with('success','Subscription is completed.');
+            toaster()->add('Subscription is completed.')->success();
+             return back();
          } catch (\Stripe\Error\Card  $e) {
             $body = $e->getJsonBody();
             $err  = $body['error']['message'];
-            Request::session()->flash('error','Error: ' . $err);
+            //Request::session()->flash('error','Error: ' . $err);
+            toaster()->add('Error: ' . $err)->error();
             return back();
 
             // return back()->with('success',$e->getMessage());
@@ -221,11 +227,14 @@ class UserController extends Controller
 
          try {
             $user->updateCard($stripeToken);
-            return back()->with('success','Card updated.');
+            toaster()->add('Card updated.')->success();
+            return back();
          } catch (\Stripe\Error\Card  $e) {
             $body = $e->getJsonBody();
             $err  = $body['error']['message'];
-            Request::session()->flash('error','Error: ' . $err);
+            toaster()->add('Error: ' . $err)->error();
+
+          //  Request::session()->flash('error','Error: ' . $err);
             return back();
 
             // return back()->with('success',$e->getMessage());

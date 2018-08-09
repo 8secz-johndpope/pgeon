@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @toaster
   </head>
   <body class="bg-off-white mr-auto ml-auto">
 
@@ -30,6 +30,8 @@
    </script>
 @endif
 <div  id="app">
+  @toastcomponent
+
    <header class="landing_header relative">
 <div class="mw6 m-auto landing_header__inner flex items-center top__header relative  pr15 pl15">
  <div class="logoTitle__container flex">
@@ -167,6 +169,8 @@
 </div>
 
     @include('layouts/partials/profile-menu')
+
+  <notifications  />
 
   </div>
 

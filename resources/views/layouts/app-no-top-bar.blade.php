@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @toaster
 
   </head>
   <body class="bg-off-white mr-auto ml-auto">
@@ -36,13 +37,14 @@
 @endif
 <div  id="app">
  
+@toastcomponent
 
 <div class="mw6 m-auto">
 <header class="flex items-center top__header pl-10 pr-20 relative">
 
 
     @if ($back)
-        {{Helper::back()}}
+        {{Helper::back($back)}}
     @endif
     <span class="logo flex justify-center items-center">
       <a class="dib" href="/">
@@ -67,6 +69,8 @@
 
 
   </div>
+  <notifications  />
+
  </div>
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>

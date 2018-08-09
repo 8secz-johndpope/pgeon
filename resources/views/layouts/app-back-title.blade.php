@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @toaster
 
   </head>
   <body class="bg-off-white mr-auto ml-auto">
@@ -34,7 +35,11 @@
       var user = true
    </script>
 @endif
+
 <div  id="app">
+@toastcomponent
+
+
 <div class="">
 
    <header class="landing_header relative">
@@ -65,10 +70,11 @@
  @include('layouts/partials/profile-menu') 
 
 
+   <notifications />
+
   </div>
 
 
-   
 
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
@@ -92,7 +98,7 @@
 
     
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" ></script>
   
   </body>
 </html>

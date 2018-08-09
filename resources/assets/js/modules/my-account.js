@@ -1,6 +1,3 @@
-import { log } from "util";
-
-
 
 
 const openDeleteAccountModal = e => {
@@ -77,14 +74,16 @@ $(function () {
 				success: function(data) {
 				//play with data
 					if(data.status == 0) {
-						$(".password-error").removeClass('dn')
+						vm.exterror('Password did not match','error') 
+						
 					}else if (data.status == 1) {
-						$(".password-error").html('Account deleted. Redirecting..').removeClass('dn')
+						vm.exterror('Account deleted. Redirecting..','error') 
 						setTimeout(function(){ window.location.reload() }, 2000);
 
 					}
 				}, error:function () {
-					alert('something wrong!')
+					vm.exterror('something wrong!','error') 
+					//alert('something wrong!')
 				}
 			});
 		}
@@ -100,12 +99,12 @@ $(function () {
 				data: {id: $(this).data("id"),_token : $('meta[name="csrf-token"]').attr('content')},
 				success: function(data) {
 					if (data.status == 1) {
-						$(".password-error").html('Account deleted. Redirecting..').removeClass('hide')
+						vm.exterror('Account deleted. Redirecting..','error')
 						setTimeout(function(){ window.location.reload() }, 2000);
 
 					}
 				}, error:function () {
-					alert('something wrong!')
+					vm.exterror('something wrong!','error')
 				}
 			});
 		
@@ -118,22 +117,6 @@ $(function () {
 
 
 
-//   $("#file-avatar").change(function () {
-
-
-// 	var file = $(this).prop('files')[0]
-// 	var fileReader = new FileReader();
- 
-	
-// 	 fileReader.onload = function (e) {
-// 		 alert
-// 	 	console.log('====================================');
-// 		 console.log(file);
-// 		 console.log('====================================');
-
-// 	 };
-   
-//   }) 
 
 
 
@@ -201,25 +184,7 @@ $(".switch-toggle-input").click(function () {
 
 
 
-//   $("#file-avatar").html5Uploader({
-// 	  name: "avatar",
-// 	  postUrl: "/profile",
-// 	  onClientLoad: function(e) {
-// 		  $(".alert-success").remove() && $(".pr-loading").removeClass("hidden")  && $(".pr-image").addClass("hidden");
-// 		  src =  e.target.result
-// 		  $(".prof-avatar .vue-avatar--wrapper span").remove()
-// 		  $(".prof-avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
 
-// 	  },onSuccess: function() {
-// 		  $(".pr-loading").addClass("hidden") ;
-// 		  // && $(".pr-image").removeClass("hidden");
-// 		  $(".vue-avatar--wrapper span").remove()
-// 		  $(".vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 30px 30px no-repeat scroll content-box border-box transparent')
-// 	  //	alert(src)
-// 		  $('#item-img-output').attr('src',src);
-// 		  $(".profile_upload").append('<div class="alert alert-success alert-dismissible">			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Done!</div>')
-// 	  }	
-//   });
 
 
 })

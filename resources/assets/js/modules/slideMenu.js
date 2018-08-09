@@ -11,6 +11,7 @@ $(".user-slug-input").on("focus", e => {
 const doneEditingSlug = () => {
 
 
+
   //alert('done edit')
   $.post("/profile", { _token : $('meta[name="csrf-token"]').attr('content'), slug: $(".user-slug-input").val()}, function () {
       //$parent.removeAttr("id")
@@ -21,7 +22,9 @@ const doneEditingSlug = () => {
       $(".user-slug-input").attr("disabled", true)
     })
     .fail(function(response) {
-       $("p.response").html(response.responseJSON.message)
+      vm.exterror(response.responseJSON.message,'error') 
+      
+      
     })
     
 
@@ -48,6 +51,7 @@ $(".select-image__header svg").on("click", closeSelectImageModal)
 
 
 $(function () {
+
 
   $(".edit-icon > .edit-icon-pencil").on("click", editSlug )
 $(".user-slug-input").on("blur", doneEditingSlug )
