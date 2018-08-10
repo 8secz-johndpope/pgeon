@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 
 <header class="bg-white relative fixed-header ">
   <div class="mw6 m-auto notification-header pr15 pl15 flex items-center justify-between">
@@ -82,7 +82,7 @@
   </div>
 </main>
 
-<main class="notification-main mw6 m-auto"  v-if="notifications.length<1" >
+<main class="notification-main mw6 m-auto"  v-if="notifications.length<1 && still_deciding_count == false">
   <div class="empty-notifications">
     <p class="m0">
       <span>🎉</span>
@@ -159,9 +159,12 @@
     	  	this.still_deciding_count = true
     		$.getJSON('/notifications/json', function(response) {
 
+
     			this.notifications = response
     		 	var com = this
     			response.forEach(function(val,index) {
+         //   console.log(val.seen);
+            
     					if(val.seen == 0 )
     						com.bubble++;
     				})

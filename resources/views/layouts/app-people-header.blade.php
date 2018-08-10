@@ -50,7 +50,7 @@
      {{Helper::read_svg("img/svg/followers.svg")}}
 
      </a>
-     <a href="/notifications" class="header-bell header-bell--with-notif pointer mr20p fc">
+     <a href="/notifications" class="header-bell  pointer mr20p fc">
        <span class="flex items-center relative">
          <span class="bell-notification-dot"></span>
          {{Helper::read_svg("img/svg/bell.svg")}}

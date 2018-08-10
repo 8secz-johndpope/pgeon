@@ -91,6 +91,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		},
 		
 		mounted() {
+			
 			this.getBubbleCount()
 			//this.$refs.allR.lo()
 	
@@ -118,14 +119,15 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 		if(socket) {
 		socket.on('bubble', function (bubble) {
 					this.bubble = bubble
-					$(".bubble_wrap").removeClass('hidden')
+					
+					$(".header-bell").addClass('header-bell--with-notif')
 					//  $("title").html('Pgeon ('+bubble+') ')
 					}); 
 
 					
 		socket.on('bubblecleared', function () {
 			//this.bubble = bubble
-			$(".bubble_wrap").addClass('hidden')
+			$(".header-bell").removeClass('header-bell--with-notif')
 			//  $("title").html('Pgeon ('+bubble+') ')
 			}); 
 
@@ -209,7 +211,6 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 				this.captcha_loading = true
 			},
 		
-			
 			bubbleChangedFromChild (value) {
 				//  this.bubble=(value) // someValue
 			//    alert(value)
@@ -220,7 +221,9 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 			this.$http.get('/bubble').then((response) => {
 				if (parseInt(response.data) > 0)  {
 					this.bubble = response.data 
-					$(".bubble_wrap").removeClass('hidden')
+					$(".header-bell").addClass('header-bell--with-notif')
+				}else {
+					$(".header-bell").removeClass('header-bell--with-notif')
 				}
 		
 						//alert('ss')

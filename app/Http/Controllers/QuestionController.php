@@ -59,14 +59,14 @@ class QuestionController extends Controller
         }
 
         Session::forget('backUrl');
-/*
-        if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
-            $back = "/questions";
-        }else {
+
+        // if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
+        //     $back = "/questions";
+        // }else {
         
-              $back = URL::previous();
-        }
-*/
+        //       $back = URL::previous();
+        // }
+
         $back = "/questions";
 
         if (!$question)

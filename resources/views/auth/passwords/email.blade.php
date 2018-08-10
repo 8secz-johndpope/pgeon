@@ -16,9 +16,23 @@
 
    
    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
+                       
+
+
+            <div class="rtol mb20p">
+                <div class="rtol-box">
+                    <p class="m0 mb15p">Password reset instruction has been sent to the registered email address. </p>
+                    <a class="m0 pg-btn pointer btn-submit" href="/login/email" >
+                        Return to Login
+                    </a>
+                </div>
+            </div>
+
+            <div class="agreement edas">
+                <p>If the email doesn’t arrive soon, please check your spam folder.</p>
+            </div>
+
+
                     @endif
 
                       <div class="pgn-textfield mb15p">
