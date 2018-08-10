@@ -32,11 +32,7 @@
     <div class="question-details__more pointer">
     </div>
   </div>
-  <style>
-    body{
-      overflow-y: scroll;
-    }
-  </style>
+
 </header>
 
         
@@ -73,7 +69,26 @@
 
 
 
+<div class="double-avatar">
+  <div class="double-avatar__overlay standard-overlay"></div>
+  <div class="double-avatar__modal mw6">
+      <div class="double-avatar__item items-center flex">
+        <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($tuser) }}"></avatar>
 
+               
+        <h3 class="m0">{{  Helper::name_or_slug($tuser) }}</h3>
+      </div>
+      
+        <span class="m-auto mw6 db">
+          <div class="border-trimmed"></div>
+        </span>
+        <div class="double-avatar__item items-center flex">
+        <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($fuser) }}"></avatar>
+        <h3 class="m0">{{  Helper::name_or_slug($fuser) }}</h3>
+      </div>
+      
+  </div>
+</div>
 
 
 
@@ -81,14 +96,3 @@
 
 @endsection
 
-<!-- Push a style dynamically from a view -->
-@push('after-core-styles')
-
-
-@endpush
-
-<!-- Push a script dynamically from a view -->
-@push('scripts')
-    <script src="{{ asset('js/profile.js') }}"></script>
-    <script src="{{ asset('js/search.js') }}"></script>
-@endpush

@@ -76,14 +76,5 @@
 
 <!-- Push a style dynamically from a view -->
 
-@push('styles')
- @endpush
-@push('after-core-styles')
 
- @endpush
 
-<!-- Push a script dynamically from a view -->
-@push('scripts')
-    <script src="{{ asset('js/up-voting.js') }}"></script>
-<script src="{{ asset('js/question.index.js') }}"></script>
-@endpush

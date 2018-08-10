@@ -26827,6 +26827,7 @@ var app = new Vue({
 	},
 
 	mounted: function mounted() {
+
 		this.getBubbleCount();
 		//this.$refs.allR.lo()
 
@@ -26849,13 +26850,14 @@ var app = new Vue({
 		if (socket) {
 			socket.on('bubble', function (bubble) {
 				this.bubble = bubble;
-				$(".bubble_wrap").removeClass('hidden');
+
+				$(".header-bell").addClass('header-bell--with-notif');
 				//  $("title").html('Pgeon ('+bubble+') ')
 			});
 
 			socket.on('bubblecleared', function () {
 				//this.bubble = bubble
-				$(".bubble_wrap").addClass('hidden');
+				$(".header-bell").removeClass('header-bell--with-notif');
 				//  $("title").html('Pgeon ('+bubble+') ')
 			});
 		}
@@ -26939,7 +26941,9 @@ var app = new Vue({
 			this.$http.get('/bubble').then(function (response) {
 				if (parseInt(response.data) > 0) {
 					_this3.bubble = response.data;
-					$(".bubble_wrap").removeClass('hidden');
+					$(".header-bell").addClass('header-bell--with-notif');
+				} else {
+					$(".header-bell").removeClass('header-bell--with-notif');
 				}
 
 				//alert('ss')
@@ -30910,6 +30914,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.notifications = response;
         var com = this;
         response.forEach(function (val, index) {
+          //   console.log(val.seen);
+
           if (val.seen == 0) com.bubble++;
         });
         this.still_deciding_count = false;
@@ -31525,8 +31531,10 @@ var deactivateOverlappingImagesModal = function deactivateOverlappingImagesModal
   $(".double-avatar").removeClass("double-avatar--active");
 };
 
-$(".response-images").on("click", activateOverlappingImagesModal);
-$(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal);
+$(function () {
+  $(".response-images").on("click", activateOverlappingImagesModal);
+  $(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal);
+});
 
 /***/ }),
 /* 185 */
@@ -66340,7 +66348,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n          " + _vm._s(notification.message) + "\n        ")]), _vm._v(" "), _c('span', {
       staticClass: "notification-time"
     }, [_vm._v("\n            " + _vm._s(notification.ago) + "\n        ")])])])
-  })], 2)]), _vm._v(" "), (_vm.notifications.length < 1) ? _c('main', {
+  })], 2)]), _vm._v(" "), (_vm.notifications.length < 1 && _vm.still_deciding_count == false) ? _c('main', {
     staticClass: "notification-main mw6 m-auto"
   }, [_vm._m(0)]) : _vm._e()])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

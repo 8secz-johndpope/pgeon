@@ -34,7 +34,7 @@
       var user = true
    </script>
 @endif
-<div  id="app">
+<div  id="app" v-cloak>
 
 
 

@@ -7,5 +7,7 @@ const deactivateOverlappingImagesModal = () => {
   $(".double-avatar").removeClass("double-avatar--active")
 }
 
-$(".response-images").on("click", activateOverlappingImagesModal)
-$(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal)
+$(function () {
+  $(".response-images").on("click", activateOverlappingImagesModal)
+  $(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal)
+})
