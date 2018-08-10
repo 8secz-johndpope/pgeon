@@ -57,10 +57,10 @@ svg {
 
 .back-arrow {
   z-index: 2;
+  cursor: pointer;
 }
 
 .back-arrow:active {
-  // opacity: 0.7;
 }
 
 .back-arrow svg,

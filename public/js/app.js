@@ -66421,10 +66421,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, _vm.maxHighlight]
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "post-question-share",
-    staticStyle: {
-      "display": "none"
-    }
+    staticClass: "post-question-share"
   }, [_c('div', {
     staticClass: "post-question-share__meta flex justify-between"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
@@ -66567,7 +66564,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "06"
     }
-  }, [_vm._v("06 days")])])]), _vm._v(" /\n            "), _c('span', {
+  }, [_vm._v("06 days")])])]), _vm._v(" :\n            "), _c('span', {
     staticClass: "pointer"
   }, [_c('select', {
     directives: [{
@@ -66796,7 +66793,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "i1"
     }
-  }, [_vm._v("Auto Share")])])])
+  }, [_vm._v("Auto Share "), _c('small', {
+    staticStyle: {
+      "opacity": ".5"
+    }
+  }, [_vm._v(" (coming soon)")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

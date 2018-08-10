@@ -12,16 +12,16 @@
  <input type="hidden" name="_token" :value="csrf">
 
 
-                                            <textarea   class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question" @input="maxHighlight"></textarea>
+                                            <textarea class="post-question-textarea orange-caret" :placeholder="lq_created_at"  data-gramm_editor="false" autofocus maxlength="200" name="question" v-model="question" @input="maxHighlight"></textarea>
 
                                               <!-- <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div> -->
 
-                                                                                    <div class="post-question-share" style="display: none;">
+                                                      <div class="post-question-share">
                                             <div class="post-question-share__meta flex justify-between">
                                                 <div class="flex align-center">
                                                 <div class="md-checkbox fc">
                                                     <input id="i1" class="auto-share-checkbox" type="checkbox">
-                                                    <label for="i1">Auto Share</label>
+                                                    <label for="i1">Auto Share <small style="opacity: .5;"> (coming soon)</small></label>
                                                 </div>
                                                 </div>
                                                 <div class="post-question-count" v-bind:class="[ remainingLength < 0 ? 'redish1' : '']" >{{remainingLength}}</div>
@@ -68,9 +68,9 @@
                                                 <option value="06">06 days</option>
                                             </select>
 
-            </span> /
+            </span> :
             <span class="pointer">
-                                            <select name="hours" id="hour-select" v-model="hh"   class="no-r">
+                                            <select name="hours" id="hour-select" v-model="hh" class="no-r">
                                                 <option value="00">00 hrs</option>
                                                 <option value="01">01 hrs</option>
                                                 <option value="02">02 hrs</option>
