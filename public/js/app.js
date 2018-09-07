@@ -28861,7 +28861,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 	created: function created() {
 
 		$(function () {
-			$(".server-loading-card").hide();
+			$(".server-loading-card").fadeout();
 		});
 
 		this.followed_questions();
@@ -29046,7 +29046,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		created: function created() {
 
 				$(function () {
-						$(".server-loading-card").hide();
+						$(".server-loading-card").fadeout();
 				});
 
 				this.featured_questions();

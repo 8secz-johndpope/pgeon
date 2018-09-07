@@ -221,7 +221,7 @@ import Avatar from 'vue-avatar'
 
 
 				$(function () {
-								$(".server-loading-card").hide()
+								$(".server-loading-card").fadeout()
 				})
 							
 
