@@ -327,8 +327,81 @@ $bsc: rgba(0, 0, 0, 0.16);
   }
 }
 
+
+
+
+
+.loading {
+ 
+  height: 104px;
+  position: relative;
+}
+
 @keyframes notification-dot-animation {
   50% {
     transform: scale(2);
   }
 }
+
+
+
+
+
+
+.q-loading-card{
+
+    .imagebox {
+      position:relative;
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+    }
+
+    .shadeanim {
+      animation-name: shine; 
+      animation-duration: 2s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .shade1, .shade2,.shade3,.imagebox, .shadeR3  {
+      @extend .shadeanim;
+      background-color: #e8ebec;
+    }
+
+    .qa-item__seperator {
+      @extend .shadeanim;
+    }
+  
+        
+    .shade1 {
+      height:10px;
+      width: 43%
+    }
+
+    .shade2 {
+      height:10px;
+      width: 20%;
+    }
+    .shadeR3 div:nth-child(1) {
+      height:20px;
+    }
+    .shadeR3 {
+      height:90px;
+    }
+  
+}
+
+
+
+
+
+@keyframes shine {
+    from {transition:none;}
+    to {background-color:#f6f7f8;transition: all 0.3s ease-out;}
+}
+
+
+
+
+

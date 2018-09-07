@@ -16,7 +16,9 @@
     <meta name="theme-color" content="#f8f9f9">
 
 	<!-- Fonts files -->
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+  
+
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
