@@ -44,10 +44,7 @@
 
  <main class="landing-main mw6 m-auto pl15 pr15">
 
-
-
-
-
+  
 
 
 
