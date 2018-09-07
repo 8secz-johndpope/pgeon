@@ -9,26 +9,7 @@
  <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
 		<div class="container text-center m-t-5p">
 				      <div  v-if="still_deciding_count" >
-                  <div class="open-question__container q-loading-card" v-for="n in 3">
-          <div class="open-question__left" >
-              <div class="imagebox"></div>
-          </div>
-          <div class="open-question__right">
-            <div class="open-question__meta">
-              <div class="shade1"></div>
-              <span class="open-question__time shade2">
-              </span>
-            </div>
-           <div class="q-bubble-container q-bubble-container--clickable mt5p">
-        <div class="q-bubble qa-item shadeR3">
-          <div >
-          </div>
-          <div class="qa-item__seperator"></div>
-          <span class="shadeR4"> </span>
-          </div>
-          </div>
-          </div>
-        </div>
+               
         </div>
 				 <div v-else>
 				   <div class="empty-notifications">
@@ -179,7 +160,10 @@ import Avatar from 'vue-avatar'
 	    },
 	    created: function() {
 
-
+			$(function () {
+					$(".server-loading-card").hide()
+			})
+						
 
 
 

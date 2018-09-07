@@ -10,20 +10,7 @@
 		<div class="container text-center m-t-5p">
 
 	<div  v-if="still_deciding_count"> 
-      <div class="open-question__container q-loading-card" v-for="n in 3">
-          <div class="open-question__left" >
-              <div class="imagebox"></div>
-          </div>
-          <div class="open-question__right">
-            <div class="open-question__meta">
-              <div class="shade1"></div>
-              <span class="open-question__time shade2">
-              </span>
-            </div>
-            <span  class="open-question__content selected mt5p m0 shade3">
-            </span>
-          </div>
-        </div>
+     
     </div>
 				 <div v-else>
          <div class="empty-notifications">
@@ -234,6 +221,10 @@ import Avatar from 'vue-avatar'
     },
     created: function() {
 
+      
+     $(function () {
+         $(".server-loading-card").hide()
+      })
 
       var com = this
       //got some new questions inserted

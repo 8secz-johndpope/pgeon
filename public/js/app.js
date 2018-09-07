@@ -28160,19 +28160,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -28297,6 +28284,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   },
   created: function created() {
 
+    $(function () {
+      $(".server-loading-card").hide();
+    });
+
     var com = this;
     //got some new questions inserted
     if (socket) socket.on('new_question', function (response_id) {
@@ -28329,22 +28320,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -28554,6 +28529,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 }, _defineProperty(_data$components$prop, 'mounted', function mounted() {
   $(window).bind('scroll', this.handleScroll);
 }), _defineProperty(_data$components$prop, 'created', function created() {
+
+  $(function () {
+    $(".server-loading-card").hide();
+  });
 
   var com = this;
   //got some new questions inserted
@@ -28769,25 +28748,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -28900,6 +28860,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 	},
 	created: function created() {
 
+		$(function () {
+			$(".server-loading-card").hide();
+		});
+
 		this.followed_questions();
 
 		//   $.getJSON('/responses/json', function(response) {
@@ -28924,25 +28888,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -29099,6 +29044,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 		},
 		created: function created() {
+
+				$(function () {
+						$(".server-loading-card").hide();
+				});
 
 				this.featured_questions();
 		}
@@ -65907,11 +65856,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [(_vm.still_deciding_count) ? _c('div', _vm._l((3), function(n) {
-    return _c('div', {
-      staticClass: "open-question__container q-loading-card"
-    }, [_vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
-  })) : _c('div', [_c('div', {
+  }, [(_vm.still_deciding_count) ? _c('div') : _c('div', [_c('div', {
     staticClass: "empty-notifications"
   }, [_c('p', {
     staticClass: "m0"
@@ -65960,32 +65905,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(question.answer))])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(2)]) : _vm._e()], 2)])
+  }, [_vm._m(0)]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__left"
-  }, [_c('div', {
-    staticClass: "imagebox"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__right"
-  }, [_c('div', {
-    staticClass: "open-question__meta"
-  }, [_c('div', {
-    staticClass: "shade1"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "open-question__time shade2"
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "q-bubble-container q-bubble-container--clickable mt5p"
-  }, [_c('div', {
-    staticClass: "q-bubble qa-item shadeR3"
-  }, [_c('div'), _vm._v(" "), _c('div', {
-    staticClass: "qa-item__seperator"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "shadeR4"
-  })])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
   }, [_c('div', {
@@ -66133,11 +66054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [(_vm.still_deciding_count) ? _c('div', _vm._l((3), function(n) {
-    return _c('div', {
-      staticClass: "open-question__container q-loading-card"
-    }, [_vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
-  })) : _c('div', [_c('div', {
+  }, [(_vm.still_deciding_count) ? _c('div') : _c('div', [_c('div', {
     staticClass: "empty-notifications"
   }, [_c('p', {
     staticClass: "m0"
@@ -66187,26 +66104,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(2)]) : _vm._e()], 2)])
+  }, [_vm._m(0)]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__left"
-  }, [_c('div', {
-    staticClass: "imagebox"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__right"
-  }, [_c('div', {
-    staticClass: "open-question__meta"
-  }, [_c('div', {
-    staticClass: "shade1"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "open-question__time shade2"
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "open-question__content selected mt5p m0 shade3"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
   }, [_c('div', {
@@ -67248,11 +67147,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [(_vm.still_deciding_count) ? _c('div', _vm._l((3), function(n) {
-    return _c('div', {
-      staticClass: "open-question__container q-loading-card"
-    }, [_vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
-  })) : _c('div', [_c('div', {
+  }, [(_vm.still_deciding_count) ? _c('div') : _c('div', [_c('div', {
     staticClass: "empty-notifications"
   }, [_c('p', {
     staticClass: "m0"
@@ -67301,7 +67196,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', [_vm._v(" " + _vm._s(question.answer))])])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(2)]) : _vm._e(), _vm._v(" "), (_vm.role_id == 3) ? _c('div', {
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.role_id == 3) ? _c('div', {
     staticClass: "FAB-button__container mw6 m-auto"
   }, [_c('a', {
     staticClass: "FAB-button",
@@ -67319,30 +67214,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__left"
-  }, [_c('div', {
-    staticClass: "imagebox"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__right"
-  }, [_c('div', {
-    staticClass: "open-question__meta"
-  }, [_c('div', {
-    staticClass: "shade1"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "open-question__time shade2"
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "q-bubble-container q-bubble-container--clickable mt5p"
-  }, [_c('div', {
-    staticClass: "q-bubble qa-item shadeR3"
-  }, [_c('div'), _vm._v(" "), _c('div', {
-    staticClass: "qa-item__seperator"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "shadeR4"
-  })])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
   }, [_c('div', {
@@ -67388,11 +67259,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
-  }, [(_vm.still_deciding_count) ? _c('div', _vm._l((3), function(n) {
-    return _c('div', {
-      staticClass: "open-question__container q-loading-card"
-    }, [_vm._m(0, true), _vm._v(" "), _vm._m(1, true)])
-  })) : _c('div', [_c('div', {
+  }, [(_vm.still_deciding_count) ? _c('div') : _c('div', [_c('div', {
     staticClass: "empty-notifications"
   }, [_c('p', {
     staticClass: "m0"
@@ -67442,7 +67309,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
-  }, [_vm._m(2)]) : _vm._e(), _vm._v(" "), (_vm.role_id == 3) ? _c('div', {
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.role_id == 3) ? _c('div', {
     staticClass: "FAB-button__container mw6 m-auto"
   }, [_c('a', {
     staticClass: "FAB-button",
@@ -67460,24 +67327,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])]) : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__left"
-  }, [_c('div', {
-    staticClass: "imagebox"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "open-question__right"
-  }, [_c('div', {
-    staticClass: "open-question__meta"
-  }, [_c('div', {
-    staticClass: "shade1"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "open-question__time shade2"
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "open-question__content selected mt5p m0 shade3"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "spinner p-rel"
   }, [_c('div', {
