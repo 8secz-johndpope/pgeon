@@ -136,10 +136,8 @@ import Avatar from 'vue-avatar'
 				this.loading_txt = "loading.."
 				 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
 
-					 	//this will not exists after first time...
-						//	$(function () {
-								$(".server-loading-card").remove()
-						//	})
+					 		//this will not exists after first time...
+							 $(".server-loading-card").remove()
 					
 
 					  this.currently_fetched_records_count = 0

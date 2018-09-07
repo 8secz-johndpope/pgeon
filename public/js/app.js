@@ -28247,6 +28247,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
 
+        //this will not exists after first time...
+        $(".server-loading-card").remove();
+
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -28283,10 +28286,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   },
   created: function created() {
-
-    $(function () {
-      $(".server-loading-card").hide();
-    });
 
     var com = this;
     //got some new questions inserted
@@ -28504,6 +28503,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     get_paginated_featured: function get_paginated_featured() {
       this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
+
+        //this will not exists after first time...
+        $(".server-loading-card").remove();
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
         if (response[0]['id'] !== undefined) {
@@ -28529,10 +28531,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 }, _defineProperty(_data$components$prop, 'mounted', function mounted() {
   $(window).bind('scroll', this.handleScroll);
 }), _defineProperty(_data$components$prop, 'created', function created() {
-
-  $(function () {
-    $(".server-loading-card").hide();
-  });
 
   var com = this;
   //got some new questions inserted
@@ -28836,9 +28834,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
 
 				//this will not exists after first time...
-				//	$(function () {
 				$(".server-loading-card").remove();
-				//	})
 
 				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
@@ -29026,10 +29022,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 						$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
 
 								//this will not exists after first time...
-								//	$(function () {
 								$(".server-loading-card").remove();
-								//	})
-
 
 								this.currently_fetched_records_count = 0;
 								if (response[0]['id'] !== undefined) {

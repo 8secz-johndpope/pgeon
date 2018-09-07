@@ -190,6 +190,9 @@ import Avatar from 'vue-avatar'
 		get_paginated_featured: function () {
 			this.loading_txt = "loading.."
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
+         
+          //this will not exists after first time...
+				  $(".server-loading-card").remove()
  				 	this.still_deciding_paging = false
 				  this.currently_fetched_records_count = 0
 		          if (response[0]['id'] !== undefined) {
@@ -222,10 +225,7 @@ import Avatar from 'vue-avatar'
 
     created: function() {
       
-      $(function () {
-        $(".server-loading-card").hide()
-      })
-      
+    
 
       var com = this
       //got some new questions inserted

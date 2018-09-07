@@ -175,7 +175,8 @@ import Avatar from 'vue-avatar'
 
     			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
 
-
+              //this will not exists after first time...
+							 $(".server-loading-card").remove()
 
 					 this.still_deciding_paging = false
     				  this.currently_fetched_records_count = 0
@@ -221,11 +222,7 @@ import Avatar from 'vue-avatar'
     },
     created: function() {
 
-      
-     $(function () {
-         $(".server-loading-card").hide()
-      })
-
+   
       var com = this
       //got some new questions inserted
       if (socket)
