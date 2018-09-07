@@ -135,6 +135,13 @@ import Avatar from 'vue-avatar'
 			get_paginated_featured: function () {
 				this.loading_txt = "loading.."
 				 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
+
+					 	//this will not exists after first time...
+						//	$(function () {
+								$(".server-loading-card").remove()
+						//	})
+					
+
 					  this.currently_fetched_records_count = 0
 			          if (response[0]['id'] !== undefined) {
 			        	 	this.currently_fetched_records_count = response.length
@@ -159,12 +166,6 @@ import Avatar from 'vue-avatar'
 
 	    },
 	    created: function() {
-
-			$(function () {
-					$(".server-loading-card").fadeout()
-			})
-						
-
 
 
 	    	this.featured_questions()
