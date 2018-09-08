@@ -28812,6 +28812,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 		get_paginated_qff: function get_paginated_qff() {
 			$.getJSON('/rff/' + this.paginate + '/' + this.current_page, function (response) {
+				//this will not exists after first time...
+				$(".server-loading-card").remove();
 				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
 				if (response[0]['id'] !== undefined) {
@@ -28832,9 +28834,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function get_paginated_featured() {
 			$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
-
-				//this will not exists after first time...
-				$(".server-loading-card").remove();
 
 				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
