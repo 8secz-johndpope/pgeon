@@ -44,6 +44,48 @@
   </header>
 
 
+<div class="details-share">
+  <div class="details-share__inner  mw6 m-auto">
+    <div class="details-share__header">
+      <span></span>
+      <h3>Share Question</h3>
+      {{Helper::read_svg("img/svg/times.svg")}}
+    </div>
+    <div class="details-share__body">
+      <div class="details-share__item details-share__item--fb">
+        {{Helper::read_svg("img/svg/facebook.svg")}}
+        <h3>FaceBook</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--twitter">
+        {{Helper::read_svg("img/svg/twitter.svg")}}
+        <h3>Twitter</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--linkedin">
+        {{Helper::read_svg("img/svg/linkedin.svg")}}
+        <h3>LinkedIn</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--reddit">
+        {{Helper::read_svg("img/svg/reddit-square.svg")}}
+        <h3>Reddit</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item  details-share__item--link">
+        {{Helper::read_svg("img/svg/link.svg")}}
+        <h3>Copy Link</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+    </div>
+  </div>
+</div>
+            
+
       <answers_live_owner hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								  ></answers_live_owner>
 
@@ -51,18 +93,4 @@
 
 <!-- Push a style dynamically from a view -->
 
-@push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
- @endpush
-@push('after-core-styles')
-<link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
 
-
- @endpush
-
-<!-- Push a script dynamically from a view -->
-@push('scripts')
-    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
-    <script src="{{ asset('js/up-voting.js') }}"></script>
-<script src="{{ asset('js/question.index.js') }}"></script>
-@endpush

@@ -55,18 +55,10 @@
       login / signup
     </a>
      
-    
-
+  
 
 
 @endsection
 
-<!-- Push a style dynamically from a view -->
-@push('after-core-styles')
-<link href="{{ asset('css/up-voting.css') }}" rel="stylesheet">
- @endpush
 
-<!-- Push a script dynamically from a view -->
-@push('scripts')
-<script src="{{ asset('js/question.index.js') }}"></script>
-@endpush
+
