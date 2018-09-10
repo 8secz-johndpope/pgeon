@@ -31534,7 +31534,7 @@ $(function () {
       method: 'share',
       display: 'popup',
       href: 'http://pgeon.net/question/27',
-      quote: 'sdfsdfsdf'
+      quote: $q
     }, function (response) {});
 
     //local
