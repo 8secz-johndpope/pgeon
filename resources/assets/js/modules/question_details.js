@@ -30,4 +30,11 @@ $(function () {
      $(".details__overlay").on("click", closeDetailsDropdown);
      $(".details__dropdown_item--share").on("click", openSharedLinks);
      $(".details-share__header").on("click", closeDetailsDropdown);
+
+     $(".details-share__item--fb").on("click", () => {
+       $q = $("#share_q").html()
+      window.open(`https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=${window.location.href}&redirect_uri=http://pgeon.net&quote=${$q}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
+
+      //window.open(`https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=${encodeURI(window.location.href)}&redirect_uri=http://pgeon.net&quote=${encodeURI($q)}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
+     })
 })

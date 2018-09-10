@@ -52,9 +52,9 @@
       {{Helper::read_svg("img/svg/times.svg")}}
     </div>
     <div class="details-share__body">
-      <div class="details-share__item details-share__item--fb">
+      <div class="details-share__item details-share__item--fb" >
         {{Helper::read_svg("img/svg/facebook.svg")}}
-        <h3>FaceBook</h3>
+        <h3>FaceBook.</h3>
       </div>
       <div class="details-share__seperator"></div>
 
@@ -84,7 +84,8 @@
     </div>
   </div>
 </div>
-            
+          
+    <div id="share_q" class="dn">{{$question->question}}</div>
 
       <answers_live_owner hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								  ></answers_live_owner>
