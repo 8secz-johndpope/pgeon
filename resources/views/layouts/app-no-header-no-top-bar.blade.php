@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <title> Pgeon </title>
-    <meta name="description" content="A page's description,   usually one or two sentences."/>
-
+    <meta name="description" content="Messenger for all"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
@@ -42,9 +41,6 @@
 
 
 
-
-
-
  @yield('content')
 
 
@@ -52,26 +48,44 @@
 
   </div>
 
-
-   
-
-
-
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
-            var socket = io("{{ env('NODE_CONNECT') }}");
+            window.FB_id = "{{ env('FACEBOOK_ID') }}"
+            if(socket)
+              var socket = io("{{ env('NODE_CONNECT') }}");
+            
+              
         </script>
 
         @if (Auth::user())
         <script>
             //connect socket room for the current user id..get all notifications related to the current user
-             socket.emit('connect_me', 'U_{{Auth::user()->id}}');
+             if(socket)
+              socket.emit('connect_me', 'U_{{Auth::user()->id}}');
 
         </script>
 		@endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script> window.fbAsyncInit = function() {
+    FB.init({
+      appId            : window.FB_id,
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v3.1'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   </script>
   
   </body>
 </html>
