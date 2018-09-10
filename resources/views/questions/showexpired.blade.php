@@ -146,7 +146,7 @@
   </div>
 </div>
           
-<div id="share_q" class="dn">{{ urlencode($question->question)}}</div>
+<div id="share_q" class="dn" data-unesx="{{$question->question}}">{{ urlencode($question->question)}}</div>
 
 
 

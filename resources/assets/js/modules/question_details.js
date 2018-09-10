@@ -32,6 +32,7 @@ $(function () {
      $(".details-share__header").on("click", closeDetailsDropdown);
 
      $q = $("#share_q").html()
+     $unesxq=  $("#share_q").data('unesx')
      $q_url = window.location.href
      $(".details-share__item--fb").on("click", () => {
      // https://twitter.com/intent/tweet?text=Hello%20world
@@ -40,7 +41,7 @@ $(function () {
         method: 'share',
         display: 'popup',
         href: $q_url,
-        quote: decodeURI($q)
+        quote: ($unesxq)
       }, function(response){
 
       });

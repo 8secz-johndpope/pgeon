@@ -88,7 +88,7 @@
   </div>
 </div>
           
-<div id="share_q" class="dn">{{ urlencode($question->question)}}</div>
+<div id="share_q" class="dn" data-unesx="{{$question->question}}">{{ urlencode($question->question)}}</div>
   
 
         <answers_guest hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
