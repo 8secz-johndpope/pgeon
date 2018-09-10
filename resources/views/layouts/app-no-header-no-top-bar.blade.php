@@ -50,7 +50,7 @@
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
-            window.FB_id = "{{ env('FACEBOOK_ID') }}"
+            var FB_id = "{{ env('FACEBOOK_ID') }}"
             if(socket)
               var socket = io("{{ env('NODE_CONNECT') }}");
             
@@ -68,10 +68,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
     <script> window.fbAsyncInit = function() {
     FB.init({
-      appId            : window.FB_id,
+      appId            : FB_id,
       autoLogAppEvents : true,
       xfbml            : true,
       version          : 'v3.1'
@@ -86,6 +85,8 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
+   
   
   </body>
 </html>
