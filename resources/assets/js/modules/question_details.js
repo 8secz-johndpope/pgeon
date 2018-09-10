@@ -40,7 +40,7 @@ $(function () {
         method: 'share',
         display: 'popup',
         href: $q_url,
-        quote: $q
+        quote: decodeURI($q)
       }, function(response){
 
       });

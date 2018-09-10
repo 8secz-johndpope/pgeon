@@ -31536,7 +31536,7 @@ $(function () {
       method: 'share',
       display: 'popup',
       href: $q_url,
-      quote: $q
+      quote: decodeURI($q)
     }, function (response) {});
   });
   $(".details-share__item--twitter").on("click", function () {
