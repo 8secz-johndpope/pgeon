@@ -31529,9 +31529,11 @@ $(function () {
 
     $(".details-share__item--fb").on("click", function () {
         $q = $("#share_q").html();
-        window.open("https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=" + window.location.href + "&redirect_uri=http://pgeon.net&quote=" + $q, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
 
-        //window.open(`https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=${encodeURI(window.location.href)}&redirect_uri=http://pgeon.net&quote=${encodeURI($q)}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
+        //local
+        window.open("https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=http://pgeon.net/question/27&redirect_uri=http://pgeon.net&quote=" + $q + "&title=master", 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+
+        //window.open(`https://www.facebook.com/dialog/share?app_id=433134823737944&display=popup&href=${window.location.href}&redirect_uri=http://pgeon.net&quote=${$q}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
     });
 });
 

@@ -54,7 +54,7 @@
     <div class="details-share__body">
       <div class="details-share__item details-share__item--fb" >
         {{Helper::read_svg("img/svg/facebook.svg")}}
-        <h3>FaceBook.</h3>
+        <h3>FaceBook</h3>
       </div>
       <div class="details-share__seperator"></div>
 
