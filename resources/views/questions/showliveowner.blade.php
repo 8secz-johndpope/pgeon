@@ -44,6 +44,9 @@
   </header>
 
 
+    
+
+
 <div class="details-share">
   <div class="details-share__inner  mw6 m-auto">
     <div class="details-share__header">
@@ -85,7 +88,10 @@
   </div>
 </div>
           
-    <div id="share_q" class="dn">{{$question->question}}</div>
+<div id="share_q" class="dn">{{ urlencode($question->question)}}</div>
+
+
+
 
       <answers_live_owner hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								  ></answers_live_owner>

@@ -46,29 +46,57 @@
   </header>
 
 
+
+<div class="details-share">
+  <div class="details-share__inner  mw6 m-auto">
+    <div class="details-share__header">
+      <span></span>
+      <h3>Share Question</h3>
+      {{Helper::read_svg("img/svg/times.svg")}}
+    </div>
+    <div class="details-share__body">
+      <div class="details-share__item details-share__item--fb" >
+        {{Helper::read_svg("img/svg/facebook.svg")}}
+        <h3>FaceBook</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--twitter">
+        {{Helper::read_svg("img/svg/twitter.svg")}}
+        <h3>Twitter</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--linkedin">
+        {{Helper::read_svg("img/svg/linkedin.svg")}}
+        <h3>LinkedIn</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--reddit">
+        {{Helper::read_svg("img/svg/reddit-square.svg")}}
+        <h3>Reddit</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item  details-share__item--link">
+        {{Helper::read_svg("img/svg/link.svg")}}
+        <h3>Copy Link</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+    </div>
+  </div>
+</div>
+          
+  <div id="share_q" class="dn">{{ urlencode($question->question)}}</div>
+
       <answers hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								question_id="{{$question->id}}" current_user_slug="{{Helper::slug(Auth::user()->id ,Auth::user()->slug)}}"  current_user_id="{{Auth::user()->id}}" question_owner_id="{{$question->user_id}}" ></answers>
 
 
 
 
-            <!-- begin share question modal -->
-           
-            <!-- begin report question modal -->
-            <!-- <div class="modal fade" id="reportQuestion" tabindex="-1" role="dialog" aria-labelledby="reportQuestion" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Report question</h4>
-                        </div>
-                        <div class="modal-body">
-                          <p class="text-muted">Sorry, this feature isn't quite ready.</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
+            
 
 
 @endsection

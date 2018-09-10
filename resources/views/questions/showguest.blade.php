@@ -1,4 +1,4 @@
-@extends('layouts.app-no-header-no-top-bar')
+@extends('layouts.app-no-header-no-top-bar', ['title' => $question->question])
 @section('content')
 
 
@@ -46,6 +46,50 @@
   </header>
 
 
+
+<div class="details-share">
+  <div class="details-share__inner  mw6 m-auto">
+    <div class="details-share__header">
+      <span></span>
+      <h3>Share Question</h3>
+      {{Helper::read_svg("img/svg/times.svg")}}
+    </div>
+    <div class="details-share__body">
+      <div class="details-share__item details-share__item--fb" >
+        {{Helper::read_svg("img/svg/facebook.svg")}}
+        <h3>FaceBook</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--twitter">
+        {{Helper::read_svg("img/svg/twitter.svg")}}
+        <h3>Twitter</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--linkedin">
+        {{Helper::read_svg("img/svg/linkedin.svg")}}
+        <h3>LinkedIn</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item details-share__item--reddit">
+        {{Helper::read_svg("img/svg/reddit-square.svg")}}
+        <h3>Reddit</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+
+      <div class="details-share__item  details-share__item--link">
+        {{Helper::read_svg("img/svg/link.svg")}}
+        <h3>Copy Link</h3>
+      </div>
+      <div class="details-share__seperator"></div>
+    </div>
+  </div>
+</div>
+          
+<div id="share_q" class="dn">{{ urlencode($question->question)}}</div>
+  
 
         <answers_guest hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								  ></answers_guest>

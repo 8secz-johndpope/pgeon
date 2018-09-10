@@ -39,27 +39,38 @@ $(function () {
        FB.ui({
         method: 'share',
         display: 'popup',
-        href: 'http://pgeon.net/question/27',
+        href: $q_url,
         quote: $q
       }, function(response){
 
       });
-
-     
-
-       //local
-     // window.open(`https://www.facebook.com/dialog/share?app_id=${window.FB_id}&display=popup&href=http://pgeon.net/question/27&redirect_uri=http://pgeon.net&quote=${$q}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
-
-      //window.open(`https://www.facebook.com/dialog/share?app_id=${FB_id}&display=popup&href=${window.location.href}&redirect_uri=http://pgeon.net&quote=${$q}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
-      
+  
      })
-     $(".details-share__item--twitter ").on("click", () => {
+     $(".details-share__item--twitter").on("click", () => {
        window.open(`https://twitter.com/intent/tweet?text=${$q}&url=${$q_url}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
      })
      
-     $(".details-share__item--linkedin ").on("click", () => {
+     $(".details-share__item--linkedin").on("click", () => {
       window.open(`http://www.linkedin.com/shareArticle?mini=true&url=${$q_url}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
      })
+
+     $(".details-share__item--reddit").on("click", () => {
+        window.open(` http://www.reddit.com/submit?title=${$q}&url=${$q_url}`,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+     })
+
+     $(".details-share__item--link").on("click", () => {
+
+            var input = document.createElement('input');
+            input.setAttribute('value', $q_url);
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand('copy');
+            document.body.removeChild(input)
+            return result;
+            
+     })
+    
+     ;
 
      
 

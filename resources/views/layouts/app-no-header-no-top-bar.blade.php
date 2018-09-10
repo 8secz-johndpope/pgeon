@@ -5,10 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <title> {{($title)?$title:"Pgeon"}} </title>
-    <meta property="og:title" content="My Shared Article Title" />
-  <meta property="og:description" content="Description of shared article" />
-  <meta property="og:url" content="http://example.com/my_article.html" />
+    <title> {{@($title)?$title:"Pgeon"}} </title>
+
 
     <meta name="description" content="Messenger for all"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
