@@ -1,4 +1,4 @@
-@extends('layouts.app-no-header-no-top-bar', [title => $question->question])
+@extends('layouts.app-no-header-no-top-bar', ['title' => $question->question])
 @section('content')
 
   <header class="landing_header relative">
