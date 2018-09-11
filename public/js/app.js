@@ -28160,6 +28160,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -28168,7 +28173,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   data: function data() {
     return {
-      questions: [],
+      questions: {},
       current_filter: 'everyone',
       paginate: 12,
       currently_fetched_records_count: 0,
@@ -28201,7 +28206,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }
     },
     reset: function reset() {
-      this.questions = [];
+      this.questions = {};
       this.current_page = 0;
       this.currently_fetched_records_count = 0;
       //questions.length will be zero but not finalized yet until push to array
@@ -28252,13 +28257,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
-        if (response[0]['id'] !== undefined) {
-          var _questions2;
-
-          this.currently_fetched_records_count = response.length;
-          (_questions2 = this.questions).push.apply(_questions2, _toConsumableArray(response));
+        if (Object.keys(response).length > 0) {
+          this.currently_fetched_records_count = Object.keys(response).length;
+          this.questions = response;
+          //this.questions.push(...response)
+          this.loading_txt = "more";
         }
-        if (this.questions.length < 1) this.still_deciding_count = false;
+        //if this is empty even after .push?
+        if (Object.keys(this.questions).length < 1) this.still_deciding_count = false;
       }.bind(this));
     },
 
@@ -28317,8 +28323,9 @@ var _data$components$prop;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
+//
+//
+//
 //
 //
 //
@@ -28428,7 +28435,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   data: function data() {
     return {
-      questions: [],
+      questions: {},
       current_filter: 'everyone',
       paginate: 12,
       currently_fetched_records_count: 0,
@@ -28471,7 +28478,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     reset: function reset() {
-      this.questions = [];
+      this.questions = {};
       this.current_page = 0;
       this.currently_fetched_records_count = 0;
       //questions.length will be zero but not finalized yet until push to array
@@ -28508,15 +28515,15 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         $(".server-loading-card").remove();
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
-        if (response[0]['id'] !== undefined) {
-          var _questions;
 
-          this.currently_fetched_records_count = response.length;
-          (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+        if (Object.keys(response).length > 0) {
+          this.currently_fetched_records_count = Object.keys(response).length;
+          this.questions = response;
+          //this.questions.push(...response)
           this.loading_txt = "more";
         }
         //if this is empty even after .push?
-        if (this.questions.length < 1) this.still_deciding_count = false;
+        if (Object.keys(this.questions).length < 1) this.still_deciding_count = false;
       }.bind(this));
     },
 
@@ -28604,12 +28611,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var t_str = '';
       if (days > 0) t_str += days + 'd ';
-      if (hours > 0) t_str += hours + 'h ';
-      if (minutes > 0) t_str += minutes + 'm ';
+      if (hours > 0) {
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        t_str += hours + ':';
+      }
+      if (minutes > 0) {
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        t_str += minutes + ':';
+      }
       //if(seconds > 0)
-      t_str += seconds + 's';
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      t_str += seconds + '';
 
-      return t_str + "..";
+      return t_str;
 
       //  return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
       /*
@@ -66110,7 +66130,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+  return _c('div', [(Object.keys(_vm.questions).length < 1) ? _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"
@@ -66120,48 +66140,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m0"
   }, [_c('span', [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" questions to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
-  }, [_vm._l((_vm.questions), function(question) {
+  }, [_vm._l((_vm.questions), function(user_qs) {
     return _c('div', {
-      staticClass: "open-question__container"
-    }, [_c('div', {
-      staticClass: "open-question__left"
-    }, [_c('a', {
-      attrs: {
-        "href": question.slug
-      }
-    }, [_c('avatar', {
-      attrs: {
-        "size": 42,
-        "src": question.avatar,
-        "username": (question.name) ? question.name : question.slug
-      }
-    })], 1)]), _vm._v(" "), _c('div', {
-      staticClass: "open-question__right"
-    }, [_c('div', {
-      staticClass: "open-question__meta"
-    }, [_c('a', {
-      staticClass: "open-question__author",
-      attrs: {
-        "href": question.slug
-      }
-    }, [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
-      staticClass: "open-question__time"
-    }, [_c('allqtimer', {
-      attrs: {
-        "initial": question.expiring_at,
-        "question_id": question.id
-      },
-      on: {
-        "event": _vm.deleteQ
-      }
-    })], 1)]), _vm._v(" "), _c('span', {
-      staticClass: "open-question__content selected mt5p m0",
-      on: {
-        "click": function($event) {
-          _vm.redirect(question.id)
+      staticClass: "p-b-15"
+    }, _vm._l((user_qs), function(question, index) {
+      return _c('div', {
+        staticClass: "open-question__container"
+      }, [_c('div', {
+        staticClass: "open-question__left"
+      }, [(index == 0) ? _c('a', {
+        attrs: {
+          "href": question.slug
         }
-      }
-    }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
+      }, [_c('avatar', {
+        attrs: {
+          "size": 42,
+          "src": question.avatar,
+          "username": (question.name) ? question.name : question.slug
+        }
+      })], 1) : _c('div', {
+        staticClass: "avatar-occupy"
+      })]), _vm._v(" "), _c('div', {
+        staticClass: "open-question__right"
+      }, [(index == 0) ? _c('div', {
+        staticClass: "open-question__meta"
+      }, [_c('a', {
+        staticClass: "open-question__author",
+        attrs: {
+          "href": question.slug
+        }
+      }, [_vm._v(_vm._s(question.slug) + " ")]), _vm._v(" "), _c('span', {
+        staticClass: "open-question__time"
+      }, [_c('allqtimer', {
+        attrs: {
+          "initial": question.expiring_at,
+          "question_id": question.id
+        },
+        on: {
+          "event": _vm.deleteQ
+        }
+      })], 1)]) : _vm._e(), _vm._v(" "), _c('span', {
+        staticClass: "open-question__content selected mt5p m0",
+        on: {
+          "click": function($event) {
+            _vm.redirect(question.id)
+          }
+        }
+      }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
+    }))
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
   }, [_vm._m(0)]) : _vm._e()], 2)])
@@ -67325,48 +67351,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m0"
   }, [_c('span', [_vm._v("💬")]), _vm._v(" "), _c('span', [_vm._v("There are currently no"), _c('br'), _vm._v(" questions to display")])])])])])]) : _vm._e(), _vm._v(" "), _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
-  }, [_vm._l((_vm.questions), function(question) {
+  }, [_vm._l((_vm.questions), function(user_qs) {
     return _c('div', {
-      staticClass: "open-question__container"
-    }, [_c('div', {
-      staticClass: "open-question__left"
-    }, [_c('a', {
-      attrs: {
-        "href": question.slug
-      }
-    }, [_c('avatar', {
-      attrs: {
-        "size": 42,
-        "src": question.avatar,
-        "username": (question.name) ? question.name : question.slug
-      }
-    })], 1)]), _vm._v(" "), _c('div', {
-      staticClass: "open-question__right"
-    }, [_c('div', {
-      staticClass: "open-question__meta"
-    }, [_c('a', {
-      staticClass: "open-question__author",
-      attrs: {
-        "href": question.slug
-      }
-    }, [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
-      staticClass: "open-question__time"
-    }, [_c('allqtimer', {
-      attrs: {
-        "initial": question.expiring_at,
-        "question_id": question.id
-      },
-      on: {
-        "event": _vm.deleteQ
-      }
-    })], 1)]), _vm._v(" "), _c('span', {
-      staticClass: "open-question__content selected mt5p m0",
-      on: {
-        "click": function($event) {
-          _vm.redirect(question.id)
+      staticClass: "p-b-15"
+    }, _vm._l((user_qs), function(question, index) {
+      return _c('div', {
+        staticClass: "open-question__container"
+      }, [_c('div', {
+        staticClass: "open-question__left"
+      }, [(index == 0) ? _c('a', {
+        attrs: {
+          "href": question.slug
         }
-      }
-    }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
+      }, [_c('avatar', {
+        attrs: {
+          "size": 42,
+          "src": question.avatar,
+          "username": (question.name) ? question.name : question.slug
+        }
+      })], 1) : _c('div', {
+        staticClass: "avatar-occupy"
+      })]), _vm._v(" "), _c('div', {
+        staticClass: "open-question__right"
+      }, [(index == 0) ? _c('div', {
+        staticClass: "open-question__meta"
+      }, [_c('a', {
+        staticClass: "open-question__author",
+        attrs: {
+          "href": question.slug
+        }
+      }, [_vm._v(_vm._s(question.slug))]), _vm._v(" "), _c('span', {
+        staticClass: "open-question__time"
+      }, [_c('allqtimer', {
+        attrs: {
+          "initial": question.expiring_at,
+          "question_id": question.id
+        },
+        on: {
+          "event": _vm.deleteQ
+        }
+      })], 1)]) : _vm._e(), _vm._v(" "), _c('span', {
+        staticClass: "open-question__content selected mt5p m0",
+        on: {
+          "click": function($event) {
+            _vm.redirect(question.id)
+          }
+        }
+      }, [_c('p', [_vm._v(" " + _vm._s(question.question))])])])])
+    }))
   }), _vm._v(" "), (_vm.currently_fetched_records_count >= _vm.paginate && _vm.still_deciding_paging) ? _c('ul', {
     staticClass: "load_more"
   }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.role_id == 3) ? _c('div', {

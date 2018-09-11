@@ -52,7 +52,7 @@
     {!! Form::open(['url' => '/updatecard', 'id' => 'update-form']) !!}
 
     <div class="pgn-textfield mb10p">
-        <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="text" id="card-number" >
+        <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="number" id="card-number" >
         <label class="pgn__label" for="card-number">Card Number</label>
         
       </div>
@@ -149,7 +149,7 @@
                               </div>
 
             <div class="pgn-textfield mb10p">
-              <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="text" id="card-number" >
+              <input class="pgn__input azure-caret"  data-stripe="number"  type="number" id="card-number" >
               <label class="pgn__label" for="card-number">Card Number</label>
               
               <!-- <p class="pgn-textfield-errorMessage" data-error="email">Email </p> -->
@@ -269,7 +269,7 @@
                               </div>
 
             <div class="pgn-textfield mb10p">
-              <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="text" id="card-number" placeholder="CARD NUMBER">
+              <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="number" id="card-number" placeholder="CARD NUMBER">
               
               <!-- <p class="pgn-textfield-errorMessage" data-error="email">Email </p> -->
             </div>

@@ -22,7 +22,7 @@
         </div>
         <div class="w-33">
           <span class="fw6">{{Helper::formatWithSuffix($points)}}</span>
-          <div class="points">{{ $points == 1 ? "point" : "points" }}</div>
+          <div class="points">{{ $points == 1 ? "Point" : "Points" }}</div>
         </div>
       </div>
       <div class="w-100  flex justify-center">

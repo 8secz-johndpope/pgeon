@@ -27,14 +27,18 @@
 
 
  <main class="landing-main mw6 m-auto pl15 pr15">
-      <div class="open-question__container" v-for="question in questions">
+    <div class="p-b-15" v-for="user_qs in questions">
+      <div class="open-question__container" v-for="(question,index) in user_qs">
         <div class="open-question__left">
-           <a :href="question.slug">
+          <!-- image only for the first elem...rest will be added as stack -->
+           <a :href="question.slug" v-if="index==0">
           <avatar :size="42"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
            </a>
+           <div v-else class="avatar-occupy"></div>
+
         </div>
         <div class="open-question__right">
-          <div class="open-question__meta">
+          <div class="open-question__meta" v-if="index==0">
             <a :href="question.slug" class="open-question__author">{{question.slug}}</a>
             <span class="open-question__time">
 
@@ -49,6 +53,7 @@
         </div>
       </div>
 
+</div>
 
 
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
@@ -92,7 +97,7 @@ import Avatar from 'vue-avatar'
 
     data: function() {
       return {
-        questions: [],
+        questions: {},
         current_filter: 'everyone',
 		paginate:12,
 		currently_fetched_records_count:0,
@@ -127,7 +132,7 @@ import Avatar from 'vue-avatar'
 			}
 		},
 		reset: function () {
-			this.questions = []
+			this.questions = {}
 			this.current_page = 0
 			this.currently_fetched_records_count = 0
 			//questions.length will be zero but not finalized yet until push to array
@@ -178,16 +183,17 @@ import Avatar from 'vue-avatar'
               //this will not exists after first time...
 							 $(".server-loading-card").remove()
 
-					 this.still_deciding_paging = false
+					    this.still_deciding_paging = false
     				  this.currently_fetched_records_count = 0
-   		          if (response[0]['id'] !== undefined) {
-   		        	 	this.currently_fetched_records_count = response.length
-						 this.questions.push(...response)
-
-
-   		          }
-    				  if (this.questions.length < 1)
-  				 		this.still_deciding_count = false
+   		        if (Object.keys(response).length > 0) {
+                this.currently_fetched_records_count = Object.keys(response).length
+                this.questions = response
+                //this.questions.push(...response)
+                this.loading_txt = "more"
+              }
+				 	//if this is empty even after .push?
+				 	    if (Object.keys(this.questions).length < 1)
+  				 		  this.still_deciding_count = false
    		        }.bind(this));
     		},
 

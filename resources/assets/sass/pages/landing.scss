@@ -70,7 +70,7 @@
 
 .open-question__container {
   display: flex;
-  padding-bottom: 15px;
+  padding-bottom: 0px;
   &:last-child {
     padding-bottom: 0;
   }
@@ -406,6 +406,14 @@ $bsc: rgba(0, 0, 0, 0.16);
 }
 
 
+.avatar-occupy {
+  width:42px;
+  height: 42px;
+}
+
+.p-b-15 {
+  padding-bottom: 15px;
+}
 
 
 
