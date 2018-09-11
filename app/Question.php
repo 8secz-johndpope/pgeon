@@ -87,7 +87,7 @@ class Question extends Model {
         $questions = DB::select( DB::raw("
         SELECT q.id, q.question, u.avatar, q.expiring_at, q.user_id, u.slug, u.name FROM questions q  
                               INNER JOIN users u ON u.id = q.user_id 
-                              WHERE q.expiring_at > '$now' LIMIT $p OFFSET $offset"));
+                              WHERE q.expiring_at > '$now' ORDER BY q.expiring_at ASC LIMIT $p OFFSET $offset "));
         
         
         // and q.expiring_at > '$now'
