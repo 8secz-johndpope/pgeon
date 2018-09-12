@@ -47,12 +47,15 @@ class NotificationController extends Controller
                                 if($user) {
                                     
                                     $responses[] = array('type' => $notif->type, 
+
                                         'message' => Helper::slug($user->id,$user->slug) . ' posted a new question ',
                                         'link_to' => 'question/'.$meta->question_id,
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                         'class' => 'fa-comment-alt',
                                         'id' => $notif->id,
-                                        'seen' => $notif->seen
+                                        'seen' => $notif->seen,
+                                        'type' => $notif->type,
+
                                         
                                     );
                                 }
@@ -68,7 +71,9 @@ class NotificationController extends Controller
                                     'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                     'class' => 'fa-user-plus',
                                     'id' => $notif->id,
-                                    'seen' => $notif->seen
+                                    'seen' => $notif->seen,
+                                    'type' => $notif->type,
+
                                 );
                         }
                         break;
@@ -84,7 +89,9 @@ class NotificationController extends Controller
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                         'class' => 'fa-trophy-alt',
                                         'id' => $notif->id,
-                                        'seen' => $notif->seen
+                                        'seen' => $notif->seen,
+                                        'type' => $notif->type,
+
                                     );
                                 }
                             }
@@ -101,7 +108,9 @@ class NotificationController extends Controller
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                         'class' => 'fa-thumbs-up',
                                         'id' => $notif->id,
-                                        'seen' => $notif->seen
+                                        'seen' => $notif->seen,
+                                        'type' => $notif->type,
+
                                     );
                                 }
                             }

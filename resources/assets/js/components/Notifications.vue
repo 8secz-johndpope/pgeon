@@ -23,20 +23,8 @@
 
 
            <main class="notification-main mw6 m-auto">
-
              <div  v-if="still_deciding_count" class="spinner">
-            <div class="b1 se"></div>
-            <div class="b2 se"></div>
-            <div class="b3 se"></div>
-            <div class="b4 se"></div>
-            <div class="b5 se"></div>
-            <div class="b6 se"></div>
-            <div class="b7 se"></div>
-            <div class="b8 se"></div>
-            <div class="b9 se"></div>
-            <div class="b10 se"></div>
-            <div class="b11 se"></div>
-            <div class="b12 se"></div>
+             <img src="img/spinner.svg">
         </div>
 
 
@@ -55,6 +43,7 @@
       <span class="fa text-muted" :class="notification.class"></span>
       <div class="notifications-body">
         <h5 class="notification-title m0">
+          {{notification.type}}
           {{notification.message}}
         </h5>
         <span class="notification-time">

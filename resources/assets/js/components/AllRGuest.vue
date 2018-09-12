@@ -137,7 +137,7 @@ import Avatar from 'vue-avatar'
 				 $.getJSON(`/featuredr/${this.paginate}/${this.current_page}`, function(response) {
 
 					 		//this will not exists after first time...
-							 $(".server-loading-card").remove()
+							 $(".spinner").remove()
 					
 
 					  this.currently_fetched_records_count = 0

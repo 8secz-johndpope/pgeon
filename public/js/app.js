@@ -28253,7 +28253,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
 
         //this will not exists after first time...
-        $(".server-loading-card").remove();
+        $(".spinner").remove();
 
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
@@ -28512,7 +28512,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
 
         //this will not exists after first time...
-        $(".server-loading-card").remove();
+        $(".spinner").remove();
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
 
@@ -28833,7 +28833,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		get_paginated_qff: function get_paginated_qff() {
 			$.getJSON('/rff/' + this.paginate + '/' + this.current_page, function (response) {
 				//this will not exists after first time...
-				$(".server-loading-card").remove();
+				$(".spinner").remove();
 				this.still_deciding_paging = false;
 				this.currently_fetched_records_count = 0;
 				if (response[0]['id'] !== undefined) {
@@ -29041,7 +29041,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 						$.getJSON('/featuredr/' + this.paginate + '/' + this.current_page, function (response) {
 
 								//this will not exists after first time...
-								$(".server-loading-card").remove();
+								$(".spinner").remove();
 
 								this.currently_fetched_records_count = 0;
 								if (response[0]['id'] !== undefined) {
@@ -30754,17 +30754,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -66316,30 +66305,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "notification-main mw6 m-auto"
   }, [(_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"
-  }, [_c('div', {
-    staticClass: "b1 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b2 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b3 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b4 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b5 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b6 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b7 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b8 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b9 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b10 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b11 se"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "b12 se"
+  }, [_c('img', {
+    attrs: {
+      "src": "img/spinner.svg"
+    }
   })]) : _c('div', {
     staticClass: "m-b-5"
   }, [(_vm.new_recs_in > 0) ? _c('div', {
@@ -66365,7 +66334,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "notifications-body"
     }, [_c('h5', {
       staticClass: "notification-title m0"
-    }, [_vm._v("\n          " + _vm._s(notification.message) + "\n        ")]), _vm._v(" "), _c('span', {
+    }, [_vm._v("\n          " + _vm._s(notification.type) + "\n          " + _vm._s(notification.message) + "\n        ")]), _vm._v(" "), _c('span', {
       staticClass: "notification-time"
     }, [_vm._v("\n            " + _vm._s(notification.ago) + "\n        ")])])])
   })], 2)]), _vm._v(" "), (_vm.notifications.length < 1 && _vm.still_deciding_count == false) ? _c('main', {

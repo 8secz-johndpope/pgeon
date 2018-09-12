@@ -22,11 +22,10 @@
 
 
     <div class="question-details__profile response-images pointer">
-      
-      
-                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
+               <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
+              
+                <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($fuser) }}"></avatar>
 
-                <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=32 username="{{  Helper::name_or_slug($fuser) }}"></avatar>
     </div>
 
     <div class="question-details__more pointer">
@@ -73,10 +72,16 @@
   <div class="double-avatar__overlay standard-overlay"></div>
   <div class="double-avatar__modal mw6">
       <div class="double-avatar__item items-center flex">
-        <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($tuser) }}"></avatar>
 
+        <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($tuser) }}"></avatar>
+       
                
-        <h3 class="m0">{{  Helper::name_or_slug($tuser) }}</h3>
+        <h3 class="m0">
+        <a class="open-question__author" href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
+
+        {{  Helper::name_or_slug($tuser) }}
+        </a>
+      </h3>
       </div>
       
         <span class="m-auto mw6 db">
@@ -84,7 +89,13 @@
         </span>
         <div class="double-avatar__item items-center flex">
         <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($fuser) }}"></avatar>
-        <h3 class="m0">{{  Helper::name_or_slug($fuser) }}</h3>
+        
+        <h3 class="m0">
+        <a class="open-question__author" href="/{{Helper::slug($fuser->id ,$fuser->slug)}}">
+
+        {{  Helper::name_or_slug($fuser) }}
+        </a>
+      </h3>
       </div>
       
   </div>

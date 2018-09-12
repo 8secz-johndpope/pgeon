@@ -165,7 +165,7 @@ import Avatar from 'vue-avatar'
 				get_paginated_qff: function () {
 					 $.getJSON(`/rff/${this.paginate}/${this.current_page}`, function(response) {
 						  //this will not exists after first time...
-								$(".server-loading-card").remove()
+								$(".spinner").remove()
 						 this.still_deciding_paging = false
 						 this.currently_fetched_records_count = 0
 					        if (response[0]['id'] !== undefined) {
