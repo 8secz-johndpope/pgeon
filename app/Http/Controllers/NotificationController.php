@@ -43,18 +43,20 @@ class NotificationController extends Controller
                         
                         case "question_posted":
                             $user = User::find($meta->created_by);
-                               
+                            $question = Question::find($meta->question_id);   
                                 if($user) {
                                     
-                                    $responses[] = array('type' => $notif->type, 
 
+                                    $responses[] = array('type' => $notif->type, 
+                                        'name' => ($user->name),
+                                        'avatar' =>  Helper::avatar($user->avatar),
+                                        'slug' => Helper::slug($user->id ,$user->slug),
                                         'message' => Helper::slug($user->id,$user->slug) . ' posted a new question ',
                                         'link_to' => 'question/'.$meta->question_id,
                                         'ago' => Helper::calcElapsed($notif->created_at->timestamp),
                                         'class' => 'fa-comment-alt',
                                         'id' => $notif->id,
                                         'seen' => $notif->seen,
-                                        'type' => $notif->type,
 
                                         
                                     );
@@ -72,7 +74,6 @@ class NotificationController extends Controller
                                     'class' => 'fa-user-plus',
                                     'id' => $notif->id,
                                     'seen' => $notif->seen,
-                                    'type' => $notif->type,
 
                                 );
                         }
@@ -90,7 +91,6 @@ class NotificationController extends Controller
                                         'class' => 'fa-trophy-alt',
                                         'id' => $notif->id,
                                         'seen' => $notif->seen,
-                                        'type' => $notif->type,
 
                                     );
                                 }
@@ -109,7 +109,6 @@ class NotificationController extends Controller
                                         'class' => 'fa-thumbs-up',
                                         'id' => $notif->id,
                                         'seen' => $notif->seen,
-                                        'type' => $notif->type,
 
                                     );
                                 }
