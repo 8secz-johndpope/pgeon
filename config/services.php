@@ -45,5 +45,6 @@ return [
         'client_id'     => env('FACEBOOK_ID'),
         'client_secret' => env('FACEBOOK_SECRET'),
         'redirect'      => env('FACEBOOK_URL'),
+        'default_graph_version' => 'v2.12',
     ],
 ];
