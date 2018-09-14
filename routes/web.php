@@ -89,6 +89,8 @@ Route::get('/u_s', 'UserController@status');
   {
 
     
+    Route::get('/graph', 'GraphController@retrieveUserProfile');
+    Route::post('/post', 'GraphController@publishToProfile');
 
     Route::get('skip', 'UserController@skip');
 
@@ -192,8 +194,12 @@ Route::get('/u_s', 'UserController@status');
 
   Route::get('/signup', 'Auth\RegisterController@showsignup');
 
-  Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
-  Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+  Route::get('/login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
+
+  Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
+
+ // Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+ // Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
   
 
   

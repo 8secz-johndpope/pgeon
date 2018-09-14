@@ -60,11 +60,45 @@ class LoginController extends Controller
     *
     * @return Response
     */
-   public function redirectToProvider($provider)
-   {
+//    public function redirectToProvider($provider)
+//    {
        
-       return Socialite::driver($provider)->redirect();
-   }
+//        return Socialite::driver($provider)->redirect();
+//    }
+
+
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToFacebookProvider()
+    {
+        return Socialite::driver('facebook')->scopes([
+            "publish_actions, manage_pages", "publish_pages"])->redirect();
+    }
+
+
+
+    /**
+     * Obtain the user information from Facebook.
+     *
+     * @return void
+     */
+    public function handleProviderFacebookCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        $array_user = $this->findOrCreateUser($user, 'facebook');
+       $authUser = $array_user['user'];
+       $registered_new =  $array_user['registred_new'];
+       Auth::login($authUser, true);
+       if($registered_new)
+            return redirect('/step2');
+       else 
+           return redirect($this->redirectTo());
+    }
 
    /**
     * Obtain the user information from GitHub.
@@ -98,7 +132,6 @@ class LoginController extends Controller
            $registred_new = false;
        }else{
             
-           $banners = Config::get('constants.default_banners');
            $authUser = User::create([
            'name'     => $user->name,
            'email'    => $user->email,
