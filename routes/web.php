@@ -194,9 +194,9 @@ Route::get('/u_s', 'UserController@status');
 
   Route::get('/signup', 'Auth\RegisterController@showsignup');
 
-  Route::get('/login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
+  Route::get('/auth/facebook', 'Auth\LoginController@redirectToFacebookProvider');
 
-  Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
+  Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
 
  // Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
  // Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
