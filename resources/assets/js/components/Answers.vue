@@ -39,7 +39,7 @@
 
     <div v-for="answer in answers">
 
-                                    <div class="open-question__response" v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
+                                    <div class="open-question__response " v-bind:class="{ 'fadeIn':  answer.id == pushed_id}"  v-if="ownerOfAnswer(answer.user_id)">
           <p>{{answer.answer}}</p>
 
 
@@ -68,7 +68,7 @@
 <div  v-else>
 
    <div v-for="(answer, index) in answers"  v-bind:key="answer">
-       <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="['open-question__response  jsvote'] "  v-if="!ownerOfAnswer(answer.user_id)">
+       <v-touch v-on:tap="mup(answer.id, $event, index)"  v-on:press="mdown(answer.id, $event, index)"  v-bind:press-options="{ time: '500' }"  v-bind:class="['open-question__response  jsvote ptb2'] "  v-if="!ownerOfAnswer(answer.user_id)">
 
           <p>{{answer.answer}} </p>
 

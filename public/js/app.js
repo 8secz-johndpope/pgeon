@@ -65786,7 +65786,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "open-question__responses"
   }, _vm._l((_vm.answers), function(answer) {
     return _c('div', [(_vm.ownerOfAnswer(answer.user_id)) ? _c('div', {
-      staticClass: "open-question__response",
+      staticClass: "open-question__response ",
       class: {
         'fadeIn': answer.id == _vm.pushed_id
       }
@@ -65812,7 +65812,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
-      class: ['open-question__response  jsvote'],
+      class: ['open-question__response  jsvote ptb2'],
       attrs: {
         "press-options": {
           time: '500'
