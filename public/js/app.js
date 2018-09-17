@@ -29307,6 +29307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var longpress;
 var pressTimer;
@@ -65847,7 +65848,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "xlink:href": "/img/sprites/solid.svg#caret-up"
       }
-    })]), _vm._v(" "), _c('span'), _vm._v(" "), _c('svg', {
+    })]), _vm._v(" "), _c('span'), _vm._v(" "), _c('div', {
+      staticClass: "v_count",
+      class: {
+        'vote-up': _vm.checkVoted(answer.id) == 1, 'vote-down': _vm.checkVoted(answer.id) == -1
+      }
+    }, [_vm._v(_vm._s((answer.vote_count) ? answer.vote_count : 0))]), _vm._v(" "), _c('svg', {
       staticClass: "c-down",
       attrs: {
         "width": "12",

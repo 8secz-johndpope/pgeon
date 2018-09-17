@@ -80,6 +80,7 @@
               </svg>
   <!-- <div class="v_count"  > &nbsp;</div> -->
   <span></span>
+     <div class="v_count" v-bind:class="{ 'vote-up': checkVoted(answer.id) == 1,  'vote-down': checkVoted(answer.id) == -1 }" >{{(answer.vote_count)?answer.vote_count:0 }}</div> 
    <svg width="12" height="12" class="c-down" >
               <use  v-bind:class="{ 'vote-down': checkVoted(answer.id) == -1 }"  class="caret-down" xlink:href='/img/sprites/solid.svg#caret-down'></use>
               </svg>
