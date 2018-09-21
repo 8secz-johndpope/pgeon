@@ -180,6 +180,8 @@ import Avatar from 'vue-avatar'
 
     			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
 
+               console.log(response)
+
               //this will not exists after first time...
 							 $(".spinner").remove()
 

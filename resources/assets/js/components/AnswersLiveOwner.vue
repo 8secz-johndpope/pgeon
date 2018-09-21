@@ -2,18 +2,17 @@
 <div>
 
 
- <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
+ <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p" v-bind:class="[{ 'confirming-modal--active':  showendmodal == true }]">
 
     <div class="open-question__right">
       <div class="open-question__meta">
         <span class="open-question__author">{{question_user_slug}}</span>
          <div>
-        <span class="open-question__stop" v-on:click="endnow()">
+        <span class="open-question__stop" v-on:click="showendmodal=true">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm296-80v160c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h160c8.8 0 16 7.2 16 16z"></path></svg>
 
           
-
         </span>
         <span class="open-question__time"><answeringtimer :initial="parseInt(initial)"></answeringtimer></span>
       </div>
@@ -71,6 +70,20 @@
 
   </div>
      
+
+<div class="confirmation-modal end-live-qt">
+    <div class="confirmation-modal__overlay standard-overlay"></div>
+    <div class="confirmation-modal__modal">
+      <h2>End Now?</h2>
+      <p>Are you sure to End this Question?</p>
+      <div class="flex">
+        <div class="flex1"></div>
+        <button class="confirmation-modal__cancel">Cancel</button>
+        <button class="confirmation-modal__danger" v-on:click="endnow">End Now</button>
+      </div>
+    </div>
+  </div>
+
  </main>
  
 
@@ -100,12 +113,12 @@ var pressTimer;
 		submit_error: false,
 		error_class: "danger",
 		lock_voting: false,
+    showendmodal: false
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
     props: ['question_id', 'hits',  'initial',    'question_user_slug', 'question'],
     mounted() {
-
 
     },
     
@@ -229,7 +242,7 @@ var pressTimer;
         
         
         socket.on('question_ended', function(id) {
-          //owner don't react..
+          //owners don't react..
         })
         
        

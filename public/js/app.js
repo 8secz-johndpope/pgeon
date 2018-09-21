@@ -28252,6 +28252,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
 
+        console.log(response);
+
         //this will not exists after first time...
         $(".spinner").remove();
 
@@ -28602,6 +28604,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       delta -= days * 86400;
 
       var hours = Math.floor(delta / 3600) % 24;
+
       delta -= hours * 3600;
 
       var minutes = Math.floor(delta / 60) % 60;
@@ -28610,8 +28613,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var seconds = delta % 60; // in theory the modulus is not required
 
       var t_str = '';
-      if (days > 0) t_str += days + 'd ';
+      //if(days > 0) 
+      //		t_str += days + 'd ' 
       if (hours > 0) {
+        hours = days * 24 + hours;
         if (hours < 10) {
           hours = "0" + hours;
         }
@@ -29124,13 +29129,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
       var t_str = '';
-      if (days > 0) t_str += days + 'd ';
-      if (hours > 0) t_str += hours + 'h ';
-      if (minutes > 0) t_str += minutes + 'm ';
+      //if(days > 0) 
+      //		t_str += days + 'd ' 
+      if (hours > 0) {
+        hours = days * 24 + hours;
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        t_str += hours + ':';
+      }
+      if (minutes > 0) {
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        t_str += minutes + ':';
+      }
       //if(seconds > 0)
-      t_str += seconds + 's';
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      t_str += seconds + '';
 
-      return t_str + "..";
+      return t_str;
 
       //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },
@@ -30159,6 +30179,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var longpress;
 var pressTimer;
@@ -30178,7 +30211,8 @@ var pressTimer;
       pushed_id: 0,
       submit_error: false,
       error_class: "danger",
-      lock_voting: false
+      lock_voting: false,
+      showendmodal: false
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -30278,7 +30312,7 @@ var pressTimer;
       });
 
       socket.on('question_ended', function (id) {
-        //owner don't react..
+        //owners don't react..
       });
 
       socket.on('question_cancelled', function (id) {
@@ -67094,7 +67128,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('main', {
-    staticClass: "landing-main mw6 m-auto pl15 pr15 smtp mt15p"
+    staticClass: "landing-main mw6 m-auto pl15 pr15 smtp mt15p",
+    class: [{
+      'confirming-modal--active': _vm.showendmodal == true
+    }]
   }, [_c('div', {
     staticClass: "open-question__right"
   }, [_c('div', {
@@ -67105,7 +67142,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "open-question__stop",
     on: {
       "click": function($event) {
-        _vm.endnow()
+        _vm.showendmodal = true
       }
     }
   }, [_c('svg', {
@@ -67180,7 +67217,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('p', [_vm._v(_vm._s(answer.answer) + " ")])])], 1)
-  }))])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "confirmation-modal end-live-qt"
+  }, [_c('div', {
+    staticClass: "confirmation-modal__overlay standard-overlay"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "confirmation-modal__modal"
+  }, [_c('h2', [_vm._v("End Now?")]), _vm._v(" "), _c('p', [_vm._v("Are you sure to End this Question?")]), _vm._v(" "), _c('div', {
+    staticClass: "flex"
+  }, [_c('div', {
+    staticClass: "flex1"
+  }), _vm._v(" "), _c('button', {
+    staticClass: "confirmation-modal__cancel"
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+    staticClass: "confirmation-modal__danger",
+    on: {
+      "click": _vm.endnow
+    }
+  }, [_vm._v("End Now")])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

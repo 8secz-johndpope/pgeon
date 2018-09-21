@@ -53,7 +53,7 @@
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
             var FB_id = "{{ env('FACEBOOK_ID') }}"
-            if(socket)
+            if(io)
               var socket = io("{{ env('NODE_CONNECT') }}");
             
               

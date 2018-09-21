@@ -41,6 +41,7 @@
     	delta -= days * 86400;
     	
     	var hours = Math.floor(delta / 3600) % 24;
+      
     	delta -= hours * 3600;
     	
     	var minutes = Math.floor(delta / 60) % 60;
@@ -49,9 +50,10 @@
     	var seconds = delta % 60;  // in theory the modulus is not required
 
     	var t_str = '';
-    	if(days > 0) 
-    		t_str += days + 'd ' 
+    	//if(days > 0) 
+    //		t_str += days + 'd ' 
     	if(hours > 0) {
+        hours = (days * 24) + hours
         if (hours < 10) {hours   = "0"+hours;}
         t_str += hours + ':' 
       }

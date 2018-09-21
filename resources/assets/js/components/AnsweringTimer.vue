@@ -47,16 +47,22 @@
 
     	
 	var t_str = '';
-	if(days > 0)
-		t_str += days + 'd ' 
-	if(hours > 0)
-		t_str += hours + 'h ' 
-	if(minutes > 0)
-		t_str += minutes + 'm '
-	//if(seconds > 0)
-		t_str += seconds + 's' 
-				
-      return t_str +".."
+		//if(days > 0) 
+    //		t_str += days + 'd ' 
+    	if(hours > 0) {
+        hours = (days * 24) + hours
+        if (hours < 10) {hours   = "0"+hours;}
+        t_str += hours + ':' 
+      }
+    	if(minutes > 0) {
+        if (minutes < 10) {minutes = "0"+minutes;}
+        t_str += minutes + ':'
+      }
+      //if(seconds > 0)
+        if (seconds < 10) {seconds = "0"+seconds;}
+    		t_str += seconds + '' 
+    				
+          return t_str
       
       //return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
     },
