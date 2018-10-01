@@ -16,7 +16,7 @@
 
                                               <!-- <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div> -->
 
-                                                      <div class="post-question-share">
+                                                      <div class="post-question-share dn">
                                             <div class="post-question-share__meta flex justify-between">
                                                 <div class="flex align-center">
                                                 <div class="md-checkbox fc">
@@ -28,7 +28,7 @@
                                             </div>
                                             </div>
 
-                                                <div class="post-question-share flex auto-share-toggle" >
+                                                <div class="post-question-share flex auto-share-toggle dn" >
       <a href="/connected-accounts" class="share-add share-circle fc mr20p">
          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"></path></svg>
       </a>

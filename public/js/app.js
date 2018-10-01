@@ -66504,14 +66504,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, _vm.maxHighlight]
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "post-question-share"
+    staticClass: "post-question-share dn"
   }, [_c('div', {
     staticClass: "post-question-share__meta flex justify-between"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "post-question-count",
     class: [_vm.remainingLength < 0 ? 'redish1' : '']
   }, [_vm._v(_vm._s(_vm.remainingLength))])])]), _vm._v(" "), _c('div', {
-    staticClass: "post-question-share flex auto-share-toggle"
+    staticClass: "post-question-share flex auto-share-toggle dn"
   }, [_c('a', {
     staticClass: "share-add share-circle fc mr20p",
     attrs: {
