@@ -36,7 +36,7 @@ trait QuestionTrait
         $fetched_questions = Question::get_live_featured_questions($p, $c);
 
         
-      //  $questions[] = array();
+        $questions[] = array();
         foreach($fetched_questions as $key => $question){
             
             $temp['id'] = $question->id;
