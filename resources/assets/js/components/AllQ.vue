@@ -5,7 +5,7 @@
 
 
 
- <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length<1">
+ <main class="landing-main mw6 m-auto pl15 pr15" v-if="Object.keys(questions).length < 1">
 
 		<div class="container text-center m-t-5p">
 

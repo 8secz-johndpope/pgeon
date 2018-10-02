@@ -28428,7 +28428,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -28510,6 +28509,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     /** will be called only from load more links as well**/
     get_paginated_featured: function get_paginated_featured() {
+
       this.loading_txt = "loading..";
       $.getJSON('/featuredq/' + this.paginate + '/' + this.current_page, function (response) {
 
@@ -28520,10 +28520,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (Object.keys(response).length > 0) {
           this.currently_fetched_records_count = Object.keys(response).length;
+
           this.questions = response;
+
           //this.questions.push(...response)
           this.loading_txt = "more";
         }
+
         //if this is empty even after .push?
         if (Object.keys(this.questions).length < 1) this.still_deciding_count = false;
       }.bind(this));
@@ -67416,7 +67419,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.questions.length < 1) ? _c('main', {
+  return _c('div', [(Object.keys(_vm.questions).length < 1) ? _c('main', {
     staticClass: "landing-main mw6 m-auto pl15 pr15"
   }, [_c('div', {
     staticClass: "container text-center m-t-5p"

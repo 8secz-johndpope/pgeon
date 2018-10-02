@@ -28,7 +28,6 @@
 
  <main class="landing-main mw6 m-auto pl15 pr15">
 
-
     <div class="p-b-15" v-for="user_qs in questions">
 
       <div class="open-question__container" v-for="(question,index) in user_qs">
@@ -191,6 +190,7 @@ import Avatar from 'vue-avatar'
 
 		/** will be called only from load more links as well**/
 		get_paginated_featured: function () {
+      
 			this.loading_txt = "loading.."
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
          
@@ -199,12 +199,16 @@ import Avatar from 'vue-avatar'
  				 	this.still_deciding_paging = false
           this.currently_fetched_records_count = 0
          
+
           if (Object.keys(response).length > 0) {
             this.currently_fetched_records_count = Object.keys(response).length
+            
             this.questions = response
+
             //this.questions.push(...response)
             this.loading_txt = "more"
           }
+          
 				 	//if this is empty even after .push?
 				 	if (Object.keys(this.questions).length < 1)
 				 		this.still_deciding_count = false
