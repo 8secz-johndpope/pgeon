@@ -6,7 +6,7 @@
 
     <span class="back-arrow dib">
       <a href="/my-questions" class="dib">
-      {{Helper::read_svg("img/svg/times.svg")}}   
+      {{Helper::read_svg("img/svg/times.svg")}}
       </a>
     </span>
 
@@ -14,8 +14,8 @@
       Pending ({{count($questions)}})
       </span>
 
-     
-   
+
+
 
   </div>
 </header>
@@ -43,12 +43,12 @@
     @if ($val['answer'])
       <a href="/pending/{{$val['question']->id}}/{{$val['answer']->id}}">View All</a>
 
-     @else 
-     <a></a>           
+     @else
+     <a></a>
 
     @endif
     <div>
-    <longpress duration="2" :on-confirm="deleteQ" :value={{$val['question']->id}} pressing-text="Deleing in {$rcounter} secs" class="btn del" action-text="Deleting">Delete</longpress>
+    <longpress duration="2" :on-confirm="deleteQ" :value={{$val['question']->id}} pressing-text="Deleting in {$rcounter} secs" class="btn del" action-text="Deleting">Delete</longpress>
 
          @if ($val['answer'])
         <form  method="post" id="publish_form" action="/accept_answer">
@@ -70,13 +70,13 @@
 
 
 
-  
 
 
 
 
 
-    
+
+
 
 
 

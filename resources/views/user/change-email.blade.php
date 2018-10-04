@@ -5,7 +5,7 @@
 <main class="landing-main mw6 m-auto">
 <form   id="frmChangeEmail" method="POST">
         <div class="setting-input">
-        <label for="" class="setting-input__label">Change Your Email Address</label>
+        <label for="" class="setting-input__label">Change your Email Address</label>
         <input id="nw_email"  type="text" class="setting-input__input" value="{{ $user->email}}">
         <input  id="old_email" type="hidden" class="setting-input__input" value="{{ $user->email}}">
         <span  class="m-auto mw6 db">
@@ -14,10 +14,10 @@
         </div>
 
 <div class="alert alert-danger">
-									
+
 									</div>
         <div class="setting-input"></div>
-     
+
 </form>
 
 </main>

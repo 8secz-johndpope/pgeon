@@ -17,11 +17,6 @@
 
 	<!-- Fonts files -->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
-	<!-- Font awesome -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
-	<!-- Tachyons css -->
-    <!-- <link rel="stylesheet" href="/css/tachyons.css"> -->
-    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
     <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,7 +39,7 @@
 
     @if (Auth::check())
 
-    
+
    <span class="header-right__icons">
      <a href="/people" class="db header-followers pointer mr20p fc">
      {{Helper::read_svg("img/svg/followers.svg")}}
@@ -57,7 +52,7 @@
 
        </span>
      </a>
-   
+
      <span href="/user/profile-with-feeds" class="profile__image pointer slide-menu__trigger fc">
        <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="36" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
      </span>
@@ -81,12 +76,12 @@
  @yield('content')
 
 
-    @include('layouts/partials/profile-menu') 
+    @include('layouts/partials/profile-menu')
 
   </div>
 
 
-   
+
 
 
 
@@ -105,6 +100,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-  
+
   </body>
 </html>

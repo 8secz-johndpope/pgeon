@@ -17,22 +17,22 @@
         <span>{{$plan}}</span>
         @if ($plan != "Free" && $stripe_id != "")
         <form  action="/unsubscribe" method="POST">
-                                                    <button type="submit" class="base-btn " > <b>Cancel Subscription</b></button>
+          <button type="submit" class="base-btn cancel-membership">Cancel</button>
                                                       {{ csrf_field() }}
                                                   </form>
 
-                                                  
+
         @endif
       </div>
 
-     
+
 
       <div class="m-auto mw6 ">
         <div class="border-trimmed"></div>
       </div>
     </div>
-    
-   
+
+
 
   </div>
 
@@ -44,30 +44,30 @@
         </div>
 
         <div class="bgwhite dn update-card-container">
-        
+
         <div>&nbsp;</div>
-          <div class="m-auto pl15 pr15  payment-container mw6 m-auto " >
+          <div class="m-auto pl15 pr15 payment-container mw6 m-auto">
 
 
     {!! Form::open(['url' => '/updatecard', 'id' => 'update-form']) !!}
 
     <div class="pgn-textfield mb10p">
-        <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="number" id="card-number" >
+        <input class="pgn__input azure-caret" data-stripe="number" maxlength="16" type="text" id="card-number" >
         <label class="pgn__label" for="card-number">Card Number</label>
-        
+
       </div>
 
 
 
     <div class="flex payment-card-info">
         <div class="pgn-textfield mb10p">
-          <input class="pgn__input azure-caret" type="text" data-stripe="exp-month"   maxlength="2" autocomplete="off" id="card-month">
+          <input class="pgn__input azure-caret" type="text" data-stripe="exp-month" maxlength="2" autocomplete="off" id="card-month">
           <label class="pgn__label" for="card-month">MM</label>
 
         </div>
 
         <div class="pgn-textfield mb10p">
-          <input class="pgn__input azure-caret"  type="text"  data-stripe="exp-year"  maxlength="4" autocomplete="off" id="card-year">
+          <input class="pgn__input azure-caret" type="text"  data-stripe="exp-year" maxlength="4" autocomplete="off" id="card-year">
           <label class="pgn__label" for="card-year">YYYY</label>
 
         </div>
@@ -92,9 +92,9 @@
 </div> -->
 <button class="base-btn payment-method-btn flex-center payment-card-btn" type="submit">
   <span data-hide="loading">Update</span>
-  
+
 </button>
-<span class="payment-errors" style="color: red;margin-top:10px;"></span>
+<span class="payment-errors" style="color: #ED3B59; font-size: 14px; position: relative; top: -15px;"></span>
 
 </div>
 
@@ -103,9 +103,9 @@
 {!! Form::close() !!}
 
       </div>
-    
+
     </div>
-      
+
       </div>
 
 @endif
@@ -140,18 +140,18 @@
       {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
         <div class="payment-card-details m-auto mw6 pl15 pr15">
         <div class="pgn-textfield mb10p">
-        <input v-if="coupon.applied" type="hidden" name="coupon" v-model="coupon.code" >  
+        <input v-if="coupon.applied" type="hidden" name="coupon" v-model="coupon.code" >
   {!! Form::label('plan', 'Select Plan:') !!}
                               {!! Form::select('plan', ['pgeon_monthly' => '$5.00 / Month', 'pgeon_yearly' => '$50.00 / Year'], 'Plan', [
-                                 
+
                                   'required'                    => 'required',
                                   ]) !!}
                               </div>
 
             <div class="pgn-textfield mb10p">
-              <input class="pgn__input azure-caret"  data-stripe="number"  type="number" id="card-number" >
+              <input class="pgn__input azure-caret"  data-stripe="number" maxlength="16" type="text" id="card-number" >
               <label class="pgn__label" for="card-number">Card Number</label>
-              
+
               <!-- <p class="pgn-textfield-errorMessage" data-error="email">Email </p> -->
             </div>
             <div class="flex payment-card-info">
@@ -177,7 +177,7 @@
               </div>
             </div>
 
-          
+
         </div>
 
 
@@ -191,15 +191,15 @@
           </div> -->
           <button class="base-btn payment-method-btn flex-center payment-card-btn" type="submit">
             <span data-hide="loading">Subscribe</span>
-            
+
           </button>
-          <span class="payment-errors" style="color: red;margin-top:10px;"></span>
+          <span class="payment-errors" style="color: #ED3B59; font-size: 14px; position: relative; top: -15px;"></span>
 
         </div>
-            
+
         {!! Form::close() !!}
 
-        
+
         </div>
       <div class="m-auto mw6 ">
         <div class="border-trimmed"></div>
@@ -214,14 +214,14 @@
           <span class="payment-radio-icon ">
           </span>
           <span class="payment-method-icon-svg payment-method-icon-card flex items-center">
-          {{ Helper::read_svg("/img/svg/gift.svg") }}
+          {{ Helper::read_svg("/img/svg/barcode-alt.svg") }}
           </span>
           <span>Redeem Code</span>
         </label>
       </div>
       <div class="redeem-code-container m-auto pl15 pr15  payment-container mw6 m-auto dn" >
         <div class="pgn-textfield mb15p">
-          <input class="pgn__input azure-caret" name="redeem-code" type="text" id="redeem-code" v-model="coupon.code" placeholder="ENTER CODE">
+          <input class="pgn__input azure-caret" name="redeem-code" type="text" id="redeem-code" v-model="coupon.code" placeholder="Enter Code">
           <!-- <p class="pgn-textfield-errorMessage" data-error="email">Email </p> -->
         </div>
         <button class="base-btn payment-method-btn btn-loading flex-center redeem-code-btn" v-on:click="validateCoupon()" :disabled="coupon.loading">
@@ -238,15 +238,15 @@
 </div>
 
 
- 
+
 
 
   <div class="subscription-info mt20p ">
                               <div class="form-group" v-if="coupon.error" v-cloak>
                                   <span class="alert alert-danger"> @{{coupon.error}} </span>
-                              </div>    
+                              </div>
 
-    
+
 
 
 <div class="m-auto mw6 subscription-info__label" v-if="coupon.applied && !coupon.lc_confirmed" v-cloak>
@@ -254,23 +254,23 @@
       <button v-on:click="reload()" class="btn btn-default" type="button" >Reset</button>
       <button type="button" class="btn btn-default"  v-if = "coupon.type == 'local'" v-on:click="confirmLocalCouponSubscription()" :disabled="coupon.loading">Confirm your subscription</button>
     </div>
-                                    
+
 
      <div class="payment-card-container payment-container" v-if="coupon.type == 'stripe'" v-cloak>
       {!! Form::open(['url' => '/subscribe', 'id' => 'payment-form']) !!}
         <div class="payment-card-details m-auto mw6 pl15 pr15">
         <div class="pgn-textfield mb10p">
-        <input v-if="coupon.applied" type="hidden" name="coupon" v-model="coupon.code" >  
+        <input v-if="coupon.applied" type="hidden" name="coupon" v-model="coupon.code" >
   {!! Form::label('plan', 'Select Plan:') !!}
                               {!! Form::select('plan', ['pgeon_monthly' => '$5.00 / Month', 'pgeon_yearly' => '$50.00 / Year'], 'Plan', [
-                                 
+
                                   'required'                    => 'required',
                                   ]) !!}
                               </div>
 
             <div class="pgn-textfield mb10p">
-              <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="number" id="card-number" placeholder="CARD NUMBER">
-              
+              <input class="pgn__input azure-caret" name="email" data-stripe="number" maxlength="16" type="text" id="card-number" placeholder="CARD NUMBER">
+
               <!-- <p class="pgn-textfield-errorMessage" data-error="email">Email </p> -->
             </div>
             <div class="flex payment-card-info">
@@ -293,7 +293,7 @@
               </div>
             </div>
 
-          
+
         </div>
 
 
@@ -307,15 +307,15 @@
           </div> -->
           <button class="base-btn payment-method-btn flex-center payment-card-btn" type="submit">
             <span data-hide="loading">Subscribe</span>
-            
+
           </button>
-          <span class="payment-errors" style="color: red;margin-top:10px;"></span>
+          <span class="payment-errors" style="color: #ED3B59; font-size: 14px; position: relative; top: -15px;"></span>
 
         </div>
-            
+
         {!! Form::close() !!}
 
-        
+
         </div>
 
   </div>

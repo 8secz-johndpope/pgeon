@@ -164,19 +164,18 @@
     display: flex;
     align-self: stretch;
     .btn {
-      min-width: 76px;
-      border: none;
+      padding: 6px 15px;
       outline: none;
+      font-weight: 600;
       cursor: pointer;
       border-radius: 4px;
       &.del {
         background-color: transparent;
         color: #ff3333;
-        border: 1px solid #ff3333;
+        box-shadow: inset 0 0 0 1px #ff3333;
         div {
           text-align: center;
           position: relative;
-          top: 5px;
         }
       }
       &.pub {
@@ -360,6 +359,7 @@
 .confirmation-modal__danger,
 .confirmation-modal__cancel {
   padding: 7px 15px;
+  font-weight: 600;
   font-size: 14px;
   background: transparent;
   border: 1px solid transparent;

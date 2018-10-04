@@ -65928,7 +65928,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "submitted_text"
     }],
     attrs: {
-      "placeholder": 'Responding as ' + _vm.current_user_slug + '..',
+      "placeholder": 'Responding as ' + _vm.current_user_slug + '...',
       "autofocus": ""
     },
     domProps: {

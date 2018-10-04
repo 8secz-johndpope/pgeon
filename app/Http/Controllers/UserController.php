@@ -44,7 +44,7 @@ class UserController extends Controller
         return view('user.index')->with('questions',$questions)->with('user',$user)->with('answers',$answers)->with('page_title', $user->name . '');
     }
 
-    
+
 
     public function questions($id)
     {
@@ -97,21 +97,21 @@ class UserController extends Controller
 
     }
 
-    
+
     public function step2 () {
-  
+
         $skip_url = Session::get('backUrl')?Session::get('backUrl'):"/skip";
         return view('user.step2')->with('skip_url',$skip_url);
-        
+
     }
-    
+
 
     public function membership () {
 
       $user = Auth::user();
       $stripe_id = "";
       $sub = $user->subs()->latest()->first();
- 
+
       //will determine if it is a stripe subscribed or locally subscribed.
       //last
       if($sub)
@@ -173,14 +173,14 @@ class UserController extends Controller
         $user = Auth::user();
         return response()->json($user);
     }
-    
+
     public function unsubscribe() {
         $user = Auth::user();
         $user->subscription('main')->cancelNow();
 
         $user->role_id = 2;
         $user->save();
-        toaster()->add('Unsubscribed successfully.')->success();
+        toaster()->add('Pro membership cancelled')->success();
         return back();
     }
     public function subscribe()
@@ -199,7 +199,7 @@ class UserController extends Controller
                 $user->newSubscription('main', $plan)
                        ->create($stripeToken, [ 'email' => $user->email,  ]);
            }
-          
+
             $user->role_id = 3;
             $user->save();
             toaster()->add('Subscription is completed.')->success();
@@ -220,7 +220,7 @@ class UserController extends Controller
     public function updatecard()
     {
 
-        
+
          $user = Auth::user();
          $user->asStripeCustomer();
          $stripeToken = Request::input('stripeToken');
@@ -251,26 +251,26 @@ class UserController extends Controller
        if (Request::input('step2') == 1) {
            $view = "user.step2";
            $success_view = Session::get('backUrl') ? Session::get('backUrl') : "/questions";
-           
+
        }else {
            $success_view = '/my-account';
            $view = "user.profile";
        }
-       
+
         // Handle the user upload of avatar
-    	if(Input::hasFile('avatar')){ 
-          
+    	if(Input::hasFile('avatar')){
+
         $image = Input::file('avatar');
         if($user->avatar)
             Storage::delete('/uploads/avatars/'.$user->avatar);
 
-            
+
             $filename  = time() . '.' . $image->getClientOriginalExtension();
         $path = public_path('/uploads/avatars/' . $filename);
-        
+
         Image::make($image->getRealPath())->resize(200, 200)->save($path);
             $user->avatar = $filename;
-      //  echo  $filename;exit;   
+      //  echo  $filename;exit;
 
     	}
 
@@ -281,7 +281,7 @@ class UserController extends Controller
             //if it is a default banner don't use the same name...
             if($user->banner && !in_array($user->banner, $banners))
                 $filename  = $user->banner;
-            else    
+            else
                 $filename  = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('/uploads/banners/' . $filename);
             Image::make($image->getRealPath())->resizeCanvas(2000, 200)->save($path);
@@ -326,7 +326,7 @@ class UserController extends Controller
          }
 
 
-       
+
 
          $slug = strtolower(Request::input('slug'));
 
@@ -342,12 +342,12 @@ class UserController extends Controller
       //}
       }
 
-     
+
 
         if (Request::input('name') != null ) {
-           
+
             $user->name = Request::input('name');
-           
+
 
         }
 
@@ -360,7 +360,7 @@ class UserController extends Controller
       if ($user->id == $user->slug) {
         User::generateSlug($user);
       }
-      
+
       return redirect($success_view)->with('user',$user);
 
     }
@@ -374,7 +374,7 @@ class UserController extends Controller
         $id = User::where('slug', '=', $slug)->pluck('id');
         return ($id)?$id[0]:0;
     }
-    
+
     public function getProfile($id) {
           $user =  User::find($id);
           return $this->showPublicProfile($user);
@@ -387,7 +387,7 @@ class UserController extends Controller
                $q_count = Question::question_asked_count($user->id);
               $answers =   User::get_accepted_answers_of_user($user->id);
               $users = User::convoDetails($user->id);
-              
+
               //$replies = User::replies($user->id);
               $replies = array();
               foreach ($users as $key => $val) {
@@ -397,9 +397,9 @@ class UserController extends Controller
                   $val->ago = Helper::calcElapsed($val->created_at);
                   $replies [] = $val;
               }
-              
-              
-         
+
+
+
               $is_following = false;
               if (Auth::user()) {
                   $current_user = Auth::user();
@@ -408,7 +408,7 @@ class UserController extends Controller
                       $is_following = true;
                   }
               }
-                          
+
               return view('user.public_profile')->with('user',$user)->with('replies', $replies)->with('points', User::get_points_as_non_negative($user->id))->with('is_following', $is_following)->with('answers_count', count($answers))->with('q_count', $q_count);
           }
     }
@@ -419,16 +419,16 @@ class UserController extends Controller
    }
 
     public static function fetchConvoFromTargetUser($answered_by, $question_by) {
-        
+
         $convo = Answer::fetchR($answered_by, $question_by);
         return $convo;
-        
+
     }
 
 
     public  function fetchOneWayConvoFromTargetUser($keyw1orslug1,$id1orslug2,$keyw2 = null,$id2 = null) {
-      
-        
+
+
     //    echo ' $keyw1orslug1 '.$keyw1orslug1.' $id1orslug2 '.$id1orslug2.' $keyw2 '.$keyw2.' $id2 '.$id2;
         $from_user = $target_user = null;
         if($keyw1orslug1 == "user") { //r/user/2/
@@ -439,7 +439,7 @@ class UserController extends Controller
         if ($id1orslug2 =="user") {   //jac/user/5
             $from_user =  $keyw2;
         }
-        
+
 
         if(!$from_user) {
             //r/john/jac
@@ -448,23 +448,23 @@ class UserController extends Controller
             }elseif($keyw2 == "user") { //r/(*)/user/45
                 $from_user =  $id2;
             }else {  //user/34/john
-                
+
                 $from_user =  UserController::getUserIdFromSlug($keyw2);
             }
         }
-        
+
         $replies =  UserController::fetchConvoFromTargetUser($from_user, $target_user);
-        
-        
+
+
         $fuser = User::find($from_user);
         $tuser = User::find($target_user);
-        
+
         $rslug_formatted = Helper::shared_formatted_string($tuser->id, $tuser->slug, $fuser->id, $fuser->slug) ;
-        
+
         return view('user.friendship')->with('replies', $replies)->with('rslug_formatted', $rslug_formatted)->with('fuser', $fuser)->with('tuser', $tuser);
       //  print_r($replies);
-        
-        
+
+
     }
     public function points() {
       return $this->id;
@@ -487,7 +487,7 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    
+
     public static function delete() {
         $id = Request::input('id');
         $password = Request::input('password');

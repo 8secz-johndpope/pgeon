@@ -28,8 +28,8 @@
 
         @endif
 
-  
-    
+
+
     </div>
 
 
@@ -46,12 +46,12 @@
     <a  class="question-stats__item">
     @endif
       <div>
-      {{Helper::read_svg("img/svg/ban.svg")}}
+      {{Helper::read_svg("img/svg/circle-notch.svg")}}
         <span>Open</span>
       </div>
-     
+
       <span>
-    
+
                 {{count($live)}} </span>
     </a>
 
@@ -65,9 +65,9 @@
 
         <span>Pending</span>
       </div>
-   
+
                     <span>
-                    
+
                     {{count($pending)}} </span>
     </a>
 
@@ -82,8 +82,8 @@
 
         <span>Published</span>
       </div>
-               
-                    <span> 
+
+                    <span>
                     {{count($published)}} </span>
     </a>
   </div>
@@ -92,7 +92,7 @@
 
 
 
-    
+
 
 
 

@@ -10,9 +10,9 @@
       </a>
       <div class="question-details__profile fc">
         <a href="/{{  Helper::slug($question->user->id,$question->user->slug) }}">
-                     
+
                      <avatar src="{{ Helper::avatar($question->user->avatar) }}" :size=36 username="{{  Helper::name_or_slug($question->user) }}"></avatar>
-                    
+
                     </a>
       </div>
       <div class="question-details__more pointer">
@@ -87,22 +87,19 @@
     </div>
   </div>
 </div>
-          
+
 <div id="share_q" class="dn" data-unesx="{{$question->question}}">{{ urlencode($question->question)}}</div>
-  
+
 
         <answers_guest hits="{{$question->hits}}" q_votes_count="{{$question->votes()->count() }}"  question="{{$question->question}}" question_user_slug="{{Helper::slug($question->user->id ,$question->user->slug)}}"  question_id="{{$question->id}}" initial="{{$lq_expiring_in}}"
 								  ></answers_guest>
 
 
            <a href="/signup" class="base-btn guest-login mw6 m-auto">
-      login / signup
-    </a>
-     
-  
+      Login / Signup
+    </a> 
+
+
 
 
 @endsection
-
-
-
