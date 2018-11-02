@@ -8,7 +8,7 @@
 
             <div class="profile-preview__avatar">
             <input type="hidden" id="name_or_slug" value="{{Helper::name_or_slug(Auth::user())}}" />
-            <a href="{{Auth::user()->slug}}">
+            <a href="{{Auth::user()->slug}}" target="_parent">
                 <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="80" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
 
             </a>
