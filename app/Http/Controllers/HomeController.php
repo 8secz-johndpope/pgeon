@@ -19,7 +19,7 @@ class HomeController extends Controller {
      */
     public function index() {
         //if we change soemthing here it should be changed in Questioncontroller index as well
-                    
+
         $eligible_to_ask = false;
         if(Auth::user()) {
             $eligible_to_ask = User::eligible_to_ask();
@@ -27,35 +27,35 @@ class HomeController extends Controller {
 
         return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
     }
-    
-    
+
+
     public function cpwd(Request $request){
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
             // The passwords matches
-            return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+            return redirect()->back()->with("error","Your current password does not match with the one provided. Please try again.");
         }
         if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
             //Current password and new password are same
-            return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            return redirect()->back()->with("error","New password cannot be same as your current password. Please choose a different password.");
         }
       /*  $validatedData = $request->validate([
             'current-password' => 'required',
             'new-password' => 'required|string|min:6|confirmed',
         ]);*/
-        
+
         $this->validate($request, [ 'current-password' => 'required',
             'new-password' => 'required|string|min:6|confirmed',
         ]);
-        
+
         //Change Password
         $user = Auth::user();
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
-        return redirect()->back()->with("success","Password changed successfully !");
+        return redirect()->back()->with("success","Password successfully changed!");
     }
-    
-    
-     
+
+
+
     public function showChangePasswordForm(){
         return view('auth.changepassword');
     }
@@ -69,10 +69,10 @@ class HomeController extends Controller {
       $iam_following = array();
       foreach( $iam_following1 as $value ) {
 
-     
+
 
           $avatar =  Helper::avatar($value->user->avatar);
-          
+
           $lq_created_at = User::get_last_posted_timestamp($value->user->id);
           $convo_count_between = User::fetchConvoCountBetween($current_user, $value->user->id);
           $iam_following[] = array('user_id' => $value->user_id, 'name' => $value->user->name, 'last_posted' => Helper::user_posted_since($lq_created_at), 'avatar' =>  $avatar, 'url' => $value->user->slug , 'convo_count' => $convo_count_between);
@@ -111,34 +111,34 @@ class HomeController extends Controller {
         		 				 LEFT JOIN user_followings ON users.id = 	user_followings.user_id
         		 				 AND user_followings.followed_by = $current_user
                               WHERE (slug LIKE '%$q%') ";
-                              
+
     			 $results = DB::select( DB::raw($sql) );
         		//$results = User::where( [['name', 'LIKE',  "%$q%"]])->orWhere([['slug', 'LIKE',  "%$q%"]]);->get();
 
-    			
+
         if ($results) {
-       
+
         foreach ($results as $value) {
-        
+
           //skip the current user in search
           if($value->id == $current_user)
             continue;
           //if he is a member and has a slug..search will give us role 3 anyway
           if($value->name )
             $value->nameorslug = $value->name;
-          else   
+          else
             $value->nameorslug = $value->slug;
-          
+
 
           if ($value->role_id == 2 ) {
             $value->last_posted =  'Is not a Pgeon member';
           }else {
             $value->last_posted =  Helper::user_posted_since(User::get_last_posted_timestamp($value->id));
-          }  
-          
-          
-           
-       
+          }
+
+
+
+
 //           if($value->user_following) {
 //           foreach ($value->user_following as $uf) {
 
@@ -151,12 +151,12 @@ class HomeController extends Controller {
           $users[] = array('obj' => $value);
         }
         }else {
-        	$msg = 'No one out there like that it seems!'; 
-        	
+        	$msg = 'No one out there like that it seems!';
+
         	}
         }
-        
-        
+
+
 
         return view('search',['users' => $users, 'msg' => $msg, 'q' => $q]);
     }

@@ -125,8 +125,6 @@
 }
 
 .open-question__author:active {
-  transition: all 0.1s ease-in-out;
-  opacity: 0.7;
 }
 
 .open-question__time {
@@ -137,7 +135,8 @@
 
 .open-question__content {
   background-color: #e8ebec;
-  //box-shadow: 0 2px 0.05px #00000014;
+  -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.39);
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.39);
   padding: 10px;
   border-radius: 0 10px 10px;
   display: block;
@@ -235,8 +234,8 @@
 }
 
 .profile__image img {
-  width: 36px;
-  height: 36px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -332,7 +331,7 @@ $bsc: rgba(0, 0, 0, 0.16);
 
 
 .loading {
- 
+
   height: 104px;
   position: relative;
 }
@@ -358,8 +357,8 @@ $bsc: rgba(0, 0, 0, 0.16);
     }
 
     .shadeanim {
-      animation-name: shine; 
-      animation-duration: 2s; 
+      animation-name: shine;
+      animation-duration: 2s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
     }
@@ -372,8 +371,8 @@ $bsc: rgba(0, 0, 0, 0.16);
     .qa-item__seperator {
       @extend .shadeanim;
     }
-  
-        
+
+
     .shade1 {
       height:10px;
       width: 43%
@@ -392,7 +391,7 @@ $bsc: rgba(0, 0, 0, 0.16);
     .shadeR3 {
       height:90px;
     }
-  
+
 
 }
 
@@ -416,5 +415,6 @@ $bsc: rgba(0, 0, 0, 0.16);
 }
 
 .spinner {
- text-align: center;
+  transform: translateY(141px);
+  text-align: center;
 }

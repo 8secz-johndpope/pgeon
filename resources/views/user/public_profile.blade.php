@@ -7,27 +7,27 @@
 <main class="mw6 m-auto smtp profile-details-container pl15 pr15">
   <div class="score-box flex items-center">
     <div class="w-33 flex justify-center">
-     
+
     <avatar src="{{  Helper::avatar($user->avatar) }}" :size=80 username="{{Helper::name_or_slug($user)}}"></avatar>
     </div>
     <div class="right w-100 justify-center">
       <div class="flex justify-center tc">
         <div class="w-33">
-          <span class="fw6">{{Helper::formatWithSuffix($answers_count)}}</span>
+          <span class="fw7">{{Helper::formatWithSuffix($answers_count)}}</span>
           <div class="points">Responses</div>
         </div>
         <div class="w-33">
-          <span class="fw6">{{Helper::formatWithSuffix($q_count)}}</span>
+          <span class="fw7">{{Helper::formatWithSuffix($q_count)}}</span>
           <div class="points">Questions</div>
         </div>
         <div class="w-33">
-          <span class="fw6">{{Helper::formatWithSuffix($points)}}</span>
+          <span class="fw7">{{Helper::formatWithSuffix($points)}}</span>
           <div class="points">{{ $points == 1 ? "Point" : "Points" }}</div>
         </div>
       </div>
-      <div class="w-100  flex justify-center">
-        
-    
+      <div class="w-100 flex justify-center">
+
+
 
       @if  (Auth::user())
                   @if ($user->id == Auth::user()->id )
@@ -41,8 +41,8 @@
                     </button>
                   @endif
 
-                @endif  
-                
+                @endif
+
     </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
 
 
 
- 
+
 
 
 
@@ -104,6 +104,3 @@
 
 
 @endsection
-
-
-

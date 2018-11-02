@@ -4,6 +4,7 @@
   h4 {
     font-size: 16px;
     font-weight: 400;
+    color: #4A4A4A;
   }
   .clear-all {
     border: none;
@@ -17,7 +18,7 @@
   .left-arrow {
     svg {
       fill: #4a4a4a;
-      cursor: pointer; 
+      cursor: pointer;
     }
   }
 }
@@ -87,3 +88,19 @@
 
   }
 }
+
+.alert-danger {
+  color: rgb(237, 59, 89);
+  font-size: 14px;
+  position: relative;
+  top: -10px;
+  left: 10px
+  }
+
+.alert-success {
+  color: #33CCCC;
+  font-size: 14px;
+  position: relative;
+  top: -10px;
+  left: 10px
+  }
