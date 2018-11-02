@@ -137,6 +137,13 @@ class UserController extends Controller
     }
 
 
+    public function avatar () {
+
+        $user = Auth::user();
+        return view('user.avatar');
+
+    }
+
     public function preferences () {
 
         /*
@@ -266,11 +273,14 @@ class UserController extends Controller
 
             
             $filename  = time() . '.' . $image->getClientOriginalExtension();
-        $path = public_path('/uploads/avatars/' . $filename);
+            $path = public_path('/uploads/avatars/' . $filename);
         
-        Image::make($image->getRealPath())->resize(200, 200)->save($path);
+            Image::make($image->getRealPath())->resize(200, 200)->save($path);
             $user->avatar = $filename;
+            $success_view = '/avatar';
       //  echo  $filename;exit;   
+
+
 
     	}
 
@@ -362,6 +372,7 @@ class UserController extends Controller
       }
       
       return redirect($success_view)->with('user',$user);
+     //return response()->json(array("fine" => "ttt"));
 
     }
 
@@ -513,6 +524,7 @@ class UserController extends Controller
         }
 
     }
+
 
 
 }

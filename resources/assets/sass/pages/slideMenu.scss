@@ -100,6 +100,7 @@
 .profile-preview__avatar {
   display: inline-block;
   position: relative;
+  margin-left:85px;
   img {
     width: 80px;
     height: 80px;
@@ -122,6 +123,10 @@
       height: 14px;
       fill: #3cc;
     }
+  }
+
+  .vue-avatar--wrapper {
+     text-align: center; vertical-align: middle; font: bold 32px/84px Helvetica, Arial, sans-serif; color: rgb(113, 230, 255);
   }
 }
 
@@ -308,4 +313,26 @@
     font-weight: 600;
     color: #fff;
   }
+}
+
+.iframe-container {
+  overflow: auto; 
+  position: relative; 
+  -webkit-overflow-scrolling: touch;
+  height: 75%;
+}
+
+#iframe_avatar {
+  position:relative;
+  top: 2%;
+  left: 5%;
+  border: 0 !important;
+  width: 90%;
+  border: 1px solid red;
+  height: 80px;
+
+  
+}
+
+.avatar-container {
 }

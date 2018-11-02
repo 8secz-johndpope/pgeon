@@ -148,6 +148,7 @@ Route::get('/u_s', 'UserController@status');
      Route::get('membership', 'UserController@membership');
     Route::get('notifications', 'UserController@notifications');
     Route::get('preferences', 'UserController@preferences');
+    Route::get('avatar', 'UserController@avatar');
 
     
     Route::get('/people', 'HomeController@people')->name('people');

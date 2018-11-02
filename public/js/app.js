@@ -31376,39 +31376,11 @@ $(function () {
 
 	$('#file-avatar').change(function () {
 
-		var file = $(this).prop('files')[0]; // The file
-		var fr = new FileReader(); // FileReader instance
-		fr.onload = function (e) {
+		var ns = $("#name_or_slug").val().charAt(0);
+		$(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'none');
+		$(".profile-preview__avatar .vue-avatar--wrapper").html("<span>" + ns + "</span>");
 
-			//can be enabled once a loader is added.
-			//$(".alert-success").remove() && $(".pr-loading").removeClass("hidden");
-			src = e.target.result;
-			$(".profile-preview__avatar .vue-avatar--wrapper span").remove();
-			$(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'url(' + src + ') 0% 0% / 80px 80px no-repeat scroll content-box border-box transparent');
-		};
-		fr.readAsDataURL(file);
-
-		var xmlHttpRequest = new XMLHttpRequest();
-		xmlHttpRequest.open("POST", "/profile", true);
-
-		xmlHttpRequest.onreadystatechange = function (e) {};
-		var fname = 'avatar';
-
-		if (file.getAsBinary) {
-			// Firefox
-
-			var data = dashes + boundary + crlf + "Content-Disposition: form-data;" + "name=\"" + fname + "\";" + "filename=\"" + unescape(encodeURIComponent(file.name)) + "\"" + crlf + "Content-Type: application/octet-stream" + crlf + crlf + file.getAsBinary() + crlf + dashes + boundary + dashes;
-
-			xmlHttpRequest.setRequestHeader("Content-Type", "multipart/form-data;boundary=" + boundary);
-			xmlHttpRequest.sendAsBinary(data);
-		} else if (window.FormData) {
-			// Chrome
-			var formData = new FormData();
-
-			formData.append(fname, file);
-			formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
-			xmlHttpRequest.send(formData);
-		}
+		$('#frm_avatar').submit();
 	});
 
 	$(".switch-toggle-input").click(function () {

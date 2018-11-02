@@ -15,21 +15,9 @@
             </div>
          @endif   
         <div class="profile-preview mt15p">
-            <div class="profile-preview__avatar">
-            <a href="{{Auth::user()->slug}}">
-                <avatar src="{{ Helper::avatar(Auth::user()->avatar) }}" :size="80" username="{{Helper::name_or_slug(Auth::user())}}"></avatar>
-
-            </a>
-            <div class="profile_upload">
-
-</div>
-            <button class="btn pr-loading dn"><span class="fa fa-spinner fa-spin"></span>
-                                    Updating</button>
-            <span class="profile-prefiew__change-avatar fc pointer">
-            {{Helper::read_svg("img/svg/camera.svg")}}  
-            <input type="file" id="file-avatar"  />
-            </span>
-            </div>
+         <div class="iframe-container">   
+            <iframe id='iframe_avatar' name='iframe_avatar' width="150" src="/avatar" scrolling="no" ></iframe>
+        </div>
             <h1>{{Auth::user()->name}}</h1>
             <div class="profile-url">
            
