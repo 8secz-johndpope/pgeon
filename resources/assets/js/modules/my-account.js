@@ -67,21 +67,27 @@ $(function () {
 	
 		$(".password-error").addClass('hide')
 		if($("#acc-passwd").val().length>1) {
+			$("#delete-acc").attr('disabled', true).html('Erasing your data')
+
 			$.ajax({
 				url: "/user",
 				type: 'DELETE',
 				data: {id: $(this).data("id"),password:  $("#acc-passwd").val(),_token : $('meta[name="csrf-token"]').attr('content')},
 				success: function(data) {
+					
 				//play with data
 					if(data.status == 0) {
+						$("#delete-acc").attr('disabled', false).html('Confirm deletion')
 						vm.exterror('Password did not match','error') 
 						
 					}else if (data.status == 1) {
+
 						vm.exterror('Account deleted. Redirecting..','error') 
 						setTimeout(function(){ window.location.reload() }, 2000);
 
 					}
 				}, error:function () {
+					$("#delete-acc").attr('disabled', false).html('Confirm deletion')
 					vm.exterror('something wrong!','error') 
 					//alert('something wrong!')
 				}
@@ -92,7 +98,7 @@ $(function () {
 
 
 	$("#delete-sso").click(function () {
-		
+		$("#delete-sso").attr('disabled', true).html('Erasing your data')
 			$.ajax({
 				url: "/usersso",
 				type: 'DELETE',
@@ -104,6 +110,7 @@ $(function () {
 
 					}
 				}, error:function () {
+					$("#delete-sso").attr('disabled', false).html('Confirm deletion')
 					vm.exterror('something wrong!','error')
 				}
 			});

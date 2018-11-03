@@ -179,7 +179,8 @@ class QuestionController extends Controller
             if($question->id) {
                 NotificationController::insertQuestionPostedToFollowers($question->id,Auth::user()->id);
             }
-            
+            toaster()->add('Question posted successfully.')->success();
+
          return Redirect::to('my-questions');
        
     }

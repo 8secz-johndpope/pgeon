@@ -32,18 +32,12 @@
     </div>
     <div class="details__dropdown__container mw6 m-auto">
       <ul class="details__dropdown">
-        <li class="details__dropdown_item details__dropdown_item--share pointer pl15p mt15p mb15p">
-        {{Helper::read_svg("img/svg/share-alt.svg")}}
-            <span>Share</span>
-        </li>
-        <li class="details__dropdown_item pointer pl15p mb15p">
+       
+        <li class="details__dropdown_item pointer pl15p mt15p mb15p">
         {{Helper::read_svg("img/svg/flag.svg")}}
             <span id="report_question" data-qid="{{$question->id}}">Report</span>
         </li>
-        <li class="details__dropdown_item pointer pl15p mb15p">
-        {{Helper::read_svg("img/svg/book.svg")}}
-            <span >Tutorial</span>
-        </li>
+        
       </ul>
     </div>
     <div class="details__overlay standard-overlay"></div>

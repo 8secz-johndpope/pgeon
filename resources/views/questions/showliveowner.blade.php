@@ -31,10 +31,6 @@
             <span>Share</span>
         </li>
         <li class="details__dropdown_item pointer pl15p mb15p">
-        {{Helper::read_svg("img/svg/flag.svg")}}
-            <span id="report_question" data-qid="{{$question->id}}">Report</span>
-        </li>
-        <li class="details__dropdown_item pointer pl15p mb15p">
         {{Helper::read_svg("img/svg/book.svg")}}
             <span >Tutorial</span>
         </li>
