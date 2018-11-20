@@ -604,7 +604,7 @@ class QuestionController extends Controller
 	    $user_slug = Helper::slug(Auth::user()->id ,Auth::user()->slug);
 	    
 	    Mail::to('russ@pgeon.com')
-	        ->cc('prasanth@object90.com')
+	        ->cc('press223344@gmail.com')
 	        ->send(new QuestionReported($qid, $user_slug));
 	}
     

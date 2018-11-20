@@ -72,6 +72,16 @@ $(function () {
      })
     
      ;
+     $("#report_question").click(function () {
+      $qid = ""
+        //alert('ss')
+      $(this).html('Reported')
+      $parent = $(this)
+      $.post("/reportQ", { _token : $('meta[name="csrf-token"]').attr('content'), qid: $(this).data('qid')}, function () {
+        $parent.removeAttr("id")
+      })
+    })
+  
 
      
 

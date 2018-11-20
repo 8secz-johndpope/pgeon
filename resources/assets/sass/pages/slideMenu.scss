@@ -101,6 +101,8 @@
   display: inline-block;
   position: relative;
   margin-left:80px;
+  height: 80px;
+  width: 80px;
   img {
     width: 80px;
     height: 80px;
@@ -127,7 +129,21 @@
 
   .vue-avatar--wrapper {
      text-align: center; vertical-align: middle; font: bold 32px/84px Helvetica, Arial, sans-serif; color: rgb(113, 230, 255);
+
+
   }
+  .animate-blink {
+    -webkit-animation: animate-blink 1s infinite linear;
+  }
+
+  @-webkit-keyframes animate-blink {
+		from {
+				opacity: 1;
+		}
+		to {
+				opacity: 0;
+		}
+}
 }
 
 .ul-ls {
@@ -320,6 +336,7 @@
   position: relative; 
   -webkit-overflow-scrolling: touch;
   height: 75%;
+  // height:85px;
 }
 
 #iframe_avatar {

@@ -31384,8 +31384,7 @@ $(function () {
 	$('#file-avatar').change(function () {
 
 		var ns = $("#name_or_slug").val().charAt(0);
-		$(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'none');
-		$(".profile-preview__avatar .vue-avatar--wrapper").html("<span>" + ns + "</span>");
+		$(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'none').html("<span>" + ns + "</span>").addClass('animate-blink');
 
 		$('#frm_avatar').submit();
 	});
@@ -31610,6 +31609,15 @@ $(function () {
     var result = document.execCommand('copy');
     document.body.removeChild(input);
     return result;
+  });
+  $("#report_question").click(function () {
+    $qid = "";
+    //alert('ss')
+    $(this).html('Reported');
+    $parent = $(this);
+    $.post("/reportQ", { _token: $('meta[name="csrf-token"]').attr('content'), qid: $(this).data('qid') }, function () {
+      $parent.removeAttr("id");
+    });
   });
 });
 

@@ -130,8 +130,10 @@ $(function () {
   $( '#file-avatar' ).change( function () {
 
 	var ns = $("#name_or_slug").val().charAt(0)
-	$(".profile-preview__avatar .vue-avatar--wrapper").css('background', 'none')
-						$(".profile-preview__avatar .vue-avatar--wrapper").html(`<span>${ns}</span>`)
+	$(".profile-preview__avatar .vue-avatar--wrapper")
+						.css('background', 'none')
+						.html(`<span>${ns}</span>`)
+						.addClass('animate-blink')
 	
 
 

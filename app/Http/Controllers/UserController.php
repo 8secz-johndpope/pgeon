@@ -266,7 +266,7 @@ class UserController extends Controller
 
         // Handle the user upload of avatar
     	if(Input::hasFile('avatar')){
-
+            
         $image = Input::file('avatar');
         if($user->avatar)
             Storage::delete('/uploads/avatars/'.$user->avatar);
