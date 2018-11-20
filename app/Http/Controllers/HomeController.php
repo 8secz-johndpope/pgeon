@@ -65,8 +65,8 @@ class HomeController extends Controller {
 
       $iam_following1 = UserFollowing::where('followed_by', '=', $current_user)->get();
       $my_followers1 = UserFollowing::where('user_id', '=', $current_user)->get();
-
       $iam_following = array();
+
       foreach( $iam_following1 as $value ) {
 
 
