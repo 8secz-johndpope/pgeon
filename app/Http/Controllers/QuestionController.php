@@ -42,20 +42,23 @@ class QuestionController extends Controller
         if(!$question) {
             return Redirect::to('/');
         }
-        $qurl =  Session::get('backUrl');
-        //valid question detail url
-        //follow the user if didn't already
-        if(strstr($qurl,"question/")) {
-            $uid = $question->user_id;
-            $uf = UserFollowing::where('user_id', $uid)
-                        ->where('followed_by',Auth::user()->id)
-                        ->first();
 
-            //not followed yet..follow him            
-            if(!$uf) {
-                UserFollowingController::follow($uid);
-            }            
-                         
+        if(!Auth::guest()) {
+        $qurl =  Session::get('backUrl');
+            //valid question detail url
+            //follow the user if didn't already
+            if(strstr($qurl,"question/")) {
+                $uid = $question->user_id;
+                $uf = UserFollowing::where('user_id', $uid)
+                            ->where('followed_by',Auth::user()->id)
+                            ->first();
+
+                //not followed yet..follow him            
+                if(!$uf) {
+                    UserFollowingController::follow($uid);
+                }            
+                            
+            }
         }
 
         Session::forget('backUrl');
@@ -90,7 +93,7 @@ class QuestionController extends Controller
 
             //non signed in
             if(Auth::guest()) {
-                
+
                 Session::put('backUrl', URL::current());
 
                 //if it is a live quest
