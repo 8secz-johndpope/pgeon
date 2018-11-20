@@ -84,11 +84,18 @@ class QuestionController extends Controller
                 session(['hasVisited' => '1']);
                 Question::pageHit($question->id);
             }
+            
+            
+            
+
             //non signed in
             if(Auth::guest()) {
-             
+                
+                Session::put('backUrl', URL::current());
+
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
+
                     $lq_expiring_in = Question::question_validity_status($question->expiring_at);
                     return view('questions.showguest', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
                 }else {

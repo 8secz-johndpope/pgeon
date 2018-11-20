@@ -50,7 +50,8 @@ class LoginController extends Controller
          *      step2 submit is handled in usercontroller update..it will set redirct url after submit to backurl
          *      finally backUrl session will be deleted on question detail page 
          */
-        Session::put('backUrl', URL::previous());
+        
+       // Session::put('backUrl', URL::previous());
        
         
     }
