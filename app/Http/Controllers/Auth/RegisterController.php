@@ -42,7 +42,7 @@ class RegisterController extends Controller
     public function __construct(Request $request)
     {
         //from login.blade
-        Session::put('backUrl', base64_decode($request->get('backUrl')));
+      //  Session::put('backUrl', base64_decode($request->get('backUrl')));
         $this->middleware('guest');
         
         
@@ -92,8 +92,9 @@ class RegisterController extends Controller
     
     public function register(Request $request)
     {
-        
-        
+
+
+           
         $validator =  $this->validator($request->all())->validate();
 
         // $validator = $this->validator($request->all());
@@ -113,14 +114,17 @@ class RegisterController extends Controller
         User::generateSlug($user);
 
         Auth::login($user);
-        
-        $skip_url = (Session::get('backUrl'))?Session::get('backUrl'):'/skip';
+
+       
+        $skip_url = (session('backUrl'))?session('backUrl'):'/skip';
        // return redirect($this->redirectPath());
         return redirect('/step2')->with('skip_url', $skip_url);
     
     }
 
-    public function showsignup() {
+    public function showsignup(Request $request) {
+
+       // echo Session::get('backUrl');exit;
         return view('auth.showsignup');
     }
 }

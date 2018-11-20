@@ -116,7 +116,7 @@ class LoginController extends Controller
 
    protected function redirectTo()
    {
-       return Session::get('backUrl') ? Session::get('backUrl') :   $this->redirectTo;
+       return session('backUrl') ? session('backUrl') :   $this->redirectTo;
        
    }
    

@@ -44,7 +44,7 @@ class QuestionController extends Controller
         }
 
         if(!Auth::guest()) {
-        $qurl =  Session::get('backUrl');
+        $qurl =  session('backUrl');
             //valid question detail url
             //follow the user if didn't already
             if(strstr($qurl,"question/")) {
@@ -61,7 +61,7 @@ class QuestionController extends Controller
             }
         }
 
-        Session::forget('backUrl');
+     //   Session::forget('backUrl');
 
         // if ((strstr(URL::previous(), "step2")) || (URL::previous() == URL::current())) {
         //     $back = "/questions";
@@ -94,18 +94,22 @@ class QuestionController extends Controller
             //non signed in
             if(Auth::guest()) {
 
-                Session::put('backUrl', URL::current());
+                //print_r(URL::current());exit;
+                session(['backUrl' => URL::current()]);
+             //   Session::put('backUrl', URL::current());
 
                 //if it is a live quest
                 if ($question->expiring_at > time()) {
 
                     $lq_expiring_in = Question::question_validity_status($question->expiring_at);
+                    
                     return view('questions.showguest', ['question' => $question, 'lq_expiring_in' => $lq_expiring_in]);
                 }else {
                         $answer = Answer::find($question->accepted_answer);
                         return view('questions.showguestexpired', ['question' => $question, 'answer' => $answer]);
                     
                 }
+
                 
             }else {
                 

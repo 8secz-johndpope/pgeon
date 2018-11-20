@@ -191,7 +191,7 @@ Route::get('/u_s', 'UserController@status');
   Route::get('/signup', 'Auth\RegisterController@showsignup');
 
 
-  Route::get('/signup', 'Auth\RegisterController@showsignup');
+  //Route::get('/signup', 'Auth\RegisterController@showsignup');
 
   Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
   Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
