@@ -99,13 +99,15 @@
                     <img alt="" src="{{ asset('img/svg/facebook-f-2.svg') }}"> <span>Connect with Facebook</span>
                 </div>
                 </a>
+                <a  href="/register">
 				<div class="social-login__item social-login__item--email">
                     <span></span>
-                    <a  href="/register">
+                  
                     
                     <span>Signup with Email</span>
-</a>
+
                 </div>
+                </a>
                 
 				<div class="signin-text">
 					<span>Already have an account? <a href="">Click here</a></span>

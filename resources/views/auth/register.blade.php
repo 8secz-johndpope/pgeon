@@ -45,7 +45,7 @@
               @endif
 
             </div>
-            <invisible-recaptcha sitekey="6Lff8j8UAAAAABzFzl1iB44SwsOgtJckdUbO8C9A" :validate="captcha_validate" :callback="captcha_callback" class="pg-btn pointer btn-submit m0" type="submit" id="do-something-btn" :disabled="captcha_loading" >
+            <invisible-recaptcha sitekey="6LdVp3wUAAAAAES2aD4PcUbIb9kDM3rNI4lKcks6" :validate="captcha_validate" :callback="captcha_callback" class="pg-btn pointer btn-submit m0" type="submit" id="do-something-btn" :disabled="captcha_loading" >
    Signup Now
 </invisible-recaptcha>
           </form>
