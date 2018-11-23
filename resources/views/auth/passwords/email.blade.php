@@ -1,4 +1,4 @@
-@extends('layouts.app-no-top-bar', ['back' => true])
+@extends('layouts.app-no-top-bar', ['back' => '/login'])
 
 @section('content')
 

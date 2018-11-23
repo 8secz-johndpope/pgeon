@@ -163,6 +163,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
+
 
 
     //    TCG\Voyager\VoyagerServiceProvider::class,
@@ -242,6 +244,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => App\Helpers\Helper::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
 
 
     ],

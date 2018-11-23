@@ -10,20 +10,19 @@
     "require": {
         "php": ">=7.0.0",
         "albertcht/invisible-recaptcha": "^1.8",
+        "cartalyst/stripe-laravel": "7.0.*",
+        "facebook/graph-sdk": "^5.6",
         "fideloper/proxy": "~3.3",
+        "jenssegers/agent": "^2.6",
         "laracasts/flash": "^3.0",
+        "laralabs/toaster": "~3.0.0",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
-        "facebook/graph-sdk": "^5.6",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.3",
         "spatie/laravel-stripe-webhooks": "^1.0",
-        "tcg/voyager": "^1.0",
-        "cartalyst/stripe-laravel": "7.0.*",
-        "laralabs/toaster": "~3.0.0"
-
-
+        "tcg/voyager": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

@@ -12,28 +12,21 @@
     <div class="dn-form mb15p">
       <form action="{{ route('login') }}" method="POST" class="login__form" id="login__form" >
       {{ csrf_field() }}
-        <div class="pgn-textfield mb10p">
+        <div class="pgn-textfield mb10p  {{ $errors->has('email') ? 'pgn-textfield-error' : ''  }}">
           <input class="pgn__input azure-caret" name="email" type="email" id="login_email" >
           <label class="pgn__label" for="login_email">Email</label>
 
-          @if ($errors->has('email'))
-            <p class="pgn-textfield-errorMessage" data-error="email">{{ $errors->first('email') }} </p>
-          @endif
         </div>
 
-        <div class="pgn-textfield mb15p password_showable">
+        <div class="pgn-textfield mb15p password_showable {{ $errors->has('email') ? 'pgn-textfield-error' : ''  }}">
           <input class="pgn__input azure-caret" type="password" name="password" id="login_password">
           <label class="pgn__label" for="login_password" >Password</label>
           <span class="input__rightbtn dn" id="show_password">
             Show
           </span>
 
-            @if ($errors->has('password'))
-
-                <p class="pgn-textfield-errorMessage" data-error="password" >{{ $errors->first('password') }} </p>
-            @endif
+           <p class="pgn-textfield-errorMessage" data-error="password">{{$errors->first('email') }}</p>
         </div>
-
 
         <input class="m0 pg-btn btn-submit pointer" type="submit" name="submit" value="Login Now">
       </form>

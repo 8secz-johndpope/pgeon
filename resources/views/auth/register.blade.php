@@ -20,7 +20,7 @@
         <form class="m-x-auto text-center app-login-form" role="form" method="POST" id="frm_register" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-            <div class="pgn-textfield mb10p" id="signup_email">
+            <div class="pgn-textfield mb10p {{ $errors->has('email') ? 'pgn-textfield-error' : ''  }}" id="signup_email">
 
 
 
@@ -29,10 +29,11 @@
 
               <label class="pgn__label" for="signup_email_input">Email</label>
               @if ($errors->has('email'))
-                <p class="pgn-textfield-errorMessage">{{ $errors->first('email') }} </p>
+
+              <p class="pgn-textfield-errorMessage">{{ $errors->first('email') }} </p>
               @endif
             </div>
-            <div class="pgn-textfield mb15p">
+            <div class="pgn-textfield mb15p {{ $errors->has('password') ? 'pgn-textfield-error' : ''  }}">
               <input class="pgn__input azure-caret" type="password" id="signup_password" name="password" disabled>
               <label class="pgn__label" for="signup_password">Password</label>
               <span class="input__rightbtn dn" id="show_password">

@@ -11,6 +11,8 @@ use App\Question;
 use App\User;
 use App\UserFollowing;
 use Helper;
+use Jenssegers\Agent\Agent;
+
 class HomeController extends Controller {
 
     /**
@@ -20,14 +22,36 @@ class HomeController extends Controller {
     public function index() {
         //if we change soemthing here it should be changed in Questioncontroller index as well
 
-        $eligible_to_ask = false;
+        $agent = new Agent();
+
         if(Auth::user()) {
-            $eligible_to_ask = User::eligible_to_ask();
+            $show = 'questions';
+        }else {
+            if($agent->isMobile()) {
+                $show = 'questions';
+            }else {
+                $show = 'desktop';
+            }
+        }
+        if($show == 'questions') {
+
+            $eligible_to_ask = false;
+            if(Auth::user()) {
+                $eligible_to_ask = User::eligible_to_ask();
+            }
+    
+            return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
+
+        }else {
+            return view('desktop.index' );
         }
 
-        return view('questions.index',['eligible_to_ask' => $eligible_to_ask]);
+      
     }
 
+    public function desktop(Request $request) {
+        return view('desktop.index' );
+    }
 
     public function cpwd(Request $request){
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
