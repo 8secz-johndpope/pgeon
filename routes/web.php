@@ -22,7 +22,6 @@
 
 Route::stripeWebhooks('handle-webhook'); 
 
-Route::get('/', 'HomeController@index');
 //Route::get('/', 'QuestionController@index');
 
 //Route::get('/desktop', 'HomeController@desktop');
@@ -33,6 +32,8 @@ Route::group(array('domain' => 'm.pgeon.net'), function () {
     Route::get('/', 'QuestionController@index');
 
 });
+Route::get('/', 'HomeController@index');
+
 
 Route::get('/u_s', 'UserController@status');
   Route::group(['prefix' => 'admin'], function () {
