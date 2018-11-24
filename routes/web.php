@@ -29,11 +29,9 @@ Route::get('/', 'HomeController@index');
 
 Route::group(array('domain' => 'm.pgeon.net'), function () {
  
-  Route::get('/', function () {
-    
+   
     Route::get('/', 'QuestionController@index');
 
-  });
 });
 
 Route::get('/u_s', 'UserController@status');
