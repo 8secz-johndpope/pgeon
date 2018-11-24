@@ -16,13 +16,16 @@ trait QuestionTrait
         
         $questions[] = array();
         foreach($fetched_questions as $key => $question){
-            $questions [$key]['id'] = $question->id;
-            $questions [$key]['question'] = ($question->question);
-            $questions [$key]['name'] = ($question->name);
-            $questions [$key]['avatar'] =  Helper::avatar($question->avatar);
-            $questions [$key]['slug'] = Helper::slug($question->user_id ,$question->slug);
-            $questions [$key]['user_id'] = $question->user_id;
-            $questions [$key]['expiring_at'] = Question::question_validity_status($question->expiring_at);
+
+            $temp['id'] = $question->id;
+            $temp['question'] = ($question->question);
+            $temp['name'] = ($question->name);
+            $temp['avatar'] =  Helper::avatar($question->avatar);
+            $temp['slug'] = Helper::slug($question->user_id ,$question->slug);
+            $temp['expiring_at'] = Question::question_validity_status($question->expiring_at);
+            //u is prepended to avoid automatic sorting
+            $questions["u".$question->user_id][] = $temp;
+            
             
             
         }

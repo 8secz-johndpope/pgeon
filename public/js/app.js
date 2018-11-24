@@ -28072,9 +28072,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_CommonMixin_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_avatar__);
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-//
 //
 //
 //
@@ -28220,31 +28217,43 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       //pagination counters will be reset when we click on filters
       this.current_page++;
       this.still_deciding_paging = true;
-      if (this.current_filter == 'follow') {
-        this.get_paginated_qff();
-      } else {
-        this.get_paginated_featured();
-      }
+      //	if (this.current_filter == 'follow') {
+      this.get_paginated_qff();
+      //	}else {
+      //		this.get_paginated_featured()
+      //	}
     },
 
     get_paginated_qff: function get_paginated_qff() {
 
       $.getJSON('/qff/' + this.paginate + '/' + this.current_page, function (response) {
+        $(".spinner").remove();
+
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
-        if (response[0]['id'] !== undefined) {
-          var _questions;
 
-          this.currently_fetched_records_count = response.length;
-          (_questions = this.questions).push.apply(_questions, _toConsumableArray(response));
+        // if (response[0]['id'] !== undefined) {
+
+        // 		this.currently_fetched_records_count = response.length
+        //   	//this.questions.push(...response)
+        //      this.questions = response
+        // }
+
+        if (Object.keys(response).length > 0) {
+          this.currently_fetched_records_count = Object.keys(response).length;
+          this.questions = response;
+          //this.questions.push(...response)
+          this.loading_txt = "more";
         }
+
         //if this is empty even after .push?
-        if (this.questions.length < 1) this.still_deciding_count = false;
+        if (Object.keys(this.questions).length < 1) {
+          this.still_deciding_count = false;
+        }
       }.bind(this));
     },
     followed_questions: function followed_questions() {
       this.reset();
-      this.current_filter = 'follow';
       this.get_paginated_qff();
     },
     /** will be called only from load more links as well**/
@@ -28274,7 +28283,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     featured_questions: function featured_questions() {
       this.reset();
       this.current_filter = 'everyone';
-      this.get_paginated_featured();
+      this.get_paginated_qff();
     },
     redirect: function redirect(id) {
       location.href = 'question/' + id;
@@ -65768,10 +65777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "event": _vm.reload
     }
   })], 1)]), _vm._v(" "), _c('a', {
-    staticClass: "open-question__content selected mt5p m0",
-    attrs: {
-      "href": '/' + _vm.question_user_slug
-    }
+    staticClass: "open-question__content selected mt5p m0"
   }, [_c('p', [_vm._v(_vm._s(_vm.question))])])]), _vm._v(" "), _c('div', {
     staticClass: "open-question__seperator mt15p mb15p"
   }, [_c('div', {

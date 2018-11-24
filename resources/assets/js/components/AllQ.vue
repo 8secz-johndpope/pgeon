@@ -55,7 +55,6 @@
 
 </div>
 
-
                     <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
@@ -108,7 +107,7 @@ import Avatar from 'vue-avatar'
     },
     props: ['role_id'],
     mounted() {
-
+      
 			$(".up50").removeClass("up50")
 			$(window).bind('scroll',this.handleScroll);
 
@@ -147,31 +146,44 @@ import Avatar from 'vue-avatar'
 			//pagination counters will be reset when we click on filters
 			this.current_page ++;
 			this.still_deciding_paging = true
-			if (this.current_filter == 'follow') {
+		//	if (this.current_filter == 'follow') {
 				this.get_paginated_qff()
-			}else {
-				this.get_paginated_featured()
-			}
-		},
+		//	}else {
+		//		this.get_paginated_featured()
+    //	}
+    		},
 
 
 		get_paginated_qff: function () {
 
 			 $.getJSON(`/qff/${this.paginate}/${this.current_page}`, function(response) {
+         	 $(".spinner").remove()
+
 				 	this.still_deciding_paging = false
-				 	this.currently_fetched_records_count = 0
-			        if (response[0]['id'] !== undefined) {
-			        		this.currently_fetched_records_count = response.length
-			        		this.questions.push(...response)
-			        }
-				 	//if this is empty even after .push?
-				 	if (this.questions.length < 1)
-				 		this.still_deciding_count = false
+           this.currently_fetched_records_count = 0
+      
+			        // if (response[0]['id'] !== undefined) {
+                
+              // 		this.currently_fetched_records_count = response.length
+              //   	//this.questions.push(...response)
+              //      this.questions = response
+              // }
+              
+               if (Object.keys(response).length > 0) {
+                this.currently_fetched_records_count = Object.keys(response).length
+                this.questions = response
+                //this.questions.push(...response)
+                this.loading_txt = "more"
+              }
+
+           //if this is empty even after .push?
+           if (Object.keys(this.questions).length < 1) {
+               this.still_deciding_count = false
+           }
 			      }.bind(this));
 		},
     		followed_questions: function() {
     			this.reset()
-    			this.current_filter = 'follow'
     			this.get_paginated_qff()
 
     		},
@@ -203,7 +215,7 @@ import Avatar from 'vue-avatar'
     		featured_questions: function() {
     			this.reset()
     			this.current_filter = 'everyone'
-    			this.get_paginated_featured()
+    			this.get_paginated_qff()
 
 
     		},
