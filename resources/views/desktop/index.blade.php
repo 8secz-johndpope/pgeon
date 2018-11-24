@@ -52,13 +52,13 @@
 <form action="{{ route('login') }}" method="POST" class="login__form mb15p" id="login__form" >
       {{ csrf_field() }}
         <div class="pgn-textfield mb10p  {{ $errors->has('email') ? 'pgn-textfield-error' : ''  }}">
-          <input class="pgn__input azure-caret" name="email" type="email" id="login_email" >
+          <input class="pgn__input " name="email" type="email" id="login_email" >
           <label class="pgn__label" for="login_email">Email</label>
 
         </div>
 
         <div class="pgn-textfield mb15p password_showable {{ $errors->has('email') ? 'pgn-textfield-error' : ''  }}">
-          <input class="pgn__input azure-caret" type="password" name="password" id="login_password">
+          <input class="pgn__input " type="password" name="password" id="login_password">
           <label class="pgn__label" for="login_password" >Password</label>
           <span class="input__rightbtn dn" id="show_password">
             Show
