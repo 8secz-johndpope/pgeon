@@ -113,7 +113,7 @@
 					<span>Already have an account? <a href="">Click here</a></span>
 				</div>
 				<div class="visit-mobile-text">
-					<span>You can visit our mobile site at <a href="https://m.pgeon.com">https://m.pgeon.com</a></span>
+					<span>You can visit our mobile site at <a href="https://m.pgeon.net">https://m.pgeon.com</a></span>
 				</div>
 			</div>
 		</div>
