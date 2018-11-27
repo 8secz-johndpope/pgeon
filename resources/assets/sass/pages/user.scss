@@ -150,3 +150,35 @@
   font-size: 16px;
   transform: translate(-127px, -2px);
 }
+
+.vue-notification.error,.vue-notification.success {
+  padding: 20px 10px;        
+  margin-top: 64px;
+  background-color: #EAF3FD !important ;
+  color:#000;
+  border-radius: 0px;
+  font-size: 16px;
+  border: 0 !important;
+  text-align: center;
+  
+  
+}
+
+.notification-content {
+  display: inline !important;
+}
+.notification {
+  display: inline !important;
+}
+.notification-wrapper {
+  display: inline !important ;
+
+}
+.notifications{
+  display: inline-block !important ;
+  position: absolute !important;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 85px !important;
+  right: auto !important;
+}

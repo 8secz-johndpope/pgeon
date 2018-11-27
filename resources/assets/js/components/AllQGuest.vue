@@ -59,7 +59,7 @@
 
 
 
-                    <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
+        <ul class="load_more" v-if="currently_fetched_records_count>=paginate && still_deciding_paging"><li>
 									      <div   class="spinner p-rel">
             <div class="b1 se"></div>
             <div class="b2 se"></div>
