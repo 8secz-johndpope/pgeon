@@ -22,7 +22,7 @@
 
 
 <main class="mw6 m-auto people-main">
-<div v-if="this.current_tab == 'iam_following'">
+<div  v-bind:class="{ 'hidden': (this.current_tab != 'iam_following') }">
     <div class="people-item" v-for="item in iam_following" >
       <div>
             <avatar :size="36"  :src="item.avatar"  :username="(item.name)?item.name:item.url" ></avatar>
@@ -31,14 +31,22 @@
           <span>{{ item.last_posted }}</span>
         </div>
       </div>
-      <button v-on:click="unfollow(item.user_id)" class="follow-button follow-button--active">
+        <button v-if="isExistsinUndo(item.user_id)" v-on:click="followNoUpdate(item.user_id, $event)"  class="follow-button">
+     
+
+                                       
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+      </button>
+      <button v-else v-on:click="unfollowNoUpdate(item.user_id)" class="follow-button follow-button--active">
         <!-- following is the `active` state -->
         <span>Following</span>
       </button>
+
     </div>
 
 </div>
-<div v-else>
+<div v-bind:class="{ 'hidden': (this.current_tab == 'iam_following') }">
  <div class="people-item" v-for="item in my_followers" >
       <div>
         
@@ -55,7 +63,7 @@
         <span>Follow</span>
         <!-- following is the `active` state -->
       </button>
-       <button  v-else v-on:click="unfollow(item.user_id)"  class="follow-button follow-button--active">
+       <button  v-else v-on:click="unfollowNoUpdate(item.user_id)"  class="follow-button follow-button--active">
         <!-- following is the `active` state -->
         <span>Following</span>
       </button>
@@ -85,13 +93,16 @@ import Avatar from 'vue-avatar'
     data: function(){
         return {
             iam_following: [],
+            //this is used for holding i_am folliwing temporarily so it can reflect in i_am_follwing tab during undoing purpose
+             temp_iam_following: [],
             my_followers: [],
             iam_following_count : 0,
             my_followers_count : 0,
             current_tab: "iam_following",
           //  current_order: false,
             current_order: 'DESC',
-            showsorting:false
+            showsorting:false,
+            unfollwed_undo: []
         };
     },
         mounted() {
@@ -99,6 +110,7 @@ import Avatar from 'vue-avatar'
 
         },
         created: function(){
+          //only the first time all update..from there only update the my_followers..I_am_follwogin left intact for undo purpose
             this.fetchData()
         },
         components: {
@@ -131,7 +143,18 @@ import Avatar from 'vue-avatar'
         	fetchData() {
         		$.getJSON('/followers', function(response){
                       this.my_followers = response.my_followers;
-                      this.iam_following = response.iam_following;
+                      this.temp_iam_following = this.iam_following = response.iam_following;
+                      this.iam_following_count = response.iam_following_count
+                      this.my_followers_count = response.my_followers_count
+                      this.sort()
+                   // console.log(response.iam_following_count)
+                }.bind(this ));
+          },
+
+           fetchDataNoUpdate() {
+        		$.getJSON('/followers', function(response){
+                      this.temp_iam_following = response.iam_following;
+                   //   this.my_followers = response.my_followers;
                       this.iam_following_count = response.iam_following_count
                       this.my_followers_count = response.my_followers_count
                       this.sort()
@@ -140,12 +163,23 @@ import Avatar from 'vue-avatar'
         	},
         	
         	isExistsinFollowing(user_id) {
-        		for(var k in this.iam_following) {
-        			   if (user_id == (this.iam_following[k].user_id))
+
+        		for(var k in this.temp_iam_following) {
+        			   if (user_id == (this.temp_iam_following[k].user_id))
         				   return true;
         			}
         		return false	;
-        	},
+          },
+          isExistsinUndo(user_id) {
+            
+        		for(var k in this.unfollwed_undo) {
+              
+        			   if (user_id == (this.unfollwed_undo[k]))
+        				   return true;
+        			}
+        		return false	;
+          },
+        
         	getBubbleCount() {
         		this.$http.get('/bubble').then((response) => {
         			if (parseInt(response.data) > 0) 
@@ -164,6 +198,7 @@ import Avatar from 'vue-avatar'
                 'user_id': id
               }
               this.$http.post('/follow', formData).then((response) => {
+                
             	 	 this.fetchData()
                 // success callback
                 
@@ -183,10 +218,49 @@ import Avatar from 'vue-avatar'
                 'user_id': id
               }
               this.$http.post('/unfollow', formData).then((response) => {
-                    
 	            	  this.fetchData()
               }, (response) => {
                 	
+              });
+
+
+
+            },
+
+    ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
+            unfollowNoUpdate: function (id) {
+              //  $.post('unfollow',  )
+              var formData = {
+                'user_id': id
+              }
+              this.$http.post('/unfollow', formData).then((response) => {
+                  this.unfollwed_undo.push(id)
+	            	  this.fetchDataNoUpdate()
+              }, (response) => {
+                	
+              });
+
+
+
+            },
+
+              followNoUpdate: function (id, event) {
+              //  $.post('follow',  )
+            //  $(event.target).children().remove()
+              var formData = {
+                'user_id': id
+              }
+              this.$http.post('/follow', formData).then((response) => {
+                  this.fetchDataNoUpdate()
+                  //this.unfollwed_undo.push(id)
+                  this.unfollwed_undo = this.unfollwed_undo.filter(e => e !== id) 
+                  console.log(this.unfollwed_undo);
+                  
+                // success callback
+                
+              }, (response) => {
+            	  console.log(response)
+                // error callback
               });
 
 

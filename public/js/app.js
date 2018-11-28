@@ -30643,111 +30643,179 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    data: function data() {
-        return {
-            iam_following: [],
-            my_followers: [],
-            iam_following_count: 0,
-            my_followers_count: 0,
-            current_tab: "iam_following",
-            //  current_order: false,
-            current_order: 'DESC',
-            showsorting: false
-        };
+  data: function data() {
+    return {
+      iam_following: [],
+      //this is used for holding i_am folliwing temporarily so it can reflect in i_am_follwing tab during undoing purpose
+      temp_iam_following: [],
+      my_followers: [],
+      iam_following_count: 0,
+      my_followers_count: 0,
+      current_tab: "iam_following",
+      //  current_order: false,
+      current_order: 'DESC',
+      showsorting: false,
+      unfollwed_undo: []
+    };
+  },
+  mounted: function mounted() {
+    //   console.log('Component mounted.')
+
+  },
+
+  created: function created() {
+    //only the first time all update..from there only update the my_followers..I_am_follwogin left intact for undo purpose
+    this.fetchData();
+  },
+  components: {
+    Avatar: __WEBPACK_IMPORTED_MODULE_0_vue_avatar___default.a
+  },
+
+  methods: {
+    setcurrenttab: function setcurrenttab(tab) {
+      this.current_tab = tab;
+      this.sort();
     },
-    mounted: function mounted() {
-        //   console.log('Component mounted.')
+    sort: function sort() {
+      if (!this.current_order || this.current_order == 'ASC') {
 
+        this[this.current_tab].sort(function (a, b) {
+          return a.convo_count - b.convo_count;
+        });
+      } else if (this.current_order == 'DESC') {
+
+        this[this.current_tab].sort(function (a, b) {
+          return b.convo_count - a.convo_count;
+        });
+      }
+    },
+    fetchData: function fetchData() {
+      $.getJSON('/followers', function (response) {
+        this.my_followers = response.my_followers;
+        this.temp_iam_following = this.iam_following = response.iam_following;
+        this.iam_following_count = response.iam_following_count;
+        this.my_followers_count = response.my_followers_count;
+        this.sort();
+        // console.log(response.iam_following_count)
+      }.bind(this));
+    },
+    fetchDataNoUpdate: function fetchDataNoUpdate() {
+      $.getJSON('/followers', function (response) {
+        this.temp_iam_following = response.iam_following;
+        //   this.my_followers = response.my_followers;
+        this.iam_following_count = response.iam_following_count;
+        this.my_followers_count = response.my_followers_count;
+        this.sort();
+        // console.log(response.iam_following_count)
+      }.bind(this));
+    },
+    isExistsinFollowing: function isExistsinFollowing(user_id) {
+
+      for (var k in this.temp_iam_following) {
+        if (user_id == this.temp_iam_following[k].user_id) return true;
+      }
+      return false;
+    },
+    isExistsinUndo: function isExistsinUndo(user_id) {
+
+      for (var k in this.unfollwed_undo) {
+
+        if (user_id == this.unfollwed_undo[k]) return true;
+      }
+      return false;
+    },
+    getBubbleCount: function getBubbleCount() {
+      this.$http.get('/bubble').then(function (response) {
+        if (parseInt(response.data) > 0) $(".bubble").html(response.data);
+
+        //alert('ss')
+        // success callback
+      }, function (response) {
+        // error callback
+      });
     },
 
-    created: function created() {
-        this.fetchData();
+    follow: function follow(id, event) {
+      var _this = this;
+
+      //  $.post('follow',  )
+      //  $(event.target).children().remove()
+      var formData = {
+        'user_id': id
+      };
+      this.$http.post('/follow', formData).then(function (response) {
+
+        _this.fetchData();
+        // success callback
+      }, function (response) {
+        console.log(response);
+        // error callback
+      });
     },
-    components: {
-        Avatar: __WEBPACK_IMPORTED_MODULE_0_vue_avatar___default.a
+
+    unfollow: function unfollow(id) {
+      var _this2 = this;
+
+      //  $.post('unfollow',  )
+      var formData = {
+        'user_id': id
+      };
+      this.$http.post('/unfollow', formData).then(function (response) {
+        _this2.fetchData();
+      }, function (response) {});
     },
 
-    methods: {
-        setcurrenttab: function setcurrenttab(tab) {
-            this.current_tab = tab;
-            this.sort();
-        },
-        sort: function sort() {
-            if (!this.current_order || this.current_order == 'ASC') {
+    ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
+    unfollowNoUpdate: function unfollowNoUpdate(id) {
+      var _this3 = this;
 
-                this[this.current_tab].sort(function (a, b) {
-                    return a.convo_count - b.convo_count;
-                });
-            } else if (this.current_order == 'DESC') {
+      //  $.post('unfollow',  )
+      var formData = {
+        'user_id': id
+      };
+      this.$http.post('/unfollow', formData).then(function (response) {
+        _this3.unfollwed_undo.push(id);
+        _this3.fetchDataNoUpdate();
+      }, function (response) {});
+    },
 
-                this[this.current_tab].sort(function (a, b) {
-                    return b.convo_count - a.convo_count;
-                });
-            }
-        },
-        fetchData: function fetchData() {
-            $.getJSON('/followers', function (response) {
-                this.my_followers = response.my_followers;
-                this.iam_following = response.iam_following;
-                this.iam_following_count = response.iam_following_count;
-                this.my_followers_count = response.my_followers_count;
-                this.sort();
-                // console.log(response.iam_following_count)
-            }.bind(this));
-        },
-        isExistsinFollowing: function isExistsinFollowing(user_id) {
-            for (var k in this.iam_following) {
-                if (user_id == this.iam_following[k].user_id) return true;
-            }
-            return false;
-        },
-        getBubbleCount: function getBubbleCount() {
-            this.$http.get('/bubble').then(function (response) {
-                if (parseInt(response.data) > 0) $(".bubble").html(response.data);
+    followNoUpdate: function followNoUpdate(id, event) {
+      var _this4 = this;
 
-                //alert('ss')
-                // success callback
-            }, function (response) {
-                // error callback
-            });
-        },
+      //  $.post('follow',  )
+      //  $(event.target).children().remove()
+      var formData = {
+        'user_id': id
+      };
+      this.$http.post('/follow', formData).then(function (response) {
+        _this4.fetchDataNoUpdate();
+        //this.unfollwed_undo.push(id)
+        _this4.unfollwed_undo = _this4.unfollwed_undo.filter(function (e) {
+          return e !== id;
+        });
+        console.log(_this4.unfollwed_undo);
 
-        follow: function follow(id, event) {
-            var _this = this;
-
-            //  $.post('follow',  )
-            //  $(event.target).children().remove()
-            var formData = {
-                'user_id': id
-            };
-            this.$http.post('/follow', formData).then(function (response) {
-                _this.fetchData();
-                // success callback
-            }, function (response) {
-                console.log(response);
-                // error callback
-            });
-        },
-
-        unfollow: function unfollow(id) {
-            var _this2 = this;
-
-            //  $.post('unfollow',  )
-            var formData = {
-                'user_id': id
-            };
-            this.$http.post('/unfollow', formData).then(function (response) {
-
-                _this2.fetchData();
-            }, function (response) {});
-        }
-
+        // success callback
+      }, function (response) {
+        console.log(response);
+        // error callback
+      });
     }
+
+  }
 
 });
 
@@ -66937,7 +67005,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])])])]), _vm._v(" "), _c('main', {
     staticClass: "mw6 m-auto people-main"
-  }, [(this.current_tab == 'iam_following') ? _c('div', _vm._l((_vm.iam_following), function(item) {
+  }, [_c('div', {
+    class: {
+      'hidden': (this.current_tab != 'iam_following')
+    }
+  }, _vm._l((_vm.iam_following), function(item) {
     return _c('div', {
       staticClass: "people-item"
     }, [_c('div', [_c('avatar', {
@@ -66948,15 +67020,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(" "), _c('div', {
       staticClass: "people-item__info"
-    }, [_c('h4', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.last_posted))])])], 1), _vm._v(" "), _c('button', {
+    }, [_c('h4', [_vm._v(_vm._s(item.url))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.last_posted))])])], 1), _vm._v(" "), (_vm.isExistsinUndo(item.user_id)) ? _c('button', {
+      staticClass: "follow-button",
+      on: {
+        "click": function($event) {
+          _vm.followNoUpdate(item.user_id, $event)
+        }
+      }
+    }, [_c('span', [_vm._v("Follow")])]) : _c('button', {
       staticClass: "follow-button follow-button--active",
       on: {
         "click": function($event) {
-          _vm.unfollow(item.user_id)
+          _vm.unfollowNoUpdate(item.user_id)
         }
       }
     }, [_c('span', [_vm._v("Following")])])])
-  })) : _c('div', _vm._l((_vm.my_followers), function(item) {
+  })), _vm._v(" "), _c('div', {
+    class: {
+      'hidden': (this.current_tab == 'iam_following')
+    }
+  }, _vm._l((_vm.my_followers), function(item) {
     return _c('div', {
       staticClass: "people-item"
     }, [_c('div', [_c('avatar', {
@@ -66978,7 +67061,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "follow-button follow-button--active",
       on: {
         "click": function($event) {
-          _vm.unfollow(item.user_id)
+          _vm.unfollowNoUpdate(item.user_id)
         }
       }
     }, [_c('span', [_vm._v("Following")])])])
