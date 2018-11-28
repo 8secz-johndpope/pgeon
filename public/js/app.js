@@ -30485,6 +30485,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -66571,10 +66572,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, _vm.maxHighlight]
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "post-question-share dn"
+    staticClass: "post-question-share "
   }, [_c('div', {
     staticClass: "post-question-share__meta flex justify-between"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "flex align-center"
+  }), _vm._v(" "), _c('div', {
     staticClass: "post-question-count",
     class: [_vm.remainingLength < 0 ? 'redish1' : '']
   }, [_vm._v(_vm._s(_vm.remainingLength))])])]), _vm._v(" "), _c('div', {
@@ -66927,28 +66930,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "55"
     }
-  }, [_vm._v("55 min")])])])])])]), _vm._v(" "), (_vm.is_valid) ? _c('button', [_vm._v("Post Question")]) : _vm._e()])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "flex align-center"
-  }, [_c('div', {
-    staticClass: "md-checkbox fc"
-  }, [_c('input', {
-    staticClass: "auto-share-checkbox",
+  }, [_vm._v("55 min")])])])])])]), _vm._v(" "), _c('button', {
     attrs: {
-      "id": "i1",
-      "type": "checkbox"
+      "disabled": !_vm.is_valid
     }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "i1"
-    }
-  }, [_vm._v("Auto Share "), _c('small', {
-    staticStyle: {
-      "opacity": ".5"
-    }
-  }, [_vm._v(" (coming soon)")])])])])
-}]}
+  }, [_vm._v("Post Question")])])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

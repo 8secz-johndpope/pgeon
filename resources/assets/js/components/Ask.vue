@@ -16,13 +16,14 @@
 
                                               <!-- <div class="js-keeper-placeholder-back" v-html="placeholder_content"></div> -->
 
-                                                      <div class="post-question-share dn">
+
+                                                      <div class="post-question-share ">
                                             <div class="post-question-share__meta flex justify-between">
                                                 <div class="flex align-center">
-                                                <div class="md-checkbox fc">
+                                                <!-- <div class="md-checkbox fc">
                                                     <input id="i1" class="auto-share-checkbox" type="checkbox">
                                                     <label for="i1">Auto Share <small style="opacity: .5;"> (coming soon)</small></label>
-                                                </div>
+                                                </div> -->
                                                 </div>
                                                 <div class="post-question-count" v-bind:class="[ remainingLength < 0 ? 'redish1' : '']" >{{remainingLength}}</div>
                                             </div>
@@ -119,7 +120,7 @@
                                         </div>
 
                                     </div>
-                                    <button v-if=is_valid>Post Question</button>
+                                    <button :disabled="!is_valid">Post Question</button>
     </div>
 
 
