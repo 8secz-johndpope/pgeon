@@ -40,7 +40,7 @@
 
 		<footer class="page-footer">
 			<div class="social">
-				<a href="https://twitter.com/itspgeon"><img alt="" src="{{ asset('img/svg/facebook-f-2.svg') }}"></a> <a href="https://www.facebook.com/itspgeon"><img alt="" src="{{ asset('img/svg/twitter-2.svg') }}"></a> <!-- <a href="#">
+				<a href="https://www.facebook.com/itspgeon" target="_blank"><img alt="" src="{{ asset('img/svg/facebook-f-2.svg') }}"></a> <a href="https://twitter.com/itspgeon" target="_blank"><img alt="" src="{{ asset('img/svg/twitter-2.svg') }}"></a> <!-- <a href="#">
         <img src="./svg/medium-m.svg" alt="">
         </a> -->
 			</div>
