@@ -66299,7 +66299,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "event": _vm.deleteQ
         }
       })], 1)]) : _vm._e(), _vm._v(" "), _c('span', {
-        staticClass: "open-question__content selected mt5p m0",
+        staticClass: "open-question__content selected mt5p m0 cp",
         on: {
           "click": function($event) {
             _vm.redirect(question.id)
@@ -67548,7 +67548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "event": _vm.deleteQ
         }
       })], 1)]) : _vm._e(), _vm._v(" "), _c('span', {
-        staticClass: "open-question__content selected mt5p m0",
+        staticClass: "open-question__content selected mt5p m0 cp",
         on: {
           "click": function($event) {
             _vm.redirect(question.id)

@@ -71,32 +71,35 @@
 <div class="double-avatar">
   <div class="double-avatar__overlay standard-overlay"></div>
   <div class="double-avatar__modal mw6">
-      <div class="double-avatar__item items-center flex">
+      <a class="double-avatar__item items-center flex" href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
 
-        <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($tuser) }}"></avatar>
-       
-               
-        <h3 class="m0">
-        <a class="open-question__author" href="/{{Helper::slug($tuser->id ,$tuser->slug)}}">
+          <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($tuser) }}"></avatar>
+        
+                
+          <h3 class="m0">
+          <span class="open-question__author" >
 
-        {{  Helper::name_or_slug($tuser) }}
-        </a>
+            {{  Helper::name_or_slug($tuser) }}
+          </span>
       </h3>
-      </div>
+</a>
       
         <span class="m-auto mw6 db">
           <div class="border-trimmed"></div>
         </span>
-        <div class="double-avatar__item items-center flex">
+        <a class="double-avatar__item items-center flex" href="/{{Helper::slug($fuser->id ,$fuser->slug)}}">
+       
         <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=36 class="mr10p" username="{{  Helper::name_or_slug($fuser) }}"></avatar>
         
         <h3 class="m0">
-        <a class="open-question__author" href="/{{Helper::slug($fuser->id ,$fuser->slug)}}">
+        <span class="open-question__author" >
 
-        {{  Helper::name_or_slug($fuser) }}
-        </a>
+
+          {{  Helper::name_or_slug($fuser) }}
+        </span>
+       
       </h3>
-      </div>
+</a>
       
   </div>
 </div>

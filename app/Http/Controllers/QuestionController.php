@@ -339,6 +339,8 @@ class QuestionController extends Controller
      */
     public function ask()
     {
+     
+
         $user = Auth::user();
      
         $total_posted = 0;

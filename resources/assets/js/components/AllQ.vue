@@ -47,7 +47,7 @@
 
             </span>
           </div>
-          <span v-on:click="redirect(question.id)"  class="open-question__content selected mt5p m0">
+          <span v-on:click="redirect(question.id)"  class="open-question__content selected mt5p m0 cp">
             <p> {{question.question}}</p>
           </span>
         </div>
