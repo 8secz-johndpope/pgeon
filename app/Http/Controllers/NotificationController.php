@@ -33,7 +33,7 @@ class NotificationController extends Controller
             if ($format == "json") {
 
                 if($undo) {
-                    // make        
+
                     Notification::where('target_user', Auth::user()->id)
                                 ->update(['bulk_deleted' => 0]);  
                     
@@ -64,7 +64,6 @@ class NotificationController extends Controller
                             $user = User::find($meta->created_by);
                             $question = Question::find($meta->question_id);   
                                 if($user) {
-                                    
 
                                     $responses[] = array('type' => $notif->type, 
                                         'name' => ($user->name),
@@ -77,7 +76,6 @@ class NotificationController extends Controller
                                         'id' => $notif->id,
                                         'seen' => $notif->seen,
 
-                                        
                                     );
                                 }
                              
