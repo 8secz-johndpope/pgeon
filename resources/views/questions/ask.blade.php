@@ -7,7 +7,6 @@
     @include('flash::message')
 
 
-
 		<div>
 
     @if ($role_id !=  3 && $total_count_exhausted)
@@ -36,10 +35,10 @@
 </div></div>
 
 
+<main class="mw6 m-auto ">
 
-<main class="mw6 m-auto">
-
-  <div class="question-stats">
+<!-- hide this part until ask part opens up..otherwise it is juggling --> 
+  <div class="question-stats {{ ($role_id ==  3 && !$total_count_exhausted)? 'dn' : ''}}">
   @if (count($live) > 0)
     <a href="/live" class="question-stats__item spin">
     @else
@@ -82,21 +81,12 @@
 
         <span>Published</span>
       </div>
-
                     <span>
                     {{count($published)}} </span>
     </a>
   </div>
 
 </main>
-
-
-
-
-
-
-
-
 
 
 

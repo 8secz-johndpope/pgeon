@@ -222,6 +222,8 @@
 
   },
   mounted() {
+   $(".question-stats").removeClass('dn')
+    
   }
 
 
