@@ -124,7 +124,7 @@ Route::get('/u_s', 'UserController@status');
     Route::get('pending', 'QuestionController@pending');
     Route::get('pending/{id}/{top_a}', 'QuestionController@pendingViewAll');
     Route::get('published', 'QuestionController@published');
-    Route::get('notifications/{format?}', 'NotificationController@index');
+    Route::get('notifications/{format?}/{undo?}', 'NotificationController@index');
     // Question Routes
     Route::get('questions/new', 'QuestionController@newest');
    

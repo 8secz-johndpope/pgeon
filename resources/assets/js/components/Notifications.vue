@@ -8,8 +8,13 @@
 <svg version="1.1" viewBox="0 0 448 256" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#4A4A4A" fill-rule="nonzero"><path d="m136.97 252.48l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971l-83.928-83.444h375.89c6.627 0 12-5.373 12-12v-10c0-6.627-5.373-12-12-12h-375.89l83.928-83.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-116.48 116c-4.686 4.686-4.686 12.284 0 16.971l116.48 116c4.686 4.686 12.284 4.686 16.97-1e-3z"></path></g></g></svg>
     </a>
     <h4 class="header-title m0">Notifications</h4>
-    <button class="btn clear-all" v-if="notifications.length>0" v-on:click="clear_all"  >
+    <button class="btn clear-all" v-if="notifications.length>0 && show_clear" v-on:click="clear_all"  >
       Clear All
+      <!-- {{bubble}} -->
+    </button>
+   
+     <button class="btn clear-all" v-if="show_undo" v-on:click="fetchUndoRecords"  >
+      Undo
       <!-- {{bubble}} -->
     </button>
 
@@ -110,9 +115,11 @@ import Avatar from 'vue-avatar'
     data: function() {
       return {
         notifications: [],
-      still_deciding_count: true,
-      new_recs_in: false,
-      bubble: 0
+        still_deciding_count: true,
+        new_recs_in: false,
+        bubble: 0,
+        show_undo: false,
+        show_clear: true,
       };
     },
     props: ['current_user_id'],
@@ -154,14 +161,21 @@ import Avatar from 'vue-avatar'
 	    		  	this.still_deciding_count = false
               this.notifications =  []
               this.bubble = 0;
+
+              this.show_clear = false
+              this.show_undo = true
 	              if (socket) {
                   //this will just emit a cleared event from server to all the clients to clear themselves
                   socket.emit('clearbubble', this.current_user_id);
+                  
                   }
 	            }, (response) => {
 	              alert('error clearing')
 	            });
       },
+
+
+     
 
       fetchRecords() {
 
@@ -186,6 +200,22 @@ import Avatar from 'vue-avatar'
   },
 
 
+    fetchUndoRecords() {
+
+    	  	this.new_recs_in=false
+          this.still_deciding_count = true
+          ///notifications/json/undo 
+    		$.getJSON('/notifications/json/1', function(response) {
+
+            this.notifications = response
+            this.still_deciding_count = false
+            this.show_clear = true
+            this.show_undo = false
+
+    	    }.bind(this));
+
+
+  },
 
 
 

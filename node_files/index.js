@@ -283,7 +283,7 @@ var notification_watcher = mysqlEventWatcher.add(
 		    	
 		    	var target_user = newRow.fields.target_user
 		    	//delete notifs 24 hrs old
-		    	 var sql = "DELETE FROM `notifications` WHERE created_at  <= UNIX_TIMESTAMP(CURDATE()) AND target_user = " + target_user + " AND seen=1";
+		    	 var sql = "DELETE FROM `notifications` WHERE created_at  <= UNIX_TIMESTAMP(CURDATE()) AND target_user = " + target_user + " AND seen=1 ";
 		    	 
 		    	con.query(sql, function (err, result) {
 			        if (err) throw err;

@@ -30975,6 +30975,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -30986,7 +30991,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       notifications: [],
       still_deciding_count: true,
       new_recs_in: false,
-      bubble: 0
+      bubble: 0,
+      show_undo: false,
+      show_clear: true
     };
   },
   props: ['current_user_id'],
@@ -31028,6 +31035,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.still_deciding_count = false;
         _this.notifications = [];
         _this.bubble = 0;
+
+        _this.show_clear = false;
+        _this.show_undo = true;
         if (socket) {
           //this will just emit a cleared event from server to all the clients to clear themselves
           socket.emit('clearbubble', _this.current_user_id);
@@ -31050,6 +31060,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (val.seen == 0) com.bubble++;
         });
         this.still_deciding_count = false;
+      }.bind(this));
+    },
+    fetchUndoRecords: function fetchUndoRecords() {
+
+      this.new_recs_in = false;
+      this.still_deciding_count = true;
+      ///notifications/json/undo 
+      $.getJSON('/notifications/json/1', function (response) {
+
+        this.notifications = response;
+        this.still_deciding_count = false;
+        this.show_clear = true;
+        this.show_undo = false;
       }.bind(this));
     }
   },
@@ -66438,12 +66461,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])])]), _vm._v(" "), _c('h4', {
     staticClass: "header-title m0"
-  }, [_vm._v("Notifications")]), _vm._v(" "), (_vm.notifications.length > 0) ? _c('button', {
+  }, [_vm._v("Notifications")]), _vm._v(" "), (_vm.notifications.length > 0 && _vm.show_clear) ? _c('button', {
     staticClass: "btn clear-all",
     on: {
       "click": _vm.clear_all
     }
-  }, [_vm._v("\n      Clear All\n      ")]) : _vm._e()])]), _vm._v(" "), _c('main', {
+  }, [_vm._v("\n      Clear All\n      ")]) : _vm._e(), _vm._v(" "), (_vm.show_undo) ? _c('button', {
+    staticClass: "btn clear-all",
+    on: {
+      "click": _vm.fetchUndoRecords
+    }
+  }, [_vm._v("\n      Undo\n      ")]) : _vm._e()])]), _vm._v(" "), _c('main', {
     staticClass: "notification-main mw6 m-auto"
   }, [(_vm.still_deciding_count) ? _c('div', {
     staticClass: "spinner"

@@ -20,7 +20,7 @@ class NotificationController extends Controller
 {
     
 
-    public function index($format=null)
+    public function index($format=null,$undo=null)
     {
         
         
@@ -31,10 +31,29 @@ class NotificationController extends Controller
 //             abort(404, "Page Not Found");
             
             if ($format == "json") {
+
+                if($undo) {
+                    // make        
+                    Notification::where('target_user', Auth::user()->id)
+                                ->update(['bulk_deleted' => 0]);  
                     
+                } else {
+                    //this will probably on first time load or page refresh
+                    //delete previously bulk deleted on refresh..otherwise it will also be shown
+                    Notification::where('target_user', Auth::user()->id)
+                            ->where('bulk_deleted', '1')
+                            ->delete();
+                }
+
+                //if it is a undo we will have bulk_deleted recs as well.. 
+                //if it is page refresh / index bulk_deleted would be deleted above
+
                 $notifications = Notification::where('target_user', Auth::user()->id)
                             ->orderBy('created_at', 'desc')
-                            ->get();
+                            ->get();                                
+                
+                    
+             
                 
                 $responses = array();                            
                 foreach ($notifications as $notif) {
@@ -135,6 +154,10 @@ class NotificationController extends Controller
             
     }
     
+
+
+    
+
     
     public static function markAsSeen() {
         $id = Request::get('id');
@@ -145,8 +168,10 @@ class NotificationController extends Controller
     public static function destroy()
     {
         Notification::where('target_user', Auth::user()->id)
-                    ->delete();
+                    ->update(['bulk_deleted' => 1]);    
+
     }
+
 
     /** TODO - not used..can be delted - dec-28 **/
     public static function markAllAsSeen()
