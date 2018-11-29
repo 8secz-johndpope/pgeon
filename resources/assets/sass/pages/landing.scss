@@ -105,6 +105,32 @@
     align-items: center;
   }
 }
+.shrunk {
+  height:0px;
+  opacity: 0;
+
+}
+.expand {
+  animation: expand 0.3s ease 0s forwards;
+
+}
+@keyframes expand
+{
+from {height: 0;opacity: 1;}
+to {height: 18px;opacity: 1;}
+}
+
+.shrink {
+  animation: shrink 0.3s ease 0s forwards;
+
+}
+@keyframes shrink
+{
+from {height: 18px;}
+to {height: 0px;opacity: 0;}
+}
+
+
 .hidden {
   display: none;
 }

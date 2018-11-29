@@ -45,7 +45,7 @@
 
       <div class="open-question__container">
         <div class="open-question__right response-details-bubble">
-          <div class="open-question__meta hidden">
+          <div class="open-question__meta shrunk">
             <span class="open-question__author">{{$rslug_formatted}}</span>
             <span class="open-question__time">{{$reply->ago}}</span>
           </div>

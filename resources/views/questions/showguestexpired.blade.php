@@ -69,7 +69,7 @@
           </div>
           <div class="qa-item__seperator"></div>
           <span>      @if(isset($answer))
-          <p>{{$answer->answer}}</p>
+          {{$answer->answer}}
                        
           @endif</span>
           </div>
