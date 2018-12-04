@@ -11,7 +11,7 @@
 					<div class="input-dropdown">
 						<div class="dropdown-container">
 							<select class='country' id="country-select">
-								<option data-countrycode="US" value="1">
+								<option data-countrycode="US" value="+1">
 									US +1
 								</option>
 							</select>

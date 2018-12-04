@@ -51,7 +51,8 @@ window.on("click", e => {
 const countrySelect = $("#country-select");
 countries.forEach(function(country) {
   const option = document.createElement("option");
-  option.innerText = `${country.ISO.toUpperCase()} +${country.Code}`;
+  option.innerText = `${country.ISO.toUpperCase()} ${country.Code}`;
+  option.value = country.Code
   countrySelect.appendChild(option);
 });
 
@@ -148,6 +149,7 @@ $(".btn-send-link").on("click", e => {
       }
     });
     
+    tel = jQuery("#country-select").val() + tel
 
     jQuery.ajax({
       url: '/sendsms',

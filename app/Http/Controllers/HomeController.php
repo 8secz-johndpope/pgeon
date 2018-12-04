@@ -60,7 +60,8 @@ class HomeController extends Controller {
 
          $num =  $request->get('num');
 
-       
+         //'+917418414091'
+       //  echo $num; 
         Twilio::message($num, $message);
 
 
