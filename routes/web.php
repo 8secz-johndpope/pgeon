@@ -24,7 +24,6 @@ Route::stripeWebhooks('handle-webhook');
 
 //Route::get('/', 'QuestionController@index');
 
-//Route::get('/desktop', 'HomeController@desktop');
 
 Route::group(array('domain' => 'm.pgeon.net'), function () {
  
@@ -32,6 +31,10 @@ Route::group(array('domain' => 'm.pgeon.net'), function () {
     Route::get('/', 'QuestionController@index');
 
 });
+Route::get('/sendsms', 'HomeController@sendsms');
+
+Route::post('/sendsms', 'HomeController@sendsms');
+
 Route::get('/', 'HomeController@index');
 
 
@@ -93,7 +96,8 @@ Route::get('/u_s', 'UserController@status');
   Route::get('/help-about', 'HelpController@index');
   Route::get('/terms-of-service', 'HelpController@terms');
   Route::get('/privacy-policy', 'HelpController@privacy');
-
+  Route::post('sendsms','HomeController@sendSMS');
+    
   
   Route::group(array('middleware' => 'auth'), function()
   {

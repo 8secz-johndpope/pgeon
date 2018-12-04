@@ -61,6 +61,8 @@ $("#tel-number") &&
     $(".btn-send-link").classList.remove("hidden-o");
   });
 
+
+
 $(".signup__close").on("click", e => {
   $(".signup").classList.remove("signup--show");
 })
@@ -124,16 +126,61 @@ $$(".pgn__input").on("blur", function() {
   }
 })
 
+jQuery("#tel-number").focus(function () {
+  jQuery("#lbl-msg").html("Get the link via text message")
+})
 
 $(".btn-send-link").on("click", e => {
-  const success = Math.random() >= 0.5
-  $(".btn-send-link > img").style.display = "initial"
-  $(".btn-send-link > span").style.display = "none"
+ // const success = Math.random() >= 0.5
 
-  setTimeout(() => {
-    $(".btn-send-link > img").style.display = "none"
-    $(".btn-send-link > span").innerText = success ? "Message Sent!" : "Please Try Again..."
-    $(".btn-send-link > span").style.display = "initial"
-  }, 2000);
+ var tel =  jQuery("#tel-number").val();
+   if(tel.length < 6) {
+      jQuery("#lbl-msg").html("Does not looks like a valid phone number")
+   } else {
+
+           
+    $(".btn-send-link > img").style.display = "initial"
+    $(".btn-send-link > span").style.display = "none"
+
+    jQuery.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    
+
+    jQuery.ajax({
+      url: '/sendsms',
+      type: 'POST',
+      data : {'message': "Here is the Pgeon link http://m.pgeon.com", 'num':tel} ,
+      success: function(data) {
+        $(".btn-send-link > img").style.display = "none"
+        $(".btn-send-link > span").innerText = "Message Sent!" 
+        $(".btn-send-link > span").style.display = "initial"
+
+          //do stuff
+      },
+      error: function(data) {
+        $(".btn-send-link > img").style.display = "none"
+        $(".btn-send-link > span").innerText = "Please Try Again..."
+        $(".btn-send-link > span").style.display = "initial"
+
+
+          //do stuff
+      },
+    
+  });
+
+   }
+  
+
+  
+
+
+  // setTimeout(() => {
+  //   $(".btn-send-link > img").style.display = "none"
+  //   $(".btn-send-link > span").innerText = success ? "Message Sent!" : "Please Try Again..."
+  //   $(".btn-send-link > span").style.display = "initial"
+  // }, 2000);
 
 })

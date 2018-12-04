@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.0.0",
         "albertcht/invisible-recaptcha": "^1.8",
+        "aloha/twilio": "^4.0",
         "cartalyst/stripe-laravel": "7.0.*",
         "facebook/graph-sdk": "^5.6",
         "fideloper/proxy": "~3.3",

@@ -183,7 +183,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
-
+        
         Laravel\Socialite\SocialiteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
@@ -245,7 +245,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
-
+        
 
 
     ],

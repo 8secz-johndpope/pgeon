@@ -12,6 +12,8 @@ use App\User;
 use App\UserFollowing;
 use Helper;
 use Jenssegers\Agent\Agent;
+use Twilio;
+
 
 class HomeController extends Controller {
 
@@ -21,6 +23,8 @@ class HomeController extends Controller {
      */
     public function index() {
         //if we change soemthing here it should be changed in Questioncontroller index as well
+
+        
 
         $agent = new Agent();
 
@@ -49,6 +53,18 @@ class HomeController extends Controller {
       
     }
 
+    public function sendsms(Request $request) {
+
+
+         $message =  $request->get('message');
+
+         $num =  $request->get('num');
+
+       
+        Twilio::message($num, $message);
+
+
+    }
     public function desktop(Request $request) {
         return view('desktop.index' );
     }

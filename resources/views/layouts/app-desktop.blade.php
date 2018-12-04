@@ -14,6 +14,8 @@
     <meta name="theme-color" content="#f8f9f9">
 	<link href="{{ asset('css/desktop.css') }}" rel="stylesheet">
 	<title>Pgeon</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
 	<div class="wrapper">
@@ -52,6 +54,7 @@
 	
 	@yield('signup')
 
+    <script src="https://code.jquery.com/jquery.min.js"></script>
 
 	<script src="{{ asset('js/countries.js') }}">
 	</script>

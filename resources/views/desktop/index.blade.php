@@ -7,7 +7,7 @@
 				<h1 class="main-heading">Discover Popular Opinions</h1>
 				<p class="description">A mobile-web application that helps influencers better communicate with their audience.</p>
 				<div class="mobile-text">
-					<label for="">Get the link via text message</label>
+					<label id="lbl-msg" for="">Get the link via text message</label>
 					<div class="input-dropdown">
 						<div class="dropdown-container">
 							<select class='country' id="country-select">
