@@ -31496,7 +31496,11 @@ $(function () {
 
 		var subscribed = 0;
 		subscribed = $("#news-updates").prop("checked") ? 1 : 0;
-		$.post("/profile", { subscribed_to_newsletter: subscribed, _token: $('meta[name="csrf-token"]').attr('content') }, function (data) {
+		billing = $("#monthy-annual-billing").prop("checked") ? 1 : 0;
+		followd = $("#when-follwed-post").prop("checked") ? 1 : 0;
+		selected = $("#when-submitted-selected").prop("checked") ? 1 : 0;
+		points = $("#when-respoonse-recieve-points").prop("checked") ? 1 : 0;
+		$.post("/profile", { subscribed_to_newsletter: subscribed, someone_i_followed_posted: followd, my_response_selected: selected, my_response_got_points: points, email_receipts: billing, _token: $('meta[name="csrf-token"]').attr('content') }, function (data) {
 			//alert('ss')
 			//button.remove()
 		});

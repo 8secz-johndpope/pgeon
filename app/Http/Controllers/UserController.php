@@ -163,7 +163,7 @@ class UserController extends Controller
         }
         */
         $user = Auth::user();
-        return view('user.preferences')->with('subscribed_to_newsletter',$user->subscribed_to_newsletter);
+        return view('user.preferences')->with('subscribed_to_newsletter',$user->subscribed_to_newsletter)->with('someone_i_followed_posted',$user->someone_i_followed_posted)->with('my_response_selected',$user->my_response_selected)->with('my_response_got_points',$user->my_response_got_points)->with('email_receipts',$user->email_receipts);
 
     }
 
@@ -364,6 +364,20 @@ class UserController extends Controller
       if (Request::input('subscribed_to_newsletter') != null ) {
           $user->subscribed_to_newsletter = Request::input('subscribed_to_newsletter');
       }
+
+      if (Request::input('someone_i_followed_posted') != null ) {
+        $user->someone_i_followed_posted = Request::input('someone_i_followed_posted');
+      }
+
+        if (Request::input('my_response_selected') != null ) {
+            $user->my_response_selected = Request::input('my_response_selected');
+        }
+        if (Request::input('my_response_got_points') != null ) {
+            $user->my_response_got_points = Request::input('my_response_got_points');
+        }
+        if (Request::input('email_receipts') != null ) {
+            $user->email_receipts = Request::input('email_receipts');
+        }
 
       $user->save();
       //user hasn't generated a slug yet..and already generated slug would simply have an id in it

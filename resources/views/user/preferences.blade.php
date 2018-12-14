@@ -13,7 +13,7 @@
 
       <span>When someone I follow posts a question</span>
 
-      <input type="checkbox" class="switch-toggle-input dn" id="when-follwed-post">
+      <input type="checkbox" class="switch-toggle-input dn" id="when-follwed-post"  {{$someone_i_followed_posted == 1 ? 'checked':''}}>
       <label class="switch-toggle" for="when-follwed-post">
         <span class="switch-toggle__inner"></span>
       </label>
@@ -28,7 +28,7 @@
     <div class="mw6 m-auto">
       <span>When my submitted response is selected</span>
 
-      <input type="checkbox" class="switch-toggle-input dn" id="when-submitted-selected">
+      <input type="checkbox" class="switch-toggle-input dn" id="when-submitted-selected" {{$my_response_selected == 1 ? 'checked':''}}>
       <label class="switch-toggle" for="when-submitted-selected">
         <span class="switch-toggle__inner"></span>
       </label>
@@ -44,7 +44,7 @@
       <span>When my response receives points</span>
 
 
-      <input type="checkbox" class="switch-toggle-input dn" id="when-respoonse-recieve-points">
+      <input type="checkbox" class="switch-toggle-input dn" id="when-respoonse-recieve-points" {{$my_response_got_points == 1 ? 'checked':''}}>
       <label class="switch-toggle" for="when-respoonse-recieve-points">
         <span class="switch-toggle__inner"></span>
       </label>
@@ -78,7 +78,7 @@
       <span>For all monthly/annual billing receipts </span>
 
 
-      <input type="checkbox" class="switch-toggle-input dn" id="monthy-annual-billing">
+      <input type="checkbox" class="switch-toggle-input dn" id="monthy-annual-billing" {{$email_receipts == 1 ? 'checked':''}}>
       <label class="switch-toggle" for="monthy-annual-billing">
         <span class="switch-toggle__inner"></span>
       </label>
