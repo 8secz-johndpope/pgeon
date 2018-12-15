@@ -54,7 +54,7 @@
         <script>
             var FB_id = "{{ env('FACEBOOK_ID') }}"
             if(io)
-              var socket = io("{{ env('NODE_CONNECT') }}");
+              var socket = io("{{ env('NODE_CONNECT') }}", {secure: true});
             
               
         </script>
