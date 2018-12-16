@@ -51,7 +51,7 @@
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
-            var socket = io("{{ env('NODE_CONNECT') }}", {secure: true});
+            var socket = io("{{ env('NODE_CONNECT') }}");
         </script>
 
         @if (Auth::user())
