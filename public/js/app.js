@@ -26846,21 +26846,26 @@ var app = new Vue({
   * 
   * **/
 
+		//THROWS ERROR..SHOULD BE RECTIFIED
 		//if there is a live notification
-		if (socket) {
-			socket.on('bubble', function (bubble) {
-				this.bubble = bubble;
+		// if(socket) {
+		// socket.on('bubble', function (bubble) {
+		// 			this.bubble = bubble
 
-				$(".header-bell").addClass('header-bell--with-notif');
-				//  $("title").html('Pgeon ('+bubble+') ')
-			});
+		// 			$(".header-bell").addClass('header-bell--with-notif')
+		// 			//  $("title").html('Pgeon ('+bubble+') ')
+		// 			}); 
 
-			socket.on('bubblecleared', function () {
-				//this.bubble = bubble
-				$(".header-bell").removeClass('header-bell--with-notif');
-				//  $("title").html('Pgeon ('+bubble+') ')
-			});
-		}
+
+		// socket.on('bubblecleared', function () {
+		// 	//this.bubble = bubble
+		// 	$(".header-bell").removeClass('header-bell--with-notif')
+		// 	//  $("title").html('Pgeon ('+bubble+') ')
+		// 	}); 
+
+		// }
+
+
 	},
 
 	methods: {

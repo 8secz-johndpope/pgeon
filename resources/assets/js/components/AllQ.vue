@@ -242,7 +242,6 @@ import Avatar from 'vue-avatar'
     },
     created: function() {
 
-   
       var com = this
       //got some new questions inserted
       if (socket)

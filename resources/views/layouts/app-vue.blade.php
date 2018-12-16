@@ -183,14 +183,14 @@
 
     <script src="{{ env('NODE_CONNECT') }}/socket.io/socket.io.js"></script>
         <script>
-            var socket = io("{{ env('NODE_CONNECT') }}", {secure: true});
+            var socket = io("{{ env('NODE_CONNECT') }}");
         </script>
 
         @if (Auth::user())
         <script>
+        
             //connect socket room for the current user id..get all notifications related to the current user
              socket.emit('connect_me', 'U_{{Auth::user()->id}}');
-
         </script>
 		@endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

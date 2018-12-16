@@ -228,6 +228,7 @@ import Avatar from 'vue-avatar'
 
     	var com = this
 
+
     	 if (socket) {
     		 socket.on('bubble', function (bubble) {
     			 //total unseen
