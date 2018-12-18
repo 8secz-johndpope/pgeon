@@ -14,7 +14,7 @@ trait QuestionTrait
     {
         $fetched_questions = Question::get_live_questions_from_followers($p, $c);
         
-        $questions[] = array();
+        $questions = array();
         foreach($fetched_questions as $key => $question){
 
             $temp['id'] = $question->id;

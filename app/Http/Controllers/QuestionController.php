@@ -176,8 +176,6 @@ class QuestionController extends Controller
                 abort(401);
 
             QuestionCounter::updateOrCreate($matchThese,['questions_posted'=>$total_posted + 1]);    
-
-
             
         }
 

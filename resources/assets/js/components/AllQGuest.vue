@@ -195,7 +195,12 @@ import Avatar from 'vue-avatar'
 			 $.getJSON(`/featuredq/${this.paginate}/${this.current_page}`, function(response) {
          
           //this will not exists after first time...
-				  $(".spinner").remove()
+          $(".spinner").remove()
+          
+          console.log('====================================');
+          console.log(response);
+          console.log('====================================');
+
  				 	this.still_deciding_paging = false
           this.currently_fetched_records_count = 0
          

@@ -28244,6 +28244,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //      this.questions = response
         // }
 
+
         if (Object.keys(response).length > 0) {
           this.currently_fetched_records_count = Object.keys(response).length;
           this.questions = response;
@@ -28529,6 +28530,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         //this will not exists after first time...
         $(".spinner").remove();
+
+        console.log('====================================');
+        console.log(response);
+        console.log('====================================');
+
         this.still_deciding_paging = false;
         this.currently_fetched_records_count = 0;
 

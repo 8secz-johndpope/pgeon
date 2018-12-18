@@ -98,11 +98,11 @@ import Avatar from 'vue-avatar'
       return {
         questions: {},
         current_filter: 'everyone',
-		paginate:12,
-		currently_fetched_records_count:0,
-		current_page:0,
-		still_deciding_count: true,
-		still_deciding_paging: false,
+      paginate:12,
+      currently_fetched_records_count:0,
+      current_page:0,
+      still_deciding_count: true,
+      still_deciding_paging: false,
       };
     },
     props: ['role_id'],
@@ -159,6 +159,8 @@ import Avatar from 'vue-avatar'
 			 $.getJSON(`/qff/${this.paginate}/${this.current_page}`, function(response) {
          	 $(".spinner").remove()
 
+
+
 				 	this.still_deciding_paging = false
            this.currently_fetched_records_count = 0
       
@@ -169,6 +171,7 @@ import Avatar from 'vue-avatar'
               //      this.questions = response
               // }
               
+             
                if (Object.keys(response).length > 0) {
                 this.currently_fetched_records_count = Object.keys(response).length
                 this.questions = response
