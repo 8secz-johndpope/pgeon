@@ -65965,7 +65965,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       key: answer
     }, [(!_vm.ownerOfAnswer(answer.user_id)) ? _c('v-touch', {
-      class: ['open-question__response  jsvote ptb2'],
+      class: ['open-question__response  jsvote '],
       attrs: {
         "press-options": {
           time: '500'

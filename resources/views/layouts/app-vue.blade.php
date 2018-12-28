@@ -38,7 +38,9 @@
 <div class="mw6 m-auto landing_header__inner flex items-center top__header relative  pr15 pl15">
  <div class="logoTitle__container flex">
    <span class="landing__logo fc">
+   <a class="dib"   href="/">
    <img width="22" height="22" src="{{URL::asset('img/main-logo.svg')}}" alt="Pgeon">
+   </a>
    </span>
    <a class="openQuestion__title">
      <span>
