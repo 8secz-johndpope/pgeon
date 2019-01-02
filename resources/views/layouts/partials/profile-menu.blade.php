@@ -77,7 +77,7 @@
                 </span>
             </li>
 
-            <li>
+            <!-- <li>
             <a href="/help-about" class="mw6 m-auto pl15 pr15 no-bb">
                 <span>Help & About</span>
                 {{Helper::read_svg("img/svg/chevron-right.svg")}}  
@@ -86,7 +86,7 @@
                 <span  class="m-auto mw6 db">
                 <div class="border-trimmed"></div>
                 </span>
-            </li>
+            </li> -->
 
 
             <li class="ul-ls--last">
