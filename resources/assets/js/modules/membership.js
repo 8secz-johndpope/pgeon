@@ -24,7 +24,7 @@ jQuery(function ($) {
 	  })
 
 
-	var STRIPE_SECRET = "pk_test_oAk8cZCAWxQNwTjBs50jr8LS"
+	var STRIPE_SECRET = "pk_live_YM5mDKjzTjAemYMkc5ApT7we"
 if(typeof(Stripe) !== "undefined")
 	Stripe.setPublishableKey(STRIPE_SECRET);
 var stripeResponseHandler = function (status, response) {
