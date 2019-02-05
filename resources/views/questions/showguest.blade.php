@@ -1,4 +1,4 @@
-@extends('layouts.app-no-header-no-top-bar', ['title' => $question->question])
+@extends('layouts.app-no-header-no-top-bar', ['title' =>   Helper::name_or_slug($question->user), 'desc' => $question->question])
 @section('content')
 
 
@@ -36,10 +36,10 @@
         {{Helper::read_svg("img/svg/flag.svg")}}
             <span id="report_question" data-qid="{{$question->id}}">Report</span>
         </li>
-        <li class="details__dropdown_item pointer pl15p mb15p">
+        <!-- <li class="details__dropdown_item pointer pl15p mb15p">
         {{Helper::read_svg("img/svg/book.svg")}}
             <span >Tutorial</span>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="details__overlay standard-overlay"></div>

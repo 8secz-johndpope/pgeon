@@ -1,4 +1,4 @@
-@extends('layouts.app-no-header-no-top-bar', ['title' => $question->question])
+@extends('layouts.app-no-header-no-top-bar', ['title' =>   Helper::name_or_slug($question->user), 'desc' => $question->question])
 @section('content')
 
 
